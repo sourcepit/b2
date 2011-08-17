@@ -30,6 +30,6 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
 
    public void testRcp_Example() throws Exception
    {
-      // execute();
+      execute();
    }
 }

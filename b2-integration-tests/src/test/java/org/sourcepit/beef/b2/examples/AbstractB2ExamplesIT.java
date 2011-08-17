@@ -54,7 +54,7 @@ public abstract class AbstractB2ExamplesIT extends TestCase
          executable = "sh";
          System.out.println(executable);
          command = new CommandLine(executable);
-         command.addArgument(new File(workingDir, "run2.sh").getAbsolutePath());
+         command.addArgument(new File(workingDir, "run.sh").getAbsolutePath());
       }
       else
       {
