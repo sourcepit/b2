@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.sourcepit.beef</groupId>
+		<artifactId>b2</artifactId>
+		<version>0.1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>b2-default-templates</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sourcepit.tools</groupId>
+				<artifactId>shared-resources-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>share-resources</goal>
+						</goals>
+						<configuration>
+							<resourcesDirectory>${basedir}/templates</resourcesDirectory>
+							<targetPath>META-INF/b2-default-templates/${project.groupId}/${project.artifactId}</targetPath>
+							<manifestHeaderName>B2-Default-Templates</manifestHeaderName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

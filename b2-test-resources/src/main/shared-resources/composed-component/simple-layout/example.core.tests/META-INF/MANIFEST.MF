@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core Tests
+Bundle-SymbolicName: example.core.tests
+Bundle-Version: 1.0.0.qualifier

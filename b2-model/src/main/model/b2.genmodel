@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/b2-model/src/gen/java"
+    modelPluginID="" modelName="B2" updateClasspath="false" testsDirectory=""
+    importerID="org.eclipse.emf.importer.ecore" bundleManifest="false" complianceLevel="5.0"
+    copyrightFields="false">
+  <foreignModel>b2.ecore</foreignModel>
+  <genPackages prefix="B2Model" basePackage="org.sourcepit.beef" disposableProviderFactory="true"
+      interfacePackageSuffix="internal.model" metaDataPackageSuffix="internal.model"
+      classPackageSuffix="model.internal.impl" utilityPackageSuffix="model.internal.util"
+      providerPackageSuffix="internal.model.provider" presentationPackageSuffix="internal.model.presentation"
+      testsPackageSuffix="internal.model.tests" fileExtensions="b2" ecorePackage="b2.ecore#/">
+    <genDataTypes ecoreDataType="b2.ecore#//EJavaFile"/>
+    <genClasses image="false" ecoreClass="b2.ecore#//Module">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//Module/parent"/>
+    </genClasses>
+    <genClasses ecoreClass="b2.ecore#//Component">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//Component/facets"/>
+      <genOperations ecoreOperation="b2.ecore#//Component/getFacets">
+        <genParameters ecoreParameter="b2.ecore#//Component/getFacets/facetType"/>
+        <genTypeParameters ecoreTypeParameter="b2.ecore#//Component/getFacets/T"/>
+      </genOperations>
+      <genOperations ecoreOperation="b2.ecore#//Component/getFacetByName">
+        <genParameters ecoreParameter="b2.ecore#//Component/getFacetByName/name"/>
+        <genTypeParameters ecoreTypeParameter="b2.ecore#//Component/getFacetByName/F"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="b2.ecore#//ComponentFacet">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//ComponentFacet/parent"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="b2.ecore#//Named">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//Named/name"/>
+    </genClasses>
+    <genClasses ecoreClass="b2.ecore#//ModulePackage">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//ModulePackage/modules"/>
+    </genClasses>
+    <genClasses ecoreClass="b2.ecore#//PluginsFacet">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//PluginsFacet/projects"/>
+    </genClasses>
+    <genClasses ecoreClass="b2.ecore#//FeaturesFacet">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//FeaturesFacet/projects"/>
+    </genClasses>
+    <genClasses ecoreClass="b2.ecore#//SitesFacet">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//SitesFacet/projects"/>
+    </genClasses>
+    <genClasses ecoreClass="b2.ecore#//PluginProject">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//PluginProject/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//PluginProject/bundleVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//PluginProject/testPlugin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//PluginProject/fragmentHostSymbolicName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//PluginProject/fragmentHostVersion"/>
+      <genOperations ecoreOperation="b2.ecore#//PluginProject/isFragment"/>
+    </genClasses>
+    <genClasses ecoreClass="b2.ecore#//FeatureProject">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//FeatureProject/parent"/>
+    </genClasses>
+    <genClasses ecoreClass="b2.ecore#//SiteProject">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//SiteProject/parent"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="b2.ecore#//Project">
+      <genOperations ecoreOperation="b2.ecore#//Project/getParent"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="b2.ecore#//ProjectFacet">
+      <genTypeParameters ecoreTypeParameter="b2.ecore#//ProjectFacet/P"/>
+      <genOperations ecoreOperation="b2.ecore#//ProjectFacet/getProjects"/>
+      <genOperations ecoreOperation="b2.ecore#//ProjectFacet/getProjectByName">
+        <genParameters ecoreParameter="b2.ecore#//ProjectFacet/getProjectByName/name"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="b2.ecore#//FileContainer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//FileContainer/directory"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

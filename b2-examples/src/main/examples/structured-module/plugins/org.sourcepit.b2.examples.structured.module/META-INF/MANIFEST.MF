@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Example01
+Bundle-SymbolicName: org.sourcepit.b2.examples.structured.module
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.sourcepit.b2.examples.structured.module.Activator
+Require-Bundle: org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.sourcepit.b2.examples.structured.module

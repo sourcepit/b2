@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="${feature.id}"
+      label="%featureLabel"
+      version="${feature.version}"
+      provider-name="%providerName"
+      plugin="${feature.plugin}">
+
+   <description url="%descriptionURL">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+   
+   ${feature.includes}
+   
+   ${feature.plugins}
+   
+</feature>

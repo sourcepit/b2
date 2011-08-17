@@ -1,0 +1,421 @@
+/*
+ * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
+ */
+
+package org.sourcepit.beef.b2.model.interpolation.internal.module;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.eclipse.emf.common.util.EList;
+import org.sourcepit.beef.b2.internal.model.AbstractFacet;
+import org.sourcepit.beef.b2.internal.model.AbstractModule;
+import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
+import org.sourcepit.beef.b2.internal.model.Category;
+import org.sourcepit.beef.b2.internal.model.CompositeModule;
+import org.sourcepit.beef.b2.internal.model.FeatureInclude;
+import org.sourcepit.beef.b2.internal.model.FeatureProject;
+import org.sourcepit.beef.b2.internal.model.FeaturesFacet;
+import org.sourcepit.beef.b2.internal.model.PluginInclude;
+import org.sourcepit.beef.b2.internal.model.PluginProject;
+import org.sourcepit.beef.b2.internal.model.PluginsFacet;
+import org.sourcepit.beef.b2.internal.model.Reference;
+import org.sourcepit.beef.b2.internal.model.SiteProject;
+import org.sourcepit.beef.b2.internal.model.SitesFacet;
+import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.builder.util.IModelCache;
+import org.sourcepit.beef.b2.model.builder.util.ISourceManager;
+import org.sourcepit.beef.b2.model.builder.util.IUnpackStrategy;
+import org.sourcepit.beef.b2.model.builder.util.PathMatcher;
+import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolationRequest;
+import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolator;
+
+@Named
+public class ModuleInterpolator implements IModuleInterpolator
+{
+   @Inject
+   private Map<String, IInterpolationLayout> layoutMap;
+
+   @Inject
+   private IUnpackStrategy unpackStrategy;
+
+   @Inject
+   private ISourceManager sourceManager;
+
+   public void interpolate(IModuleInterpolationRequest request)
+   {
+      checkRequest(request);
+      AbstractModule module = request.getModule();
+
+      final IModelCache cache = request.getModelCache();
+      if (cache != null)
+      {
+         if (cache.get(module.getDirectory()) != null)
+         {
+            return;
+         }
+      }
+
+      doInterpolate(module, request);
+   }
+
+   private void checkRequest(IModuleInterpolationRequest request)
+   {
+      if (request == null)
+      {
+         throw new IllegalArgumentException("Request must not be null.");
+      }
+
+      if (request.getModule() == null)
+      {
+         throw new IllegalArgumentException("Module must not be null.");
+      }
+
+      final IConverter converter = request.getConverter();
+      if (converter == null)
+      {
+         throw new IllegalArgumentException("converter must not be null.");
+      }
+   }
+
+   private void doInterpolate(AbstractModule module, IModuleInterpolationRequest request)
+   {
+      final boolean hasFestures = module.hasFacets(FeaturesFacet.class);
+      if (!hasFestures)
+      {
+         interpolateFeatures(module, request.getConverter());
+      }
+      interpolateSites(module, request.getConverter());
+   }
+
+   private IInterpolationLayout getLayout(final String layoutId)
+   {
+      final IInterpolationLayout layout = layoutMap.get(layoutId);
+      if (layout == null)
+      {
+         throw new UnsupportedOperationException("Layout " + layoutId + " is not supported.");
+      }
+      return layout;
+   }
+
+   private void interpolateSites(AbstractModule module, IConverter converter)
+   {
+      final SitesFacet sitesFacet = B2ModelFactory.eINSTANCE.createSitesFacet();
+      sitesFacet.setDerived(true);
+      sitesFacet.setName(IInterpolationLayout.DEFAULT_SITES_FACET_NAME);
+
+      for (String siteClassifer : converter.getSiteClassifiers())
+      {
+         final SiteProject siteProject = createSiteProject(module, converter, siteClassifer);
+
+         for (String categoryClassifer : converter.getCategoryClassifiersForSite(siteClassifer))
+         {
+            final Category category = B2ModelFactory.eINSTANCE.createCategory();
+            category.setName(categoryClassifer);
+
+            final PathMatcher matcher = converter.createIdMatcherForCategory(module.getLayoutId(), categoryClassifer);
+            final List<FeatureInclude> featureIncs = new ArrayList<FeatureInclude>();
+            collectFeatureIncludes(module, featureIncs, matcher, converter);
+            for (FeatureInclude featureInc : featureIncs)
+            {
+               final Reference featureRef = B2ModelFactory.eINSTANCE.createReference();
+               featureRef.setId(featureInc.getId());
+               featureRef.setVersionRange(featureInc.getVersionRange());
+               category.getFeatureReferences().add(featureRef);
+            }
+
+            if (!category.getFeatureReferences().isEmpty())
+            {
+               siteProject.getCategories().add(category);
+            }
+         }
+
+         if (!siteProject.getCategories().isEmpty())
+         {
+            sitesFacet.getProjects().add(siteProject);
+         }
+      }
+
+      if (!sitesFacet.getProjects().isEmpty())
+      {
+         module.getFacets().add(sitesFacet);
+      }
+   }
+
+   private SiteProject createSiteProject(AbstractModule module, IConverter converter, final String classifier)
+   {
+      final IInterpolationLayout layout = getLayout(module.getLayoutId());
+
+      final SiteProject site = B2ModelFactory.eINSTANCE.createSiteProject();
+      site.setDerived(true);
+      site.setClassifier(classifier);
+      site.setId(layout.idOfSiteProject(module, classifier));
+      site.setVersion(converter.getModuleVersion());
+      site.setDirectory(new File(layout.pathOfSiteProject(module, classifier)));
+
+      return site;
+   }
+
+   private void interpolateFeatures(AbstractModule module, IConverter converter)
+   {
+      final FeaturesFacet featuresFacet = B2ModelFactory.eINSTANCE.createFeaturesFacet();
+      featuresFacet.setDerived(true);
+      featuresFacet.setName(IInterpolationLayout.DEFAULT_FEATURES_FACET_NAME);
+
+      final EList<PluginsFacet> facets = module.getFacets(PluginsFacet.class);
+
+      final Map<String, PluginsFacet> classiferToPluginFacetMap = createFeatureClassiferToPluginFacetMap(converter,
+         facets);
+
+      final Set<String> classifiers = getFeatureClassifers(converter, facets);
+
+      final Set<String> moduleFeatures = new LinkedHashSet<String>();
+      for (String classifer : classifiers)
+      {
+         final PluginsFacet pluginsFacet = classiferToPluginFacetMap.get(classifer);
+         if (pluginsFacet == null)
+         {
+            moduleFeatures.add(classifer);
+         }
+         else
+         {
+            final List<FeatureProject> result = interpolateFacetFeature(module, pluginsFacet, converter, classifer);
+            for (FeatureProject featureProject : result)
+            {
+               if (!isEmpty(featureProject))
+               {
+                  featuresFacet.getProjects().add(featureProject);
+               }
+            }
+         }
+      }
+
+      if (!featuresFacet.getProjects().isEmpty())
+      {
+         module.getFacets().add(featuresFacet);
+      }
+
+      for (String classifer : moduleFeatures)
+      {
+         final List<FeatureProject> result = interpolateModuleFeature(module, converter, classifer);
+         for (FeatureProject featureProject : result)
+         {
+            if (!isEmpty(featureProject))
+            {
+               featuresFacet.getProjects().add(featureProject);
+            }
+         }
+      }
+
+      if (!module.getFacets().contains(featuresFacet) && !featuresFacet.getProjects().isEmpty())
+      {
+         module.getFacets().add(featuresFacet);
+      }
+   }
+
+   private boolean isEmpty(FeatureProject featureProject)
+   {
+      return featureProject.getIncludedFeatures().isEmpty() && featureProject.getIncludedPlugins().isEmpty();
+   }
+
+   private List<FeatureProject> interpolateFacetFeature(AbstractModule module, PluginsFacet pluginFacet,
+      IConverter converter, String featureClassifer)
+   {
+      final List<FeatureProject> result = new ArrayList<FeatureProject>();
+
+      final PathMatcher matcher = converter.createIdMatcherForFeature(module.getLayoutId(), featureClassifer);
+
+      final List<PluginInclude> pluginIncs = new ArrayList<PluginInclude>();
+      final List<PluginInclude> sourceIncs = new ArrayList<PluginInclude>();
+      collectPluginIncludes(pluginFacet, pluginIncs, sourceIncs, matcher, converter);
+
+      final FeatureProject featureProject = createFeatureProject(module, featureClassifer, converter.getModuleVersion());
+      result.add(featureProject);
+      featureProject.getIncludedPlugins().addAll(pluginIncs);
+
+      if (!sourceIncs.isEmpty())
+      {
+         final FeatureProject sourcesFeatureProject = createFeatureProject(module,
+            converter.createSourceFeatureClassifer(featureClassifer), converter.getModuleVersion());
+         if (matcher.isMatch(sourcesFeatureProject.getId()))
+         {
+            sourcesFeatureProject.getIncludedPlugins().addAll(sourceIncs);
+            result.add(sourcesFeatureProject);
+         }
+      }
+
+      return result;
+   }
+
+   private List<FeatureProject> interpolateModuleFeature(AbstractModule module, IConverter converter,
+      String featureClassifer)
+   {
+      final List<FeatureProject> result = new ArrayList<FeatureProject>();
+
+      final FeatureProject featureProject = createFeatureProject(module, featureClassifer, converter.getModuleVersion());
+
+      final PathMatcher matcher = converter.createIdMatcherForFeature(module.getLayoutId(), featureClassifer);
+
+      final List<PluginInclude> pluginIncs = new ArrayList<PluginInclude>();
+      final List<PluginInclude> sourceIncs = new ArrayList<PluginInclude>();
+      collectPluginIncludes(module, pluginIncs, sourceIncs, matcher, converter);
+
+      final List<FeatureInclude> featureIncs = new ArrayList<FeatureInclude>();
+      collectFeatureIncludes(module, featureIncs, matcher, converter);
+
+      featureProject.getIncludedFeatures().addAll(featureIncs);
+      featureProject.getIncludedPlugins().addAll(pluginIncs);
+      featureProject.getIncludedPlugins().addAll(sourceIncs);
+
+      result.add(featureProject);
+
+      return result;
+   }
+
+   private void collectFeatureIncludes(AbstractModule module, List<FeatureInclude> featureIncs, PathMatcher matcher,
+      IConverter converter)
+   {
+      final List<FeaturesFacet> featuresFacets = new ArrayList<FeaturesFacet>();
+      if (module instanceof CompositeModule)
+      {
+         CompositeModule compositeModule = (CompositeModule) module;
+
+         collectFacets(module, FeaturesFacet.class, featuresFacets, false);
+         for (AbstractModule abstractModule : compositeModule.getModules())
+         {
+            collectFacets(abstractModule, FeaturesFacet.class, featuresFacets, false);
+         }
+      }
+      else
+      {
+         featuresFacets.addAll(module.getFacets(FeaturesFacet.class));
+      }
+
+      for (FeaturesFacet featuresFacet : featuresFacets)
+      {
+         collectFeatureIncludes(featuresFacet, featureIncs, matcher, converter);
+      }
+   }
+
+   private <F extends AbstractFacet> void collectFacets(AbstractModule module, Class<F> facetType, List<F> facets,
+      boolean recurive)
+   {
+      facets.addAll(module.getFacets(facetType));
+      if (recurive && module instanceof CompositeModule)
+      {
+         for (AbstractModule abstractModule : ((CompositeModule) module).getModules())
+         {
+            collectFacets(abstractModule, facetType, facets, recurive);
+         }
+      }
+   }
+
+   private void collectFeatureIncludes(FeaturesFacet featuresFacet, List<FeatureInclude> featureIncs,
+      PathMatcher matcher, IConverter converter)
+   {
+      for (FeatureProject featureProject : featuresFacet.getProjects())
+      {
+         if (matcher.isMatch(featureProject.getId()))
+         {
+            final FeatureInclude featureInclude = B2ModelFactory.eINSTANCE.createFeatureInclude();
+            featureInclude.setId(featureProject.getId());
+            featureInclude.setVersionRange(featureProject.getVersion());
+            featureIncs.add(featureInclude);
+         }
+      }
+   }
+
+   private void collectPluginIncludes(AbstractModule module, final List<PluginInclude> pluginIncs,
+      final List<PluginInclude> sourceIncs, final PathMatcher matcher, IConverter converter)
+   {
+      for (PluginsFacet pluginsFacet : module.getFacets(PluginsFacet.class))
+      {
+         collectPluginIncludes(pluginsFacet, pluginIncs, sourceIncs, matcher, converter);
+      }
+   }
+
+   private void collectPluginIncludes(PluginsFacet pluginsFacet, final List<PluginInclude> pluginIncs,
+      final List<PluginInclude> sourceIncs, final PathMatcher matcher, IConverter converter)
+   {
+      for (PluginProject pluginProject : pluginsFacet.getProjects())
+      {
+         if (matcher.isMatch(pluginProject.getId()))
+         {
+            final PluginInclude pluginInclude = B2ModelFactory.eINSTANCE.createPluginInclude();
+            pluginInclude.setId(pluginProject.getId());
+            pluginInclude.setVersionRange(pluginProject.getVersion());
+            pluginInclude.setUnpack(isUnpack(pluginProject));
+            pluginIncs.add(pluginInclude);
+
+            if (isSourceBuildEnabled(pluginProject, converter))
+            {
+               final String sourcePluginId = converter.createSourcePluginId(pluginProject.getId());
+               if (matcher.isMatch(sourcePluginId))
+               {
+                  final PluginInclude source = B2ModelFactory.eINSTANCE.createPluginInclude();
+                  source.setId(sourcePluginId);
+                  source.setVersionRange(pluginProject.getVersion());
+
+                  sourceIncs.add(source);
+               }
+            }
+         }
+      }
+   }
+
+   private Set<String> getFeatureClassifers(IConverter converter, final EList<PluginsFacet> facets)
+   {
+      final Set<String> pluginFacetNames = new LinkedHashSet<String>();
+      for (PluginsFacet pluginsFacet : facets)
+      {
+         pluginFacetNames.add(pluginsFacet.getName());
+      }
+
+      final Set<String> featureClassifiers = converter.getFeatureClassifiers(pluginFacetNames);
+      return featureClassifiers;
+   }
+
+   private Map<String, PluginsFacet> createFeatureClassiferToPluginFacetMap(IConverter converter,
+      EList<PluginsFacet> facets)
+   {
+      final Map<String, PluginsFacet> classiferToFacetMap = new LinkedHashMap<String, PluginsFacet>();
+      for (PluginsFacet pluginsFacet : facets)
+      {
+         classiferToFacetMap.put(converter.convertFacetNameToFeatureClassifier(pluginsFacet.getName()), pluginsFacet);
+      }
+      return classiferToFacetMap;
+   }
+
+   private FeatureProject createFeatureProject(AbstractModule module, final String classifier, String version)
+   {
+      final IInterpolationLayout layout = getLayout(module.getLayoutId());
+
+      final FeatureProject featureProject = B2ModelFactory.eINSTANCE.createFeatureProject();
+      featureProject.setDerived(true);
+      featureProject.setId(layout.idOfFeatureProject(module, classifier));
+      featureProject.setVersion(version);
+      featureProject.setDirectory(new File(layout.pathOfFeatureProject(module, classifier)));
+      featureProject.setClassifier(classifier);
+
+      return featureProject;
+   }
+
+   private boolean isSourceBuildEnabled(PluginProject pluginProject, IConverter converter)
+   {
+      return sourceManager == null ? false : sourceManager.isSourceBuildEnabled(pluginProject, converter);
+   }
+
+   private boolean isUnpack(PluginProject pluginProject)
+   {
+      return unpackStrategy == null ? false : unpackStrategy.isUnpack(pluginProject);
+   }
+}
