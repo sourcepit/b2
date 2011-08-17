@@ -24,23 +24,23 @@
 	<build>
 		<resources>
 			<resource>
+				<directory>${basedir}/src/main/scripts</directory>
+				<targetPath>${project.build.directory}/dist/</targetPath>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
 				<directory>${basedir}/src/main/examples</directory>
-				<targetPath>${project.build.directory}/dist/examples</targetPath>
+				<targetPath>${project.build.directory}/dist/example-modules</targetPath>
 				<excludes>
 					<exclude>**/module.xml</exclude>
 				</excludes>
 			</resource>
 			<resource>
 				<directory>${basedir}/src/main/examples</directory>
-				<targetPath>${project.build.directory}/dist/examples</targetPath>
+				<targetPath>${project.build.directory}/dist/example-modules</targetPath>
 				<includes>
 					<include>**/module.xml</include>
 				</includes>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>${basedir}/src/main/scripts</directory>
-				<targetPath>${project.build.directory}/dist</targetPath>
 				<filtering>true</filtering>
 			</resource>
 			<resource>

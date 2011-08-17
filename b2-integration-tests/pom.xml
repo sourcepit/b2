@@ -12,13 +12,14 @@
 		<sonar.phase>integration-test</sonar.phase>
 		<proxy.settings></proxy.settings>
 		<it.localRepository></it.localRepository>
+		<b2.examples.finalName>b2-examples-${project.version}</b2.examples.finalName>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.sourcepit.beef</groupId>
 			<artifactId>b2-examples</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<classifier>bin</classifier>
 			<type>zip</type>
 		</dependency>
@@ -37,7 +38,7 @@
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/m2</directory>
-				<targetPath>${project.build.directory}/examples/.m2</targetPath>
+				<targetPath>${project.build.directory}/${b2.examples.finalName}/.m2</targetPath>
 				<filtering>true</filtering>
 			</resource>
 		</resources>
@@ -65,7 +66,7 @@
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/examples</outputDirectory>
+							<outputDirectory>${project.build.directory}</outputDirectory>
 							<includeGroupIds>org.sourcepit.beef</includeGroupIds>
 							<includeArtifactIds>b2-examples</includeArtifactIds>
 						</configuration>
@@ -165,7 +166,7 @@
 								<configuration>
 									<executable>find</executable>
 									<arguments>
-										<argument>${project.build.directory}/examples</argument>
+										<argument>${project.build.directory}/${b2.examples.finalName}</argument>
 										<argument>-type</argument>
 										<argument>f</argument>
 										<argument>-exec</argument>

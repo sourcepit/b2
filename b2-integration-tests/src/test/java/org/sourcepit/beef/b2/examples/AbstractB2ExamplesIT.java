@@ -5,6 +5,7 @@
 package org.sourcepit.beef.b2.examples;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,10 +39,9 @@ public abstract class AbstractB2ExamplesIT extends TestCase
 
       final String testModule = getName().substring("test".length()).toLowerCase().replace('_', '-');
 
-      workingDir = new File("target/examples/");
+      workingDir = findExamplesBaseDir();
       assertTrue(workingDir.exists());
       assertTrue(workingDir.canRead());
-
 
       final String executable;
       if (OS.isFamilyWindows() || OS.isFamilyWin9x())
@@ -65,7 +65,7 @@ public abstract class AbstractB2ExamplesIT extends TestCase
       // {
       // command.addArgument("run.sh");
       // }
-      command.addArgument("examples/" + testModule);
+      command.addArgument("example-modules/" + testModule);
 
       executor = new DefaultExecutor();
       executor.setWorkingDirectory(workingDir);
@@ -76,6 +76,21 @@ public abstract class AbstractB2ExamplesIT extends TestCase
       environment.remove("M2_HOME");
       environment.remove("JAVA_HOME");
       environment.put("JAVA_HOME", System.getProperty("java.home"));
+   }
+
+   private static File findExamplesBaseDir()
+   {
+      final File[] examplesDirs = new File("target").listFiles(new FileFilter()
+      {
+         public boolean accept(File file)
+         {
+            return file.isDirectory() && file.getName().startsWith("b2-examples-");
+         }
+      });
+
+      assertNotNull(examplesDirs);
+      assertEquals(1, examplesDirs.length);
+      return examplesDirs[0];
    }
 
    protected boolean isDebug(String testName)
