@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="b2"
+    nsURI="http://www.sourcepit.org/beef/b2/0.1" nsPrefix="b2">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractModule" abstract="true" eSuperTypes="#//FileContainer #//Annotateable #//Identifiable">
+    <eOperations name="getFacets" lowerBound="1" upperBound="-1">
+      <eGenericType eTypeParameter="#//AbstractModule/getFacets/T"/>
+      <eTypeParameters name="T">
+        <eBounds eClassifier="#//AbstractFacet"/>
+      </eTypeParameters>
+      <eParameters name="facetType" lowerBound="1">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
+          <eTypeArguments eTypeParameter="#//AbstractModule/getFacets/T"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="hasFacets" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="facetType">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
+          <eTypeArguments>
+            <eUpperBound eClassifier="#//AbstractFacet"/>
+          </eTypeArguments>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eOperations name="getFacetByName">
+      <eGenericType eTypeParameter="#//AbstractModule/getFacetByName/F"/>
+      <eTypeParameters name="F">
+        <eBounds eClassifier="#//AbstractFacet"/>
+      </eTypeParameters>
+      <eParameters name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="resolveReference">
+      <eGenericType eTypeParameter="#//AbstractModule/resolveReference/P"/>
+      <eTypeParameters name="P">
+        <eBounds eClassifier="#//Project"/>
+      </eTypeParameters>
+      <eTypeParameters name="F">
+        <eBounds eClassifier="#//ProjectFacet">
+          <eTypeArguments eTypeParameter="#//AbstractModule/resolveReference/P"/>
+        </eBounds>
+      </eTypeParameters>
+      <eParameters name="reference" lowerBound="1" eType="#//Reference"/>
+      <eParameters name="facetType" lowerBound="1">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
+          <eTypeArguments eTypeParameter="#//AbstractModule/resolveReference/F"/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//CompositeModule"
+        eOpposite="#//CompositeModule/modules"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutId" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="locales" upperBound="-1"
+        eType="#//ELocale"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="facets" upperBound="-1"
+        eType="#//AbstractFacet" containment="true" eOpposite="#//AbstractFacet/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BasicModule" eSuperTypes="#//AbstractModule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractFacet" abstract="true" eSuperTypes="#//Derivable #//Annotateable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+        eType="#//AbstractModule" eOpposite="#//AbstractModule/facets"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeModule" eSuperTypes="#//AbstractModule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modules" upperBound="-1"
+        eType="#//AbstractModule" containment="true" eOpposite="#//AbstractModule/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PluginsFacet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
+        eType="#//PluginProject" containment="true" eOpposite="#//PluginProject/parent"/>
+    <eGenericSuperTypes eClassifier="#//ProjectFacet">
+      <eTypeArguments eClassifier="#//PluginProject"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeaturesFacet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
+        eType="#//FeatureProject" containment="true" eOpposite="#//FeatureProject/parent"/>
+    <eGenericSuperTypes eClassifier="#//ProjectFacet">
+      <eTypeArguments eClassifier="#//FeatureProject"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SitesFacet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
+        eType="#//SiteProject" containment="true" eOpposite="#//SiteProject/parent"/>
+    <eGenericSuperTypes eClassifier="#//ProjectFacet">
+      <eTypeArguments eClassifier="#//SiteProject"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PluginProject" eSuperTypes="#//Project">
+    <eOperations name="isFragment" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//PluginsFacet"
+        eOpposite="#//PluginsFacet/projects"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bundleVersion" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="testPlugin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fragmentHostSymbolicName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fragmentHostVersion" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureProject" eSuperTypes="#//Project #//Classified">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//FeaturesFacet"
+        eOpposite="#//FeaturesFacet/projects"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="includedPlugins" upperBound="-1"
+        eType="#//PluginInclude" containment="true" eOpposite="#//PluginInclude/parent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="includedFeatures" upperBound="-1"
+        eType="#//FeatureInclude" containment="true" eOpposite="#//FeatureInclude/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SiteProject" eSuperTypes="#//Project #//Classified">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//SitesFacet"
+        eOpposite="#//SitesFacet/projects"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
+        eType="#//Category" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//FileContainer #//Derivable #//Annotateable #//Identifiable">
+    <eOperations name="getParent">
+      <eGenericType eClassifier="#//ProjectFacet">
+        <eTypeArguments>
+          <eUpperBound eClassifier="#//Project"/>
+        </eTypeArguments>
+      </eGenericType>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProjectFacet" abstract="true" eSuperTypes="#//AbstractFacet">
+    <eTypeParameters name="P">
+      <eBounds eClassifier="#//Project"/>
+    </eTypeParameters>
+    <eOperations name="getProjects" lowerBound="1">
+      <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+        <eTypeArguments eTypeParameter="#//ProjectFacet/P"/>
+      </eGenericType>
+    </eOperations>
+    <eOperations name="getProjectById">
+      <eGenericType eTypeParameter="#//ProjectFacet/P"/>
+      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="resolveReference">
+      <eGenericType eTypeParameter="#//ProjectFacet/P"/>
+      <eParameters name="reference" lowerBound="1" eType="#//Reference"/>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FileContainer" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="directory" eType="#//EJavaFile"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="EJavaFile" instanceClassName="java.io.File"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Derivable" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="derived" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PluginInclude" eSuperTypes="#//Reference">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unpack" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+        eType="#//FeatureProject" eOpposite="#//FeatureProject/includedPlugins"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Category">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureReferences" upperBound="-1"
+        eType="#//Reference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureInclude" eSuperTypes="#//Reference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+        eType="#//FeatureProject" eOpposite="#//FeatureProject/includedFeatures"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="ELocale" instanceClassName="java.util.Locale"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Classified" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="classifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Annotateable" abstract="true" interface="true">
+    <eOperations name="getAnnotation" eType="#//Annotation">
+      <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getAnnotationEntry" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="putAnnotationEntry" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
+        eType="#//Annotation" containment="true" eOpposite="#//Annotation/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Annotation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+        eType="#//Annotateable" eOpposite="#//Annotateable/annotations"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//EStringMapEntry" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EStringMapEntry" instanceClassName="java.util.Map$Entry">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true" interface="true">
+    <eOperations name="isIdentifyableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="identifier" eType="#//Identifier"/>
+    </eOperations>
+    <eOperations name="toIdentifier" lowerBound="1" eType="#//Identifier"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProductsFacet" eSuperTypes="#//AbstractFacet">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="productDefinitions" upperBound="-1"
+        eType="#//ProductDefinition" containment="true" eOpposite="#//ProductDefinition/parent"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProductDefinition" eSuperTypes="#//Annotateable #//Derivable">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+        eType="#//ProductsFacet" eOpposite="#//ProductsFacet/productDefinitions"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1" eType="#//EJavaFile"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="productPlugin" lowerBound="1"
+        eType="#//Reference" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Identifier" instanceClassName="org.sourcepit.beef.b2.model.util.Identifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Reference">
+    <eOperations name="isSatisfiableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eParameters name="identifier" eType="#//Identifier"/>
+    </eOperations>
+    <eOperations name="setStrictVersion">
+      <eParameters name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionRange" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="0.0.0"/>
+  </eClassifiers>
+</ecore:EPackage>

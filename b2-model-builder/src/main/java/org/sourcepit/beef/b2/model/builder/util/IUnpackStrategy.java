@@ -1,0 +1,17 @@
+/*
+ * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
+ */
+
+package org.sourcepit.beef.b2.model.builder.util;
+
+import java.util.List;
+
+import org.sourcepit.beef.b2.internal.model.PluginProject;
+
+
+public interface IUnpackStrategy
+{
+   boolean isUnpack(PluginProject pluginProject);
+
+   List<String> getBuildJars(PluginProject pluginProject);
+}
