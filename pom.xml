@@ -185,22 +185,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-						<configuration>
-							<defaultManifestFile>${project.build.testOutputDirectory}/META-INF/MANIFEST.MF</defaultManifestFile>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
 	<profiles>
 		<profile>
@@ -260,6 +244,32 @@
 				<it.repo.dir>${user.dir}/target/it-repository</it.repo.dir>
 				<it.repo.url>file://${it.repo.dir}</it.repo.url>
 			</properties>
+		</profile>
+		<profile>
+			<id>build-test-jar</id>
+			<activation>
+				<file>
+					<exists>${basedir}/src/test/</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>test-jar</goal>
+								</goals>
+								<configuration>
+									<defaultManifestFile>${project.build.testOutputDirectory}/META-INF/MANIFEST.MF</defaultManifestFile>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 </project>
