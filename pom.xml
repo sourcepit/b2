@@ -20,7 +20,7 @@
 	<modules>
 		<module>b2-model-builder</module>
 		<module>b2-model</module>
-		<module>b2-maven-extension</module>
+		<module>b2-maven-plugin</module>
 		<module>b2-bootstrapper</module>
 		<module>b2-test-resources</module>
 		<module>b2-common</module>

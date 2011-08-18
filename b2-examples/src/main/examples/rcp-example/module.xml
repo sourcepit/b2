@@ -25,7 +25,7 @@
 		<extensions>
 			<extension>
 				<groupId>org.sourcepit.beef</groupId>
-				<artifactId>b2-maven-extension</artifactId>
+				<artifactId>b2-maven-plugin</artifactId>
 				<version>${b2.extension.version}</version>
 			</extension>
 		</extensions>

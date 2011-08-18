@@ -23,10 +23,10 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
    // execute();
    // }
 
-   // public void testComposite_Module() throws Exception
-   // {
-   // execute();
-   // }
+   public void testComposite_Module() throws Exception
+   {
+      execute();
+   }
 
    public void testRcp_Example() throws Exception
    {
