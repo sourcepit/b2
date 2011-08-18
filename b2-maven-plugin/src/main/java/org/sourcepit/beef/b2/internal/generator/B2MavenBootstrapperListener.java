@@ -28,7 +28,6 @@ import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.name.Names;
 
 @Component(role = IMavenBootstrapperListener.class)
 public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
@@ -87,7 +86,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          {
             bind(Logger.class).toInstance(logger);
             bind(BootstrapSession.class).toInstance(session);
-            bind(MavenProject.class).annotatedWith(Names.named("wrapper")).toInstance(wrapperProject);
          }
       }, new SpaceModule(new URLClassSpace(getClass().getClassLoader()), BeanScanning.CACHE)));
       injector.injectMembers(this);

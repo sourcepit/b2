@@ -132,7 +132,7 @@ public class DelegatingPropertiesMap implements PropertiesMap
    {
       return delegate.put(key, value);
    }
-   
+
    public boolean getBoolean(String key, boolean defaultValue)
    {
       if (delegate instanceof PropertiesMap)
@@ -142,6 +142,18 @@ public class DelegatingPropertiesMap implements PropertiesMap
       else
       {
          return PropertiesUtils.getBoolean(this, key, defaultValue);
+      }
+   }
+
+   public void setBoolean(String key, boolean value)
+   {
+      if (delegate instanceof PropertiesMap)
+      {
+         ((PropertiesMap) delegate).setBoolean(key, value);
+      }
+      else
+      {
+         PropertiesUtils.setBoolean(this, key, value);
       }
    }
 

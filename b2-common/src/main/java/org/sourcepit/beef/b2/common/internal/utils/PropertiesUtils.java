@@ -207,7 +207,11 @@ public final class PropertiesUtils
 
    public static boolean getBoolean(Map<String, String> map, String key, boolean defaultValue)
    {
-      return Boolean.valueOf(getProperty(map, key, String.valueOf(defaultValue))).booleanValue();
+      return Boolean.valueOf(getProperty(map, key, Boolean.toString(defaultValue))).booleanValue();
+   }
 
+   public static void setBoolean(Map<String, String> map, String key, boolean value)
+   {
+      map.put(key, Boolean.toString(value));
    }
 }

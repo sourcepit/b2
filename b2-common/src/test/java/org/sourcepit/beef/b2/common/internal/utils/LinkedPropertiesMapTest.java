@@ -65,4 +65,20 @@ public class LinkedPropertiesMapTest extends TestCase
       assertTrue(javaProperties.containsKey("key"));
       assertFalse(javaProperties.containsKey("key2"));
    }
+
+   public void testBoolean() throws Exception
+   {
+      LinkedPropertiesMap propertiesMap = new LinkedPropertiesMap();
+      assertTrue(propertiesMap.getBoolean("key", true));
+      assertFalse(propertiesMap.getBoolean("key", false));
+
+      propertiesMap.put("key", "true");
+      assertTrue(propertiesMap.getBoolean("key", false));
+
+      propertiesMap.put("key", "false");
+      assertFalse(propertiesMap.getBoolean("key", true));
+
+      propertiesMap.put("key", "murks");
+      assertFalse(propertiesMap.getBoolean("key", true));
+   }
 }

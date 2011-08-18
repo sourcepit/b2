@@ -18,7 +18,6 @@ import javax.inject.Named;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
-import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.beef.b2.generator.GeneratorType;
@@ -41,10 +40,6 @@ import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
 {
-   @Inject
-   @Named("wrapper")
-   private MavenProject wrapperProject;
-
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
 
@@ -199,7 +194,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       addAdditionalProjectProperties(module, converter, defaultModel);
 
-      final Model moduleModel = readMavenModel(wrapperProject.getFile());
+      final Model moduleModel = readMavenModel(new File(targetDir, "module.xml"));
 
       new FixedModelMerger().merge(defaultModel, moduleModel, false, null);
 

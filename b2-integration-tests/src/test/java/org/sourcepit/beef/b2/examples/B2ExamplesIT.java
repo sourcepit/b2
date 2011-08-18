@@ -13,10 +13,10 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
       return false;
    }
 
-   // public void testSimple_Module() throws Exception
-   // {
-   // execute();
-   // }
+   public void testSimple_Module() throws Exception
+   {
+      // execute();
+   }
 
    // public void testStructured_Module() throws Exception
    // {
@@ -25,7 +25,7 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
 
    public void testComposite_Module() throws Exception
    {
-      execute();
+      // execute();
    }
 
    public void testRcp_Example() throws Exception

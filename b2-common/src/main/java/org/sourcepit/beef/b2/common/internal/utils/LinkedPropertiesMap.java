@@ -105,6 +105,11 @@ public class LinkedPropertiesMap extends LinkedHashMap<String, String> implement
    {
       return PropertiesUtils.getBoolean(this, key, defaultValue);
    }
+   
+   public void setBoolean(String key, boolean value)
+   {
+      PropertiesUtils.setBoolean(this, key, value);
+   }
 
    public void load(InputStream inputStream)
    {
