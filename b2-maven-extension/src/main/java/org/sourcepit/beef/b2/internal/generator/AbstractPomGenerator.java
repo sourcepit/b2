@@ -26,7 +26,7 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
    @Override
    public final void generate(EObject inputElement, IConverter converter, ITemplates templates)
    {
-      final boolean skipFacets = converter.getProperties().getBoolean("b2.generator.skipFacets", false);
+      final boolean skipFacets = converter.getProperties().getBoolean("b2.pomGenerator.skipFacets", true);
       generate((Annotateable) inputElement, skipFacets, converter, templates);
    }
 
