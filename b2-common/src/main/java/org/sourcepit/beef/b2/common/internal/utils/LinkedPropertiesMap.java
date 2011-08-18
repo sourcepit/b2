@@ -101,6 +101,11 @@ public class LinkedPropertiesMap extends LinkedHashMap<String, String> implement
       return value;
    }
 
+   public boolean getBoolean(String key, boolean defaultValue)
+   {
+      return PropertiesUtils.getBoolean(this, key, defaultValue);
+   }
+
    public void load(InputStream inputStream)
    {
       PropertiesUtils.load(inputStream, this);
@@ -110,7 +115,7 @@ public class LinkedPropertiesMap extends LinkedHashMap<String, String> implement
    {
       PropertiesUtils.load(file, this);
    }
-   
+
    public void load(ClassLoader classLoader, String resourcePath)
    {
       PropertiesUtils.load(classLoader, resourcePath, this);

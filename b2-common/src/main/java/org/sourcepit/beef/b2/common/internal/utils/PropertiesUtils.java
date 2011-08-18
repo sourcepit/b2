@@ -204,4 +204,10 @@ public final class PropertiesUtils
       }
       return property;
    }
+
+   public static boolean getBoolean(Map<String, String> map, String key, boolean defaultValue)
+   {
+      return Boolean.valueOf(getProperty(map, key, String.valueOf(defaultValue))).booleanValue();
+
+   }
 }

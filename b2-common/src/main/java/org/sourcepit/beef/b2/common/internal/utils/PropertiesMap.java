@@ -14,6 +14,8 @@ public interface PropertiesMap extends Map<String, String>
    Map<String, String> getDefaultProperties();
 
    String get(String key, String defaultValue);
+   
+   boolean getBoolean(String key, boolean defaultValue);
 
    Properties toJavaProperties();
 

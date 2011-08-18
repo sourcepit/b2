@@ -26,10 +26,12 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
    @Override
    public final void generate(EObject inputElement, IConverter converter, ITemplates templates)
    {
-      generate((Annotateable) inputElement, converter, templates);
+      final boolean skipFacets = converter.getProperties().getBoolean("b2.generator.skipFacets", false);
+      generate((Annotateable) inputElement, skipFacets, converter, templates);
    }
 
-   protected abstract void generate(Annotateable inputElement, IConverter converter, ITemplates templates);
+   protected abstract void generate(Annotateable inputElement, boolean skipFacets, IConverter converter,
+      ITemplates templates);
 
    protected Model readMavenModel(File pomFile)
    {

@@ -70,8 +70,14 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    }
 
    @Override
-   protected void generate(final Annotateable inputElement, final IConverter converter, final ITemplates templates)
+   protected void generate(final Annotateable inputElement, boolean skipFacets, final IConverter converter,
+      final ITemplates templates)
    {
+      if (skipFacets && inputElement instanceof AbstractFacet)
+      {
+         return;
+      }
+
       File pomFile = doGenerate(inputElement, converter, templates);
 
       if (!pomFile.getName().equals("pom.xml"))

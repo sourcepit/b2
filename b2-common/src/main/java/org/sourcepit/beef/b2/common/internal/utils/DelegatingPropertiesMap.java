@@ -132,6 +132,18 @@ public class DelegatingPropertiesMap implements PropertiesMap
    {
       return delegate.put(key, value);
    }
+   
+   public boolean getBoolean(String key, boolean defaultValue)
+   {
+      if (delegate instanceof PropertiesMap)
+      {
+         return ((PropertiesMap) delegate).getBoolean(key, defaultValue);
+      }
+      else
+      {
+         return PropertiesUtils.getBoolean(this, key, defaultValue);
+      }
+   }
 
    public String remove(Object key)
    {
