@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="View"
+            class="org.sourcepit.b2.examples.rcp.ui.View"
+            id="org.sourcepit.b2.examples.rcp.ui.view">
+      </view>
+   </extension>
+   
+      <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               standalone="true"
+               minimized="false"
+               relative="org.eclipse.ui.editorss"
+               relationship="left"
+               id="org.sourcepit.b2.examples.rcp.ui.view">
+         </view>
+      </perspectiveExtension>
+   </extension>
+
+</plugin>

@@ -18,18 +18,23 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
       // execute();
    }
 
+   // public void testReactor_Build() throws Exception
+   // {
+   // execute();
+   // }
+   //
    // public void testStructured_Module() throws Exception
    // {
    // execute();
    // }
-
-   public void testComposite_Module() throws Exception
-   {
-      // execute();
-   }
-
-   public void testRcp_Example() throws Exception
-   {
-      // execute();
-   }
+   //
+   // public void testComposite_Module() throws Exception
+   // {
+   // execute();
+   // }
+   //
+   // public void testRcp_Example() throws Exception
+   // {
+   // execute();
+   // }
 }
