@@ -4,104 +4,21 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.sourcepit.b2.examples</groupId>
+	<parent>
+		<groupId>org.sourcepit.b2.examples</groupId>
+		<artifactId>common-config</artifactId>
+		<version>${project.version}</version>
+		<relativePath>../common-config/module.xml</relativePath>
+	</parent>
+
 	<artifactId>rcp.ui</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>${project.version}</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>${tycho.version}</tycho.version>
 		<!-- override default sites, we just need the internal site as internal 
 			build target for the rcp module containing the product definition -->
 		<sites>internal</sites>
-		<p2repo>file:/\${user.dir}/../.p2</p2repo>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>indigo</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/indigo</url>
-		</repository>
-	</repositories>
-
-	<build>
-		<extensions>
-			<extension>
-				<groupId>org.sourcepit.beef</groupId>
-				<artifactId>b2-maven-plugin</artifactId>
-				<version>${b2.extension.version}</version>
-			</extension>
-		</extensions>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-surefire-plugin</artifactId>
-					<version>${tycho.version}</version>
-					<configuration>
-						<argLine>-Xms64m -Xmx128m</argLine>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.sourcepit.beef</groupId>
-				<artifactId>p2repo-maven-plugin</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<id>deploySites</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>deploy-p2repo</goal>
-						</goals>
-						<configuration>
-							<repository>
-								<id>local-p2</id>
-								<url>${p2repo}</url>
-							</repository>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>${tycho.version}</version>
-				<configuration>
-					<resolver>p2</resolver>
-					<environments>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>linux</os>
-							<ws>gtk</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>win32</os>
-							<ws>win32</ws>
-							<arch>x86_64</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>carbon</ws>
-							<arch>x86</arch>
-						</environment>
-					</environments>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>

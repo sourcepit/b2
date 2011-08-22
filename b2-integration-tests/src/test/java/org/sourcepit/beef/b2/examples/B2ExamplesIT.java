@@ -13,10 +13,10 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
       return false;
    }
 
-   // public void testSimple_Module() throws Exception
-   // {
-   // execute();
-   // }
+   public void testSimple_Module() throws Exception
+   {
+      // execute();
+   }
 
    public void testReactor_Build() throws Exception
    {
@@ -25,18 +25,18 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
       // execute("single");
    }
 
-   // public void testStructured_Module() throws Exception
-   // {
-   // execute();
-   // }
-   //
-   // public void testComposite_Module() throws Exception
-   // {
-   // execute();
-   // }
-   //
-   // public void testRcp_Example() throws Exception
-   // {
-   // execute();
-   // }
+   public void testStructured_Module() throws Exception
+   {
+      // execute();
+   }
+
+   public void testComposite_Module() throws Exception
+   {
+      // execute();
+   }
+
+   public void testRcp_Example() throws Exception
+   {
+      // execute();
+   }
 }

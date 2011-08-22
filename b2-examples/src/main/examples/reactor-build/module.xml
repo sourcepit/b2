@@ -6,7 +6,7 @@
 
 	<groupId>org.sourcepit.b2.examples</groupId>
 	<artifactId>build-reactor</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>${project.version}</version>
 	<packaging>pom</packaging>
 
 	<properties>

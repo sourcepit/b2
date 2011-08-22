@@ -1,50 +1,47 @@
 @echo off
 
 if "%2"=="reactor" goto performReactorBuild
-if "%2"=="single" goto performReactorBuild
+if "%2"=="single" goto performSingleBuilds
 goto printOptions
 
 :performSingleBuilds
 cd rcp-help
 echo.
-echo.
-echo.
-echo Starting module build for 'rcp-help'
-echo.
+echo ------------------------------------------------------------------------
+echo Starting single module build for 'rcp-help'
+echo ------------------------------------------------------------------------
 echo Directory    : %cd%
-echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS%
+echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P deploySites
 echo.
-call %MAVEN_EXEC% %MAVEN_ARGS%
+call %MAVEN_EXEC% %MAVEN_ARGS% -P deploySites
 
 cd ../rcp-ui
 echo.
-echo.
-echo.
-echo Starting module build for 'rcp-ui'
-echo.
+echo ------------------------------------------------------------------------
+echo Starting single module build for 'rcp-ui'
+echo ------------------------------------------------------------------------
 echo Directory    : %cd%
-echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS%
+echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P deploySites
 echo.
-call %MAVEN_EXEC% %MAVEN_ARGS%
+call %MAVEN_EXEC% %MAVEN_ARGS% -P deploySites
 
 cd ../rcp
 echo.
-echo.
-echo.
-echo Starting module build for 'rcp'
-echo.
+echo ------------------------------------------------------------------------
+echo Starting single module build for 'rcp'
+echo ------------------------------------------------------------------------
 echo Directory    : %cd%
-echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P buildProducts
+echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P useSites,buildProducts
 echo.
-call %MAVEN_EXEC% %MAVEN_ARGS% -P buildProducts
+call %MAVEN_EXEC% %MAVEN_ARGS% -P useSites,buildProducts
 goto end
 
 :performReactorBuild
 echo.
 echo.
-echo.
-echo Starting reactor build for 'rcp, rcp-help, rcp-ui'
-echo.
+echo ------------------------------------------------------------------------
+echo Starting reactor build for '%~n1'
+echo ------------------------------------------------------------------------
 echo Directory    : %cd%
 echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P buildProducts
 echo.
