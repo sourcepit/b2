@@ -5,6 +5,8 @@
 package org.sourcepit.beef.b2.directory.parser.internal.module;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -42,7 +44,11 @@ public class ModuleParser implements IModuleParser
          }
       }
 
-      for (AbstractModuleParserRule<? extends AbstractModule> rule : rules)
+      final List<AbstractModuleParserRule<? extends AbstractModule>> orderedRules = new ArrayList<AbstractModuleParserRule<? extends AbstractModule>>(
+         rules);
+      Collections.sort(orderedRules);
+
+      for (AbstractModuleParserRule<? extends AbstractModule> rule : orderedRules)
       {
          final AbstractModule module = rule.parse(request);
          if (module != null)

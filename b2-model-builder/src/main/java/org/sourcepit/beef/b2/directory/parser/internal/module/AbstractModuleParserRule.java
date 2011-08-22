@@ -14,6 +14,8 @@ import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 
 public abstract class AbstractModuleParserRule<M extends AbstractModule>
+   implements
+      Comparable<AbstractModuleParserRule<M>>
 {
    public final M parse(IModuleParsingRequest request)
    {
@@ -44,5 +46,21 @@ public abstract class AbstractModuleParserRule<M extends AbstractModule>
    protected String getModuleId(final IConverter converter, final File baseDir)
    {
       return converter.getModuleId(baseDir);
+   }
+
+   public int compareTo(AbstractModuleParserRule<M> otherRule)
+   {
+      final int otherPrio = otherRule.getPriority();
+      final int priority = getPriority();
+      if (otherPrio == priority)
+      {
+         return 0;
+      }
+      return priority < otherPrio ? 1 : -1;
+   }
+
+   protected int getPriority()
+   {
+      return Integer.MAX_VALUE / 2;
    }
 }

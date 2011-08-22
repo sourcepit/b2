@@ -67,4 +67,10 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
       compositeModule.getModules().addAll(modules);
       return compositeModule;
    }
+
+   @Override
+   protected int getPriority()
+   {
+      return 0;
+   }
 }
