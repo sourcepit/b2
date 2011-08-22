@@ -13,5 +13,5 @@ SET MAVEN_ARGS=-e clean verify
 
 echo Starting build for %1
 cd %1
-call build.bat
+call build.bat %*
 cd %BASE%

@@ -29,7 +29,6 @@ public abstract class AbstractB2ExamplesIT extends TestCase
    protected TearDownProcessDestroyer processDestroyer = new TearDownProcessDestroyer();
    protected Map<String, String> environment;
    protected DefaultExecutor executor;
-   protected CommandLine command;
    protected File workingDir;
 
    @Override
@@ -37,11 +36,26 @@ public abstract class AbstractB2ExamplesIT extends TestCase
    {
       super.setUp();
 
-      final String testModule = getName().substring("test".length()).toLowerCase().replace('_', '-');
-
       workingDir = findExamplesBaseDir();
       assertTrue(workingDir.exists());
       assertTrue(workingDir.canRead());
+
+      executor = new DefaultExecutor();
+      executor.setWorkingDirectory(workingDir);
+      executor.setStreamHandler(new PumpStreamHandler(System.out, System.err));
+      executor.setProcessDestroyer(processDestroyer);
+
+      environment = new HashMap<String, String>(System.getenv());
+      environment.remove("M2_HOME");
+      environment.remove("JAVA_HOME");
+      environment.put("JAVA_HOME", System.getProperty("java.home"));
+   }
+
+   private CommandLine createCmd() throws AssertionFailedError
+   {
+      final String testModule = getName().substring("test".length()).toLowerCase().replace('_', '-');
+
+      CommandLine command;
 
       final String executable;
       if (OS.isFamilyWindows() || OS.isFamilyWin9x())
@@ -67,15 +81,7 @@ public abstract class AbstractB2ExamplesIT extends TestCase
       // }
       command.addArgument("example-modules/" + testModule);
 
-      executor = new DefaultExecutor();
-      executor.setWorkingDirectory(workingDir);
-      executor.setStreamHandler(new PumpStreamHandler(System.out, System.err));
-      executor.setProcessDestroyer(processDestroyer);
-
-      environment = new HashMap<String, String>(System.getenv());
-      environment.remove("M2_HOME");
-      environment.remove("JAVA_HOME");
-      environment.put("JAVA_HOME", System.getProperty("java.home"));
+      return command;
    }
 
    private static File findExamplesBaseDir()
@@ -98,10 +104,19 @@ public abstract class AbstractB2ExamplesIT extends TestCase
       return DEBUG;
    }
 
+   protected void execute(String... args) throws ExecuteException, IOException
+   {
+      CommandLine command = createCmd();
+      if (args != null)
+      {
+         command.addArguments(args);
+      }
+      executor.execute(command, environment);
+   }
+
    protected void execute() throws ExecuteException, IOException
    {
-      System.out.println(command.toString());
-      executor.execute(command, environment);
+      execute((String[]) null);
    }
 
    @Override

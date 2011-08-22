@@ -58,6 +58,9 @@
 						<goals>
 							<goal>resources</goal>
 						</goals>
+						<configuration>
+							<escapeString>\</escapeString>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

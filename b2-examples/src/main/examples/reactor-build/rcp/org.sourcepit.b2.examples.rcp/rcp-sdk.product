@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="RCP SDK Product" uid="org.sourcepit.b2.examples.rcp.sdk" id="org.sourcepit.b2.examples.rcp.product" application="org.sourcepit.b2.examples.rcp.application" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="RCP SDK Product" uid="org.sourcepit.b2.examples.rcp.sdk" id="org.sourcepit.b2.examples.rcp.product" application="org.sourcepit.b2.examples.rcp.application" version="0.1.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/alt_window_32.gif"/>

@@ -11,6 +11,10 @@
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
+		<!-- override default sites, we just need the internal site as internal 
+			build target for the rcp module containing the product definition -->
+		<sites>internal</sites>
+		<p2repo>file:/\${user.dir}/../.p2</p2repo>
 	</properties>
 
 	<repositories>
@@ -42,6 +46,26 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<plugin>
+				<groupId>org.sourcepit.beef</groupId>
+				<artifactId>p2repo-maven-plugin</artifactId>
+				<version>0.1.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>deploySites</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>deploy-p2repo</goal>
+						</goals>
+						<configuration>
+							<repository>
+								<id>local-p2</id>
+								<url>${p2repo}</url>
+							</repository>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
@@ -77,7 +101,6 @@
 					</environments>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 

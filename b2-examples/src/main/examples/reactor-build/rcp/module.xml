@@ -11,6 +11,8 @@
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
+		<sites></sites>
+		<p2repo>file:/\${user.dir}/../.p2</p2repo>
 	</properties>
 
 	<repositories>
@@ -18,6 +20,16 @@
 			<id>indigo</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/indigo</url>
+		</repository>
+		<repository>
+			<id>local-p2-rcp-help</id>
+			<layout>p2</layout>
+			<url>${p2repo}/org.sourcepit.b2.examples.rcp.help.internal.site/\${project.version}</url>
+		</repository>
+		<repository>
+			<id>local-p2-rcp-ui</id>
+			<layout>p2</layout>
+			<url>${p2repo}/org.sourcepit.b2.examples.rcp.ui.internal.site/\${project.version}</url>
 		</repository>
 	</repositories>
 
@@ -30,6 +42,26 @@
 			</extension>
 		</extensions>
 		<plugins>
+			<plugin>
+				<groupId>org.sourcepit.beef</groupId>
+				<artifactId>p2repo-maven-plugin</artifactId>
+				<version>0.1.0-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>deploySites</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>deploy-p2repo</goal>
+						</goals>
+						<configuration>
+							<repository>
+								<id>local-p2</id>
+								<url>${p2repo}</url>
+							</repository>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
@@ -65,7 +97,6 @@
 					</environments>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 

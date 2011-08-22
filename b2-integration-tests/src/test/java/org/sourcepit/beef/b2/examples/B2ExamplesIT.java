@@ -13,16 +13,18 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
       return false;
    }
 
-   public void testSimple_Module() throws Exception
-   {
-      // execute();
-   }
-
-   // public void testReactor_Build() throws Exception
+   // public void testSimple_Module() throws Exception
    // {
    // execute();
    // }
-   //
+
+   public void testReactor_Build() throws Exception
+   {
+      // execute();
+      // execute("reactor");
+      // execute("single");
+   }
+
    // public void testStructured_Module() throws Exception
    // {
    // execute();
