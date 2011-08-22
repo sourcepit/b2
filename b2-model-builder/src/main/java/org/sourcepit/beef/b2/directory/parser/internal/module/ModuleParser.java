@@ -25,7 +25,7 @@ import org.sourcepit.beef.b2.model.builder.util.IModelCache;
 public class ModuleParser implements IModuleParser
 {
    @Inject
-   private List<AbstractModuleParserRule<? extends AbstractModule>> rules;
+   private List<AbstractModuleParserRule<AbstractModule>> rules;
 
    @Inject
    private List<IModuleParserExtender> extenders;
@@ -44,11 +44,11 @@ public class ModuleParser implements IModuleParser
          }
       }
 
-      final List<AbstractModuleParserRule<? extends AbstractModule>> orderedRules = new ArrayList<AbstractModuleParserRule<? extends AbstractModule>>(
+      final List<AbstractModuleParserRule<AbstractModule>> orderedRules = new ArrayList<AbstractModuleParserRule<AbstractModule>>(
          rules);
       Collections.sort(orderedRules);
 
-      for (AbstractModuleParserRule<? extends AbstractModule> rule : orderedRules)
+      for (AbstractModuleParserRule<AbstractModule> rule : orderedRules)
       {
          final AbstractModule module = rule.parse(request);
          if (module != null)
