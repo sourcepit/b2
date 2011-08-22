@@ -54,10 +54,10 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
          }
       });
 
-      if (modules.isEmpty())
-      {
-         return null;
-      }
+      // if (modules.isEmpty())
+      // {
+      // return null;
+      // }
 
       final CompositeModule compositeModule = B2ModelFactory.eINSTANCE.createCompositeModule();
       compositeModule.setId(getModuleId(request.getConverter(), baseDir));
