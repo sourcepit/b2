@@ -4,10 +4,6 @@
 
 package org.sourcepit.beef.b2.examples;
 
-import java.io.File;
-
-import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 
 
 public class B2ExamplesIT extends AbstractB2ExamplesIT
