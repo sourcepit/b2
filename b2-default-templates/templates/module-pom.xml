@@ -43,4 +43,398 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>customTargets</id>
+			<activation>
+				<file>
+					<exists>\${basedir}/externalBuild/customTargets.xml</exists>
+				</file>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.6</version>
+						<configuration>
+							<target name="externalBuild">
+								<ant antfile="\${basedir}/externalBuild/customTargets.xml"
+									target="\${maven.phase}">
+									<!-- Add additional properties here -->
+									<property name="project.build.finalName" value="\${project.build.finalName}" />
+								</ant>
+							</target>
+						</configuration>
+						<executions>
+							<!-- Clean Lifecycle -->
+							<execution>
+								<id>pre-clean</id>
+								<phase>pre-clean</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="pre-clean" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>clean</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="clean" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>post-clean</id>
+								<phase>post-clean</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="post-clean" />
+									</target>
+								</configuration>
+							</execution>
+							<!-- Default Lifecycle -->
+							<execution>
+								<id>validate</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="validate" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>initialize</id>
+								<phase>initialize</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="initialize" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>generate-sources</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="generate-sources" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>process-sources</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="process-sources" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>generate-resources</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="generate-resources" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>process-resources</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="process-resources" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>compile</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="compile" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>process-classes</id>
+								<phase>process-classes</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="process-classes" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>generate-test-sources</id>
+								<phase>generate-test-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="generate-test-sources" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>process-test-sources</id>
+								<phase>process-test-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="process-test-sources" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>generate-test-resources</id>
+								<phase>generate-test-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="generate-test-resources" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>process-test-resources</id>
+								<phase>process-test-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="process-test-resources" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>test-compile</id>
+								<phase>test-compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="test-compile" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>process-test-classes</id>
+								<phase>process-test-classes</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="process-test-classes" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>test</id>
+								<phase>test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="test" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>prepare-package</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="prepare-package" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>package</id>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="package" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>pre-integration-test</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="pre-integration-test" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>integration-test</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="integration-test" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>post-integration-test</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="post-integration-test" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>verify</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="verify" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>install</id>
+								<phase>install</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="install" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>deploy</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="deploy" />
+									</target>
+								</configuration>
+							</execution>
+							<!-- Site Lifecycle -->
+							<execution>
+								<id>pre-site</id>
+								<phase>pre-site</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="pre-site" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>site</id>
+								<phase>site</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="site" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>post-site</id>
+								<phase>post-site</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="post-site" />
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>site-deploy</id>
+								<phase>site-deploy</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<property name="maven.phase" value="site-deploy" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

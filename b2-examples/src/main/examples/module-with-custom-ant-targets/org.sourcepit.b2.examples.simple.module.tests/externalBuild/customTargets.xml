@@ -1,0 +1,61 @@
+<project default="noDefault">
+
+	<target name="noDefault">
+		<fail message="You must specify a target when invoking this file" />
+	</target>
+
+	<!-- Clean Lifecycle -->
+	<target name="pre-clean" />
+	<target name="clean" />
+	<target name="post-clean" />
+
+	<!-- Default Lifecycle -->
+	<target name="validate" />
+	<target name="initialize" />
+	<target name="generate-sources" />
+	<target name="process-sources" />
+	<target name="generate-resources" />
+	<target name="process-resources" />
+	<target name="compile" />
+	<target name="process-classes" />
+	<target name="generate-test-sources" />
+	<target name="process-test-sources" />
+	<target name="generate-test-resources">
+		<propertyfile file="${project.build.directory}/test.properties">
+			<entry key="basedir" value="${basedir}" />
+			<entry key="maven.phase" value="${maven.phase}" />
+			<entry key="project.groupId" value="${project.groupId}" />
+			<entry key="project.artifactId" value="${project.artifactId}" />
+			<entry key="project.version" value="${project.version}" />
+			<entry key="project.name" value="${project.name}" />
+			<entry key="project.description" value="${project.description}" />
+			<entry key="project.packaging" value="${project.packaging}" />
+			<entry key="project.build.finalName" value="${project.build.finalName}" />
+			<entry key="project.build.directory" value="${project.build.directory}" />
+			<entry key="project.build.outputDirectory" value="${project.build.outputDirectory}" />
+			<entry key="project.build.testOutputDirectory" value=" ${project.build.testOutputDirectory}" />
+			<entry key="project.build.sourceDirectory" value="${project.build.sourceDirectory}" />
+			<entry key="project.build.testSourceDirectory" value="${project.build.testSourceDirectory}" />
+			<entry key="localRepository" value="${localRepository}" />
+			<entry key="settings.localRepository" value="${settings.localRepository}" />
+		</propertyfile>
+	</target>
+	<target name="process-test-resources" />
+	<target name="test-compile" />
+	<target name="process-test-classes" />
+	<target name="test" />
+	<target name="prepare-package" />
+	<target name="package" />
+	<target name="pre-integration-test" />
+	<target name="integration-test" />
+	<target name="post-integration-test" />
+	<target name="verify" />
+	<target name="install" />
+	<target name="deploy" />
+
+	<!-- Site Lifecycle -->
+	<target name="pre-site" />
+	<target name="site" />
+	<target name="post-site" />
+	<target name="site-deploy" />
+</project>

@@ -31,10 +31,14 @@ public abstract class AbstractB2ExamplesIT extends TestCase
    protected DefaultExecutor executor;
    protected File workingDir;
 
+   protected File exampleModuleDir;
+
    @Override
    protected void setUp() throws Exception
    {
       super.setUp();
+
+      exampleModuleDir = null;
 
       workingDir = findExamplesBaseDir();
       assertTrue(workingDir.exists());
@@ -81,6 +85,8 @@ public abstract class AbstractB2ExamplesIT extends TestCase
       // }
       command.addArgument("example-modules/" + testModule);
 
+      exampleModuleDir = new File(workingDir, "example-modules/" + testModule);
+
       return command;
    }
 
@@ -123,6 +129,7 @@ public abstract class AbstractB2ExamplesIT extends TestCase
    protected void tearDown() throws Exception
    {
       processDestroyer.tearDown();
+      exampleModuleDir = null;
       super.tearDown();
    }
 
