@@ -5,14 +5,21 @@
 package org.sourcepit.beef.b2.directory.parser.internal.module;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
+import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.beef.b2.common.internal.utils.NlsUtils;
+import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
+import org.sourcepit.beef.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
+import org.sourcepit.beef.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.beef.b2.directory.parser.module.ModuleParsingRequest;
+import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.internal.model.BasicModule;
+import org.sourcepit.beef.b2.internal.model.CompositeModule;
 import org.sourcepit.beef.b2.internal.model.PluginProject;
 import org.sourcepit.beef.b2.internal.model.PluginsFacet;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
@@ -125,6 +132,76 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       EList<PluginProject> tests = pluginsFacet.getProjects();
       assertEquals(2, tests.size());
+   }
+
+   public void testComposedComposite() throws Exception
+   {
+      final File moduleDir = workspace.importResources("composed-component");
+
+      final File simpleDir = new File(moduleDir, "simple-layout");
+      final File structuredDir = new File(moduleDir, "structured-layout");
+
+      ModuleParsingRequest request = new ModuleParsingRequest();
+      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleDirectory(moduleDir);
+
+      ModuleParser modelParser = lookup();
+      CompositeModule module = (CompositeModule) modelParser.parse(request);
+      assertNotNull(module);
+
+      assertNotNull(module.getId());
+      assertNotNull(module.getVersion());
+      assertEquals(module.getId(), request.getConverter().getModuleId(moduleDir));
+      assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
+
+      assertEquals(2, module.getModules().size());
+
+      SimpleLayoutFacetsParserRuleTest
+         .assertSimpleLayout((BasicModule) findModuleByDir(module.getModules(), simpleDir));
+      StructuredLayoutFacetsParserRuleTest.assertStructuredLayout((BasicModule) findModuleByDir(module.getModules(),
+         structuredDir));
+   }
+
+   public void testComposedCompositeWithExclude() throws Exception
+   {
+      final File moduleDir = workspace.importResources("composed-component");
+
+      final File simpleDir = new File(moduleDir, "simple-layout");
+      final File structuredDir = new File(moduleDir, "structured-layout");
+
+      ModuleParsingRequest request = new ModuleParsingRequest();
+      PropertiesMap properties = new LinkedPropertiesMap();
+      properties.put("b2.module.filter", "!structured-layout");
+      request.setConverter(ConverterUtils.newDefaultTestConverter(properties));
+      request.setModuleDirectory(moduleDir);
+
+      ModuleParser modelParser = lookup();
+      CompositeModule module = (CompositeModule) modelParser.parse(request);
+      assertNotNull(module);
+
+      assertNotNull(module.getId());
+      assertNotNull(module.getVersion());
+      assertEquals(module.getId(), request.getConverter().getModuleId(moduleDir));
+      assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
+
+      assertEquals(1, module.getModules().size());
+
+      SimpleLayoutFacetsParserRuleTest
+         .assertSimpleLayout((BasicModule) findModuleByDir(module.getModules(), simpleDir));
+
+      assertNull(findModuleByDir(module.getModules(), structuredDir));
+   }
+
+   private AbstractModule findModuleByDir(Collection<AbstractModule> modules, File moduleDir)
+   {
+      for (AbstractModule module : modules)
+      {
+         if (moduleDir.equals(module.getDirectory()))
+         {
+            return module;
+         }
+      }
+      return null;
    }
 
    private ModuleParser lookup() throws Exception

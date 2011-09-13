@@ -4,6 +4,7 @@
 
 package org.sourcepit.beef.b2.model.builder.util;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -125,7 +126,7 @@ public class ConverterPropertiesTest extends TestCase
       assertNotNull(matcher);
       assertTrue(matcher.getExcludes().isEmpty());
       assertTrue(matcher.getIncludes().isEmpty());
-      
+
       matcher = converter.createIdMatcherForFeature("composite", "sdk");
       assertNotNull(matcher);
       assertTrue(matcher.getExcludes().isEmpty());
@@ -184,5 +185,17 @@ public class ConverterPropertiesTest extends TestCase
       assertEquals("muh", converter.getSourceClassiferForPlugin(""));
       assertEquals("bar", converter.getSourceClassiferForPlugin("sdk"));
       assertEquals("foo", converter.getSourceClassiferForPlugin("max"));
+   }
+
+   public void testCreateModuleDirectoryMacher() throws Exception
+   {
+      DefaultConverter converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", null);
+      PathMatcher macher = converter.createModuleDirectoryMacher(new File("").getAbsoluteFile());
+      assertNotNull(macher);
+      assertTrue(macher.getIncludes().isEmpty());
+      assertFalse(macher.getExcludes().isEmpty());
+
+      assertFalse(macher.isMatch(new File(".svn").getAbsolutePath()));
+      assertTrue(macher.isMatch(new File("rcp").getAbsolutePath()));
    }
 }

@@ -17,13 +17,13 @@ public interface IConverter
 {
    // TODO session
    String getModuleVersion();
-   
+
    String getNameSpace();
-   
+
    boolean isSkipInterpolator();
-   
+
    boolean isSkipGenerator();
-   
+
    // TODO converter
    PropertiesMap getProperties();
 
@@ -64,4 +64,6 @@ public interface IConverter
    Set<String> getSiteClassifiers();
 
    Set<String> getCategoryClassifiersForSite(String siteClassifer);
+
+   boolean isPotentialModuleDirectory(File paseDir, File file);
 }

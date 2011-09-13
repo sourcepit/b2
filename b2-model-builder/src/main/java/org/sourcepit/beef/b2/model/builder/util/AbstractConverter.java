@@ -386,4 +386,26 @@ public abstract class AbstractConverter implements IConverter
    {
       return featureClassifer.length() == 0 ? "." : "." + featureClassifer + ".";
    }
+
+   protected PathMatcher createModuleDirectoryMacher(File baseDir)
+   {
+      final PropertiesQuery query = new PropertiesQuery();
+      query.addKey("b2.module.filter");
+      query.setDefault("**");
+      final String filter = query.lookup(getValueSources());
+      return PathMatcher.parseFilePatterns(baseDir, interpolate(filter));
+   }
+
+   public boolean isPotentialModuleDirectory(File baseDir, File file)
+   {
+      if (file.isDirectory() && file.exists() && new File(file, "module.xml").exists())
+      {
+         final PathMatcher moduleDirMacher = createModuleDirectoryMacher(baseDir);
+         if (moduleDirMacher.isMatch(file.getAbsolutePath()))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
 }

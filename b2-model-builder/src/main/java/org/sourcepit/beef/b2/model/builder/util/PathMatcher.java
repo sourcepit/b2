@@ -4,12 +4,86 @@
 
 package org.sourcepit.beef.b2.model.builder.util;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public final class PathMatcher
+import org.apache.commons.io.FilenameUtils;
+
+public class PathMatcher
 {
+   private static class PatternParser
+   {
+      private String patternString;
+      private String patternSeparator;
+      private String segmentSeparator;
+
+      public void setPatternString(String patterns)
+      {
+         this.patternString = patterns;
+      }
+
+      public void setPatternSeparator(String pathSeparator)
+      {
+         this.patternSeparator = pathSeparator;
+      }
+
+      public void setSegmentSeparator(String segmentSeparator)
+      {
+         this.segmentSeparator = segmentSeparator;
+      }
+
+      public PathMatcher parse()
+      {
+         final Set<String> includes = new HashSet<String>();
+         final Set<String> excludes = new HashSet<String>();
+         if (patternString.length() != 0)
+         {
+            final String[] rawPatterns = split();
+            for (String rawPattern : rawPatterns)
+            {
+               rawPattern = rawPattern.trim();
+               final boolean isExclude = isExclude(rawPattern);
+               final Set<String> target = isExclude ? excludes : includes;
+               target.add(toSegmentRegex(prepareRawPattern(rawPattern, isExclude), segmentSeparator));
+            }
+         }
+         return createMacher(includes, excludes);
+      }
+
+      protected boolean isExclude(String rawPattern)
+      {
+         return rawPattern.startsWith("!");
+      }
+
+      protected String[] split()
+      {
+         if (patternSeparator == null)
+         {
+            return new String[] {patternString};
+         }
+         else
+         {
+            return patternString.split(patternSeparator);
+         }
+      }
+
+      protected String prepareRawPattern(String rawPattern, boolean isExclude)
+      {
+         if (isExclude)
+         {
+            rawPattern = rawPattern.length() > 1 ? rawPattern.substring(1) : "";
+         }
+         return rawPattern;
+      }
+
+      protected PathMatcher createMacher(final Set<String> includes, final Set<String> excludes)
+      {
+         return new PathMatcher(includes, excludes);
+      }
+   }
+
    private final Set<String> includes;
    private final Set<String> excludes;
 
@@ -21,29 +95,54 @@ public final class PathMatcher
 
    public static PathMatcher parsePackagePatterns(String patterns)
    {
-      return parse(patterns, ".", ",");
+      final PatternParser parser = new PatternParser();
+      parser.setPatternString(patterns);
+      parser.setPatternSeparator(",");
+      parser.setSegmentSeparator(".");
+      return parser.parse();
    }
 
-   public static PathMatcher parse(String patterns, String separator, String pathSeparator)
+   public static PathMatcher parseFilePatterns(final File baseDir, String filePatterns)
    {
-      final Set<String> includes = new HashSet<String>();
-      final Set<String> excludes = new HashSet<String>();
-      if (patterns.length() != 0)
+      final PatternParser parser = new PatternParser()
       {
-         final String[] rawPatterns = patterns.split(pathSeparator);
-         for (String rawPattern : rawPatterns)
+         protected String prepareRawPattern(String rawPattern, boolean isExclude)
          {
-            rawPattern = rawPattern.trim();
-            final boolean isExclude = rawPattern.startsWith("!");
-            if (isExclude)
+            String result = super.prepareRawPattern(rawPattern, isExclude);
+            if (!result.startsWith("**") && !new File(result).isAbsolute())
             {
-               rawPattern = rawPattern.length() > 1 ? rawPattern.substring(1) : "";
+               result = new File(baseDir, result).getAbsolutePath();
             }
-            final Set<String> target = isExclude ? excludes : includes;
-            target.add(toPathRegex(rawPattern, separator));
+            result = FilenameUtils.separatorsToUnix(result);
+            return result;
+         };
+
+         @Override
+         protected PathMatcher createMacher(Set<String> includes, Set<String> excludes)
+         {
+            return new PathMatcher(includes, excludes)
+            {
+               @Override
+               public boolean isMatch(String path)
+               {
+                  return super.isMatch(FilenameUtils.separatorsToUnix(path));
+               }
+            };
          }
-      }
-      return new PathMatcher(includes, excludes);
+      };
+      parser.setPatternString(FilenameUtils.separatorsToUnix(filePatterns));
+      parser.setPatternSeparator(",");
+      parser.setSegmentSeparator("/");
+      return parser.parse();
+   }
+
+   public static PathMatcher parse(String patterns, String segmentSeparator, String patternSeparator)
+   {
+      final PatternParser parser = new PatternParser();
+      parser.setPatternString(patterns);
+      parser.setPatternSeparator(patternSeparator);
+      parser.setSegmentSeparator(segmentSeparator);
+      return parser.parse();
    }
 
    public Set<String> getExcludes()
@@ -87,7 +186,7 @@ public final class PathMatcher
       return defaultValue;
    }
 
-   public static String toPathRegex(String pattern, String separator)
+   public static String toSegmentRegex(String pattern, String separator)
    {
       final String segmentPattern = "[^" + escRegEx(separator) + "]*";
       final int segmentPatternLength = segmentPattern.length();

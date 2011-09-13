@@ -18,6 +18,7 @@ import org.sourcepit.beef.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
 import org.sourcepit.beef.b2.internal.model.CompositeModule;
+import org.sourcepit.beef.b2.model.builder.util.IConverter;
 
 @Named("compositeModule")
 public class CompositeModuleParserRule extends AbstractModuleParserRule<CompositeModule>
@@ -31,33 +32,26 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
       final List<AbstractModule> modules = new ArrayList<AbstractModule>();
 
       final File baseDir = request.getModuleDirectory();
+      final IConverter converter = request.getConverter();
 
       baseDir.listFiles(new FileFilter()
       {
          public boolean accept(File member)
          {
-            if (member.isDirectory() && member.exists())
+            if (converter.isPotentialModuleDirectory(baseDir, member))
             {
-               if (new File(member, "module.xml").exists())
-               {
-                  final ModuleParsingRequest copy = ModuleParsingRequest.copy(request);
-                  copy.setModuleDirectory(member);
+               final ModuleParsingRequest copy = ModuleParsingRequest.copy(request);
+               copy.setModuleDirectory(member);
 
-                  final AbstractModule module = moduleParser.parse(copy);
-                  if (module != null)
-                  {
-                     modules.add(module);
-                  }
+               final AbstractModule module = moduleParser.parse(copy);
+               if (module != null)
+               {
+                  modules.add(module);
                }
             }
             return false;
          }
       });
-
-      // if (modules.isEmpty())
-      // {
-      // return null;
-      // }
 
       final CompositeModule compositeModule = B2ModelFactory.eINSTANCE.createCompositeModule();
       compositeModule.setId(getModuleId(request.getConverter(), baseDir));

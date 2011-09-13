@@ -16,14 +16,14 @@ public class PathMatcherTest extends TestCase
 {
    public void testToRegex() throws Exception
    {
-      assertEquals(".*\\.sdk\\..*", PathMatcher.toPathRegex("**.sdk.**", "."));
-      assertEquals("[^\\.]*\\.[^\\.]*\\.sdk\\.[^\\.]*\\.[^\\.]*", PathMatcher.toPathRegex("*.*.sdk.*.*", "."));
+      assertEquals(".*\\.sdk\\..*", PathMatcher.toSegmentRegex("**.sdk.**", "."));
+      assertEquals("[^\\.]*\\.[^\\.]*\\.sdk\\.[^\\.]*\\.[^\\.]*", PathMatcher.toSegmentRegex("*.*.sdk.*.*", "."));
 
-      assertEquals(".*\\.sdk\\..*", PathMatcher.toPathRegex("**.sdk.**", "\\"));
-      assertEquals("[^\\\\]*\\.[^\\\\]*\\.sdk\\.[^\\\\]*\\.[^\\\\]*", PathMatcher.toPathRegex("*.*.sdk.*.*", "\\"));
+      assertEquals(".*\\.sdk\\..*", PathMatcher.toSegmentRegex("**.sdk.**", "\\"));
+      assertEquals("[^\\\\]*\\.[^\\\\]*\\.sdk\\.[^\\\\]*\\.[^\\\\]*", PathMatcher.toSegmentRegex("*.*.sdk.*.*", "\\"));
 
-      assertEquals(".*\\.sdk\\..*", PathMatcher.toPathRegex("**.sdk.**", "/"));
-      assertEquals("[^/]*\\.[^/]*\\.sdk\\.[^/]*\\.[^/]*", PathMatcher.toPathRegex("*.*.sdk.*.*", "/"));
+      assertEquals(".*\\.sdk\\..*", PathMatcher.toSegmentRegex("**.sdk.**", "/"));
+      assertEquals("[^/]*\\.[^/]*\\.sdk\\.[^/]*\\.[^/]*", PathMatcher.toSegmentRegex("*.*.sdk.*.*", "/"));
    }
 
    public void testParse() throws Exception
@@ -87,6 +87,17 @@ public class PathMatcherTest extends TestCase
       PathMatcher matcher = PathMatcher.parsePackagePatterns("");
       assertTrue(matcher.getExcludes().isEmpty());
       assertTrue(matcher.getIncludes().isEmpty());
+
+      assertTrue(matcher.isMatch("foo.sdk.bar"));
+      assertTrue(matcher.isMatch(""));
+      assertTrue(matcher.isMatch("bar"));
+   }
+
+   public void testAll() throws Exception
+   {
+      PathMatcher matcher = PathMatcher.parsePackagePatterns("**");
+      assertTrue(matcher.getExcludes().isEmpty());
+      assertEquals(1, matcher.getIncludes().size());
 
       assertTrue(matcher.isMatch("foo.sdk.bar"));
       assertTrue(matcher.isMatch(""));
