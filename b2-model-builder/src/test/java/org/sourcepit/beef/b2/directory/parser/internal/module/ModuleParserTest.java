@@ -171,7 +171,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       PropertiesMap properties = new LinkedPropertiesMap();
-      properties.put("b2.module.filter", "!structured-layout");
+      properties.put("b2.modules.filter", "!structured-layout");
       request.setConverter(ConverterUtils.newDefaultTestConverter(properties));
       request.setModuleDirectory(moduleDir);
 

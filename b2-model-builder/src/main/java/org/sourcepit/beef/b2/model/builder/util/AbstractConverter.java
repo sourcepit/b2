@@ -390,7 +390,7 @@ public abstract class AbstractConverter implements IConverter
    protected PathMatcher createModuleDirectoryMacher(File baseDir)
    {
       final PropertiesQuery query = new PropertiesQuery();
-      query.addKey("b2.module.filter");
+      query.addKey("b2.modules.filter");
       query.setDefault("**");
       final String filter = query.lookup(getValueSources());
       return PathMatcher.parseFilePatterns(baseDir, interpolate(filter));
