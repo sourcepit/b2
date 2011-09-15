@@ -2,7 +2,7 @@
  * Copyright (C) 2007 Innovations Softwaretechnologie GmbH, Immenstaad, Germany. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.builder.util;
+package org.sourcepit.beef.b2.common.internal.utils;
 
 import java.io.File;
 import java.util.HashSet;
@@ -125,7 +125,7 @@ public class PathMatcher
                @Override
                public boolean isMatch(String path)
                {
-                  return super.isMatch(FilenameUtils.separatorsToUnix(path));
+                  return super.isMatch(FilenameUtils.separatorsToUnix(new File(path).getAbsolutePath()));
                }
             };
          }

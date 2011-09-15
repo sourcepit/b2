@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
+import org.sourcepit.beef.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.beef.b2.internal.model.AbstractFacet;
 import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
@@ -34,7 +35,6 @@ import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.IModelCache;
 import org.sourcepit.beef.b2.model.builder.util.ISourceManager;
 import org.sourcepit.beef.b2.model.builder.util.IUnpackStrategy;
-import org.sourcepit.beef.b2.model.builder.util.PathMatcher;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolationRequest;
 import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolator;

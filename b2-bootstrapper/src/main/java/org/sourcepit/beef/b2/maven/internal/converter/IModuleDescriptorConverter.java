@@ -8,9 +8,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.maven.model.Model;
-import org.apache.maven.model.io.ModelParseException;
 
 public interface IModuleDescriptorConverter
 {
-   Model convert(File moduleDescriptor) throws IOException, ModelParseException;
+   Model convert(File moduleDescriptor) throws IOException;
 }

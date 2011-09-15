@@ -12,6 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.sourcepit.beef.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.beef.b2.directory.parser.module.ModuleParsingRequest;
@@ -33,6 +34,7 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
 
       final File baseDir = request.getModuleDirectory();
       final IConverter converter = request.getConverter();
+      final IModuleFilter moduleFilter = request.getModuleFilter();
 
       baseDir.listFiles(new FileFilter()
       {
@@ -40,13 +42,16 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
          {
             if (converter.isPotentialModuleDirectory(baseDir, member))
             {
-               final ModuleParsingRequest copy = ModuleParsingRequest.copy(request);
-               copy.setModuleDirectory(member);
-
-               final AbstractModule module = moduleParser.parse(copy);
-               if (module != null)
+               if (moduleFilter == null || moduleFilter.accept(member))
                {
-                  modules.add(module);
+                  final ModuleParsingRequest copy = ModuleParsingRequest.copy(request);
+                  copy.setModuleDirectory(member);
+
+                  final AbstractModule module = moduleParser.parse(copy);
+                  if (module != null)
+                  {
+                     modules.add(module);
+                  }
                }
             }
             return false;

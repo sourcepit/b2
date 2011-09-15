@@ -2,10 +2,12 @@
  * Copyright (C) 2007 Innovations Softwaretechnologie GmbH, Immenstaad, Germany. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.builder.util;
+package org.sourcepit.beef.b2.common.internal.utils;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import org.sourcepit.beef.b2.common.internal.utils.PathMatcher;
 
 import junit.framework.TestCase;
 

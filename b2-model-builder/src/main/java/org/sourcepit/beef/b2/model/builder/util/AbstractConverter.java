@@ -18,6 +18,7 @@ import java.util.Set;
 import org.codehaus.plexus.interpolation.MapBasedValueSource;
 import org.codehaus.plexus.interpolation.ValueSource;
 import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
+import org.sourcepit.beef.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesUtils;
 import org.sourcepit.beef.b2.internal.generator.PropertiesQuery;
@@ -389,10 +390,13 @@ public abstract class AbstractConverter implements IConverter
 
    protected PathMatcher createModuleDirectoryMacher(File baseDir)
    {
-      final PropertiesQuery query = new PropertiesQuery();
-      query.addKey("b2.modules.filter");
-      query.setDefault("**");
-      final String filter = query.lookup(getValueSources());
+      final String filter = System.getProperty("b2.modules.filter", "**");
+
+      // final PropertiesQuery query = new PropertiesQuery();
+      // query.addKey("b2.modules.filter");
+      // query.setDefault("**");
+      // final String filter = query.lookup(getValueSources());
+
       return PathMatcher.parseFilePatterns(baseDir, interpolate(filter));
    }
 

@@ -5,8 +5,10 @@
 package org.sourcepit.beef.b2.internal.generator;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -19,6 +21,8 @@ import org.sonatype.guice.bean.binders.SpaceModule;
 import org.sonatype.guice.bean.binders.WireModule;
 import org.sonatype.guice.bean.reflect.URLClassSpace;
 import org.sonatype.inject.BeanScanning;
+import org.sourcepit.beef.b2.directory.parser.module.IModuleFilter;
+import org.sourcepit.beef.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
@@ -66,7 +70,15 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          }
       };
 
-      final AbstractModule generate = b2.generate(moduleDir, modelCache, converter, templates);
+      final Set<File> whitelist = new HashSet<File>();
+      for (MavenProject mavenProject : session.getWrapperProjects())
+      {
+         whitelist.add(mavenProject.getBasedir());
+      }
+
+      final IModuleFilter fileFilter = new WhitelistModuleFilter(whitelist);
+
+      final AbstractModule generate = b2.generate(moduleDir, modelCache, fileFilter, converter, templates);
       modelCache.put(generate);
 
       final File pomFile = new File(generate.getAnnotationEntry(AbstractPomGenerator.SOURCE_MAVEN,

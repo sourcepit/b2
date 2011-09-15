@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.codehaus.plexus.interpolation.ValueSource;
+import org.sourcepit.beef.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 

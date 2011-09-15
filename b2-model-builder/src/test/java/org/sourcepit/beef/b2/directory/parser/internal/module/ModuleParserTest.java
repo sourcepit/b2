@@ -10,13 +10,12 @@ import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.beef.b2.common.internal.utils.NlsUtils;
-import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.beef.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
 import org.sourcepit.beef.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.beef.b2.directory.parser.module.ModuleParsingRequest;
+import org.sourcepit.beef.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.internal.model.BasicModule;
 import org.sourcepit.beef.b2.internal.model.CompositeModule;
@@ -170,10 +169,9 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final File structuredDir = new File(moduleDir, "structured-layout");
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      PropertiesMap properties = new LinkedPropertiesMap();
-      properties.put("b2.modules.filter", "!structured-layout");
-      request.setConverter(ConverterUtils.newDefaultTestConverter(properties));
+      request.setConverter(ConverterUtils.TEST_CONVERTER);
       request.setModuleDirectory(moduleDir);
+      request.setModuleFilter(new WhitelistModuleFilter(simpleDir));
 
       ModuleParser modelParser = lookup();
       CompositeModule module = (CompositeModule) modelParser.parse(request);

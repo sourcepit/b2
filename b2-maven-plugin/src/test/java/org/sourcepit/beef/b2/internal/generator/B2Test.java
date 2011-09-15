@@ -20,22 +20,22 @@ public class B2Test extends AbstractInjectedWorkspaceTest
 {
    @Inject
    private B2 b2;
-   
+
    public void testSkipInterpolator() throws Exception
    {
       File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.canRead());
-      
+
       PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("b2.skipInterpolator", "true");
       properties.put("b2.skipGenerator", "true");
-      
+
       IConverter converter = ConverterUtils.newDefaultTestConverter(properties);
       assertTrue(converter.isSkipInterpolator());
       assertTrue(converter.isSkipGenerator());
-      
-      AbstractModule module = b2.generate(moduleDir, null, converter, new DefaultTemplateCopier());
-      
+
+      AbstractModule module = b2.generate(moduleDir, null, null, converter, new DefaultTemplateCopier());
+
       assertNotNull(module);
       B2ModelHarness.assertHasDerivedElements(module);
    }

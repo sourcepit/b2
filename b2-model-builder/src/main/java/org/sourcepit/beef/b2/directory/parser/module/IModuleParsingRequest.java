@@ -16,4 +16,6 @@ public interface IModuleParsingRequest
    IConverter getConverter();
 
    IModelCache getModelCache();
+   
+   IModuleFilter getModuleFilter();
 }
