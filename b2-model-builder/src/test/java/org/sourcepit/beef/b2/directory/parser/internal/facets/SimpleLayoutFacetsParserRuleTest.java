@@ -65,11 +65,11 @@ public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
       EList<PluginsFacet> pluginsFacets = module.getFacets(PluginsFacet.class);
       assertEquals(2, pluginsFacets.size());
 
-      PluginsFacet pluginsFacet = pluginsFacets.get(0);
+      PluginsFacet pluginsFacet = findFacetByName(pluginsFacets, "plugins");
       assertEquals("plugins", pluginsFacet.getName());
       assertEquals(2, pluginsFacet.getProjects().size());
 
-      pluginsFacet = pluginsFacets.get(1);
+      pluginsFacet = findFacetByName(pluginsFacets, "tests");
       assertEquals("tests", pluginsFacet.getName());
       assertEquals(2, pluginsFacet.getProjects().size());
 
