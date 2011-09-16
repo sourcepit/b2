@@ -2,15 +2,15 @@
  * Copyright (C) 2007 Innovations Softwaretechnologie GmbH, Immenstaad, Germany. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.internal.model;
+package org.sourcepit.beef.b2.model.module;
 
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.internal.model.harness.EcoreUtils;
-import org.sourcepit.beef.b2.internal.model.harness.EcoreUtils.RunnableWithEObject;
 import org.sourcepit.beef.b2.model.module.B2ModelPackage;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
+import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils;
+import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
 
 /**
  * @author Bernd

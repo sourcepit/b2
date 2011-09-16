@@ -2,7 +2,7 @@
  * Copyright (C) 2007 Innovations Softwaretechnologie GmbH, Immenstaad, Germany. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.internal.model.harness;
+package org.sourcepit.beef.b2.model.module.test.internal.harness;
 
 import java.util.ArrayList;
 import java.util.List;

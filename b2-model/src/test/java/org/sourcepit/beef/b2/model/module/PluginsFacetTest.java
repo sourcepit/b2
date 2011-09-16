@@ -6,27 +6,27 @@
  * Contributors: Bernd - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-package org.sourcepit.beef.b2.internal.model;
+package org.sourcepit.beef.b2.model.module;
 
 import org.sourcepit.beef.b2.model.module.B2ModelFactory;
-import org.sourcepit.beef.b2.model.module.SiteProject;
-import org.sourcepit.beef.b2.model.module.SitesFacet;
+import org.sourcepit.beef.b2.model.module.PluginProject;
+import org.sourcepit.beef.b2.model.module.PluginsFacet;
 
 
 /**
  * @author Bernd
  */
-public class SitesFacetTest extends AbstractProjectFacetTest<SiteProject, SitesFacet>
+public class PluginsFacetTest extends AbstractProjectFacetTest<PluginProject, PluginsFacet>
 {
    @Override
-   protected SitesFacet createFacet()
+   protected PluginsFacet createFacet()
    {
-      return B2ModelFactory.eINSTANCE.createSitesFacet();
+      return B2ModelFactory.eINSTANCE.createPluginsFacet();
    }
 
    @Override
-   protected SiteProject createProject()
+   protected PluginProject createProject()
    {
-      return B2ModelFactory.eINSTANCE.createSiteProject();
+      return B2ModelFactory.eINSTANCE.createPluginProject();
    }
 }

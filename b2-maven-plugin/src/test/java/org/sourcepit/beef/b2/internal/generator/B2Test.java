@@ -12,8 +12,8 @@ import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.internal.test.harness.B2ModelHarness;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.test.internal.harness.B2ModelHarness;
 import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
 public class B2Test extends AbstractInjectedWorkspaceTest

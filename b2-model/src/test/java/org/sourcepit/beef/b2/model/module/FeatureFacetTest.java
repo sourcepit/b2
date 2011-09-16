@@ -6,7 +6,7 @@
  * Contributors: Bernd - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-package org.sourcepit.beef.b2.internal.model;
+package org.sourcepit.beef.b2.model.module;
 
 import org.sourcepit.beef.b2.model.module.B2ModelFactory;
 import org.sourcepit.beef.b2.model.module.FeatureProject;

@@ -2,7 +2,7 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.internal.impl;
+package org.sourcepit.beef.b2.model.module.internal.impl;
 
 import junit.framework.TestCase;
 

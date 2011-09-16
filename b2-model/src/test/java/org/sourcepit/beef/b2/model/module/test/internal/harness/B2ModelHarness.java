@@ -2,7 +2,7 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.internal.test.harness;
+package org.sourcepit.beef.b2.model.module.test.internal.harness;
 
 import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
