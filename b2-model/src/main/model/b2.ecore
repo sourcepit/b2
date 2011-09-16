@@ -11,6 +11,16 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="EMapEntry" instanceClassName="java.util.Map$Entry">
+      <eTypeParameters name="K"/>
+      <eTypeParameters name="V"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key">
+        <eGenericType eTypeParameter="#//common/EMapEntry/K"/>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value">
+        <eGenericType eTypeParameter="#//common/EMapEntry/V"/>
+      </eStructuralFeatures>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="module" nsURI="http://www.sourcepit.org/b2/model/0.1/module"
       nsPrefix="module">
@@ -237,6 +247,39 @@
   </eSubpackages>
   <eSubpackages name="session" nsURI="http://www.sourcepit.org/b2/model/0.1/session"
       nsPrefix="session">
-    <eClassifiers xsi:type="ecore:EClass" name="Session"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Session">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
+          eType="#//session/ModuleProject" containment="true" eOpposite="#//session/ModuleProject/session"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="currentProject" lowerBound="1"
+          eType="#//session/ModuleProject"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="data" upperBound="-1"
+          containment="true">
+        <eGenericType eClassifier="#//common/EMapEntry">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ModuleProject">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupId" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="session" lowerBound="1"
+          eType="#//session/Session" eOpposite="#//session/Session/projects"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="artifactId" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directory" lowerBound="1"
+          eType="#//common/EJavaFile"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="skipped" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="data" upperBound="-1"
+          containment="true">
+        <eGenericType eClassifier="#//common/EMapEntry">
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          <eTypeArguments eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+        </eGenericType>
+      </eStructuralFeatures>
+    </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

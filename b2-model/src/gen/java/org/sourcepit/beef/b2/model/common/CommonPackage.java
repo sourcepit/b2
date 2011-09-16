@@ -91,13 +91,48 @@ public interface CommonPackage extends EPackage
    int ESTRING_MAP_ENTRY_FEATURE_COUNT = 2;
 
    /**
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.common.internal.impl.EMapEntryImpl
+    * <em>EMap Entry</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.beef.b2.model.common.internal.impl.EMapEntryImpl
+    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getEMapEntry()
+    * @generated
+    */
+   int EMAP_ENTRY = 1;
+
+   /**
+    * The feature id for the '<em><b>Key</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int EMAP_ENTRY__KEY = 0;
+
+   /**
+    * The feature id for the '<em><b>Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int EMAP_ENTRY__VALUE = 1;
+
+   /**
+    * The number of structural features of the '<em>EMap Entry</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+    * -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int EMAP_ENTRY_FEATURE_COUNT = 2;
+
+   /**
     * The meta object id for the '<em>EJava File</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see java.io.File
     * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getEJavaFile()
     * @generated
     */
-   int EJAVA_FILE = 1;
+   int EJAVA_FILE = 2;
 
    /**
     * The meta object id for the '<em>ELocale</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -106,7 +141,7 @@ public interface CommonPackage extends EPackage
     * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getELocale()
     * @generated
     */
-   int ELOCALE = 2;
+   int ELOCALE = 3;
 
 
    /**
@@ -141,6 +176,39 @@ public interface CommonPackage extends EPackage
     * @generated
     */
    EAttribute getEStringMapEntry_Value();
+
+   /**
+    * Returns the meta object for class '{@link java.util.Map.Entry <em>EMap Entry</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @return the meta object for class '<em>EMap Entry</em>'.
+    * @see java.util.Map.Entry
+    * @model keyDataType="K" valueDataType="V"
+    * @generated
+    */
+   EClass getEMapEntry();
+
+   /**
+    * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Key</em>'.
+    * @see java.util.Map.Entry
+    * @see #getEMapEntry()
+    * @generated
+    */
+   EAttribute getEMapEntry_Key();
+
+   /**
+    * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'. <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Value</em>'.
+    * @see java.util.Map.Entry
+    * @see #getEMapEntry()
+    * @generated
+    */
+   EAttribute getEMapEntry_Value();
 
    /**
     * Returns the meta object for data type '{@link java.io.File <em>EJava File</em>}'. <!-- begin-user-doc --> <!--
@@ -211,6 +279,32 @@ public interface CommonPackage extends EPackage
        * @generated
        */
       EAttribute ESTRING_MAP_ENTRY__VALUE = eINSTANCE.getEStringMapEntry_Value();
+
+      /**
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.common.internal.impl.EMapEntryImpl
+       * <em>EMap Entry</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * 
+       * @see org.sourcepit.beef.b2.model.common.internal.impl.EMapEntryImpl
+       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getEMapEntry()
+       * @generated
+       */
+      EClass EMAP_ENTRY = eINSTANCE.getEMapEntry();
+
+      /**
+       * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute EMAP_ENTRY__KEY = eINSTANCE.getEMapEntry_Key();
+
+      /**
+       * The meta object literal for the '<em><b>Value</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute EMAP_ENTRY__VALUE = eINSTANCE.getEMapEntry_Value();
 
       /**
        * The meta object literal for the '<em>EJava File</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->

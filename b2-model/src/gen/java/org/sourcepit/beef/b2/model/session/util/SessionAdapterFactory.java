@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionPackage;
 
@@ -78,6 +79,12 @@ public class SessionAdapterFactory extends AdapterFactoryImpl
       }
 
       @Override
+      public Adapter caseModuleProject(ModuleProject object)
+      {
+         return createModuleProjectAdapter();
+      }
+
+      @Override
       public Adapter defaultCase(EObject object)
       {
          return createEObjectAdapter();
@@ -108,6 +115,20 @@ public class SessionAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createSessionAdapter()
+   {
+      return null;
+   }
+
+   /**
+    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.session.ModuleProject
+    * <em>Module Project</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * 
+    * @return the new adapter.
+    * @see org.sourcepit.beef.b2.model.session.ModuleProject
+    * @generated
+    */
+   public Adapter createModuleProjectAdapter()
    {
       return null;
    }

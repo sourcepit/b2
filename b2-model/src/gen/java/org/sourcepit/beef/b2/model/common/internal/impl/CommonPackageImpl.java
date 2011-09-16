@@ -13,7 +13,9 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.sourcepit.beef.b2.model.common.CommonFactory;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
@@ -35,6 +37,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     * @generated
     */
    private EClass eStringMapEntryEClass = null;
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass eMapEntryEClass = null;
 
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -162,6 +171,36 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     * 
     * @generated
     */
+   public EClass getEMapEntry()
+   {
+      return eMapEntryEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getEMapEntry_Key()
+   {
+      return (EAttribute) eMapEntryEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getEMapEntry_Value()
+   {
+      return (EAttribute) eMapEntryEClass.getEStructuralFeatures().get(1);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EDataType getEJavaFile()
    {
       return eJavaFileEDataType;
@@ -211,6 +250,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
       createEAttribute(eStringMapEntryEClass, ESTRING_MAP_ENTRY__KEY);
       createEAttribute(eStringMapEntryEClass, ESTRING_MAP_ENTRY__VALUE);
 
+      eMapEntryEClass = createEClass(EMAP_ENTRY);
+      createEAttribute(eMapEntryEClass, EMAP_ENTRY__KEY);
+      createEAttribute(eMapEntryEClass, EMAP_ENTRY__VALUE);
+
       // Create data types
       eJavaFileEDataType = createEDataType(EJAVA_FILE);
       eLocaleEDataType = createEDataType(ELOCALE);
@@ -241,6 +284,8 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
       setNsURI(eNS_URI);
 
       // Create type parameters
+      ETypeParameter eMapEntryEClass_K = addETypeParameter(eMapEntryEClass, "K");
+      ETypeParameter eMapEntryEClass_V = addETypeParameter(eMapEntryEClass, "V");
 
       // Set bounds for type parameters
 
@@ -253,6 +298,15 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
          !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEAttribute(getEStringMapEntry_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class,
          !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+      initEClass(eMapEntryEClass, Map.Entry.class, "EMapEntry", !IS_ABSTRACT, !IS_INTERFACE,
+         !IS_GENERATED_INSTANCE_CLASS);
+      EGenericType g1 = createEGenericType(eMapEntryEClass_K);
+      initEAttribute(getEMapEntry_Key(), g1, "key", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE,
+         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      g1 = createEGenericType(eMapEntryEClass_V);
+      initEAttribute(getEMapEntry_Value(), g1, "value", null, 0, 1, Map.Entry.class, !IS_TRANSIENT, !IS_VOLATILE,
+         IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       // Initialize data types
       initEDataType(eJavaFileEDataType, File.class, "EJavaFile", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

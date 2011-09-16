@@ -6,13 +6,17 @@
 
 package org.sourcepit.beef.b2.model.session.internal.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
 import org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl;
 import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl;
+import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionFactory;
 import org.sourcepit.beef.b2.model.session.SessionPackage;
@@ -30,6 +34,13 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
     * @generated
     */
    private EClass sessionEClass = null;
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass moduleProjectEClass = null;
 
    /**
     * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
@@ -123,6 +134,116 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
     * 
     * @generated
     */
+   public EReference getSession_Projects()
+   {
+      return (EReference) sessionEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getSession_CurrentProject()
+   {
+      return (EReference) sessionEClass.getEStructuralFeatures().get(1);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getSession_Data()
+   {
+      return (EReference) sessionEClass.getEStructuralFeatures().get(2);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EClass getModuleProject()
+   {
+      return moduleProjectEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getModuleProject_GroupId()
+   {
+      return (EAttribute) moduleProjectEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getModuleProject_Session()
+   {
+      return (EReference) moduleProjectEClass.getEStructuralFeatures().get(1);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getModuleProject_ArtifactId()
+   {
+      return (EAttribute) moduleProjectEClass.getEStructuralFeatures().get(2);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getModuleProject_Version()
+   {
+      return (EAttribute) moduleProjectEClass.getEStructuralFeatures().get(3);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getModuleProject_Directory()
+   {
+      return (EAttribute) moduleProjectEClass.getEStructuralFeatures().get(4);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getModuleProject_Skipped()
+   {
+      return (EAttribute) moduleProjectEClass.getEStructuralFeatures().get(5);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getModuleProject_Data()
+   {
+      return (EReference) moduleProjectEClass.getEStructuralFeatures().get(6);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public SessionFactory getSessionFactory()
    {
       return (SessionFactory) getEFactoryInstance();
@@ -149,6 +270,18 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
 
       // Create classes and their features
       sessionEClass = createEClass(SESSION);
+      createEReference(sessionEClass, SESSION__PROJECTS);
+      createEReference(sessionEClass, SESSION__CURRENT_PROJECT);
+      createEReference(sessionEClass, SESSION__DATA);
+
+      moduleProjectEClass = createEClass(MODULE_PROJECT);
+      createEAttribute(moduleProjectEClass, MODULE_PROJECT__GROUP_ID);
+      createEReference(moduleProjectEClass, MODULE_PROJECT__SESSION);
+      createEAttribute(moduleProjectEClass, MODULE_PROJECT__ARTIFACT_ID);
+      createEAttribute(moduleProjectEClass, MODULE_PROJECT__VERSION);
+      createEAttribute(moduleProjectEClass, MODULE_PROJECT__DIRECTORY);
+      createEAttribute(moduleProjectEClass, MODULE_PROJECT__SKIPPED);
+      createEReference(moduleProjectEClass, MODULE_PROJECT__DATA);
    }
 
    /**
@@ -175,6 +308,9 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
       setNsPrefix(eNS_PREFIX);
       setNsURI(eNS_URI);
 
+      // Obtain other dependent packages
+      CommonPackage theCommonPackage = (CommonPackage) EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+
       // Create type parameters
 
       // Set bounds for type parameters
@@ -183,6 +319,46 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
 
       // Initialize classes and features; add operations and parameters
       initEClass(sessionEClass, Session.class, "Session", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getSession_Projects(), this.getModuleProject(), this.getModuleProject_Session(), "projects", null,
+         0, -1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getSession_CurrentProject(), this.getModuleProject(), null, "currentProject", null, 1, 1,
+         Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      EGenericType g1 = createEGenericType(theCommonPackage.getEMapEntry());
+      EGenericType g2 = createEGenericType(ecorePackage.getEString());
+      g1.getETypeArguments().add(g2);
+      g2 = createEGenericType(ecorePackage.getEJavaObject());
+      g1.getETypeArguments().add(g2);
+      initEReference(getSession_Data(), g1, null, "data", null, 0, -1, Session.class, !IS_TRANSIENT, !IS_VOLATILE,
+         IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+      initEClass(moduleProjectEClass, ModuleProject.class, "ModuleProject", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getModuleProject_GroupId(), ecorePackage.getEString(), "groupId", null, 1, 1, ModuleProject.class,
+         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getModuleProject_Session(), this.getSession(), this.getSession_Projects(), "session", null, 1, 1,
+         ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getModuleProject_ArtifactId(), ecorePackage.getEString(), "artifactId", null, 1, 1,
+         ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getModuleProject_Version(), ecorePackage.getEString(), "version", null, 1, 1, ModuleProject.class,
+         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getModuleProject_Directory(), theCommonPackage.getEJavaFile(), "directory", null, 1, 1,
+         ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getModuleProject_Skipped(), ecorePackage.getEBoolean(), "skipped", null, 1, 1,
+         ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+      g1 = createEGenericType(theCommonPackage.getEMapEntry());
+      g2 = createEGenericType(ecorePackage.getEString());
+      g1.getETypeArguments().add(g2);
+      g2 = createEGenericType(ecorePackage.getEJavaObject());
+      g1.getETypeArguments().add(g2);
+      initEReference(getModuleProject_Data(), g1, null, "data", null, 0, -1, ModuleProject.class, !IS_TRANSIENT,
+         !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+         IS_ORDERED);
 
       // Create resource
       createResource(eNS_URI);

@@ -9,6 +9,7 @@ package org.sourcepit.beef.b2.model.session.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionPackage;
 
@@ -76,6 +77,14 @@ public class SessionSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
+         case SessionPackage.MODULE_PROJECT :
+         {
+            ModuleProject moduleProject = (ModuleProject) theEObject;
+            T result = caseModuleProject(moduleProject);
+            if (result == null)
+               result = defaultCase(theEObject);
+            return result;
+         }
          default :
             return defaultCase(theEObject);
       }
@@ -91,6 +100,20 @@ public class SessionSwitch<T> extends Switch<T>
     * @generated
     */
    public T caseSession(Session object)
+   {
+      return null;
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Module Project</em>'. <!-- begin-user-doc -->
+    * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Module Project</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseModuleProject(ModuleProject object)
    {
       return null;
    }

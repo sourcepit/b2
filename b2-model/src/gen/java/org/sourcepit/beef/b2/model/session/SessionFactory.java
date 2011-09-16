@@ -33,6 +33,14 @@ public interface SessionFactory extends EFactory
    Session createSession();
 
    /**
+    * Returns a new object of class '<em>Module Project</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return a new object of class '<em>Module Project</em>'.
+    * @generated
+    */
+   ModuleProject createModuleProject();
+
+   /**
     * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the package supported by this factory.

@@ -70,6 +70,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       {
          case CommonPackage.ESTRING_MAP_ENTRY :
             return (EObject) createEStringMapEntry();
+         case CommonPackage.EMAP_ENTRY :
+            return (EObject) createEMapEntry();
          default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
       }
@@ -122,6 +124,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    {
       EStringMapEntryImpl eStringMapEntry = new EStringMapEntryImpl();
       return eStringMapEntry;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public <K, V> Map.Entry<K, V> createEMapEntry()
+   {
+      EMapEntryImpl<K, V> eMapEntry = new EMapEntryImpl<K, V>();
+      return eMapEntry;
    }
 
    /**
