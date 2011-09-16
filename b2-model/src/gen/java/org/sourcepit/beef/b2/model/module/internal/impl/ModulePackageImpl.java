@@ -6,10 +6,6 @@
 
 package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import java.io.File;
-import java.util.Locale;
-import java.util.Map;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -19,6 +15,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.Annotateable;
@@ -199,13 +197,6 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
     * 
     * @generated
     */
-   private EClass eStringMapEntryEClass = null;
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
    private EClass identifiableEClass = null;
 
    /**
@@ -228,20 +219,6 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
     * @generated
     */
    private EClass referenceEClass = null;
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   private EDataType eJavaFileEDataType = null;
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   private EDataType eLocaleEDataType = null;
 
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -300,11 +277,18 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
 
       isInited = true;
 
+      // Obtain or create and register interdependencies
+      CommonPackageImpl theCommonPackage = (CommonPackageImpl) (EPackage.Registry.INSTANCE
+         .getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE
+         .getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
+
       // Create package meta-data objects
       theModulePackage.createPackageContents();
+      theCommonPackage.createPackageContents();
 
       // Initialize created meta-data
       theModulePackage.initializePackageContents();
+      theCommonPackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
       theModulePackage.freeze();
@@ -840,36 +824,6 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
     * 
     * @generated
     */
-   public EClass getEStringMapEntry()
-   {
-      return eStringMapEntryEClass;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EAttribute getEStringMapEntry_Key()
-   {
-      return (EAttribute) eStringMapEntryEClass.getEStructuralFeatures().get(0);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EAttribute getEStringMapEntry_Value()
-   {
-      return (EAttribute) eStringMapEntryEClass.getEStructuralFeatures().get(1);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
    public EClass getIdentifiable()
    {
       return identifiableEClass;
@@ -1010,26 +964,6 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
     * 
     * @generated
     */
-   public EDataType getEJavaFile()
-   {
-      return eJavaFileEDataType;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EDataType getELocale()
-   {
-      return eLocaleEDataType;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
    private boolean isCreated = false;
 
    /**
@@ -1117,10 +1051,6 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       createEAttribute(annotationEClass, ANNOTATION__SOURCE);
       createEReference(annotationEClass, ANNOTATION__ENTRIES);
 
-      eStringMapEntryEClass = createEClass(ESTRING_MAP_ENTRY);
-      createEAttribute(eStringMapEntryEClass, ESTRING_MAP_ENTRY__KEY);
-      createEAttribute(eStringMapEntryEClass, ESTRING_MAP_ENTRY__VALUE);
-
       identifiableEClass = createEClass(IDENTIFIABLE);
       createEAttribute(identifiableEClass, IDENTIFIABLE__ID);
       createEAttribute(identifiableEClass, IDENTIFIABLE__VERSION);
@@ -1138,8 +1068,6 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       createEAttribute(referenceEClass, REFERENCE__VERSION_RANGE);
 
       // Create data types
-      eJavaFileEDataType = createEDataType(EJAVA_FILE);
-      eLocaleEDataType = createEDataType(ELOCALE);
       identifierEDataType = createEDataType(IDENTIFIER);
    }
 
@@ -1166,6 +1094,9 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       setName(eNAME);
       setNsPrefix(eNS_PREFIX);
       setNsURI(eNS_URI);
+
+      // Obtain other dependent packages
+      CommonPackage theCommonPackage = (CommonPackage) EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
       // Create type parameters
       ETypeParameter projectFacetEClass_P = addETypeParameter(projectFacetEClass, "P");
@@ -1219,8 +1150,9 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       initEAttribute(getAbstractModule_LayoutId(), ecorePackage.getEString(), "layoutId", null, 1, 1,
          AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getAbstractModule_Locales(), this.getELocale(), "locales", null, 0, -1, AbstractModule.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getAbstractModule_Locales(), theCommonPackage.getELocale(), "locales", null, 0, -1,
+         AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
       initEReference(getAbstractModule_Facets(), this.getAbstractFacet(), this.getAbstractFacet_Parent(), "facets",
          null, 0, -1, AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
          !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1376,8 +1308,9 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
 
       initEClass(fileContainerEClass, FileContainer.class, "FileContainer", IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getFileContainer_Directory(), this.getEJavaFile(), "directory", null, 0, 1, FileContainer.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getFileContainer_Directory(), theCommonPackage.getEJavaFile(), "directory", null, 0, 1,
+         FileContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
 
       initEClass(derivableEClass, Derivable.class, "Derivable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
       initEAttribute(getDerivable_Derived(), ecorePackage.getEBoolean(), "derived", null, 0, 1, Derivable.class,
@@ -1437,16 +1370,9 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEAttribute(getAnnotation_Source(), ecorePackage.getEString(), "source", null, 1, 1, Annotation.class,
          !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getAnnotation_Entries(), this.getEStringMapEntry(), null, "entries", null, 0, -1,
+      initEReference(getAnnotation_Entries(), theCommonPackage.getEStringMapEntry(), null, "entries", null, 0, -1,
          Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-      initEClass(eStringMapEntryEClass, Map.Entry.class, "EStringMapEntry", !IS_ABSTRACT, !IS_INTERFACE,
-         !IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getEStringMapEntry_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getEStringMapEntry_Value(), ecorePackage.getEString(), "value", null, 0, 1, Map.Entry.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
@@ -1474,8 +1400,9 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
          this.getProductsFacet_ProductDefinitions(), "parent", null, 1, 1, ProductDefinition.class, !IS_TRANSIENT,
          !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
          IS_ORDERED);
-      initEAttribute(getProductDefinition_File(), this.getEJavaFile(), "file", null, 1, 1, ProductDefinition.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getProductDefinition_File(), theCommonPackage.getEJavaFile(), "file", null, 1, 1,
+         ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
       initEReference(getProductDefinition_ProductPlugin(), this.getReference(), null, "productPlugin", null, 1, 1,
          ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1495,8 +1422,6 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       addEParameter(op, ecorePackage.getEString(), "version", 0, 1, IS_UNIQUE, IS_ORDERED);
 
       // Initialize data types
-      initEDataType(eJavaFileEDataType, File.class, "EJavaFile", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
-      initEDataType(eLocaleEDataType, Locale.class, "ELocale", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
       initEDataType(identifierEDataType, Identifier.class, "Identifier", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
       // Create resource

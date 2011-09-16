@@ -6,10 +6,6 @@
 
 package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import java.io.File;
-import java.util.Locale;
-import java.util.Map;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
@@ -109,8 +105,6 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
             return createFeatureInclude();
          case ModulePackage.ANNOTATION :
             return createAnnotation();
-         case ModulePackage.ESTRING_MAP_ENTRY :
-            return (EObject) createEStringMapEntry();
          case ModulePackage.PRODUCTS_FACET :
             return createProductsFacet();
          case ModulePackage.PRODUCT_DEFINITION :
@@ -132,10 +126,6 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
    {
       switch (eDataType.getClassifierID())
       {
-         case ModulePackage.EJAVA_FILE :
-            return createEJavaFileFromString(eDataType, initialValue);
-         case ModulePackage.ELOCALE :
-            return createELocaleFromString(eDataType, initialValue);
          case ModulePackage.IDENTIFIER :
             return createIdentifierFromString(eDataType, initialValue);
          default :
@@ -153,10 +143,6 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
    {
       switch (eDataType.getClassifierID())
       {
-         case ModulePackage.EJAVA_FILE :
-            return convertEJavaFileToString(eDataType, instanceValue);
-         case ModulePackage.ELOCALE :
-            return convertELocaleToString(eDataType, instanceValue);
          case ModulePackage.IDENTIFIER :
             return convertIdentifierToString(eDataType, instanceValue);
          default :
@@ -301,17 +287,6 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
     * 
     * @generated
     */
-   public Map.Entry<String, String> createEStringMapEntry()
-   {
-      EStringMapEntryImpl eStringMapEntry = new EStringMapEntryImpl();
-      return eStringMapEntry;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
    public ProductsFacet createProductsFacet()
    {
       ProductsFacetImpl productsFacet = new ProductsFacetImpl();
@@ -338,46 +313,6 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
    {
       ReferenceImpl reference = new ReferenceImpl();
       return reference;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public File createEJavaFileFromString(EDataType eDataType, String initialValue)
-   {
-      return (File) super.createFromString(eDataType, initialValue);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public String convertEJavaFileToString(EDataType eDataType, Object instanceValue)
-   {
-      return super.convertToString(eDataType, instanceValue);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public Locale createELocaleFromString(EDataType eDataType, String initialValue)
-   {
-      return (Locale) super.createFromString(eDataType, initialValue);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public String convertELocaleToString(EDataType eDataType, Object instanceValue)
-   {
-      return super.convertToString(eDataType, instanceValue);
    }
 
    /**

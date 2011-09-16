@@ -4,7 +4,7 @@
  * $Id$
  */
 
-package org.sourcepit.beef.b2.model.module.internal.impl;
+package org.sourcepit.beef.b2.model.common.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicEMap;
@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.common.CommonPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>EString Map Entry</b></em>'. <!-- end-user-doc
@@ -21,8 +21,8 @@ import org.sourcepit.beef.b2.model.module.ModulePackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.EStringMapEntryImpl#getTypedKey <em>Key</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.EStringMapEntryImpl#getTypedValue <em>Value</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.internal.impl.EStringMapEntryImpl#getTypedKey <em>Key</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.internal.impl.EStringMapEntryImpl#getTypedValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 
@@ -88,7 +88,7 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.ESTRING_MAP_ENTRY;
+      return CommonPackage.Literals.ESTRING_MAP_ENTRY;
    }
 
    /**
@@ -111,7 +111,7 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
       String oldKey = key;
       key = newKey;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ESTRING_MAP_ENTRY__KEY, oldKey, key));
+         eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ESTRING_MAP_ENTRY__KEY, oldKey, key));
    }
 
    /**
@@ -134,7 +134,7 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
       String oldValue = value;
       value = newValue;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ESTRING_MAP_ENTRY__VALUE, oldValue, value));
+         eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ESTRING_MAP_ENTRY__VALUE, oldValue, value));
    }
 
    /**
@@ -147,9 +147,9 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    {
       switch (featureID)
       {
-         case ModulePackage.ESTRING_MAP_ENTRY__KEY :
+         case CommonPackage.ESTRING_MAP_ENTRY__KEY :
             return getTypedKey();
-         case ModulePackage.ESTRING_MAP_ENTRY__VALUE :
+         case CommonPackage.ESTRING_MAP_ENTRY__VALUE :
             return getTypedValue();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -165,10 +165,10 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    {
       switch (featureID)
       {
-         case ModulePackage.ESTRING_MAP_ENTRY__KEY :
+         case CommonPackage.ESTRING_MAP_ENTRY__KEY :
             setTypedKey((String) newValue);
             return;
-         case ModulePackage.ESTRING_MAP_ENTRY__VALUE :
+         case CommonPackage.ESTRING_MAP_ENTRY__VALUE :
             setTypedValue((String) newValue);
             return;
       }
@@ -185,10 +185,10 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    {
       switch (featureID)
       {
-         case ModulePackage.ESTRING_MAP_ENTRY__KEY :
+         case CommonPackage.ESTRING_MAP_ENTRY__KEY :
             setTypedKey(KEY_EDEFAULT);
             return;
-         case ModulePackage.ESTRING_MAP_ENTRY__VALUE :
+         case CommonPackage.ESTRING_MAP_ENTRY__VALUE :
             setTypedValue(VALUE_EDEFAULT);
             return;
       }
@@ -205,9 +205,9 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    {
       switch (featureID)
       {
-         case ModulePackage.ESTRING_MAP_ENTRY__KEY :
+         case CommonPackage.ESTRING_MAP_ENTRY__KEY :
             return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
-         case ModulePackage.ESTRING_MAP_ENTRY__VALUE :
+         case CommonPackage.ESTRING_MAP_ENTRY__VALUE :
             return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
       }
       return super.eIsSet(featureID);

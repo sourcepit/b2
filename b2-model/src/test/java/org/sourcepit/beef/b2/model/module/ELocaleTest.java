@@ -9,13 +9,15 @@ import java.util.Locale;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EDataType;
+import org.sourcepit.beef.b2.model.common.CommonFactory;
+import org.sourcepit.beef.b2.model.common.CommonPackage;
 
 public class ELocaleTest extends TestCase
 {
    public void testConvert() throws Exception
    {
-      EDataType eLocaleType = ModulePackage.eINSTANCE.getELocale();
-      ModuleFactory converter = ModuleFactory.eINSTANCE;
+      EDataType eLocaleType = CommonPackage.eINSTANCE.getELocale();
+      CommonFactory converter = CommonFactory.eINSTANCE;
 
       assertNull(converter.convertToString(eLocaleType, null));
       assertEquals("", converter.convertToString(eLocaleType, new Locale("")));
@@ -26,8 +28,8 @@ public class ELocaleTest extends TestCase
 
    public void testFromString() throws Exception
    {
-      EDataType eLocaleType = ModulePackage.eINSTANCE.getELocale();
-      ModuleFactory converter = ModuleFactory.eINSTANCE;
+      EDataType eLocaleType = CommonPackage.eINSTANCE.getELocale();
+      CommonFactory converter = CommonFactory.eINSTANCE;
 
       assertNull(converter.convertToString(eLocaleType, null));
       assertEquals("", converter.convertToString(eLocaleType, new Locale("")));

@@ -66,7 +66,7 @@ public interface ProductDefinition extends Annotateable, Derivable
     * @return the value of the '<em>File</em>' attribute.
     * @see #setFile(File)
     * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProductDefinition_File()
-    * @model dataType="org.sourcepit.beef.b2.model.module.EJavaFile" required="true"
+    * @model dataType="org.sourcepit.beef.b2.model.common.EJavaFile" required="true"
     * @generated
     */
    File getFile();

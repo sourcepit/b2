@@ -1008,7 +1008,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getReference()
     * @generated
     */
-   int REFERENCE = 24;
+   int REFERENCE = 23;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1262,41 +1262,6 @@ public interface ModulePackage extends EPackage
    int ANNOTATION_FEATURE_COUNT = 3;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.EStringMapEntryImpl
-    * <em>EString Map Entry</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.EStringMapEntryImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getEStringMapEntry()
-    * @generated
-    */
-   int ESTRING_MAP_ENTRY = 20;
-
-   /**
-    * The feature id for the '<em><b>Key</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ESTRING_MAP_ENTRY__KEY = 0;
-
-   /**
-    * The feature id for the '<em><b>Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ESTRING_MAP_ENTRY__VALUE = 1;
-
-   /**
-    * The number of structural features of the '<em>EString Map Entry</em>' class. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ESTRING_MAP_ENTRY_FEATURE_COUNT = 2;
-
-   /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}' class.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -1304,7 +1269,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifiable()
     * @generated
     */
-   int IDENTIFIABLE = 21;
+   int IDENTIFIABLE = 20;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1339,7 +1304,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProductsFacet()
     * @generated
     */
-   int PRODUCTS_FACET = 22;
+   int PRODUCTS_FACET = 21;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1400,7 +1365,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProductDefinition()
     * @generated
     */
-   int PRODUCT_DEFINITION = 23;
+   int PRODUCT_DEFINITION = 22;
 
    /**
     * The feature id for the '<em><b>Annotations</b></em>' containment reference list. <!-- begin-user-doc --> <!--
@@ -1460,27 +1425,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifier()
     * @generated
     */
-   int IDENTIFIER = 27;
-
-   /**
-    * The meta object id for the '<em>EJava File</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see java.io.File
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getEJavaFile()
-    * @generated
-    */
-   int EJAVA_FILE = 25;
-
-
-   /**
-    * The meta object id for the '<em>ELocale</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see java.util.Locale
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getELocale()
-    * @generated
-    */
-   int ELOCALE = 26;
-
+   int IDENTIFIER = 24;
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.AbstractModule
@@ -2057,39 +2002,6 @@ public interface ModulePackage extends EPackage
    EReference getAnnotation_Entries();
 
    /**
-    * Returns the meta object for class '{@link java.util.Map.Entry <em>EString Map Entry</em>}'. <!-- begin-user-doc
-    * --> <!-- end-user-doc -->
-    * 
-    * @return the meta object for class '<em>EString Map Entry</em>'.
-    * @see java.util.Map.Entry
-    * @model keyDataType="org.eclipse.emf.ecore.EString" valueDataType="org.eclipse.emf.ecore.EString"
-    * @generated
-    */
-   EClass getEStringMapEntry();
-
-   /**
-    * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
-    * 
-    * @return the meta object for the attribute '<em>Key</em>'.
-    * @see java.util.Map.Entry
-    * @see #getEStringMapEntry()
-    * @generated
-    */
-   EAttribute getEStringMapEntry_Key();
-
-   /**
-    * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @return the meta object for the attribute '<em>Value</em>'.
-    * @see java.util.Map.Entry
-    * @see #getEStringMapEntry()
-    * @generated
-    */
-   EAttribute getEStringMapEntry_Value();
-
-   /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}'.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -2238,28 +2150,6 @@ public interface ModulePackage extends EPackage
     * @generated
     */
    ModuleFactory getModuleFactory();
-
-   /**
-    * Returns the meta object for data type '{@link java.io.File <em>EJava File</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
-    * 
-    * @return the meta object for data type '<em>EJava File</em>'.
-    * @see java.io.File
-    * @model instanceClass="java.io.File"
-    * @generated
-    */
-   EDataType getEJavaFile();
-
-   /**
-    * Returns the meta object for data type '{@link java.util.Locale <em>ELocale</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
-    * 
-    * @return the meta object for data type '<em>ELocale</em>'.
-    * @see java.util.Locale
-    * @model instanceClass="java.util.Locale"
-    * @generated
-    */
-   EDataType getELocale();
 
    /**
     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -2732,32 +2622,6 @@ public interface ModulePackage extends EPackage
       EReference ANNOTATION__ENTRIES = eINSTANCE.getAnnotation_Entries();
 
       /**
-       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.EStringMapEntryImpl
-       * <em>EString Map Entry</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-       * 
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.EStringMapEntryImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getEStringMapEntry()
-       * @generated
-       */
-      EClass ESTRING_MAP_ENTRY = eINSTANCE.getEStringMapEntry();
-
-      /**
-       * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!-- begin-user-doc --> <!--
-       * end-user-doc -->
-       * 
-       * @generated
-       */
-      EAttribute ESTRING_MAP_ENTRY__KEY = eINSTANCE.getEStringMapEntry_Key();
-
-      /**
-       * The meta object literal for the '<em><b>Value</b></em>' attribute feature. <!-- begin-user-doc --> <!--
-       * end-user-doc -->
-       * 
-       * @generated
-       */
-      EAttribute ESTRING_MAP_ENTRY__VALUE = eINSTANCE.getEStringMapEntry_Value();
-
-      /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}'
        * class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
@@ -2869,24 +2733,6 @@ public interface ModulePackage extends EPackage
        * @generated
        */
       EDataType IDENTIFIER = eINSTANCE.getIdentifier();
-
-      /**
-       * The meta object literal for the '<em>EJava File</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
-       * 
-       * @see java.io.File
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getEJavaFile()
-       * @generated
-       */
-      EDataType EJAVA_FILE = eINSTANCE.getEJavaFile();
-
-      /**
-       * The meta object literal for the '<em>ELocale</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
-       * 
-       * @see java.util.Locale
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getELocale()
-       * @generated
-       */
-      EDataType ELOCALE = eINSTANCE.getELocale();
 
    }
 

@@ -4,16 +4,36 @@
 
 package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import junit.framework.TestCase;
-
+import org.eclipse.emf.ecore.EFactory;
 import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 
-public class CModuleFactoryImplTest extends TestCase
+public class CModuleFactoryImplTest extends AbstractCustomModelFactoryImplTest
 {
-   public void testIsDefault() throws Exception
+   protected String eNsUri()
    {
-      // bernd: if this test fails edit B2ModelFactoryImpl.init() in a way that is will instantiate the
-      // CB2ModelFactoryImpl factory instead of B2ModelFactoryImpl
-      assertTrue(ModuleFactory.eINSTANCE instanceof CModuleFactoryImpl);
+      return ModulePackage.eNS_URI;
    }
+
+   protected Class<? extends EFactory> eCustomFactoryImplClass()
+   {
+      return CModuleFactoryImpl.class;
+   }
+
+   @Override
+   protected Class<? extends EFactory> eFactoryImplClass()
+   {
+      return ModuleFactoryImpl.class;
+   }
+
+   protected ModulePackage ePackageInstance()
+   {
+      return ModulePackage.eINSTANCE;
+   }
+
+   protected ModuleFactory eFactoryInstance()
+   {
+      return ModuleFactory.eINSTANCE;
+   }
+
 }

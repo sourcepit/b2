@@ -8,10 +8,17 @@
   <foreignModel>b2.ecore</foreignModel>
   <genPackages prefix="Model" basePackage="org.sourcepit.beef.b2" disposableProviderFactory="true"
       ecorePackage="b2.ecore#/">
+    <nestedGenPackages prefix="Common" disposableProviderFactory="true" classPackageSuffix="internal.impl"
+        ecorePackage="b2.ecore#//common">
+      <genDataTypes ecoreDataType="b2.ecore#//common/EJavaFile"/>
+      <genDataTypes ecoreDataType="b2.ecore#//common/ELocale"/>
+      <genClasses ecoreClass="b2.ecore#//common/EStringMapEntry">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//common/EStringMapEntry/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//common/EStringMapEntry/value"/>
+      </genClasses>
+    </nestedGenPackages>
     <nestedGenPackages prefix="Module" disposableProviderFactory="true" classPackageSuffix="internal.impl"
         ecorePackage="b2.ecore#//module">
-      <genDataTypes ecoreDataType="b2.ecore#//module/EJavaFile"/>
-      <genDataTypes ecoreDataType="b2.ecore#//module/ELocale"/>
       <genDataTypes ecoreDataType="b2.ecore#//module/Identifier"/>
       <genClasses image="false" ecoreClass="b2.ecore#//module/AbstractModule">
         <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//module/AbstractModule/parent"/>
@@ -122,10 +129,6 @@
         <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//module/Annotation/parent"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/Annotation/source"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/Annotation/entries"/>
-      </genClasses>
-      <genClasses ecoreClass="b2.ecore#//module/EStringMapEntry">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/EStringMapEntry/key"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/EStringMapEntry/value"/>
       </genClasses>
       <genClasses image="false" ecoreClass="b2.ecore#//module/Identifiable">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/Identifiable/id"/>

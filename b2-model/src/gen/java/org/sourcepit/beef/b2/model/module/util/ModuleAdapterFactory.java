@@ -6,8 +6,6 @@
 
 package org.sourcepit.beef.b2.model.module.util;
 
-import java.util.Map;
-
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
@@ -214,12 +212,6 @@ public class ModuleAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAnnotation(Annotation object)
       {
          return createAnnotationAdapter();
-      }
-
-      @Override
-      public Adapter caseEStringMapEntry(Map.Entry<String, String> object)
-      {
-         return createEStringMapEntryAdapter();
       }
 
       @Override
@@ -544,20 +536,6 @@ public class ModuleAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createAnnotationAdapter()
-   {
-      return null;
-   }
-
-   /**
-    * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>EString Map Entry</em>}'. <!--
-    * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful to
-    * ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-    * 
-    * @return the new adapter.
-    * @see java.util.Map.Entry
-    * @generated
-    */
-   public Adapter createEStringMapEntryAdapter()
    {
       return null;
    }

@@ -17,6 +17,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.internal.impl.EStringMapEntryImpl;
 import org.sourcepit.beef.b2.model.module.Annotateable;
 import org.sourcepit.beef.b2.model.module.Annotation;
 import org.sourcepit.beef.b2.model.module.ModulePackage;
@@ -168,7 +170,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    {
       if (entries == null)
       {
-         entries = new EcoreEMap<String, String>(ModulePackage.Literals.ESTRING_MAP_ENTRY, EStringMapEntryImpl.class,
+         entries = new EcoreEMap<String, String>(CommonPackage.Literals.ESTRING_MAP_ENTRY, EStringMapEntryImpl.class,
             this, ModulePackage.ANNOTATION__ENTRIES);
       }
       return entries;

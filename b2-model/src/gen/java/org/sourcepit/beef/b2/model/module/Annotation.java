@@ -93,7 +93,7 @@ public interface Annotation extends EObject
     * @return the value of the '<em>Entries</em>' map.
     * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation_Entries()
     * @model mapType=
-    *        "org.sourcepit.beef.b2.model.module.EStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
+    *        "org.sourcepit.beef.b2.model.common.EStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
     * @generated
     */
    EMap<String, String> getEntries();

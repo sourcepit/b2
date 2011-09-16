@@ -3,6 +3,15 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model"
     nsURI="http://www.sourcepit.org/b2/model/0.1" nsPrefix="model">
+  <eSubpackages name="common" nsURI="http://www.sourcepit.org/b2/model/0.1/common"
+      nsPrefix="common">
+    <eClassifiers xsi:type="ecore:EDataType" name="EJavaFile" instanceClassName="java.io.File"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="ELocale" instanceClassName="java.util.Locale"/>
+    <eClassifiers xsi:type="ecore:EClass" name="EStringMapEntry" instanceClassName="java.util.Map$Entry">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
   <eSubpackages name="module" nsURI="http://www.sourcepit.org/b2/model/0.1/module"
       nsPrefix="module">
     <eClassifiers xsi:type="ecore:EClass" name="AbstractModule" abstract="true" eSuperTypes="#//module/FileContainer #//module/Annotateable #//module/Identifiable">
@@ -55,7 +64,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutId" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="locales" upperBound="-1"
-          eType="#//module/ELocale"/>
+          eType="#//common/ELocale"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="facets" upperBound="-1"
           eType="#//module/AbstractFacet" containment="true" eOpposite="#//module/AbstractFacet/parent"/>
     </eClassifiers>
@@ -145,9 +154,8 @@
       </eOperations>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FileContainer" abstract="true">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directory" eType="#//module/EJavaFile"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directory" eType="#//common/EJavaFile"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EDataType" name="EJavaFile" instanceClassName="java.io.File"/>
     <eClassifiers xsi:type="ecore:EClass" name="Derivable" abstract="true" interface="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="derived" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
@@ -167,7 +175,6 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//module/FeatureProject" eOpposite="#//module/FeatureProject/includedFeatures"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EDataType" name="ELocale" instanceClassName="java.util.Locale"/>
     <eClassifiers xsi:type="ecore:EClass" name="Classified" abstract="true" interface="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="classifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
@@ -193,11 +200,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
-          eType="#//module/EStringMapEntry" containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="EStringMapEntry" instanceClassName="java.util.Map$Entry">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          eType="#//common/EStringMapEntry" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true" interface="true">
       <eOperations name="isIdentifyableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -215,7 +218,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//module/ProductsFacet" eOpposite="#//module/ProductsFacet/productDefinitions"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1"
-          eType="#//module/EJavaFile"/>
+          eType="#//common/EJavaFile"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="productPlugin" lowerBound="1"
           eType="#//module/Reference" containment="true"/>
     </eClassifiers>

@@ -4,9 +4,6 @@
 
 package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import java.util.Locale;
-
-import org.eclipse.emf.ecore.EDataType;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
@@ -99,22 +96,5 @@ public class CModuleFactoryImpl extends ModuleFactoryImpl
    public FeatureInclude createFeatureInclude()
    {
       return new CFeatureIncludeImpl();
-   }
-
-   @Override
-   public Locale createELocaleFromString(EDataType eDataType, String initialValue)
-   {
-      if (initialValue == null)
-      {
-         return null;
-      }
-      String[] groups = initialValue.split("_");
-      final String[] segments = new String[3];
-      for (int i = 0; i < segments.length; i++)
-      {
-         String group = groups.length > i ? groups[i] : null;
-         segments[i] = group == null ? "" : group.startsWith("_") ? group.substring(1) : group;
-      }
-      return new Locale(segments[0], segments[1], segments[2]);
    }
 }
