@@ -2,7 +2,7 @@
  * Copyright (C) 2007 Innovations Softwaretechnologie GmbH, Immenstaad, Germany. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.internal.util;
+package org.sourcepit.beef.b2.model.module.internal.util;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;

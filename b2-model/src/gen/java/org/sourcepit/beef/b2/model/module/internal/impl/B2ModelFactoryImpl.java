@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.sourcepit.beef.b2.model.internal.impl.CB2ModelFactoryImpl;
 import org.sourcepit.beef.b2.model.module.Annotation;
 import org.sourcepit.beef.b2.model.module.B2ModelFactory;
 import org.sourcepit.beef.b2.model.module.B2ModelPackage;
@@ -34,7 +33,8 @@ import org.sourcepit.beef.b2.model.module.ProductsFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
-import org.sourcepit.beef.b2.model.util.Identifier;
+import org.sourcepit.beef.b2.model.module.internal.impl.CB2ModelFactoryImpl;
+import org.sourcepit.beef.b2.model.module.util.Identifier;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->

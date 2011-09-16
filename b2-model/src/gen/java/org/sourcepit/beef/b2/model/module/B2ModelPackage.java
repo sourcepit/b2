@@ -1456,7 +1456,7 @@ public interface B2ModelPackage extends EPackage
    /**
     * The meta object id for the '<em>Identifier</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @see org.sourcepit.beef.b2.model.util.Identifier
+    * @see org.sourcepit.beef.b2.model.module.util.Identifier
     * @see org.sourcepit.beef.b2.model.module.internal.impl.B2ModelPackageImpl#getIdentifier()
     * @generated
     */
@@ -2221,11 +2221,11 @@ public interface B2ModelPackage extends EPackage
    EAttribute getReference_VersionRange();
 
    /**
-    * Returns the meta object for data type '{@link org.sourcepit.beef.b2.model.util.Identifier <em>Identifier</em>}'.
+    * Returns the meta object for data type '{@link org.sourcepit.beef.b2.model.module.util.Identifier <em>Identifier</em>}'.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for data type '<em>Identifier</em>'.
-    * @see org.sourcepit.beef.b2.model.util.Identifier
+    * @see org.sourcepit.beef.b2.model.module.util.Identifier
     * @model instanceClass="org.sourcepit.beef.b2.model.util.Identifier"
     * @generated
     */
@@ -2864,7 +2864,7 @@ public interface B2ModelPackage extends EPackage
       /**
        * The meta object literal for the '<em>Identifier</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
-       * @see org.sourcepit.beef.b2.model.util.Identifier
+       * @see org.sourcepit.beef.b2.model.module.util.Identifier
        * @see org.sourcepit.beef.b2.model.module.internal.impl.B2ModelPackageImpl#getIdentifier()
        * @generated
        */

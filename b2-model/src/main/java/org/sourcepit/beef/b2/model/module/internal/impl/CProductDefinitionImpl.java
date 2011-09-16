@@ -2,28 +2,14 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.internal.impl;
+package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
-import org.sourcepit.beef.b2.model.internal.util.IdentifiableUtils;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.internal.impl.FeatureProjectImpl;
-import org.sourcepit.beef.b2.model.util.Identifier;
+import org.sourcepit.beef.b2.model.module.internal.impl.ProductDefinitionImpl;
+import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
 
-public class CFeatureProjectImpl extends FeatureProjectImpl
+public class CProductDefinitionImpl extends ProductDefinitionImpl
 {
-   @Override
-   public Identifier toIdentifier()
-   {
-      return IdentifiableUtils.toIdentifier(this);
-   }
-
-   @Override
-   public boolean isIdentifyableBy(Identifier identifier)
-   {
-      return IdentifiableUtils.isIdentifyableBy(this, identifier);
-   }
-
    @Override
    public Annotation getAnnotation(String source)
    {

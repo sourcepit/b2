@@ -2,13 +2,13 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.internal.impl;
+package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
-import org.sourcepit.beef.b2.model.internal.util.IdentifiableUtils;
 import org.sourcepit.beef.b2.model.module.Annotation;
 import org.sourcepit.beef.b2.model.module.internal.impl.SiteProjectImpl;
-import org.sourcepit.beef.b2.model.util.Identifier;
+import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.IdentifiableUtils;
+import org.sourcepit.beef.b2.model.module.util.Identifier;
 
 public class CSiteProjectImpl extends SiteProjectImpl
 {

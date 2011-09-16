@@ -6,36 +6,25 @@
  * Contributors: Bernd - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-package org.sourcepit.beef.b2.model.internal.impl;
+package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
-import org.sourcepit.beef.b2.model.internal.util.IdentifiableUtils;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl;
-import org.sourcepit.beef.b2.model.util.Identifier;
-
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.Reference;
+import org.sourcepit.beef.b2.model.module.internal.impl.FeaturesFacetImpl;
+import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.FacetUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.ProjectUtils;
 
 /**
  * @author Bernd
  */
-public class CPluginProjectImpl extends PluginProjectImpl
+public class CFeaturesFacetImpl extends FeaturesFacetImpl
 {
    @Override
-   public Identifier toIdentifier()
+   public FeatureProject getProjectById(String name)
    {
-      return IdentifiableUtils.toIdentifier(this);
-   }
-
-   @Override
-   public boolean isIdentifyableBy(Identifier identifier)
-   {
-      return IdentifiableUtils.isIdentifyableBy(this, identifier);
-   }
-
-   @Override
-   public boolean isFragment()
-   {
-      return getFragmentHostSymbolicName() != null;
+      return ProjectUtils.getProjectById(projects, name);
    }
 
    @Override
@@ -54,5 +43,11 @@ public class CPluginProjectImpl extends PluginProjectImpl
    public String putAnnotationEntry(String source, String key, String value)
    {
       return AnnotationUtils.putAnnotationEntry(getAnnotations(), source, key, value);
+   }
+
+   @Override
+   public FeatureProject resolveReference(Reference reference)
+   {
+      return FacetUtils.resolveReference(this, reference);
    }
 }

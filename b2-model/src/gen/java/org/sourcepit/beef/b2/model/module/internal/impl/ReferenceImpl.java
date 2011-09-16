@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.sourcepit.beef.b2.model.module.B2ModelPackage;
 import org.sourcepit.beef.b2.model.module.Reference;
-import org.sourcepit.beef.b2.model.util.Identifier;
+import org.sourcepit.beef.b2.model.module.util.Identifier;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Reference</b></em>'. <!-- end-user-doc -->

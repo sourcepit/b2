@@ -2,21 +2,21 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.internal.impl;
+package org.sourcepit.beef.b2.model.module.internal.impl;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
-import org.sourcepit.beef.b2.model.internal.util.FacetUtils;
-import org.sourcepit.beef.b2.model.internal.util.IdentifiableUtils;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.Annotation;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
-import org.sourcepit.beef.b2.model.module.internal.impl.CompositeModuleImpl;
-import org.sourcepit.beef.b2.model.util.Identifier;
+import org.sourcepit.beef.b2.model.module.internal.impl.BasicModuleImpl;
+import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.FacetUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.IdentifiableUtils;
+import org.sourcepit.beef.b2.model.module.util.Identifier;
 
-public class CCompositeModuleImpl extends CompositeModuleImpl
+public class CBasicModuleImpl extends BasicModuleImpl
 {
    @Override
    public Identifier toIdentifier()
@@ -70,6 +70,6 @@ public class CCompositeModuleImpl extends CompositeModuleImpl
    @Override
    public <P extends Project, F extends ProjectFacet<P>> P resolveReference(Reference reference, Class<F> facetType)
    {
-      return FacetUtils.resolveReference(this, reference, facetType, true);
+      return FacetUtils.resolveReference(this, reference, facetType, false);
    }
 }

@@ -12,6 +12,7 @@ import junit.framework.TestCase;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.model.module.B2ModelFactory;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
+import org.sourcepit.beef.b2.model.module.internal.util.EWalkerImpl;
 
 public class EWalkerImplTest extends TestCase
 {

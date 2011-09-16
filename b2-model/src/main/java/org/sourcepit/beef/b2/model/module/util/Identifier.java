@@ -2,7 +2,7 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.util;
+package org.sourcepit.beef.b2.model.module.util;
 public final class Identifier
 {
    private final String id;

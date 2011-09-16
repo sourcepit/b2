@@ -6,23 +6,23 @@
  * Contributors: Bernd - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-package org.sourcepit.beef.b2.model.internal.impl;
+package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
-import org.sourcepit.beef.b2.model.internal.util.FacetUtils;
-import org.sourcepit.beef.b2.model.internal.util.ProjectUtils;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.Reference;
-import org.sourcepit.beef.b2.model.module.internal.impl.FeaturesFacetImpl;
+import org.sourcepit.beef.b2.model.module.SiteProject;
+import org.sourcepit.beef.b2.model.module.internal.impl.SitesFacetImpl;
+import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.FacetUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.ProjectUtils;
 
 /**
  * @author Bernd
  */
-public class CFeaturesFacetImpl extends FeaturesFacetImpl
+public class CSitesFacetImpl extends SitesFacetImpl
 {
    @Override
-   public FeatureProject getProjectById(String name)
+   public SiteProject getProjectById(String name)
    {
       return ProjectUtils.getProjectById(projects, name);
    }
@@ -46,7 +46,7 @@ public class CFeaturesFacetImpl extends FeaturesFacetImpl
    }
 
    @Override
-   public FeatureProject resolveReference(Reference reference)
+   public SiteProject resolveReference(Reference reference)
    {
       return FacetUtils.resolveReference(this, reference);
    }

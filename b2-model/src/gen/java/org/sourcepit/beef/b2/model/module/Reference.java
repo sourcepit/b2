@@ -7,7 +7,7 @@
 package org.sourcepit.beef.b2.model.module;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.util.Identifier;
+import org.sourcepit.beef.b2.model.module.util.Identifier;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Reference</b></em>'. <!-- end-user-doc -->

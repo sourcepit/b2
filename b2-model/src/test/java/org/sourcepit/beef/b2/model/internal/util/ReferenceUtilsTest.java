@@ -6,7 +6,8 @@ package org.sourcepit.beef.b2.model.internal.util;
 
 import junit.framework.TestCase;
 
-import org.sourcepit.beef.b2.model.util.Identifier;
+import org.sourcepit.beef.b2.model.module.internal.util.ReferenceUtils;
+import org.sourcepit.beef.b2.model.module.util.Identifier;
 
 /**
  * @author Bernd

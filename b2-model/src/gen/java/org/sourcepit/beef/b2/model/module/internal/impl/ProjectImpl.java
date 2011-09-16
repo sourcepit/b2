@@ -23,7 +23,7 @@ import org.sourcepit.beef.b2.model.module.Derivable;
 import org.sourcepit.beef.b2.model.module.Identifiable;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
-import org.sourcepit.beef.b2.model.util.Identifier;
+import org.sourcepit.beef.b2.model.module.util.Identifier;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->

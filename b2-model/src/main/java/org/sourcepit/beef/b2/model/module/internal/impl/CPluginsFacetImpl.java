@@ -6,23 +6,23 @@
  * Contributors: Bernd - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-package org.sourcepit.beef.b2.model.internal.impl;
+package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
-import org.sourcepit.beef.b2.model.internal.util.FacetUtils;
-import org.sourcepit.beef.b2.model.internal.util.ProjectUtils;
 import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.Reference;
-import org.sourcepit.beef.b2.model.module.SiteProject;
-import org.sourcepit.beef.b2.model.module.internal.impl.SitesFacetImpl;
+import org.sourcepit.beef.b2.model.module.internal.impl.PluginsFacetImpl;
+import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.FacetUtils;
+import org.sourcepit.beef.b2.model.module.internal.util.ProjectUtils;
 
 /**
  * @author Bernd
  */
-public class CSitesFacetImpl extends SitesFacetImpl
+public class CPluginsFacetImpl extends PluginsFacetImpl
 {
    @Override
-   public SiteProject getProjectById(String name)
+   public PluginProject getProjectById(String name)
    {
       return ProjectUtils.getProjectById(projects, name);
    }
@@ -46,7 +46,7 @@ public class CSitesFacetImpl extends SitesFacetImpl
    }
 
    @Override
-   public SiteProject resolveReference(Reference reference)
+   public PluginProject resolveReference(Reference reference)
    {
       return FacetUtils.resolveReference(this, reference);
    }

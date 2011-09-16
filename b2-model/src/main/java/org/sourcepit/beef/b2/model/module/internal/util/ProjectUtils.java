@@ -6,7 +6,7 @@
  * Contributors: Bernd - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
-package org.sourcepit.beef.b2.model.internal.util;
+package org.sourcepit.beef.b2.model.module.internal.util;
 
 import java.util.List;
 

@@ -2,13 +2,13 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.internal.impl;
+package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.internal.impl.ProductDefinitionImpl;
+import org.sourcepit.beef.b2.model.module.internal.impl.ProductsFacetImpl;
+import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
 
-public class CProductDefinitionImpl extends ProductDefinitionImpl
+public class CProductsFacetImpl extends ProductsFacetImpl
 {
    @Override
    public Annotation getAnnotation(String source)
