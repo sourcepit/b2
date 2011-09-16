@@ -10,7 +10,7 @@ import java.util.List;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 
 public class FacetsParserTest extends AbstractModuleParserTest
@@ -77,7 +77,7 @@ public class FacetsParserTest extends AbstractModuleParserTest
       List<? extends AbstractFacet> facets = result.getFacets();
       assertEquals(4, facets.size());
 
-      BasicModule dummyComponent = B2ModelFactory.eINSTANCE.createBasicModule();
+      BasicModule dummyComponent = ModuleFactory.eINSTANCE.createBasicModule();
       dummyComponent.setLayoutId(result.getLayout());
       dummyComponent.getFacets().addAll(facets);
 
@@ -99,7 +99,7 @@ public class FacetsParserTest extends AbstractModuleParserTest
       List<? extends AbstractFacet> facets = result.getFacets();
       assertEquals(5, facets.size());
 
-      BasicModule dummyComponent = B2ModelFactory.eINSTANCE.createBasicModule();
+      BasicModule dummyComponent = ModuleFactory.eINSTANCE.createBasicModule();
       dummyComponent.setLayoutId(result.getLayout());
       dummyComponent.getFacets().addAll(facets);
 

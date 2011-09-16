@@ -10,7 +10,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
@@ -60,7 +60,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       final List<ProjectFacet<? extends Project>> facets = result.getFacets();
       assertEquals(5, facets.size());
 
-      BasicModule dummyComponent = B2ModelFactory.eINSTANCE.createBasicModule();
+      BasicModule dummyComponent = ModuleFactory.eINSTANCE.createBasicModule();
       dummyComponent.setLayoutId(result.getLayout());
       dummyComponent.getFacets().addAll(facets);
 

@@ -15,7 +15,7 @@ import javax.inject.Named;
 
 import org.sourcepit.beef.b2.model.builder.internal.util.ManifestUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 
 import com.springsource.util.osgi.manifest.parse.DummyParserLogger;
@@ -48,7 +48,7 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
          return null;
       }
 
-      final PluginProject project = B2ModelFactory.eINSTANCE.createPluginProject();
+      final PluginProject project = ModuleFactory.eINSTANCE.createPluginProject();
       project.setId(symbolicName);
       project.setVersion(ManifestUtils.getBundleVersion(manifest));
       project.setDirectory(directory);

@@ -10,7 +10,7 @@ import javax.inject.Named;
 
 import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 
 @Named("site")
@@ -23,7 +23,7 @@ public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject
       {
          XmlUtils.readXml(new File(directory, "site.xml"));
 
-         final SiteProject siteProject = B2ModelFactory.eINSTANCE.createSiteProject();
+         final SiteProject siteProject = ModuleFactory.eINSTANCE.createSiteProject();
          siteProject.setDirectory(directory);
          siteProject.setId(directory.getName());
          siteProject.setVersion(converter.getModuleVersion());

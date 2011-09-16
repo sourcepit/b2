@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.sonatype.guice.bean.containers.InjectedTestCase;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 
 public class InterpolationLayoutsTest extends InjectedTestCase
@@ -19,7 +19,7 @@ public class InterpolationLayoutsTest extends InjectedTestCase
 
    public void testIdOfProject() throws Exception
    {
-      BasicModule module = B2ModelFactory.eINSTANCE.createBasicModule();
+      BasicModule module = ModuleFactory.eINSTANCE.createBasicModule();
       module.setId("foo.module");
       assertFalse(layouts.isEmpty());
 
