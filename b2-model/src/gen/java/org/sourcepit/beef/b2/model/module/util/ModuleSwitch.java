@@ -15,7 +15,7 @@ import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.Annotateable;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.Classified;
@@ -43,28 +43,28 @@ import org.sourcepit.beef.b2.model.module.SitesFacet;
  * starting with the actual class of the object and proceeding up the inheritance hierarchy until a non-null result is
  * returned, which is the result of the switch. <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage
  * @generated
  */
-public class B2ModelSwitch<T> extends Switch<T>
+public class ModuleSwitch<T> extends Switch<T>
 {
    /**
     * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected static B2ModelPackage modelPackage;
+   protected static ModulePackage modelPackage;
 
    /**
     * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   public B2ModelSwitch()
+   public ModuleSwitch()
    {
       if (modelPackage == null)
       {
-         modelPackage = B2ModelPackage.eINSTANCE;
+         modelPackage = ModulePackage.eINSTANCE;
       }
    }
 
@@ -93,7 +93,7 @@ public class B2ModelSwitch<T> extends Switch<T>
    {
       switch (classifierID)
       {
-         case B2ModelPackage.ABSTRACT_MODULE :
+         case ModulePackage.ABSTRACT_MODULE :
          {
             AbstractModule abstractModule = (AbstractModule) theEObject;
             T result = caseAbstractModule(abstractModule);
@@ -107,7 +107,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.BASIC_MODULE :
+         case ModulePackage.BASIC_MODULE :
          {
             BasicModule basicModule = (BasicModule) theEObject;
             T result = caseBasicModule(basicModule);
@@ -123,7 +123,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.ABSTRACT_FACET :
+         case ModulePackage.ABSTRACT_FACET :
          {
             AbstractFacet abstractFacet = (AbstractFacet) theEObject;
             T result = caseAbstractFacet(abstractFacet);
@@ -135,7 +135,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.COMPOSITE_MODULE :
+         case ModulePackage.COMPOSITE_MODULE :
          {
             CompositeModule compositeModule = (CompositeModule) theEObject;
             T result = caseCompositeModule(compositeModule);
@@ -151,7 +151,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.PLUGINS_FACET :
+         case ModulePackage.PLUGINS_FACET :
          {
             PluginsFacet pluginsFacet = (PluginsFacet) theEObject;
             T result = casePluginsFacet(pluginsFacet);
@@ -167,7 +167,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.FEATURES_FACET :
+         case ModulePackage.FEATURES_FACET :
          {
             FeaturesFacet featuresFacet = (FeaturesFacet) theEObject;
             T result = caseFeaturesFacet(featuresFacet);
@@ -183,7 +183,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.SITES_FACET :
+         case ModulePackage.SITES_FACET :
          {
             SitesFacet sitesFacet = (SitesFacet) theEObject;
             T result = caseSitesFacet(sitesFacet);
@@ -199,7 +199,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.PLUGIN_PROJECT :
+         case ModulePackage.PLUGIN_PROJECT :
          {
             PluginProject pluginProject = (PluginProject) theEObject;
             T result = casePluginProject(pluginProject);
@@ -217,7 +217,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.FEATURE_PROJECT :
+         case ModulePackage.FEATURE_PROJECT :
          {
             FeatureProject featureProject = (FeatureProject) theEObject;
             T result = caseFeatureProject(featureProject);
@@ -237,7 +237,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.SITE_PROJECT :
+         case ModulePackage.SITE_PROJECT :
          {
             SiteProject siteProject = (SiteProject) theEObject;
             T result = caseSiteProject(siteProject);
@@ -257,7 +257,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.PROJECT :
+         case ModulePackage.PROJECT :
          {
             Project project = (Project) theEObject;
             T result = caseProject(project);
@@ -273,7 +273,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.PROJECT_FACET :
+         case ModulePackage.PROJECT_FACET :
          {
             ProjectFacet<?> projectFacet = (ProjectFacet<?>) theEObject;
             T result = caseProjectFacet(projectFacet);
@@ -287,7 +287,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.FILE_CONTAINER :
+         case ModulePackage.FILE_CONTAINER :
          {
             FileContainer fileContainer = (FileContainer) theEObject;
             T result = caseFileContainer(fileContainer);
@@ -295,7 +295,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.DERIVABLE :
+         case ModulePackage.DERIVABLE :
          {
             Derivable derivable = (Derivable) theEObject;
             T result = caseDerivable(derivable);
@@ -303,7 +303,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.PLUGIN_INCLUDE :
+         case ModulePackage.PLUGIN_INCLUDE :
          {
             PluginInclude pluginInclude = (PluginInclude) theEObject;
             T result = casePluginInclude(pluginInclude);
@@ -313,7 +313,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.CATEGORY :
+         case ModulePackage.CATEGORY :
          {
             Category category = (Category) theEObject;
             T result = caseCategory(category);
@@ -321,7 +321,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.FEATURE_INCLUDE :
+         case ModulePackage.FEATURE_INCLUDE :
          {
             FeatureInclude featureInclude = (FeatureInclude) theEObject;
             T result = caseFeatureInclude(featureInclude);
@@ -331,7 +331,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.CLASSIFIED :
+         case ModulePackage.CLASSIFIED :
          {
             Classified classified = (Classified) theEObject;
             T result = caseClassified(classified);
@@ -339,7 +339,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.ANNOTATEABLE :
+         case ModulePackage.ANNOTATEABLE :
          {
             Annotateable annotateable = (Annotateable) theEObject;
             T result = caseAnnotateable(annotateable);
@@ -347,7 +347,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.ANNOTATION :
+         case ModulePackage.ANNOTATION :
          {
             Annotation annotation = (Annotation) theEObject;
             T result = caseAnnotation(annotation);
@@ -355,7 +355,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.ESTRING_MAP_ENTRY :
+         case ModulePackage.ESTRING_MAP_ENTRY :
          {
             @SuppressWarnings("unchecked")
             Map.Entry<String, String> eStringMapEntry = (Map.Entry<String, String>) theEObject;
@@ -364,7 +364,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.IDENTIFIABLE :
+         case ModulePackage.IDENTIFIABLE :
          {
             Identifiable identifiable = (Identifiable) theEObject;
             T result = caseIdentifiable(identifiable);
@@ -372,7 +372,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.PRODUCTS_FACET :
+         case ModulePackage.PRODUCTS_FACET :
          {
             ProductsFacet productsFacet = (ProductsFacet) theEObject;
             T result = caseProductsFacet(productsFacet);
@@ -386,7 +386,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.PRODUCT_DEFINITION :
+         case ModulePackage.PRODUCT_DEFINITION :
          {
             ProductDefinition productDefinition = (ProductDefinition) theEObject;
             T result = caseProductDefinition(productDefinition);
@@ -398,7 +398,7 @@ public class B2ModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case B2ModelPackage.REFERENCE :
+         case ModulePackage.REFERENCE :
          {
             Reference reference = (Reference) theEObject;
             T result = caseReference(reference);

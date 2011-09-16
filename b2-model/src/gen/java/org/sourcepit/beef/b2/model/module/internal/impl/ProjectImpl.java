@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.module.Annotateable;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Derivable;
 import org.sourcepit.beef.b2.model.module.Identifiable;
 import org.sourcepit.beef.b2.model.module.Project;
@@ -127,7 +127,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.PROJECT;
+      return ModulePackage.Literals.PROJECT;
    }
 
    /**
@@ -150,7 +150,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       String oldId = id;
       id = newId;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PROJECT__ID, oldId, id));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PROJECT__ID, oldId, id));
    }
 
    /**
@@ -173,7 +173,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       String oldVersion = version;
       version = newVersion;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PROJECT__VERSION, oldVersion, version));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PROJECT__VERSION, oldVersion, version));
    }
 
    /**
@@ -196,7 +196,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       boolean oldDerived = derived;
       derived = newDerived;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PROJECT__DERIVED, oldDerived, derived));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PROJECT__DERIVED, oldDerived, derived));
    }
 
    /**
@@ -209,7 +209,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            B2ModelPackage.PROJECT__ANNOTATIONS, B2ModelPackage.ANNOTATION__PARENT);
+            ModulePackage.PROJECT__ANNOTATIONS, ModulePackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -297,7 +297,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case B2ModelPackage.PROJECT__ANNOTATIONS :
+         case ModulePackage.PROJECT__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -313,7 +313,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case B2ModelPackage.PROJECT__ANNOTATIONS :
+         case ModulePackage.PROJECT__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -329,13 +329,13 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case B2ModelPackage.PROJECT__DERIVED :
+         case ModulePackage.PROJECT__DERIVED :
             return isDerived();
-         case B2ModelPackage.PROJECT__ANNOTATIONS :
+         case ModulePackage.PROJECT__ANNOTATIONS :
             return getAnnotations();
-         case B2ModelPackage.PROJECT__ID :
+         case ModulePackage.PROJECT__ID :
             return getId();
-         case B2ModelPackage.PROJECT__VERSION :
+         case ModulePackage.PROJECT__VERSION :
             return getVersion();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -352,17 +352,17 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case B2ModelPackage.PROJECT__DERIVED :
+         case ModulePackage.PROJECT__DERIVED :
             setDerived((Boolean) newValue);
             return;
-         case B2ModelPackage.PROJECT__ANNOTATIONS :
+         case ModulePackage.PROJECT__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
             return;
-         case B2ModelPackage.PROJECT__ID :
+         case ModulePackage.PROJECT__ID :
             setId((String) newValue);
             return;
-         case B2ModelPackage.PROJECT__VERSION :
+         case ModulePackage.PROJECT__VERSION :
             setVersion((String) newValue);
             return;
       }
@@ -379,16 +379,16 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case B2ModelPackage.PROJECT__DERIVED :
+         case ModulePackage.PROJECT__DERIVED :
             setDerived(DERIVED_EDEFAULT);
             return;
-         case B2ModelPackage.PROJECT__ANNOTATIONS :
+         case ModulePackage.PROJECT__ANNOTATIONS :
             getAnnotations().clear();
             return;
-         case B2ModelPackage.PROJECT__ID :
+         case ModulePackage.PROJECT__ID :
             setId(ID_EDEFAULT);
             return;
-         case B2ModelPackage.PROJECT__VERSION :
+         case ModulePackage.PROJECT__VERSION :
             setVersion(VERSION_EDEFAULT);
             return;
       }
@@ -405,13 +405,13 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case B2ModelPackage.PROJECT__DERIVED :
+         case ModulePackage.PROJECT__DERIVED :
             return derived != DERIVED_EDEFAULT;
-         case B2ModelPackage.PROJECT__ANNOTATIONS :
+         case ModulePackage.PROJECT__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
-         case B2ModelPackage.PROJECT__ID :
+         case ModulePackage.PROJECT__ID :
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-         case B2ModelPackage.PROJECT__VERSION :
+         case ModulePackage.PROJECT__VERSION :
             return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
       }
       return super.eIsSet(featureID);
@@ -429,8 +429,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (derivedFeatureID)
          {
-            case B2ModelPackage.PROJECT__DERIVED :
-               return B2ModelPackage.DERIVABLE__DERIVED;
+            case ModulePackage.PROJECT__DERIVED :
+               return ModulePackage.DERIVABLE__DERIVED;
             default :
                return -1;
          }
@@ -439,8 +439,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (derivedFeatureID)
          {
-            case B2ModelPackage.PROJECT__ANNOTATIONS :
-               return B2ModelPackage.ANNOTATEABLE__ANNOTATIONS;
+            case ModulePackage.PROJECT__ANNOTATIONS :
+               return ModulePackage.ANNOTATEABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -449,10 +449,10 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (derivedFeatureID)
          {
-            case B2ModelPackage.PROJECT__ID :
-               return B2ModelPackage.IDENTIFIABLE__ID;
-            case B2ModelPackage.PROJECT__VERSION :
-               return B2ModelPackage.IDENTIFIABLE__VERSION;
+            case ModulePackage.PROJECT__ID :
+               return ModulePackage.IDENTIFIABLE__ID;
+            case ModulePackage.PROJECT__VERSION :
+               return ModulePackage.IDENTIFIABLE__VERSION;
             default :
                return -1;
          }
@@ -472,8 +472,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (baseFeatureID)
          {
-            case B2ModelPackage.DERIVABLE__DERIVED :
-               return B2ModelPackage.PROJECT__DERIVED;
+            case ModulePackage.DERIVABLE__DERIVED :
+               return ModulePackage.PROJECT__DERIVED;
             default :
                return -1;
          }
@@ -482,8 +482,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (baseFeatureID)
          {
-            case B2ModelPackage.ANNOTATEABLE__ANNOTATIONS :
-               return B2ModelPackage.PROJECT__ANNOTATIONS;
+            case ModulePackage.ANNOTATEABLE__ANNOTATIONS :
+               return ModulePackage.PROJECT__ANNOTATIONS;
             default :
                return -1;
          }
@@ -492,10 +492,10 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (baseFeatureID)
          {
-            case B2ModelPackage.IDENTIFIABLE__ID :
-               return B2ModelPackage.PROJECT__ID;
-            case B2ModelPackage.IDENTIFIABLE__VERSION :
-               return B2ModelPackage.PROJECT__VERSION;
+            case ModulePackage.IDENTIFIABLE__ID :
+               return ModulePackage.PROJECT__ID;
+            case ModulePackage.IDENTIFIABLE__VERSION :
+               return ModulePackage.PROJECT__VERSION;
             default :
                return -1;
          }

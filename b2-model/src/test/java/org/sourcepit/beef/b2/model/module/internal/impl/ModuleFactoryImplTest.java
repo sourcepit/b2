@@ -7,26 +7,26 @@ package org.sourcepit.beef.b2.model.module.internal.impl;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EPackage;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
-import org.sourcepit.beef.b2.model.module.internal.impl.B2ModelFactoryImpl;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.internal.impl.ModuleFactoryImpl;
 
-public class B2ModelFactoryImplTest extends TestCase
+public class ModuleFactoryImplTest extends TestCase
 {
    public void testNsUrl() throws Exception
    {
-      B2ModelFactory eFactory = B2ModelFactory.eINSTANCE;
+      ModuleFactory eFactory = ModuleFactory.eINSTANCE;
 
-      B2ModelPackage ePackage = B2ModelPackage.eINSTANCE;
+      ModulePackage ePackage = ModulePackage.eINSTANCE;
       try
       {
          assertSame(eFactory, ePackage.getEFactoryInstance());
 
-         B2ModelFactory mockFactory = new B2ModelFactoryImpl();
+         ModuleFactory mockFactory = new ModuleFactoryImpl();
          ePackage.setEFactoryInstance(mockFactory);
 
-         B2ModelFactory eFactoryFromRegistry = (B2ModelFactory) EPackage.Registry.INSTANCE
-            .getEFactory(B2ModelPackage.eNS_URI);
+         ModuleFactory eFactoryFromRegistry = (ModuleFactory) EPackage.Registry.INSTANCE
+            .getEFactory(ModulePackage.eNS_URI);
          assertNotNull(eFactoryFromRegistry);
 
          assertSame(mockFactory, eFactoryFromRegistry);
@@ -34,14 +34,14 @@ public class B2ModelFactoryImplTest extends TestCase
 
          // bernd: if this assertion fails you have to remove the not from the @generated annotation of the build model
          // factories init method, because the NS URI has changed in the model
-         assertSame(mockFactory, B2ModelFactoryImpl.init());
+         assertSame(mockFactory, ModuleFactoryImpl.init());
       }
       finally
       {
          ePackage.setEFactoryInstance(eFactory);
 
-         B2ModelFactory eFactoryFromRegistry = (B2ModelFactory) EPackage.Registry.INSTANCE
-            .getEFactory(B2ModelPackage.eNS_URI);
+         ModuleFactory eFactoryFromRegistry = (ModuleFactory) EPackage.Registry.INSTANCE
+            .getEFactory(ModulePackage.eNS_URI);
          assertNotNull(eFactoryFromRegistry);
          assertSame(eFactory, eFactoryFromRegistry);
          assertSame(eFactory, ePackage.getEFactoryInstance());

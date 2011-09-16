@@ -8,7 +8,7 @@
 
 package org.sourcepit.beef.b2.model.module;
 
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 
 import junit.framework.TestCase;
@@ -20,7 +20,7 @@ public class PluginProjectTest extends TestCase
 {
    public void testIsFragment() throws Exception
    {
-      PluginProject pluginProject = B2ModelFactory.eINSTANCE.createPluginProject();
+      PluginProject pluginProject = ModuleFactory.eINSTANCE.createPluginProject();
       pluginProject.setId("my.fragment");
       assertFalse(pluginProject.isFragment());
 

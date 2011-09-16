@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.ProductsFacet;
 
@@ -60,7 +60,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.PRODUCTS_FACET;
+      return ModulePackage.Literals.PRODUCTS_FACET;
    }
 
    /**
@@ -73,7 +73,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
       if (productDefinitions == null)
       {
          productDefinitions = new EObjectContainmentWithInverseEList<ProductDefinition>(ProductDefinition.class, this,
-            B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS, B2ModelPackage.PRODUCT_DEFINITION__PARENT);
+            ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS, ModulePackage.PRODUCT_DEFINITION__PARENT);
       }
       return productDefinitions;
    }
@@ -89,7 +89,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
+         case ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getProductDefinitions()).basicAdd(otherEnd,
                msgs);
       }
@@ -106,7 +106,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
+         case ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return ((InternalEList<?>) getProductDefinitions()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -122,7 +122,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
+         case ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return getProductDefinitions();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -139,7 +139,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
+         case ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             getProductDefinitions().clear();
             getProductDefinitions().addAll((Collection<? extends ProductDefinition>) newValue);
             return;
@@ -157,7 +157,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
+         case ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             getProductDefinitions().clear();
             return;
       }
@@ -174,7 +174,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
+         case ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return productDefinitions != null && !productDefinitions.isEmpty();
       }
       return super.eIsSet(featureID);

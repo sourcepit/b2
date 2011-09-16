@@ -7,7 +7,7 @@ package org.sourcepit.beef.b2.model.module;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
@@ -16,7 +16,7 @@ public class ReferenceTest extends TestCase
 {
    public void testIsSatisfying() throws Exception
    {
-      EcoreUtils.foreachSupertype(B2ModelPackage.eINSTANCE.getReference(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getReference(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
@@ -35,7 +35,7 @@ public class ReferenceTest extends TestCase
 
    public void testSetStrictVersion() throws Exception
    {
-      EcoreUtils.foreachSupertype(B2ModelPackage.eINSTANCE.getReference(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getReference(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {

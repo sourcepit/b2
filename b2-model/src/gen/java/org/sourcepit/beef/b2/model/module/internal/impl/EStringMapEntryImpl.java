@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>EString Map Entry</b></em>'. <!-- end-user-doc
@@ -88,7 +88,7 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.ESTRING_MAP_ENTRY;
+      return ModulePackage.Literals.ESTRING_MAP_ENTRY;
    }
 
    /**
@@ -111,7 +111,7 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
       String oldKey = key;
       key = newKey;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.ESTRING_MAP_ENTRY__KEY, oldKey, key));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ESTRING_MAP_ENTRY__KEY, oldKey, key));
    }
 
    /**
@@ -134,7 +134,7 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
       String oldValue = value;
       value = newValue;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.ESTRING_MAP_ENTRY__VALUE, oldValue, value));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ESTRING_MAP_ENTRY__VALUE, oldValue, value));
    }
 
    /**
@@ -147,9 +147,9 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    {
       switch (featureID)
       {
-         case B2ModelPackage.ESTRING_MAP_ENTRY__KEY :
+         case ModulePackage.ESTRING_MAP_ENTRY__KEY :
             return getTypedKey();
-         case B2ModelPackage.ESTRING_MAP_ENTRY__VALUE :
+         case ModulePackage.ESTRING_MAP_ENTRY__VALUE :
             return getTypedValue();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -165,10 +165,10 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    {
       switch (featureID)
       {
-         case B2ModelPackage.ESTRING_MAP_ENTRY__KEY :
+         case ModulePackage.ESTRING_MAP_ENTRY__KEY :
             setTypedKey((String) newValue);
             return;
-         case B2ModelPackage.ESTRING_MAP_ENTRY__VALUE :
+         case ModulePackage.ESTRING_MAP_ENTRY__VALUE :
             setTypedValue((String) newValue);
             return;
       }
@@ -185,10 +185,10 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    {
       switch (featureID)
       {
-         case B2ModelPackage.ESTRING_MAP_ENTRY__KEY :
+         case ModulePackage.ESTRING_MAP_ENTRY__KEY :
             setTypedKey(KEY_EDEFAULT);
             return;
-         case B2ModelPackage.ESTRING_MAP_ENTRY__VALUE :
+         case ModulePackage.ESTRING_MAP_ENTRY__VALUE :
             setTypedValue(VALUE_EDEFAULT);
             return;
       }
@@ -205,9 +205,9 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    {
       switch (featureID)
       {
-         case B2ModelPackage.ESTRING_MAP_ENTRY__KEY :
+         case ModulePackage.ESTRING_MAP_ENTRY__KEY :
             return KEY_EDEFAULT == null ? key != null : !KEY_EDEFAULT.equals(key);
-         case B2ModelPackage.ESTRING_MAP_ENTRY__VALUE :
+         case ModulePackage.ESTRING_MAP_ENTRY__VALUE :
             return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
       }
       return super.eIsSet(featureID);

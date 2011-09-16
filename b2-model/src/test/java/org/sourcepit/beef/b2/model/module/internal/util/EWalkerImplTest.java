@@ -10,7 +10,7 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.internal.util.EWalkerImpl;
 
@@ -18,15 +18,15 @@ public class EWalkerImplTest extends TestCase
 {
    public void testReverse() throws Exception
    {
-      CompositeModule module = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module = ModuleFactory.eINSTANCE.createCompositeModule();
       module.setId("module");
-      CompositeModule module_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_1.setId("module_1");
-      CompositeModule module_1_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_1_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_1_1.setId("module_1_1");
-      CompositeModule module_2 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_2 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_2.setId("module_2");
-      CompositeModule module_2_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_2_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_2_1.setId("module_2_1");
 
       module.getModules().add(module_1);
@@ -56,15 +56,15 @@ public class EWalkerImplTest extends TestCase
 
    public void testNormal() throws Exception
    {
-      CompositeModule module = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module = ModuleFactory.eINSTANCE.createCompositeModule();
       module.setId("module");
-      CompositeModule module_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_1.setId("module_1");
-      CompositeModule module_1_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_1_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_1_1.setId("module_1_1");
-      CompositeModule module_2 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_2 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_2.setId("module_2");
-      CompositeModule module_2_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_2_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_2_1.setId("module_2_1");
 
       module.getModules().add(module_1);
@@ -94,15 +94,15 @@ public class EWalkerImplTest extends TestCase
 
    public void testStop() throws Exception
    {
-      CompositeModule module = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module = ModuleFactory.eINSTANCE.createCompositeModule();
       module.setId("module");
-      CompositeModule module_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_1.setId("module_1");
-      CompositeModule module_1_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_1_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_1_1.setId("module_1_1");
-      CompositeModule module_2 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_2 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_2.setId("module_2");
-      CompositeModule module_2_1 = B2ModelFactory.eINSTANCE.createCompositeModule();
+      CompositeModule module_2_1 = ModuleFactory.eINSTANCE.createCompositeModule();
       module_2_1.setId("module_2_1");
 
       module.getModules().add(module_1);

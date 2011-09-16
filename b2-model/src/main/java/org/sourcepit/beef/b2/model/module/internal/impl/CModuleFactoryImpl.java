@@ -20,9 +20,9 @@ import org.sourcepit.beef.b2.model.module.ProductsFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
-import org.sourcepit.beef.b2.model.module.internal.impl.B2ModelFactoryImpl;
+import org.sourcepit.beef.b2.model.module.internal.impl.ModuleFactoryImpl;
 
-public class CB2ModelFactoryImpl extends B2ModelFactoryImpl
+public class CModuleFactoryImpl extends ModuleFactoryImpl
 {
    @Override
    public CompositeModule createCompositeModule()

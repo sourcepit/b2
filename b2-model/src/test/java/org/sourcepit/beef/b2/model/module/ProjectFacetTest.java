@@ -7,7 +7,7 @@ package org.sourcepit.beef.b2.model.module;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
@@ -19,7 +19,7 @@ public class ProjectFacetTest extends TestCase
 {
    public void testResolveReference() throws Exception
    {
-      EcoreUtils.foreachSupertype(B2ModelPackage.eINSTANCE.getProjectFacet(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getProjectFacet(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {

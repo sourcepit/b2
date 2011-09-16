@@ -18,7 +18,7 @@ package org.sourcepit.beef.b2.model.module;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAbstractFacet()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAbstractFacet()
  * @model abstract="true"
  * @generated
  */
@@ -35,7 +35,7 @@ public interface AbstractFacet extends Derivable, Annotateable
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(AbstractModule)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAbstractFacet_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAbstractFacet_Parent()
     * @see org.sourcepit.beef.b2.model.module.AbstractModule#getFacets
     * @model opposite="facets" required="true" transient="false"
     * @generated
@@ -61,7 +61,7 @@ public interface AbstractFacet extends Derivable, Annotateable
     * 
     * @return the value of the '<em>Name</em>' attribute.
     * @see #setName(String)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAbstractFacet_Name()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAbstractFacet_Name()
     * @model required="true"
     * @generated
     */

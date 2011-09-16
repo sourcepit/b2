@@ -22,7 +22,7 @@ import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.Annotateable;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Module Facet</b></em>'. <!-- end-user-doc -->
@@ -108,7 +108,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.ABSTRACT_FACET;
+      return ModulePackage.Literals.ABSTRACT_FACET;
    }
 
    /**
@@ -131,7 +131,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
       String oldName = name;
       name = newName;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.ABSTRACT_FACET__NAME, oldName, name));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ABSTRACT_FACET__NAME, oldName, name));
    }
 
    /**
@@ -154,7 +154,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
       boolean oldDerived = derived;
       derived = newDerived;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.ABSTRACT_FACET__DERIVED, oldDerived,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ABSTRACT_FACET__DERIVED, oldDerived,
             derived));
    }
 
@@ -168,7 +168,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS, B2ModelPackage.ANNOTATION__PARENT);
+            ModulePackage.ABSTRACT_FACET__ANNOTATIONS, ModulePackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -180,7 +180,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     */
    public AbstractModule getParent()
    {
-      if (eContainerFeatureID() != B2ModelPackage.ABSTRACT_FACET__PARENT)
+      if (eContainerFeatureID() != ModulePackage.ABSTRACT_FACET__PARENT)
          return null;
       return (AbstractModule) eContainer();
    }
@@ -192,7 +192,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     */
    public NotificationChain basicSetParent(AbstractModule newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, B2ModelPackage.ABSTRACT_FACET__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.ABSTRACT_FACET__PARENT, msgs);
       return msgs;
    }
 
@@ -204,7 +204,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    public void setParent(AbstractModule newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != B2ModelPackage.ABSTRACT_FACET__PARENT && newParent != null))
+         || (eContainerFeatureID() != ModulePackage.ABSTRACT_FACET__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -212,14 +212,14 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, B2ModelPackage.ABSTRACT_MODULE__FACETS,
+            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.ABSTRACT_MODULE__FACETS,
                AbstractModule.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.ABSTRACT_FACET__PARENT, newParent,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ABSTRACT_FACET__PARENT, newParent,
             newParent));
    }
 
@@ -270,9 +270,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    {
       switch (featureID)
       {
-         case B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS :
+         case ModulePackage.ABSTRACT_FACET__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
-         case B2ModelPackage.ABSTRACT_FACET__PARENT :
+         case ModulePackage.ABSTRACT_FACET__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((AbstractModule) otherEnd, msgs);
@@ -290,9 +290,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    {
       switch (featureID)
       {
-         case B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS :
+         case ModulePackage.ABSTRACT_FACET__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
-         case B2ModelPackage.ABSTRACT_FACET__PARENT :
+         case ModulePackage.ABSTRACT_FACET__PARENT :
             return basicSetParent(null, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -308,8 +308,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    {
       switch (eContainerFeatureID())
       {
-         case B2ModelPackage.ABSTRACT_FACET__PARENT :
-            return eInternalContainer().eInverseRemove(this, B2ModelPackage.ABSTRACT_MODULE__FACETS,
+         case ModulePackage.ABSTRACT_FACET__PARENT :
+            return eInternalContainer().eInverseRemove(this, ModulePackage.ABSTRACT_MODULE__FACETS,
                AbstractModule.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
@@ -325,13 +325,13 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    {
       switch (featureID)
       {
-         case B2ModelPackage.ABSTRACT_FACET__DERIVED :
+         case ModulePackage.ABSTRACT_FACET__DERIVED :
             return isDerived();
-         case B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS :
+         case ModulePackage.ABSTRACT_FACET__ANNOTATIONS :
             return getAnnotations();
-         case B2ModelPackage.ABSTRACT_FACET__PARENT :
+         case ModulePackage.ABSTRACT_FACET__PARENT :
             return getParent();
-         case B2ModelPackage.ABSTRACT_FACET__NAME :
+         case ModulePackage.ABSTRACT_FACET__NAME :
             return getName();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -348,17 +348,17 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    {
       switch (featureID)
       {
-         case B2ModelPackage.ABSTRACT_FACET__DERIVED :
+         case ModulePackage.ABSTRACT_FACET__DERIVED :
             setDerived((Boolean) newValue);
             return;
-         case B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS :
+         case ModulePackage.ABSTRACT_FACET__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
             return;
-         case B2ModelPackage.ABSTRACT_FACET__PARENT :
+         case ModulePackage.ABSTRACT_FACET__PARENT :
             setParent((AbstractModule) newValue);
             return;
-         case B2ModelPackage.ABSTRACT_FACET__NAME :
+         case ModulePackage.ABSTRACT_FACET__NAME :
             setName((String) newValue);
             return;
       }
@@ -375,16 +375,16 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    {
       switch (featureID)
       {
-         case B2ModelPackage.ABSTRACT_FACET__DERIVED :
+         case ModulePackage.ABSTRACT_FACET__DERIVED :
             setDerived(DERIVED_EDEFAULT);
             return;
-         case B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS :
+         case ModulePackage.ABSTRACT_FACET__ANNOTATIONS :
             getAnnotations().clear();
             return;
-         case B2ModelPackage.ABSTRACT_FACET__PARENT :
+         case ModulePackage.ABSTRACT_FACET__PARENT :
             setParent((AbstractModule) null);
             return;
-         case B2ModelPackage.ABSTRACT_FACET__NAME :
+         case ModulePackage.ABSTRACT_FACET__NAME :
             setName(NAME_EDEFAULT);
             return;
       }
@@ -401,13 +401,13 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    {
       switch (featureID)
       {
-         case B2ModelPackage.ABSTRACT_FACET__DERIVED :
+         case ModulePackage.ABSTRACT_FACET__DERIVED :
             return derived != DERIVED_EDEFAULT;
-         case B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS :
+         case ModulePackage.ABSTRACT_FACET__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
-         case B2ModelPackage.ABSTRACT_FACET__PARENT :
+         case ModulePackage.ABSTRACT_FACET__PARENT :
             return getParent() != null;
-         case B2ModelPackage.ABSTRACT_FACET__NAME :
+         case ModulePackage.ABSTRACT_FACET__NAME :
             return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       }
       return super.eIsSet(featureID);
@@ -425,8 +425,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
       {
          switch (derivedFeatureID)
          {
-            case B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS :
-               return B2ModelPackage.ANNOTATEABLE__ANNOTATIONS;
+            case ModulePackage.ABSTRACT_FACET__ANNOTATIONS :
+               return ModulePackage.ANNOTATEABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -446,8 +446,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
       {
          switch (baseFeatureID)
          {
-            case B2ModelPackage.ANNOTATEABLE__ANNOTATIONS :
-               return B2ModelPackage.ABSTRACT_FACET__ANNOTATIONS;
+            case ModulePackage.ANNOTATEABLE__ANNOTATIONS :
+               return ModulePackage.ABSTRACT_FACET__ANNOTATIONS;
             default :
                return -1;
          }

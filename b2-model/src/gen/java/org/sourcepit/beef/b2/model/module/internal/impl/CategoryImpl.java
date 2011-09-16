@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.Reference;
 
@@ -83,7 +83,7 @@ public class CategoryImpl extends EObjectImpl implements Category
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.CATEGORY;
+      return ModulePackage.Literals.CATEGORY;
    }
 
    /**
@@ -106,7 +106,7 @@ public class CategoryImpl extends EObjectImpl implements Category
       String oldName = name;
       name = newName;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.CATEGORY__NAME, oldName, name));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.CATEGORY__NAME, oldName, name));
    }
 
    /**
@@ -119,7 +119,7 @@ public class CategoryImpl extends EObjectImpl implements Category
       if (featureReferences == null)
       {
          featureReferences = new EObjectContainmentEList<Reference>(Reference.class, this,
-            B2ModelPackage.CATEGORY__FEATURE_REFERENCES);
+            ModulePackage.CATEGORY__FEATURE_REFERENCES);
       }
       return featureReferences;
    }
@@ -134,7 +134,7 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case B2ModelPackage.CATEGORY__FEATURE_REFERENCES :
+         case ModulePackage.CATEGORY__FEATURE_REFERENCES :
             return ((InternalEList<?>) getFeatureReferences()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -150,9 +150,9 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case B2ModelPackage.CATEGORY__FEATURE_REFERENCES :
+         case ModulePackage.CATEGORY__FEATURE_REFERENCES :
             return getFeatureReferences();
-         case B2ModelPackage.CATEGORY__NAME :
+         case ModulePackage.CATEGORY__NAME :
             return getName();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -169,11 +169,11 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case B2ModelPackage.CATEGORY__FEATURE_REFERENCES :
+         case ModulePackage.CATEGORY__FEATURE_REFERENCES :
             getFeatureReferences().clear();
             getFeatureReferences().addAll((Collection<? extends Reference>) newValue);
             return;
-         case B2ModelPackage.CATEGORY__NAME :
+         case ModulePackage.CATEGORY__NAME :
             setName((String) newValue);
             return;
       }
@@ -190,10 +190,10 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case B2ModelPackage.CATEGORY__FEATURE_REFERENCES :
+         case ModulePackage.CATEGORY__FEATURE_REFERENCES :
             getFeatureReferences().clear();
             return;
-         case B2ModelPackage.CATEGORY__NAME :
+         case ModulePackage.CATEGORY__NAME :
             setName(NAME_EDEFAULT);
             return;
       }
@@ -210,9 +210,9 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case B2ModelPackage.CATEGORY__FEATURE_REFERENCES :
+         case ModulePackage.CATEGORY__FEATURE_REFERENCES :
             return featureReferences != null && !featureReferences.isEmpty();
-         case B2ModelPackage.CATEGORY__NAME :
+         case ModulePackage.CATEGORY__NAME :
             return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       }
       return super.eIsSet(featureID);

@@ -16,7 +16,7 @@ import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.Annotateable;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.Classified;
@@ -42,28 +42,28 @@ import org.sourcepit.beef.b2.model.module.SitesFacet;
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
  * method for each class of the model. <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage
  * @generated
  */
-public class B2ModelAdapterFactory extends AdapterFactoryImpl
+public class ModuleAdapterFactory extends AdapterFactoryImpl
 {
    /**
     * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected static B2ModelPackage modelPackage;
+   protected static ModulePackage modelPackage;
 
    /**
     * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   public B2ModelAdapterFactory()
+   public ModuleAdapterFactory()
    {
       if (modelPackage == null)
       {
-         modelPackage = B2ModelPackage.eINSTANCE;
+         modelPackage = ModulePackage.eINSTANCE;
       }
    }
 
@@ -94,7 +94,7 @@ public class B2ModelAdapterFactory extends AdapterFactoryImpl
     * 
     * @generated
     */
-   protected B2ModelSwitch<Adapter> modelSwitch = new B2ModelSwitch<Adapter>()
+   protected ModuleSwitch<Adapter> modelSwitch = new ModuleSwitch<Adapter>()
    {
       @Override
       public Adapter caseAbstractModule(AbstractModule object)

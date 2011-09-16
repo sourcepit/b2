@@ -11,7 +11,7 @@ package org.sourcepit.beef.b2.model.module;
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->
  * 
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getProject()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProject()
  * @model abstract="true"
  * @generated
  */

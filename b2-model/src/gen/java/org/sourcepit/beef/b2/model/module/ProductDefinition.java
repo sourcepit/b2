@@ -21,7 +21,7 @@ import java.io.File;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getProductDefinition()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProductDefinition()
  * @model
  * @generated
  */
@@ -39,7 +39,7 @@ public interface ProductDefinition extends Annotateable, Derivable
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(ProductsFacet)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getProductDefinition_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProductDefinition_Parent()
     * @see org.sourcepit.beef.b2.model.module.ProductsFacet#getProductDefinitions
     * @model opposite="productDefinitions" required="true" transient="false"
     * @generated
@@ -65,7 +65,7 @@ public interface ProductDefinition extends Annotateable, Derivable
     * 
     * @return the value of the '<em>File</em>' attribute.
     * @see #setFile(File)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getProductDefinition_File()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProductDefinition_File()
     * @model dataType="org.sourcepit.beef.b2.internal.model.EJavaFile" required="true"
     * @generated
     */
@@ -91,7 +91,7 @@ public interface ProductDefinition extends Annotateable, Derivable
     * 
     * @return the value of the '<em>Product Plugin</em>' containment reference.
     * @see #setProductPlugin(Reference)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getProductDefinition_ProductPlugin()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProductDefinition_ProductPlugin()
     * @model containment="true" required="true"
     * @generated
     */

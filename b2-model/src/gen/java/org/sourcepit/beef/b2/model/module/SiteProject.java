@@ -20,7 +20,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getSiteProject()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getSiteProject()
  * @model
  * @generated
  */
@@ -37,7 +37,7 @@ public interface SiteProject extends Project, Classified
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(SitesFacet)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getSiteProject_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getSiteProject_Parent()
     * @see org.sourcepit.beef.b2.model.module.SitesFacet#getProjects
     * @model opposite="projects" transient="false"
     * @generated
@@ -64,7 +64,7 @@ public interface SiteProject extends Project, Classified
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Categories</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getSiteProject_Categories()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getSiteProject_Categories()
     * @model containment="true"
     * @generated
     */

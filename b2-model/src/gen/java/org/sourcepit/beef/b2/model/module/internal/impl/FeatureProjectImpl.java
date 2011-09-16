@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Classified;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
@@ -93,7 +93,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.FEATURE_PROJECT;
+      return ModulePackage.Literals.FEATURE_PROJECT;
    }
 
    /**
@@ -103,7 +103,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     */
    public FeaturesFacet getParent()
    {
-      if (eContainerFeatureID() != B2ModelPackage.FEATURE_PROJECT__PARENT)
+      if (eContainerFeatureID() != ModulePackage.FEATURE_PROJECT__PARENT)
          return null;
       return (FeaturesFacet) eContainer();
    }
@@ -115,7 +115,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     */
    public NotificationChain basicSetParent(FeaturesFacet newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, B2ModelPackage.FEATURE_PROJECT__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.FEATURE_PROJECT__PARENT, msgs);
       return msgs;
    }
 
@@ -127,7 +127,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    public void setParent(FeaturesFacet newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != B2ModelPackage.FEATURE_PROJECT__PARENT && newParent != null))
+         || (eContainerFeatureID() != ModulePackage.FEATURE_PROJECT__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -135,14 +135,14 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, B2ModelPackage.FEATURES_FACET__PROJECTS,
+            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.FEATURES_FACET__PROJECTS,
                FeaturesFacet.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.FEATURE_PROJECT__PARENT, newParent,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.FEATURE_PROJECT__PARENT, newParent,
             newParent));
    }
 
@@ -156,7 +156,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
       if (includedPlugins == null)
       {
          includedPlugins = new EObjectContainmentWithInverseEList<PluginInclude>(PluginInclude.class, this,
-            B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS, B2ModelPackage.PLUGIN_INCLUDE__PARENT);
+            ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS, ModulePackage.PLUGIN_INCLUDE__PARENT);
       }
       return includedPlugins;
    }
@@ -171,7 +171,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
       if (includedFeatures == null)
       {
          includedFeatures = new EObjectContainmentWithInverseEList<FeatureInclude>(FeatureInclude.class, this,
-            B2ModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES, B2ModelPackage.FEATURE_INCLUDE__PARENT);
+            ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES, ModulePackage.FEATURE_INCLUDE__PARENT);
       }
       return includedFeatures;
    }
@@ -196,7 +196,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
       String oldClassifier = classifier;
       classifier = newClassifier;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.FEATURE_PROJECT__CLASSIFIER,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.FEATURE_PROJECT__CLASSIFIER,
             oldClassifier, classifier));
    }
 
@@ -211,13 +211,13 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURE_PROJECT__PARENT :
+         case ModulePackage.FEATURE_PROJECT__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((FeaturesFacet) otherEnd, msgs);
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getIncludedPlugins()).basicAdd(otherEnd, msgs);
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getIncludedFeatures()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -233,11 +233,11 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURE_PROJECT__PARENT :
+         case ModulePackage.FEATURE_PROJECT__PARENT :
             return basicSetParent(null, msgs);
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             return ((InternalEList<?>) getIncludedPlugins()).basicRemove(otherEnd, msgs);
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return ((InternalEList<?>) getIncludedFeatures()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -253,8 +253,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (eContainerFeatureID())
       {
-         case B2ModelPackage.FEATURE_PROJECT__PARENT :
-            return eInternalContainer().eInverseRemove(this, B2ModelPackage.FEATURES_FACET__PROJECTS,
+         case ModulePackage.FEATURE_PROJECT__PARENT :
+            return eInternalContainer().eInverseRemove(this, ModulePackage.FEATURES_FACET__PROJECTS,
                FeaturesFacet.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
@@ -270,13 +270,13 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURE_PROJECT__CLASSIFIER :
+         case ModulePackage.FEATURE_PROJECT__CLASSIFIER :
             return getClassifier();
-         case B2ModelPackage.FEATURE_PROJECT__PARENT :
+         case ModulePackage.FEATURE_PROJECT__PARENT :
             return getParent();
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             return getIncludedPlugins();
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return getIncludedFeatures();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -293,17 +293,17 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURE_PROJECT__CLASSIFIER :
+         case ModulePackage.FEATURE_PROJECT__CLASSIFIER :
             setClassifier((String) newValue);
             return;
-         case B2ModelPackage.FEATURE_PROJECT__PARENT :
+         case ModulePackage.FEATURE_PROJECT__PARENT :
             setParent((FeaturesFacet) newValue);
             return;
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             getIncludedPlugins().clear();
             getIncludedPlugins().addAll((Collection<? extends PluginInclude>) newValue);
             return;
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             getIncludedFeatures().clear();
             getIncludedFeatures().addAll((Collection<? extends FeatureInclude>) newValue);
             return;
@@ -321,16 +321,16 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURE_PROJECT__CLASSIFIER :
+         case ModulePackage.FEATURE_PROJECT__CLASSIFIER :
             setClassifier(CLASSIFIER_EDEFAULT);
             return;
-         case B2ModelPackage.FEATURE_PROJECT__PARENT :
+         case ModulePackage.FEATURE_PROJECT__PARENT :
             setParent((FeaturesFacet) null);
             return;
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             getIncludedPlugins().clear();
             return;
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             getIncludedFeatures().clear();
             return;
       }
@@ -347,13 +347,13 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURE_PROJECT__CLASSIFIER :
+         case ModulePackage.FEATURE_PROJECT__CLASSIFIER :
             return CLASSIFIER_EDEFAULT == null ? classifier != null : !CLASSIFIER_EDEFAULT.equals(classifier);
-         case B2ModelPackage.FEATURE_PROJECT__PARENT :
+         case ModulePackage.FEATURE_PROJECT__PARENT :
             return getParent() != null;
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             return includedPlugins != null && !includedPlugins.isEmpty();
-         case B2ModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return includedFeatures != null && !includedFeatures.isEmpty();
       }
       return super.eIsSet(featureID);
@@ -371,8 +371,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
       {
          switch (derivedFeatureID)
          {
-            case B2ModelPackage.FEATURE_PROJECT__CLASSIFIER :
-               return B2ModelPackage.CLASSIFIED__CLASSIFIER;
+            case ModulePackage.FEATURE_PROJECT__CLASSIFIER :
+               return ModulePackage.CLASSIFIED__CLASSIFIER;
             default :
                return -1;
          }
@@ -392,8 +392,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
       {
          switch (baseFeatureID)
          {
-            case B2ModelPackage.CLASSIFIED__CLASSIFIER :
-               return B2ModelPackage.FEATURE_PROJECT__CLASSIFIER;
+            case ModulePackage.CLASSIFIED__CLASSIFIER :
+               return ModulePackage.FEATURE_PROJECT__CLASSIFIER;
             default :
                return -1;
          }

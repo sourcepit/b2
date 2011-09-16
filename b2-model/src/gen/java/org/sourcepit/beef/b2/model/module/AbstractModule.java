@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAbstractModule()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAbstractModule()
  * @model abstract="true"
  * @generated
  */
@@ -41,7 +41,7 @@ public interface AbstractModule extends FileContainer, Annotateable, Identifiabl
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(CompositeModule)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAbstractModule_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAbstractModule_Parent()
     * @see org.sourcepit.beef.b2.model.module.CompositeModule#getModules
     * @model opposite="modules" transient="false"
     * @generated
@@ -68,7 +68,7 @@ public interface AbstractModule extends FileContainer, Annotateable, Identifiabl
     * 
     * @return the value of the '<em>Layout Id</em>' attribute.
     * @see #setLayoutId(String)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAbstractModule_LayoutId()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAbstractModule_LayoutId()
     * @model required="true"
     * @generated
     */
@@ -94,7 +94,7 @@ public interface AbstractModule extends FileContainer, Annotateable, Identifiabl
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Locales</em>' attribute list.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAbstractModule_Locales()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAbstractModule_Locales()
     * @model dataType="org.sourcepit.beef.b2.internal.model.ELocale"
     * @generated
     */
@@ -111,7 +111,7 @@ public interface AbstractModule extends FileContainer, Annotateable, Identifiabl
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Facets</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAbstractModule_Facets()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAbstractModule_Facets()
     * @see org.sourcepit.beef.b2.model.module.AbstractFacet#getParent
     * @model opposite="parent" containment="true"
     * @generated

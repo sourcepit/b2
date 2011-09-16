@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 
@@ -68,7 +68,7 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.PLUGIN_INCLUDE;
+      return ModulePackage.Literals.PLUGIN_INCLUDE;
    }
 
    /**
@@ -91,7 +91,7 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
       boolean oldUnpack = unpack;
       unpack = newUnpack;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PLUGIN_INCLUDE__UNPACK, oldUnpack, unpack));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PLUGIN_INCLUDE__UNPACK, oldUnpack, unpack));
    }
 
    /**
@@ -101,7 +101,7 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
     */
    public FeatureProject getParent()
    {
-      if (eContainerFeatureID() != B2ModelPackage.PLUGIN_INCLUDE__PARENT)
+      if (eContainerFeatureID() != ModulePackage.PLUGIN_INCLUDE__PARENT)
          return null;
       return (FeatureProject) eContainer();
    }
@@ -113,7 +113,7 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
     */
    public NotificationChain basicSetParent(FeatureProject newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, B2ModelPackage.PLUGIN_INCLUDE__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.PLUGIN_INCLUDE__PARENT, msgs);
       return msgs;
    }
 
@@ -125,7 +125,7 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    public void setParent(FeatureProject newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != B2ModelPackage.PLUGIN_INCLUDE__PARENT && newParent != null))
+         || (eContainerFeatureID() != ModulePackage.PLUGIN_INCLUDE__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -133,14 +133,14 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS,
+            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS,
                FeatureProject.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PLUGIN_INCLUDE__PARENT, newParent,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PLUGIN_INCLUDE__PARENT, newParent,
             newParent));
    }
 
@@ -154,7 +154,7 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    {
       switch (featureID)
       {
-         case B2ModelPackage.PLUGIN_INCLUDE__PARENT :
+         case ModulePackage.PLUGIN_INCLUDE__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((FeatureProject) otherEnd, msgs);
@@ -172,7 +172,7 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    {
       switch (featureID)
       {
-         case B2ModelPackage.PLUGIN_INCLUDE__PARENT :
+         case ModulePackage.PLUGIN_INCLUDE__PARENT :
             return basicSetParent(null, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -188,8 +188,8 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    {
       switch (eContainerFeatureID())
       {
-         case B2ModelPackage.PLUGIN_INCLUDE__PARENT :
-            return eInternalContainer().eInverseRemove(this, B2ModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS,
+         case ModulePackage.PLUGIN_INCLUDE__PARENT :
+            return eInternalContainer().eInverseRemove(this, ModulePackage.FEATURE_PROJECT__INCLUDED_PLUGINS,
                FeatureProject.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
@@ -205,9 +205,9 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    {
       switch (featureID)
       {
-         case B2ModelPackage.PLUGIN_INCLUDE__UNPACK :
+         case ModulePackage.PLUGIN_INCLUDE__UNPACK :
             return isUnpack();
-         case B2ModelPackage.PLUGIN_INCLUDE__PARENT :
+         case ModulePackage.PLUGIN_INCLUDE__PARENT :
             return getParent();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -223,10 +223,10 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    {
       switch (featureID)
       {
-         case B2ModelPackage.PLUGIN_INCLUDE__UNPACK :
+         case ModulePackage.PLUGIN_INCLUDE__UNPACK :
             setUnpack((Boolean) newValue);
             return;
-         case B2ModelPackage.PLUGIN_INCLUDE__PARENT :
+         case ModulePackage.PLUGIN_INCLUDE__PARENT :
             setParent((FeatureProject) newValue);
             return;
       }
@@ -243,10 +243,10 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    {
       switch (featureID)
       {
-         case B2ModelPackage.PLUGIN_INCLUDE__UNPACK :
+         case ModulePackage.PLUGIN_INCLUDE__UNPACK :
             setUnpack(UNPACK_EDEFAULT);
             return;
-         case B2ModelPackage.PLUGIN_INCLUDE__PARENT :
+         case ModulePackage.PLUGIN_INCLUDE__PARENT :
             setParent((FeatureProject) null);
             return;
       }
@@ -263,9 +263,9 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
    {
       switch (featureID)
       {
-         case B2ModelPackage.PLUGIN_INCLUDE__UNPACK :
+         case ModulePackage.PLUGIN_INCLUDE__UNPACK :
             return unpack != UNPACK_EDEFAULT;
-         case B2ModelPackage.PLUGIN_INCLUDE__PARENT :
+         case ModulePackage.PLUGIN_INCLUDE__PARENT :
             return getParent() != null;
       }
       return super.eIsSet(featureID);

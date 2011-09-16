@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getFeaturesFacet()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFeaturesFacet()
  * @model
  * @generated
  */
@@ -35,7 +35,7 @@ public interface FeaturesFacet extends ProjectFacet<FeatureProject>
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Projects</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getFeaturesFacet_Projects()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFeaturesFacet_Projects()
     * @see org.sourcepit.beef.b2.model.module.FeatureProject#getParent
     * @model opposite="parent" containment="true"
     * @generated

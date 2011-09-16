@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
 
@@ -59,7 +59,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.FEATURES_FACET;
+      return ModulePackage.Literals.FEATURES_FACET;
    }
 
    /**
@@ -72,7 +72,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
       if (projects == null)
       {
          projects = new EObjectContainmentWithInverseEList<FeatureProject>(FeatureProject.class, this,
-            B2ModelPackage.FEATURES_FACET__PROJECTS, B2ModelPackage.FEATURE_PROJECT__PARENT);
+            ModulePackage.FEATURES_FACET__PROJECTS, ModulePackage.FEATURE_PROJECT__PARENT);
       }
       return projects;
    }
@@ -88,7 +88,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURES_FACET__PROJECTS :
+         case ModulePackage.FEATURES_FACET__PROJECTS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getProjects()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -104,7 +104,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURES_FACET__PROJECTS :
+         case ModulePackage.FEATURES_FACET__PROJECTS :
             return ((InternalEList<?>) getProjects()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -120,7 +120,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURES_FACET__PROJECTS :
+         case ModulePackage.FEATURES_FACET__PROJECTS :
             return getProjects();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -137,7 +137,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURES_FACET__PROJECTS :
+         case ModulePackage.FEATURES_FACET__PROJECTS :
             getProjects().clear();
             getProjects().addAll((Collection<? extends FeatureProject>) newValue);
             return;
@@ -155,7 +155,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURES_FACET__PROJECTS :
+         case ModulePackage.FEATURES_FACET__PROJECTS :
             getProjects().clear();
             return;
       }
@@ -172,7 +172,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case B2ModelPackage.FEATURES_FACET__PROJECTS :
+         case ModulePackage.FEATURES_FACET__PROJECTS :
             return projects != null && !projects.isEmpty();
       }
       return super.eIsSet(featureID);

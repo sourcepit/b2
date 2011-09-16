@@ -7,7 +7,7 @@ package org.sourcepit.beef.b2.model.module;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Identifiable;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
@@ -16,7 +16,7 @@ public class IdentifiableTest extends TestCase
 {
    public void testToIdentifier() throws Exception
    {
-      EcoreUtils.foreachSupertype(B2ModelPackage.eINSTANCE.getIdentifiable(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getIdentifiable(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {

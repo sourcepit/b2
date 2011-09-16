@@ -8,7 +8,7 @@
 
 package org.sourcepit.beef.b2.model.module;
 
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
 
@@ -22,13 +22,13 @@ public class FeatureFacetTest extends AbstractProjectFacetTest<FeatureProject, F
    @Override
    protected FeaturesFacet createFacet()
    {
-      return B2ModelFactory.eINSTANCE.createFeaturesFacet();
+      return ModuleFactory.eINSTANCE.createFeaturesFacet();
    }
 
    @Override
    protected FeatureProject createProject()
    {
-      return B2ModelFactory.eINSTANCE.createFeatureProject();
+      return ModuleFactory.eINSTANCE.createFeatureProject();
    }
 
 }

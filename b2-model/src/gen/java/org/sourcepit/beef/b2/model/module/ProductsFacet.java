@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getProductsFacet()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProductsFacet()
  * @model
  * @generated
  */
@@ -35,7 +35,7 @@ public interface ProductsFacet extends AbstractFacet
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Product Definitions</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getProductsFacet_ProductDefinitions()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProductsFacet_ProductDefinitions()
     * @see org.sourcepit.beef.b2.model.module.ProductDefinition#getParent
     * @model opposite="parent" containment="true"
     * @generated

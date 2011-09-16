@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Derivable;
 import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.ProductsFacet;
@@ -120,7 +120,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    @Override
    protected EClass eStaticClass()
    {
-      return B2ModelPackage.Literals.PRODUCT_DEFINITION;
+      return ModulePackage.Literals.PRODUCT_DEFINITION;
    }
 
    /**
@@ -133,7 +133,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            B2ModelPackage.PRODUCT_DEFINITION__ANNOTATIONS, B2ModelPackage.ANNOTATION__PARENT);
+            ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS, ModulePackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -158,7 +158,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       boolean oldDerived = derived;
       derived = newDerived;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PRODUCT_DEFINITION__DERIVED, oldDerived,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PRODUCT_DEFINITION__DERIVED, oldDerived,
             derived));
    }
 
@@ -169,7 +169,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     */
    public ProductsFacet getParent()
    {
-      if (eContainerFeatureID() != B2ModelPackage.PRODUCT_DEFINITION__PARENT)
+      if (eContainerFeatureID() != ModulePackage.PRODUCT_DEFINITION__PARENT)
          return null;
       return (ProductsFacet) eContainer();
    }
@@ -181,7 +181,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     */
    public NotificationChain basicSetParent(ProductsFacet newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, B2ModelPackage.PRODUCT_DEFINITION__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.PRODUCT_DEFINITION__PARENT, msgs);
       return msgs;
    }
 
@@ -193,7 +193,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    public void setParent(ProductsFacet newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != B2ModelPackage.PRODUCT_DEFINITION__PARENT && newParent != null))
+         || (eContainerFeatureID() != ModulePackage.PRODUCT_DEFINITION__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -201,14 +201,14 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
+            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
                ProductsFacet.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PRODUCT_DEFINITION__PARENT, newParent,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PRODUCT_DEFINITION__PARENT, newParent,
             newParent));
    }
 
@@ -232,7 +232,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       File oldFile = file;
       file = newFile;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PRODUCT_DEFINITION__FILE, oldFile, file));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PRODUCT_DEFINITION__FILE, oldFile, file));
    }
 
    /**
@@ -257,7 +257,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       if (eNotificationRequired())
       {
          ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-            B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, oldProductPlugin, newProductPlugin);
+            ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, oldProductPlugin, newProductPlugin);
          if (msgs == null)
             msgs = notification;
          else
@@ -278,16 +278,16 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
          NotificationChain msgs = null;
          if (productPlugin != null)
             msgs = ((InternalEObject) productPlugin).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-               - B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
+               - ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
          if (newProductPlugin != null)
             msgs = ((InternalEObject) newProductPlugin).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-               - B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
+               - ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
          msgs = basicSetProductPlugin(newProductPlugin, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN,
             newProductPlugin, newProductPlugin));
    }
 
@@ -338,9 +338,9 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
-         case B2ModelPackage.PRODUCT_DEFINITION__PARENT :
+         case ModulePackage.PRODUCT_DEFINITION__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((ProductsFacet) otherEnd, msgs);
@@ -358,11 +358,11 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
-         case B2ModelPackage.PRODUCT_DEFINITION__PARENT :
+         case ModulePackage.PRODUCT_DEFINITION__PARENT :
             return basicSetParent(null, msgs);
-         case B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             return basicSetProductPlugin(null, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -378,8 +378,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (eContainerFeatureID())
       {
-         case B2ModelPackage.PRODUCT_DEFINITION__PARENT :
-            return eInternalContainer().eInverseRemove(this, B2ModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
+         case ModulePackage.PRODUCT_DEFINITION__PARENT :
+            return eInternalContainer().eInverseRemove(this, ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
                ProductsFacet.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
@@ -395,15 +395,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return getAnnotations();
-         case B2ModelPackage.PRODUCT_DEFINITION__DERIVED :
+         case ModulePackage.PRODUCT_DEFINITION__DERIVED :
             return isDerived();
-         case B2ModelPackage.PRODUCT_DEFINITION__PARENT :
+         case ModulePackage.PRODUCT_DEFINITION__PARENT :
             return getParent();
-         case B2ModelPackage.PRODUCT_DEFINITION__FILE :
+         case ModulePackage.PRODUCT_DEFINITION__FILE :
             return getFile();
-         case B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             return getProductPlugin();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -420,20 +420,20 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
             return;
-         case B2ModelPackage.PRODUCT_DEFINITION__DERIVED :
+         case ModulePackage.PRODUCT_DEFINITION__DERIVED :
             setDerived((Boolean) newValue);
             return;
-         case B2ModelPackage.PRODUCT_DEFINITION__PARENT :
+         case ModulePackage.PRODUCT_DEFINITION__PARENT :
             setParent((ProductsFacet) newValue);
             return;
-         case B2ModelPackage.PRODUCT_DEFINITION__FILE :
+         case ModulePackage.PRODUCT_DEFINITION__FILE :
             setFile((File) newValue);
             return;
-         case B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             setProductPlugin((Reference) newValue);
             return;
       }
@@ -450,19 +450,19 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
             getAnnotations().clear();
             return;
-         case B2ModelPackage.PRODUCT_DEFINITION__DERIVED :
+         case ModulePackage.PRODUCT_DEFINITION__DERIVED :
             setDerived(DERIVED_EDEFAULT);
             return;
-         case B2ModelPackage.PRODUCT_DEFINITION__PARENT :
+         case ModulePackage.PRODUCT_DEFINITION__PARENT :
             setParent((ProductsFacet) null);
             return;
-         case B2ModelPackage.PRODUCT_DEFINITION__FILE :
+         case ModulePackage.PRODUCT_DEFINITION__FILE :
             setFile(FILE_EDEFAULT);
             return;
-         case B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             setProductPlugin((Reference) null);
             return;
       }
@@ -479,15 +479,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case B2ModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
-         case B2ModelPackage.PRODUCT_DEFINITION__DERIVED :
+         case ModulePackage.PRODUCT_DEFINITION__DERIVED :
             return derived != DERIVED_EDEFAULT;
-         case B2ModelPackage.PRODUCT_DEFINITION__PARENT :
+         case ModulePackage.PRODUCT_DEFINITION__PARENT :
             return getParent() != null;
-         case B2ModelPackage.PRODUCT_DEFINITION__FILE :
+         case ModulePackage.PRODUCT_DEFINITION__FILE :
             return FILE_EDEFAULT == null ? file != null : !FILE_EDEFAULT.equals(file);
-         case B2ModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             return productPlugin != null;
       }
       return super.eIsSet(featureID);
@@ -505,8 +505,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       {
          switch (derivedFeatureID)
          {
-            case B2ModelPackage.PRODUCT_DEFINITION__DERIVED :
-               return B2ModelPackage.DERIVABLE__DERIVED;
+            case ModulePackage.PRODUCT_DEFINITION__DERIVED :
+               return ModulePackage.DERIVABLE__DERIVED;
             default :
                return -1;
          }
@@ -526,8 +526,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       {
          switch (baseFeatureID)
          {
-            case B2ModelPackage.DERIVABLE__DERIVED :
-               return B2ModelPackage.PRODUCT_DEFINITION__DERIVED;
+            case ModulePackage.DERIVABLE__DERIVED :
+               return ModulePackage.PRODUCT_DEFINITION__DERIVED;
             default :
                return -1;
          }

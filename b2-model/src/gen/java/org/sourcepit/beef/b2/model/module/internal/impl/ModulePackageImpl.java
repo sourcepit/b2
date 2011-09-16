@@ -23,8 +23,8 @@ import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.Annotateable;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.Classified;
@@ -52,7 +52,7 @@ import org.sourcepit.beef.b2.model.module.util.Identifier;
  * 
  * @generated
  */
-public class B2ModelPackageImpl extends EPackageImpl implements B2ModelPackage
+public class ModulePackageImpl extends EPackageImpl implements ModulePackage
 {
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -259,13 +259,13 @@ public class B2ModelPackageImpl extends EPackageImpl implements B2ModelPackage
     * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.eclipse.emf.ecore.EPackage.Registry
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#eNS_URI
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#eNS_URI
     * @see #init()
     * @generated
     */
-   private B2ModelPackageImpl()
+   private ModulePackageImpl()
    {
-      super(eNS_URI, B2ModelFactory.eINSTANCE);
+      super(eNS_URI, ModuleFactory.eINSTANCE);
    }
 
    /**
@@ -279,7 +279,7 @@ public class B2ModelPackageImpl extends EPackageImpl implements B2ModelPackage
     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
     * 
     * <p>
-    * This method is used to initialize {@link B2ModelPackage#eINSTANCE} when that field is accessed. Clients should not
+    * This method is used to initialize {@link ModulePackage#eINSTANCE} when that field is accessed. Clients should not
     * invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
@@ -288,15 +288,15 @@ public class B2ModelPackageImpl extends EPackageImpl implements B2ModelPackage
     * @see #initializePackageContents()
     * @generated
     */
-   public static B2ModelPackage init()
+   public static ModulePackage init()
    {
       if (isInited)
-         return (B2ModelPackage) EPackage.Registry.INSTANCE.getEPackage(B2ModelPackage.eNS_URI);
+         return (ModulePackage) EPackage.Registry.INSTANCE.getEPackage(ModulePackage.eNS_URI);
 
       // Obtain or create and register package
-      B2ModelPackageImpl theB2ModelPackage = (B2ModelPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof B2ModelPackageImpl
+      ModulePackageImpl theB2ModelPackage = (ModulePackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModulePackageImpl
          ? EPackage.Registry.INSTANCE.get(eNS_URI)
-         : new B2ModelPackageImpl());
+         : new ModulePackageImpl());
 
       isInited = true;
 
@@ -311,7 +311,7 @@ public class B2ModelPackageImpl extends EPackageImpl implements B2ModelPackage
 
 
       // Update the registry and return the package
-      EPackage.Registry.INSTANCE.put(B2ModelPackage.eNS_URI, theB2ModelPackage);
+      EPackage.Registry.INSTANCE.put(ModulePackage.eNS_URI, theB2ModelPackage);
       return theB2ModelPackage;
    }
 
@@ -1020,9 +1020,9 @@ public class B2ModelPackageImpl extends EPackageImpl implements B2ModelPackage
     * 
     * @generated
     */
-   public B2ModelFactory getB2ModelFactory()
+   public ModuleFactory getB2ModelFactory()
    {
-      return (B2ModelFactory) getEFactoryInstance();
+      return (ModuleFactory) getEFactoryInstance();
    }
 
    /**

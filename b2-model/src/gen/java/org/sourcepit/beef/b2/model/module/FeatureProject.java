@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getFeatureProject()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFeatureProject()
  * @model
  * @generated
  */
@@ -38,7 +38,7 @@ public interface FeatureProject extends Project, Classified
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(FeaturesFacet)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getFeatureProject_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFeatureProject_Parent()
     * @see org.sourcepit.beef.b2.model.module.FeaturesFacet#getProjects
     * @model opposite="projects" transient="false"
     * @generated
@@ -67,7 +67,7 @@ public interface FeatureProject extends Project, Classified
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Included Plugins</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getFeatureProject_IncludedPlugins()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFeatureProject_IncludedPlugins()
     * @see org.sourcepit.beef.b2.model.module.PluginInclude#getFeatureProject
     * @model opposite="featureProject" containment="true"
     * @generated
@@ -86,7 +86,7 @@ public interface FeatureProject extends Project, Classified
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Included Features</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getFeatureProject_IncludedFeatures()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFeatureProject_IncludedFeatures()
     * @see org.sourcepit.beef.b2.model.module.FeatureInclude#getFeatureProject
     * @model opposite="featureProject" containment="true"
     * @generated

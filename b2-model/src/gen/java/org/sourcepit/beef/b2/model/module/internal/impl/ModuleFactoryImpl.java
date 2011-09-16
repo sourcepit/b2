@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
@@ -33,7 +33,7 @@ import org.sourcepit.beef.b2.model.module.ProductsFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
-import org.sourcepit.beef.b2.model.module.internal.impl.CB2ModelFactoryImpl;
+import org.sourcepit.beef.b2.model.module.internal.impl.CModuleFactoryImpl;
 import org.sourcepit.beef.b2.model.module.util.Identifier;
 
 /**
@@ -41,19 +41,19 @@ import org.sourcepit.beef.b2.model.module.util.Identifier;
  * 
  * @generated
  */
-public class B2ModelFactoryImpl extends EFactoryImpl implements B2ModelFactory
+public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
 {
    /**
     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated NOT
     */
-   public static B2ModelFactory init()
+   public static ModuleFactory init()
    {
       try
       {
-         B2ModelFactory theB2ModelFactory = (B2ModelFactory) EPackage.Registry.INSTANCE
-            .getEFactory(B2ModelPackage.eNS_URI);
+         ModuleFactory theB2ModelFactory = (ModuleFactory) EPackage.Registry.INSTANCE
+            .getEFactory(ModulePackage.eNS_URI);
          if (theB2ModelFactory != null)
          {
             return theB2ModelFactory;
@@ -63,7 +63,7 @@ public class B2ModelFactoryImpl extends EFactoryImpl implements B2ModelFactory
       {
          EcorePlugin.INSTANCE.log(exception);
       }
-      return new CB2ModelFactoryImpl();
+      return new CModuleFactoryImpl();
    }
 
    /**
@@ -71,7 +71,7 @@ public class B2ModelFactoryImpl extends EFactoryImpl implements B2ModelFactory
     * 
     * @generated
     */
-   public B2ModelFactoryImpl()
+   public ModuleFactoryImpl()
    {
       super();
    }
@@ -86,37 +86,37 @@ public class B2ModelFactoryImpl extends EFactoryImpl implements B2ModelFactory
    {
       switch (eClass.getClassifierID())
       {
-         case B2ModelPackage.BASIC_MODULE :
+         case ModulePackage.BASIC_MODULE :
             return createBasicModule();
-         case B2ModelPackage.COMPOSITE_MODULE :
+         case ModulePackage.COMPOSITE_MODULE :
             return createCompositeModule();
-         case B2ModelPackage.PLUGINS_FACET :
+         case ModulePackage.PLUGINS_FACET :
             return createPluginsFacet();
-         case B2ModelPackage.FEATURES_FACET :
+         case ModulePackage.FEATURES_FACET :
             return createFeaturesFacet();
-         case B2ModelPackage.SITES_FACET :
+         case ModulePackage.SITES_FACET :
             return createSitesFacet();
-         case B2ModelPackage.PLUGIN_PROJECT :
+         case ModulePackage.PLUGIN_PROJECT :
             return createPluginProject();
-         case B2ModelPackage.FEATURE_PROJECT :
+         case ModulePackage.FEATURE_PROJECT :
             return createFeatureProject();
-         case B2ModelPackage.SITE_PROJECT :
+         case ModulePackage.SITE_PROJECT :
             return createSiteProject();
-         case B2ModelPackage.PLUGIN_INCLUDE :
+         case ModulePackage.PLUGIN_INCLUDE :
             return createPluginInclude();
-         case B2ModelPackage.CATEGORY :
+         case ModulePackage.CATEGORY :
             return createCategory();
-         case B2ModelPackage.FEATURE_INCLUDE :
+         case ModulePackage.FEATURE_INCLUDE :
             return createFeatureInclude();
-         case B2ModelPackage.ANNOTATION :
+         case ModulePackage.ANNOTATION :
             return createAnnotation();
-         case B2ModelPackage.ESTRING_MAP_ENTRY :
+         case ModulePackage.ESTRING_MAP_ENTRY :
             return (EObject) createEStringMapEntry();
-         case B2ModelPackage.PRODUCTS_FACET :
+         case ModulePackage.PRODUCTS_FACET :
             return createProductsFacet();
-         case B2ModelPackage.PRODUCT_DEFINITION :
+         case ModulePackage.PRODUCT_DEFINITION :
             return createProductDefinition();
-         case B2ModelPackage.REFERENCE :
+         case ModulePackage.REFERENCE :
             return createReference();
          default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -133,11 +133,11 @@ public class B2ModelFactoryImpl extends EFactoryImpl implements B2ModelFactory
    {
       switch (eDataType.getClassifierID())
       {
-         case B2ModelPackage.EJAVA_FILE :
+         case ModulePackage.EJAVA_FILE :
             return createEJavaFileFromString(eDataType, initialValue);
-         case B2ModelPackage.ELOCALE :
+         case ModulePackage.ELOCALE :
             return createELocaleFromString(eDataType, initialValue);
-         case B2ModelPackage.IDENTIFIER :
+         case ModulePackage.IDENTIFIER :
             return createIdentifierFromString(eDataType, initialValue);
          default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -154,11 +154,11 @@ public class B2ModelFactoryImpl extends EFactoryImpl implements B2ModelFactory
    {
       switch (eDataType.getClassifierID())
       {
-         case B2ModelPackage.EJAVA_FILE :
+         case ModulePackage.EJAVA_FILE :
             return convertEJavaFileToString(eDataType, instanceValue);
-         case B2ModelPackage.ELOCALE :
+         case ModulePackage.ELOCALE :
             return convertELocaleToString(eDataType, instanceValue);
-         case B2ModelPackage.IDENTIFIER :
+         case ModulePackage.IDENTIFIER :
             return convertIdentifierToString(eDataType, instanceValue);
          default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -406,9 +406,9 @@ public class B2ModelFactoryImpl extends EFactoryImpl implements B2ModelFactory
     * 
     * @generated
     */
-   public B2ModelPackage getB2ModelPackage()
+   public ModulePackage getB2ModelPackage()
    {
-      return (B2ModelPackage) getEPackage();
+      return (ModulePackage) getEPackage();
    }
 
    /**
@@ -418,9 +418,9 @@ public class B2ModelFactoryImpl extends EFactoryImpl implements B2ModelFactory
     * @generated
     */
    @Deprecated
-   public static B2ModelPackage getPackage()
+   public static ModulePackage getPackage()
    {
-      return B2ModelPackage.eINSTANCE;
+      return ModulePackage.eINSTANCE;
    }
 
 } // B2ModelFactoryImpl

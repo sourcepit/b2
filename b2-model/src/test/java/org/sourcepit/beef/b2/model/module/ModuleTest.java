@@ -8,8 +8,8 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
-import org.sourcepit.beef.b2.model.module.B2ModelFactory;
-import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
@@ -23,20 +23,20 @@ public class ModuleTest extends TestCase
 {
    public void testGetFacets() throws Exception
    {
-      EcoreUtils.foreachSupertype(B2ModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
             AbstractModule module = (AbstractModule) eObject;
             assertNotNull(module.getFacets(PluginsFacet.class));
 
-            module.getFacets().add(B2ModelFactory.eINSTANCE.createFeaturesFacet());
+            module.getFacets().add(ModuleFactory.eINSTANCE.createFeaturesFacet());
             assertEquals(1, module.getFacets(FeaturesFacet.class).size());
 
-            module.getFacets().add(B2ModelFactory.eINSTANCE.createFeaturesFacet());
+            module.getFacets().add(ModuleFactory.eINSTANCE.createFeaturesFacet());
             assertEquals(2, module.getFacets(FeaturesFacet.class).size());
 
-            module.getFacets().add(B2ModelFactory.eINSTANCE.createSitesFacet());
+            module.getFacets().add(ModuleFactory.eINSTANCE.createSitesFacet());
             assertEquals(2, module.getFacets(FeaturesFacet.class).size());
             assertEquals(1, module.getFacets(SitesFacet.class).size());
             assertEquals(3, module.getFacets(ProjectFacet.class).size());
@@ -46,20 +46,20 @@ public class ModuleTest extends TestCase
 
    public void testHasFacets() throws Exception
    {
-      EcoreUtils.foreachSupertype(B2ModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
             AbstractModule module = (AbstractModule) eObject;
             assertFalse(module.hasFacets(PluginsFacet.class));
 
-            module.getFacets().add(B2ModelFactory.eINSTANCE.createFeaturesFacet());
+            module.getFacets().add(ModuleFactory.eINSTANCE.createFeaturesFacet());
             assertTrue(module.hasFacets(FeaturesFacet.class));
 
-            module.getFacets().add(B2ModelFactory.eINSTANCE.createFeaturesFacet());
+            module.getFacets().add(ModuleFactory.eINSTANCE.createFeaturesFacet());
             assertTrue(module.hasFacets(FeaturesFacet.class));
 
-            module.getFacets().add(B2ModelFactory.eINSTANCE.createSitesFacet());
+            module.getFacets().add(ModuleFactory.eINSTANCE.createSitesFacet());
             assertTrue(module.hasFacets(FeaturesFacet.class));
             assertTrue(module.hasFacets(SitesFacet.class));
             assertTrue(module.hasFacets(ProjectFacet.class));
@@ -69,7 +69,7 @@ public class ModuleTest extends TestCase
 
    public void testGetFacetByType() throws Exception
    {
-      EcoreUtils.foreachSupertype(B2ModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
@@ -77,13 +77,13 @@ public class ModuleTest extends TestCase
             assertNull(module.getFacetByName(null));
             assertNull(module.getFacetByName("plugins"));
 
-            FeaturesFacet features = B2ModelFactory.eINSTANCE.createFeaturesFacet();
+            FeaturesFacet features = ModuleFactory.eINSTANCE.createFeaturesFacet();
             features.setName("features");
             module.getFacets().add(features);
             assertNull(module.getFacetByName("plugins"));
             assertEquals(features, module.getFacetByName("features"));
 
-            PluginsFacet plugins = B2ModelFactory.eINSTANCE.createPluginsFacet();
+            PluginsFacet plugins = ModuleFactory.eINSTANCE.createPluginsFacet();
             plugins.setName("plugins");
             module.getFacets().add(plugins);
             assertEquals(features, module.getFacetByName("features"));
@@ -94,7 +94,7 @@ public class ModuleTest extends TestCase
 
    public void testResolveReference() throws Exception
    {
-      EcoreUtils.foreachSupertype(B2ModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
@@ -108,21 +108,21 @@ public class ModuleTest extends TestCase
             {
             }
 
-            PluginProject project = B2ModelFactory.eINSTANCE.createPluginProject();
+            PluginProject project = ModuleFactory.eINSTANCE.createPluginProject();
             project.setId("foo");
             project.setVersion("1.0.0");
 
-            PluginProject project2 = B2ModelFactory.eINSTANCE.createPluginProject();
+            PluginProject project2 = ModuleFactory.eINSTANCE.createPluginProject();
             project2.setId("foo");
             project2.setVersion("2.0.0");
 
-            PluginsFacet facet = B2ModelFactory.eINSTANCE.createPluginsFacet();
+            PluginsFacet facet = ModuleFactory.eINSTANCE.createPluginsFacet();
             facet.getProjects().add(project);
             facet.getProjects().add(project2);
 
             module.getFacets().add(facet);
 
-            Reference reference = B2ModelFactory.eINSTANCE.createReference();
+            Reference reference = ModuleFactory.eINSTANCE.createReference();
             reference.setId("foo");
 
             reference.setVersionRange("1.0.0");

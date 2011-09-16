@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getCategory()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getCategory()
  * @model
  * @generated
  */
@@ -38,7 +38,7 @@ public interface Category extends EObject
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Feature References</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getCategory_FeatureReferences()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getCategory_FeatureReferences()
     * @model containment="true"
     * @generated
     */
@@ -53,7 +53,7 @@ public interface Category extends EObject
     * 
     * @return the value of the '<em>Name</em>' attribute.
     * @see #setName(String)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getCategory_Name()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getCategory_Name()
     * @model required="true"
     * @generated
     */

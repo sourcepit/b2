@@ -17,7 +17,7 @@ package org.sourcepit.beef.b2.model.module;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getFeatureInclude()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFeatureInclude()
  * @model
  * @generated
  */
@@ -35,7 +35,7 @@ public interface FeatureInclude extends Reference
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(FeatureProject)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getFeatureInclude_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFeatureInclude_Parent()
     * @see org.sourcepit.beef.b2.model.module.FeatureProject#getIncludedFeatures
     * @model opposite="includedFeatures" required="true" transient="false"
     * @generated

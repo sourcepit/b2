@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAnnotation()
+ * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation()
  * @model
  * @generated
  */
@@ -39,7 +39,7 @@ public interface Annotation extends EObject
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(Annotateable)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAnnotation_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation_Parent()
     * @see org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations
     * @model opposite="annotations" required="true" transient="false"
     * @generated
@@ -66,7 +66,7 @@ public interface Annotation extends EObject
     * 
     * @return the value of the '<em>Source</em>' attribute.
     * @see #setSource(String)
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAnnotation_Source()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation_Source()
     * @model required="true"
     * @generated
     */
@@ -91,7 +91,7 @@ public interface Annotation extends EObject
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Entries</em>' map.
-    * @see org.sourcepit.beef.b2.model.module.B2ModelPackage#getAnnotation_Entries()
+    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation_Entries()
     * @model mapType=
     *        "org.sourcepit.beef.b2.internal.model.EStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
     * @generated
