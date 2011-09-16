@@ -157,5 +157,9 @@
         </genOperations>
       </genClasses>
     </nestedGenPackages>
+    <nestedGenPackages prefix="Session" disposableProviderFactory="true" classPackageSuffix="internal.impl"
+        ecorePackage="b2.ecore#//session">
+      <genClasses ecoreClass="b2.ecore#//session/Session"/>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

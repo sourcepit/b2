@@ -44,6 +44,8 @@ import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 import org.sourcepit.beef.b2.model.module.util.Identifier;
+import org.sourcepit.beef.b2.model.session.SessionPackage;
+import org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -281,14 +283,19 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       CommonPackageImpl theCommonPackage = (CommonPackageImpl) (EPackage.Registry.INSTANCE
          .getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE
          .getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
+      SessionPackageImpl theSessionPackage = (SessionPackageImpl) (EPackage.Registry.INSTANCE
+         .getEPackage(SessionPackage.eNS_URI) instanceof SessionPackageImpl ? EPackage.Registry.INSTANCE
+         .getEPackage(SessionPackage.eNS_URI) : SessionPackage.eINSTANCE);
 
       // Create package meta-data objects
       theModulePackage.createPackageContents();
       theCommonPackage.createPackageContents();
+      theSessionPackage.createPackageContents();
 
       // Initialize created meta-data
       theModulePackage.initializePackageContents();
       theCommonPackage.initializePackageContents();
+      theSessionPackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
       theModulePackage.freeze();

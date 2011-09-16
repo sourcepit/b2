@@ -235,4 +235,8 @@
           defaultValueLiteral="0.0.0"/>
     </eClassifiers>
   </eSubpackages>
+  <eSubpackages name="session" nsURI="http://www.sourcepit.org/b2/model/0.1/session"
+      nsPrefix="session">
+    <eClassifiers xsi:type="ecore:EClass" name="Session"/>
+  </eSubpackages>
 </ecore:EPackage>
