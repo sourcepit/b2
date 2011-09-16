@@ -12,8 +12,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 
 /**

@@ -9,7 +9,6 @@ import junit.framework.TestCase;
 import org.eclipse.emf.ecore.EPackage;
 import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.ModulePackage;
-import org.sourcepit.beef.b2.model.module.internal.impl.ModuleFactoryImpl;
 
 public class ModuleFactoryImplTest extends TestCase
 {

@@ -4,7 +4,6 @@
 
 package org.sourcepit.beef.b2.model.module.internal.impl;
 
-import org.sourcepit.beef.b2.model.module.internal.impl.PluginIncludeImpl;
 import org.sourcepit.beef.b2.model.module.internal.util.ReferenceUtils;
 import org.sourcepit.beef.b2.model.module.util.Identifier;
 

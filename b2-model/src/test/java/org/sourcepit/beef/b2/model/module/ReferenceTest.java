@@ -7,8 +7,6 @@ package org.sourcepit.beef.b2.model.module;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
-import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
 

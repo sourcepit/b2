@@ -23,8 +23,6 @@ import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.Annotateable;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.Classified;
@@ -35,6 +33,8 @@ import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
 import org.sourcepit.beef.b2.model.module.FileContainer;
 import org.sourcepit.beef.b2.model.module.Identifiable;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
@@ -294,25 +294,25 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
          return (ModulePackage) EPackage.Registry.INSTANCE.getEPackage(ModulePackage.eNS_URI);
 
       // Obtain or create and register package
-      ModulePackageImpl theB2ModelPackage = (ModulePackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModulePackageImpl
+      ModulePackageImpl theModulePackage = (ModulePackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModulePackageImpl
          ? EPackage.Registry.INSTANCE.get(eNS_URI)
          : new ModulePackageImpl());
 
       isInited = true;
 
       // Create package meta-data objects
-      theB2ModelPackage.createPackageContents();
+      theModulePackage.createPackageContents();
 
       // Initialize created meta-data
-      theB2ModelPackage.initializePackageContents();
+      theModulePackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
-      theB2ModelPackage.freeze();
+      theModulePackage.freeze();
 
 
       // Update the registry and return the package
-      EPackage.Registry.INSTANCE.put(ModulePackage.eNS_URI, theB2ModelPackage);
-      return theB2ModelPackage;
+      EPackage.Registry.INSTANCE.put(ModulePackage.eNS_URI, theModulePackage);
+      return theModulePackage;
    }
 
    /**
@@ -1000,6 +1000,16 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
     * 
     * @generated
     */
+   public ModuleFactory getModuleFactory()
+   {
+      return (ModuleFactory) getEFactoryInstance();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EDataType getEJavaFile()
    {
       return eJavaFileEDataType;
@@ -1013,16 +1023,6 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
    public EDataType getELocale()
    {
       return eLocaleEDataType;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public ModuleFactory getB2ModelFactory()
-   {
-      return (ModuleFactory) getEFactoryInstance();
    }
 
    /**

@@ -69,8 +69,8 @@ public interface Reference extends EObject
    String getVersionRange();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Reference#getVersionRange
-    * <em>Version Range</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Reference#getVersionRange <em>Version Range</em>}
+    * ' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Version Range</em>' attribute.
     * @see #getVersionRange()
@@ -81,7 +81,7 @@ public interface Reference extends EObject
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @model required="true" identifierDataType="org.sourcepit.beef.b2.internal.model.Identifier"
+    * @model required="true" identifierDataType="org.sourcepit.beef.b2.model.module.Identifier"
     * @generated
     */
    boolean isSatisfiableBy(Identifier identifier);

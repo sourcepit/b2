@@ -23,8 +23,8 @@ import org.sourcepit.beef.b2.model.module.ProductsFacet;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.ProductsFacetImpl#getProductDefinitions <em>Product Definitions
- * </em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.ProductsFacetImpl#getProductDefinitions <em>Product
+ * Definitions</em>}</li>
  * </ul>
  * </p>
  * 

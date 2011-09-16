@@ -17,14 +17,14 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
@@ -33,7 +33,6 @@ import org.sourcepit.beef.b2.model.module.ProductsFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
-import org.sourcepit.beef.b2.model.module.internal.impl.CModuleFactoryImpl;
 import org.sourcepit.beef.b2.model.module.util.Identifier;
 
 /**
@@ -406,7 +405,7 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
     * 
     * @generated
     */
-   public ModulePackage getB2ModelPackage()
+   public ModulePackage getModulePackage()
    {
       return (ModulePackage) getEPackage();
    }

@@ -20,8 +20,8 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Derivable;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.ProductsFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
@@ -34,7 +34,8 @@ import org.sourcepit.beef.b2.model.module.Reference;
  * <ul>
  * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.ProductDefinitionImpl#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.ProductDefinitionImpl#getFile <em>File</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.ProductDefinitionImpl#getProductPlugin <em>Product Plugin</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.ProductDefinitionImpl#getProductPlugin <em>Product Plugin
+ * </em>}</li>
  * </ul>
  * </p>
  * 

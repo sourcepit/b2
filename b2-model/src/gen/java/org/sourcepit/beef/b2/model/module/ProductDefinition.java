@@ -29,8 +29,8 @@ public interface ProductDefinition extends Annotateable, Derivable
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.beef.b2.model.module.ProductsFacet#getProductDefinitions <em>Product Definitions</em>}'.
-    * <!-- begin-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.ProductsFacet#getProductDefinitions <em>Product Definitions</em>}'. <!--
+    * begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -66,7 +66,7 @@ public interface ProductDefinition extends Annotateable, Derivable
     * @return the value of the '<em>File</em>' attribute.
     * @see #setFile(File)
     * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProductDefinition_File()
-    * @model dataType="org.sourcepit.beef.b2.internal.model.EJavaFile" required="true"
+    * @model dataType="org.sourcepit.beef.b2.model.module.EJavaFile" required="true"
     * @generated
     */
    File getFile();

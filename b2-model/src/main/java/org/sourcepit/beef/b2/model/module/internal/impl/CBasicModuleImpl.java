@@ -10,7 +10,6 @@ import org.sourcepit.beef.b2.model.module.Annotation;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
-import org.sourcepit.beef.b2.model.module.internal.impl.BasicModuleImpl;
 import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
 import org.sourcepit.beef.b2.model.module.internal.util.FacetUtils;
 import org.sourcepit.beef.b2.model.module.internal.util.IdentifiableUtils;

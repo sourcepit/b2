@@ -42,8 +42,8 @@ public interface Identifiable extends EObject
    String getId();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Identifiable#getId <em>Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Identifiable#getId <em>Id</em>}' attribute. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Id</em>' attribute.
     * @see #getId()
@@ -80,7 +80,7 @@ public interface Identifiable extends EObject
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @model required="true" identifierDataType="org.sourcepit.beef.b2.internal.model.Identifier"
+    * @model required="true" identifierDataType="org.sourcepit.beef.b2.model.module.Identifier"
     * @generated
     */
    boolean isIdentifyableBy(Identifier identifier);
@@ -88,7 +88,7 @@ public interface Identifiable extends EObject
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @model dataType="org.sourcepit.beef.b2.internal.model.Identifier" required="true"
+    * @model dataType="org.sourcepit.beef.b2.model.module.Identifier" required="true"
     * @generated
     */
    Identifier toIdentifier();

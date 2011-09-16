@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Composite Module</b></em>'. <!-- end-user-doc

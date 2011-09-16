@@ -12,8 +12,8 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.FileContainer;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>File Container</b></em>'. <!-- end-user-doc -->

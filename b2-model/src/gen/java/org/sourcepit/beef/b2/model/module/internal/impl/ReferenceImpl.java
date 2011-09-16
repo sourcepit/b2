@@ -130,8 +130,8 @@ public class ReferenceImpl extends EObjectImpl implements Reference
       String oldVersionRange = versionRange;
       versionRange = newVersionRange;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.REFERENCE__VERSION_RANGE,
-            oldVersionRange, versionRange));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.REFERENCE__VERSION_RANGE, oldVersionRange,
+            versionRange));
    }
 
    /**

@@ -16,7 +16,6 @@ import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.Annotateable;
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.Classified;
@@ -27,6 +26,7 @@ import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
 import org.sourcepit.beef.b2.model.module.FileContainer;
 import org.sourcepit.beef.b2.model.module.Identifiable;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
@@ -409,9 +409,9 @@ public class ModuleAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.module.Project
-    * <em>Project</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore
-    * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.module.Project <em>Project</em>}
+    * '. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+    * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.beef.b2.model.module.Project

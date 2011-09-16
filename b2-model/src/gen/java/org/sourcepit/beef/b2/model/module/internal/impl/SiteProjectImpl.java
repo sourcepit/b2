@@ -17,9 +17,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.Classified;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 
@@ -157,8 +157,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.SITE_PROJECT__PARENT, newParent,
-            newParent));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.SITE_PROJECT__PARENT, newParent, newParent));
    }
 
    /**

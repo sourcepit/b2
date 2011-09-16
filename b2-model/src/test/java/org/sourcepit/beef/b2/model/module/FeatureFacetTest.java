@@ -8,10 +8,6 @@
 
 package org.sourcepit.beef.b2.model.module;
 
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
-import org.sourcepit.beef.b2.model.module.FeatureProject;
-import org.sourcepit.beef.b2.model.module.FeaturesFacet;
-
 
 /**
  * @author Bernd

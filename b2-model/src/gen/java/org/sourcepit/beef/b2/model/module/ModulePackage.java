@@ -33,21 +33,21 @@ public interface ModulePackage extends EPackage
     * 
     * @generated
     */
-   String eNAME = "b2";
+   String eNAME = "module";
 
    /**
     * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   String eNS_URI = "http://www.sourcepit.org/beef/b2/0.1";
+   String eNS_URI = "http://www.sourcepit.org/b2/model/0.1/module";
 
    /**
     * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   String eNS_PREFIX = "b2";
+   String eNS_PREFIX = "module";
 
    /**
     * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -127,8 +127,8 @@ public interface ModulePackage extends EPackage
    int FEATURES_FACET = 5;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.SitesFacetImpl <em>Sites Facet</em>}'
-    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.SitesFacetImpl
+    * <em>Sites Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.SitesFacetImpl
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getSitesFacet()
@@ -137,8 +137,8 @@ public interface ModulePackage extends EPackage
    int SITES_FACET = 6;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.ProjectImpl <em>Project</em>}' class.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.ProjectImpl <em>Project</em>}'
+    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ProjectImpl
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProject()
@@ -1086,8 +1086,8 @@ public interface ModulePackage extends EPackage
    int PLUGIN_INCLUDE_FEATURE_COUNT = REFERENCE_FEATURE_COUNT + 2;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.CategoryImpl <em>Category</em>}'
-    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.CategoryImpl
+    * <em>Category</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.CategoryImpl
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getCategory()
@@ -1164,8 +1164,8 @@ public interface ModulePackage extends EPackage
    int FEATURE_INCLUDE_FEATURE_COUNT = REFERENCE_FEATURE_COUNT + 1;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Classified <em>Classified</em>}' class.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Classified <em>Classified</em>}' class. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.Classified
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getClassified()
@@ -1191,8 +1191,8 @@ public interface ModulePackage extends EPackage
    int CLASSIFIED_FEATURE_COUNT = 1;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Annotateable <em>Annotateable</em>}'
-    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Annotateable <em>Annotateable</em>}' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.Annotateable
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAnnotateable()
@@ -1219,8 +1219,8 @@ public interface ModulePackage extends EPackage
    int ANNOTATEABLE_FEATURE_COUNT = 1;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl <em>Annotation</em>}'
-    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl
+    * <em>Annotation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAnnotation()
@@ -1297,8 +1297,8 @@ public interface ModulePackage extends EPackage
    int ESTRING_MAP_ENTRY_FEATURE_COUNT = 2;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}'
-    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.Identifiable
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifiable()
@@ -1456,7 +1456,7 @@ public interface ModulePackage extends EPackage
    /**
     * The meta object id for the '<em>Identifier</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @see org.sourcepit.beef.b2.model.module.util.Identifier
+    * @see org.sourcepit.beef.b2.model.util.Identifier
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifier()
     * @generated
     */
@@ -1494,8 +1494,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.beef.b2.model.module.AbstractModule#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.AbstractModule#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.beef.b2.model.module.AbstractModule#getParent()
@@ -1529,8 +1529,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.beef.b2.model.module.AbstractModule#getFacets <em>Facets</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.AbstractModule#getFacets <em>Facets</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Facets</em>'.
     * @see org.sourcepit.beef.b2.model.module.AbstractModule#getFacets()
@@ -1540,8 +1540,8 @@ public interface ModulePackage extends EPackage
    EReference getAbstractModule_Facets();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.BasicModule <em>Basic Module</em>}
-    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.BasicModule <em>Basic Module</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Basic Module</em>'.
     * @see org.sourcepit.beef.b2.model.module.BasicModule
@@ -1561,8 +1561,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.beef.b2.model.module.AbstractFacet#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.AbstractFacet#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.beef.b2.model.module.AbstractFacet#getParent()
@@ -1605,8 +1605,8 @@ public interface ModulePackage extends EPackage
    EReference getCompositeModule_Modules();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.PluginsFacet
-    * <em>Plugins Facet</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.PluginsFacet <em>Plugins Facet</em>}
+    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Plugins Facet</em>'.
     * @see org.sourcepit.beef.b2.model.module.PluginsFacet
@@ -1660,8 +1660,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.beef.b2.model.module.SitesFacet#getProjects <em>Projects</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.SitesFacet#getProjects <em>Projects</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Projects</em>'.
     * @see org.sourcepit.beef.b2.model.module.SitesFacet#getProjects()
@@ -1682,8 +1682,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.beef.b2.model.module.PluginProject#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.PluginProject#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.beef.b2.model.module.PluginProject#getParent()
@@ -1751,8 +1751,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.beef.b2.model.module.FeatureProject#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.FeatureProject#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.beef.b2.model.module.FeatureProject#getParent()
@@ -1786,8 +1786,8 @@ public interface ModulePackage extends EPackage
    EReference getFeatureProject_IncludedFeatures();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.SiteProject <em>Site Project</em>}
-    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.SiteProject <em>Site Project</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Site Project</em>'.
     * @see org.sourcepit.beef.b2.model.module.SiteProject
@@ -1809,8 +1809,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.beef.b2.model.module.SiteProject#getCategories <em>Categories</em>}'. <!-- begin-user-doc
-    * --> <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.SiteProject#getCategories <em>Categories</em>}'. <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Categories</em>'.
     * @see org.sourcepit.beef.b2.model.module.SiteProject#getCategories()
@@ -1830,8 +1830,8 @@ public interface ModulePackage extends EPackage
    EClass getProject();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.ProjectFacet
-    * <em>Project Facet</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.ProjectFacet <em>Project Facet</em>}
+    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Project Facet</em>'.
     * @see org.sourcepit.beef.b2.model.module.ProjectFacet
@@ -1861,8 +1861,8 @@ public interface ModulePackage extends EPackage
    EAttribute getFileContainer_Directory();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Derivable <em>Derivable</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Derivable <em>Derivable</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Derivable</em>'.
     * @see org.sourcepit.beef.b2.model.module.Derivable
@@ -1904,8 +1904,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.beef.b2.model.module.PluginInclude#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.PluginInclude#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.beef.b2.model.module.PluginInclude#getParent()
@@ -1959,8 +1959,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.beef.b2.model.module.FeatureInclude#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.FeatureInclude#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.beef.b2.model.module.FeatureInclude#getParent()
@@ -1991,8 +1991,8 @@ public interface ModulePackage extends EPackage
    EAttribute getClassified_Classifier();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Annotateable <em>Annotateable</em>}
-    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Annotateable <em>Annotateable</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Annotateable</em>'.
     * @see org.sourcepit.beef.b2.model.module.Annotateable
@@ -2002,8 +2002,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations <em>Annotations</em>}'. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
+    * --> <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Annotations</em>'.
     * @see org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations()
@@ -2090,8 +2090,8 @@ public interface ModulePackage extends EPackage
    EAttribute getEStringMapEntry_Value();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}
-    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Identifiable</em>'.
     * @see org.sourcepit.beef.b2.model.module.Identifiable
@@ -2133,8 +2133,8 @@ public interface ModulePackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.beef.b2.model.module.ProductsFacet#getProductDefinitions <em>Product Definitions</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.ProductsFacet#getProductDefinitions <em>Product Definitions</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Product Definitions</em>'.
     * @see org.sourcepit.beef.b2.model.module.ProductsFacet#getProductDefinitions()
@@ -2189,8 +2189,8 @@ public interface ModulePackage extends EPackage
    EReference getProductDefinition_ProductPlugin();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Reference <em>Reference</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Reference <em>Reference</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Reference</em>'.
     * @see org.sourcepit.beef.b2.model.module.Reference
@@ -2199,8 +2199,8 @@ public interface ModulePackage extends EPackage
    EClass getReference();
 
    /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.module.Reference#getId
-    * <em>Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.module.Reference#getId <em>Id</em>}
+    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Id</em>'.
     * @see org.sourcepit.beef.b2.model.module.Reference#getId()
@@ -2221,15 +2221,23 @@ public interface ModulePackage extends EPackage
    EAttribute getReference_VersionRange();
 
    /**
-    * Returns the meta object for data type '{@link org.sourcepit.beef.b2.model.module.util.Identifier <em>Identifier</em>}'.
+    * Returns the meta object for data type '{@link org.sourcepit.beef.b2.model.util.Identifier <em>Identifier</em>}'.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for data type '<em>Identifier</em>'.
-    * @see org.sourcepit.beef.b2.model.module.util.Identifier
+    * @see org.sourcepit.beef.b2.model.util.Identifier
     * @model instanceClass="org.sourcepit.beef.b2.model.util.Identifier"
     * @generated
     */
    EDataType getIdentifier();
+
+   /**
+    * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the factory that creates the instances of the model.
+    * @generated
+    */
+   ModuleFactory getModuleFactory();
 
    /**
     * Returns the meta object for data type '{@link java.io.File <em>EJava File</em>}'. <!-- begin-user-doc --> <!--
@@ -2252,14 +2260,6 @@ public interface ModulePackage extends EPackage
     * @generated
     */
    EDataType getELocale();
-
-   /**
-    * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @return the factory that creates the instances of the model.
-    * @generated
-    */
-   ModuleFactory getB2ModelFactory();
 
    /**
     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -2536,8 +2536,8 @@ public interface ModulePackage extends EPackage
       EReference SITE_PROJECT__CATEGORIES = eINSTANCE.getSiteProject_Categories();
 
       /**
-       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.ProjectImpl <em>Project</em>}
-       * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.ProjectImpl
+       * <em>Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ProjectImpl
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProject()
@@ -2680,8 +2680,8 @@ public interface ModulePackage extends EPackage
       EAttribute CLASSIFIED__CLASSIFIER = eINSTANCE.getClassified_Classifier();
 
       /**
-       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.Annotateable
-       * <em>Annotateable</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.Annotateable <em>Annotateable</em>}'
+       * class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.Annotateable
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAnnotateable()
@@ -2758,8 +2758,8 @@ public interface ModulePackage extends EPackage
       EAttribute ESTRING_MAP_ENTRY__VALUE = eINSTANCE.getEStringMapEntry_Value();
 
       /**
-       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.Identifiable
-       * <em>Identifiable</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}'
+       * class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.Identifiable
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifiable()
@@ -2864,7 +2864,7 @@ public interface ModulePackage extends EPackage
       /**
        * The meta object literal for the '<em>Identifier</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
-       * @see org.sourcepit.beef.b2.model.module.util.Identifier
+       * @see org.sourcepit.beef.b2.model.util.Identifier
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifier()
        * @generated
        */

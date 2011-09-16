@@ -9,7 +9,6 @@
 package org.sourcepit.beef.b2.model.module.internal.impl;
 
 import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl;
 import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
 import org.sourcepit.beef.b2.model.module.internal.util.IdentifiableUtils;
 import org.sourcepit.beef.b2.model.module.util.Identifier;

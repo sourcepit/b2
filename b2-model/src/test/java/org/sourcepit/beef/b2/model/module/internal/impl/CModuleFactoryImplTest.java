@@ -7,7 +7,6 @@ package org.sourcepit.beef.b2.model.module.internal.impl;
 import junit.framework.TestCase;
 
 import org.sourcepit.beef.b2.model.module.ModuleFactory;
-import org.sourcepit.beef.b2.model.module.internal.impl.CModuleFactoryImpl;
 
 public class CModuleFactoryImplTest extends TestCase
 {

@@ -150,6 +150,6 @@ public interface ModuleFactory extends EFactory
     * @return the package supported by this factory.
     * @generated
     */
-   ModulePackage getB2ModelPackage();
+   ModulePackage getModulePackage();
 
 } // B2ModelFactory

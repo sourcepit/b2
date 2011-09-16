@@ -45,8 +45,8 @@ public interface SiteProject extends Project, Classified
    SitesFacet getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.SiteProject#getParent <em>Parent</em>}'
-    * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.SiteProject#getParent <em>Parent</em>}' container
+    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()

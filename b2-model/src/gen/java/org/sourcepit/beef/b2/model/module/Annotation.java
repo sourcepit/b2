@@ -29,8 +29,8 @@ public interface Annotation extends EObject
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations <em>Annotations</em>}'. <!--
-    * begin-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
+    * -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -47,8 +47,8 @@ public interface Annotation extends EObject
    Annotateable getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Annotation#getParent <em>Parent</em>}'
-    * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Annotation#getParent <em>Parent</em>}' container
+    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -73,8 +73,8 @@ public interface Annotation extends EObject
    String getSource();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Annotation#getSource <em>Source</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Annotation#getSource <em>Source</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Source</em>' attribute.
     * @see #getSource()
@@ -93,7 +93,7 @@ public interface Annotation extends EObject
     * @return the value of the '<em>Entries</em>' map.
     * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation_Entries()
     * @model mapType=
-    *        "org.sourcepit.beef.b2.internal.model.EStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
+    *        "org.sourcepit.beef.b2.model.module.EStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
     * @generated
     */
    EMap<String, String> getEntries();

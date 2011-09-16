@@ -10,9 +10,8 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
-import org.sourcepit.beef.b2.model.module.internal.util.EWalkerImpl;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 
 public class EWalkerImplTest extends TestCase
 {

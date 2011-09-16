@@ -14,9 +14,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Features Facet</b></em>'. <!-- end-user-doc -->

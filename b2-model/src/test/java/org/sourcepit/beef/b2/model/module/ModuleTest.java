@@ -7,15 +7,6 @@ package org.sourcepit.beef.b2.model.module;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.module.AbstractModule;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
-import org.sourcepit.beef.b2.model.module.FeaturesFacet;
-import org.sourcepit.beef.b2.model.module.PluginProject;
-import org.sourcepit.beef.b2.model.module.PluginsFacet;
-import org.sourcepit.beef.b2.model.module.ProjectFacet;
-import org.sourcepit.beef.b2.model.module.Reference;
-import org.sourcepit.beef.b2.model.module.SitesFacet;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
 

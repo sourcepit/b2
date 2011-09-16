@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Category;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.Reference;
 
 /**
@@ -26,7 +26,8 @@ import org.sourcepit.beef.b2.model.module.Reference;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.CategoryImpl#getFeatureReferences <em>Feature References</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.CategoryImpl#getFeatureReferences <em>Feature References
+ * </em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.CategoryImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>

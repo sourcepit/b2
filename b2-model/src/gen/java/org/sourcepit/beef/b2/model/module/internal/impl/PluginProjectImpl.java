@@ -22,12 +22,13 @@ import org.sourcepit.beef.b2.model.module.PluginsFacet;
  * The following features are implemented:
  * <ul>
  * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl#getBundleVersion <em>Bundle Version</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl#getBundleVersion <em>Bundle Version
+ * </em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl#isTestPlugin <em>Test Plugin</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostSymbolicName <em>Fragment Host
- * Symbolic Name</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostVersion <em>Fragment Host
- * Version</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostSymbolicName <em>
+ * Fragment Host Symbolic Name</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostVersion <em>Fragment
+ * Host Version</em>}</li>
  * </ul>
  * </p>
  * 
@@ -340,8 +341,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       switch (eContainerFeatureID())
       {
          case ModulePackage.PLUGIN_PROJECT__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModulePackage.PLUGINS_FACET__PROJECTS,
-               PluginsFacet.class, msgs);
+            return eInternalContainer().eInverseRemove(this, ModulePackage.PLUGINS_FACET__PROJECTS, PluginsFacet.class,
+               msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
    }
