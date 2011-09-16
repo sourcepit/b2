@@ -28,6 +28,13 @@ public class B2MavenBootstrapper extends AbstractMavenBootstrapper
       return descriptorProcessor.findModuleDescriptors(baseDir);
    }
 
+   @Override
+   protected void beforeWrapperProjectsInitialized(MavenSession session, List<MavenProject> projects)
+      throws MavenExecutionException
+   {
+      // empty
+   }
+
    protected void afterWrapperProjectsInitialized(MavenSession session, List<MavenProject> bootstrapProjects)
    {
       if (!bootstrapProjects.isEmpty())
