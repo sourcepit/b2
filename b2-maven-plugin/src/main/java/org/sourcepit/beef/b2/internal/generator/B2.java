@@ -11,11 +11,11 @@ import javax.inject.Named;
 
 import org.sourcepit.beef.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.beef.b2.internal.cleaner.ModuleCleaner;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.IModelCache;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 @Named
 public class B2

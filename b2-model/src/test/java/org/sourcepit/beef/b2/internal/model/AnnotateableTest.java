@@ -11,6 +11,10 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.sourcepit.beef.b2.model.module.Annotateable;
+import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.B2ModelPackage;
 
 public class AnnotateableTest extends TestCase
 {

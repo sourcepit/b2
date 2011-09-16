@@ -22,20 +22,20 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
-import org.sourcepit.beef.b2.internal.model.Annotateable;
-import org.sourcepit.beef.b2.internal.model.FeatureProject;
-import org.sourcepit.beef.b2.internal.model.PluginProject;
-import org.sourcepit.beef.b2.internal.model.PluginsFacet;
-import org.sourcepit.beef.b2.internal.model.ProductDefinition;
-import org.sourcepit.beef.b2.internal.model.Project;
-import org.sourcepit.beef.b2.internal.model.SiteProject;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.ISourceManager;
 import org.sourcepit.beef.b2.model.builder.util.IUnpackStrategy;
-import org.sourcepit.beef.b2.model.internal.util.B2ModelSwitch;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.Annotateable;
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.PluginProject;
+import org.sourcepit.beef.b2.model.module.PluginsFacet;
+import org.sourcepit.beef.b2.model.module.ProductDefinition;
+import org.sourcepit.beef.b2.model.module.Project;
+import org.sourcepit.beef.b2.model.module.SiteProject;
+import org.sourcepit.beef.b2.model.module.util.B2ModelSwitch;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant

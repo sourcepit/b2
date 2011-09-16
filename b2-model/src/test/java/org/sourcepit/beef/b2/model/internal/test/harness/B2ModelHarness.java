@@ -9,7 +9,7 @@ import junit.framework.AssertionFailedError;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.internal.model.Derivable;
+import org.sourcepit.beef.b2.model.module.Derivable;
 
 public final class B2ModelHarness
 {

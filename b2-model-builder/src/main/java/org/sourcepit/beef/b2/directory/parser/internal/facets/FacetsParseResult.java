@@ -7,7 +7,7 @@ package org.sourcepit.beef.b2.directory.parser.internal.facets;
 import java.util.Collections;
 import java.util.List;
 
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
 
 public class FacetsParseResult<F extends AbstractFacet>
 {

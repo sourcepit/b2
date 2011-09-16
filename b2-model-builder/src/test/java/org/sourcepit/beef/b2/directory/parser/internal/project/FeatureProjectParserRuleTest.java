@@ -7,11 +7,11 @@ package org.sourcepit.beef.b2.directory.parser.internal.project;
 import java.io.File;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.internal.model.FeatureInclude;
-import org.sourcepit.beef.b2.internal.model.FeatureProject;
-import org.sourcepit.beef.b2.internal.model.PluginInclude;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.beef.b2.model.module.FeatureInclude;
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.PluginInclude;
 
 public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
 {

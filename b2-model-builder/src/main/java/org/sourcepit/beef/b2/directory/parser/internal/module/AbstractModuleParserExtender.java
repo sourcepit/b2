@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.internal.model.Annotateable;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.Annotateable;
 
 public abstract class AbstractModuleParserExtender implements IModuleParserExtender
 {

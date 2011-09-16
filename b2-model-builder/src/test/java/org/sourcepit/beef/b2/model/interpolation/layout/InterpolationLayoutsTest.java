@@ -9,8 +9,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.sonatype.guice.bean.containers.InjectedTestCase;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.BasicModule;
 
 public class InterpolationLayoutsTest extends InjectedTestCase
 {

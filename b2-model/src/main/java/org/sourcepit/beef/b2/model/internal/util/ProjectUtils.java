@@ -10,7 +10,7 @@ package org.sourcepit.beef.b2.model.internal.util;
 
 import java.util.List;
 
-import org.sourcepit.beef.b2.internal.model.Project;
+import org.sourcepit.beef.b2.model.module.Project;
 
 /**
  * @author Bernd

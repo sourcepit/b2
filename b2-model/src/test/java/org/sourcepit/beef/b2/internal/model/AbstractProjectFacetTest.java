@@ -8,6 +8,9 @@
 
 package org.sourcepit.beef.b2.internal.model;
 
+import org.sourcepit.beef.b2.model.module.Project;
+import org.sourcepit.beef.b2.model.module.ProjectFacet;
+
 import junit.framework.TestCase;
 
 /**

@@ -10,8 +10,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
 
 @Named
 public class FacetsParser

@@ -6,7 +6,7 @@ package org.sourcepit.beef.b2.model.builder.util;
 
 import java.util.List;
 
-import org.sourcepit.beef.b2.internal.model.PluginProject;
+import org.sourcepit.beef.b2.model.module.PluginProject;
 
 
 public interface IUnpackStrategy

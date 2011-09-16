@@ -9,10 +9,10 @@ import java.io.File;
 import org.sourcepit.beef.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
 import org.sourcepit.beef.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
 import org.sourcepit.beef.b2.directory.parser.module.ModuleParsingRequest;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.BasicModule;
 
 public class BasicModuleParserRuleTest extends AbstractModuleParserTest
 {

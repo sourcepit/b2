@@ -9,8 +9,8 @@ import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.internal.generator.ITemplates;
-import org.sourcepit.beef.b2.internal.model.Derivable;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.Derivable;
 
 public abstract class AbstractGeneratorForDerivedElements extends AbstractGenerator
 {

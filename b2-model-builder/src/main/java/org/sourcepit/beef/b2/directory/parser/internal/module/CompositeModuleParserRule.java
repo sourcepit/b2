@@ -16,10 +16,10 @@ import org.sourcepit.beef.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.beef.b2.directory.parser.module.ModuleParsingRequest;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.CompositeModule;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.CompositeModule;
 
 @Named("compositeModule")
 public class CompositeModuleParserRule extends AbstractModuleParserRule<CompositeModule>

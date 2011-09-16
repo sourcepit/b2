@@ -18,13 +18,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.common.internal.utils.PathUtils;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
-import org.sourcepit.beef.b2.internal.model.Annotateable;
-import org.sourcepit.beef.b2.internal.model.CompositeModule;
-import org.sourcepit.beef.b2.internal.model.ProductsFacet;
-import org.sourcepit.beef.b2.internal.model.ProjectFacet;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.Annotateable;
+import org.sourcepit.beef.b2.model.module.CompositeModule;
+import org.sourcepit.beef.b2.model.module.ProductsFacet;
+import org.sourcepit.beef.b2.model.module.ProjectFacet;
 
 @Named
 public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2GenerationParticipant

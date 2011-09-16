@@ -7,19 +7,20 @@ package org.sourcepit.beef.b2.model.internal.impl;
 import java.util.Locale;
 
 import org.eclipse.emf.ecore.EDataType;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
-import org.sourcepit.beef.b2.internal.model.CompositeModule;
-import org.sourcepit.beef.b2.internal.model.FeatureInclude;
-import org.sourcepit.beef.b2.internal.model.FeatureProject;
-import org.sourcepit.beef.b2.internal.model.FeaturesFacet;
-import org.sourcepit.beef.b2.internal.model.PluginInclude;
-import org.sourcepit.beef.b2.internal.model.PluginProject;
-import org.sourcepit.beef.b2.internal.model.PluginsFacet;
-import org.sourcepit.beef.b2.internal.model.ProductDefinition;
-import org.sourcepit.beef.b2.internal.model.ProductsFacet;
-import org.sourcepit.beef.b2.internal.model.Reference;
-import org.sourcepit.beef.b2.internal.model.SiteProject;
-import org.sourcepit.beef.b2.internal.model.SitesFacet;
+import org.sourcepit.beef.b2.model.module.BasicModule;
+import org.sourcepit.beef.b2.model.module.CompositeModule;
+import org.sourcepit.beef.b2.model.module.FeatureInclude;
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.FeaturesFacet;
+import org.sourcepit.beef.b2.model.module.PluginInclude;
+import org.sourcepit.beef.b2.model.module.PluginProject;
+import org.sourcepit.beef.b2.model.module.PluginsFacet;
+import org.sourcepit.beef.b2.model.module.ProductDefinition;
+import org.sourcepit.beef.b2.model.module.ProductsFacet;
+import org.sourcepit.beef.b2.model.module.Reference;
+import org.sourcepit.beef.b2.model.module.SiteProject;
+import org.sourcepit.beef.b2.model.module.SitesFacet;
+import org.sourcepit.beef.b2.model.module.internal.impl.B2ModelFactoryImpl;
 
 public class CB2ModelFactoryImpl extends B2ModelFactoryImpl
 {

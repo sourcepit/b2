@@ -9,6 +9,8 @@ import junit.framework.TestCase;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.internal.model.harness.EcoreUtils;
 import org.sourcepit.beef.b2.internal.model.harness.EcoreUtils.RunnableWithEObject;
+import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.ProjectFacet;
 
 /**
  * @author Bernd

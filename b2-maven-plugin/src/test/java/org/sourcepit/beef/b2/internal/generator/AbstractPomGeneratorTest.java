@@ -16,8 +16,6 @@ import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.ModelReader;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
 import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuildingRequest;
@@ -25,6 +23,8 @@ import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils
 import org.sourcepit.beef.b2.model.builder.util.DefaultConverter;
 import org.sourcepit.beef.b2.model.internal.util.EWalkerImpl;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
 public abstract class AbstractPomGeneratorTest extends AbstractInjectedWorkspaceTest

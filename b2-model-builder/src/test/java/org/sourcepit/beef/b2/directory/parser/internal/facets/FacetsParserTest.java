@@ -7,11 +7,11 @@ package org.sourcepit.beef.b2.directory.parser.internal.facets;
 import java.io.File;
 import java.util.List;
 
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.BasicModule;
 
 public class FacetsParserTest extends AbstractModuleParserTest
 {

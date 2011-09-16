@@ -9,11 +9,11 @@ import java.io.File;
 import javax.inject.Named;
 
 import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.FeatureInclude;
-import org.sourcepit.beef.b2.internal.model.FeatureProject;
-import org.sourcepit.beef.b2.internal.model.PluginInclude;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.FeatureInclude;
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

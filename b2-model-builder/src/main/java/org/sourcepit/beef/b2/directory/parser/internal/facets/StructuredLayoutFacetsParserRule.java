@@ -12,9 +12,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sourcepit.beef.b2.internal.model.Project;
-import org.sourcepit.beef.b2.internal.model.ProjectFacet;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.Project;
+import org.sourcepit.beef.b2.model.module.ProjectFacet;
 
 @Named("structured")
 public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>

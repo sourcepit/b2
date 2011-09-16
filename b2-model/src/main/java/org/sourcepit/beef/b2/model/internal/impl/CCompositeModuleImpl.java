@@ -5,14 +5,15 @@
 package org.sourcepit.beef.b2.model.internal.impl;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
-import org.sourcepit.beef.b2.internal.model.Annotation;
-import org.sourcepit.beef.b2.internal.model.Project;
-import org.sourcepit.beef.b2.internal.model.ProjectFacet;
-import org.sourcepit.beef.b2.internal.model.Reference;
 import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
 import org.sourcepit.beef.b2.model.internal.util.FacetUtils;
 import org.sourcepit.beef.b2.model.internal.util.IdentifiableUtils;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
+import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.module.Project;
+import org.sourcepit.beef.b2.model.module.ProjectFacet;
+import org.sourcepit.beef.b2.model.module.Reference;
+import org.sourcepit.beef.b2.model.module.internal.impl.CompositeModuleImpl;
 import org.sourcepit.beef.b2.model.util.Identifier;
 
 public class CCompositeModuleImpl extends CompositeModuleImpl

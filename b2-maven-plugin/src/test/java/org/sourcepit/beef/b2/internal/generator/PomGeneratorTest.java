@@ -8,9 +8,9 @@ import java.io.File;
 
 import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
-import org.sourcepit.beef.b2.internal.model.PluginsFacet;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.module.BasicModule;
+import org.sourcepit.beef.b2.model.module.PluginsFacet;
 
 public class PomGeneratorTest extends AbstractPomGeneratorTest
 {

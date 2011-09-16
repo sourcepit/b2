@@ -12,8 +12,8 @@ import java.util.Map;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 /**
  * @author Bernd

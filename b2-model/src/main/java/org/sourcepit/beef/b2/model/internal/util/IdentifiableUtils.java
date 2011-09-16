@@ -4,7 +4,7 @@
 
 package org.sourcepit.beef.b2.model.internal.util;
 
-import org.sourcepit.beef.b2.internal.model.Identifiable;
+import org.sourcepit.beef.b2.model.module.Identifiable;
 import org.sourcepit.beef.b2.model.util.Identifier;
 
 public final class IdentifiableUtils

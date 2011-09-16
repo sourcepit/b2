@@ -4,7 +4,7 @@
 
 package org.sourcepit.beef.b2.model.builder;
 
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 
 public interface IB2ModelBuilder

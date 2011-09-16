@@ -5,8 +5,8 @@
 package org.sourcepit.beef.b2.model.internal.util;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.internal.model.Annotation;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
 
 public final class AnnotationUtils
 {

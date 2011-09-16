@@ -6,7 +6,7 @@ package org.sourcepit.beef.b2.model.builder.util;
 
 import java.io.File;
 
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 
 /**

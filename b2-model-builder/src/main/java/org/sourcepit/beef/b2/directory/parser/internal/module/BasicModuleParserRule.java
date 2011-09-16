@@ -13,10 +13,10 @@ import javax.inject.Named;
 import org.sourcepit.beef.b2.directory.parser.internal.facets.FacetsParseResult;
 import org.sourcepit.beef.b2.directory.parser.internal.facets.FacetsParser;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParsingRequest;
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.BasicModule;
 
 @Named("module")
 public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>

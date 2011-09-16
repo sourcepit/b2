@@ -6,7 +6,7 @@ package org.sourcepit.beef.b2.model.internal.util;
 
 import org.eclipse.osgi.service.resolver.VersionRange;
 import org.osgi.framework.Version;
-import org.sourcepit.beef.b2.internal.model.Reference;
+import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.util.Identifier;
 
 public class ReferenceUtils

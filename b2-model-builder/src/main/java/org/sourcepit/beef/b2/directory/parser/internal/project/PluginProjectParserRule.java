@@ -13,10 +13,10 @@ import java.util.jar.Manifest;
 
 import javax.inject.Named;
 
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.PluginProject;
 import org.sourcepit.beef.b2.model.builder.internal.util.ManifestUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.PluginProject;
 
 import com.springsource.util.osgi.manifest.parse.DummyParserLogger;
 import com.springsource.util.osgi.manifest.parse.HeaderDeclaration;

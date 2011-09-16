@@ -16,17 +16,17 @@ import javax.inject.Named;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
 import org.sourcepit.beef.b2.directory.parser.internal.project.ProjectParser;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.FeatureProject;
-import org.sourcepit.beef.b2.internal.model.FeaturesFacet;
-import org.sourcepit.beef.b2.internal.model.PluginProject;
-import org.sourcepit.beef.b2.internal.model.PluginsFacet;
-import org.sourcepit.beef.b2.internal.model.Project;
-import org.sourcepit.beef.b2.internal.model.ProjectFacet;
-import org.sourcepit.beef.b2.internal.model.SiteProject;
-import org.sourcepit.beef.b2.internal.model.SitesFacet;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.internal.util.B2ModelSwitch;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.FeaturesFacet;
+import org.sourcepit.beef.b2.model.module.PluginProject;
+import org.sourcepit.beef.b2.model.module.PluginsFacet;
+import org.sourcepit.beef.b2.model.module.Project;
+import org.sourcepit.beef.b2.model.module.ProjectFacet;
+import org.sourcepit.beef.b2.model.module.SiteProject;
+import org.sourcepit.beef.b2.model.module.SitesFacet;
+import org.sourcepit.beef.b2.model.module.util.B2ModelSwitch;
 
 @Named("simple")
 public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>

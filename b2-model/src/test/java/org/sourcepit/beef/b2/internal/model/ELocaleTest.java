@@ -9,6 +9,8 @@ import java.util.Locale;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EDataType;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.B2ModelPackage;
 
 public class ELocaleTest extends TestCase
 {

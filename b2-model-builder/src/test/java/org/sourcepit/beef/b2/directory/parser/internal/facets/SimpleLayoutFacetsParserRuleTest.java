@@ -8,15 +8,15 @@ import java.io.File;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
-import org.sourcepit.beef.b2.internal.model.FeaturesFacet;
-import org.sourcepit.beef.b2.internal.model.PluginsFacet;
-import org.sourcepit.beef.b2.internal.model.Project;
-import org.sourcepit.beef.b2.internal.model.ProjectFacet;
-import org.sourcepit.beef.b2.internal.model.SitesFacet;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.BasicModule;
+import org.sourcepit.beef.b2.model.module.FeaturesFacet;
+import org.sourcepit.beef.b2.model.module.PluginsFacet;
+import org.sourcepit.beef.b2.model.module.Project;
+import org.sourcepit.beef.b2.model.module.ProjectFacet;
+import org.sourcepit.beef.b2.model.module.SitesFacet;
 
 public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
 {

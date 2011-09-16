@@ -11,15 +11,15 @@ import javax.inject.Inject;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
-import org.sourcepit.beef.b2.internal.model.CompositeModule;
 import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.internal.builder.B2ModelBuilder;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.BasicModule;
+import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
 /**

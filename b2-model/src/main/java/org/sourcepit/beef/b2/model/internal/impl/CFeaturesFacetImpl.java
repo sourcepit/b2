@@ -8,12 +8,13 @@
 
 package org.sourcepit.beef.b2.model.internal.impl;
 
-import org.sourcepit.beef.b2.internal.model.Annotation;
-import org.sourcepit.beef.b2.internal.model.FeatureProject;
-import org.sourcepit.beef.b2.internal.model.Reference;
 import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
 import org.sourcepit.beef.b2.model.internal.util.FacetUtils;
 import org.sourcepit.beef.b2.model.internal.util.ProjectUtils;
+import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.Reference;
+import org.sourcepit.beef.b2.model.module.internal.impl.FeaturesFacetImpl;
 
 /**
  * @author Bernd

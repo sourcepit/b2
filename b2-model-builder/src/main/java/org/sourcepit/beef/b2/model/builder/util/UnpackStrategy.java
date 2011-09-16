@@ -10,8 +10,8 @@ import java.util.Map.Entry;
 
 import javax.inject.Named;
 
-import org.sourcepit.beef.b2.internal.model.Annotation;
-import org.sourcepit.beef.b2.internal.model.PluginProject;
+import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.module.PluginProject;
 
 @Named
 public class UnpackStrategy implements IUnpackStrategy

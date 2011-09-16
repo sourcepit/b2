@@ -26,12 +26,12 @@ import org.sourcepit.beef.b2.common.internal.utils.PropertiesUtils;
 import org.sourcepit.beef.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
-import org.sourcepit.beef.b2.internal.model.Category;
-import org.sourcepit.beef.b2.internal.model.Derivable;
-import org.sourcepit.beef.b2.internal.model.Reference;
-import org.sourcepit.beef.b2.internal.model.SiteProject;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.Category;
+import org.sourcepit.beef.b2.model.module.Derivable;
+import org.sourcepit.beef.b2.model.module.Reference;
+import org.sourcepit.beef.b2.model.module.SiteProject;
 
 @Named
 public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant

@@ -14,9 +14,9 @@ import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.beef.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.beef.b2.directory.parser.internal.module.IModuleParserExtender;
-import org.sourcepit.beef.b2.internal.model.Annotateable;
-import org.sourcepit.beef.b2.internal.model.Project;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.Annotateable;
+import org.sourcepit.beef.b2.model.module.Project;
 
 @Named
 public class BuildPropertiesExtender extends AbstractModuleParserExtender implements IModuleParserExtender

@@ -10,8 +10,8 @@ package org.sourcepit.beef.b2.directory.parser.internal.facets;
 
 import java.io.File;
 
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
 
 /**
  * @author Bernd

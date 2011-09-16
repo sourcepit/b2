@@ -4,7 +4,7 @@
 
 package org.sourcepit.beef.b2.model.builder.util;
 
-import org.sourcepit.beef.b2.internal.model.PluginProject;
+import org.sourcepit.beef.b2.model.module.PluginProject;
 
 
 public interface ISourceManager

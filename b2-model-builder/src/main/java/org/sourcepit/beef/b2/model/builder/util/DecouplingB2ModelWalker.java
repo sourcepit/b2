@@ -5,8 +5,8 @@
 package org.sourcepit.beef.b2.model.builder.util;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.model.internal.util.EWalkerImpl;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 public abstract class DecouplingB2ModelWalker extends EWalkerImpl
 {

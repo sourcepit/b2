@@ -30,11 +30,11 @@ import org.sourcepit.beef.b2.common.internal.utils.PropertiesUtils;
 import org.sourcepit.beef.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.beef.b2.internal.model.Derivable;
-import org.sourcepit.beef.b2.internal.model.FeatureInclude;
-import org.sourcepit.beef.b2.internal.model.FeatureProject;
-import org.sourcepit.beef.b2.internal.model.PluginInclude;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.Derivable;
+import org.sourcepit.beef.b2.model.module.FeatureInclude;
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.PluginInclude;
 
 @Named
 public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant

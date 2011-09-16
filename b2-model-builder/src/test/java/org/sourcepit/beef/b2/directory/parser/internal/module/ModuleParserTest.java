@@ -16,13 +16,13 @@ import org.sourcepit.beef.b2.directory.parser.internal.facets.StructuredLayoutFa
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.beef.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.beef.b2.directory.parser.module.WhitelistModuleFilter;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
-import org.sourcepit.beef.b2.internal.model.BasicModule;
-import org.sourcepit.beef.b2.internal.model.CompositeModule;
-import org.sourcepit.beef.b2.internal.model.PluginProject;
-import org.sourcepit.beef.b2.internal.model.PluginsFacet;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.BasicModule;
+import org.sourcepit.beef.b2.model.module.CompositeModule;
+import org.sourcepit.beef.b2.model.module.PluginProject;
+import org.sourcepit.beef.b2.model.module.PluginsFacet;
 
 public class ModuleParserTest extends AbstractModuleParserTest
 {

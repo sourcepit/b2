@@ -9,9 +9,9 @@ import java.io.File;
 import javax.inject.Named;
 
 import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.SiteProject;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.SiteProject;
 
 @Named("site")
 public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject>

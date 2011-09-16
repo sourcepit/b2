@@ -14,8 +14,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Named;
 
 import org.sourcepit.beef.b2.directory.parser.internal.project.AbstractProjectParserRule;
-import org.sourcepit.beef.b2.internal.model.PluginProject;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
+import org.sourcepit.beef.b2.model.module.PluginProject;
 
 /**
  * @author Bernd

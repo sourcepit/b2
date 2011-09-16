@@ -6,7 +6,7 @@ package org.sourcepit.beef.b2.model.builder.internal.tests.harness;
 
 import java.util.Collection;
 
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
 

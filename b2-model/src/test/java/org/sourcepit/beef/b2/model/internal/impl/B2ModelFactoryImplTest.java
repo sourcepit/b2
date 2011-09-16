@@ -7,8 +7,9 @@ package org.sourcepit.beef.b2.model.internal.impl;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EPackage;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.B2ModelPackage;
+import org.sourcepit.beef.b2.model.module.internal.impl.B2ModelFactoryImpl;
 
 public class B2ModelFactoryImplTest extends TestCase
 {

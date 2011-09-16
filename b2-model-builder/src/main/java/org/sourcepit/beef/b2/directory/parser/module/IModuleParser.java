@@ -4,7 +4,7 @@
 
 package org.sourcepit.beef.b2.directory.parser.module;
 
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 
 /**

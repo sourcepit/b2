@@ -4,9 +4,9 @@
 
 package org.sourcepit.beef.b2.internal.generator;
 
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.IModelCache;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 public class B2GenerationRequest implements IB2GenerationRequest
 {

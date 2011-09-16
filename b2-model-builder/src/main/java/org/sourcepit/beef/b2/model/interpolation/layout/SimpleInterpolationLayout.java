@@ -8,7 +8,7 @@ import java.io.File;
 
 import javax.inject.Named;
 
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 @Named("simple")
 public class SimpleInterpolationLayout implements IInterpolationLayout

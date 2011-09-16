@@ -17,20 +17,6 @@ import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.beef.b2.common.internal.utils.PathMatcher;
-import org.sourcepit.beef.b2.internal.model.AbstractFacet;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
-import org.sourcepit.beef.b2.internal.model.B2ModelFactory;
-import org.sourcepit.beef.b2.internal.model.Category;
-import org.sourcepit.beef.b2.internal.model.CompositeModule;
-import org.sourcepit.beef.b2.internal.model.FeatureInclude;
-import org.sourcepit.beef.b2.internal.model.FeatureProject;
-import org.sourcepit.beef.b2.internal.model.FeaturesFacet;
-import org.sourcepit.beef.b2.internal.model.PluginInclude;
-import org.sourcepit.beef.b2.internal.model.PluginProject;
-import org.sourcepit.beef.b2.internal.model.PluginsFacet;
-import org.sourcepit.beef.b2.internal.model.Reference;
-import org.sourcepit.beef.b2.internal.model.SiteProject;
-import org.sourcepit.beef.b2.internal.model.SitesFacet;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.IModelCache;
 import org.sourcepit.beef.b2.model.builder.util.ISourceManager;
@@ -38,6 +24,20 @@ import org.sourcepit.beef.b2.model.builder.util.IUnpackStrategy;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolationRequest;
 import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolator;
+import org.sourcepit.beef.b2.model.module.AbstractFacet;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.B2ModelFactory;
+import org.sourcepit.beef.b2.model.module.Category;
+import org.sourcepit.beef.b2.model.module.CompositeModule;
+import org.sourcepit.beef.b2.model.module.FeatureInclude;
+import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.FeaturesFacet;
+import org.sourcepit.beef.b2.model.module.PluginInclude;
+import org.sourcepit.beef.b2.model.module.PluginProject;
+import org.sourcepit.beef.b2.model.module.PluginsFacet;
+import org.sourcepit.beef.b2.model.module.Reference;
+import org.sourcepit.beef.b2.model.module.SiteProject;
+import org.sourcepit.beef.b2.model.module.SitesFacet;
 
 @Named
 public class ModuleInterpolator implements IModuleInterpolator

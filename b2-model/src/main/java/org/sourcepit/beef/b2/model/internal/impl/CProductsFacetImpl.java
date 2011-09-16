@@ -4,8 +4,9 @@
 
 package org.sourcepit.beef.b2.model.internal.impl;
 
-import org.sourcepit.beef.b2.internal.model.Annotation;
 import org.sourcepit.beef.b2.model.internal.util.AnnotationUtils;
+import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.module.internal.impl.ProductsFacetImpl;
 
 public class CProductsFacetImpl extends ProductsFacetImpl
 {

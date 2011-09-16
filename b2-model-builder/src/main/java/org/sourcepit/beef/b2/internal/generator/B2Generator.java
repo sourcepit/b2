@@ -13,8 +13,8 @@ import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.beef.b2.internal.model.AbstractModule;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingB2ModelWalker;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 @Named
 public class B2Generator
