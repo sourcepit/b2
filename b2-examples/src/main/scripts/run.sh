@@ -19,7 +19,7 @@ export MAVEN_ARGS=-e clean verify
 echo Starting build for $1
 cd $1
 
-if [ -f build.sh ] then
+if [ -f build.sh ] ; then
 
 exec build.sh $*
 
