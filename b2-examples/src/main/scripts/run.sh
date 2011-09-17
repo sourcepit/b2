@@ -20,8 +20,7 @@ cd $1
 
 if [ -f build.sh ] ; then
 
-echo $PWD"build.sh" $*
-exec $PWD"build.sh" $*
+exec $PWD"/build.sh" $*
 
 else
 
