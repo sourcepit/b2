@@ -233,6 +233,19 @@ ${proxy.settings}
         </pluginRepository>
 	  </pluginRepositories>
     </profile>
+    
+    <profile>
+      <id>srcpit-repositories</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>srcpit-public</id>
+          <url>${srcpit.nexus.url}/content/groups/public/</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
 
     <!--
      | Here is another profile, activated by the system property 'target-env' with a value of 'dev',
