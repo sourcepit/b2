@@ -19,15 +19,6 @@
 		<sites></sites>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.sourcepit.b2.examples</groupId>
-			<artifactId>rcp.help</artifactId>
-			<version>${project.version}</version>
-			<type>b2-model</type>
-		</dependency>
-	</dependencies>
-
 	<profiles>
 		<profile>
 			<id>useSites</id>
