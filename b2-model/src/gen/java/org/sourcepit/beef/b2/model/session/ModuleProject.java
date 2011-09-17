@@ -8,8 +8,7 @@ package org.sourcepit.beef.b2.model.session;
 
 import java.io.File;
 
-import org.eclipse.emf.common.util.EMap;
-import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.beef.b2.model.common.Annotateable;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Module Project</b></em>'. <!-- end-user-doc -->
@@ -23,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getVersion <em>Version</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getDirectory <em>Directory</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#isSkipped <em>Skipped</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getData <em>Data</em>}</li>
  * </ul>
  * </p>
  * 
@@ -31,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ModuleProject extends EObject
+public interface ModuleProject extends Annotateable
 {
    /**
     * Returns the value of the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc -->
@@ -190,20 +188,5 @@ public interface ModuleProject extends EObject
     * @generated
     */
    void setSkipped(boolean value);
-
-   /**
-    * Returns the value of the '<em><b>Data</b></em>' map. The key is of type {@link K}, and the value is of type
-    * {@link V}, <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Data</em>' map isn't clear, there really should be more of a description here...
-    * </p>
-    * <!-- end-user-doc -->
-    * 
-    * @return the value of the '<em>Data</em>' map.
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getModuleProject_Data()
-    * @model mapType="org.sourcepit.beef.b2.model.common.EMapEntry<K, V>"
-    * @generated
-    */
-   EMap<String, Object> getData();
 
 } // ModuleProject

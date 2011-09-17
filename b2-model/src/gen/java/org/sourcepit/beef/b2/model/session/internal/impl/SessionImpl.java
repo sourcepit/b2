@@ -11,17 +11,14 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
-import org.sourcepit.beef.b2.model.common.internal.impl.EMapEntryImpl;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionPackage;
@@ -31,9 +28,9 @@ import org.sourcepit.beef.b2.model.session.SessionPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl#getAnnotations <em>Annotations</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl#getProjects <em>Projects</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl#getCurrentProject <em>Current Project</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl#getData <em>Data</em>}</li>
  * </ul>
  * </p>
  * 
@@ -41,6 +38,15 @@ import org.sourcepit.beef.b2.model.session.SessionPackage;
  */
 public class SessionImpl extends EObjectImpl implements Session
 {
+   /**
+    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see #getAnnotations()
+    * @generated
+    * @ordered
+    */
+   protected EList<Annotation> annotations;
    /**
     * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list. <!-- begin-user-doc
     * --> <!-- end-user-doc -->
@@ -61,15 +67,6 @@ public class SessionImpl extends EObjectImpl implements Session
    protected ModuleProject currentProject;
 
    /**
-    * The cached value of the '{@link #getData() <em>Data</em>}' map. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see #getData()
-    * @generated
-    * @ordered
-    */
-   protected EMap<String, Object> data;
-
-   /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -88,6 +85,21 @@ public class SessionImpl extends EObjectImpl implements Session
    protected EClass eStaticClass()
    {
       return SessionPackage.Literals.SESSION;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EList<Annotation> getAnnotations()
+   {
+      if (annotations == null)
+      {
+         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+            SessionPackage.SESSION__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
+      }
+      return annotations;
    }
 
    /**
@@ -155,14 +167,35 @@ public class SessionImpl extends EObjectImpl implements Session
     * 
     * @generated
     */
-   public EMap<String, Object> getData()
+   public Annotation getAnnotation(String source)
    {
-      if (data == null)
-      {
-         data = new EcoreEMap<String, Object>(CommonPackage.Literals.EMAP_ENTRY, EMapEntryImpl.class, this,
-            SessionPackage.SESSION__DATA);
-      }
-      return data;
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public String getAnnotationEntry(String source, String key)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public String putAnnotationEntry(String source, String key, String value)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
    }
 
    /**
@@ -176,6 +209,8 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
+         case SessionPackage.SESSION__ANNOTATIONS :
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
          case SessionPackage.SESSION__PROJECTS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getProjects()).basicAdd(otherEnd, msgs);
       }
@@ -192,10 +227,10 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
+         case SessionPackage.SESSION__ANNOTATIONS :
+            return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
          case SessionPackage.SESSION__PROJECTS :
             return ((InternalEList<?>) getProjects()).basicRemove(otherEnd, msgs);
-         case SessionPackage.SESSION__DATA :
-            return ((InternalEList<?>) getData()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -210,17 +245,14 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
+         case SessionPackage.SESSION__ANNOTATIONS :
+            return getAnnotations();
          case SessionPackage.SESSION__PROJECTS :
             return getProjects();
          case SessionPackage.SESSION__CURRENT_PROJECT :
             if (resolve)
                return getCurrentProject();
             return basicGetCurrentProject();
-         case SessionPackage.SESSION__DATA :
-            if (coreType)
-               return getData();
-            else
-               return getData().map();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -236,15 +268,16 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
+         case SessionPackage.SESSION__ANNOTATIONS :
+            getAnnotations().clear();
+            getAnnotations().addAll((Collection<? extends Annotation>) newValue);
+            return;
          case SessionPackage.SESSION__PROJECTS :
             getProjects().clear();
             getProjects().addAll((Collection<? extends ModuleProject>) newValue);
             return;
          case SessionPackage.SESSION__CURRENT_PROJECT :
             setCurrentProject((ModuleProject) newValue);
-            return;
-         case SessionPackage.SESSION__DATA :
-            ((EStructuralFeature.Setting) getData()).set(newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -260,14 +293,14 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
+         case SessionPackage.SESSION__ANNOTATIONS :
+            getAnnotations().clear();
+            return;
          case SessionPackage.SESSION__PROJECTS :
             getProjects().clear();
             return;
          case SessionPackage.SESSION__CURRENT_PROJECT :
             setCurrentProject((ModuleProject) null);
-            return;
-         case SessionPackage.SESSION__DATA :
-            getData().clear();
             return;
       }
       super.eUnset(featureID);
@@ -283,12 +316,12 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
+         case SessionPackage.SESSION__ANNOTATIONS :
+            return annotations != null && !annotations.isEmpty();
          case SessionPackage.SESSION__PROJECTS :
             return projects != null && !projects.isEmpty();
          case SessionPackage.SESSION__CURRENT_PROJECT :
             return currentProject != null;
-         case SessionPackage.SESSION__DATA :
-            return data != null && !data.isEmpty();
       }
       return super.eIsSet(featureID);
    }

@@ -9,8 +9,12 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.session.SessionPackage;
 
 public class AnnotateableTest extends TestCase
 {
@@ -66,7 +70,7 @@ public class AnnotateableTest extends TestCase
 
    private Annotateable createAnnotateable(EClass eClass)
    {
-      Annotateable annotateable = (Annotateable) CommonFactory.eINSTANCE.create(eClass);
+      Annotateable annotateable = (Annotateable) eClass.getEPackage().getEFactoryInstance().create(eClass);
       assertNotNull(annotateable);
       return annotateable;
    }
@@ -141,7 +145,7 @@ public class AnnotateableTest extends TestCase
    {
       EClass annotateableType = CommonPackage.eINSTANCE.getAnnotateable();
       List<EClass> annotateableTypes = new ArrayList<EClass>();
-      for (EClassifier eClassifier : CommonPackage.eINSTANCE.getEClassifiers())
+      for (EClassifier eClassifier : getAllEClassifiers())
       {
          if (eClassifier instanceof EClass)
          {
@@ -154,5 +158,14 @@ public class AnnotateableTest extends TestCase
       }
       assertFalse(annotateableTypes.isEmpty());
       return annotateableTypes;
+   }
+
+   private EList<EClassifier> getAllEClassifiers()
+   {
+      EList<EClassifier> classifiers = new BasicEList<EClassifier>();
+      classifiers.addAll(CommonPackage.eINSTANCE.getEClassifiers());
+      classifiers.addAll(ModulePackage.eINSTANCE.getEClassifiers());
+      classifiers.addAll(SessionPackage.eINSTANCE.getEClassifiers());
+      return classifiers;
    }
 }

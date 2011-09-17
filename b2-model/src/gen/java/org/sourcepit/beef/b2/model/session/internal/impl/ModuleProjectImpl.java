@@ -7,20 +7,20 @@
 package org.sourcepit.beef.b2.model.session.internal.impl;
 
 import java.io.File;
+import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EMap;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EcoreEMap;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
-import org.sourcepit.beef.b2.model.common.internal.impl.EMapEntryImpl;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionPackage;
@@ -30,13 +30,13 @@ import org.sourcepit.beef.b2.model.session.SessionPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getAnnotations <em>Annotations</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getGroupId <em>Group Id</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getSession <em>Session</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getArtifactId <em>Artifact Id</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getVersion <em>Version</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getDirectory <em>Directory</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#isSkipped <em>Skipped</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getData <em>Data</em>}</li>
  * </ul>
  * </p>
  * 
@@ -44,6 +44,16 @@ import org.sourcepit.beef.b2.model.session.SessionPackage;
  */
 public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
 {
+   /**
+    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see #getAnnotations()
+    * @generated
+    * @ordered
+    */
+   protected EList<Annotation> annotations;
+
    /**
     * The default value of the '{@link #getGroupId() <em>Group Id</em>}' attribute. <!-- begin-user-doc --> <!--
     * end-user-doc -->
@@ -145,15 +155,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected boolean skipped = SKIPPED_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getData() <em>Data</em>}' map. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see #getData()
-    * @generated
-    * @ordered
-    */
-   protected EMap<String, Object> data;
-
-   /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -172,6 +173,21 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected EClass eStaticClass()
    {
       return SessionPackage.Literals.MODULE_PROJECT;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EList<Annotation> getAnnotations()
+   {
+      if (annotations == null)
+      {
+         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+            SessionPackage.MODULE_PROJECT__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
+      }
+      return annotations;
    }
 
    /**
@@ -349,14 +365,11 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
-   public EMap<String, Object> getData()
+   public Annotation getAnnotation(String source)
    {
-      if (data == null)
-      {
-         data = new EcoreEMap<String, Object>(CommonPackage.Literals.EMAP_ENTRY, EMapEntryImpl.class, this,
-            SessionPackage.MODULE_PROJECT__DATA);
-      }
-      return data;
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
    }
 
    /**
@@ -364,11 +377,38 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
+   public String getAnnotationEntry(String source, String key)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public String putAnnotationEntry(String source, String key, String value)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   @SuppressWarnings("unchecked")
    @Override
    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
       switch (featureID)
       {
+         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
          case SessionPackage.MODULE_PROJECT__SESSION :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
@@ -387,10 +427,10 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
+         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+            return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
          case SessionPackage.MODULE_PROJECT__SESSION :
             return basicSetSession(null, msgs);
-         case SessionPackage.MODULE_PROJECT__DATA :
-            return ((InternalEList<?>) getData()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -421,6 +461,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
+         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+            return getAnnotations();
          case SessionPackage.MODULE_PROJECT__GROUP_ID :
             return getGroupId();
          case SessionPackage.MODULE_PROJECT__SESSION :
@@ -433,11 +475,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return getDirectory();
          case SessionPackage.MODULE_PROJECT__SKIPPED :
             return isSkipped();
-         case SessionPackage.MODULE_PROJECT__DATA :
-            if (coreType)
-               return getData();
-            else
-               return getData().map();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -447,11 +484,16 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
+   @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
       switch (featureID)
       {
+         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+            getAnnotations().clear();
+            getAnnotations().addAll((Collection<? extends Annotation>) newValue);
+            return;
          case SessionPackage.MODULE_PROJECT__GROUP_ID :
             setGroupId((String) newValue);
             return;
@@ -470,9 +512,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionPackage.MODULE_PROJECT__SKIPPED :
             setSkipped((Boolean) newValue);
             return;
-         case SessionPackage.MODULE_PROJECT__DATA :
-            ((EStructuralFeature.Setting) getData()).set(newValue);
-            return;
       }
       super.eSet(featureID, newValue);
    }
@@ -487,6 +526,9 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
+         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+            getAnnotations().clear();
+            return;
          case SessionPackage.MODULE_PROJECT__GROUP_ID :
             setGroupId(GROUP_ID_EDEFAULT);
             return;
@@ -505,9 +547,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionPackage.MODULE_PROJECT__SKIPPED :
             setSkipped(SKIPPED_EDEFAULT);
             return;
-         case SessionPackage.MODULE_PROJECT__DATA :
-            getData().clear();
-            return;
       }
       super.eUnset(featureID);
    }
@@ -522,6 +561,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
+         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+            return annotations != null && !annotations.isEmpty();
          case SessionPackage.MODULE_PROJECT__GROUP_ID :
             return GROUP_ID_EDEFAULT == null ? groupId != null : !GROUP_ID_EDEFAULT.equals(groupId);
          case SessionPackage.MODULE_PROJECT__SESSION :
@@ -534,8 +575,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return DIRECTORY_EDEFAULT == null ? directory != null : !DIRECTORY_EDEFAULT.equals(directory);
          case SessionPackage.MODULE_PROJECT__SKIPPED :
             return skipped != SKIPPED_EDEFAULT;
-         case SessionPackage.MODULE_PROJECT__DATA :
-            return data != null && !data.isEmpty();
       }
       return super.eIsSet(featureID);
    }

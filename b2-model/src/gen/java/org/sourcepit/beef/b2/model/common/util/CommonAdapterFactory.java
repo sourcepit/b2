@@ -93,12 +93,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       }
 
       @Override
-      public <K, V> Adapter caseEMapEntry(Map.Entry<K, V> object)
-      {
-         return createEMapEntryAdapter();
-      }
-
-      @Override
       public Adapter defaultCase(EObject object)
       {
          return createEObjectAdapter();
@@ -157,20 +151,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createEStringMapEntryAdapter()
-   {
-      return null;
-   }
-
-   /**
-    * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>EMap Entry</em>}'. <!--
-    * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful to
-    * ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-    * 
-    * @return the new adapter.
-    * @see java.util.Map.Entry
-    * @generated
-    */
-   public Adapter createEMapEntryAdapter()
    {
       return null;
    }

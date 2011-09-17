@@ -9,9 +9,9 @@
 package org.sourcepit.beef.b2.model.module.internal.impl;
 
 import org.sourcepit.beef.b2.model.common.Annotation;
+import org.sourcepit.beef.b2.model.common.internal.util.AnnotationUtils;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.Reference;
-import org.sourcepit.beef.b2.model.module.internal.util.AnnotationUtils;
 import org.sourcepit.beef.b2.model.module.internal.util.FacetUtils;
 import org.sourcepit.beef.b2.model.module.internal.util.ProjectUtils;
 

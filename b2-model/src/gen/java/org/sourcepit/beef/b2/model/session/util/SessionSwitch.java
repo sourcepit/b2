@@ -9,6 +9,7 @@ package org.sourcepit.beef.b2.model.session.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionPackage;
@@ -74,6 +75,8 @@ public class SessionSwitch<T> extends Switch<T>
             Session session = (Session) theEObject;
             T result = caseSession(session);
             if (result == null)
+               result = caseAnnotateable(session);
+            if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
@@ -81,6 +84,8 @@ public class SessionSwitch<T> extends Switch<T>
          {
             ModuleProject moduleProject = (ModuleProject) theEObject;
             T result = caseModuleProject(moduleProject);
+            if (result == null)
+               result = caseAnnotateable(moduleProject);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -114,6 +119,20 @@ public class SessionSwitch<T> extends Switch<T>
     * @generated
     */
    public T caseModuleProject(ModuleProject object)
+   {
+      return null;
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Annotateable</em>'. <!-- begin-user-doc -->
+    * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Annotateable</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseAnnotateable(Annotateable object)
    {
       return null;
    }

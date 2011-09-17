@@ -1,28 +1,17 @@
 /*
- * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
+ * Copyright (C) 2007 Innovations Softwaretechnologie GmbH, Immenstaad, Germany. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.module.internal.impl;
+package org.sourcepit.beef.b2.model.session.internal.impl;
 
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.internal.util.AnnotationUtils;
-import org.sourcepit.beef.b2.model.module.internal.util.IdentifiableUtils;
-import org.sourcepit.beef.b2.model.module.util.Identifier;
 
-public class CSiteProjectImpl extends SiteProjectImpl
+/**
+ * @author Bernd
+ */
+public class CSessionImpl extends SessionImpl
 {
-   @Override
-   public Identifier toIdentifier()
-   {
-      return IdentifiableUtils.toIdentifier(this);
-   }
-
-   @Override
-   public boolean isIdentifyableBy(Identifier identifier)
-   {
-      return IdentifiableUtils.isIdentifyableBy(this, identifier);
-   }
-
    @Override
    public Annotation getAnnotation(String source)
    {
