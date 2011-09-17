@@ -19,10 +19,11 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotation;
+import org.sourcepit.beef.b2.model.common.CommonPackage;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
-import org.sourcepit.beef.b2.model.module.Annotateable;
-import org.sourcepit.beef.b2.model.module.Annotation;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.Identifiable;
 import org.sourcepit.beef.b2.model.module.ModulePackage;
@@ -214,7 +215,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModulePackage.ABSTRACT_MODULE__ANNOTATIONS, ModulePackage.ANNOTATION__PARENT);
+            ModulePackage.ABSTRACT_MODULE__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -633,7 +634,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
          switch (derivedFeatureID)
          {
             case ModulePackage.ABSTRACT_MODULE__ANNOTATIONS :
-               return ModulePackage.ANNOTATEABLE__ANNOTATIONS;
+               return CommonPackage.ANNOTATEABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -665,7 +666,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          switch (baseFeatureID)
          {
-            case ModulePackage.ANNOTATEABLE__ANNOTATIONS :
+            case CommonPackage.ANNOTATEABLE__ANNOTATIONS :
                return ModulePackage.ABSTRACT_MODULE__ANNOTATIONS;
             default :
                return -1;

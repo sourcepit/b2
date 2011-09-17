@@ -15,7 +15,7 @@ import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.beef.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.beef.b2.directory.parser.internal.module.IModuleParserExtender;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.module.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

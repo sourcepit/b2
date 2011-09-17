@@ -9,6 +9,7 @@ package org.sourcepit.beef.b2.model.module;
 import java.util.Locale;
 
 import org.eclipse.emf.common.util.EList;
+import org.sourcepit.beef.b2.model.common.Annotateable;
 
 
 /**

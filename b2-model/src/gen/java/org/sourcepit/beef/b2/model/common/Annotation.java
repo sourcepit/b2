@@ -4,7 +4,7 @@
  * $Id$
  */
 
-package org.sourcepit.beef.b2.model.module;
+package org.sourcepit.beef.b2.model.common;
 
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
@@ -15,13 +15,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.beef.b2.model.module.Annotation#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.Annotation#getSource <em>Source</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.Annotation#getEntries <em>Entries</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.Annotation#getParent <em>Parent</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.Annotation#getSource <em>Source</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.Annotation#getEntries <em>Entries</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation()
+ * @see org.sourcepit.beef.b2.model.common.CommonPackage#getAnnotation()
  * @model
  * @generated
  */
@@ -29,7 +29,7 @@ public interface Annotation extends EObject
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
+    * {@link org.sourcepit.beef.b2.model.common.Annotateable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
     * -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
@@ -39,15 +39,15 @@ public interface Annotation extends EObject
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(Annotateable)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation_Parent()
-    * @see org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations
+    * @see org.sourcepit.beef.b2.model.common.CommonPackage#getAnnotation_Parent()
+    * @see org.sourcepit.beef.b2.model.common.Annotateable#getAnnotations
     * @model opposite="annotations" required="true" transient="false"
     * @generated
     */
    Annotateable getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Annotation#getParent <em>Parent</em>}' container
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.common.Annotation#getParent <em>Parent</em>}' container
     * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
@@ -66,14 +66,14 @@ public interface Annotation extends EObject
     * 
     * @return the value of the '<em>Source</em>' attribute.
     * @see #setSource(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation_Source()
+    * @see org.sourcepit.beef.b2.model.common.CommonPackage#getAnnotation_Source()
     * @model required="true"
     * @generated
     */
    String getSource();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.module.Annotation#getSource <em>Source</em>}' attribute.
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.common.Annotation#getSource <em>Source</em>}' attribute.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Source</em>' attribute.
@@ -91,7 +91,7 @@ public interface Annotation extends EObject
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Entries</em>' map.
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotation_Entries()
+    * @see org.sourcepit.beef.b2.model.common.CommonPackage#getAnnotation_Entries()
     * @model mapType=
     *        "org.sourcepit.beef.b2.model.common.EStringMapEntry<org.eclipse.emf.ecore.EString, org.eclipse.emf.ecore.EString>"
     * @generated

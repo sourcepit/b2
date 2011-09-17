@@ -26,12 +26,12 @@ import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolationRequ
 import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolator;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;

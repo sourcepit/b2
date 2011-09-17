@@ -4,7 +4,7 @@
  * $Id$
  */
 
-package org.sourcepit.beef.b2.model.module.internal.impl;
+package org.sourcepit.beef.b2.model.common.internal.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -17,20 +17,18 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
-import org.sourcepit.beef.b2.model.common.internal.impl.EStringMapEntryImpl;
-import org.sourcepit.beef.b2.model.module.Annotateable;
-import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Annotation</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl#getSource <em>Source</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl#getEntries <em>Entries</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.internal.impl.AnnotationImpl#getParent <em>Parent</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.internal.impl.AnnotationImpl#getSource <em>Source</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.internal.impl.AnnotationImpl#getEntries <em>Entries</em>}</li>
  * </ul>
  * </p>
  * 
@@ -86,7 +84,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.ANNOTATION;
+      return CommonPackage.Literals.ANNOTATION;
    }
 
    /**
@@ -96,7 +94,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
     */
    public Annotateable getParent()
    {
-      if (eContainerFeatureID() != ModulePackage.ANNOTATION__PARENT)
+      if (eContainerFeatureID() != CommonPackage.ANNOTATION__PARENT)
          return null;
       return (Annotateable) eContainer();
    }
@@ -108,7 +106,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
     */
    public NotificationChain basicSetParent(Annotateable newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.ANNOTATION__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, CommonPackage.ANNOTATION__PARENT, msgs);
       return msgs;
    }
 
@@ -120,7 +118,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    public void setParent(Annotateable newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModulePackage.ANNOTATION__PARENT && newParent != null))
+         || (eContainerFeatureID() != CommonPackage.ANNOTATION__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -128,14 +126,14 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.ANNOTATEABLE__ANNOTATIONS,
+            msgs = ((InternalEObject) newParent).eInverseAdd(this, CommonPackage.ANNOTATEABLE__ANNOTATIONS,
                Annotateable.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ANNOTATION__PARENT, newParent, newParent));
+         eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ANNOTATION__PARENT, newParent, newParent));
    }
 
    /**
@@ -158,7 +156,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
       String oldSource = source;
       source = newSource;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ANNOTATION__SOURCE, oldSource, source));
+         eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.ANNOTATION__SOURCE, oldSource, source));
    }
 
    /**
@@ -171,7 +169,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
       if (entries == null)
       {
          entries = new EcoreEMap<String, String>(CommonPackage.Literals.ESTRING_MAP_ENTRY, EStringMapEntryImpl.class,
-            this, ModulePackage.ANNOTATION__ENTRIES);
+            this, CommonPackage.ANNOTATION__ENTRIES);
       }
       return entries;
    }
@@ -186,7 +184,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    {
       switch (featureID)
       {
-         case ModulePackage.ANNOTATION__PARENT :
+         case CommonPackage.ANNOTATION__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((Annotateable) otherEnd, msgs);
@@ -204,9 +202,9 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    {
       switch (featureID)
       {
-         case ModulePackage.ANNOTATION__PARENT :
+         case CommonPackage.ANNOTATION__PARENT :
             return basicSetParent(null, msgs);
-         case ModulePackage.ANNOTATION__ENTRIES :
+         case CommonPackage.ANNOTATION__ENTRIES :
             return ((InternalEList<?>) getEntries()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -222,8 +220,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    {
       switch (eContainerFeatureID())
       {
-         case ModulePackage.ANNOTATION__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModulePackage.ANNOTATEABLE__ANNOTATIONS,
+         case CommonPackage.ANNOTATION__PARENT :
+            return eInternalContainer().eInverseRemove(this, CommonPackage.ANNOTATEABLE__ANNOTATIONS,
                Annotateable.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
@@ -239,11 +237,11 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    {
       switch (featureID)
       {
-         case ModulePackage.ANNOTATION__PARENT :
+         case CommonPackage.ANNOTATION__PARENT :
             return getParent();
-         case ModulePackage.ANNOTATION__SOURCE :
+         case CommonPackage.ANNOTATION__SOURCE :
             return getSource();
-         case ModulePackage.ANNOTATION__ENTRIES :
+         case CommonPackage.ANNOTATION__ENTRIES :
             if (coreType)
                return getEntries();
             else
@@ -262,13 +260,13 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    {
       switch (featureID)
       {
-         case ModulePackage.ANNOTATION__PARENT :
+         case CommonPackage.ANNOTATION__PARENT :
             setParent((Annotateable) newValue);
             return;
-         case ModulePackage.ANNOTATION__SOURCE :
+         case CommonPackage.ANNOTATION__SOURCE :
             setSource((String) newValue);
             return;
-         case ModulePackage.ANNOTATION__ENTRIES :
+         case CommonPackage.ANNOTATION__ENTRIES :
             ((EStructuralFeature.Setting) getEntries()).set(newValue);
             return;
       }
@@ -285,13 +283,13 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    {
       switch (featureID)
       {
-         case ModulePackage.ANNOTATION__PARENT :
+         case CommonPackage.ANNOTATION__PARENT :
             setParent((Annotateable) null);
             return;
-         case ModulePackage.ANNOTATION__SOURCE :
+         case CommonPackage.ANNOTATION__SOURCE :
             setSource(SOURCE_EDEFAULT);
             return;
-         case ModulePackage.ANNOTATION__ENTRIES :
+         case CommonPackage.ANNOTATION__ENTRIES :
             getEntries().clear();
             return;
       }
@@ -308,11 +306,11 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    {
       switch (featureID)
       {
-         case ModulePackage.ANNOTATION__PARENT :
+         case CommonPackage.ANNOTATION__PARENT :
             return getParent() != null;
-         case ModulePackage.ANNOTATION__SOURCE :
+         case CommonPackage.ANNOTATION__SOURCE :
             return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
-         case ModulePackage.ANNOTATION__ENTRIES :
+         case CommonPackage.ANNOTATION__ENTRIES :
             return entries != null && !entries.isEmpty();
       }
       return super.eIsSet(featureID);

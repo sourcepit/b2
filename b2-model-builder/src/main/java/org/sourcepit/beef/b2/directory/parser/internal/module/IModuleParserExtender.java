@@ -5,7 +5,7 @@
 package org.sourcepit.beef.b2.directory.parser.internal.module;
 
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.module.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotateable;
 
 public interface IModuleParserExtender
 {

@@ -5,6 +5,30 @@
     nsURI="http://www.sourcepit.org/b2/model/0.1" nsPrefix="model">
   <eSubpackages name="common" nsURI="http://www.sourcepit.org/b2/model/0.1/common"
       nsPrefix="common">
+    <eClassifiers xsi:type="ecore:EClass" name="Annotateable" abstract="true" interface="true">
+      <eOperations name="getAnnotation" eType="#//common/Annotation">
+        <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="getAnnotationEntry" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eOperations name="putAnnotationEntry" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+        <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
+          eType="#//common/Annotation" containment="true" eOpposite="#//common/Annotation/parent"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Annotation">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+          eType="#//common/Annotateable" eOpposite="#//common/Annotateable/annotations"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+          eType="#//common/EStringMapEntry" containment="true"/>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EDataType" name="EJavaFile" instanceClassName="java.io.File"/>
     <eClassifiers xsi:type="ecore:EDataType" name="ELocale" instanceClassName="java.util.Locale"/>
     <eClassifiers xsi:type="ecore:EClass" name="EStringMapEntry" instanceClassName="java.util.Map$Entry">
@@ -24,7 +48,7 @@
   </eSubpackages>
   <eSubpackages name="module" nsURI="http://www.sourcepit.org/b2/model/0.1/module"
       nsPrefix="module">
-    <eClassifiers xsi:type="ecore:EClass" name="AbstractModule" abstract="true" eSuperTypes="#//module/FileContainer #//module/Annotateable #//module/Identifiable">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractModule" abstract="true" eSuperTypes="#//module/FileContainer #//common/Annotateable #//module/Identifiable">
       <eOperations name="getFacets" lowerBound="1" upperBound="-1">
         <eGenericType eTypeParameter="#//module/AbstractModule/getFacets/T"/>
         <eTypeParameters name="T">
@@ -79,7 +103,7 @@
           eType="#//module/AbstractFacet" containment="true" eOpposite="#//module/AbstractFacet/parent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BasicModule" eSuperTypes="#//module/AbstractModule"/>
-    <eClassifiers xsi:type="ecore:EClass" name="AbstractFacet" abstract="true" eSuperTypes="#//module/Derivable #//module/Annotateable">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractFacet" abstract="true" eSuperTypes="#//module/Derivable #//common/Annotateable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//module/AbstractModule" eOpposite="#//module/AbstractModule/facets"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
@@ -136,7 +160,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
           eType="#//module/Category" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//module/FileContainer #//module/Derivable #//module/Annotateable #//module/Identifiable">
+    <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//module/FileContainer #//module/Derivable #//common/Annotateable #//module/Identifiable">
       <eOperations name="getParent">
         <eGenericType eClassifier="#//module/ProjectFacet">
           <eTypeArguments>
@@ -188,30 +212,6 @@
     <eClassifiers xsi:type="ecore:EClass" name="Classified" abstract="true" interface="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="classifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Annotateable" abstract="true" interface="true">
-      <eOperations name="getAnnotation" eType="#//module/Annotation">
-        <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      </eOperations>
-      <eOperations name="getAnnotationEntry" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-        <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      </eOperations>
-      <eOperations name="putAnnotationEntry" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-        <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-        <eParameters name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-        <eParameters name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      </eOperations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
-          eType="#//module/Annotation" containment="true" eOpposite="#//module/Annotation/parent"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Annotation">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
-          eType="#//module/Annotateable" eOpposite="#//module/Annotateable/annotations"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
-          eType="#//common/EStringMapEntry" containment="true"/>
-    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true" interface="true">
       <eOperations name="isIdentifyableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="identifier" eType="#//module/Identifier"/>
@@ -224,7 +224,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="productDefinitions" upperBound="-1"
           eType="#//module/ProductDefinition" containment="true" eOpposite="#//module/ProductDefinition/parent"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ProductDefinition" eSuperTypes="#//module/Annotateable #//module/Derivable">
+    <eClassifiers xsi:type="ecore:EClass" name="ProductDefinition" eSuperTypes="#//common/Annotateable #//module/Derivable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//module/ProductsFacet" eOpposite="#//module/ProductsFacet/productDefinitions"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1"

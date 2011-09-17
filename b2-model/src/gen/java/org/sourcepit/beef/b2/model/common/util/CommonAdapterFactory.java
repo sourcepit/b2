@@ -12,6 +12,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
 
 /**
@@ -73,6 +75,18 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    protected CommonSwitch<Adapter> modelSwitch = new CommonSwitch<Adapter>()
    {
       @Override
+      public Adapter caseAnnotateable(Annotateable object)
+      {
+         return createAnnotateableAdapter();
+      }
+
+      @Override
+      public Adapter caseAnnotation(Annotation object)
+      {
+         return createAnnotationAdapter();
+      }
+
+      @Override
       public Adapter caseEStringMapEntry(Map.Entry<String, String> object)
       {
          return createEStringMapEntryAdapter();
@@ -104,6 +118,34 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       return modelSwitch.doSwitch((EObject) target);
    }
 
+
+   /**
+    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.common.Annotateable
+    * <em>Annotateable</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * 
+    * @return the new adapter.
+    * @see org.sourcepit.beef.b2.model.common.Annotateable
+    * @generated
+    */
+   public Adapter createAnnotateableAdapter()
+   {
+      return null;
+   }
+
+   /**
+    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.common.Annotation
+    * <em>Annotation</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * 
+    * @return the new adapter.
+    * @see org.sourcepit.beef.b2.model.common.Annotation
+    * @generated
+    */
+   public Adapter createAnnotationAdapter()
+   {
+      return null;
+   }
 
    /**
     * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>EString Map Entry</em>}'. <!--

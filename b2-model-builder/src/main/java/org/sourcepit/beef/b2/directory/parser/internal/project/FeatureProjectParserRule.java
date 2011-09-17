@@ -10,9 +10,9 @@ import javax.inject.Named;
 
 import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

@@ -8,6 +8,8 @@ package org.sourcepit.beef.b2.model.module;
 
 import java.io.File;
 
+import org.sourcepit.beef.b2.model.common.Annotateable;
+
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Product Definition</b></em>'. <!-- end-user-doc
  * -->

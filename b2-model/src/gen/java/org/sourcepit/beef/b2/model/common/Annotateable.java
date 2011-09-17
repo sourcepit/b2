@@ -4,7 +4,7 @@
  * $Id$
  */
 
-package org.sourcepit.beef.b2.model.module;
+package org.sourcepit.beef.b2.model.common;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -15,11 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations <em>Annotations</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.Annotateable#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotateable()
+ * @see org.sourcepit.beef.b2.model.common.CommonPackage#getAnnotateable()
  * @model interface="true" abstract="true"
  * @generated
  */
@@ -27,8 +27,8 @@ public interface Annotateable extends EObject
 {
    /**
     * Returns the value of the '<em><b>Annotations</b></em>' containment reference list. The list contents are of type
-    * {@link org.sourcepit.beef.b2.model.module.Annotation}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.beef.b2.model.module.Annotation#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.common.Annotation}. It is bidirectional and its opposite is '
+    * {@link org.sourcepit.beef.b2.model.common.Annotation#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Annotations</em>' containment reference list isn't clear, there really should be more
     * of a description here...
@@ -36,8 +36,8 @@ public interface Annotateable extends EObject
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Annotations</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getAnnotateable_Annotations()
-    * @see org.sourcepit.beef.b2.model.module.Annotation#getParent
+    * @see org.sourcepit.beef.b2.model.common.CommonPackage#getAnnotateable_Annotations()
+    * @see org.sourcepit.beef.b2.model.common.Annotation#getParent
     * @model opposite="parent" containment="true"
     * @generated
     */

@@ -14,9 +14,13 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EGenericType;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonFactory;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
 import org.sourcepit.beef.b2.model.module.ModulePackage;
@@ -31,6 +35,20 @@ import org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl;
  */
 public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 {
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass annotateableEClass = null;
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass annotationEClass = null;
+
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -134,6 +152,66 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
       // Update the registry and return the package
       EPackage.Registry.INSTANCE.put(CommonPackage.eNS_URI, theCommonPackage);
       return theCommonPackage;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EClass getAnnotateable()
+   {
+      return annotateableEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getAnnotateable_Annotations()
+   {
+      return (EReference) annotateableEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EClass getAnnotation()
+   {
+      return annotationEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getAnnotation_Parent()
+   {
+      return (EReference) annotationEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getAnnotation_Source()
+   {
+      return (EAttribute) annotationEClass.getEStructuralFeatures().get(1);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getAnnotation_Entries()
+   {
+      return (EReference) annotationEClass.getEStructuralFeatures().get(2);
    }
 
    /**
@@ -246,6 +324,14 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
       isCreated = true;
 
       // Create classes and their features
+      annotateableEClass = createEClass(ANNOTATEABLE);
+      createEReference(annotateableEClass, ANNOTATEABLE__ANNOTATIONS);
+
+      annotationEClass = createEClass(ANNOTATION);
+      createEReference(annotationEClass, ANNOTATION__PARENT);
+      createEAttribute(annotationEClass, ANNOTATION__SOURCE);
+      createEReference(annotationEClass, ANNOTATION__ENTRIES);
+
       eStringMapEntryEClass = createEClass(ESTRING_MAP_ENTRY);
       createEAttribute(eStringMapEntryEClass, ESTRING_MAP_ENTRY__KEY);
       createEAttribute(eStringMapEntryEClass, ESTRING_MAP_ENTRY__VALUE);
@@ -292,6 +378,38 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
       // Add supertypes to classes
 
       // Initialize classes and features; add operations and parameters
+      initEClass(annotateableEClass, Annotateable.class, "Annotateable", IS_ABSTRACT, IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getAnnotateable_Annotations(), this.getAnnotation(), this.getAnnotation_Parent(), "annotations",
+         null, 0, -1, Annotateable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+         !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+      EOperation op = addEOperation(annotateableEClass, this.getAnnotation(), "getAnnotation", 0, 1, IS_UNIQUE,
+         IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "source", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+      op = addEOperation(annotateableEClass, ecorePackage.getEString(), "getAnnotationEntry", 0, 1, IS_UNIQUE,
+         IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "source", 0, 1, IS_UNIQUE, IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+      op = addEOperation(annotateableEClass, ecorePackage.getEString(), "putAnnotationEntry", 1, 1, IS_UNIQUE,
+         IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "source", 0, 1, IS_UNIQUE, IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "value", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+      initEClass(annotationEClass, Annotation.class, "Annotation", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getAnnotation_Parent(), this.getAnnotateable(), this.getAnnotateable_Annotations(), "parent",
+         null, 1, 1, Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getAnnotation_Source(), ecorePackage.getEString(), "source", null, 1, 1, Annotation.class,
+         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getAnnotation_Entries(), this.getEStringMapEntry(), null, "entries", null, 0, -1,
+         Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
       initEClass(eStringMapEntryEClass, Map.Entry.class, "EStringMapEntry", !IS_ABSTRACT, !IS_INTERFACE,
          !IS_GENERATED_INSTANCE_CLASS);
       initEAttribute(getEStringMapEntry_Key(), ecorePackage.getEString(), "key", null, 0, 1, Map.Entry.class,

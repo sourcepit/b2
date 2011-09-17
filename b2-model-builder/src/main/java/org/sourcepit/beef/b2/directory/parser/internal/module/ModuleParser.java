@@ -18,8 +18,8 @@ import org.sourcepit.beef.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingB2ModelWalker;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.IModelCache;
+import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
-import org.sourcepit.beef.b2.model.module.Annotateable;
 
 @Named
 public class ModuleParser implements IModuleParser

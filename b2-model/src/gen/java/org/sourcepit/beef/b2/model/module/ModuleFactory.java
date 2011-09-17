@@ -113,14 +113,6 @@ public interface ModuleFactory extends EFactory
    FeatureInclude createFeatureInclude();
 
    /**
-    * Returns a new object of class '<em>Annotation</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @return a new object of class '<em>Annotation</em>'.
-    * @generated
-    */
-   Annotation createAnnotation();
-
-   /**
     * Returns a new object of class '<em>Products Facet</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return a new object of class '<em>Products Facet</em>'.

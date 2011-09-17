@@ -2,15 +2,13 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.module;
+package org.sourcepit.beef.b2.model.common;
 
 import java.util.Locale;
 
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EDataType;
-import org.sourcepit.beef.b2.model.common.CommonFactory;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
 
 public class ELocaleTest extends TestCase
 {

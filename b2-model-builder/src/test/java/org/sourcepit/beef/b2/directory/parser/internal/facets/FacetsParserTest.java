@@ -10,8 +10,8 @@ import java.util.List;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.BasicModule;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 
 public class FacetsParserTest extends AbstractModuleParserTest
 {

@@ -16,8 +16,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.Annotateable;
-import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotation;
+import org.sourcepit.beef.b2.model.common.CommonPackage;
 import org.sourcepit.beef.b2.model.module.Derivable;
 import org.sourcepit.beef.b2.model.module.Identifiable;
 import org.sourcepit.beef.b2.model.module.ModulePackage;
@@ -209,7 +210,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModulePackage.PROJECT__ANNOTATIONS, ModulePackage.ANNOTATION__PARENT);
+            ModulePackage.PROJECT__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -440,7 +441,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
          switch (derivedFeatureID)
          {
             case ModulePackage.PROJECT__ANNOTATIONS :
-               return ModulePackage.ANNOTATEABLE__ANNOTATIONS;
+               return CommonPackage.ANNOTATEABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -482,7 +483,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (baseFeatureID)
          {
-            case ModulePackage.ANNOTATEABLE__ANNOTATIONS :
+            case CommonPackage.ANNOTATEABLE__ANNOTATIONS :
                return ModulePackage.PROJECT__ANNOTATIONS;
             default :
                return -1;

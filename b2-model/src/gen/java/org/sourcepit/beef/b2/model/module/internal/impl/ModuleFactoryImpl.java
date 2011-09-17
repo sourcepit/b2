@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.sourcepit.beef.b2.model.module.Annotation;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
@@ -103,8 +102,6 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
             return createCategory();
          case ModulePackage.FEATURE_INCLUDE :
             return createFeatureInclude();
-         case ModulePackage.ANNOTATION :
-            return createAnnotation();
          case ModulePackage.PRODUCTS_FACET :
             return createProductsFacet();
          case ModulePackage.PRODUCT_DEFINITION :
@@ -269,17 +266,6 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
    {
       FeatureIncludeImpl featureInclude = new FeatureIncludeImpl();
       return featureInclude;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public Annotation createAnnotation()
-   {
-      AnnotationImpl annotation = new AnnotationImpl();
-      return annotation;
    }
 
    /**

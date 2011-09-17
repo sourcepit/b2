@@ -25,6 +25,14 @@ public interface CommonFactory extends EFactory
    CommonFactory eINSTANCE = org.sourcepit.beef.b2.model.common.internal.impl.CommonFactoryImpl.init();
 
    /**
+    * Returns a new object of class '<em>Annotation</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return a new object of class '<em>Annotation</em>'.
+    * @generated
+    */
+   Annotation createAnnotation();
+
+   /**
     * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the package supported by this factory.

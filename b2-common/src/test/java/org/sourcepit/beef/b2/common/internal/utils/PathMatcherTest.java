@@ -7,8 +7,6 @@ package org.sourcepit.beef.b2.common.internal.utils;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.sourcepit.beef.b2.common.internal.utils.PathMatcher;
-
 import junit.framework.TestCase;
 
 /**

@@ -5,8 +5,8 @@
 package org.sourcepit.beef.b2.model.module.internal.util;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.model.module.Annotation;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.common.Annotation;
+import org.sourcepit.beef.b2.model.common.CommonFactory;
 
 public final class AnnotationUtils
 {
@@ -58,7 +58,7 @@ public final class AnnotationUtils
       Annotation annotation = getAnnotation(annotations, source);
       if (annotation == null)
       {
-         annotation = ModuleFactory.eINSTANCE.createAnnotation();
+         annotation = CommonFactory.eINSTANCE.createAnnotation();
          annotation.setSource(source);
          annotations.add(annotation);
       }

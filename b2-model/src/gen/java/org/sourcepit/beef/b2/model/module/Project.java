@@ -6,6 +6,8 @@
 
 package org.sourcepit.beef.b2.model.module;
 
+import org.sourcepit.beef.b2.model.common.Annotateable;
+
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->

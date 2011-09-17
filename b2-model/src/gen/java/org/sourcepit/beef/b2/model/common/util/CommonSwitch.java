@@ -11,6 +11,8 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
 
 /**
@@ -69,6 +71,22 @@ public class CommonSwitch<T> extends Switch<T>
    {
       switch (classifierID)
       {
+         case CommonPackage.ANNOTATEABLE :
+         {
+            Annotateable annotateable = (Annotateable) theEObject;
+            T result = caseAnnotateable(annotateable);
+            if (result == null)
+               result = defaultCase(theEObject);
+            return result;
+         }
+         case CommonPackage.ANNOTATION :
+         {
+            Annotation annotation = (Annotation) theEObject;
+            T result = caseAnnotation(annotation);
+            if (result == null)
+               result = defaultCase(theEObject);
+            return result;
+         }
          case CommonPackage.ESTRING_MAP_ENTRY :
          {
             @SuppressWarnings("unchecked")
@@ -90,6 +108,34 @@ public class CommonSwitch<T> extends Switch<T>
          default :
             return defaultCase(theEObject);
       }
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Annotateable</em>'. <!-- begin-user-doc -->
+    * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Annotateable</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseAnnotateable(Annotateable object)
+   {
+      return null;
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Annotation</em>'. <!-- begin-user-doc -->
+    * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Annotation</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseAnnotation(Annotation object)
+   {
+      return null;
    }
 
    /**

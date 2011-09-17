@@ -19,7 +19,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.common.Annotation;
+import org.sourcepit.beef.b2.model.common.CommonPackage;
 import org.sourcepit.beef.b2.model.module.Derivable;
 import org.sourcepit.beef.b2.model.module.ModulePackage;
 import org.sourcepit.beef.b2.model.module.ProductDefinition;
@@ -134,7 +135,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS, ModulePackage.ANNOTATION__PARENT);
+            ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
       }
       return annotations;
    }

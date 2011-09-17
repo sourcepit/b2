@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonFactory;
 import org.sourcepit.beef.b2.model.common.CommonPackage;
 
@@ -68,6 +69,8 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    {
       switch (eClass.getClassifierID())
       {
+         case CommonPackage.ANNOTATION :
+            return createAnnotation();
          case CommonPackage.ESTRING_MAP_ENTRY :
             return (EObject) createEStringMapEntry();
          case CommonPackage.EMAP_ENTRY :
@@ -113,6 +116,17 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
          default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
       }
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public Annotation createAnnotation()
+   {
+      AnnotationImpl annotation = new AnnotationImpl();
+      return annotation;
    }
 
    /**

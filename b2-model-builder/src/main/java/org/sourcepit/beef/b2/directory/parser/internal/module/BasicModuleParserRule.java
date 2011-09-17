@@ -15,8 +15,8 @@ import org.sourcepit.beef.b2.directory.parser.internal.facets.FacetsParser;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
 import org.sourcepit.beef.b2.model.module.BasicModule;
+import org.sourcepit.beef.b2.model.module.ModuleFactory;
 
 @Named("module")
 public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>

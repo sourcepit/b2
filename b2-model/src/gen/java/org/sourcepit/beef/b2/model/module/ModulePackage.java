@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.sourcepit.beef.b2.model.common.CommonPackage;
 
 /**
  * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
@@ -1008,7 +1009,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getReference()
     * @generated
     */
-   int REFERENCE = 23;
+   int REFERENCE = 21;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1191,77 +1192,6 @@ public interface ModulePackage extends EPackage
    int CLASSIFIED_FEATURE_COUNT = 1;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Annotateable <em>Annotateable</em>}' class.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.beef.b2.model.module.Annotateable
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAnnotateable()
-    * @generated
-    */
-   int ANNOTATEABLE = 18;
-
-   /**
-    * The feature id for the '<em><b>Annotations</b></em>' containment reference list. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ANNOTATEABLE__ANNOTATIONS = 0;
-
-   /**
-    * The number of structural features of the '<em>Annotateable</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ANNOTATEABLE_FEATURE_COUNT = 1;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl
-    * <em>Annotation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAnnotation()
-    * @generated
-    */
-   int ANNOTATION = 19;
-
-   /**
-    * The feature id for the '<em><b>Parent</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ANNOTATION__PARENT = 0;
-
-   /**
-    * The feature id for the '<em><b>Source</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ANNOTATION__SOURCE = 1;
-
-   /**
-    * The feature id for the '<em><b>Entries</b></em>' map. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ANNOTATION__ENTRIES = 2;
-
-   /**
-    * The number of structural features of the '<em>Annotation</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int ANNOTATION_FEATURE_COUNT = 3;
-
-   /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}' class.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -1269,7 +1199,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifiable()
     * @generated
     */
-   int IDENTIFIABLE = 20;
+   int IDENTIFIABLE = 18;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1304,7 +1234,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProductsFacet()
     * @generated
     */
-   int PRODUCTS_FACET = 21;
+   int PRODUCTS_FACET = 19;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1365,7 +1295,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProductDefinition()
     * @generated
     */
-   int PRODUCT_DEFINITION = 22;
+   int PRODUCT_DEFINITION = 20;
 
    /**
     * The feature id for the '<em><b>Annotations</b></em>' containment reference list. <!-- begin-user-doc --> <!--
@@ -1374,7 +1304,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__ANNOTATIONS = ANNOTATEABLE__ANNOTATIONS;
+   int PRODUCT_DEFINITION__ANNOTATIONS = CommonPackage.ANNOTATEABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1382,7 +1312,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__DERIVED = ANNOTATEABLE_FEATURE_COUNT + 0;
+   int PRODUCT_DEFINITION__DERIVED = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Parent</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1390,7 +1320,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__PARENT = ANNOTATEABLE_FEATURE_COUNT + 1;
+   int PRODUCT_DEFINITION__PARENT = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
 
    /**
     * The feature id for the '<em><b>File</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1398,7 +1328,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__FILE = ANNOTATEABLE_FEATURE_COUNT + 2;
+   int PRODUCT_DEFINITION__FILE = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
 
    /**
     * The feature id for the '<em><b>Product Plugin</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -1407,7 +1337,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__PRODUCT_PLUGIN = ANNOTATEABLE_FEATURE_COUNT + 3;
+   int PRODUCT_DEFINITION__PRODUCT_PLUGIN = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 3;
 
    /**
     * The number of structural features of the '<em>Product Definition</em>' class. <!-- begin-user-doc --> <!--
@@ -1416,7 +1346,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION_FEATURE_COUNT = ANNOTATEABLE_FEATURE_COUNT + 4;
+   int PRODUCT_DEFINITION_FEATURE_COUNT = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
 
    /**
     * The meta object id for the '<em>Identifier</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1425,7 +1355,7 @@ public interface ModulePackage extends EPackage
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifier()
     * @generated
     */
-   int IDENTIFIER = 24;
+   int IDENTIFIER = 22;
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.AbstractModule
@@ -1934,72 +1864,6 @@ public interface ModulePackage extends EPackage
     * @generated
     */
    EAttribute getClassified_Classifier();
-
-   /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Annotateable <em>Annotateable</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @return the meta object for class '<em>Annotateable</em>'.
-    * @see org.sourcepit.beef.b2.model.module.Annotateable
-    * @generated
-    */
-   EClass getAnnotateable();
-
-   /**
-    * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
-    * --> <!-- end-user-doc -->
-    * 
-    * @return the meta object for the containment reference list '<em>Annotations</em>'.
-    * @see org.sourcepit.beef.b2.model.module.Annotateable#getAnnotations()
-    * @see #getAnnotateable()
-    * @generated
-    */
-   EReference getAnnotateable_Annotations();
-
-   /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Annotation <em>Annotation</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @return the meta object for class '<em>Annotation</em>'.
-    * @see org.sourcepit.beef.b2.model.module.Annotation
-    * @generated
-    */
-   EClass getAnnotation();
-
-   /**
-    * Returns the meta object for the container reference '
-    * {@link org.sourcepit.beef.b2.model.module.Annotation#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
-    * 
-    * @return the meta object for the container reference '<em>Parent</em>'.
-    * @see org.sourcepit.beef.b2.model.module.Annotation#getParent()
-    * @see #getAnnotation()
-    * @generated
-    */
-   EReference getAnnotation_Parent();
-
-   /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.module.Annotation#getSource
-    * <em>Source</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @return the meta object for the attribute '<em>Source</em>'.
-    * @see org.sourcepit.beef.b2.model.module.Annotation#getSource()
-    * @see #getAnnotation()
-    * @generated
-    */
-   EAttribute getAnnotation_Source();
-
-   /**
-    * Returns the meta object for the map '{@link org.sourcepit.beef.b2.model.module.Annotation#getEntries
-    * <em>Entries</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @return the meta object for the map '<em>Entries</em>'.
-    * @see org.sourcepit.beef.b2.model.module.Annotation#getEntries()
-    * @see #getAnnotation()
-    * @generated
-    */
-   EReference getAnnotation_Entries();
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}'.
@@ -2568,58 +2432,6 @@ public interface ModulePackage extends EPackage
        * @generated
        */
       EAttribute CLASSIFIED__CLASSIFIER = eINSTANCE.getClassified_Classifier();
-
-      /**
-       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.Annotateable <em>Annotateable</em>}'
-       * class. <!-- begin-user-doc --> <!-- end-user-doc -->
-       * 
-       * @see org.sourcepit.beef.b2.model.module.Annotateable
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAnnotateable()
-       * @generated
-       */
-      EClass ANNOTATEABLE = eINSTANCE.getAnnotateable();
-
-      /**
-       * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature. <!--
-       * begin-user-doc --> <!-- end-user-doc -->
-       * 
-       * @generated
-       */
-      EReference ANNOTATEABLE__ANNOTATIONS = eINSTANCE.getAnnotateable_Annotations();
-
-      /**
-       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl
-       * <em>Annotation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-       * 
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.AnnotationImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAnnotation()
-       * @generated
-       */
-      EClass ANNOTATION = eINSTANCE.getAnnotation();
-
-      /**
-       * The meta object literal for the '<em><b>Parent</b></em>' container reference feature. <!-- begin-user-doc -->
-       * <!-- end-user-doc -->
-       * 
-       * @generated
-       */
-      EReference ANNOTATION__PARENT = eINSTANCE.getAnnotation_Parent();
-
-      /**
-       * The meta object literal for the '<em><b>Source</b></em>' attribute feature. <!-- begin-user-doc --> <!--
-       * end-user-doc -->
-       * 
-       * @generated
-       */
-      EAttribute ANNOTATION__SOURCE = eINSTANCE.getAnnotation_Source();
-
-      /**
-       * The meta object literal for the '<em><b>Entries</b></em>' map feature. <!-- begin-user-doc --> <!--
-       * end-user-doc -->
-       * 
-       * @generated
-       */
-      EReference ANNOTATION__ENTRIES = eINSTANCE.getAnnotation_Entries();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.module.Identifiable <em>Identifiable</em>}'

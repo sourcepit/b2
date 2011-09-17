@@ -2,7 +2,7 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.model.module;
+package org.sourcepit.beef.b2.model.common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class AnnotateableTest extends TestCase
 
          assertNull(annotateable.getAnnotation("foo"));
 
-         Annotation a = ModuleFactory.eINSTANCE.createAnnotation();
+         Annotation a = CommonFactory.eINSTANCE.createAnnotation();
          a.setSource(annotateable.getClass().getName());
 
          annotateable.getAnnotations().add(a);
@@ -45,7 +45,7 @@ public class AnnotateableTest extends TestCase
          assertNotNull(aa);
          assertSame(a, aa);
 
-         Annotation aaa = ModuleFactory.eINSTANCE.createAnnotation();
+         Annotation aaa = CommonFactory.eINSTANCE.createAnnotation();
          aaa.setSource(annotateable.getClass().getName() + "2");
 
          annotateable.getAnnotations().add(aaa);
@@ -66,7 +66,7 @@ public class AnnotateableTest extends TestCase
 
    private Annotateable createAnnotateable(EClass eClass)
    {
-      Annotateable annotateable = (Annotateable) ModuleFactory.eINSTANCE.create(eClass);
+      Annotateable annotateable = (Annotateable) CommonFactory.eINSTANCE.create(eClass);
       assertNotNull(annotateable);
       return annotateable;
    }
@@ -101,7 +101,7 @@ public class AnnotateableTest extends TestCase
 
          assertNull(annotateable.getAnnotationEntry("source", "key"));
 
-         Annotation a = ModuleFactory.eINSTANCE.createAnnotation();
+         Annotation a = CommonFactory.eINSTANCE.createAnnotation();
          a.setSource("source");
          annotateable.getAnnotations().add(a);
 
@@ -139,9 +139,9 @@ public class AnnotateableTest extends TestCase
 
    private List<EClass> getAnnotateableTypes()
    {
-      EClass annotateableType = ModulePackage.eINSTANCE.getAnnotateable();
+      EClass annotateableType = CommonPackage.eINSTANCE.getAnnotateable();
       List<EClass> annotateableTypes = new ArrayList<EClass>();
-      for (EClassifier eClassifier : ModulePackage.eINSTANCE.getEClassifiers())
+      for (EClassifier eClassifier : CommonPackage.eINSTANCE.getEClassifiers())
       {
          if (eClassifier instanceof EClass)
          {

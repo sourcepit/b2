@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 import javax.inject.Named;
 
-import org.sourcepit.beef.b2.model.module.Annotation;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 
 @Named
