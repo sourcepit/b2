@@ -3,7 +3,7 @@ SELF=`readlink -f $0`
 SCRIPTDIR=`dirname $SELF`
 
 export BASE="$SCRIPTDIR/"
-export M2_HOME="$BASEapache-maven-3.0.3"
+export M2_HOME="$BASE""apache-maven-3.0.3"
 export MAVEN_OPTS="-Duser.home=$BASE $MAVEN_OPTS"
 
 echo User Home Directory    : $BASE
