@@ -33,7 +33,7 @@ echo Directory    : $PWD
 echo Command Line : $MAVEN_EXEC $MAVEN_ARGS
 echo
 
-exec "$MAVEN_EXEC" "$MAVEN_ARGS"
+exec "$MAVEN_EXEC $MAVEN_ARGS"
 fi
 
 cd $BASE
