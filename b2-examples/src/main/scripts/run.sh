@@ -16,18 +16,17 @@ echo Maven Opts:            : $MAVEN_OPTS
 export MAVEN_EXEC="$M2_HOME""/bin/mvn"
 export MAVEN_ARGS="-e clean verify"
 
-echo Starting build for $1
 cd $1
 
 if [ -f build.sh ] ; then
 
-exec "$PWD""build.sh" $*
+exec build.sh $*
 
 else
 
 echo
 echo ------------------------------------------------------------------------
-echo "Starting module build for '"$1"'"
+echo Starting module build for \'$1\'
 echo ------------------------------------------------------------------------
 echo Directory    : $PWD
 echo Command Line : $MAVEN_EXEC $MAVEN_ARGS
