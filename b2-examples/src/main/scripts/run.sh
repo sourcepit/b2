@@ -21,7 +21,7 @@ cd $1
 
 if [ -f build.sh ] ; then
 
-exec build.sh $*
+exec "$PWD""build.sh" $*
 
 else
 
