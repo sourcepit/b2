@@ -224,27 +224,11 @@
 									<goal>deploy</goal>
 								</goals>
 								<configuration>
-									<altDeploymentRepository>hans::default::${it.repo.url}</altDeploymentRepository>
+									<altDeploymentRepository>it-repo::default::${it.repo.url}</altDeploymentRepository>
 								</configuration>
 							</execution>
 						</executions>
 					</plugin>
-					<!-- <plugin> -->
-					<!-- <groupId>org.sourcepit.tools</groupId> -->
-					<!-- <artifactId>install-maven-plugin</artifactId> -->
-					<!-- <executions> -->
-					<!-- <execution> -->
-					<!-- <id>gather-artifacts</id> -->
-					<!-- <phase>pre-integration-test</phase> -->
-					<!-- <goals> -->
-					<!-- <goal>install</goal> -->
-					<!-- </goals> -->
-					<!-- <configuration> -->
-					<!-- <altLocalRepository>${it.repo.dir}</altLocalRepository> -->
-					<!-- </configuration> -->
-					<!-- </execution> -->
-					<!-- </executions> -->
-					<!-- </plugin> -->
 				</plugins>
 			</build>
 		</profile>
