@@ -6,7 +6,7 @@ set MAVEN_OPTS=-Duser.home=%BASE% %MAVEN_OPTS%
 
 echo.
 echo ------------------------------------------------------------------------
-echo Configured build environment
+echo Setting build environment
 echo ------------------------------------------------------------------------
 echo User Home Directory    : %BASE%
 echo Maven Home Directory   : %M2_HOME%
