@@ -95,38 +95,6 @@
 	</build>
 
 	<profiles>
-		<!-- <profile> -->
-		<!-- Currently, we have to skip integration tests on linux... because build 
-			server is to weak :-( -->
-		<!-- <id>run-it</id> -->
-		<!-- <activation> -->
-		<!-- <os> -->
-		<!-- <family>Windows</family> -->
-		<!-- </os> -->
-		<!-- </activation> -->
-		<!-- <build> -->
-		<!-- <plugins> -->
-		<!-- <plugin> -->
-		<!-- <groupId>org.apache.maven.plugins</groupId> -->
-		<!-- <artifactId>maven-failsafe-plugin</artifactId> -->
-		<!-- <executions> -->
-		<!-- <execution> -->
-		<!-- <id>integration-test</id> -->
-		<!-- <goals> -->
-		<!-- <goal>integration-test</goal> -->
-		<!-- </goals> -->
-		<!-- </execution> -->
-		<!-- <execution> -->
-		<!-- <id>verify</id> -->
-		<!-- <goals> -->
-		<!-- <goal>verify</goal> -->
-		<!-- </goals> -->
-		<!-- </execution> -->
-		<!-- </executions> -->
-		<!-- </plugin> -->
-		<!-- </plugins> -->
-		<!-- </build> -->
-		<!-- </profile> -->
 		<profile>
 			<id>proxy-property</id>
 			<activation>
@@ -174,9 +142,6 @@
 										<argument>u+x</argument>
 										<argument>{}</argument>
 										<argument>\;</argument>
-										<!-- <argument>${project.build.directory}/examples -type -->
-										<!-- f -exec -->
-										<!-- chmod og+x {} \;</argument> -->
 									</arguments>
 								</configuration>
 							</execution>
