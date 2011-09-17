@@ -15,7 +15,7 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
 
    public void testSimple_Module() throws Exception
    {
-      // execute();
+      execute();
    }
 
    public void testReactor_Build() throws Exception
