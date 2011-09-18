@@ -223,7 +223,7 @@ ${proxy.settings}
         <repository>
 		  <id>indigo</id>
 		  <layout>p2</layout>
-		  <url>\${eclipse.repo.url}</url>
+		  <url>${eclipse.repo.url}</url>
         </repository>
       </repositories>
     </profile>
