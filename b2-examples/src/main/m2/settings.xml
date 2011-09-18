@@ -244,6 +244,19 @@ under the License.
       </properties>
     </profile>
     -->
+    <profile>
+      <id>indigo</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <pluginRepositories>
+        <pluginRepository>
+		  <id>indigo</id>
+		  <layout>p2</layout>
+		  <url>http://download.eclipse.org/releases/indigo</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
     
     <profile>
       <id>srcpit-repositories</id>

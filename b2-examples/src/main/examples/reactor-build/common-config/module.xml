@@ -16,14 +16,6 @@
 		<p2repo>file:/\${user.dir}/../.p2</p2repo>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>indigo</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/indigo</url>
-		</repository>
-	</repositories>
-
 	<build>
 		<plugins>
 			<plugin>
