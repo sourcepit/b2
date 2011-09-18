@@ -249,10 +249,13 @@ under the License.
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+      <properties>
+		<eclipse.indigo.repo.url>http://download.eclipse.org/releases/indigo</eclipse.indigo.repo.url>
+	  </properties>
       <repositories>
         <repository>
 		  <id>indigo</id>
-		  <url>http://download.eclipse.org/releases/indigo</url>
+		  <url>\${eclipse.indigo.repo.url}</url>
 		  <layout>p2</layout>
         </repository>
       </repositories>
