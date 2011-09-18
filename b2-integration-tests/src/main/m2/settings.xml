@@ -219,13 +219,13 @@ ${proxy.settings}
       <properties>
         <eclipse.repo.url>http://download.eclipse.org/releases/indigo</eclipse.repo.url>
       </properties>
-      <pluginRepositories>
-        <pluginRepository>
+      <repositories>
+        <repository>
 		  <id>indigo</id>
 		  <layout>p2</layout>
 		  <url>\${eclipse.repo.url}</url>
-        </pluginRepository>
-      </pluginRepositories>
+        </repository>
+      </repositories>
     </profile>
     
     <profile>
