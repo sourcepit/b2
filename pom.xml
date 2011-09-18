@@ -215,7 +215,10 @@
 						<executions>
 							<execution>
 								<id>gather-artifacts</id>
-								<phase>pre-integration-test</phase>
+								<!-- <phase>pre-integration-test</phase> -->
+								<!-- due to maven sets the "resolved version" on deployment, we will 
+									break the install mojo if we call this goal before it. -->
+								<phase>install</phase>
 								<goals>
 									<goal>deploy</goal>
 								</goals>
