@@ -12,8 +12,8 @@ echo User Home Directory    : %BASE%
 echo Maven Home Directory   : %M2_HOME%
 echo Maven Opts:            : %MAVEN_OPTS%
 
-SET MAVEN_EXEC="%M2_HOME%\bin\mvn.bat"
-SET MAVEN_ARGS=-e clean verify
+set MAVEN_EXEC="%M2_HOME%\bin\mvn.bat"
+if "%MAVEN_ARGS%" == "" (set "MAVEN_ARGS=clean verify")
 
 cd %1
 

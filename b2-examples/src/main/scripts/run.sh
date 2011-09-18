@@ -14,7 +14,9 @@ echo Maven Home Directory   : $M2_HOME
 echo Maven Opts:            : $MAVEN_OPTS
 
 export MAVEN_EXEC="$M2_HOME""/bin/mvn"
-export MAVEN_ARGS="-e clean verify"
+if [ -z "$MAVEN_ARGS" ] ; then
+  export MAVEN_ARGS="clean verify"
+fi
 
 cd $1
 
