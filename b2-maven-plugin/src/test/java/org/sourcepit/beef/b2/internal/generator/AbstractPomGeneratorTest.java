@@ -6,6 +6,7 @@ package org.sourcepit.beef.b2.internal.generator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.ModelReader;
+import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
@@ -26,6 +28,9 @@ import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.internal.util.EWalkerImpl;
 import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
+import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
+
+import com.google.inject.Binder;
 
 public abstract class AbstractPomGeneratorTest extends AbstractInjectedWorkspaceTest
 {
@@ -38,14 +43,22 @@ public abstract class AbstractPomGeneratorTest extends AbstractInjectedWorkspace
    @Inject
    protected Map<String, IInterpolationLayout> layoutMap;
 
+   private Binder binder;
+
    protected IInterpolationLayout getLayout(BasicModule module)
    {
-      IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
-      return layout;
+      return layoutMap.get(module.getLayoutId());
+   }
+
+   @Override
+   public void configure(Binder binder)
+   {
+      this.binder = binder;
+      super.configure(binder);
    }
 
    @SuppressWarnings("unchecked")
-   protected <T extends AbstractModule> T buildModel(String path) throws IOException
+   protected <T extends AbstractModule> T buildModel(String path) throws Exception
    {
       File moduleDir = workspace.importResources(path);
       assertTrue(moduleDir.canRead());
@@ -54,7 +67,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractInjectedWorkspace
    }
 
    @SuppressWarnings("unchecked")
-   protected <T extends AbstractModule> T buildModel(File moduleDir)
+   protected <T extends AbstractModule> T buildModel(File moduleDir) throws Exception
    {
       B2ModelBuildingRequest request = newModelBuildingRequest(moduleDir);
       return (T) buildModel(request);

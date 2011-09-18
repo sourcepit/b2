@@ -23,6 +23,8 @@ import org.sonatype.guice.bean.reflect.URLClassSpace;
 import org.sonatype.inject.BeanScanning;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.beef.b2.directory.parser.module.WhitelistModuleFilter;
+import org.sourcepit.beef.b2.execution.B2;
+import org.sourcepit.beef.b2.execution.IB2Listener;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
@@ -47,12 +49,12 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
-
+   
    private final static String CACHE_KEY = B2MavenBootstrapperListener.class.getName() + "#modelCache";
 
-   public void beforeProjectBuild(BootstrapSession session, MavenProject wrapperProject)
+   public void beforeProjectBuild(BootstrapSession session, final MavenProject wrapperProject)
    {
-      initJsr330(session, wrapperProject);
+      initJsr330(session);
 
       final DecouplingModelCache modelCache = initModelCache(session);
 
@@ -89,8 +91,9 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       storeModelCache(session, modelCache);
    }
 
-   private void initJsr330(final BootstrapSession session, final MavenProject wrapperProject)
+   private void initJsr330(final BootstrapSession session)
    {
+      final BootPomSerializer bootPomSerializer = new BootPomSerializer();
       final Injector injector = Guice.createInjector(new WireModule(new com.google.inject.AbstractModule()
       {
          @Override
@@ -98,8 +101,11 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          {
             bind(Logger.class).toInstance(logger);
             bind(BootstrapSession.class).toInstance(session);
+            
+            bind(IB2Listener.class).toInstance(bootPomSerializer);
          }
       }, new SpaceModule(new URLClassSpace(getClass().getClassLoader()), BeanScanning.CACHE)));
+      injector.injectMembers(bootPomSerializer);
       injector.injectMembers(this);
    }
 

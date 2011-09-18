@@ -2,7 +2,7 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.internal.generator;
+package org.sourcepit.beef.b2.execution;
 
 import java.io.File;
 
@@ -10,6 +10,8 @@ import javax.inject.Inject;
 
 import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
+import org.sourcepit.beef.b2.execution.B2;
+import org.sourcepit.beef.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
