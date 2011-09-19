@@ -21,8 +21,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
+import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
-import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
@@ -219,11 +219,11 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
-   public Session getSession()
+   public B2Session getSession()
    {
       if (eContainerFeatureID() != SessionModelPackage.MODULE_PROJECT__SESSION)
          return null;
-      return (Session) eContainer();
+      return (B2Session) eContainer();
    }
 
    /**
@@ -231,7 +231,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
-   public NotificationChain basicSetSession(Session newSession, NotificationChain msgs)
+   public NotificationChain basicSetSession(B2Session newSession, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newSession, SessionModelPackage.MODULE_PROJECT__SESSION, msgs);
       return msgs;
@@ -242,7 +242,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
-   public void setSession(Session newSession)
+   public void setSession(B2Session newSession)
    {
       if (newSession != eInternalContainer()
          || (eContainerFeatureID() != SessionModelPackage.MODULE_PROJECT__SESSION && newSession != null))
@@ -253,8 +253,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newSession != null)
-            msgs = ((InternalEObject) newSession).eInverseAdd(this, SessionModelPackage.SESSION__PROJECTS,
-               Session.class, msgs);
+            msgs = ((InternalEObject) newSession).eInverseAdd(this, SessionModelPackage.B2_SESSION__PROJECTS,
+               B2Session.class, msgs);
          msgs = basicSetSession(newSession, msgs);
          if (msgs != null)
             msgs.dispatch();
@@ -412,7 +412,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__SESSION :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
-            return basicSetSession((Session) otherEnd, msgs);
+            return basicSetSession((B2Session) otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -446,8 +446,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       switch (eContainerFeatureID())
       {
          case SessionModelPackage.MODULE_PROJECT__SESSION :
-            return eInternalContainer()
-               .eInverseRemove(this, SessionModelPackage.SESSION__PROJECTS, Session.class, msgs);
+            return eInternalContainer().eInverseRemove(this, SessionModelPackage.B2_SESSION__PROJECTS, B2Session.class,
+               msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
    }
@@ -499,7 +499,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             setGroupId((String) newValue);
             return;
          case SessionModelPackage.MODULE_PROJECT__SESSION :
-            setSession((Session) newValue);
+            setSession((B2Session) newValue);
             return;
          case SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID :
             setArtifactId((String) newValue);
@@ -534,7 +534,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             setGroupId(GROUP_ID_EDEFAULT);
             return;
          case SessionModelPackage.MODULE_PROJECT__SESSION :
-            setSession((Session) null);
+            setSession((B2Session) null);
             return;
          case SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID :
             setArtifactId(ARTIFACT_ID_EDEFAULT);

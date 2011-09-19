@@ -15,16 +15,16 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.beef.b2.model.session.Session#getProjects <em>Projects</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.session.Session#getCurrentProject <em>Current Project</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.B2Session#getProjects <em>Projects</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.B2Session#getCurrentProject <em>Current Project</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getSession()
+ * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getB2Session()
  * @model
  * @generated
  */
-public interface Session extends Annotateable
+public interface B2Session extends Annotateable
 {
 
    /**
@@ -38,7 +38,7 @@ public interface Session extends Annotateable
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Projects</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getSession_Projects()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getB2Session_Projects()
     * @see org.sourcepit.beef.b2.model.session.ModuleProject#getSession
     * @model opposite="session" containment="true"
     * @generated
@@ -55,14 +55,14 @@ public interface Session extends Annotateable
     * 
     * @return the value of the '<em>Current Project</em>' reference.
     * @see #setCurrentProject(ModuleProject)
-    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getSession_CurrentProject()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getB2Session_CurrentProject()
     * @model required="true"
     * @generated
     */
    ModuleProject getCurrentProject();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.session.Session#getCurrentProject
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.session.B2Session#getCurrentProject
     * <em>Current Project</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Current Project</em>' reference.

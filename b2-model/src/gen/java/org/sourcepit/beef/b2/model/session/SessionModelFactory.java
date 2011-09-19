@@ -25,12 +25,12 @@ public interface SessionModelFactory extends EFactory
    SessionModelFactory eINSTANCE = org.sourcepit.beef.b2.model.session.internal.impl.SessionModelFactoryImpl.init();
 
    /**
-    * Returns a new object of class '<em>Session</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns a new object of class '<em>B2 Session</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @return a new object of class '<em>Session</em>'.
+    * @return a new object of class '<em>B2 Session</em>'.
     * @generated
     */
-   Session createSession();
+   B2Session createB2Session();
 
    /**
     * Returns a new object of class '<em>Module Project</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->

@@ -15,8 +15,8 @@ import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl;
 import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl;
+import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
-import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
@@ -32,7 +32,7 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
-   private EClass sessionEClass = null;
+   private EClass b2SessionEClass = null;
 
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -124,9 +124,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
-   public EClass getSession()
+   public EClass getB2Session()
    {
-      return sessionEClass;
+      return b2SessionEClass;
    }
 
    /**
@@ -134,9 +134,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
-   public EReference getSession_Projects()
+   public EReference getB2Session_Projects()
    {
-      return (EReference) sessionEClass.getEStructuralFeatures().get(0);
+      return (EReference) b2SessionEClass.getEStructuralFeatures().get(0);
    }
 
    /**
@@ -144,9 +144,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
-   public EReference getSession_CurrentProject()
+   public EReference getB2Session_CurrentProject()
    {
-      return (EReference) sessionEClass.getEStructuralFeatures().get(1);
+      return (EReference) b2SessionEClass.getEStructuralFeatures().get(1);
    }
 
    /**
@@ -249,9 +249,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       isCreated = true;
 
       // Create classes and their features
-      sessionEClass = createEClass(SESSION);
-      createEReference(sessionEClass, SESSION__PROJECTS);
-      createEReference(sessionEClass, SESSION__CURRENT_PROJECT);
+      b2SessionEClass = createEClass(B2_SESSION);
+      createEReference(b2SessionEClass, B2_SESSION__PROJECTS);
+      createEReference(b2SessionEClass, B2_SESSION__CURRENT_PROJECT);
 
       moduleProjectEClass = createEClass(MODULE_PROJECT);
       createEAttribute(moduleProjectEClass, MODULE_PROJECT__GROUP_ID);
@@ -295,24 +295,25 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       // Set bounds for type parameters
 
       // Add supertypes to classes
-      sessionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
+      b2SessionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
       moduleProjectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
 
       // Initialize classes and features; add operations and parameters
-      initEClass(sessionEClass, Session.class, "Session", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getSession_Projects(), this.getModuleProject(), this.getModuleProject_Session(), "projects", null,
-         0, -1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+      initEClass(b2SessionEClass, B2Session.class, "B2Session", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getB2Session_Projects(), this.getModuleProject(), this.getModuleProject_Session(), "projects",
+         null, 0, -1, B2Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getSession_CurrentProject(), this.getModuleProject(), null, "currentProject", null, 1, 1,
-         Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getB2Session_CurrentProject(), this.getModuleProject(), null, "currentProject", null, 1, 1,
+         B2Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(moduleProjectEClass, ModuleProject.class, "ModuleProject", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
       initEAttribute(getModuleProject_GroupId(), ecorePackage.getEString(), "groupId", null, 1, 1, ModuleProject.class,
          !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getModuleProject_Session(), this.getSession(), this.getSession_Projects(), "session", null, 1, 1,
-         ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+      initEReference(getModuleProject_Session(), this.getB2Session(), this.getB2Session_Projects(), "session", null, 1,
+         1, ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEAttribute(getModuleProject_ArtifactId(), ecorePackage.getEString(), "artifactId", null, 1, 1,
          ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,

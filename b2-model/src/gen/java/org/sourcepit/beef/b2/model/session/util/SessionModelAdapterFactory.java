@@ -11,8 +11,8 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
-import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
@@ -74,9 +74,9 @@ public class SessionModelAdapterFactory extends AdapterFactoryImpl
    protected SessionModelSwitch<Adapter> modelSwitch = new SessionModelSwitch<Adapter>()
    {
       @Override
-      public Adapter caseSession(Session object)
+      public Adapter caseB2Session(B2Session object)
       {
-         return createSessionAdapter();
+         return createB2SessionAdapter();
       }
 
       @Override
@@ -113,15 +113,15 @@ public class SessionModelAdapterFactory extends AdapterFactoryImpl
 
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.session.Session <em>Session</em>}
-    * '. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
-    * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.session.B2Session
+    * <em>B2 Session</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
-    * @see org.sourcepit.beef.b2.model.session.Session
+    * @see org.sourcepit.beef.b2.model.session.B2Session
     * @generated
     */
-   public Adapter createSessionAdapter()
+   public Adapter createB2SessionAdapter()
    {
       return null;
    }

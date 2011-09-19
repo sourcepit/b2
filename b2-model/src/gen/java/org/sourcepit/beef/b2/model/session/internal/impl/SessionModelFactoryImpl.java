@@ -11,8 +11,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
-import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
@@ -66,8 +66,8 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
    {
       switch (eClass.getClassifierID())
       {
-         case SessionModelPackage.SESSION :
-            return createSession();
+         case SessionModelPackage.B2_SESSION :
+            return createB2Session();
          case SessionModelPackage.MODULE_PROJECT :
             return createModuleProject();
          default :
@@ -80,10 +80,10 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
     * 
     * @generated
     */
-   public Session createSession()
+   public B2Session createB2Session()
    {
-      SessionImpl session = new SessionImpl();
-      return session;
+      B2SessionImpl b2Session = new B2SessionImpl();
+      return b2Session;
    }
 
    /**

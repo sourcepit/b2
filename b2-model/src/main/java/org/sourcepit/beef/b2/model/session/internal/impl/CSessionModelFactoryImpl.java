@@ -4,13 +4,13 @@
 
 package org.sourcepit.beef.b2.model.session.internal.impl;
 
+import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
-import org.sourcepit.beef.b2.model.session.Session;
 
 public class CSessionModelFactoryImpl extends SessionModelFactoryImpl
 {
    @Override
-   public Session createSession()
+   public B2Session createB2Session()
    {
       return new CSessionImpl();
    }

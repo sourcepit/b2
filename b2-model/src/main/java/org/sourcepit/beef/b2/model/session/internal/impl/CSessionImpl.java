@@ -10,7 +10,7 @@ import org.sourcepit.beef.b2.model.common.internal.util.AnnotationUtils;
 /**
  * @author Bernd
  */
-public class CSessionImpl extends SessionImpl
+public class CSessionImpl extends B2SessionImpl
 {
    @Override
    public Annotation getAnnotation(String source)

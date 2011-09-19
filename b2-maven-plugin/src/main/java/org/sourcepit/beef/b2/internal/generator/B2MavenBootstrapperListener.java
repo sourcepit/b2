@@ -28,6 +28,9 @@ import org.sourcepit.beef.b2.execution.IB2Listener;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.session.ModuleProject;
+import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
 import org.sourcepit.beef.maven.wrapper.internal.session.IMavenBootstrapperListener;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
@@ -49,12 +52,20 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
-   
+
    private final static String CACHE_KEY = B2MavenBootstrapperListener.class.getName() + "#modelCache";
 
    public void beforeProjectBuild(BootstrapSession session, final MavenProject wrapperProject)
    {
+      if (session.isSkipped(wrapperProject))
+      {
+         logger.info("Skipping module directory " + wrapperProject.getBasedir().getPath());
+         return;
+      }
+
       initJsr330(session);
+
+      B2Session b2Session = createB2Session(session);
 
       final DecouplingModelCache modelCache = initModelCache(session);
 
@@ -73,9 +84,12 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       };
 
       final Set<File> whitelist = new HashSet<File>();
-      for (MavenProject mavenProject : session.getWrapperProjects())
+      for (ModuleProject project : b2Session.getProjects())
       {
-         whitelist.add(mavenProject.getBasedir());
+         if (!project.isSkipped())
+         {
+            whitelist.add(project.getDirectory());
+         }
       }
 
       final IModuleFilter fileFilter = new WhitelistModuleFilter(whitelist);
@@ -91,6 +105,32 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       storeModelCache(session, modelCache);
    }
 
+   /**
+    * @param session
+    */
+   private B2Session createB2Session(BootstrapSession session)
+   {
+      final B2Session b2Session = SessionModelFactory.eINSTANCE.createB2Session();
+
+      for (MavenProject project : session.getBootstrapProjects())
+      {
+         final ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
+         moduleProject.setGroupId(project.getGroupId());
+         moduleProject.setArtifactId(project.getArtifactId());
+         moduleProject.setVersion(project.getVersion());
+         moduleProject.setDirectory(project.getBasedir());
+         moduleProject.setSkipped(session.isSkipped(project));
+
+         b2Session.getProjects().add(moduleProject);
+         if (project.equals(session.getCurrentProject()))
+         {
+            b2Session.setCurrentProject(moduleProject);
+         }
+      }
+
+      return b2Session;
+   }
+
    private void initJsr330(final BootstrapSession session)
    {
       final BootPomSerializer bootPomSerializer = new BootPomSerializer();
@@ -101,7 +141,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          {
             bind(Logger.class).toInstance(logger);
             bind(BootstrapSession.class).toInstance(session);
-            
+
             bind(IB2Listener.class).toInstance(bootPomSerializer);
          }
       }, new SpaceModule(new URLClassSpace(getClass().getClassLoader()), BeanScanning.CACHE)));

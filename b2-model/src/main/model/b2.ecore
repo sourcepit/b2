@@ -237,7 +237,7 @@
   </eSubpackages>
   <eSubpackages name="session" nsURI="http://www.sourcepit.org/b2/model/0.1/session"
       nsPrefix="session">
-    <eClassifiers xsi:type="ecore:EClass" name="Session" eSuperTypes="#//common/Annotateable">
+    <eClassifiers xsi:type="ecore:EClass" name="B2Session" eSuperTypes="#//common/Annotateable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
           eType="#//session/ModuleProject" containment="true" eOpposite="#//session/ModuleProject/session"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="currentProject" lowerBound="1"
@@ -247,7 +247,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupId" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="session" lowerBound="1"
-          eType="#//session/Session" eOpposite="#//session/Session/projects"/>
+          eType="#//session/B2Session" eOpposite="#//session/B2Session/projects"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="artifactId" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" lowerBound="1"
@@ -257,5 +257,6 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="skipped" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ModuleDependency"/>
   </eSubpackages>
 </ecore:EPackage>

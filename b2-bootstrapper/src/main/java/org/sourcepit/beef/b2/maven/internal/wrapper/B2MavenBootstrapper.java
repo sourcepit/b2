@@ -5,6 +5,7 @@
 package org.sourcepit.beef.b2.maven.internal.wrapper;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.maven.MavenExecutionException;
@@ -22,10 +23,10 @@ public class B2MavenBootstrapper extends AbstractMavenBootstrapper
    @Requirement
    private ModuleDescriptorProcessor descriptorProcessor;
 
-   protected List<File> getModuleDescriptors(MavenSession session) throws MavenExecutionException
+   protected void getModuleDescriptors(MavenSession session, Collection<File> descriptors,
+      Collection<File> skippeDescriptors) throws MavenExecutionException
    {
-      final File baseDir = new File(session.getRequest().getBaseDirectory());
-      return descriptorProcessor.findModuleDescriptors(baseDir);
+      descriptorProcessor.findModuleDescriptors(session, descriptors, skippeDescriptors);
    }
 
    @Override

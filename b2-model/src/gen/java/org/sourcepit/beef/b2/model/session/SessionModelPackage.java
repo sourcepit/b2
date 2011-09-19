@@ -57,14 +57,14 @@ public interface SessionModelPackage extends EPackage
    SessionModelPackage eINSTANCE = org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl.init();
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl <em>Session</em>}
-    * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.B2SessionImpl
+    * <em>B2 Session</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl
-    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getSession()
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.B2SessionImpl
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getB2Session()
     * @generated
     */
-   int SESSION = 0;
+   int B2_SESSION = 0;
 
    /**
     * The feature id for the '<em><b>Annotations</b></em>' containment reference list. <!-- begin-user-doc --> <!--
@@ -73,7 +73,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SESSION__ANNOTATIONS = CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
+   int B2_SESSION__ANNOTATIONS = CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Projects</b></em>' containment reference list. <!-- begin-user-doc --> <!--
@@ -82,7 +82,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SESSION__PROJECTS = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
+   int B2_SESSION__PROJECTS = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Current Project</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -90,15 +90,16 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SESSION__CURRENT_PROJECT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
+   int B2_SESSION__CURRENT_PROJECT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
 
    /**
-    * The number of structural features of the '<em>Session</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The number of structural features of the '<em>B2 Session</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+    * -->
     * 
     * @generated
     * @ordered
     */
-   int SESSION_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
+   int B2_SESSION_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
 
    /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl
@@ -179,37 +180,37 @@ public interface SessionModelPackage extends EPackage
 
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.Session <em>Session</em>}'. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.B2Session <em>B2 Session</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @return the meta object for class '<em>Session</em>'.
-    * @see org.sourcepit.beef.b2.model.session.Session
+    * @return the meta object for class '<em>B2 Session</em>'.
+    * @see org.sourcepit.beef.b2.model.session.B2Session
     * @generated
     */
-   EClass getSession();
+   EClass getB2Session();
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.beef.b2.model.session.Session#getProjects <em>Projects</em>}'. <!-- begin-user-doc --> <!--
+    * {@link org.sourcepit.beef.b2.model.session.B2Session#getProjects <em>Projects</em>}'. <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Projects</em>'.
-    * @see org.sourcepit.beef.b2.model.session.Session#getProjects()
-    * @see #getSession()
+    * @see org.sourcepit.beef.b2.model.session.B2Session#getProjects()
+    * @see #getB2Session()
     * @generated
     */
-   EReference getSession_Projects();
+   EReference getB2Session_Projects();
 
    /**
-    * Returns the meta object for the reference '{@link org.sourcepit.beef.b2.model.session.Session#getCurrentProject
+    * Returns the meta object for the reference '{@link org.sourcepit.beef.b2.model.session.B2Session#getCurrentProject
     * <em>Current Project</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the reference '<em>Current Project</em>'.
-    * @see org.sourcepit.beef.b2.model.session.Session#getCurrentProject()
-    * @see #getSession()
+    * @see org.sourcepit.beef.b2.model.session.B2Session#getCurrentProject()
+    * @see #getB2Session()
     * @generated
     */
-   EReference getSession_CurrentProject();
+   EReference getB2Session_CurrentProject();
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.ModuleProject
@@ -311,14 +312,14 @@ public interface SessionModelPackage extends EPackage
    interface Literals
    {
       /**
-       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl
-       * <em>Session</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.B2SessionImpl
+       * <em>B2 Session</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
-       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl
-       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getSession()
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.B2SessionImpl
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getB2Session()
        * @generated
        */
-      EClass SESSION = eINSTANCE.getSession();
+      EClass B2_SESSION = eINSTANCE.getB2Session();
 
       /**
        * The meta object literal for the '<em><b>Projects</b></em>' containment reference list feature. <!--
@@ -326,7 +327,7 @@ public interface SessionModelPackage extends EPackage
        * 
        * @generated
        */
-      EReference SESSION__PROJECTS = eINSTANCE.getSession_Projects();
+      EReference B2_SESSION__PROJECTS = eINSTANCE.getB2Session_Projects();
 
       /**
        * The meta object literal for the '<em><b>Current Project</b></em>' reference feature. <!-- begin-user-doc -->
@@ -334,7 +335,7 @@ public interface SessionModelPackage extends EPackage
        * 
        * @generated
        */
-      EReference SESSION__CURRENT_PROJECT = eINSTANCE.getSession_CurrentProject();
+      EReference B2_SESSION__CURRENT_PROJECT = eINSTANCE.getB2Session_CurrentProject();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl

@@ -59,7 +59,7 @@ public interface ModuleProject extends Annotateable
 
    /**
     * Returns the value of the '<em><b>Session</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.beef.b2.model.session.Session#getProjects <em>Projects</em>}'. <!-- begin-user-doc -->
+    * {@link org.sourcepit.beef.b2.model.session.B2Session#getProjects <em>Projects</em>}'. <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Session</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -67,13 +67,13 @@ public interface ModuleProject extends Annotateable
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Session</em>' container reference.
-    * @see #setSession(Session)
+    * @see #setSession(B2Session)
     * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Session()
-    * @see org.sourcepit.beef.b2.model.session.Session#getProjects
+    * @see org.sourcepit.beef.b2.model.session.B2Session#getProjects
     * @model opposite="projects" required="true" transient="false"
     * @generated
     */
-   Session getSession();
+   B2Session getSession();
 
    /**
     * Sets the value of the '{@link org.sourcepit.beef.b2.model.session.ModuleProject#getSession <em>Session</em>}'
@@ -83,7 +83,7 @@ public interface ModuleProject extends Annotateable
     * @see #getSession()
     * @generated
     */
-   void setSession(Session value);
+   void setSession(B2Session value);
 
    /**
     * Returns the value of the '<em><b>Artifact Id</b></em>' attribute. <!-- begin-user-doc -->

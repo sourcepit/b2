@@ -10,8 +10,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
-import org.sourcepit.beef.b2.model.session.Session;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
@@ -70,12 +70,12 @@ public class SessionModelSwitch<T> extends Switch<T>
    {
       switch (classifierID)
       {
-         case SessionModelPackage.SESSION :
+         case SessionModelPackage.B2_SESSION :
          {
-            Session session = (Session) theEObject;
-            T result = caseSession(session);
+            B2Session b2Session = (B2Session) theEObject;
+            T result = caseB2Session(b2Session);
             if (result == null)
-               result = caseAnnotateable(session);
+               result = caseAnnotateable(b2Session);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -96,15 +96,15 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Session</em>'. <!-- begin-user-doc --> This
-    * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>B2 Session</em>'. <!-- begin-user-doc -->
+    * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
-    * @return the result of interpreting the object as an instance of '<em>Session</em>'.
+    * @return the result of interpreting the object as an instance of '<em>B2 Session</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseSession(Session object)
+   public T caseB2Session(B2Session object)
    {
       return null;
    }
