@@ -6,7 +6,6 @@ package org.sourcepit.beef.b2.internal.generator;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import javax.inject.Inject;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.ModelReader;
-import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
@@ -28,9 +26,6 @@ import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.internal.util.EWalkerImpl;
 import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
-import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
-
-import com.google.inject.Binder;
 
 public abstract class AbstractPomGeneratorTest extends AbstractInjectedWorkspaceTest
 {
@@ -43,18 +38,9 @@ public abstract class AbstractPomGeneratorTest extends AbstractInjectedWorkspace
    @Inject
    protected Map<String, IInterpolationLayout> layoutMap;
 
-   private Binder binder;
-
    protected IInterpolationLayout getLayout(BasicModule module)
    {
       return layoutMap.get(module.getLayoutId());
-   }
-
-   @Override
-   public void configure(Binder binder)
-   {
-      this.binder = binder;
-      super.configure(binder);
    }
 
    @SuppressWarnings("unchecked")
