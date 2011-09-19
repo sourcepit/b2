@@ -12,17 +12,17 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a create method for each non-abstract class of
  * the model. <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage
  * @generated
  */
-public interface ModuleFactory extends EFactory
+public interface ModuleModelFactory extends EFactory
 {
    /**
     * The singleton instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   ModuleFactory eINSTANCE = org.sourcepit.beef.b2.model.module.internal.impl.ModuleFactoryImpl.init();
+   ModuleModelFactory eINSTANCE = org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelFactoryImpl.init();
 
    /**
     * Returns a new object of class '<em>Basic Module</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -142,6 +142,6 @@ public interface ModuleFactory extends EFactory
     * @return the package supported by this factory.
     * @generated
     */
-   ModulePackage getModulePackage();
+   ModuleModelPackage getModuleModelPackage();
 
 } // B2ModelFactory

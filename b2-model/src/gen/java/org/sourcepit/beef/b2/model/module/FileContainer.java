@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFileContainer()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getFileContainer()
  * @model abstract="true"
  * @generated
  */
@@ -36,7 +36,7 @@ public interface FileContainer extends EObject
     * 
     * @return the value of the '<em>Directory</em>' attribute.
     * @see #setDirectory(File)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getFileContainer_Directory()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getFileContainer_Directory()
     * @model dataType="org.sourcepit.beef.b2.model.common.EJavaFile"
     * @generated
     */

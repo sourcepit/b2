@@ -19,14 +19,14 @@ import org.sourcepit.beef.b2.directory.parser.internal.project.ProjectParser;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
-import org.sourcepit.beef.b2.model.module.util.ModuleSwitch;
+import org.sourcepit.beef.b2.model.module.util.ModuleModelSwitch;
 
 @Named("simple")
 public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>
@@ -123,7 +123,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
 
       if (mainFacet == null)
       {
-         mainFacet = ModuleFactory.eINSTANCE.createPluginsFacet();
+         mainFacet = ModuleModelFactory.eINSTANCE.createPluginsFacet();
          mainFacet.setName("plugins");
          facets.add(mainFacet);
       }
@@ -133,7 +133,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
 
    private ProjectFacet<? extends Project> addProject(final List<ProjectFacet<?>> facets, Project project)
    {
-      return new ModuleSwitch<ProjectFacet<? extends Project>>()
+      return new ModuleModelSwitch<ProjectFacet<? extends Project>>()
       {
          public ProjectFacet<? extends Project> caseFeatureProject(FeatureProject project)
          {
@@ -163,7 +163,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
             FeaturesFacet facet = (FeaturesFacet) getFaceteByName("features");
             if (facet == null)
             {
-               facet = ModuleFactory.eINSTANCE.createFeaturesFacet();
+               facet = ModuleModelFactory.eINSTANCE.createFeaturesFacet();
                facet.setName("features");
                facets.add(facet);
             }
@@ -175,7 +175,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
             SitesFacet facet = (SitesFacet) getFaceteByName("sites");
             if (facet == null)
             {
-               facet = ModuleFactory.eINSTANCE.createSitesFacet();
+               facet = ModuleModelFactory.eINSTANCE.createSitesFacet();
                facet.setName("sites");
                facets.add(facet);
             }
@@ -188,7 +188,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
             PluginsFacet facet = (PluginsFacet) getFaceteByName(name);
             if (facet == null)
             {
-               facet = ModuleFactory.eINSTANCE.createPluginsFacet();
+               facet = ModuleModelFactory.eINSTANCE.createPluginsFacet();
                facet.setName(name);
                facets.add(facet);
             }

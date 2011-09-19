@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 
 /**
  * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
@@ -23,11 +23,11 @@ import org.sourcepit.beef.b2.model.common.CommonPackage;
  * </ul>
  * <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.module.ModuleFactory
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelFactory
  * @model kind="package"
  * @generated
  */
-public interface ModulePackage extends EPackage
+public interface ModuleModelPackage extends EPackage
 {
    /**
     * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -55,14 +55,14 @@ public interface ModulePackage extends EPackage
     * 
     * @generated
     */
-   ModulePackage eINSTANCE = org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl.init();
+   ModuleModelPackage eINSTANCE = org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl.init();
 
    /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.module.internal.impl.AbstractModuleImpl
     * <em>Abstract Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.AbstractModuleImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAbstractModule()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractModule()
     * @generated
     */
    int ABSTRACT_MODULE = 0;
@@ -72,7 +72,7 @@ public interface ModulePackage extends EPackage
     * <em>Basic Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.BasicModuleImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getBasicModule()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getBasicModule()
     * @generated
     */
    int BASIC_MODULE = 1;
@@ -82,7 +82,7 @@ public interface ModulePackage extends EPackage
     * <em>Abstract Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.AbstractFacetImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAbstractFacet()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractFacet()
     * @generated
     */
    int ABSTRACT_FACET = 2;
@@ -92,7 +92,7 @@ public interface ModulePackage extends EPackage
     * <em>Composite Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.CompositeModuleImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getCompositeModule()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getCompositeModule()
     * @generated
     */
    int COMPOSITE_MODULE = 3;
@@ -102,7 +102,7 @@ public interface ModulePackage extends EPackage
     * <em>Project Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ProjectFacetImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProjectFacet()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getProjectFacet()
     * @generated
     */
    int PROJECT_FACET = 11;
@@ -112,7 +112,7 @@ public interface ModulePackage extends EPackage
     * <em>Plugins Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.PluginsFacetImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getPluginsFacet()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginsFacet()
     * @generated
     */
    int PLUGINS_FACET = 4;
@@ -122,7 +122,7 @@ public interface ModulePackage extends EPackage
     * <em>Features Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.FeaturesFacetImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getFeaturesFacet()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeaturesFacet()
     * @generated
     */
    int FEATURES_FACET = 5;
@@ -132,7 +132,7 @@ public interface ModulePackage extends EPackage
     * <em>Sites Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.SitesFacetImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getSitesFacet()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getSitesFacet()
     * @generated
     */
    int SITES_FACET = 6;
@@ -142,7 +142,7 @@ public interface ModulePackage extends EPackage
     * class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ProjectImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProject()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getProject()
     * @generated
     */
    int PROJECT = 10;
@@ -152,7 +152,7 @@ public interface ModulePackage extends EPackage
     * <em>Plugin Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getPluginProject()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginProject()
     * @generated
     */
    int PLUGIN_PROJECT = 7;
@@ -162,7 +162,7 @@ public interface ModulePackage extends EPackage
     * <em>Feature Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.FeatureProjectImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getFeatureProject()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureProject()
     * @generated
     */
    int FEATURE_PROJECT = 8;
@@ -172,7 +172,7 @@ public interface ModulePackage extends EPackage
     * <em>Site Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.SiteProjectImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getSiteProject()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getSiteProject()
     * @generated
     */
    int SITE_PROJECT = 9;
@@ -182,7 +182,7 @@ public interface ModulePackage extends EPackage
     * <em>File Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.FileContainerImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getFileContainer()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getFileContainer()
     * @generated
     */
    int FILE_CONTAINER = 12;
@@ -359,7 +359,7 @@ public interface ModulePackage extends EPackage
     * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.Derivable
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getDerivable()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getDerivable()
     * @generated
     */
    int DERIVABLE = 13;
@@ -1006,7 +1006,7 @@ public interface ModulePackage extends EPackage
     * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.Reference
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getReference()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getReference()
     * @generated
     */
    int REFERENCE = 21;
@@ -1040,7 +1040,7 @@ public interface ModulePackage extends EPackage
     * <em>Plugin Include</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.PluginIncludeImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getPluginInclude()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginInclude()
     * @generated
     */
    int PLUGIN_INCLUDE = 14;
@@ -1091,7 +1091,7 @@ public interface ModulePackage extends EPackage
     * <em>Category</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.CategoryImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getCategory()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getCategory()
     * @generated
     */
    int CATEGORY = 15;
@@ -1126,7 +1126,7 @@ public interface ModulePackage extends EPackage
     * <em>Feature Include</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.FeatureIncludeImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getFeatureInclude()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureInclude()
     * @generated
     */
    int FEATURE_INCLUDE = 16;
@@ -1169,7 +1169,7 @@ public interface ModulePackage extends EPackage
     * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.Classified
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getClassified()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getClassified()
     * @generated
     */
    int CLASSIFIED = 17;
@@ -1196,7 +1196,7 @@ public interface ModulePackage extends EPackage
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.Identifiable
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifiable()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifiable()
     * @generated
     */
    int IDENTIFIABLE = 18;
@@ -1231,7 +1231,7 @@ public interface ModulePackage extends EPackage
     * <em>Products Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ProductsFacetImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProductsFacet()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getProductsFacet()
     * @generated
     */
    int PRODUCTS_FACET = 19;
@@ -1292,7 +1292,7 @@ public interface ModulePackage extends EPackage
     * <em>Product Definition</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.internal.impl.ProductDefinitionImpl
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProductDefinition()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getProductDefinition()
     * @generated
     */
    int PRODUCT_DEFINITION = 20;
@@ -1304,7 +1304,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__ANNOTATIONS = CommonPackage.ANNOTATEABLE__ANNOTATIONS;
+   int PRODUCT_DEFINITION__ANNOTATIONS = CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1312,7 +1312,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__DERIVED = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
+   int PRODUCT_DEFINITION__DERIVED = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Parent</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1320,7 +1320,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__PARENT = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
+   int PRODUCT_DEFINITION__PARENT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
 
    /**
     * The feature id for the '<em><b>File</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1328,7 +1328,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__FILE = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
+   int PRODUCT_DEFINITION__FILE = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
 
    /**
     * The feature id for the '<em><b>Product Plugin</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -1337,7 +1337,7 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__PRODUCT_PLUGIN = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 3;
+   int PRODUCT_DEFINITION__PRODUCT_PLUGIN = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 3;
 
    /**
     * The number of structural features of the '<em>Product Definition</em>' class. <!-- begin-user-doc --> <!--
@@ -1346,13 +1346,13 @@ public interface ModulePackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION_FEATURE_COUNT = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
+   int PRODUCT_DEFINITION_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
 
    /**
     * The meta object id for the '<em>Identifier</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.module.util.Identifier
-    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifier()
+    * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifier()
     * @generated
     */
    int IDENTIFIER = 22;
@@ -2013,7 +2013,7 @@ public interface ModulePackage extends EPackage
     * @return the factory that creates the instances of the model.
     * @generated
     */
-   ModuleFactory getModuleFactory();
+   ModuleModelFactory getModuleModelFactory();
 
    /**
     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -2034,7 +2034,7 @@ public interface ModulePackage extends EPackage
        * <em>Abstract Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.AbstractModuleImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAbstractModule()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractModule()
        * @generated
        */
       EClass ABSTRACT_MODULE = eINSTANCE.getAbstractModule();
@@ -2076,7 +2076,7 @@ public interface ModulePackage extends EPackage
        * <em>Basic Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.BasicModuleImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getBasicModule()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getBasicModule()
        * @generated
        */
       EClass BASIC_MODULE = eINSTANCE.getBasicModule();
@@ -2086,7 +2086,7 @@ public interface ModulePackage extends EPackage
        * <em>Abstract Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.AbstractFacetImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getAbstractFacet()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractFacet()
        * @generated
        */
       EClass ABSTRACT_FACET = eINSTANCE.getAbstractFacet();
@@ -2112,7 +2112,7 @@ public interface ModulePackage extends EPackage
        * <em>Composite Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.CompositeModuleImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getCompositeModule()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getCompositeModule()
        * @generated
        */
       EClass COMPOSITE_MODULE = eINSTANCE.getCompositeModule();
@@ -2130,7 +2130,7 @@ public interface ModulePackage extends EPackage
        * <em>Plugins Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.PluginsFacetImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getPluginsFacet()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginsFacet()
        * @generated
        */
       EClass PLUGINS_FACET = eINSTANCE.getPluginsFacet();
@@ -2148,7 +2148,7 @@ public interface ModulePackage extends EPackage
        * <em>Features Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.FeaturesFacetImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getFeaturesFacet()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeaturesFacet()
        * @generated
        */
       EClass FEATURES_FACET = eINSTANCE.getFeaturesFacet();
@@ -2166,7 +2166,7 @@ public interface ModulePackage extends EPackage
        * <em>Sites Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.SitesFacetImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getSitesFacet()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getSitesFacet()
        * @generated
        */
       EClass SITES_FACET = eINSTANCE.getSitesFacet();
@@ -2184,7 +2184,7 @@ public interface ModulePackage extends EPackage
        * <em>Plugin Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.PluginProjectImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getPluginProject()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginProject()
        * @generated
        */
       EClass PLUGIN_PROJECT = eINSTANCE.getPluginProject();
@@ -2234,7 +2234,7 @@ public interface ModulePackage extends EPackage
        * <em>Feature Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.FeatureProjectImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getFeatureProject()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureProject()
        * @generated
        */
       EClass FEATURE_PROJECT = eINSTANCE.getFeatureProject();
@@ -2268,7 +2268,7 @@ public interface ModulePackage extends EPackage
        * <em>Site Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.SiteProjectImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getSiteProject()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getSiteProject()
        * @generated
        */
       EClass SITE_PROJECT = eINSTANCE.getSiteProject();
@@ -2294,7 +2294,7 @@ public interface ModulePackage extends EPackage
        * <em>Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ProjectImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProject()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getProject()
        * @generated
        */
       EClass PROJECT = eINSTANCE.getProject();
@@ -2304,7 +2304,7 @@ public interface ModulePackage extends EPackage
        * <em>Project Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ProjectFacetImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProjectFacet()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getProjectFacet()
        * @generated
        */
       EClass PROJECT_FACET = eINSTANCE.getProjectFacet();
@@ -2314,7 +2314,7 @@ public interface ModulePackage extends EPackage
        * <em>File Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.FileContainerImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getFileContainer()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getFileContainer()
        * @generated
        */
       EClass FILE_CONTAINER = eINSTANCE.getFileContainer();
@@ -2332,7 +2332,7 @@ public interface ModulePackage extends EPackage
        * class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.Derivable
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getDerivable()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getDerivable()
        * @generated
        */
       EClass DERIVABLE = eINSTANCE.getDerivable();
@@ -2350,7 +2350,7 @@ public interface ModulePackage extends EPackage
        * <em>Plugin Include</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.PluginIncludeImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getPluginInclude()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginInclude()
        * @generated
        */
       EClass PLUGIN_INCLUDE = eINSTANCE.getPluginInclude();
@@ -2376,7 +2376,7 @@ public interface ModulePackage extends EPackage
        * <em>Category</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.CategoryImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getCategory()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getCategory()
        * @generated
        */
       EClass CATEGORY = eINSTANCE.getCategory();
@@ -2402,7 +2402,7 @@ public interface ModulePackage extends EPackage
        * <em>Feature Include</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.FeatureIncludeImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getFeatureInclude()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureInclude()
        * @generated
        */
       EClass FEATURE_INCLUDE = eINSTANCE.getFeatureInclude();
@@ -2420,7 +2420,7 @@ public interface ModulePackage extends EPackage
        * class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.Classified
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getClassified()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getClassified()
        * @generated
        */
       EClass CLASSIFIED = eINSTANCE.getClassified();
@@ -2438,7 +2438,7 @@ public interface ModulePackage extends EPackage
        * class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.Identifiable
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifiable()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifiable()
        * @generated
        */
       EClass IDENTIFIABLE = eINSTANCE.getIdentifiable();
@@ -2464,7 +2464,7 @@ public interface ModulePackage extends EPackage
        * <em>Products Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ProductsFacetImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProductsFacet()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getProductsFacet()
        * @generated
        */
       EClass PRODUCTS_FACET = eINSTANCE.getProductsFacet();
@@ -2482,7 +2482,7 @@ public interface ModulePackage extends EPackage
        * <em>Product Definition</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ProductDefinitionImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getProductDefinition()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getProductDefinition()
        * @generated
        */
       EClass PRODUCT_DEFINITION = eINSTANCE.getProductDefinition();
@@ -2516,7 +2516,7 @@ public interface ModulePackage extends EPackage
        * <em>Reference</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.internal.impl.ReferenceImpl
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getReference()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getReference()
        * @generated
        */
       EClass REFERENCE = eINSTANCE.getReference();
@@ -2541,7 +2541,7 @@ public interface ModulePackage extends EPackage
        * The meta object literal for the '<em>Identifier</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.module.util.Identifier
-       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl#getIdentifier()
+       * @see org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifier()
        * @generated
        */
       EDataType IDENTIFIER = eINSTANCE.getIdentifier();

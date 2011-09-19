@@ -12,7 +12,7 @@ import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,7 +45,7 @@ public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureP
       final String featureId = featureElem.getAttribute("id");
       final String featureVersion = featureElem.getAttribute("version");
 
-      final FeatureProject featureProject = ModuleFactory.eINSTANCE.createFeatureProject();
+      final FeatureProject featureProject = ModuleModelFactory.eINSTANCE.createFeatureProject();
       featureProject.setDirectory(directory);
       featureProject.setId(featureId);
       featureProject.setVersion(featureVersion);
@@ -53,7 +53,7 @@ public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureP
       for (Node node : XmlUtils.queryNodes(featureXml, "/feature/includes"))
       {
          final Element includeElem = (Element) node;
-         final FeatureInclude fi = ModuleFactory.eINSTANCE.createFeatureInclude();
+         final FeatureInclude fi = ModuleModelFactory.eINSTANCE.createFeatureInclude();
          final String id = includeElem.getAttribute("id");
          if (id == null || id.length() == 0)
          {
@@ -66,7 +66,7 @@ public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureP
       for (Node node : XmlUtils.queryNodes(featureXml, "/feature/plugin"))
       {
          final Element pluginElem = (Element) node;
-         final PluginInclude pi = ModuleFactory.eINSTANCE.createPluginInclude();
+         final PluginInclude pi = ModuleModelFactory.eINSTANCE.createPluginInclude();
          final String id = pluginElem.getAttribute("id");
          if (id == null || id.length() == 0)
          {

@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 
 /**
  * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta objects to represent
@@ -22,11 +22,11 @@ import org.sourcepit.beef.b2.model.common.CommonPackage;
  * </ul>
  * <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.session.SessionFactory
+ * @see org.sourcepit.beef.b2.model.session.SessionModelFactory
  * @model kind="package"
  * @generated
  */
-public interface SessionPackage extends EPackage
+public interface SessionModelPackage extends EPackage
 {
    /**
     * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -54,14 +54,14 @@ public interface SessionPackage extends EPackage
     * 
     * @generated
     */
-   SessionPackage eINSTANCE = org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl.init();
+   SessionModelPackage eINSTANCE = org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl.init();
 
    /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl <em>Session</em>}
     * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl
-    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl#getSession()
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getSession()
     * @generated
     */
    int SESSION = 0;
@@ -73,7 +73,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SESSION__ANNOTATIONS = CommonPackage.ANNOTATEABLE__ANNOTATIONS;
+   int SESSION__ANNOTATIONS = CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Projects</b></em>' containment reference list. <!-- begin-user-doc --> <!--
@@ -82,7 +82,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SESSION__PROJECTS = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
+   int SESSION__PROJECTS = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Current Project</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -90,7 +90,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SESSION__CURRENT_PROJECT = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
+   int SESSION__CURRENT_PROJECT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
 
    /**
     * The number of structural features of the '<em>Session</em>' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -98,15 +98,14 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SESSION_FEATURE_COUNT = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
-
+   int SESSION_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
 
    /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl
     * <em>Module Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl
-    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl#getModuleProject()
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleProject()
     * @generated
     */
    int MODULE_PROJECT = 1;
@@ -118,7 +117,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__ANNOTATIONS = CommonPackage.ANNOTATEABLE__ANNOTATIONS;
+   int MODULE_PROJECT__ANNOTATIONS = CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -126,7 +125,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__GROUP_ID = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
+   int MODULE_PROJECT__GROUP_ID = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Session</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
@@ -135,7 +134,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__SESSION = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
+   int MODULE_PROJECT__SESSION = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
 
    /**
     * The feature id for the '<em><b>Artifact Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -143,7 +142,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__ARTIFACT_ID = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
+   int MODULE_PROJECT__ARTIFACT_ID = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
 
    /**
     * The feature id for the '<em><b>Version</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -151,7 +150,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__VERSION = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 3;
+   int MODULE_PROJECT__VERSION = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 3;
 
    /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -159,7 +158,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__DIRECTORY = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
+   int MODULE_PROJECT__DIRECTORY = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
 
    /**
     * The feature id for the '<em><b>Skipped</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -167,7 +166,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__SKIPPED = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 5;
+   int MODULE_PROJECT__SKIPPED = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 5;
 
    /**
     * The number of structural features of the '<em>Module Project</em>' class. <!-- begin-user-doc --> <!--
@@ -176,7 +175,7 @@ public interface SessionPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT_FEATURE_COUNT = CommonPackage.ANNOTATEABLE_FEATURE_COUNT + 6;
+   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 6;
 
 
    /**
@@ -295,7 +294,7 @@ public interface SessionPackage extends EPackage
     * @return the factory that creates the instances of the model.
     * @generated
     */
-   SessionFactory getSessionFactory();
+   SessionModelFactory getSessionModelFactory();
 
    /**
     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -316,10 +315,11 @@ public interface SessionPackage extends EPackage
        * <em>Session</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionImpl
-       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl#getSession()
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getSession()
        * @generated
        */
       EClass SESSION = eINSTANCE.getSession();
+
       /**
        * The meta object literal for the '<em><b>Projects</b></em>' containment reference list feature. <!--
        * begin-user-doc --> <!-- end-user-doc -->
@@ -327,6 +327,7 @@ public interface SessionPackage extends EPackage
        * @generated
        */
       EReference SESSION__PROJECTS = eINSTANCE.getSession_Projects();
+
       /**
        * The meta object literal for the '<em><b>Current Project</b></em>' reference feature. <!-- begin-user-doc -->
        * <!-- end-user-doc -->
@@ -334,15 +335,17 @@ public interface SessionPackage extends EPackage
        * @generated
        */
       EReference SESSION__CURRENT_PROJECT = eINSTANCE.getSession_CurrentProject();
+
       /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl
        * <em>Module Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl
-       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl#getModuleProject()
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleProject()
        * @generated
        */
       EClass MODULE_PROJECT = eINSTANCE.getModuleProject();
+
       /**
        * The meta object literal for the '<em><b>Group Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
        * end-user-doc -->
@@ -350,6 +353,7 @@ public interface SessionPackage extends EPackage
        * @generated
        */
       EAttribute MODULE_PROJECT__GROUP_ID = eINSTANCE.getModuleProject_GroupId();
+
       /**
        * The meta object literal for the '<em><b>Session</b></em>' container reference feature. <!-- begin-user-doc -->
        * <!-- end-user-doc -->
@@ -357,6 +361,7 @@ public interface SessionPackage extends EPackage
        * @generated
        */
       EReference MODULE_PROJECT__SESSION = eINSTANCE.getModuleProject_Session();
+
       /**
        * The meta object literal for the '<em><b>Artifact Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
        * end-user-doc -->
@@ -364,6 +369,7 @@ public interface SessionPackage extends EPackage
        * @generated
        */
       EAttribute MODULE_PROJECT__ARTIFACT_ID = eINSTANCE.getModuleProject_ArtifactId();
+
       /**
        * The meta object literal for the '<em><b>Version</b></em>' attribute feature. <!-- begin-user-doc --> <!--
        * end-user-doc -->
@@ -371,6 +377,7 @@ public interface SessionPackage extends EPackage
        * @generated
        */
       EAttribute MODULE_PROJECT__VERSION = eINSTANCE.getModuleProject_Version();
+
       /**
        * The meta object literal for the '<em><b>Directory</b></em>' attribute feature. <!-- begin-user-doc --> <!--
        * end-user-doc -->
@@ -378,6 +385,7 @@ public interface SessionPackage extends EPackage
        * @generated
        */
       EAttribute MODULE_PROJECT__DIRECTORY = eINSTANCE.getModuleProject_Directory();
+
       /**
        * The meta object literal for the '<em><b>Skipped</b></em>' attribute feature. <!-- begin-user-doc --> <!--
        * end-user-doc -->
@@ -388,4 +396,4 @@ public interface SessionPackage extends EPackage
 
    }
 
-} // SessionPackage
+} // SessionModelPackage

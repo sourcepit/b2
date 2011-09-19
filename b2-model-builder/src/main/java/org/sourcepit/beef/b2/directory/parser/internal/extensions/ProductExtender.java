@@ -16,7 +16,7 @@ import org.sourcepit.beef.b2.directory.parser.internal.module.IModuleParserExten
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.module.BasicModule;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
 import org.sourcepit.beef.b2.model.module.ProductDefinition;
@@ -43,7 +43,7 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
    {
       BasicModule module = (BasicModule) modelElement;
 
-      final ProductsFacet productsFacet = ModuleFactory.eINSTANCE.createProductsFacet();
+      final ProductsFacet productsFacet = ModuleModelFactory.eINSTANCE.createProductsFacet();
       productsFacet.setDerived(true);
       productsFacet.setName("products");
 
@@ -64,7 +64,7 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
             {
                for (File productFile : productFiles)
                {
-                  final ProductDefinition productDef = ModuleFactory.eINSTANCE.createProductDefinition();
+                  final ProductDefinition productDef = ModuleModelFactory.eINSTANCE.createProductDefinition();
                   productDef.setFile(productFile);
 
                   productDef.putAnnotationEntry("product", "file", productFile.getAbsolutePath());
@@ -88,7 +88,7 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                   final String id = elem.getAttribute("id");
                   if (id.startsWith(pluginProject.getId() + "."))
                   {
-                     final Reference productPlugin = ModuleFactory.eINSTANCE.createReference();
+                     final Reference productPlugin = ModuleModelFactory.eINSTANCE.createReference();
                      productPlugin.setId(pluginProject.getId());
                      productPlugin.setStrictVersion(pluginProject.getVersion());
                      productDef.setProductPlugin(productPlugin);
@@ -99,7 +99,7 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                      if (idx > -1 && id.length() > idx + 1)
                      {
                         final String pluginId = id.substring(0, idx);
-                        final Reference productPlugin = ModuleFactory.eINSTANCE.createReference();
+                        final Reference productPlugin = ModuleModelFactory.eINSTANCE.createReference();
                         productPlugin.setId(pluginId);
                         productPlugin.setVersionRange("0.0.0"); // set default version as we can't determine it here...
                         productDef.setProductPlugin(productPlugin);

@@ -19,19 +19,19 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.common.Annotation;
-import org.sourcepit.beef.b2.model.common.CommonFactory;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
-import org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
-import org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl;
+import org.sourcepit.beef.b2.model.common.CommonModelFactory;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
+import org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
+import org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
  * 
  * @generated
  */
-public class CommonPackageImpl extends EPackageImpl implements CommonPackage
+public class CommonModelPackageImpl extends EPackageImpl implements CommonModelPackage
 {
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -77,13 +77,13 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.eclipse.emf.ecore.EPackage.Registry
-    * @see org.sourcepit.beef.b2.model.common.CommonPackage#eNS_URI
+    * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#eNS_URI
     * @see #init()
     * @generated
     */
-   private CommonPackageImpl()
+   private CommonModelPackageImpl()
    {
-      super(eNS_URI, CommonFactory.eINSTANCE);
+      super(eNS_URI, CommonModelFactory.eINSTANCE);
    }
 
    /**
@@ -97,52 +97,52 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
     * 
     * <p>
-    * This method is used to initialize {@link CommonPackage#eINSTANCE} when that field is accessed. Clients should not
-    * invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * This method is used to initialize {@link CommonModelPackage#eINSTANCE} when that field is accessed. Clients should
+    * not invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc
+    * --> <!-- end-user-doc -->
     * 
     * @see #eNS_URI
     * @see #createPackageContents()
     * @see #initializePackageContents()
     * @generated
     */
-   public static CommonPackage init()
+   public static CommonModelPackage init()
    {
       if (isInited)
-         return (CommonPackage) EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+         return (CommonModelPackage) EPackage.Registry.INSTANCE.getEPackage(CommonModelPackage.eNS_URI);
 
       // Obtain or create and register package
-      CommonPackageImpl theCommonPackage = (CommonPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof CommonPackageImpl
+      CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof CommonModelPackageImpl
          ? EPackage.Registry.INSTANCE.get(eNS_URI)
-         : new CommonPackageImpl());
+         : new CommonModelPackageImpl());
 
       isInited = true;
 
       // Obtain or create and register interdependencies
-      ModulePackageImpl theModulePackage = (ModulePackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(ModulePackage.eNS_URI) instanceof ModulePackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(ModulePackage.eNS_URI) : ModulePackage.eINSTANCE);
-      SessionPackageImpl theSessionPackage = (SessionPackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(SessionPackage.eNS_URI) instanceof SessionPackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(SessionPackage.eNS_URI) : SessionPackage.eINSTANCE);
+      ModuleModelPackageImpl theModuleModelPackage = (ModuleModelPackageImpl) (EPackage.Registry.INSTANCE
+         .getEPackage(ModuleModelPackage.eNS_URI) instanceof ModuleModelPackageImpl ? EPackage.Registry.INSTANCE
+         .getEPackage(ModuleModelPackage.eNS_URI) : ModuleModelPackage.eINSTANCE);
+      SessionModelPackageImpl theSessionModelPackage = (SessionModelPackageImpl) (EPackage.Registry.INSTANCE
+         .getEPackage(SessionModelPackage.eNS_URI) instanceof SessionModelPackageImpl ? EPackage.Registry.INSTANCE
+         .getEPackage(SessionModelPackage.eNS_URI) : SessionModelPackage.eINSTANCE);
 
       // Create package meta-data objects
-      theCommonPackage.createPackageContents();
-      theModulePackage.createPackageContents();
-      theSessionPackage.createPackageContents();
+      theCommonModelPackage.createPackageContents();
+      theModuleModelPackage.createPackageContents();
+      theSessionModelPackage.createPackageContents();
 
       // Initialize created meta-data
-      theCommonPackage.initializePackageContents();
-      theModulePackage.initializePackageContents();
-      theSessionPackage.initializePackageContents();
+      theCommonModelPackage.initializePackageContents();
+      theModuleModelPackage.initializePackageContents();
+      theSessionModelPackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
-      theCommonPackage.freeze();
+      theCommonModelPackage.freeze();
 
 
       // Update the registry and return the package
-      EPackage.Registry.INSTANCE.put(CommonPackage.eNS_URI, theCommonPackage);
-      return theCommonPackage;
+      EPackage.Registry.INSTANCE.put(CommonModelPackage.eNS_URI, theCommonModelPackage);
+      return theCommonModelPackage;
    }
 
    /**
@@ -260,9 +260,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
     * 
     * @generated
     */
-   public CommonFactory getCommonFactory()
+   public CommonModelFactory getCommonModelFactory()
    {
-      return (CommonFactory) getEFactoryInstance();
+      return (CommonModelFactory) getEFactoryInstance();
    }
 
    /**

@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.common.CommonPackage#getAnnotateable()
+ * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#getAnnotateable()
  * @model interface="true" abstract="true"
  * @generated
  */
@@ -36,7 +36,7 @@ public interface Annotateable extends EObject
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Annotations</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.common.CommonPackage#getAnnotateable_Annotations()
+    * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#getAnnotateable_Annotations()
     * @see org.sourcepit.beef.b2.model.common.Annotation#getParent
     * @model opposite="parent" containment="true"
     * @generated

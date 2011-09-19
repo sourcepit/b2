@@ -18,7 +18,7 @@ package org.sourcepit.beef.b2.model.module;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginInclude()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginInclude()
  * @model
  * @generated
  */
@@ -35,7 +35,7 @@ public interface PluginInclude extends Reference
     * 
     * @return the value of the '<em>Unpack</em>' attribute.
     * @see #setUnpack(boolean)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginInclude_Unpack()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginInclude_Unpack()
     * @model default="false"
     * @generated
     */
@@ -63,7 +63,7 @@ public interface PluginInclude extends Reference
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(FeatureProject)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginInclude_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginInclude_Parent()
     * @see org.sourcepit.beef.b2.model.module.FeatureProject#getIncludedPlugins
     * @model opposite="includedPlugins" required="true" transient="false"
     * @generated

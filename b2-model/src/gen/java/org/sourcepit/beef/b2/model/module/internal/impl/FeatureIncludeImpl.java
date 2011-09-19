@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Feature Include</b></em>'. <!-- end-user-doc
@@ -48,7 +48,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.FEATURE_INCLUDE;
+      return ModuleModelPackage.Literals.FEATURE_INCLUDE;
    }
 
    /**
@@ -58,7 +58,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
     */
    public FeatureProject getParent()
    {
-      if (eContainerFeatureID() != ModulePackage.FEATURE_INCLUDE__PARENT)
+      if (eContainerFeatureID() != ModuleModelPackage.FEATURE_INCLUDE__PARENT)
          return null;
       return (FeatureProject) eContainer();
    }
@@ -70,7 +70,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
     */
    public NotificationChain basicSetParent(FeatureProject newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.FEATURE_INCLUDE__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.FEATURE_INCLUDE__PARENT, msgs);
       return msgs;
    }
 
@@ -82,7 +82,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    public void setParent(FeatureProject newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModulePackage.FEATURE_INCLUDE__PARENT && newParent != null))
+         || (eContainerFeatureID() != ModuleModelPackage.FEATURE_INCLUDE__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -90,14 +90,14 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES,
-               FeatureProject.class, msgs);
+            msgs = ((InternalEObject) newParent).eInverseAdd(this,
+               ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES, FeatureProject.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.FEATURE_INCLUDE__PARENT, newParent,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_INCLUDE__PARENT, newParent,
             newParent));
    }
 
@@ -111,7 +111,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    {
       switch (featureID)
       {
-         case ModulePackage.FEATURE_INCLUDE__PARENT :
+         case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((FeatureProject) otherEnd, msgs);
@@ -129,7 +129,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    {
       switch (featureID)
       {
-         case ModulePackage.FEATURE_INCLUDE__PARENT :
+         case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
             return basicSetParent(null, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -145,8 +145,8 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    {
       switch (eContainerFeatureID())
       {
-         case ModulePackage.FEATURE_INCLUDE__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModulePackage.FEATURE_PROJECT__INCLUDED_FEATURES,
+         case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
+            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES,
                FeatureProject.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
@@ -162,7 +162,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    {
       switch (featureID)
       {
-         case ModulePackage.FEATURE_INCLUDE__PARENT :
+         case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
             return getParent();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -178,7 +178,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    {
       switch (featureID)
       {
-         case ModulePackage.FEATURE_INCLUDE__PARENT :
+         case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
             setParent((FeatureProject) newValue);
             return;
       }
@@ -195,7 +195,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    {
       switch (featureID)
       {
-         case ModulePackage.FEATURE_INCLUDE__PARENT :
+         case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
             setParent((FeatureProject) null);
             return;
       }
@@ -212,7 +212,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
    {
       switch (featureID)
       {
-         case ModulePackage.FEATURE_INCLUDE__PARENT :
+         case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
             return getParent() != null;
       }
       return super.eIsSet(featureID);

@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getCompositeModule()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getCompositeModule()
  * @model
  * @generated
  */
@@ -35,7 +35,7 @@ public interface CompositeModule extends AbstractModule
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Modules</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getCompositeModule_Modules()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getCompositeModule_Modules()
     * @see org.sourcepit.beef.b2.model.module.AbstractModule#getParent
     * @model opposite="parent" containment="true"
     * @generated

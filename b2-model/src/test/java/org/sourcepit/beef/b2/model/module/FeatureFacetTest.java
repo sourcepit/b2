@@ -18,13 +18,13 @@ public class FeatureFacetTest extends AbstractProjectFacetTest<FeatureProject, F
    @Override
    protected FeaturesFacet createFacet()
    {
-      return ModuleFactory.eINSTANCE.createFeaturesFacet();
+      return ModuleModelFactory.eINSTANCE.createFeaturesFacet();
    }
 
    @Override
    protected FeatureProject createProject()
    {
-      return ModuleFactory.eINSTANCE.createFeatureProject();
+      return ModuleModelFactory.eINSTANCE.createFeatureProject();
    }
 
 }

@@ -18,8 +18,8 @@ import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
@@ -35,19 +35,19 @@ import org.sourcepit.beef.b2.model.module.util.Identifier;
  * 
  * @generated
  */
-public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
+public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelFactory
 {
    /**
     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated NOT
     */
-   public static ModuleFactory init()
+   public static ModuleModelFactory init()
    {
       try
       {
-         ModuleFactory theB2ModelFactory = (ModuleFactory) EPackage.Registry.INSTANCE
-            .getEFactory(ModulePackage.eNS_URI);
+         ModuleModelFactory theB2ModelFactory = (ModuleModelFactory) EPackage.Registry.INSTANCE
+            .getEFactory(ModuleModelPackage.eNS_URI);
          if (theB2ModelFactory != null)
          {
             return theB2ModelFactory;
@@ -57,7 +57,7 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
       {
          EcorePlugin.INSTANCE.log(exception);
       }
-      return new CModuleFactoryImpl();
+      return new CModuleModelFactoryImpl();
    }
 
    /**
@@ -65,7 +65,7 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
     * 
     * @generated
     */
-   public ModuleFactoryImpl()
+   public ModuleModelFactoryImpl()
    {
       super();
    }
@@ -80,33 +80,33 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
    {
       switch (eClass.getClassifierID())
       {
-         case ModulePackage.BASIC_MODULE :
+         case ModuleModelPackage.BASIC_MODULE :
             return createBasicModule();
-         case ModulePackage.COMPOSITE_MODULE :
+         case ModuleModelPackage.COMPOSITE_MODULE :
             return createCompositeModule();
-         case ModulePackage.PLUGINS_FACET :
+         case ModuleModelPackage.PLUGINS_FACET :
             return createPluginsFacet();
-         case ModulePackage.FEATURES_FACET :
+         case ModuleModelPackage.FEATURES_FACET :
             return createFeaturesFacet();
-         case ModulePackage.SITES_FACET :
+         case ModuleModelPackage.SITES_FACET :
             return createSitesFacet();
-         case ModulePackage.PLUGIN_PROJECT :
+         case ModuleModelPackage.PLUGIN_PROJECT :
             return createPluginProject();
-         case ModulePackage.FEATURE_PROJECT :
+         case ModuleModelPackage.FEATURE_PROJECT :
             return createFeatureProject();
-         case ModulePackage.SITE_PROJECT :
+         case ModuleModelPackage.SITE_PROJECT :
             return createSiteProject();
-         case ModulePackage.PLUGIN_INCLUDE :
+         case ModuleModelPackage.PLUGIN_INCLUDE :
             return createPluginInclude();
-         case ModulePackage.CATEGORY :
+         case ModuleModelPackage.CATEGORY :
             return createCategory();
-         case ModulePackage.FEATURE_INCLUDE :
+         case ModuleModelPackage.FEATURE_INCLUDE :
             return createFeatureInclude();
-         case ModulePackage.PRODUCTS_FACET :
+         case ModuleModelPackage.PRODUCTS_FACET :
             return createProductsFacet();
-         case ModulePackage.PRODUCT_DEFINITION :
+         case ModuleModelPackage.PRODUCT_DEFINITION :
             return createProductDefinition();
-         case ModulePackage.REFERENCE :
+         case ModuleModelPackage.REFERENCE :
             return createReference();
          default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -123,7 +123,7 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
    {
       switch (eDataType.getClassifierID())
       {
-         case ModulePackage.IDENTIFIER :
+         case ModuleModelPackage.IDENTIFIER :
             return createIdentifierFromString(eDataType, initialValue);
          default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -140,7 +140,7 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
    {
       switch (eDataType.getClassifierID())
       {
-         case ModulePackage.IDENTIFIER :
+         case ModuleModelPackage.IDENTIFIER :
             return convertIdentifierToString(eDataType, instanceValue);
          default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -326,9 +326,9 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
     * 
     * @generated
     */
-   public ModulePackage getModulePackage()
+   public ModuleModelPackage getModuleModelPackage()
    {
-      return (ModulePackage) getEPackage();
+      return (ModuleModelPackage) getEPackage();
    }
 
    /**
@@ -338,9 +338,9 @@ public class ModuleFactoryImpl extends EFactoryImpl implements ModuleFactory
     * @generated
     */
    @Deprecated
-   public static ModulePackage getPackage()
+   public static ModuleModelPackage getPackage()
    {
-      return ModulePackage.eINSTANCE;
+      return ModuleModelPackage.eINSTANCE;
    }
 
 } // B2ModelFactoryImpl

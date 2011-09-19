@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Composite Module</b></em>'. <!-- end-user-doc
@@ -60,7 +60,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.COMPOSITE_MODULE;
+      return ModuleModelPackage.Literals.COMPOSITE_MODULE;
    }
 
    /**
@@ -73,7 +73,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
       if (modules == null)
       {
          modules = new EObjectContainmentWithInverseEList<AbstractModule>(AbstractModule.class, this,
-            ModulePackage.COMPOSITE_MODULE__MODULES, ModulePackage.ABSTRACT_MODULE__PARENT);
+            ModuleModelPackage.COMPOSITE_MODULE__MODULES, ModuleModelPackage.ABSTRACT_MODULE__PARENT);
       }
       return modules;
    }
@@ -89,7 +89,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModulePackage.COMPOSITE_MODULE__MODULES :
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getModules()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -105,7 +105,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModulePackage.COMPOSITE_MODULE__MODULES :
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             return ((InternalEList<?>) getModules()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -121,7 +121,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModulePackage.COMPOSITE_MODULE__MODULES :
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             return getModules();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -138,7 +138,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModulePackage.COMPOSITE_MODULE__MODULES :
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             getModules().clear();
             getModules().addAll((Collection<? extends AbstractModule>) newValue);
             return;
@@ -156,7 +156,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModulePackage.COMPOSITE_MODULE__MODULES :
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             getModules().clear();
             return;
       }
@@ -173,7 +173,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModulePackage.COMPOSITE_MODULE__MODULES :
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             return modules != null && !modules.isEmpty();
       }
       return super.eIsSet(featureID);

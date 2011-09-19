@@ -35,7 +35,7 @@ import org.sourcepit.beef.b2.model.module.PluginsFacet;
 import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.SiteProject;
-import org.sourcepit.beef.b2.model.module.util.ModuleSwitch;
+import org.sourcepit.beef.b2.model.module.util.ModuleModelSwitch;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
@@ -95,7 +95,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    protected File doGenerate(final EObject inputElement, final IConverter converter, final ITemplates templates)
    {
-      return new ModuleSwitch<File>()
+      return new ModuleModelSwitch<File>()
       {
          @Override
          public File casePluginProject(PluginProject project)

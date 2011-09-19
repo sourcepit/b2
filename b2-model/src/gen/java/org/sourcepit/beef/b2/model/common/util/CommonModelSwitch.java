@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.common.Annotation;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 
 /**
  * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance hierarchy. It supports the call
@@ -21,28 +21,28 @@ import org.sourcepit.beef.b2.model.common.CommonPackage;
  * starting with the actual class of the object and proceeding up the inheritance hierarchy until a non-null result is
  * returned, which is the result of the switch. <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.common.CommonPackage
+ * @see org.sourcepit.beef.b2.model.common.CommonModelPackage
  * @generated
  */
-public class CommonSwitch<T> extends Switch<T>
+public class CommonModelSwitch<T> extends Switch<T>
 {
    /**
     * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected static CommonPackage modelPackage;
+   protected static CommonModelPackage modelPackage;
 
    /**
     * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   public CommonSwitch()
+   public CommonModelSwitch()
    {
       if (modelPackage == null)
       {
-         modelPackage = CommonPackage.eINSTANCE;
+         modelPackage = CommonModelPackage.eINSTANCE;
       }
    }
 
@@ -71,7 +71,7 @@ public class CommonSwitch<T> extends Switch<T>
    {
       switch (classifierID)
       {
-         case CommonPackage.ANNOTATEABLE :
+         case CommonModelPackage.ANNOTATEABLE :
          {
             Annotateable annotateable = (Annotateable) theEObject;
             T result = caseAnnotateable(annotateable);
@@ -79,7 +79,7 @@ public class CommonSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case CommonPackage.ANNOTATION :
+         case CommonModelPackage.ANNOTATION :
          {
             Annotation annotation = (Annotation) theEObject;
             T result = caseAnnotation(annotation);
@@ -87,7 +87,7 @@ public class CommonSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case CommonPackage.ESTRING_MAP_ENTRY :
+         case CommonModelPackage.ESTRING_MAP_ENTRY :
          {
             @SuppressWarnings("unchecked")
             Map.Entry<String, String> eStringMapEntry = (Map.Entry<String, String>) theEObject;

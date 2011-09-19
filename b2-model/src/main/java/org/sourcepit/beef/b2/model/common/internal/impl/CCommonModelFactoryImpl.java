@@ -8,7 +8,7 @@ import java.util.Locale;
 
 import org.eclipse.emf.ecore.EDataType;
 
-public class CCommonFactoryImpl extends CommonFactoryImpl
+public class CCommonModelFactoryImpl extends CommonModelFactoryImpl
 {
    @Override
    public Locale createELocaleFromString(EDataType eDataType, String initialValue)

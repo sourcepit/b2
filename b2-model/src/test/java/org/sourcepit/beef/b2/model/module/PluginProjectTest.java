@@ -17,7 +17,7 @@ public class PluginProjectTest extends TestCase
 {
    public void testIsFragment() throws Exception
    {
-      PluginProject pluginProject = ModuleFactory.eINSTANCE.createPluginProject();
+      PluginProject pluginProject = ModuleModelFactory.eINSTANCE.createPluginProject();
       pluginProject.setId("my.fragment");
       assertFalse(pluginProject.isFragment());
 

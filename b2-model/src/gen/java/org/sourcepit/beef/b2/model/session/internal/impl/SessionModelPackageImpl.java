@@ -11,21 +11,21 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
-import org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
-import org.sourcepit.beef.b2.model.module.internal.impl.ModulePackageImpl;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
+import org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
+import org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
-import org.sourcepit.beef.b2.model.session.SessionFactory;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
+import org.sourcepit.beef.b2.model.session.SessionModelFactory;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
  * 
  * @generated
  */
-public class SessionPackageImpl extends EPackageImpl implements SessionPackage
+public class SessionModelPackageImpl extends EPackageImpl implements SessionModelPackage
 {
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -50,13 +50,13 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
     * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.eclipse.emf.ecore.EPackage.Registry
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#eNS_URI
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#eNS_URI
     * @see #init()
     * @generated
     */
-   private SessionPackageImpl()
+   private SessionModelPackageImpl()
    {
-      super(eNS_URI, SessionFactory.eINSTANCE);
+      super(eNS_URI, SessionModelFactory.eINSTANCE);
    }
 
    /**
@@ -70,52 +70,53 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
     * 
     * <p>
-    * This method is used to initialize {@link SessionPackage#eINSTANCE} when that field is accessed. Clients should not
-    * invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * This method is used to initialize {@link SessionModelPackage#eINSTANCE} when that field is accessed. Clients
+    * should not invoke it directly. Instead, they should simply access that field to obtain the package. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #eNS_URI
     * @see #createPackageContents()
     * @see #initializePackageContents()
     * @generated
     */
-   public static SessionPackage init()
+   public static SessionModelPackage init()
    {
       if (isInited)
-         return (SessionPackage) EPackage.Registry.INSTANCE.getEPackage(SessionPackage.eNS_URI);
+         return (SessionModelPackage) EPackage.Registry.INSTANCE.getEPackage(SessionModelPackage.eNS_URI);
 
       // Obtain or create and register package
-      SessionPackageImpl theSessionPackage = (SessionPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof SessionPackageImpl
+      SessionModelPackageImpl theSessionModelPackage = (SessionModelPackageImpl) (EPackage.Registry.INSTANCE
+         .get(eNS_URI) instanceof SessionModelPackageImpl
          ? EPackage.Registry.INSTANCE.get(eNS_URI)
-         : new SessionPackageImpl());
+         : new SessionModelPackageImpl());
 
       isInited = true;
 
       // Obtain or create and register interdependencies
-      CommonPackageImpl theCommonPackage = (CommonPackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-      ModulePackageImpl theModulePackage = (ModulePackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(ModulePackage.eNS_URI) instanceof ModulePackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(ModulePackage.eNS_URI) : ModulePackage.eINSTANCE);
+      CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE
+         .getEPackage(CommonModelPackage.eNS_URI) instanceof CommonModelPackageImpl ? EPackage.Registry.INSTANCE
+         .getEPackage(CommonModelPackage.eNS_URI) : CommonModelPackage.eINSTANCE);
+      ModuleModelPackageImpl theModuleModelPackage = (ModuleModelPackageImpl) (EPackage.Registry.INSTANCE
+         .getEPackage(ModuleModelPackage.eNS_URI) instanceof ModuleModelPackageImpl ? EPackage.Registry.INSTANCE
+         .getEPackage(ModuleModelPackage.eNS_URI) : ModuleModelPackage.eINSTANCE);
 
       // Create package meta-data objects
-      theSessionPackage.createPackageContents();
-      theCommonPackage.createPackageContents();
-      theModulePackage.createPackageContents();
+      theSessionModelPackage.createPackageContents();
+      theCommonModelPackage.createPackageContents();
+      theModuleModelPackage.createPackageContents();
 
       // Initialize created meta-data
-      theSessionPackage.initializePackageContents();
-      theCommonPackage.initializePackageContents();
-      theModulePackage.initializePackageContents();
+      theSessionModelPackage.initializePackageContents();
+      theCommonModelPackage.initializePackageContents();
+      theModuleModelPackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
-      theSessionPackage.freeze();
+      theSessionModelPackage.freeze();
 
 
       // Update the registry and return the package
-      EPackage.Registry.INSTANCE.put(SessionPackage.eNS_URI, theSessionPackage);
-      return theSessionPackage;
+      EPackage.Registry.INSTANCE.put(SessionModelPackage.eNS_URI, theSessionModelPackage);
+      return theSessionModelPackage;
    }
 
    /**
@@ -223,9 +224,9 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
     * 
     * @generated
     */
-   public SessionFactory getSessionFactory()
+   public SessionModelFactory getSessionModelFactory()
    {
-      return (SessionFactory) getEFactoryInstance();
+      return (SessionModelFactory) getEFactoryInstance();
    }
 
    /**
@@ -286,15 +287,16 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
       setNsURI(eNS_URI);
 
       // Obtain other dependent packages
-      CommonPackage theCommonPackage = (CommonPackage) EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+      CommonModelPackage theCommonModelPackage = (CommonModelPackage) EPackage.Registry.INSTANCE
+         .getEPackage(CommonModelPackage.eNS_URI);
 
       // Create type parameters
 
       // Set bounds for type parameters
 
       // Add supertypes to classes
-      sessionEClass.getESuperTypes().add(theCommonPackage.getAnnotateable());
-      moduleProjectEClass.getESuperTypes().add(theCommonPackage.getAnnotateable());
+      sessionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
+      moduleProjectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
 
       // Initialize classes and features; add operations and parameters
       initEClass(sessionEClass, Session.class, "Session", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -317,7 +319,7 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
          !IS_DERIVED, IS_ORDERED);
       initEAttribute(getModuleProject_Version(), ecorePackage.getEString(), "version", null, 1, 1, ModuleProject.class,
          !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getModuleProject_Directory(), theCommonPackage.getEJavaFile(), "directory", null, 1, 1,
+      initEAttribute(getModuleProject_Directory(), theCommonModelPackage.getEJavaFile(), "directory", null, 1, 1,
          ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
       initEAttribute(getModuleProject_Skipped(), ecorePackage.getEBoolean(), "skipped", null, 1, 1,
@@ -328,4 +330,4 @@ public class SessionPackageImpl extends EPackageImpl implements SessionPackage
       createResource(eNS_URI);
    }
 
-} // SessionPackageImpl
+} // SessionModelPackageImpl

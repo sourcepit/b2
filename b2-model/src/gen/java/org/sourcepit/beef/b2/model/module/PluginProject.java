@@ -22,7 +22,7 @@ package org.sourcepit.beef.b2.model.module;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginProject()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginProject()
  * @model
  * @generated
  */
@@ -39,7 +39,7 @@ public interface PluginProject extends Project
     * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(PluginsFacet)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginProject_Parent()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginProject_Parent()
     * @see org.sourcepit.beef.b2.model.module.PluginsFacet#getProjects
     * @model opposite="projects" transient="false"
     * @generated
@@ -66,7 +66,7 @@ public interface PluginProject extends Project
     * 
     * @return the value of the '<em>Bundle Version</em>' attribute.
     * @see #setBundleVersion(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginProject_BundleVersion()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginProject_BundleVersion()
     * @model required="true"
     * @generated
     */
@@ -92,7 +92,7 @@ public interface PluginProject extends Project
     * 
     * @return the value of the '<em>Test Plugin</em>' attribute.
     * @see #setTestPlugin(boolean)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginProject_TestPlugin()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginProject_TestPlugin()
     * @model
     * @generated
     */
@@ -118,7 +118,7 @@ public interface PluginProject extends Project
     * 
     * @return the value of the '<em>Fragment Host Symbolic Name</em>' attribute.
     * @see #setFragmentHostSymbolicName(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginProject_FragmentHostSymbolicName()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginProject_FragmentHostSymbolicName()
     * @model
     * @generated
     */
@@ -144,7 +144,7 @@ public interface PluginProject extends Project
     * 
     * @return the value of the '<em>Fragment Host Version</em>' attribute.
     * @see #setFragmentHostVersion(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getPluginProject_FragmentHostVersion()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginProject_FragmentHostVersion()
     * @model
     * @generated
     */

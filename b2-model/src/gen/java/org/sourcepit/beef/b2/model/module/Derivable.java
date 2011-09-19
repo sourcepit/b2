@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getDerivable()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getDerivable()
  * @model interface="true" abstract="true"
  * @generated
  */
@@ -34,7 +34,7 @@ public interface Derivable extends EObject
     * 
     * @return the value of the '<em>Derived</em>' attribute.
     * @see #setDerived(boolean)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getDerivable_Derived()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getDerivable_Derived()
     * @model
     * @generated
     */

@@ -14,7 +14,7 @@ public class ReferenceTest extends TestCase
 {
    public void testIsSatisfying() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getReference(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getReference(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
@@ -33,7 +33,7 @@ public class ReferenceTest extends TestCase
 
    public void testSetStrictVersion() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getReference(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getReference(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {

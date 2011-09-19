@@ -16,7 +16,7 @@ import org.sourcepit.beef.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.BasicModule;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
 
 @Named("module")
 public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>
@@ -38,7 +38,7 @@ public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>
       final IConverter converter = request.getConverter();
       final List<? extends AbstractFacet> facets = result.getFacets();
 
-      final BasicModule module = ModuleFactory.eINSTANCE.createBasicModule();
+      final BasicModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
       module.setId(getModuleId(converter, baseDir));
       module.setVersion(getModuleVersion(converter));
       module.setDirectory(baseDir);

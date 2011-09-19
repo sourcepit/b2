@@ -12,17 +12,17 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- begin-user-doc --> The <b>Factory</b> for the model. It provides a create method for each non-abstract class of
  * the model. <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.common.CommonPackage
+ * @see org.sourcepit.beef.b2.model.common.CommonModelPackage
  * @generated
  */
-public interface CommonFactory extends EFactory
+public interface CommonModelFactory extends EFactory
 {
    /**
     * The singleton instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   CommonFactory eINSTANCE = org.sourcepit.beef.b2.model.common.internal.impl.CommonFactoryImpl.init();
+   CommonModelFactory eINSTANCE = org.sourcepit.beef.b2.model.common.internal.impl.CommonModelFactoryImpl.init();
 
    /**
     * Returns a new object of class '<em>Annotation</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -38,6 +38,6 @@ public interface CommonFactory extends EFactory
     * @return the package supported by this factory.
     * @generated
     */
-   CommonPackage getCommonPackage();
+   CommonModelPackage getCommonModelPackage();
 
 } // CommonFactory

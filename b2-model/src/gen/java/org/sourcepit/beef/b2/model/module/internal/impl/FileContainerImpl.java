@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.sourcepit.beef.b2.model.module.FileContainer;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>File Container</b></em>'. <!-- end-user-doc -->
@@ -66,7 +66,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.FILE_CONTAINER;
+      return ModuleModelPackage.Literals.FILE_CONTAINER;
    }
 
    /**
@@ -89,8 +89,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
       File oldDirectory = directory;
       directory = newDirectory;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.FILE_CONTAINER__DIRECTORY, oldDirectory,
-            directory));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FILE_CONTAINER__DIRECTORY,
+            oldDirectory, directory));
    }
 
    /**
@@ -103,7 +103,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    {
       switch (featureID)
       {
-         case ModulePackage.FILE_CONTAINER__DIRECTORY :
+         case ModuleModelPackage.FILE_CONTAINER__DIRECTORY :
             return getDirectory();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -119,7 +119,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    {
       switch (featureID)
       {
-         case ModulePackage.FILE_CONTAINER__DIRECTORY :
+         case ModuleModelPackage.FILE_CONTAINER__DIRECTORY :
             setDirectory((File) newValue);
             return;
       }
@@ -136,7 +136,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    {
       switch (featureID)
       {
-         case ModulePackage.FILE_CONTAINER__DIRECTORY :
+         case ModuleModelPackage.FILE_CONTAINER__DIRECTORY :
             setDirectory(DIRECTORY_EDEFAULT);
             return;
       }
@@ -153,7 +153,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    {
       switch (featureID)
       {
-         case ModulePackage.FILE_CONTAINER__DIRECTORY :
+         case ModuleModelPackage.FILE_CONTAINER__DIRECTORY :
             return DIRECTORY_EDEFAULT == null ? directory != null : !DIRECTORY_EDEFAULT.equals(directory);
       }
       return super.eIsSet(featureID);

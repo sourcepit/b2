@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getClassified()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getClassified()
  * @model interface="true" abstract="true"
  * @generated
  */
@@ -34,7 +34,7 @@ public interface Classified extends EObject
     * 
     * @return the value of the '<em>Classifier</em>' attribute.
     * @see #setClassifier(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getClassified_Classifier()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getClassified_Classifier()
     * @model
     * @generated
     */

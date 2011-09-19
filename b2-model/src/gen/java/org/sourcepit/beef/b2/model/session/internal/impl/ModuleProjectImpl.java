@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.common.Annotation;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Module Project</b></em>'. <!-- end-user-doc -->
@@ -172,7 +172,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    @Override
    protected EClass eStaticClass()
    {
-      return SessionPackage.Literals.MODULE_PROJECT;
+      return SessionModelPackage.Literals.MODULE_PROJECT;
    }
 
    /**
@@ -185,7 +185,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            SessionPackage.MODULE_PROJECT__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
+            SessionModelPackage.MODULE_PROJECT__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -210,8 +210,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       String oldGroupId = groupId;
       groupId = newGroupId;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, SessionPackage.MODULE_PROJECT__GROUP_ID, oldGroupId,
-            groupId));
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__GROUP_ID,
+            oldGroupId, groupId));
    }
 
    /**
@@ -221,7 +221,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     */
    public Session getSession()
    {
-      if (eContainerFeatureID() != SessionPackage.MODULE_PROJECT__SESSION)
+      if (eContainerFeatureID() != SessionModelPackage.MODULE_PROJECT__SESSION)
          return null;
       return (Session) eContainer();
    }
@@ -233,7 +233,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     */
    public NotificationChain basicSetSession(Session newSession, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newSession, SessionPackage.MODULE_PROJECT__SESSION, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newSession, SessionModelPackage.MODULE_PROJECT__SESSION, msgs);
       return msgs;
    }
 
@@ -245,7 +245,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    public void setSession(Session newSession)
    {
       if (newSession != eInternalContainer()
-         || (eContainerFeatureID() != SessionPackage.MODULE_PROJECT__SESSION && newSession != null))
+         || (eContainerFeatureID() != SessionModelPackage.MODULE_PROJECT__SESSION && newSession != null))
       {
          if (EcoreUtil.isAncestor(this, newSession))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -253,14 +253,14 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newSession != null)
-            msgs = ((InternalEObject) newSession).eInverseAdd(this, SessionPackage.SESSION__PROJECTS, Session.class,
-               msgs);
+            msgs = ((InternalEObject) newSession).eInverseAdd(this, SessionModelPackage.SESSION__PROJECTS,
+               Session.class, msgs);
          msgs = basicSetSession(newSession, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, SessionPackage.MODULE_PROJECT__SESSION, newSession,
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__SESSION, newSession,
             newSession));
    }
 
@@ -284,7 +284,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       String oldArtifactId = artifactId;
       artifactId = newArtifactId;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, SessionPackage.MODULE_PROJECT__ARTIFACT_ID,
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID,
             oldArtifactId, artifactId));
    }
 
@@ -308,7 +308,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       String oldVersion = version;
       version = newVersion;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, SessionPackage.MODULE_PROJECT__VERSION, oldVersion,
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__VERSION, oldVersion,
             version));
    }
 
@@ -332,8 +332,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       File oldDirectory = directory;
       directory = newDirectory;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, SessionPackage.MODULE_PROJECT__DIRECTORY, oldDirectory,
-            directory));
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__DIRECTORY,
+            oldDirectory, directory));
    }
 
    /**
@@ -356,7 +356,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       boolean oldSkipped = skipped;
       skipped = newSkipped;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, SessionPackage.MODULE_PROJECT__SKIPPED, oldSkipped,
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__SKIPPED, oldSkipped,
             skipped));
    }
 
@@ -407,9 +407,9 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
-         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+         case SessionModelPackage.MODULE_PROJECT__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
-         case SessionPackage.MODULE_PROJECT__SESSION :
+         case SessionModelPackage.MODULE_PROJECT__SESSION :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetSession((Session) otherEnd, msgs);
@@ -427,9 +427,9 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
-         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+         case SessionModelPackage.MODULE_PROJECT__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
-         case SessionPackage.MODULE_PROJECT__SESSION :
+         case SessionModelPackage.MODULE_PROJECT__SESSION :
             return basicSetSession(null, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -445,8 +445,9 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (eContainerFeatureID())
       {
-         case SessionPackage.MODULE_PROJECT__SESSION :
-            return eInternalContainer().eInverseRemove(this, SessionPackage.SESSION__PROJECTS, Session.class, msgs);
+         case SessionModelPackage.MODULE_PROJECT__SESSION :
+            return eInternalContainer()
+               .eInverseRemove(this, SessionModelPackage.SESSION__PROJECTS, Session.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
    }
@@ -461,19 +462,19 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
-         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+         case SessionModelPackage.MODULE_PROJECT__ANNOTATIONS :
             return getAnnotations();
-         case SessionPackage.MODULE_PROJECT__GROUP_ID :
+         case SessionModelPackage.MODULE_PROJECT__GROUP_ID :
             return getGroupId();
-         case SessionPackage.MODULE_PROJECT__SESSION :
+         case SessionModelPackage.MODULE_PROJECT__SESSION :
             return getSession();
-         case SessionPackage.MODULE_PROJECT__ARTIFACT_ID :
+         case SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID :
             return getArtifactId();
-         case SessionPackage.MODULE_PROJECT__VERSION :
+         case SessionModelPackage.MODULE_PROJECT__VERSION :
             return getVersion();
-         case SessionPackage.MODULE_PROJECT__DIRECTORY :
+         case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             return getDirectory();
-         case SessionPackage.MODULE_PROJECT__SKIPPED :
+         case SessionModelPackage.MODULE_PROJECT__SKIPPED :
             return isSkipped();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -490,26 +491,26 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
-         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+         case SessionModelPackage.MODULE_PROJECT__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
             return;
-         case SessionPackage.MODULE_PROJECT__GROUP_ID :
+         case SessionModelPackage.MODULE_PROJECT__GROUP_ID :
             setGroupId((String) newValue);
             return;
-         case SessionPackage.MODULE_PROJECT__SESSION :
+         case SessionModelPackage.MODULE_PROJECT__SESSION :
             setSession((Session) newValue);
             return;
-         case SessionPackage.MODULE_PROJECT__ARTIFACT_ID :
+         case SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID :
             setArtifactId((String) newValue);
             return;
-         case SessionPackage.MODULE_PROJECT__VERSION :
+         case SessionModelPackage.MODULE_PROJECT__VERSION :
             setVersion((String) newValue);
             return;
-         case SessionPackage.MODULE_PROJECT__DIRECTORY :
+         case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             setDirectory((File) newValue);
             return;
-         case SessionPackage.MODULE_PROJECT__SKIPPED :
+         case SessionModelPackage.MODULE_PROJECT__SKIPPED :
             setSkipped((Boolean) newValue);
             return;
       }
@@ -526,25 +527,25 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
-         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+         case SessionModelPackage.MODULE_PROJECT__ANNOTATIONS :
             getAnnotations().clear();
             return;
-         case SessionPackage.MODULE_PROJECT__GROUP_ID :
+         case SessionModelPackage.MODULE_PROJECT__GROUP_ID :
             setGroupId(GROUP_ID_EDEFAULT);
             return;
-         case SessionPackage.MODULE_PROJECT__SESSION :
+         case SessionModelPackage.MODULE_PROJECT__SESSION :
             setSession((Session) null);
             return;
-         case SessionPackage.MODULE_PROJECT__ARTIFACT_ID :
+         case SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID :
             setArtifactId(ARTIFACT_ID_EDEFAULT);
             return;
-         case SessionPackage.MODULE_PROJECT__VERSION :
+         case SessionModelPackage.MODULE_PROJECT__VERSION :
             setVersion(VERSION_EDEFAULT);
             return;
-         case SessionPackage.MODULE_PROJECT__DIRECTORY :
+         case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             setDirectory(DIRECTORY_EDEFAULT);
             return;
-         case SessionPackage.MODULE_PROJECT__SKIPPED :
+         case SessionModelPackage.MODULE_PROJECT__SKIPPED :
             setSkipped(SKIPPED_EDEFAULT);
             return;
       }
@@ -561,19 +562,19 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       switch (featureID)
       {
-         case SessionPackage.MODULE_PROJECT__ANNOTATIONS :
+         case SessionModelPackage.MODULE_PROJECT__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
-         case SessionPackage.MODULE_PROJECT__GROUP_ID :
+         case SessionModelPackage.MODULE_PROJECT__GROUP_ID :
             return GROUP_ID_EDEFAULT == null ? groupId != null : !GROUP_ID_EDEFAULT.equals(groupId);
-         case SessionPackage.MODULE_PROJECT__SESSION :
+         case SessionModelPackage.MODULE_PROJECT__SESSION :
             return getSession() != null;
-         case SessionPackage.MODULE_PROJECT__ARTIFACT_ID :
+         case SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID :
             return ARTIFACT_ID_EDEFAULT == null ? artifactId != null : !ARTIFACT_ID_EDEFAULT.equals(artifactId);
-         case SessionPackage.MODULE_PROJECT__VERSION :
+         case SessionModelPackage.MODULE_PROJECT__VERSION :
             return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-         case SessionPackage.MODULE_PROJECT__DIRECTORY :
+         case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             return DIRECTORY_EDEFAULT == null ? directory != null : !DIRECTORY_EDEFAULT.equals(directory);
-         case SessionPackage.MODULE_PROJECT__SKIPPED :
+         case SessionModelPackage.MODULE_PROJECT__SKIPPED :
             return skipped != SKIPPED_EDEFAULT;
       }
       return super.eIsSet(featureID);

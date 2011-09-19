@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.common.Annotation;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.Identifiable;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
@@ -155,7 +155,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.ABSTRACT_MODULE;
+      return ModuleModelPackage.Literals.ABSTRACT_MODULE;
    }
 
    /**
@@ -178,7 +178,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       String oldId = id;
       id = newId;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ABSTRACT_MODULE__ID, oldId, id));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_MODULE__ID, oldId, id));
    }
 
    /**
@@ -201,7 +201,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       String oldVersion = version;
       version = newVersion;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ABSTRACT_MODULE__VERSION, oldVersion,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_MODULE__VERSION, oldVersion,
             version));
    }
 
@@ -215,7 +215,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModulePackage.ABSTRACT_MODULE__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
+            ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -227,7 +227,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     */
    public CompositeModule getParent()
    {
-      if (eContainerFeatureID() != ModulePackage.ABSTRACT_MODULE__PARENT)
+      if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_MODULE__PARENT)
          return null;
       return (CompositeModule) eContainer();
    }
@@ -239,7 +239,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     */
    public NotificationChain basicSetParent(CompositeModule newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.ABSTRACT_MODULE__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.ABSTRACT_MODULE__PARENT, msgs);
       return msgs;
    }
 
@@ -251,7 +251,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    public void setParent(CompositeModule newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModulePackage.ABSTRACT_MODULE__PARENT && newParent != null))
+         || (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_MODULE__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -259,14 +259,14 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.COMPOSITE_MODULE__MODULES,
+            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModuleModelPackage.COMPOSITE_MODULE__MODULES,
                CompositeModule.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ABSTRACT_MODULE__PARENT, newParent,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_MODULE__PARENT, newParent,
             newParent));
    }
 
@@ -290,8 +290,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       String oldLayoutId = layoutId;
       layoutId = newLayoutId;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.ABSTRACT_MODULE__LAYOUT_ID, oldLayoutId,
-            layoutId));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID,
+            oldLayoutId, layoutId));
    }
 
    /**
@@ -303,7 +303,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       if (locales == null)
       {
-         locales = new EDataTypeUniqueEList<Locale>(Locale.class, this, ModulePackage.ABSTRACT_MODULE__LOCALES);
+         locales = new EDataTypeUniqueEList<Locale>(Locale.class, this, ModuleModelPackage.ABSTRACT_MODULE__LOCALES);
       }
       return locales;
    }
@@ -318,7 +318,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       if (facets == null)
       {
          facets = new EObjectContainmentWithInverseEList<AbstractFacet>(AbstractFacet.class, this,
-            ModulePackage.ABSTRACT_MODULE__FACETS, ModulePackage.ABSTRACT_FACET__PARENT);
+            ModuleModelPackage.ABSTRACT_MODULE__FACETS, ModuleModelPackage.ABSTRACT_FACET__PARENT);
       }
       return facets;
    }
@@ -442,13 +442,13 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       switch (featureID)
       {
-         case ModulePackage.ABSTRACT_MODULE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
-         case ModulePackage.ABSTRACT_MODULE__PARENT :
+         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((CompositeModule) otherEnd, msgs);
-         case ModulePackage.ABSTRACT_MODULE__FACETS :
+         case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getFacets()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -464,11 +464,11 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       switch (featureID)
       {
-         case ModulePackage.ABSTRACT_MODULE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
-         case ModulePackage.ABSTRACT_MODULE__PARENT :
+         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
             return basicSetParent(null, msgs);
-         case ModulePackage.ABSTRACT_MODULE__FACETS :
+         case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
             return ((InternalEList<?>) getFacets()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -484,8 +484,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       switch (eContainerFeatureID())
       {
-         case ModulePackage.ABSTRACT_MODULE__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModulePackage.COMPOSITE_MODULE__MODULES,
+         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
+            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.COMPOSITE_MODULE__MODULES,
                CompositeModule.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
@@ -501,19 +501,19 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       switch (featureID)
       {
-         case ModulePackage.ABSTRACT_MODULE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return getAnnotations();
-         case ModulePackage.ABSTRACT_MODULE__ID :
+         case ModuleModelPackage.ABSTRACT_MODULE__ID :
             return getId();
-         case ModulePackage.ABSTRACT_MODULE__VERSION :
+         case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             return getVersion();
-         case ModulePackage.ABSTRACT_MODULE__PARENT :
+         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
             return getParent();
-         case ModulePackage.ABSTRACT_MODULE__LAYOUT_ID :
+         case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             return getLayoutId();
-         case ModulePackage.ABSTRACT_MODULE__LOCALES :
+         case ModuleModelPackage.ABSTRACT_MODULE__LOCALES :
             return getLocales();
-         case ModulePackage.ABSTRACT_MODULE__FACETS :
+         case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
             return getFacets();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -530,27 +530,27 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       switch (featureID)
       {
-         case ModulePackage.ABSTRACT_MODULE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
             return;
-         case ModulePackage.ABSTRACT_MODULE__ID :
+         case ModuleModelPackage.ABSTRACT_MODULE__ID :
             setId((String) newValue);
             return;
-         case ModulePackage.ABSTRACT_MODULE__VERSION :
+         case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             setVersion((String) newValue);
             return;
-         case ModulePackage.ABSTRACT_MODULE__PARENT :
+         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
             setParent((CompositeModule) newValue);
             return;
-         case ModulePackage.ABSTRACT_MODULE__LAYOUT_ID :
+         case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             setLayoutId((String) newValue);
             return;
-         case ModulePackage.ABSTRACT_MODULE__LOCALES :
+         case ModuleModelPackage.ABSTRACT_MODULE__LOCALES :
             getLocales().clear();
             getLocales().addAll((Collection<? extends Locale>) newValue);
             return;
-         case ModulePackage.ABSTRACT_MODULE__FACETS :
+         case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
             getFacets().clear();
             getFacets().addAll((Collection<? extends AbstractFacet>) newValue);
             return;
@@ -568,25 +568,25 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       switch (featureID)
       {
-         case ModulePackage.ABSTRACT_MODULE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             getAnnotations().clear();
             return;
-         case ModulePackage.ABSTRACT_MODULE__ID :
+         case ModuleModelPackage.ABSTRACT_MODULE__ID :
             setId(ID_EDEFAULT);
             return;
-         case ModulePackage.ABSTRACT_MODULE__VERSION :
+         case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             setVersion(VERSION_EDEFAULT);
             return;
-         case ModulePackage.ABSTRACT_MODULE__PARENT :
+         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
             setParent((CompositeModule) null);
             return;
-         case ModulePackage.ABSTRACT_MODULE__LAYOUT_ID :
+         case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             setLayoutId(LAYOUT_ID_EDEFAULT);
             return;
-         case ModulePackage.ABSTRACT_MODULE__LOCALES :
+         case ModuleModelPackage.ABSTRACT_MODULE__LOCALES :
             getLocales().clear();
             return;
-         case ModulePackage.ABSTRACT_MODULE__FACETS :
+         case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
             getFacets().clear();
             return;
       }
@@ -603,19 +603,19 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       switch (featureID)
       {
-         case ModulePackage.ABSTRACT_MODULE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
-         case ModulePackage.ABSTRACT_MODULE__ID :
+         case ModuleModelPackage.ABSTRACT_MODULE__ID :
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-         case ModulePackage.ABSTRACT_MODULE__VERSION :
+         case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-         case ModulePackage.ABSTRACT_MODULE__PARENT :
+         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
             return getParent() != null;
-         case ModulePackage.ABSTRACT_MODULE__LAYOUT_ID :
+         case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             return LAYOUT_ID_EDEFAULT == null ? layoutId != null : !LAYOUT_ID_EDEFAULT.equals(layoutId);
-         case ModulePackage.ABSTRACT_MODULE__LOCALES :
+         case ModuleModelPackage.ABSTRACT_MODULE__LOCALES :
             return locales != null && !locales.isEmpty();
-         case ModulePackage.ABSTRACT_MODULE__FACETS :
+         case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
             return facets != null && !facets.isEmpty();
       }
       return super.eIsSet(featureID);
@@ -633,8 +633,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          switch (derivedFeatureID)
          {
-            case ModulePackage.ABSTRACT_MODULE__ANNOTATIONS :
-               return CommonPackage.ANNOTATEABLE__ANNOTATIONS;
+            case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
+               return CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -643,10 +643,10 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          switch (derivedFeatureID)
          {
-            case ModulePackage.ABSTRACT_MODULE__ID :
-               return ModulePackage.IDENTIFIABLE__ID;
-            case ModulePackage.ABSTRACT_MODULE__VERSION :
-               return ModulePackage.IDENTIFIABLE__VERSION;
+            case ModuleModelPackage.ABSTRACT_MODULE__ID :
+               return ModuleModelPackage.IDENTIFIABLE__ID;
+            case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
+               return ModuleModelPackage.IDENTIFIABLE__VERSION;
             default :
                return -1;
          }
@@ -666,8 +666,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          switch (baseFeatureID)
          {
-            case CommonPackage.ANNOTATEABLE__ANNOTATIONS :
-               return ModulePackage.ABSTRACT_MODULE__ANNOTATIONS;
+            case CommonModelPackage.ANNOTATEABLE__ANNOTATIONS :
+               return ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -676,10 +676,10 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          switch (baseFeatureID)
          {
-            case ModulePackage.IDENTIFIABLE__ID :
-               return ModulePackage.ABSTRACT_MODULE__ID;
-            case ModulePackage.IDENTIFIABLE__VERSION :
-               return ModulePackage.ABSTRACT_MODULE__VERSION;
+            case ModuleModelPackage.IDENTIFIABLE__ID :
+               return ModuleModelPackage.ABSTRACT_MODULE__ID;
+            case ModuleModelPackage.IDENTIFIABLE__VERSION :
+               return ModuleModelPackage.ABSTRACT_MODULE__VERSION;
             default :
                return -1;
          }

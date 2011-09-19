@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.common.CommonFactory
+ * @see org.sourcepit.beef.b2.model.common.CommonModelFactory
  * @model kind="package"
  * @generated
  */
-public interface CommonPackage extends EPackage
+public interface CommonModelPackage extends EPackage
 {
    /**
     * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -54,14 +54,14 @@ public interface CommonPackage extends EPackage
     * 
     * @generated
     */
-   CommonPackage eINSTANCE = org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl.init();
+   CommonModelPackage eINSTANCE = org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl.init();
 
    /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.common.Annotateable <em>Annotateable</em>}' class.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.common.Annotateable
-    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getAnnotateable()
+    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotateable()
     * @generated
     */
    int ANNOTATEABLE = 0;
@@ -89,7 +89,7 @@ public interface CommonPackage extends EPackage
     * <em>Annotation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.common.internal.impl.AnnotationImpl
-    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getAnnotation()
+    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotation()
     * @generated
     */
    int ANNOTATION = 1;
@@ -132,7 +132,7 @@ public interface CommonPackage extends EPackage
     * <em>EString Map Entry</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.beef.b2.model.common.internal.impl.EStringMapEntryImpl
-    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getEStringMapEntry()
+    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getEStringMapEntry()
     * @generated
     */
    int ESTRING_MAP_ENTRY = 2;
@@ -166,7 +166,7 @@ public interface CommonPackage extends EPackage
     * The meta object id for the '<em>EJava File</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see java.io.File
-    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getEJavaFile()
+    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getEJavaFile()
     * @generated
     */
    int EJAVA_FILE = 3;
@@ -175,7 +175,7 @@ public interface CommonPackage extends EPackage
     * The meta object id for the '<em>ELocale</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see java.util.Locale
-    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getELocale()
+    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getELocale()
     * @generated
     */
    int ELOCALE = 4;
@@ -308,7 +308,7 @@ public interface CommonPackage extends EPackage
     * @return the factory that creates the instances of the model.
     * @generated
     */
-   CommonFactory getCommonFactory();
+   CommonModelFactory getCommonModelFactory();
 
    /**
     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
@@ -329,7 +329,7 @@ public interface CommonPackage extends EPackage
        * class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.common.Annotateable
-       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getAnnotateable()
+       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotateable()
        * @generated
        */
       EClass ANNOTATEABLE = eINSTANCE.getAnnotateable();
@@ -347,7 +347,7 @@ public interface CommonPackage extends EPackage
        * <em>Annotation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.common.internal.impl.AnnotationImpl
-       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getAnnotation()
+       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotation()
        * @generated
        */
       EClass ANNOTATION = eINSTANCE.getAnnotation();
@@ -381,7 +381,7 @@ public interface CommonPackage extends EPackage
        * <em>EString Map Entry</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.beef.b2.model.common.internal.impl.EStringMapEntryImpl
-       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getEStringMapEntry()
+       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getEStringMapEntry()
        * @generated
        */
       EClass ESTRING_MAP_ENTRY = eINSTANCE.getEStringMapEntry();
@@ -406,7 +406,7 @@ public interface CommonPackage extends EPackage
        * The meta object literal for the '<em>EJava File</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see java.io.File
-       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getEJavaFile()
+       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getEJavaFile()
        * @generated
        */
       EDataType EJAVA_FILE = eINSTANCE.getEJavaFile();
@@ -415,7 +415,7 @@ public interface CommonPackage extends EPackage
        * The meta object literal for the '<em>ELocale</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see java.util.Locale
-       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl#getELocale()
+       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getELocale()
        * @generated
        */
       EDataType ELOCALE = eINSTANCE.getELocale();

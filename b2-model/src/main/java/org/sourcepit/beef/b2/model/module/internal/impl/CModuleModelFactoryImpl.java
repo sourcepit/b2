@@ -18,7 +18,7 @@ import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 
-public class CModuleFactoryImpl extends ModuleFactoryImpl
+public class CModuleModelFactoryImpl extends ModuleModelFactoryImpl
 {
    @Override
    public CompositeModule createCompositeModule()

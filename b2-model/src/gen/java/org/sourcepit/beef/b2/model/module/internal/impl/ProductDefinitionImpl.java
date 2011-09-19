@@ -20,9 +20,9 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.common.Annotation;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.module.Derivable;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.ProductsFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
@@ -122,7 +122,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.PRODUCT_DEFINITION;
+      return ModuleModelPackage.Literals.PRODUCT_DEFINITION;
    }
 
    /**
@@ -135,7 +135,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
+            ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -160,8 +160,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       boolean oldDerived = derived;
       derived = newDerived;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PRODUCT_DEFINITION__DERIVED, oldDerived,
-            derived));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PRODUCT_DEFINITION__DERIVED,
+            oldDerived, derived));
    }
 
    /**
@@ -171,7 +171,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     */
    public ProductsFacet getParent()
    {
-      if (eContainerFeatureID() != ModulePackage.PRODUCT_DEFINITION__PARENT)
+      if (eContainerFeatureID() != ModuleModelPackage.PRODUCT_DEFINITION__PARENT)
          return null;
       return (ProductsFacet) eContainer();
    }
@@ -183,7 +183,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     */
    public NotificationChain basicSetParent(ProductsFacet newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.PRODUCT_DEFINITION__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.PRODUCT_DEFINITION__PARENT, msgs);
       return msgs;
    }
 
@@ -195,7 +195,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    public void setParent(ProductsFacet newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModulePackage.PRODUCT_DEFINITION__PARENT && newParent != null))
+         || (eContainerFeatureID() != ModuleModelPackage.PRODUCT_DEFINITION__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -203,15 +203,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
-               ProductsFacet.class, msgs);
+            msgs = ((InternalEObject) newParent).eInverseAdd(this,
+               ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS, ProductsFacet.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PRODUCT_DEFINITION__PARENT, newParent,
-            newParent));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PRODUCT_DEFINITION__PARENT,
+            newParent, newParent));
    }
 
    /**
@@ -234,7 +234,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       File oldFile = file;
       file = newFile;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PRODUCT_DEFINITION__FILE, oldFile, file));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PRODUCT_DEFINITION__FILE, oldFile,
+            file));
    }
 
    /**
@@ -259,7 +260,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       if (eNotificationRequired())
       {
          ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-            ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, oldProductPlugin, newProductPlugin);
+            ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, oldProductPlugin, newProductPlugin);
          if (msgs == null)
             msgs = notification;
          else
@@ -280,16 +281,16 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
          NotificationChain msgs = null;
          if (productPlugin != null)
             msgs = ((InternalEObject) productPlugin).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-               - ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
+               - ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
          if (newProductPlugin != null)
             msgs = ((InternalEObject) newProductPlugin).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-               - ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
+               - ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
          msgs = basicSetProductPlugin(newProductPlugin, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN,
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN,
             newProductPlugin, newProductPlugin));
    }
 
@@ -340,9 +341,9 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
-         case ModulePackage.PRODUCT_DEFINITION__PARENT :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((ProductsFacet) otherEnd, msgs);
@@ -360,11 +361,11 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
-         case ModulePackage.PRODUCT_DEFINITION__PARENT :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
             return basicSetParent(null, msgs);
-         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             return basicSetProductPlugin(null, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -380,8 +381,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (eContainerFeatureID())
       {
-         case ModulePackage.PRODUCT_DEFINITION__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModulePackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
+         case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
+            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
                ProductsFacet.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
@@ -397,15 +398,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return getAnnotations();
-         case ModulePackage.PRODUCT_DEFINITION__DERIVED :
+         case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
             return isDerived();
-         case ModulePackage.PRODUCT_DEFINITION__PARENT :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
             return getParent();
-         case ModulePackage.PRODUCT_DEFINITION__FILE :
+         case ModuleModelPackage.PRODUCT_DEFINITION__FILE :
             return getFile();
-         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             return getProductPlugin();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -422,20 +423,20 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
             return;
-         case ModulePackage.PRODUCT_DEFINITION__DERIVED :
+         case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
             setDerived((Boolean) newValue);
             return;
-         case ModulePackage.PRODUCT_DEFINITION__PARENT :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
             setParent((ProductsFacet) newValue);
             return;
-         case ModulePackage.PRODUCT_DEFINITION__FILE :
+         case ModuleModelPackage.PRODUCT_DEFINITION__FILE :
             setFile((File) newValue);
             return;
-         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             setProductPlugin((Reference) newValue);
             return;
       }
@@ -452,19 +453,19 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             getAnnotations().clear();
             return;
-         case ModulePackage.PRODUCT_DEFINITION__DERIVED :
+         case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
             setDerived(DERIVED_EDEFAULT);
             return;
-         case ModulePackage.PRODUCT_DEFINITION__PARENT :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
             setParent((ProductsFacet) null);
             return;
-         case ModulePackage.PRODUCT_DEFINITION__FILE :
+         case ModuleModelPackage.PRODUCT_DEFINITION__FILE :
             setFile(FILE_EDEFAULT);
             return;
-         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             setProductPlugin((Reference) null);
             return;
       }
@@ -481,15 +482,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       switch (featureID)
       {
-         case ModulePackage.PRODUCT_DEFINITION__ANNOTATIONS :
+         case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
-         case ModulePackage.PRODUCT_DEFINITION__DERIVED :
+         case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
             return derived != DERIVED_EDEFAULT;
-         case ModulePackage.PRODUCT_DEFINITION__PARENT :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
             return getParent() != null;
-         case ModulePackage.PRODUCT_DEFINITION__FILE :
+         case ModuleModelPackage.PRODUCT_DEFINITION__FILE :
             return FILE_EDEFAULT == null ? file != null : !FILE_EDEFAULT.equals(file);
-         case ModulePackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
+         case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
             return productPlugin != null;
       }
       return super.eIsSet(featureID);
@@ -507,8 +508,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       {
          switch (derivedFeatureID)
          {
-            case ModulePackage.PRODUCT_DEFINITION__DERIVED :
-               return ModulePackage.DERIVABLE__DERIVED;
+            case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
+               return ModuleModelPackage.DERIVABLE__DERIVED;
             default :
                return -1;
          }
@@ -528,8 +529,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       {
          switch (baseFeatureID)
          {
-            case ModulePackage.DERIVABLE__DERIVED :
-               return ModulePackage.PRODUCT_DEFINITION__DERIVED;
+            case ModuleModelPackage.DERIVABLE__DERIVED :
+               return ModuleModelPackage.PRODUCT_DEFINITION__DERIVED;
             default :
                return -1;
          }

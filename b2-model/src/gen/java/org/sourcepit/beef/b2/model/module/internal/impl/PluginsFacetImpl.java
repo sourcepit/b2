@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
 
@@ -59,7 +59,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.PLUGINS_FACET;
+      return ModuleModelPackage.Literals.PLUGINS_FACET;
    }
 
    /**
@@ -72,7 +72,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
       if (projects == null)
       {
          projects = new EObjectContainmentWithInverseEList<PluginProject>(PluginProject.class, this,
-            ModulePackage.PLUGINS_FACET__PROJECTS, ModulePackage.PLUGIN_PROJECT__PARENT);
+            ModuleModelPackage.PLUGINS_FACET__PROJECTS, ModuleModelPackage.PLUGIN_PROJECT__PARENT);
       }
       return projects;
    }
@@ -88,7 +88,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
    {
       switch (featureID)
       {
-         case ModulePackage.PLUGINS_FACET__PROJECTS :
+         case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getProjects()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -104,7 +104,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
    {
       switch (featureID)
       {
-         case ModulePackage.PLUGINS_FACET__PROJECTS :
+         case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             return ((InternalEList<?>) getProjects()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -120,7 +120,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
    {
       switch (featureID)
       {
-         case ModulePackage.PLUGINS_FACET__PROJECTS :
+         case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             return getProjects();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -137,7 +137,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
    {
       switch (featureID)
       {
-         case ModulePackage.PLUGINS_FACET__PROJECTS :
+         case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             getProjects().clear();
             getProjects().addAll((Collection<? extends PluginProject>) newValue);
             return;
@@ -155,7 +155,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
    {
       switch (featureID)
       {
-         case ModulePackage.PLUGINS_FACET__PROJECTS :
+         case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             getProjects().clear();
             return;
       }
@@ -172,7 +172,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
    {
       switch (featureID)
       {
-         case ModulePackage.PLUGINS_FACET__PROJECTS :
+         case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             return projects != null && !projects.isEmpty();
       }
       return super.eIsSet(featureID);

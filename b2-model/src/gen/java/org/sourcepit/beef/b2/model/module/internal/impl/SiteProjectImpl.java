@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.module.Category;
 import org.sourcepit.beef.b2.model.module.Classified;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 
@@ -84,7 +84,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.SITE_PROJECT;
+      return ModuleModelPackage.Literals.SITE_PROJECT;
    }
 
    /**
@@ -107,8 +107,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
       String oldClassifier = classifier;
       classifier = newClassifier;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.SITE_PROJECT__CLASSIFIER, oldClassifier,
-            classifier));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.SITE_PROJECT__CLASSIFIER,
+            oldClassifier, classifier));
    }
 
    /**
@@ -118,7 +118,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     */
    public SitesFacet getParent()
    {
-      if (eContainerFeatureID() != ModulePackage.SITE_PROJECT__PARENT)
+      if (eContainerFeatureID() != ModuleModelPackage.SITE_PROJECT__PARENT)
          return null;
       return (SitesFacet) eContainer();
    }
@@ -130,7 +130,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     */
    public NotificationChain basicSetParent(SitesFacet newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, ModulePackage.SITE_PROJECT__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.SITE_PROJECT__PARENT, msgs);
       return msgs;
    }
 
@@ -142,7 +142,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    public void setParent(SitesFacet newParent)
    {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModulePackage.SITE_PROJECT__PARENT && newParent != null))
+         || (eContainerFeatureID() != ModuleModelPackage.SITE_PROJECT__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -150,14 +150,15 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModulePackage.SITES_FACET__PROJECTS,
+            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModuleModelPackage.SITES_FACET__PROJECTS,
                SitesFacet.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.SITE_PROJECT__PARENT, newParent, newParent));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.SITE_PROJECT__PARENT, newParent,
+            newParent));
    }
 
    /**
@@ -170,7 +171,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
       if (categories == null)
       {
          categories = new EObjectContainmentEList<Category>(Category.class, this,
-            ModulePackage.SITE_PROJECT__CATEGORIES);
+            ModuleModelPackage.SITE_PROJECT__CATEGORIES);
       }
       return categories;
    }
@@ -185,7 +186,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModulePackage.SITE_PROJECT__PARENT :
+         case ModuleModelPackage.SITE_PROJECT__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((SitesFacet) otherEnd, msgs);
@@ -203,9 +204,9 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModulePackage.SITE_PROJECT__PARENT :
+         case ModuleModelPackage.SITE_PROJECT__PARENT :
             return basicSetParent(null, msgs);
-         case ModulePackage.SITE_PROJECT__CATEGORIES :
+         case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return ((InternalEList<?>) getCategories()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -221,9 +222,9 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (eContainerFeatureID())
       {
-         case ModulePackage.SITE_PROJECT__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModulePackage.SITES_FACET__PROJECTS, SitesFacet.class,
-               msgs);
+         case ModuleModelPackage.SITE_PROJECT__PARENT :
+            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.SITES_FACET__PROJECTS,
+               SitesFacet.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
    }
@@ -238,11 +239,11 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModulePackage.SITE_PROJECT__CLASSIFIER :
+         case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
             return getClassifier();
-         case ModulePackage.SITE_PROJECT__PARENT :
+         case ModuleModelPackage.SITE_PROJECT__PARENT :
             return getParent();
-         case ModulePackage.SITE_PROJECT__CATEGORIES :
+         case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return getCategories();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -259,13 +260,13 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModulePackage.SITE_PROJECT__CLASSIFIER :
+         case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
             setClassifier((String) newValue);
             return;
-         case ModulePackage.SITE_PROJECT__PARENT :
+         case ModuleModelPackage.SITE_PROJECT__PARENT :
             setParent((SitesFacet) newValue);
             return;
-         case ModulePackage.SITE_PROJECT__CATEGORIES :
+         case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             getCategories().clear();
             getCategories().addAll((Collection<? extends Category>) newValue);
             return;
@@ -283,13 +284,13 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModulePackage.SITE_PROJECT__CLASSIFIER :
+         case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
             setClassifier(CLASSIFIER_EDEFAULT);
             return;
-         case ModulePackage.SITE_PROJECT__PARENT :
+         case ModuleModelPackage.SITE_PROJECT__PARENT :
             setParent((SitesFacet) null);
             return;
-         case ModulePackage.SITE_PROJECT__CATEGORIES :
+         case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             getCategories().clear();
             return;
       }
@@ -306,11 +307,11 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModulePackage.SITE_PROJECT__CLASSIFIER :
+         case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
             return CLASSIFIER_EDEFAULT == null ? classifier != null : !CLASSIFIER_EDEFAULT.equals(classifier);
-         case ModulePackage.SITE_PROJECT__PARENT :
+         case ModuleModelPackage.SITE_PROJECT__PARENT :
             return getParent() != null;
-         case ModulePackage.SITE_PROJECT__CATEGORIES :
+         case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return categories != null && !categories.isEmpty();
       }
       return super.eIsSet(featureID);
@@ -328,8 +329,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
       {
          switch (derivedFeatureID)
          {
-            case ModulePackage.SITE_PROJECT__CLASSIFIER :
-               return ModulePackage.CLASSIFIED__CLASSIFIER;
+            case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
+               return ModuleModelPackage.CLASSIFIED__CLASSIFIER;
             default :
                return -1;
          }
@@ -349,8 +350,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
       {
          switch (baseFeatureID)
          {
-            case ModulePackage.CLASSIFIED__CLASSIFIER :
-               return ModulePackage.SITE_PROJECT__CLASSIFIER;
+            case ModuleModelPackage.CLASSIFIED__CLASSIFIER :
+               return ModuleModelPackage.SITE_PROJECT__CLASSIFIER;
             default :
                return -1;
          }

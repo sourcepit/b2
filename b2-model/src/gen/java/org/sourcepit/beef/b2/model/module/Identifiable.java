@@ -20,7 +20,7 @@ import org.sourcepit.beef.b2.model.module.util.Identifier;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getIdentifiable()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getIdentifiable()
  * @model interface="true" abstract="true"
  * @generated
  */
@@ -35,7 +35,7 @@ public interface Identifiable extends EObject
     * 
     * @return the value of the '<em>Id</em>' attribute.
     * @see #setId(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getIdentifiable_Id()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getIdentifiable_Id()
     * @model
     * @generated
     */
@@ -61,7 +61,7 @@ public interface Identifiable extends EObject
     * 
     * @return the value of the '<em>Version</em>' attribute.
     * @see #setVersion(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getIdentifiable_Version()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getIdentifiable_Version()
     * @model
     * @generated
     */

@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.util.Switch;
 import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
  * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance hierarchy. It supports the call
@@ -20,28 +20,28 @@ import org.sourcepit.beef.b2.model.session.SessionPackage;
  * starting with the actual class of the object and proceeding up the inheritance hierarchy until a non-null result is
  * returned, which is the result of the switch. <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.session.SessionPackage
+ * @see org.sourcepit.beef.b2.model.session.SessionModelPackage
  * @generated
  */
-public class SessionSwitch<T> extends Switch<T>
+public class SessionModelSwitch<T> extends Switch<T>
 {
    /**
     * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected static SessionPackage modelPackage;
+   protected static SessionModelPackage modelPackage;
 
    /**
     * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   public SessionSwitch()
+   public SessionModelSwitch()
    {
       if (modelPackage == null)
       {
-         modelPackage = SessionPackage.eINSTANCE;
+         modelPackage = SessionModelPackage.eINSTANCE;
       }
    }
 
@@ -70,7 +70,7 @@ public class SessionSwitch<T> extends Switch<T>
    {
       switch (classifierID)
       {
-         case SessionPackage.SESSION :
+         case SessionModelPackage.SESSION :
          {
             Session session = (Session) theEObject;
             T result = caseSession(session);
@@ -80,7 +80,7 @@ public class SessionSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case SessionPackage.MODULE_PROJECT :
+         case SessionModelPackage.MODULE_PROJECT :
          {
             ModuleProject moduleProject = (ModuleProject) theEObject;
             T result = caseModuleProject(moduleProject);
@@ -153,4 +153,4 @@ public class SessionSwitch<T> extends Switch<T>
       return null;
    }
 
-} // SessionSwitch
+} // SessionModelSwitch

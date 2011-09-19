@@ -14,34 +14,34 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.common.Annotation;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
  * method for each class of the model. <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.common.CommonPackage
+ * @see org.sourcepit.beef.b2.model.common.CommonModelPackage
  * @generated
  */
-public class CommonAdapterFactory extends AdapterFactoryImpl
+public class CommonModelAdapterFactory extends AdapterFactoryImpl
 {
    /**
     * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected static CommonPackage modelPackage;
+   protected static CommonModelPackage modelPackage;
 
    /**
     * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   public CommonAdapterFactory()
+   public CommonModelAdapterFactory()
    {
       if (modelPackage == null)
       {
-         modelPackage = CommonPackage.eINSTANCE;
+         modelPackage = CommonModelPackage.eINSTANCE;
       }
    }
 
@@ -72,7 +72,7 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
     * 
     * @generated
     */
-   protected CommonSwitch<Adapter> modelSwitch = new CommonSwitch<Adapter>()
+   protected CommonModelSwitch<Adapter> modelSwitch = new CommonModelSwitch<Adapter>()
    {
       @Override
       public Adapter caseAnnotateable(Annotateable object)

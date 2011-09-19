@@ -20,7 +20,7 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.session.SessionPackage#getSession()
+ * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getSession()
  * @model
  * @generated
  */
@@ -38,7 +38,7 @@ public interface Session extends Annotateable
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Projects</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getSession_Projects()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getSession_Projects()
     * @see org.sourcepit.beef.b2.model.session.ModuleProject#getSession
     * @model opposite="session" containment="true"
     * @generated
@@ -55,7 +55,7 @@ public interface Session extends Annotateable
     * 
     * @return the value of the '<em>Current Project</em>' reference.
     * @see #setCurrentProject(ModuleProject)
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getSession_CurrentProject()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getSession_CurrentProject()
     * @model required="true"
     * @generated
     */

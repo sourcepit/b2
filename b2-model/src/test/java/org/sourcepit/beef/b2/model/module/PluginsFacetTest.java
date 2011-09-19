@@ -17,12 +17,12 @@ public class PluginsFacetTest extends AbstractProjectFacetTest<PluginProject, Pl
    @Override
    protected PluginsFacet createFacet()
    {
-      return ModuleFactory.eINSTANCE.createPluginsFacet();
+      return ModuleModelFactory.eINSTANCE.createPluginsFacet();
    }
 
    @Override
    protected PluginProject createProject()
    {
-      return ModuleFactory.eINSTANCE.createPluginProject();
+      return ModuleModelFactory.eINSTANCE.createPluginProject();
    }
 }

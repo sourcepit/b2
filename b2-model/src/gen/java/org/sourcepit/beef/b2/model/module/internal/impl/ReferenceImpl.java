@@ -10,7 +10,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.util.Identifier;
 
@@ -84,7 +84,7 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.REFERENCE;
+      return ModuleModelPackage.Literals.REFERENCE;
    }
 
    /**
@@ -107,7 +107,7 @@ public class ReferenceImpl extends EObjectImpl implements Reference
       String oldId = id;
       id = newId;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.REFERENCE__ID, oldId, id));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.REFERENCE__ID, oldId, id));
    }
 
    /**
@@ -130,8 +130,8 @@ public class ReferenceImpl extends EObjectImpl implements Reference
       String oldVersionRange = versionRange;
       versionRange = newVersionRange;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModulePackage.REFERENCE__VERSION_RANGE, oldVersionRange,
-            versionRange));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.REFERENCE__VERSION_RANGE,
+            oldVersionRange, versionRange));
    }
 
    /**
@@ -168,9 +168,9 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    {
       switch (featureID)
       {
-         case ModulePackage.REFERENCE__ID :
+         case ModuleModelPackage.REFERENCE__ID :
             return getId();
-         case ModulePackage.REFERENCE__VERSION_RANGE :
+         case ModuleModelPackage.REFERENCE__VERSION_RANGE :
             return getVersionRange();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -186,10 +186,10 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    {
       switch (featureID)
       {
-         case ModulePackage.REFERENCE__ID :
+         case ModuleModelPackage.REFERENCE__ID :
             setId((String) newValue);
             return;
-         case ModulePackage.REFERENCE__VERSION_RANGE :
+         case ModuleModelPackage.REFERENCE__VERSION_RANGE :
             setVersionRange((String) newValue);
             return;
       }
@@ -206,10 +206,10 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    {
       switch (featureID)
       {
-         case ModulePackage.REFERENCE__ID :
+         case ModuleModelPackage.REFERENCE__ID :
             setId(ID_EDEFAULT);
             return;
-         case ModulePackage.REFERENCE__VERSION_RANGE :
+         case ModuleModelPackage.REFERENCE__VERSION_RANGE :
             setVersionRange(VERSION_RANGE_EDEFAULT);
             return;
       }
@@ -226,9 +226,9 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    {
       switch (featureID)
       {
-         case ModulePackage.REFERENCE__ID :
+         case ModuleModelPackage.REFERENCE__ID :
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-         case ModulePackage.REFERENCE__VERSION_RANGE :
+         case ModuleModelPackage.REFERENCE__VERSION_RANGE :
             return VERSION_RANGE_EDEFAULT == null ? versionRange != null : !VERSION_RANGE_EDEFAULT.equals(versionRange);
       }
       return super.eIsSet(featureID);

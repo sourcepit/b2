@@ -8,7 +8,7 @@ package org.sourcepit.beef.b2.model.module.internal.impl;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
@@ -40,7 +40,7 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.PROJECT_FACET;
+      return ModuleModelPackage.Literals.PROJECT_FACET;
    }
 
    /**

@@ -25,7 +25,7 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.session.SessionPackage#getModuleProject()
+ * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject()
  * @model
  * @generated
  */
@@ -41,7 +41,7 @@ public interface ModuleProject extends Annotateable
     * 
     * @return the value of the '<em>Group Id</em>' attribute.
     * @see #setGroupId(String)
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getModuleProject_GroupId()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_GroupId()
     * @model required="true"
     * @generated
     */
@@ -68,7 +68,7 @@ public interface ModuleProject extends Annotateable
     * 
     * @return the value of the '<em>Session</em>' container reference.
     * @see #setSession(Session)
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getModuleProject_Session()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Session()
     * @see org.sourcepit.beef.b2.model.session.Session#getProjects
     * @model opposite="projects" required="true" transient="false"
     * @generated
@@ -95,7 +95,7 @@ public interface ModuleProject extends Annotateable
     * 
     * @return the value of the '<em>Artifact Id</em>' attribute.
     * @see #setArtifactId(String)
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getModuleProject_ArtifactId()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_ArtifactId()
     * @model required="true"
     * @generated
     */
@@ -121,7 +121,7 @@ public interface ModuleProject extends Annotateable
     * 
     * @return the value of the '<em>Version</em>' attribute.
     * @see #setVersion(String)
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getModuleProject_Version()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Version()
     * @model required="true"
     * @generated
     */
@@ -147,7 +147,7 @@ public interface ModuleProject extends Annotateable
     * 
     * @return the value of the '<em>Directory</em>' attribute.
     * @see #setDirectory(File)
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getModuleProject_Directory()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Directory()
     * @model dataType="org.sourcepit.beef.b2.model.common.EJavaFile" required="true"
     * @generated
     */
@@ -173,7 +173,7 @@ public interface ModuleProject extends Annotateable
     * 
     * @return the value of the '<em>Skipped</em>' attribute.
     * @see #setSkipped(boolean)
-    * @see org.sourcepit.beef.b2.model.session.SessionPackage#getModuleProject_Skipped()
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Skipped()
     * @model required="true"
     * @generated
     */

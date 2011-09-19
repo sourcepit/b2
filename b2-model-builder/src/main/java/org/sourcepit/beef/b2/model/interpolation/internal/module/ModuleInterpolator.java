@@ -31,7 +31,7 @@ import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.FeatureInclude;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
@@ -109,7 +109,7 @@ public class ModuleInterpolator implements IModuleInterpolator
 
    private void interpolateSites(AbstractModule module, IConverter converter)
    {
-      final SitesFacet sitesFacet = ModuleFactory.eINSTANCE.createSitesFacet();
+      final SitesFacet sitesFacet = ModuleModelFactory.eINSTANCE.createSitesFacet();
       sitesFacet.setDerived(true);
       sitesFacet.setName(IInterpolationLayout.DEFAULT_SITES_FACET_NAME);
 
@@ -119,7 +119,7 @@ public class ModuleInterpolator implements IModuleInterpolator
 
          for (String categoryClassifer : converter.getCategoryClassifiersForSite(siteClassifer))
          {
-            final Category category = ModuleFactory.eINSTANCE.createCategory();
+            final Category category = ModuleModelFactory.eINSTANCE.createCategory();
             category.setName(categoryClassifer);
 
             final PathMatcher matcher = converter.createIdMatcherForCategory(module.getLayoutId(), categoryClassifer);
@@ -127,7 +127,7 @@ public class ModuleInterpolator implements IModuleInterpolator
             collectFeatureIncludes(module, featureIncs, matcher, converter);
             for (FeatureInclude featureInc : featureIncs)
             {
-               final Reference featureRef = ModuleFactory.eINSTANCE.createReference();
+               final Reference featureRef = ModuleModelFactory.eINSTANCE.createReference();
                featureRef.setId(featureInc.getId());
                featureRef.setVersionRange(featureInc.getVersionRange());
                category.getFeatureReferences().add(featureRef);
@@ -155,7 +155,7 @@ public class ModuleInterpolator implements IModuleInterpolator
    {
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
 
-      final SiteProject site = ModuleFactory.eINSTANCE.createSiteProject();
+      final SiteProject site = ModuleModelFactory.eINSTANCE.createSiteProject();
       site.setDerived(true);
       site.setClassifier(classifier);
       site.setId(layout.idOfSiteProject(module, classifier));
@@ -167,7 +167,7 @@ public class ModuleInterpolator implements IModuleInterpolator
 
    private void interpolateFeatures(AbstractModule module, IConverter converter)
    {
-      final FeaturesFacet featuresFacet = ModuleFactory.eINSTANCE.createFeaturesFacet();
+      final FeaturesFacet featuresFacet = ModuleModelFactory.eINSTANCE.createFeaturesFacet();
       featuresFacet.setDerived(true);
       featuresFacet.setName(IInterpolationLayout.DEFAULT_FEATURES_FACET_NAME);
 
@@ -326,7 +326,7 @@ public class ModuleInterpolator implements IModuleInterpolator
       {
          if (matcher.isMatch(featureProject.getId()))
          {
-            final FeatureInclude featureInclude = ModuleFactory.eINSTANCE.createFeatureInclude();
+            final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
             featureInclude.setId(featureProject.getId());
             featureInclude.setVersionRange(featureProject.getVersion());
             featureIncs.add(featureInclude);
@@ -350,7 +350,7 @@ public class ModuleInterpolator implements IModuleInterpolator
       {
          if (matcher.isMatch(pluginProject.getId()))
          {
-            final PluginInclude pluginInclude = ModuleFactory.eINSTANCE.createPluginInclude();
+            final PluginInclude pluginInclude = ModuleModelFactory.eINSTANCE.createPluginInclude();
             pluginInclude.setId(pluginProject.getId());
             pluginInclude.setVersionRange(pluginProject.getVersion());
             pluginInclude.setUnpack(isUnpack(pluginProject));
@@ -361,7 +361,7 @@ public class ModuleInterpolator implements IModuleInterpolator
                final String sourcePluginId = converter.createSourcePluginId(pluginProject.getId());
                if (matcher.isMatch(sourcePluginId))
                {
-                  final PluginInclude source = ModuleFactory.eINSTANCE.createPluginInclude();
+                  final PluginInclude source = ModuleModelFactory.eINSTANCE.createPluginInclude();
                   source.setId(sourcePluginId);
                   source.setVersionRange(pluginProject.getVersion());
 
@@ -399,7 +399,7 @@ public class ModuleInterpolator implements IModuleInterpolator
    {
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
 
-      final FeatureProject featureProject = ModuleFactory.eINSTANCE.createFeatureProject();
+      final FeatureProject featureProject = ModuleModelFactory.eINSTANCE.createFeatureProject();
       featureProject.setDerived(true);
       featureProject.setId(layout.idOfFeatureProject(module, classifier));
       featureProject.setVersion(version);

@@ -13,7 +13,7 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->
  * 
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProject()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getProject()
  * @model abstract="true"
  * @generated
  */

@@ -14,7 +14,7 @@ public class IdentifiableTest extends TestCase
 {
    public void testToIdentifier() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getIdentifiable(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getIdentifiable(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {

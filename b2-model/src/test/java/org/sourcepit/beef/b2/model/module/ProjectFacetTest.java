@@ -17,7 +17,7 @@ public class ProjectFacetTest extends TestCase
 {
    public void testResolveReference() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getProjectFacet(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getProjectFacet(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {

@@ -12,7 +12,7 @@ import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractModule
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.ProjectFacet;
@@ -60,7 +60,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       final List<ProjectFacet<? extends Project>> facets = result.getFacets();
       assertEquals(5, facets.size());
 
-      BasicModule dummyComponent = ModuleFactory.eINSTANCE.createBasicModule();
+      BasicModule dummyComponent = ModuleModelFactory.eINSTANCE.createBasicModule();
       dummyComponent.setLayoutId(result.getLayout());
       dummyComponent.getFacets().addAll(facets);
 

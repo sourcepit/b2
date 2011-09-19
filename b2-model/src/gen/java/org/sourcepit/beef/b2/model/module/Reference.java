@@ -20,7 +20,7 @@ import org.sourcepit.beef.b2.model.module.util.Identifier;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getReference()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getReference()
  * @model
  * @generated
  */
@@ -35,7 +35,7 @@ public interface Reference extends EObject
     * 
     * @return the value of the '<em>Id</em>' attribute.
     * @see #setId(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getReference_Id()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getReference_Id()
     * @model required="true"
     * @generated
     */
@@ -62,7 +62,7 @@ public interface Reference extends EObject
     * 
     * @return the value of the '<em>Version Range</em>' attribute.
     * @see #setVersionRange(String)
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getReference_VersionRange()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getReference_VersionRange()
     * @model default="0.0.0"
     * @generated
     */

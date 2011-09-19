@@ -13,8 +13,8 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 public class AnnotateableTest extends TestCase
 {
@@ -40,7 +40,7 @@ public class AnnotateableTest extends TestCase
 
          assertNull(annotateable.getAnnotation("foo"));
 
-         Annotation a = CommonFactory.eINSTANCE.createAnnotation();
+         Annotation a = CommonModelFactory.eINSTANCE.createAnnotation();
          a.setSource(annotateable.getClass().getName());
 
          annotateable.getAnnotations().add(a);
@@ -49,7 +49,7 @@ public class AnnotateableTest extends TestCase
          assertNotNull(aa);
          assertSame(a, aa);
 
-         Annotation aaa = CommonFactory.eINSTANCE.createAnnotation();
+         Annotation aaa = CommonModelFactory.eINSTANCE.createAnnotation();
          aaa.setSource(annotateable.getClass().getName() + "2");
 
          annotateable.getAnnotations().add(aaa);
@@ -105,7 +105,7 @@ public class AnnotateableTest extends TestCase
 
          assertNull(annotateable.getAnnotationEntry("source", "key"));
 
-         Annotation a = CommonFactory.eINSTANCE.createAnnotation();
+         Annotation a = CommonModelFactory.eINSTANCE.createAnnotation();
          a.setSource("source");
          annotateable.getAnnotations().add(a);
 
@@ -143,7 +143,7 @@ public class AnnotateableTest extends TestCase
 
    private List<EClass> getAnnotateableTypes()
    {
-      EClass annotateableType = CommonPackage.eINSTANCE.getAnnotateable();
+      EClass annotateableType = CommonModelPackage.eINSTANCE.getAnnotateable();
       List<EClass> annotateableTypes = new ArrayList<EClass>();
       for (EClassifier eClassifier : getAllEClassifiers())
       {
@@ -163,9 +163,9 @@ public class AnnotateableTest extends TestCase
    private EList<EClassifier> getAllEClassifiers()
    {
       EList<EClassifier> classifiers = new BasicEList<EClassifier>();
-      classifiers.addAll(CommonPackage.eINSTANCE.getEClassifiers());
-      classifiers.addAll(ModulePackage.eINSTANCE.getEClassifiers());
-      classifiers.addAll(SessionPackage.eINSTANCE.getEClassifiers());
+      classifiers.addAll(CommonModelPackage.eINSTANCE.getEClassifiers());
+      classifiers.addAll(ModuleModelPackage.eINSTANCE.getEClassifiers());
+      classifiers.addAll(SessionModelPackage.eINSTANCE.getEClassifiers());
       return classifiers;
    }
 }

@@ -12,7 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Project Facet</b></em>'. <!-- end-user-doc -->
  * 
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getProjectFacet()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getProjectFacet()
  * @model abstract="true"
  * @generated
  */

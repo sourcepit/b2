@@ -17,26 +17,27 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.sourcepit.beef.b2.model.common.Annotation;
-import org.sourcepit.beef.b2.model.common.CommonFactory;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelFactory;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
  * 
  * @generated
  */
-public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
+public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelFactory
 {
    /**
     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated NOT
     */
-   public static CommonFactory init()
+   public static CommonModelFactory init()
    {
       try
       {
-         CommonFactory theCommonFactory = (CommonFactory) EPackage.Registry.INSTANCE.getEFactory(CommonPackage.eNS_URI);
+         CommonModelFactory theCommonFactory = (CommonModelFactory) EPackage.Registry.INSTANCE
+            .getEFactory(CommonModelPackage.eNS_URI);
          if (theCommonFactory != null)
          {
             return theCommonFactory;
@@ -46,7 +47,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       {
          EcorePlugin.INSTANCE.log(exception);
       }
-      return new CCommonFactoryImpl();
+      return new CCommonModelFactoryImpl();
    }
 
    /**
@@ -54,7 +55,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     * 
     * @generated
     */
-   public CommonFactoryImpl()
+   public CommonModelFactoryImpl()
    {
       super();
    }
@@ -69,9 +70,9 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    {
       switch (eClass.getClassifierID())
       {
-         case CommonPackage.ANNOTATION :
+         case CommonModelPackage.ANNOTATION :
             return createAnnotation();
-         case CommonPackage.ESTRING_MAP_ENTRY :
+         case CommonModelPackage.ESTRING_MAP_ENTRY :
             return (EObject) createEStringMapEntry();
          default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -88,9 +89,9 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    {
       switch (eDataType.getClassifierID())
       {
-         case CommonPackage.EJAVA_FILE :
+         case CommonModelPackage.EJAVA_FILE :
             return createEJavaFileFromString(eDataType, initialValue);
-         case CommonPackage.ELOCALE :
+         case CommonModelPackage.ELOCALE :
             return createELocaleFromString(eDataType, initialValue);
          default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -107,9 +108,9 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    {
       switch (eDataType.getClassifierID())
       {
-         case CommonPackage.EJAVA_FILE :
+         case CommonModelPackage.EJAVA_FILE :
             return convertEJavaFileToString(eDataType, instanceValue);
-         case CommonPackage.ELOCALE :
+         case CommonModelPackage.ELOCALE :
             return convertELocaleToString(eDataType, instanceValue);
          default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
@@ -183,9 +184,9 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     * 
     * @generated
     */
-   public CommonPackage getCommonPackage()
+   public CommonModelPackage getCommonModelPackage()
    {
-      return (CommonPackage) getEPackage();
+      return (CommonModelPackage) getEPackage();
    }
 
    /**
@@ -195,9 +196,9 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
     * @generated
     */
    @Deprecated
-   public static CommonPackage getPackage()
+   public static CommonModelPackage getPackage()
    {
-      return CommonPackage.eINSTANCE;
+      return CommonModelPackage.eINSTANCE;
    }
 
 } // CommonFactoryImpl

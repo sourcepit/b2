@@ -14,8 +14,8 @@ public class ELocaleTest extends TestCase
 {
    public void testConvert() throws Exception
    {
-      EDataType eLocaleType = CommonPackage.eINSTANCE.getELocale();
-      CommonFactory converter = CommonFactory.eINSTANCE;
+      EDataType eLocaleType = CommonModelPackage.eINSTANCE.getELocale();
+      CommonModelFactory converter = CommonModelFactory.eINSTANCE;
 
       assertNull(converter.convertToString(eLocaleType, null));
       assertEquals("", converter.convertToString(eLocaleType, new Locale("")));
@@ -26,8 +26,8 @@ public class ELocaleTest extends TestCase
 
    public void testFromString() throws Exception
    {
-      EDataType eLocaleType = CommonPackage.eINSTANCE.getELocale();
-      CommonFactory converter = CommonFactory.eINSTANCE;
+      EDataType eLocaleType = CommonModelPackage.eINSTANCE.getELocale();
+      CommonModelFactory converter = CommonModelFactory.eINSTANCE;
 
       assertNull(converter.convertToString(eLocaleType, null));
       assertEquals("", converter.convertToString(eLocaleType, new Locale("")));

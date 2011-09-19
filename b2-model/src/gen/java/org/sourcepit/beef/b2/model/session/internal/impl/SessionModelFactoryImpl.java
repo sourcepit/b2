@@ -13,27 +13,27 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
-import org.sourcepit.beef.b2.model.session.SessionFactory;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
+import org.sourcepit.beef.b2.model.session.SessionModelFactory;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
  * 
  * @generated
  */
-public class SessionFactoryImpl extends EFactoryImpl implements SessionFactory
+public class SessionModelFactoryImpl extends EFactoryImpl implements SessionModelFactory
 {
    /**
     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated NOT
     */
-   public static SessionFactory init()
+   public static SessionModelFactory init()
    {
       try
       {
-         SessionFactory theSessionFactory = (SessionFactory) EPackage.Registry.INSTANCE
-            .getEFactory(SessionPackage.eNS_URI);
+         SessionModelFactory theSessionFactory = (SessionModelFactory) EPackage.Registry.INSTANCE
+            .getEFactory(SessionModelPackage.eNS_URI);
          if (theSessionFactory != null)
          {
             return theSessionFactory;
@@ -43,7 +43,7 @@ public class SessionFactoryImpl extends EFactoryImpl implements SessionFactory
       {
          EcorePlugin.INSTANCE.log(exception);
       }
-      return new CSessionFactoryImpl();
+      return new CSessionModelFactoryImpl();
    }
 
    /**
@@ -51,7 +51,7 @@ public class SessionFactoryImpl extends EFactoryImpl implements SessionFactory
     * 
     * @generated
     */
-   public SessionFactoryImpl()
+   public SessionModelFactoryImpl()
    {
       super();
    }
@@ -66,9 +66,9 @@ public class SessionFactoryImpl extends EFactoryImpl implements SessionFactory
    {
       switch (eClass.getClassifierID())
       {
-         case SessionPackage.SESSION :
+         case SessionModelPackage.SESSION :
             return createSession();
-         case SessionPackage.MODULE_PROJECT :
+         case SessionModelPackage.MODULE_PROJECT :
             return createModuleProject();
          default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -102,9 +102,9 @@ public class SessionFactoryImpl extends EFactoryImpl implements SessionFactory
     * 
     * @generated
     */
-   public SessionPackage getSessionPackage()
+   public SessionModelPackage getSessionModelPackage()
    {
-      return (SessionPackage) getEPackage();
+      return (SessionModelPackage) getEPackage();
    }
 
    /**
@@ -114,9 +114,9 @@ public class SessionFactoryImpl extends EFactoryImpl implements SessionFactory
     * @generated
     */
    @Deprecated
-   public static SessionPackage getPackage()
+   public static SessionModelPackage getPackage()
    {
-      return SessionPackage.eINSTANCE;
+      return SessionModelPackage.eINSTANCE;
    }
 
 } // SessionFactoryImpl

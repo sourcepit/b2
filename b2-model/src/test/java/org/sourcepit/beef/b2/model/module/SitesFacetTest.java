@@ -17,12 +17,12 @@ public class SitesFacetTest extends AbstractProjectFacetTest<SiteProject, SitesF
    @Override
    protected SitesFacet createFacet()
    {
-      return ModuleFactory.eINSTANCE.createSitesFacet();
+      return ModuleModelFactory.eINSTANCE.createSitesFacet();
    }
 
    @Override
    protected SiteProject createProject()
    {
-      return ModuleFactory.eINSTANCE.createSiteProject();
+      return ModuleModelFactory.eINSTANCE.createSiteProject();
    }
 }

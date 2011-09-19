@@ -18,7 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.module.ModulePackage#getSitesFacet()
+ * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getSitesFacet()
  * @model
  * @generated
  */
@@ -35,7 +35,7 @@ public interface SitesFacet extends ProjectFacet<SiteProject>
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Projects</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#getSitesFacet_Projects()
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getSitesFacet_Projects()
     * @see org.sourcepit.beef.b2.model.module.SiteProject#getParent
     * @model opposite="parent" containment="true"
     * @generated

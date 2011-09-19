@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
-import org.sourcepit.beef.b2.model.common.internal.impl.CommonPackageImpl;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
+import org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
@@ -29,8 +29,8 @@ import org.sourcepit.beef.b2.model.module.FeatureProject;
 import org.sourcepit.beef.b2.model.module.FeaturesFacet;
 import org.sourcepit.beef.b2.model.module.FileContainer;
 import org.sourcepit.beef.b2.model.module.Identifiable;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.PluginInclude;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
@@ -42,15 +42,15 @@ import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 import org.sourcepit.beef.b2.model.module.util.Identifier;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
-import org.sourcepit.beef.b2.model.session.internal.impl.SessionPackageImpl;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
+import org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
  * 
  * @generated
  */
-public class ModulePackageImpl extends EPackageImpl implements ModulePackage
+public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelPackage
 {
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -222,13 +222,13 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
     * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.eclipse.emf.ecore.EPackage.Registry
-    * @see org.sourcepit.beef.b2.model.module.ModulePackage#eNS_URI
+    * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#eNS_URI
     * @see #init()
     * @generated
     */
-   private ModulePackageImpl()
+   private ModuleModelPackageImpl()
    {
-      super(eNS_URI, ModuleFactory.eINSTANCE);
+      super(eNS_URI, ModuleModelFactory.eINSTANCE);
    }
 
    /**
@@ -242,52 +242,52 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
     * 
     * <p>
-    * This method is used to initialize {@link ModulePackage#eINSTANCE} when that field is accessed. Clients should not
-    * invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * This method is used to initialize {@link ModuleModelPackage#eINSTANCE} when that field is accessed. Clients should
+    * not invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc
+    * --> <!-- end-user-doc -->
     * 
     * @see #eNS_URI
     * @see #createPackageContents()
     * @see #initializePackageContents()
     * @generated
     */
-   public static ModulePackage init()
+   public static ModuleModelPackage init()
    {
       if (isInited)
-         return (ModulePackage) EPackage.Registry.INSTANCE.getEPackage(ModulePackage.eNS_URI);
+         return (ModuleModelPackage) EPackage.Registry.INSTANCE.getEPackage(ModuleModelPackage.eNS_URI);
 
       // Obtain or create and register package
-      ModulePackageImpl theModulePackage = (ModulePackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModulePackageImpl
+      ModuleModelPackageImpl theModuleModelPackage = (ModuleModelPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModuleModelPackageImpl
          ? EPackage.Registry.INSTANCE.get(eNS_URI)
-         : new ModulePackageImpl());
+         : new ModuleModelPackageImpl());
 
       isInited = true;
 
       // Obtain or create and register interdependencies
-      CommonPackageImpl theCommonPackage = (CommonPackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-      SessionPackageImpl theSessionPackage = (SessionPackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(SessionPackage.eNS_URI) instanceof SessionPackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(SessionPackage.eNS_URI) : SessionPackage.eINSTANCE);
+      CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE
+         .getEPackage(CommonModelPackage.eNS_URI) instanceof CommonModelPackageImpl ? EPackage.Registry.INSTANCE
+         .getEPackage(CommonModelPackage.eNS_URI) : CommonModelPackage.eINSTANCE);
+      SessionModelPackageImpl theSessionModelPackage = (SessionModelPackageImpl) (EPackage.Registry.INSTANCE
+         .getEPackage(SessionModelPackage.eNS_URI) instanceof SessionModelPackageImpl ? EPackage.Registry.INSTANCE
+         .getEPackage(SessionModelPackage.eNS_URI) : SessionModelPackage.eINSTANCE);
 
       // Create package meta-data objects
-      theModulePackage.createPackageContents();
-      theCommonPackage.createPackageContents();
-      theSessionPackage.createPackageContents();
+      theModuleModelPackage.createPackageContents();
+      theCommonModelPackage.createPackageContents();
+      theSessionModelPackage.createPackageContents();
 
       // Initialize created meta-data
-      theModulePackage.initializePackageContents();
-      theCommonPackage.initializePackageContents();
-      theSessionPackage.initializePackageContents();
+      theModuleModelPackage.initializePackageContents();
+      theCommonModelPackage.initializePackageContents();
+      theSessionModelPackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
-      theModulePackage.freeze();
+      theModuleModelPackage.freeze();
 
 
       // Update the registry and return the package
-      EPackage.Registry.INSTANCE.put(ModulePackage.eNS_URI, theModulePackage);
-      return theModulePackage;
+      EPackage.Registry.INSTANCE.put(ModuleModelPackage.eNS_URI, theModuleModelPackage);
+      return theModuleModelPackage;
    }
 
    /**
@@ -885,9 +885,9 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
     * 
     * @generated
     */
-   public ModuleFactory getModuleFactory()
+   public ModuleModelFactory getModuleModelFactory()
    {
-      return (ModuleFactory) getEFactoryInstance();
+      return (ModuleModelFactory) getEFactoryInstance();
    }
 
    /**
@@ -1019,7 +1019,8 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       setNsURI(eNS_URI);
 
       // Obtain other dependent packages
-      CommonPackage theCommonPackage = (CommonPackage) EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+      CommonModelPackage theCommonModelPackage = (CommonModelPackage) EPackage.Registry.INSTANCE
+         .getEPackage(CommonModelPackage.eNS_URI);
 
       // Create type parameters
       ETypeParameter projectFacetEClass_P = addETypeParameter(projectFacetEClass, "P");
@@ -1030,11 +1031,11 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
 
       // Add supertypes to classes
       abstractModuleEClass.getESuperTypes().add(this.getFileContainer());
-      abstractModuleEClass.getESuperTypes().add(theCommonPackage.getAnnotateable());
+      abstractModuleEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
       abstractModuleEClass.getESuperTypes().add(this.getIdentifiable());
       basicModuleEClass.getESuperTypes().add(this.getAbstractModule());
       abstractFacetEClass.getESuperTypes().add(this.getDerivable());
-      abstractFacetEClass.getESuperTypes().add(theCommonPackage.getAnnotateable());
+      abstractFacetEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
       compositeModuleEClass.getESuperTypes().add(this.getAbstractModule());
       g1 = createEGenericType(this.getProjectFacet());
       EGenericType g2 = createEGenericType(this.getPluginProject());
@@ -1055,13 +1056,13 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       siteProjectEClass.getESuperTypes().add(this.getClassified());
       projectEClass.getESuperTypes().add(this.getFileContainer());
       projectEClass.getESuperTypes().add(this.getDerivable());
-      projectEClass.getESuperTypes().add(theCommonPackage.getAnnotateable());
+      projectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
       projectEClass.getESuperTypes().add(this.getIdentifiable());
       projectFacetEClass.getESuperTypes().add(this.getAbstractFacet());
       pluginIncludeEClass.getESuperTypes().add(this.getReference());
       featureIncludeEClass.getESuperTypes().add(this.getReference());
       productsFacetEClass.getESuperTypes().add(this.getAbstractFacet());
-      productDefinitionEClass.getESuperTypes().add(theCommonPackage.getAnnotateable());
+      productDefinitionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
       productDefinitionEClass.getESuperTypes().add(this.getDerivable());
 
       // Initialize classes and features; add operations and parameters
@@ -1073,7 +1074,7 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
       initEAttribute(getAbstractModule_LayoutId(), ecorePackage.getEString(), "layoutId", null, 1, 1,
          AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getAbstractModule_Locales(), theCommonPackage.getELocale(), "locales", null, 0, -1,
+      initEAttribute(getAbstractModule_Locales(), theCommonModelPackage.getELocale(), "locales", null, 0, -1,
          AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
       initEReference(getAbstractModule_Facets(), this.getAbstractFacet(), this.getAbstractFacet_Parent(), "facets",
@@ -1231,7 +1232,7 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
 
       initEClass(fileContainerEClass, FileContainer.class, "FileContainer", IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getFileContainer_Directory(), theCommonPackage.getEJavaFile(), "directory", null, 0, 1,
+      initEAttribute(getFileContainer_Directory(), theCommonModelPackage.getEJavaFile(), "directory", null, 0, 1,
          FileContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
 
@@ -1292,7 +1293,7 @@ public class ModulePackageImpl extends EPackageImpl implements ModulePackage
          this.getProductsFacet_ProductDefinitions(), "parent", null, 1, 1, ProductDefinition.class, !IS_TRANSIENT,
          !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
          IS_ORDERED);
-      initEAttribute(getProductDefinition_File(), theCommonPackage.getEJavaFile(), "file", null, 1, 1,
+      initEAttribute(getProductDefinition_File(), theCommonModelPackage.getEJavaFile(), "file", null, 1, 1,
          ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
       initEReference(getProductDefinition_ProductPlugin(), this.getReference(), null, "productPlugin", null, 1, 1,

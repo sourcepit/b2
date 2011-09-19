@@ -14,20 +14,20 @@ public class ModuleTest extends TestCase
 {
    public void testGetFacets() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
             AbstractModule module = (AbstractModule) eObject;
             assertNotNull(module.getFacets(PluginsFacet.class));
 
-            module.getFacets().add(ModuleFactory.eINSTANCE.createFeaturesFacet());
+            module.getFacets().add(ModuleModelFactory.eINSTANCE.createFeaturesFacet());
             assertEquals(1, module.getFacets(FeaturesFacet.class).size());
 
-            module.getFacets().add(ModuleFactory.eINSTANCE.createFeaturesFacet());
+            module.getFacets().add(ModuleModelFactory.eINSTANCE.createFeaturesFacet());
             assertEquals(2, module.getFacets(FeaturesFacet.class).size());
 
-            module.getFacets().add(ModuleFactory.eINSTANCE.createSitesFacet());
+            module.getFacets().add(ModuleModelFactory.eINSTANCE.createSitesFacet());
             assertEquals(2, module.getFacets(FeaturesFacet.class).size());
             assertEquals(1, module.getFacets(SitesFacet.class).size());
             assertEquals(3, module.getFacets(ProjectFacet.class).size());
@@ -37,20 +37,20 @@ public class ModuleTest extends TestCase
 
    public void testHasFacets() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
             AbstractModule module = (AbstractModule) eObject;
             assertFalse(module.hasFacets(PluginsFacet.class));
 
-            module.getFacets().add(ModuleFactory.eINSTANCE.createFeaturesFacet());
+            module.getFacets().add(ModuleModelFactory.eINSTANCE.createFeaturesFacet());
             assertTrue(module.hasFacets(FeaturesFacet.class));
 
-            module.getFacets().add(ModuleFactory.eINSTANCE.createFeaturesFacet());
+            module.getFacets().add(ModuleModelFactory.eINSTANCE.createFeaturesFacet());
             assertTrue(module.hasFacets(FeaturesFacet.class));
 
-            module.getFacets().add(ModuleFactory.eINSTANCE.createSitesFacet());
+            module.getFacets().add(ModuleModelFactory.eINSTANCE.createSitesFacet());
             assertTrue(module.hasFacets(FeaturesFacet.class));
             assertTrue(module.hasFacets(SitesFacet.class));
             assertTrue(module.hasFacets(ProjectFacet.class));
@@ -60,7 +60,7 @@ public class ModuleTest extends TestCase
 
    public void testGetFacetByType() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
@@ -68,13 +68,13 @@ public class ModuleTest extends TestCase
             assertNull(module.getFacetByName(null));
             assertNull(module.getFacetByName("plugins"));
 
-            FeaturesFacet features = ModuleFactory.eINSTANCE.createFeaturesFacet();
+            FeaturesFacet features = ModuleModelFactory.eINSTANCE.createFeaturesFacet();
             features.setName("features");
             module.getFacets().add(features);
             assertNull(module.getFacetByName("plugins"));
             assertEquals(features, module.getFacetByName("features"));
 
-            PluginsFacet plugins = ModuleFactory.eINSTANCE.createPluginsFacet();
+            PluginsFacet plugins = ModuleModelFactory.eINSTANCE.createPluginsFacet();
             plugins.setName("plugins");
             module.getFacets().add(plugins);
             assertEquals(features, module.getFacetByName("features"));
@@ -85,7 +85,7 @@ public class ModuleTest extends TestCase
 
    public void testResolveReference() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModulePackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
@@ -99,21 +99,21 @@ public class ModuleTest extends TestCase
             {
             }
 
-            PluginProject project = ModuleFactory.eINSTANCE.createPluginProject();
+            PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
             project.setId("foo");
             project.setVersion("1.0.0");
 
-            PluginProject project2 = ModuleFactory.eINSTANCE.createPluginProject();
+            PluginProject project2 = ModuleModelFactory.eINSTANCE.createPluginProject();
             project2.setId("foo");
             project2.setVersion("2.0.0");
 
-            PluginsFacet facet = ModuleFactory.eINSTANCE.createPluginsFacet();
+            PluginsFacet facet = ModuleModelFactory.eINSTANCE.createPluginsFacet();
             facet.getProjects().add(project);
             facet.getProjects().add(project2);
 
             module.getFacets().add(facet);
 
-            Reference reference = ModuleFactory.eINSTANCE.createReference();
+            Reference reference = ModuleModelFactory.eINSTANCE.createReference();
             reference.setId("foo");
 
             reference.setVersionRange("1.0.0");

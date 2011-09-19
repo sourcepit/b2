@@ -8,7 +8,7 @@ package org.sourcepit.beef.b2.model.module.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.sourcepit.beef.b2.model.module.BasicModule;
-import org.sourcepit.beef.b2.model.module.ModulePackage;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Module</b></em>'. <!-- end-user-doc -->
@@ -37,7 +37,7 @@ public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
    @Override
    protected EClass eStaticClass()
    {
-      return ModulePackage.Literals.BASIC_MODULE;
+      return ModuleModelPackage.Literals.BASIC_MODULE;
    }
 
 } // ModuleImpl

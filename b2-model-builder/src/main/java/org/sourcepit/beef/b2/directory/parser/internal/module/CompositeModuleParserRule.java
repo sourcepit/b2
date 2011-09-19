@@ -19,7 +19,7 @@ import org.sourcepit.beef.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
-import org.sourcepit.beef.b2.model.module.ModuleFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
 
 @Named("compositeModule")
 public class CompositeModuleParserRule extends AbstractModuleParserRule<CompositeModule>
@@ -58,7 +58,7 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
          }
       });
 
-      final CompositeModule compositeModule = ModuleFactory.eINSTANCE.createCompositeModule();
+      final CompositeModule compositeModule = ModuleModelFactory.eINSTANCE.createCompositeModule();
       compositeModule.setId(getModuleId(request.getConverter(), baseDir));
       compositeModule.setVersion(getModuleVersion(request.getConverter()));
       compositeModule.setDirectory(baseDir);

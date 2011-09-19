@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.common.Annotation;
-import org.sourcepit.beef.b2.model.common.CommonPackage;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Session</b></em>'. <!-- end-user-doc -->
@@ -84,7 +84,7 @@ public class SessionImpl extends EObjectImpl implements Session
    @Override
    protected EClass eStaticClass()
    {
-      return SessionPackage.Literals.SESSION;
+      return SessionModelPackage.Literals.SESSION;
    }
 
    /**
@@ -97,7 +97,7 @@ public class SessionImpl extends EObjectImpl implements Session
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            SessionPackage.SESSION__ANNOTATIONS, CommonPackage.ANNOTATION__PARENT);
+            SessionModelPackage.SESSION__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
    }
@@ -112,7 +112,7 @@ public class SessionImpl extends EObjectImpl implements Session
       if (projects == null)
       {
          projects = new EObjectContainmentWithInverseEList<ModuleProject>(ModuleProject.class, this,
-            SessionPackage.SESSION__PROJECTS, SessionPackage.MODULE_PROJECT__SESSION);
+            SessionModelPackage.SESSION__PROJECTS, SessionModelPackage.MODULE_PROJECT__SESSION);
       }
       return projects;
    }
@@ -131,7 +131,7 @@ public class SessionImpl extends EObjectImpl implements Session
          if (currentProject != oldCurrentProject)
          {
             if (eNotificationRequired())
-               eNotify(new ENotificationImpl(this, Notification.RESOLVE, SessionPackage.SESSION__CURRENT_PROJECT,
+               eNotify(new ENotificationImpl(this, Notification.RESOLVE, SessionModelPackage.SESSION__CURRENT_PROJECT,
                   oldCurrentProject, currentProject));
          }
       }
@@ -158,7 +158,7 @@ public class SessionImpl extends EObjectImpl implements Session
       ModuleProject oldCurrentProject = currentProject;
       currentProject = newCurrentProject;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, SessionPackage.SESSION__CURRENT_PROJECT,
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.SESSION__CURRENT_PROJECT,
             oldCurrentProject, currentProject));
    }
 
@@ -209,9 +209,9 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
-         case SessionPackage.SESSION__ANNOTATIONS :
+         case SessionModelPackage.SESSION__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
-         case SessionPackage.SESSION__PROJECTS :
+         case SessionModelPackage.SESSION__PROJECTS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getProjects()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -227,9 +227,9 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
-         case SessionPackage.SESSION__ANNOTATIONS :
+         case SessionModelPackage.SESSION__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
-         case SessionPackage.SESSION__PROJECTS :
+         case SessionModelPackage.SESSION__PROJECTS :
             return ((InternalEList<?>) getProjects()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -245,11 +245,11 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
-         case SessionPackage.SESSION__ANNOTATIONS :
+         case SessionModelPackage.SESSION__ANNOTATIONS :
             return getAnnotations();
-         case SessionPackage.SESSION__PROJECTS :
+         case SessionModelPackage.SESSION__PROJECTS :
             return getProjects();
-         case SessionPackage.SESSION__CURRENT_PROJECT :
+         case SessionModelPackage.SESSION__CURRENT_PROJECT :
             if (resolve)
                return getCurrentProject();
             return basicGetCurrentProject();
@@ -268,15 +268,15 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
-         case SessionPackage.SESSION__ANNOTATIONS :
+         case SessionModelPackage.SESSION__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
             return;
-         case SessionPackage.SESSION__PROJECTS :
+         case SessionModelPackage.SESSION__PROJECTS :
             getProjects().clear();
             getProjects().addAll((Collection<? extends ModuleProject>) newValue);
             return;
-         case SessionPackage.SESSION__CURRENT_PROJECT :
+         case SessionModelPackage.SESSION__CURRENT_PROJECT :
             setCurrentProject((ModuleProject) newValue);
             return;
       }
@@ -293,13 +293,13 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
-         case SessionPackage.SESSION__ANNOTATIONS :
+         case SessionModelPackage.SESSION__ANNOTATIONS :
             getAnnotations().clear();
             return;
-         case SessionPackage.SESSION__PROJECTS :
+         case SessionModelPackage.SESSION__PROJECTS :
             getProjects().clear();
             return;
-         case SessionPackage.SESSION__CURRENT_PROJECT :
+         case SessionModelPackage.SESSION__CURRENT_PROJECT :
             setCurrentProject((ModuleProject) null);
             return;
       }
@@ -316,11 +316,11 @@ public class SessionImpl extends EObjectImpl implements Session
    {
       switch (featureID)
       {
-         case SessionPackage.SESSION__ANNOTATIONS :
+         case SessionModelPackage.SESSION__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
-         case SessionPackage.SESSION__PROJECTS :
+         case SessionModelPackage.SESSION__PROJECTS :
             return projects != null && !projects.isEmpty();
-         case SessionPackage.SESSION__CURRENT_PROJECT :
+         case SessionModelPackage.SESSION__CURRENT_PROJECT :
             return currentProject != null;
       }
       return super.eIsSet(featureID);

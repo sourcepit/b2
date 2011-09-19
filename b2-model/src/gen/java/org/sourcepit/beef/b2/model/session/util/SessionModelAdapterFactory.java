@@ -13,34 +13,34 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.model.common.Annotateable;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.Session;
-import org.sourcepit.beef.b2.model.session.SessionPackage;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
  * method for each class of the model. <!-- end-user-doc -->
  * 
- * @see org.sourcepit.beef.b2.model.session.SessionPackage
+ * @see org.sourcepit.beef.b2.model.session.SessionModelPackage
  * @generated
  */
-public class SessionAdapterFactory extends AdapterFactoryImpl
+public class SessionModelAdapterFactory extends AdapterFactoryImpl
 {
    /**
     * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected static SessionPackage modelPackage;
+   protected static SessionModelPackage modelPackage;
 
    /**
     * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
-   public SessionAdapterFactory()
+   public SessionModelAdapterFactory()
    {
       if (modelPackage == null)
       {
-         modelPackage = SessionPackage.eINSTANCE;
+         modelPackage = SessionModelPackage.eINSTANCE;
       }
    }
 
@@ -71,7 +71,7 @@ public class SessionAdapterFactory extends AdapterFactoryImpl
     * 
     * @generated
     */
-   protected SessionSwitch<Adapter> modelSwitch = new SessionSwitch<Adapter>()
+   protected SessionModelSwitch<Adapter> modelSwitch = new SessionModelSwitch<Adapter>()
    {
       @Override
       public Adapter caseSession(Session object)
@@ -166,4 +166,4 @@ public class SessionAdapterFactory extends AdapterFactoryImpl
       return null;
    }
 
-} // SessionAdapterFactory
+} // SessionModelAdapterFactory
