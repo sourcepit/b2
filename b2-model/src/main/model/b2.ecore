@@ -254,8 +254,6 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="directory" lowerBound="1"
           eType="#//common/EJavaFile"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="skipped" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ModuleDependency"/>
   </eSubpackages>

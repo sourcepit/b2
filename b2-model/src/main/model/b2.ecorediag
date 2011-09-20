@@ -61,7 +61,6 @@
           <layoutConstraint xmi:type="notation:Location" xmi:id="_FRMaQeBvEeCuft77Tiw4BQ"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_UfOqsOBvEeCuft77Tiw4BQ" type="2001">
-          <element xmi:type="ecore:EAttribute" href="b2.ecore#//session/ModuleProject/skipped"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_UfPRwOBvEeCuft77Tiw4BQ"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_-hdoUuBtEeCuft77Tiw4BQ"/>

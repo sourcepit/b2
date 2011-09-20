@@ -21,7 +21,6 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getArtifactId <em>Artifact Id</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getVersion <em>Version</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getDirectory <em>Directory</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#isSkipped <em>Skipped</em>}</li>
  * </ul>
  * </p>
  * 
@@ -162,31 +161,5 @@ public interface ModuleProject extends Annotateable
     * @generated
     */
    void setDirectory(File value);
-
-   /**
-    * Returns the value of the '<em><b>Skipped</b></em>' attribute. <!-- begin-user-doc -->
-    * <p>
-    * If the meaning of the '<em>Skipped</em>' attribute isn't clear, there really should be more of a description
-    * here...
-    * </p>
-    * <!-- end-user-doc -->
-    * 
-    * @return the value of the '<em>Skipped</em>' attribute.
-    * @see #setSkipped(boolean)
-    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Skipped()
-    * @model required="true"
-    * @generated
-    */
-   boolean isSkipped();
-
-   /**
-    * Sets the value of the '{@link org.sourcepit.beef.b2.model.session.ModuleProject#isSkipped <em>Skipped</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @param value the new value of the '<em>Skipped</em>' attribute.
-    * @see #isSkipped()
-    * @generated
-    */
-   void setSkipped(boolean value);
 
 } // ModuleProject

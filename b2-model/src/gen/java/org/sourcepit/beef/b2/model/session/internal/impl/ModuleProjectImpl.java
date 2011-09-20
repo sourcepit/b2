@@ -36,7 +36,6 @@ import org.sourcepit.beef.b2.model.session.SessionModelPackage;
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getArtifactId <em>Artifact Id</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getVersion <em>Version</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getDirectory <em>Directory</em>}</li>
- * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#isSkipped <em>Skipped</em>}</li>
  * </ul>
  * </p>
  * 
@@ -133,26 +132,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * @ordered
     */
    protected File directory = DIRECTORY_EDEFAULT;
-
-   /**
-    * The default value of the '{@link #isSkipped() <em>Skipped</em>}' attribute. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
-    * 
-    * @see #isSkipped()
-    * @generated
-    * @ordered
-    */
-   protected static final boolean SKIPPED_EDEFAULT = false;
-
-   /**
-    * The cached value of the '{@link #isSkipped() <em>Skipped</em>}' attribute. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
-    * 
-    * @see #isSkipped()
-    * @generated
-    * @ordered
-    */
-   protected boolean skipped = SKIPPED_EDEFAULT;
 
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -341,30 +320,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
-   public boolean isSkipped()
-   {
-      return skipped;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public void setSkipped(boolean newSkipped)
-   {
-      boolean oldSkipped = skipped;
-      skipped = newSkipped;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__SKIPPED, oldSkipped,
-            skipped));
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
    public Annotation getAnnotation(String source)
    {
       // TODO: implement this method
@@ -474,8 +429,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return getVersion();
          case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             return getDirectory();
-         case SessionModelPackage.MODULE_PROJECT__SKIPPED :
-            return isSkipped();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -510,9 +463,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             setDirectory((File) newValue);
             return;
-         case SessionModelPackage.MODULE_PROJECT__SKIPPED :
-            setSkipped((Boolean) newValue);
-            return;
       }
       super.eSet(featureID, newValue);
    }
@@ -545,9 +495,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             setDirectory(DIRECTORY_EDEFAULT);
             return;
-         case SessionModelPackage.MODULE_PROJECT__SKIPPED :
-            setSkipped(SKIPPED_EDEFAULT);
-            return;
       }
       super.eUnset(featureID);
    }
@@ -574,8 +521,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
          case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             return DIRECTORY_EDEFAULT == null ? directory != null : !DIRECTORY_EDEFAULT.equals(directory);
-         case SessionModelPackage.MODULE_PROJECT__SKIPPED :
-            return skipped != SKIPPED_EDEFAULT;
       }
       return super.eIsSet(featureID);
    }
@@ -600,8 +545,6 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       result.append(version);
       result.append(", directory: ");
       result.append(directory);
-      result.append(", skipped: ");
-      result.append(skipped);
       result.append(')');
       return result.toString();
    }

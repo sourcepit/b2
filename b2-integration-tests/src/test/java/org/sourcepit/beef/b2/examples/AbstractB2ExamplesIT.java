@@ -53,7 +53,7 @@ public abstract class AbstractB2ExamplesIT extends TestCase
       environment.remove("M2_HOME");
       environment.remove("JAVA_HOME");
       environment.put("JAVA_HOME", System.getProperty("java.home"));
-      environment.put("MAVEN_ARGS", "-B -e clean verify");
+      environment.put("MAVEN_ARGS", "-B -e clean verify -Db2.modules=!simple-module");
    }
 
    private CommandLine createCmd() throws AssertionFailedError

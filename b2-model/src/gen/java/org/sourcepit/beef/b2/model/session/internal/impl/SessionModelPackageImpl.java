@@ -16,6 +16,7 @@ import org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl;
 import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
@@ -40,6 +41,13 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * @generated
     */
    private EClass moduleProjectEClass = null;
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass moduleDependencyEClass = null;
 
    /**
     * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
@@ -214,9 +222,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
-   public EAttribute getModuleProject_Skipped()
+   public EClass getModuleDependency()
    {
-      return (EAttribute) moduleProjectEClass.getEStructuralFeatures().get(5);
+      return moduleDependencyEClass;
    }
 
    /**
@@ -259,7 +267,8 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       createEAttribute(moduleProjectEClass, MODULE_PROJECT__ARTIFACT_ID);
       createEAttribute(moduleProjectEClass, MODULE_PROJECT__VERSION);
       createEAttribute(moduleProjectEClass, MODULE_PROJECT__DIRECTORY);
-      createEAttribute(moduleProjectEClass, MODULE_PROJECT__SKIPPED);
+
+      moduleDependencyEClass = createEClass(MODULE_DEPENDENCY);
    }
 
    /**
@@ -323,9 +332,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       initEAttribute(getModuleProject_Directory(), theCommonModelPackage.getEJavaFile(), "directory", null, 1, 1,
          ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getModuleProject_Skipped(), ecorePackage.getEBoolean(), "skipped", null, 1, 1,
-         ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
+
+      initEClass(moduleDependencyEClass, ModuleDependency.class, "ModuleDependency", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
 
       // Create resource
       createResource(eNS_URI);

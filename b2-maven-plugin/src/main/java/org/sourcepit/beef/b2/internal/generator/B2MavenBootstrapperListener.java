@@ -57,12 +57,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    public void beforeProjectBuild(BootstrapSession session, final MavenProject wrapperProject)
    {
-      if (session.isSkipped(wrapperProject))
-      {
-         logger.info("Skipping module directory " + wrapperProject.getBasedir().getPath());
-         return;
-      }
-
       initJsr330(session);
 
       B2Session b2Session = createB2Session(session);
@@ -86,10 +80,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       final Set<File> whitelist = new HashSet<File>();
       for (ModuleProject project : b2Session.getProjects())
       {
-         if (!project.isSkipped())
-         {
-            whitelist.add(project.getDirectory());
-         }
+         whitelist.add(project.getDirectory());
       }
 
       final IModuleFilter fileFilter = new WhitelistModuleFilter(whitelist);
@@ -119,7 +110,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          moduleProject.setArtifactId(project.getArtifactId());
          moduleProject.setVersion(project.getVersion());
          moduleProject.setDirectory(project.getBasedir());
-         moduleProject.setSkipped(session.isSkipped(project));
 
          b2Session.getProjects().add(moduleProject);
          if (project.equals(session.getCurrentProject()))

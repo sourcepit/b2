@@ -41,6 +41,14 @@ public interface SessionModelFactory extends EFactory
    ModuleProject createModuleProject();
 
    /**
+    * Returns a new object of class '<em>Module Dependency</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return a new object of class '<em>Module Dependency</em>'.
+    * @generated
+    */
+   ModuleDependency createModuleDependency();
+
+   /**
     * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the package supported by this factory.

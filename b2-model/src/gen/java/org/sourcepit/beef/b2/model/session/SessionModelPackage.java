@@ -162,21 +162,33 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__DIRECTORY = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
 
    /**
-    * The feature id for the '<em><b>Skipped</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int MODULE_PROJECT__SKIPPED = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 5;
-
-   /**
     * The number of structural features of the '<em>Module Project</em>' class. <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 6;
+   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 5;
+
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleDependencyImpl
+    * <em>Module Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.ModuleDependencyImpl
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleDependency()
+    * @generated
+    */
+   int MODULE_DEPENDENCY = 2;
+
+   /**
+    * The number of structural features of the '<em>Module Dependency</em>' class. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_DEPENDENCY_FEATURE_COUNT = 0;
 
 
    /**
@@ -279,15 +291,14 @@ public interface SessionModelPackage extends EPackage
    EAttribute getModuleProject_Directory();
 
    /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.session.ModuleProject#isSkipped
-    * <em>Skipped</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.ModuleDependency
+    * <em>Module Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @return the meta object for the attribute '<em>Skipped</em>'.
-    * @see org.sourcepit.beef.b2.model.session.ModuleProject#isSkipped()
-    * @see #getModuleProject()
+    * @return the meta object for class '<em>Module Dependency</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleDependency
     * @generated
     */
-   EAttribute getModuleProject_Skipped();
+   EClass getModuleDependency();
 
    /**
     * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -388,12 +399,14 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_PROJECT__DIRECTORY = eINSTANCE.getModuleProject_Directory();
 
       /**
-       * The meta object literal for the '<em><b>Skipped</b></em>' attribute feature. <!-- begin-user-doc --> <!--
-       * end-user-doc -->
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleDependencyImpl
+       * <em>Module Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.ModuleDependencyImpl
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleDependency()
        * @generated
        */
-      EAttribute MODULE_PROJECT__SKIPPED = eINSTANCE.getModuleProject_Skipped();
+      EClass MODULE_DEPENDENCY = eINSTANCE.getModuleDependency();
 
    }
 

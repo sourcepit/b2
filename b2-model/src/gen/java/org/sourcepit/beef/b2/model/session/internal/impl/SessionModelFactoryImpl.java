@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
@@ -70,6 +71,8 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
             return createB2Session();
          case SessionModelPackage.MODULE_PROJECT :
             return createModuleProject();
+         case SessionModelPackage.MODULE_DEPENDENCY :
+            return createModuleDependency();
          default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
       }
@@ -95,6 +98,17 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
    {
       ModuleProjectImpl moduleProject = new ModuleProjectImpl();
       return moduleProject;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public ModuleDependency createModuleDependency()
+   {
+      ModuleDependencyImpl moduleDependency = new ModuleDependencyImpl();
+      return moduleDependency;
    }
 
    /**
