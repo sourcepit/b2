@@ -13,14 +13,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
-import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
-import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
-import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
  * @author Bernd
@@ -33,15 +27,11 @@ public class DecouplingModelCache implements IModelCache
 
    private final Map<File, AbstractModule> dirToModelMap = new HashMap<File, AbstractModule>();
 
-   private ResourceSet resourceSet = new ResourceSetImpl();
+   private final ResourceSet resourceSet;
 
-   public DecouplingModelCache()
+   public DecouplingModelCache(ResourceSet resourceSet )
    {
-      CommonModelPackage.eINSTANCE.getClass();
-      ModuleModelPackage.eINSTANCE.getClass();
-      SessionModelPackage.eINSTANCE.getClass();
-      
-      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
+      this.resourceSet = resourceSet;
    }
 
    public Map<String, IInterpolationLayout> getIdToLayoutMap()

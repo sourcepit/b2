@@ -22,6 +22,10 @@ import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.sonatype.guice.bean.binders.SpaceModule;
 import org.sonatype.guice.bean.binders.WireModule;
 import org.sonatype.guice.bean.reflect.URLClassSpace;
@@ -33,9 +37,9 @@ import org.sourcepit.beef.b2.execution.IB2Listener;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
-import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
 import org.sourcepit.beef.maven.wrapper.internal.session.IMavenBootstrapperListener;
@@ -60,14 +64,18 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
    private Map<String, IInterpolationLayout> layoutMap;
 
    private final static String CACHE_KEY = B2MavenBootstrapperListener.class.getName() + "#modelCache";
+   private final static String CACHE_KEY_SESSION = B2MavenBootstrapperListener.class.getName() + "#session";
 
-   public void beforeProjectBuild(BootstrapSession session, final MavenProject wrapperProject)
+   public void beforeProjectBuild(BootstrapSession bootSession, final MavenProject wrapperProject)
    {
-      initJsr330(session);
+      ResourceSet resourceSet = new ResourceSetImpl();
+      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
+      
+      B2Session b2Session = createB2Session(bootSession, resourceSet);
+      
+      initJsr330(bootSession, b2Session);
 
-      B2Session b2Session = createB2Session(session);
-
-      final DecouplingModelCache modelCache = initModelCache(session);
+      final DecouplingModelCache modelCache = initModelCache(bootSession, resourceSet);
 
       final File moduleDir = wrapperProject.getBasedir();
       logger.info("Building model for directory " + moduleDir.getName());
@@ -93,15 +101,14 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
       final AbstractModule module = b2.generate(moduleDir, modelCache, fileFilter, converter, templates);
       modelCache.put(module);
-      
+
       b2Session.getCurrentProject().setModuleModel(module);
 
       final File pomFile = new File(module.getAnnotationEntry(AbstractPomGenerator.SOURCE_MAVEN,
          AbstractPomGenerator.KEY_POM_FILE));
 
       wrapperProject.setContextValue("pom", pomFile);
-      
-      
+
       final String layoutId = module.getLayoutId();
       final IInterpolationLayout interpolationLayout = layoutMap.get(layoutId);
       if (interpolationLayout == null)
@@ -110,7 +117,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       }
       final URI uri = URI.createFileURI(interpolationLayout.pathOfMetaDataFile(module, "b2.session"));
 
-      final Resource resource = module.eResource().getResourceSet().createResource(uri);
+      final Resource resource = resourceSet.createResource(uri);
       resource.getContents().add(b2Session);
       try
       {
@@ -120,50 +127,70 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       {
          throw new IllegalStateException(e);
       }
+      
+      bootSession.setData(CACHE_KEY_SESSION, uri.toString());
 
-      storeModelCache(session, modelCache);
+      storeModelCache(bootSession, modelCache);
    }
 
    /**
     * @param session
     */
-   private B2Session createB2Session(BootstrapSession session)
+   private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet)
    {
-      final B2Session b2Session = SessionModelFactory.eINSTANCE.createB2Session();
+      final B2Session b2Session;
 
-      for (MavenProject project : session.getBootstrapProjects())
+      final String uri = (String) session.getData(CACHE_KEY_SESSION);
+      if (uri != null)
       {
-         final ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-         moduleProject.setGroupId(project.getGroupId());
-         moduleProject.setArtifactId(project.getArtifactId());
-         moduleProject.setVersion(project.getVersion());
-         moduleProject.setDirectory(project.getBasedir());
-         
-         List<Dependency> dependencies = project.getDependencies();
-         for (Dependency dependency : dependencies)
+         Resource resource = resourceSet.getResource(URI.createURI(uri), true);
+         B2Session source = (B2Session) resource.getContents().get(0);
+         b2Session = EcoreUtil.copy(source);
+         for (ModuleProject moduleProject : b2Session.getProjects())
          {
-            if ("b2-module".equals(dependency.getType()))
+            if (moduleProject.getDirectory().equals(session.getCurrentProject().getBasedir()))
             {
-               ModuleDependency moduleDependency = SessionModelFactory.eINSTANCE.createModuleDependency();
-               moduleDependency.setGroupId(dependency.getGroupId());
-               moduleDependency.setArtifactId(dependency.getArtifactId());
-               moduleDependency.setVersionRange(dependency.getVersion());
-               
-               moduleProject.getDependencies().add(moduleDependency);
+               b2Session.setCurrentProject(moduleProject);
             }
          }
+      }
+      else
+      {
+         b2Session = SessionModelFactory.eINSTANCE.createB2Session();
 
-         b2Session.getProjects().add(moduleProject);
-         if (project.equals(session.getCurrentProject()))
+         for (MavenProject project : session.getBootstrapProjects())
          {
-            b2Session.setCurrentProject(moduleProject);
+            final ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
+            moduleProject.setGroupId(project.getGroupId());
+            moduleProject.setArtifactId(project.getArtifactId());
+            moduleProject.setVersion(project.getVersion());
+            moduleProject.setDirectory(project.getBasedir());
+
+            List<Dependency> dependencies = project.getDependencies();
+            for (Dependency dependency : dependencies)
+            {
+               if ("b2-module".equals(dependency.getType()))
+               {
+                  ModuleDependency moduleDependency = SessionModelFactory.eINSTANCE.createModuleDependency();
+                  moduleDependency.setGroupId(dependency.getGroupId());
+                  moduleDependency.setArtifactId(dependency.getArtifactId());
+                  moduleDependency.setVersionRange(dependency.getVersion());
+
+                  moduleProject.getDependencies().add(moduleDependency);
+               }
+            }
+
+            b2Session.getProjects().add(moduleProject);
+            if (project.equals(session.getCurrentProject()))
+            {
+               b2Session.setCurrentProject(moduleProject);
+            }
          }
       }
-
       return b2Session;
    }
 
-   private void initJsr330(final BootstrapSession session)
+   private void initJsr330(final BootstrapSession session, final B2Session b2Session)
    {
       final BootPomSerializer bootPomSerializer = new BootPomSerializer();
       final Injector injector = Guice.createInjector(new WireModule(new com.google.inject.AbstractModule()
@@ -173,6 +200,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          {
             bind(Logger.class).toInstance(logger);
             bind(BootstrapSession.class).toInstance(session);
+            bind(B2Session.class).toInstance(b2Session);
 
             bind(IB2Listener.class).toInstance(bootPomSerializer);
          }
@@ -181,9 +209,9 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       injector.injectMembers(this);
    }
 
-   private DecouplingModelCache initModelCache(BootstrapSession session)
+   private DecouplingModelCache initModelCache(BootstrapSession session, ResourceSet resourceSet)
    {
-      final DecouplingModelCache modelCache = new DecouplingModelCache();
+      final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet);
       modelCache.getIdToLayoutMap().putAll(layoutMap);
 
       @SuppressWarnings("unchecked")

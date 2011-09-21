@@ -11,6 +11,9 @@ import javax.inject.Inject;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
@@ -202,7 +205,9 @@ public class DecouplingModelCacheTest extends AbstractInjectedWorkspaceTest
 
    private DecouplingModelCache createCache(Map<File, String> dirToUriMap)
    {
-      final DecouplingModelCache modelCache = new DecouplingModelCache();
+      ResourceSet resourceSet = new ResourceSetImpl();
+      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
+      final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet);
       modelCache.getIdToLayoutMap().putAll(layoutMap);
       if (dirToUriMap != null)
       {
