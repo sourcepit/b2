@@ -38,7 +38,7 @@
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="ModuleModel" disposableProviderFactory="true" classPackageSuffix="internal.impl"
-        ecorePackage="b2.ecore#//module">
+        contentTypeIdentifier="b2-module" fileExtensions="module" ecorePackage="b2.ecore#//module">
       <genDataTypes ecoreDataType="b2.ecore#//module/Identifier"/>
       <genClasses image="false" ecoreClass="b2.ecore#//module/AbstractModule">
         <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//module/AbstractModule/parent"/>
@@ -158,11 +158,11 @@
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="SessionModel" disposableProviderFactory="true" classPackageSuffix="internal.impl"
-        ecorePackage="b2.ecore#//session">
-      <genClasses ecoreClass="b2.ecore#//session/Session">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/Session/projects"/>
+        contentTypeIdentifier="b2-session" fileExtensions="session" ecorePackage="b2.ecore#//session">
+      <genClasses ecoreClass="b2.ecore#//session/B2Session">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/B2Session/projects"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference b2.ecore#//session/Session/currentProject"/>
+            ecoreFeature="ecore:EReference b2.ecore#//session/B2Session/currentProject"/>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//session/ModuleProject">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleProject/groupId"/>
@@ -170,7 +170,17 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleProject/artifactId"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleProject/version"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleProject/directory"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleProject/skipped"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/dependencies"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/moduleModel"/>
+      </genClasses>
+      <genClasses ecoreClass="b2.ecore#//session/ModuleDependency">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleDependency/groupId"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleDependency/artifactId"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleDependency/versionRange"/>
+        <genOperations ecoreOperation="b2.ecore#//session/ModuleDependency/isSatisfiableBy">
+          <genParameters ecoreParameter="b2.ecore#//session/ModuleDependency/isSatisfiableBy/moduleProject"/>
+        </genOperations>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

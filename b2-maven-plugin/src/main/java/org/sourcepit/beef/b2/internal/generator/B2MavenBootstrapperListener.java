@@ -5,18 +5,23 @@
 package org.sourcepit.beef.b2.internal.generator;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.sonatype.guice.bean.binders.SpaceModule;
 import org.sonatype.guice.bean.binders.WireModule;
 import org.sonatype.guice.bean.reflect.URLClassSpace;
@@ -28,6 +33,7 @@ import org.sourcepit.beef.b2.execution.IB2Listener;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
@@ -85,13 +91,35 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
       final IModuleFilter fileFilter = new WhitelistModuleFilter(whitelist);
 
-      final AbstractModule generate = b2.generate(moduleDir, modelCache, fileFilter, converter, templates);
-      modelCache.put(generate);
+      final AbstractModule module = b2.generate(moduleDir, modelCache, fileFilter, converter, templates);
+      modelCache.put(module);
+      
+      b2Session.getCurrentProject().setModuleModel(module);
 
-      final File pomFile = new File(generate.getAnnotationEntry(AbstractPomGenerator.SOURCE_MAVEN,
+      final File pomFile = new File(module.getAnnotationEntry(AbstractPomGenerator.SOURCE_MAVEN,
          AbstractPomGenerator.KEY_POM_FILE));
 
       wrapperProject.setContextValue("pom", pomFile);
+      
+      
+      final String layoutId = module.getLayoutId();
+      final IInterpolationLayout interpolationLayout = layoutMap.get(layoutId);
+      if (interpolationLayout == null)
+      {
+         throw new IllegalStateException("Layout " + layoutId + " is not supported.");
+      }
+      final URI uri = URI.createFileURI(interpolationLayout.pathOfMetaDataFile(module, "b2.session"));
+
+      final Resource resource = module.eResource().getResourceSet().createResource(uri);
+      resource.getContents().add(b2Session);
+      try
+      {
+         resource.save(null);
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException(e);
+      }
 
       storeModelCache(session, modelCache);
    }
@@ -110,6 +138,20 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          moduleProject.setArtifactId(project.getArtifactId());
          moduleProject.setVersion(project.getVersion());
          moduleProject.setDirectory(project.getBasedir());
+         
+         List<Dependency> dependencies = project.getDependencies();
+         for (Dependency dependency : dependencies)
+         {
+            if ("b2-module".equals(dependency.getType()))
+            {
+               ModuleDependency moduleDependency = SessionModelFactory.eINSTANCE.createModuleDependency();
+               moduleDependency.setGroupId(dependency.getGroupId());
+               moduleDependency.setArtifactId(dependency.getArtifactId());
+               moduleDependency.setVersionRange(dependency.getVersion());
+               
+               moduleProject.getDependencies().add(moduleDependency);
+            }
+         }
 
          b2Session.getProjects().add(moduleProject);
          if (project.equals(session.getCurrentProject()))

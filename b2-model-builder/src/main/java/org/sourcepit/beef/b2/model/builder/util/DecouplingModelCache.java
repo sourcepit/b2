@@ -10,10 +10,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
+import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
 /**
  * @author Bernd
@@ -25,6 +32,17 @@ public class DecouplingModelCache implements IModelCache
    private final Map<File, String> dirToUriMap = new HashMap<File, String>();
 
    private final Map<File, AbstractModule> dirToModelMap = new HashMap<File, AbstractModule>();
+
+   private ResourceSet resourceSet = new ResourceSetImpl();
+
+   public DecouplingModelCache()
+   {
+      CommonModelPackage.eINSTANCE.getClass();
+      ModuleModelPackage.eINSTANCE.getClass();
+      SessionModelPackage.eINSTANCE.getClass();
+      
+      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
+   }
 
    public Map<String, IInterpolationLayout> getIdToLayoutMap()
    {
@@ -56,16 +74,19 @@ public class DecouplingModelCache implements IModelCache
 
    private AbstractModule load(String uri)
    {
-      final Resource resource = new XMIResourceImpl(URI.createURI(uri));
       try
       {
-         resource.load(null);
+         Resource resource = resourceSet.getResource(URI.createURI(uri), true);
+         if (!resource.getErrors().isEmpty())
+         {
+            throw new IllegalStateException(resource.getErrors().get(0).getMessage());
+         }
+         return (AbstractModule) resource.getContents().get(0);
       }
-      catch (IOException e)
+      catch (WrappedException e)
       {
-         throw new IllegalStateException(e);
+         throw new IllegalStateException(e.getCause());
       }
-      return (AbstractModule) resource.getContents().get(0);
    }
 
    public void put(AbstractModule module)
@@ -76,9 +97,9 @@ public class DecouplingModelCache implements IModelCache
       {
          throw new UnsupportedOperationException("Layout " + layoutId + " is not supported.");
       }
-      final URI uri = URI.createFileURI(interpolationLayout.pathOfMetaDataFile(module, "module.b2"));
+      final URI uri = URI.createFileURI(interpolationLayout.pathOfMetaDataFile(module, "b2.module"));
 
-      final Resource resource = new XMIResourceImpl(uri);
+      final Resource resource = resourceSet.createResource(uri);
       resource.getContents().add(module);
       try
       {

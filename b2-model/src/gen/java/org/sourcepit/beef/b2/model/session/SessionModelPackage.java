@@ -50,6 +50,13 @@ public interface SessionModelPackage extends EPackage
    String eNS_PREFIX = "session";
 
    /**
+    * The package content type ID. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   String eCONTENT_TYPE = "b2-session";
+
+   /**
     * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -162,13 +169,30 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__DIRECTORY = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
 
    /**
+    * The feature id for the '<em><b>Dependencies</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_PROJECT__DEPENDENCIES = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 5;
+
+   /**
+    * The feature id for the '<em><b>Module Model</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_PROJECT__MODULE_MODEL = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 6;
+
+   /**
     * The number of structural features of the '<em>Module Project</em>' class. <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 5;
+   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 7;
 
 
    /**
@@ -182,13 +206,37 @@ public interface SessionModelPackage extends EPackage
    int MODULE_DEPENDENCY = 2;
 
    /**
+    * The feature id for the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_DEPENDENCY__GROUP_ID = 0;
+
+   /**
+    * The feature id for the '<em><b>Artifact Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_DEPENDENCY__ARTIFACT_ID = 1;
+
+   /**
+    * The feature id for the '<em><b>Version Range</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_DEPENDENCY__VERSION_RANGE = 2;
+
+   /**
     * The number of structural features of the '<em>Module Dependency</em>' class. <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
     * @ordered
     */
-   int MODULE_DEPENDENCY_FEATURE_COUNT = 0;
+   int MODULE_DEPENDENCY_FEATURE_COUNT = 3;
 
 
    /**
@@ -291,6 +339,30 @@ public interface SessionModelPackage extends EPackage
    EAttribute getModuleProject_Directory();
 
    /**
+    * Returns the meta object for the containment reference list '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleProject#getDependencies <em>Dependencies</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference list '<em>Dependencies</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleProject#getDependencies()
+    * @see #getModuleProject()
+    * @generated
+    */
+   EReference getModuleProject_Dependencies();
+
+   /**
+    * Returns the meta object for the reference '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleProject#getModuleModel <em>Module Model</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the reference '<em>Module Model</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleProject#getModuleModel()
+    * @see #getModuleProject()
+    * @generated
+    */
+   EReference getModuleProject_ModuleModel();
+
+   /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.ModuleDependency
     * <em>Module Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -299,6 +371,41 @@ public interface SessionModelPackage extends EPackage
     * @generated
     */
    EClass getModuleDependency();
+
+   /**
+    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.session.ModuleDependency#getGroupId
+    * <em>Group Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Group Id</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleDependency#getGroupId()
+    * @see #getModuleDependency()
+    * @generated
+    */
+   EAttribute getModuleDependency_GroupId();
+
+   /**
+    * Returns the meta object for the attribute '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleDependency#getArtifactId <em>Artifact Id</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Artifact Id</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleDependency#getArtifactId()
+    * @see #getModuleDependency()
+    * @generated
+    */
+   EAttribute getModuleDependency_ArtifactId();
+
+   /**
+    * Returns the meta object for the attribute '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleDependency#getVersionRange <em>Version Range</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Version Range</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleDependency#getVersionRange()
+    * @see #getModuleDependency()
+    * @generated
+    */
+   EAttribute getModuleDependency_VersionRange();
 
    /**
     * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -399,6 +506,22 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_PROJECT__DIRECTORY = eINSTANCE.getModuleProject_Directory();
 
       /**
+       * The meta object literal for the '<em><b>Dependencies</b></em>' containment reference list feature. <!--
+       * begin-user-doc --> <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference MODULE_PROJECT__DEPENDENCIES = eINSTANCE.getModuleProject_Dependencies();
+
+      /**
+       * The meta object literal for the '<em><b>Module Model</b></em>' reference feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference MODULE_PROJECT__MODULE_MODEL = eINSTANCE.getModuleProject_ModuleModel();
+
+      /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleDependencyImpl
        * <em>Module Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
@@ -407,6 +530,30 @@ public interface SessionModelPackage extends EPackage
        * @generated
        */
       EClass MODULE_DEPENDENCY = eINSTANCE.getModuleDependency();
+
+      /**
+       * The meta object literal for the '<em><b>Group Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute MODULE_DEPENDENCY__GROUP_ID = eINSTANCE.getModuleDependency_GroupId();
+
+      /**
+       * The meta object literal for the '<em><b>Artifact Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute MODULE_DEPENDENCY__ARTIFACT_ID = eINSTANCE.getModuleDependency_ArtifactId();
+
+      /**
+       * The meta object literal for the '<em><b>Version Range</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute MODULE_DEPENDENCY__VERSION_RANGE = eINSTANCE.getModuleDependency_VersionRange();
 
    }
 

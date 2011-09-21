@@ -51,6 +51,13 @@ public interface ModuleModelPackage extends EPackage
    String eNS_PREFIX = "module";
 
    /**
+    * The package content type ID. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   String eCONTENT_TYPE = "b2-module";
+
+   /**
     * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated

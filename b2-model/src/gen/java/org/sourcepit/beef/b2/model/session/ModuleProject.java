@@ -8,7 +8,9 @@ package org.sourcepit.beef.b2.model.session;
 
 import java.io.File;
 
+import org.eclipse.emf.common.util.EList;
 import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Module Project</b></em>'. <!-- end-user-doc -->
@@ -21,6 +23,8 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getArtifactId <em>Artifact Id</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getVersion <em>Version</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getDirectory <em>Directory</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getDependencies <em>Dependencies</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getModuleModel <em>Module Model</em>}</li>
  * </ul>
  * </p>
  * 
@@ -161,5 +165,47 @@ public interface ModuleProject extends Annotateable
     * @generated
     */
    void setDirectory(File value);
+
+   /**
+    * Returns the value of the '<em><b>Dependencies</b></em>' containment reference list. The list contents are of type
+    * {@link org.sourcepit.beef.b2.model.session.ModuleDependency}. <!-- begin-user-doc -->
+    * <p>
+    * If the meaning of the '<em>Dependencies</em>' containment reference list isn't clear, there really should be more
+    * of a description here...
+    * </p>
+    * <!-- end-user-doc -->
+    * 
+    * @return the value of the '<em>Dependencies</em>' containment reference list.
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Dependencies()
+    * @model containment="true"
+    * @generated
+    */
+   EList<ModuleDependency> getDependencies();
+
+   /**
+    * Returns the value of the '<em><b>Module Model</b></em>' reference. <!-- begin-user-doc -->
+    * <p>
+    * If the meaning of the '<em>Module Model</em>' reference isn't clear, there really should be more of a description
+    * here...
+    * </p>
+    * <!-- end-user-doc -->
+    * 
+    * @return the value of the '<em>Module Model</em>' reference.
+    * @see #setModuleModel(AbstractModule)
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_ModuleModel()
+    * @model
+    * @generated
+    */
+   AbstractModule getModuleModel();
+
+   /**
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.session.ModuleProject#getModuleModel
+    * <em>Module Model</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @param value the new value of the '<em>Module Model</em>' reference.
+    * @see #getModuleModel()
+    * @generated
+    */
+   void setModuleModel(AbstractModule value);
 
 } // ModuleProject

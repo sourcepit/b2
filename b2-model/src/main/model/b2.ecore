@@ -254,7 +254,20 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="directory" lowerBound="1"
           eType="#//common/EJavaFile"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
+          eType="#//session/ModuleDependency" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="moduleModel" eType="#//module/AbstractModule"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ModuleDependency"/>
+    <eClassifiers xsi:type="ecore:EClass" name="ModuleDependency">
+      <eOperations name="isSatisfiableBy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+        <eParameters name="moduleProject" eType="#//session/ModuleProject"/>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupId" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="artifactId" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionRange" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

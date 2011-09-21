@@ -16,12 +16,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
@@ -36,6 +39,9 @@ import org.sourcepit.beef.b2.model.session.SessionModelPackage;
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getArtifactId <em>Artifact Id</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getVersion <em>Version</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getDirectory <em>Directory</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getDependencies <em>Dependencies</em>}
+ * </li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getModuleModel <em>Module Model</em>}</li>
  * </ul>
  * </p>
  * 
@@ -132,6 +138,26 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * @ordered
     */
    protected File directory = DIRECTORY_EDEFAULT;
+
+   /**
+    * The cached value of the '{@link #getDependencies() <em>Dependencies</em>}' containment reference list. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see #getDependencies()
+    * @generated
+    * @ordered
+    */
+   protected EList<ModuleDependency> dependencies;
+
+   /**
+    * The cached value of the '{@link #getModuleModel() <em>Module Model</em>}' reference. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @see #getModuleModel()
+    * @generated
+    * @ordered
+    */
+   protected AbstractModule moduleModel;
 
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -320,6 +346,66 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
+   public EList<ModuleDependency> getDependencies()
+   {
+      if (dependencies == null)
+      {
+         dependencies = new EObjectContainmentEList<ModuleDependency>(ModuleDependency.class, this,
+            SessionModelPackage.MODULE_PROJECT__DEPENDENCIES);
+      }
+      return dependencies;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public AbstractModule getModuleModel()
+   {
+      if (moduleModel != null && moduleModel.eIsProxy())
+      {
+         InternalEObject oldModuleModel = (InternalEObject) moduleModel;
+         moduleModel = (AbstractModule) eResolveProxy(oldModuleModel);
+         if (moduleModel != oldModuleModel)
+         {
+            if (eNotificationRequired())
+               eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                  SessionModelPackage.MODULE_PROJECT__MODULE_MODEL, oldModuleModel, moduleModel));
+         }
+      }
+      return moduleModel;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public AbstractModule basicGetModuleModel()
+   {
+      return moduleModel;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public void setModuleModel(AbstractModule newModuleModel)
+   {
+      AbstractModule oldModuleModel = moduleModel;
+      moduleModel = newModuleModel;
+      if (eNotificationRequired())
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__MODULE_MODEL,
+            oldModuleModel, moduleModel));
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public Annotation getAnnotation(String source)
    {
       // TODO: implement this method
@@ -386,6 +472,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
          case SessionModelPackage.MODULE_PROJECT__SESSION :
             return basicSetSession(null, msgs);
+         case SessionModelPackage.MODULE_PROJECT__DEPENDENCIES :
+            return ((InternalEList<?>) getDependencies()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -429,6 +517,12 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return getVersion();
          case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             return getDirectory();
+         case SessionModelPackage.MODULE_PROJECT__DEPENDENCIES :
+            return getDependencies();
+         case SessionModelPackage.MODULE_PROJECT__MODULE_MODEL :
+            if (resolve)
+               return getModuleModel();
+            return basicGetModuleModel();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -463,6 +557,13 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             setDirectory((File) newValue);
             return;
+         case SessionModelPackage.MODULE_PROJECT__DEPENDENCIES :
+            getDependencies().clear();
+            getDependencies().addAll((Collection<? extends ModuleDependency>) newValue);
+            return;
+         case SessionModelPackage.MODULE_PROJECT__MODULE_MODEL :
+            setModuleModel((AbstractModule) newValue);
+            return;
       }
       super.eSet(featureID, newValue);
    }
@@ -495,6 +596,12 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             setDirectory(DIRECTORY_EDEFAULT);
             return;
+         case SessionModelPackage.MODULE_PROJECT__DEPENDENCIES :
+            getDependencies().clear();
+            return;
+         case SessionModelPackage.MODULE_PROJECT__MODULE_MODEL :
+            setModuleModel((AbstractModule) null);
+            return;
       }
       super.eUnset(featureID);
    }
@@ -521,6 +628,10 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
          case SessionModelPackage.MODULE_PROJECT__DIRECTORY :
             return DIRECTORY_EDEFAULT == null ? directory != null : !DIRECTORY_EDEFAULT.equals(directory);
+         case SessionModelPackage.MODULE_PROJECT__DEPENDENCIES :
+            return dependencies != null && !dependencies.isEmpty();
+         case SessionModelPackage.MODULE_PROJECT__MODULE_MODEL :
+            return moduleModel != null;
       }
       return super.eIsSet(featureID);
    }
