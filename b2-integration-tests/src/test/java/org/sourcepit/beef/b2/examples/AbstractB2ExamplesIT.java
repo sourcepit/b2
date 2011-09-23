@@ -53,6 +53,23 @@ public abstract class AbstractB2ExamplesIT extends TestCase
       environment.remove("M2_HOME");
       environment.remove("JAVA_HOME");
       environment.put("JAVA_HOME", System.getProperty("java.home"));
+
+      final String javaagent = System.getProperty("javaagent");
+      if (javaagent != null)
+      {
+         String mvnOpts = environment.get("MAVEN_OPTS");
+         if (mvnOpts == null)
+         {
+            mvnOpts = javaagent;
+         }
+         else
+         {
+            mvnOpts = (mvnOpts + " " + javaagent).trim();
+         }
+         environment.put("MAVEN_OPTS", mvnOpts);
+         System.out.println(mvnOpts);
+      }
+
       environment.put("MAVEN_ARGS", "-B -e clean verify");
    }
 

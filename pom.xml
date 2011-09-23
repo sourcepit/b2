@@ -17,6 +17,13 @@
 		<connection>scm:svn:${srcpit.beef.svn.trunk.url}/b2</connection>
 	</scm>
 
+	<properties>
+		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.jacoco.reportPath>${user.dir}/target/jacoco.exec</sonar.jacoco.reportPath>
+		<sonar.jacoco.itReportPath>${user.dir}/target/jacoco-its.exec</sonar.jacoco.itReportPath>
+	</properties>
+
 	<modules>
 		<module>b2-model-builder</module>
 		<module>b2-model</module>
@@ -136,6 +143,11 @@
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.3.1</version>
+				</plugin>
+				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
 					<version>1.0.0</version>
@@ -168,19 +180,26 @@
 										<ignore />
 									</action>
 								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.jacoco</groupId>
+										<artifactId>
+											jacoco-maven-plugin
+										</artifactId>
+										<versionRange>
+											[0.5.3.201107060350,)
+										</versionRange>
+										<goals>
+											<goal>prepare-agent</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>sonar-maven-plugin</artifactId>
-					<version>2.0-beta-2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>2.3.1</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -197,17 +216,29 @@
 				<module>b2-integration-tests</module>
 			</modules>
 			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>2.9</version>
+							<configuration>
+								<argLine>${sonar.jacoco.args} -Xms64m -Xmx128m</argLine>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-failsafe-plugin</artifactId>
+							<version>2.9</version>
+							<configuration>
+								<systemPropertyVariables>
+									<javaagent>${sonar.jacoco.itArgs}</javaagent>
+								</systemPropertyVariables>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
 				<plugins>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.5.3</version>
-						<!-- <configuration> -->
-						<!-- <append>true</append> -->
-						<!-- <destFile>${jacoco.file.path}</destFile> -->
-						<!-- <excludes>*Test</excludes> -->
-						<!-- </configuration> -->
-					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-deploy-plugin</artifactId>
@@ -224,6 +255,37 @@
 								</goals>
 								<configuration>
 									<altDeploymentRepository>it-repo::default::${it.repo.url}</altDeploymentRepository>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.5.3.201107060350</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<append>true</append>
+									<destFile>${sonar.jacoco.reportPath}</destFile>
+									<includes>org.sourcepit.*</includes>
+									<propertyName>sonar.jacoco.args</propertyName>
+								</configuration>
+							</execution>
+							<execution>
+								<id>its</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+								<configuration>
+									<append>true</append>
+									<destFile>${sonar.jacoco.itReportPath}</destFile>
+									<includes>org.sourcepit.*</includes>
+									<propertyName>sonar.jacoco.itArgs</propertyName>
 								</configuration>
 							</execution>
 						</executions>
