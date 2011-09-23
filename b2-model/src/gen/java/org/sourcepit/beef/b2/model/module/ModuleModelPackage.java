@@ -1311,7 +1311,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__ANNOTATIONS = CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
+   int PRODUCT_DEFINITION__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1319,7 +1319,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__DERIVED = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
+   int PRODUCT_DEFINITION__DERIVED = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Parent</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1327,7 +1327,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__PARENT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
+   int PRODUCT_DEFINITION__PARENT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 1;
 
    /**
     * The feature id for the '<em><b>File</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1335,7 +1335,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__FILE = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
+   int PRODUCT_DEFINITION__FILE = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 2;
 
    /**
     * The feature id for the '<em><b>Product Plugin</b></em>' containment reference. <!-- begin-user-doc --> <!--
@@ -1344,7 +1344,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__PRODUCT_PLUGIN = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 3;
+   int PRODUCT_DEFINITION__PRODUCT_PLUGIN = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 3;
 
    /**
     * The number of structural features of the '<em>Product Definition</em>' class. <!-- begin-user-doc --> <!--
@@ -1353,7 +1353,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
+   int PRODUCT_DEFINITION_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 4;
 
    /**
     * The meta object id for the '<em>Identifier</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->

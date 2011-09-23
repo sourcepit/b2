@@ -9,17 +9,17 @@ import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 
 public abstract class AbstractModuleParserExtender implements IModuleParserExtender
 {
-   private Collection<Class<? extends Annotateable>> inputTypes;
+   private Collection<Class<? extends Annotatable>> inputTypes;
 
-   protected Collection<Class<? extends Annotateable>> getInputTypes()
+   protected Collection<Class<? extends Annotatable>> getInputTypes()
    {
       if (inputTypes == null)
       {
-         inputTypes = new ArrayList<Class<? extends Annotateable>>();
+         inputTypes = new ArrayList<Class<? extends Annotatable>>();
          addInputTypes(inputTypes);
       }
       return inputTypes;
@@ -37,9 +37,9 @@ public abstract class AbstractModuleParserExtender implements IModuleParserExten
       return false;
    }
 
-   protected abstract void addInputTypes(Collection<Class<? extends Annotateable>> inputTypes);
+   protected abstract void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes);
 
-   public void extend(Annotateable modelElement, IConverter converter)
+   public void extend(Annotatable modelElement, IConverter converter)
    {
       if (isInputType(modelElement.getClass()))
       {
@@ -47,5 +47,5 @@ public abstract class AbstractModuleParserExtender implements IModuleParserExten
       }
    }
 
-   protected abstract void doExtend(Annotateable modelElement, IConverter converter);
+   protected abstract void doExtend(Annotatable modelElement, IConverter converter);
 }

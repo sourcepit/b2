@@ -80,7 +80,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int B2_SESSION__ANNOTATIONS = CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
+   int B2_SESSION__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Projects</b></em>' containment reference list. <!-- begin-user-doc --> <!--
@@ -89,7 +89,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int B2_SESSION__PROJECTS = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
+   int B2_SESSION__PROJECTS = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Current Project</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -97,7 +97,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int B2_SESSION__CURRENT_PROJECT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
+   int B2_SESSION__CURRENT_PROJECT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 1;
 
    /**
     * The number of structural features of the '<em>B2 Session</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
@@ -106,7 +106,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int B2_SESSION_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
+   int B2_SESSION_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 2;
 
    /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl
@@ -125,7 +125,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__ANNOTATIONS = CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
+   int MODULE_PROJECT__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -133,7 +133,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__GROUP_ID = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 0;
+   int MODULE_PROJECT__GROUP_ID = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Session</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc
@@ -142,7 +142,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__SESSION = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 1;
+   int MODULE_PROJECT__SESSION = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 1;
 
    /**
     * The feature id for the '<em><b>Artifact Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -150,7 +150,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__ARTIFACT_ID = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 2;
+   int MODULE_PROJECT__ARTIFACT_ID = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 2;
 
    /**
     * The feature id for the '<em><b>Version</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -158,7 +158,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__VERSION = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 3;
+   int MODULE_PROJECT__VERSION = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 3;
 
    /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -166,7 +166,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__DIRECTORY = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 4;
+   int MODULE_PROJECT__DIRECTORY = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 4;
 
    /**
     * The feature id for the '<em><b>Dependencies</b></em>' containment reference list. <!-- begin-user-doc --> <!--
@@ -175,7 +175,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__DEPENDENCIES = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 5;
+   int MODULE_PROJECT__DEPENDENCIES = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 5;
 
    /**
     * The feature id for the '<em><b>Module Model</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -183,7 +183,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT__MODULE_MODEL = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 6;
+   int MODULE_PROJECT__MODULE_MODEL = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 6;
 
    /**
     * The number of structural features of the '<em>Module Project</em>' class. <!-- begin-user-doc --> <!--
@@ -192,7 +192,7 @@ public interface SessionModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATEABLE_FEATURE_COUNT + 7;
+   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 7;
 
 
    /**

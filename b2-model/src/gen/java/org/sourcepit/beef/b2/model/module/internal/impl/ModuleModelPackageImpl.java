@@ -1031,11 +1031,11 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       // Add supertypes to classes
       abstractModuleEClass.getESuperTypes().add(this.getFileContainer());
-      abstractModuleEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
+      abstractModuleEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       abstractModuleEClass.getESuperTypes().add(this.getIdentifiable());
       basicModuleEClass.getESuperTypes().add(this.getAbstractModule());
       abstractFacetEClass.getESuperTypes().add(this.getDerivable());
-      abstractFacetEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
+      abstractFacetEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       compositeModuleEClass.getESuperTypes().add(this.getAbstractModule());
       g1 = createEGenericType(this.getProjectFacet());
       EGenericType g2 = createEGenericType(this.getPluginProject());
@@ -1056,13 +1056,13 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       siteProjectEClass.getESuperTypes().add(this.getClassified());
       projectEClass.getESuperTypes().add(this.getFileContainer());
       projectEClass.getESuperTypes().add(this.getDerivable());
-      projectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
+      projectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       projectEClass.getESuperTypes().add(this.getIdentifiable());
       projectFacetEClass.getESuperTypes().add(this.getAbstractFacet());
       pluginIncludeEClass.getESuperTypes().add(this.getReference());
       featureIncludeEClass.getESuperTypes().add(this.getReference());
       productsFacetEClass.getESuperTypes().add(this.getAbstractFacet());
-      productDefinitionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
+      productDefinitionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       productDefinitionEClass.getESuperTypes().add(this.getDerivable());
 
       // Initialize classes and features; add operations and parameters

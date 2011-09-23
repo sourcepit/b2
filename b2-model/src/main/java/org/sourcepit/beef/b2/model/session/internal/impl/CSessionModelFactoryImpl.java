@@ -21,7 +21,7 @@ public class CSessionModelFactoryImpl extends SessionModelFactoryImpl
    {
       return new CModuleProjectImpl();
    }
-   
+
    @Override
    public ModuleDependency createModuleDependency()
    {

@@ -16,14 +16,14 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 
-public class AnnotateableTest extends TestCase
+public class AnnotatableTest extends TestCase
 {
    public void testGetAnnotation() throws Exception
    {
       List<EClass> annotateableTypes = getAnnotateableTypes();
       for (EClass eClass : annotateableTypes)
       {
-         Annotateable annotateable = createAnnotateable(eClass);
+         Annotatable annotateable = createAnnotateable(eClass);
 
          try
          {
@@ -68,9 +68,9 @@ public class AnnotateableTest extends TestCase
       }
    }
 
-   private Annotateable createAnnotateable(EClass eClass)
+   private Annotatable createAnnotateable(EClass eClass)
    {
-      Annotateable annotateable = (Annotateable) eClass.getEPackage().getEFactoryInstance().create(eClass);
+      Annotatable annotateable = (Annotatable) eClass.getEPackage().getEFactoryInstance().create(eClass);
       assertNotNull(annotateable);
       return annotateable;
    }
@@ -80,7 +80,7 @@ public class AnnotateableTest extends TestCase
       List<EClass> annotateableTypes = getAnnotateableTypes();
       for (EClass eClass : annotateableTypes)
       {
-         Annotateable annotateable = createAnnotateable(eClass);
+         Annotatable annotateable = createAnnotateable(eClass);
          try
          {
             annotateable.getAnnotationEntry(null, null);
@@ -122,7 +122,7 @@ public class AnnotateableTest extends TestCase
       List<EClass> annotateableTypes = getAnnotateableTypes();
       for (EClass eClass : annotateableTypes)
       {
-         Annotateable annotateable = createAnnotateable(eClass);
+         Annotatable annotateable = createAnnotateable(eClass);
          try
          {
             annotateable.putAnnotationEntry(null, null, null);
@@ -143,7 +143,7 @@ public class AnnotateableTest extends TestCase
 
    private List<EClass> getAnnotateableTypes()
    {
-      EClass annotateableType = CommonModelPackage.eINSTANCE.getAnnotateable();
+      EClass annotateableType = CommonModelPackage.eINSTANCE.getAnnotatable();
       List<EClass> annotateableTypes = new ArrayList<EClass>();
       for (EClassifier eClassifier : getAllEClassifiers())
       {

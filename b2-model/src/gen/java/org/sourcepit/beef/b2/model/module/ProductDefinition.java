@@ -8,7 +8,7 @@ package org.sourcepit.beef.b2.model.module;
 
 import java.io.File;
 
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Product Definition</b></em>'. <!-- end-user-doc
@@ -27,7 +27,7 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * @model
  * @generated
  */
-public interface ProductDefinition extends Annotateable, Derivable
+public interface ProductDefinition extends Annotatable, Derivable
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '

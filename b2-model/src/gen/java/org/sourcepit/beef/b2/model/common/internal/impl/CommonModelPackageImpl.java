@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelFactory;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
@@ -38,7 +38,7 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
     * 
     * @generated
     */
-   private EClass annotateableEClass = null;
+   private EClass annotatableEClass = null;
 
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -150,9 +150,9 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
     * 
     * @generated
     */
-   public EClass getAnnotateable()
+   public EClass getAnnotatable()
    {
-      return annotateableEClass;
+      return annotatableEClass;
    }
 
    /**
@@ -160,9 +160,9 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
     * 
     * @generated
     */
-   public EReference getAnnotateable_Annotations()
+   public EReference getAnnotatable_Annotations()
    {
-      return (EReference) annotateableEClass.getEStructuralFeatures().get(0);
+      return (EReference) annotatableEClass.getEStructuralFeatures().get(0);
    }
 
    /**
@@ -285,8 +285,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
       isCreated = true;
 
       // Create classes and their features
-      annotateableEClass = createEClass(ANNOTATEABLE);
-      createEReference(annotateableEClass, ANNOTATEABLE__ANNOTATIONS);
+      annotatableEClass = createEClass(ANNOTATABLE);
+      createEReference(annotatableEClass, ANNOTATABLE__ANNOTATIONS);
 
       annotationEClass = createEClass(ANNOTATION);
       createEReference(annotationEClass, ANNOTATION__PARENT);
@@ -333,22 +333,22 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
       // Add supertypes to classes
 
       // Initialize classes and features; add operations and parameters
-      initEClass(annotateableEClass, Annotateable.class, "Annotateable", IS_ABSTRACT, IS_INTERFACE,
+      initEClass(annotatableEClass, Annotatable.class, "Annotatable", IS_ABSTRACT, IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getAnnotateable_Annotations(), this.getAnnotation(), this.getAnnotation_Parent(), "annotations",
-         null, 0, -1, Annotateable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-         !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getAnnotatable_Annotations(), this.getAnnotation(), this.getAnnotation_Parent(), "annotations",
+         null, 0, -1, Annotatable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      EOperation op = addEOperation(annotateableEClass, this.getAnnotation(), "getAnnotation", 0, 1, IS_UNIQUE,
+      EOperation op = addEOperation(annotatableEClass, this.getAnnotation(), "getAnnotation", 0, 1, IS_UNIQUE,
          IS_ORDERED);
       addEParameter(op, ecorePackage.getEString(), "source", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-      op = addEOperation(annotateableEClass, ecorePackage.getEString(), "getAnnotationEntry", 0, 1, IS_UNIQUE,
+      op = addEOperation(annotatableEClass, ecorePackage.getEString(), "getAnnotationEntry", 0, 1, IS_UNIQUE,
          IS_ORDERED);
       addEParameter(op, ecorePackage.getEString(), "source", 0, 1, IS_UNIQUE, IS_ORDERED);
       addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-      op = addEOperation(annotateableEClass, ecorePackage.getEString(), "putAnnotationEntry", 1, 1, IS_UNIQUE,
+      op = addEOperation(annotatableEClass, ecorePackage.getEString(), "putAnnotationEntry", 1, 1, IS_UNIQUE,
          IS_ORDERED);
       addEParameter(op, ecorePackage.getEString(), "source", 0, 1, IS_UNIQUE, IS_ORDERED);
       addEParameter(op, ecorePackage.getEString(), "key", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -356,8 +356,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
 
       initEClass(annotationEClass, Annotation.class, "Annotation", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getAnnotation_Parent(), this.getAnnotateable(), this.getAnnotateable_Annotations(), "parent",
-         null, 1, 1, Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+      initEReference(getAnnotation_Parent(), this.getAnnotatable(), this.getAnnotatable_Annotations(), "parent", null,
+         1, 1, Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEAttribute(getAnnotation_Source(), ecorePackage.getEString(), "source", null, 1, 1, Annotation.class,
          !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

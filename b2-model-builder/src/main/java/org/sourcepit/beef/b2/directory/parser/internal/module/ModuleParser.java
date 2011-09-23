@@ -18,7 +18,7 @@ import org.sourcepit.beef.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingB2ModelWalker;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.IModelCache;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 @Named
@@ -68,11 +68,11 @@ public class ModuleParser implements IModuleParser
             @Override
             protected boolean doVisit(EObject eObject)
             {
-               if (eObject instanceof Annotateable)
+               if (eObject instanceof Annotatable)
                {
                   for (IModuleParserExtender extender : extenders)
                   {
-                     extender.extend((Annotateable) eObject, converter);
+                     extender.extend((Annotatable) eObject, converter);
                   }
                }
                return true;

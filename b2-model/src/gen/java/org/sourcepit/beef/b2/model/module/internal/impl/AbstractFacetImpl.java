@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
@@ -422,12 +422,12 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    @Override
    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
    {
-      if (baseClass == Annotateable.class)
+      if (baseClass == Annotatable.class)
       {
          switch (derivedFeatureID)
          {
             case ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS :
-               return CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
+               return CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -443,11 +443,11 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    @Override
    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
    {
-      if (baseClass == Annotateable.class)
+      if (baseClass == Annotatable.class)
       {
          switch (baseFeatureID)
          {
-            case CommonModelPackage.ANNOTATEABLE__ANNOTATIONS :
+            case CommonModelPackage.ANNOTATABLE__ANNOTATIONS :
                return ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS;
             default :
                return -1;

@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.module.Derivable;
@@ -436,12 +436,12 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
                return -1;
          }
       }
-      if (baseClass == Annotateable.class)
+      if (baseClass == Annotatable.class)
       {
          switch (derivedFeatureID)
          {
             case ModuleModelPackage.PROJECT__ANNOTATIONS :
-               return CommonModelPackage.ANNOTATEABLE__ANNOTATIONS;
+               return CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -479,11 +479,11 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
                return -1;
          }
       }
-      if (baseClass == Annotateable.class)
+      if (baseClass == Annotatable.class)
       {
          switch (baseFeatureID)
          {
-            case CommonModelPackage.ANNOTATEABLE__ANNOTATIONS :
+            case CommonModelPackage.ANNOTATABLE__ANNOTATIONS :
                return ModuleModelPackage.PROJECT__ANNOTATIONS;
             default :
                return -1;

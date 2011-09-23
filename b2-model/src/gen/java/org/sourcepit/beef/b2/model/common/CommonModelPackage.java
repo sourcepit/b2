@@ -57,14 +57,14 @@ public interface CommonModelPackage extends EPackage
    CommonModelPackage eINSTANCE = org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl.init();
 
    /**
-    * The meta object id for the '{@link org.sourcepit.beef.b2.model.common.Annotateable <em>Annotateable</em>}' class.
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.common.Annotatable <em>Annotatable</em>}' class.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @see org.sourcepit.beef.b2.model.common.Annotateable
-    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotateable()
+    * @see org.sourcepit.beef.b2.model.common.Annotatable
+    * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotatable()
     * @generated
     */
-   int ANNOTATEABLE = 0;
+   int ANNOTATABLE = 0;
 
    /**
     * The feature id for the '<em><b>Annotations</b></em>' containment reference list. <!-- begin-user-doc --> <!--
@@ -73,16 +73,16 @@ public interface CommonModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ANNOTATEABLE__ANNOTATIONS = 0;
+   int ANNOTATABLE__ANNOTATIONS = 0;
 
    /**
-    * The number of structural features of the '<em>Annotateable</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+    * The number of structural features of the '<em>Annotatable</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
     * -->
     * 
     * @generated
     * @ordered
     */
-   int ANNOTATEABLE_FEATURE_COUNT = 1;
+   int ANNOTATABLE_FEATURE_COUNT = 1;
 
    /**
     * The meta object id for the '{@link org.sourcepit.beef.b2.model.common.internal.impl.AnnotationImpl
@@ -182,26 +182,26 @@ public interface CommonModelPackage extends EPackage
 
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.common.Annotateable <em>Annotateable</em>}'.
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.common.Annotatable <em>Annotatable</em>}'.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @return the meta object for class '<em>Annotateable</em>'.
-    * @see org.sourcepit.beef.b2.model.common.Annotateable
+    * @return the meta object for class '<em>Annotatable</em>'.
+    * @see org.sourcepit.beef.b2.model.common.Annotatable
     * @generated
     */
-   EClass getAnnotateable();
+   EClass getAnnotatable();
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.beef.b2.model.common.Annotateable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
+    * {@link org.sourcepit.beef.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
     * --> <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Annotations</em>'.
-    * @see org.sourcepit.beef.b2.model.common.Annotateable#getAnnotations()
-    * @see #getAnnotateable()
+    * @see org.sourcepit.beef.b2.model.common.Annotatable#getAnnotations()
+    * @see #getAnnotatable()
     * @generated
     */
-   EReference getAnnotateable_Annotations();
+   EReference getAnnotatable_Annotations();
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.common.Annotation <em>Annotation</em>}'.
@@ -325,14 +325,14 @@ public interface CommonModelPackage extends EPackage
    interface Literals
    {
       /**
-       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.common.Annotateable <em>Annotateable</em>}'
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.common.Annotatable <em>Annotatable</em>}'
        * class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
-       * @see org.sourcepit.beef.b2.model.common.Annotateable
-       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotateable()
+       * @see org.sourcepit.beef.b2.model.common.Annotatable
+       * @see org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotatable()
        * @generated
        */
-      EClass ANNOTATEABLE = eINSTANCE.getAnnotateable();
+      EClass ANNOTATABLE = eINSTANCE.getAnnotatable();
 
       /**
        * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature. <!--
@@ -340,7 +340,7 @@ public interface CommonModelPackage extends EPackage
        * 
        * @generated
        */
-      EReference ANNOTATEABLE__ANNOTATIONS = eINSTANCE.getAnnotateable_Annotations();
+      EReference ANNOTATABLE__ANNOTATIONS = eINSTANCE.getAnnotatable_Annotations();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.common.internal.impl.AnnotationImpl

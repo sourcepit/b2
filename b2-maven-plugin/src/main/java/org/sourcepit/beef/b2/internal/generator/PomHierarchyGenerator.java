@@ -19,7 +19,7 @@ import org.sourcepit.beef.b2.common.internal.utils.PathUtils;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
@@ -43,7 +43,7 @@ public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2Ge
    }
 
    @Override
-   protected void generate(Annotateable inputElement, boolean skipFacets, IConverter converter, ITemplates templates)
+   protected void generate(Annotatable inputElement, boolean skipFacets, IConverter converter, ITemplates templates)
    {
       if (skipFacets && inputElement instanceof AbstractFacet)
       {
@@ -52,7 +52,7 @@ public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2Ge
       setMavenModules(inputElement, skipFacets);
    }
 
-   private File getPomFile(Annotateable annotateable)
+   private File getPomFile(Annotatable annotateable)
    {
       final File pomFile = new File(annotateable.getAnnotationEntry(SOURCE_MAVEN, KEY_POM_FILE));
       if (!pomFile.exists())
@@ -62,11 +62,11 @@ public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2Ge
       return pomFile;
    }
 
-   private void setMavenModules(Annotateable inputElement, boolean skipFacets)
+   private void setMavenModules(Annotatable inputElement, boolean skipFacets)
    {
       final File mavenParentFile = getPomFile(inputElement);
       final Model mavenParent = readMavenModel(mavenParentFile);
-      for (Annotateable moduleElement : getModules(inputElement, skipFacets))
+      for (Annotatable moduleElement : getModules(inputElement, skipFacets))
       {
          final File mavenModuleFile = getPomFile(moduleElement);
          final Model mavenModule = readMavenModel(mavenModuleFile);
@@ -98,7 +98,7 @@ public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2Ge
       writeMavenModel(mavenParentFile, mavenParent);
    }
 
-   private List<? extends Annotateable> getModules(Annotateable annotateable, boolean skipFacets)
+   private List<? extends Annotatable> getModules(Annotatable annotateable, boolean skipFacets)
    {
       if (annotateable instanceof ProjectFacet)
       {
@@ -112,7 +112,7 @@ public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2Ge
       {
          final AbstractModule module = (AbstractModule) annotateable;
 
-         final List<Annotateable> modules = new ArrayList<Annotateable>();
+         final List<Annotatable> modules = new ArrayList<Annotatable>();
          if (module instanceof CompositeModule)
          {
             modules.addAll(((CompositeModule) module).getModules());

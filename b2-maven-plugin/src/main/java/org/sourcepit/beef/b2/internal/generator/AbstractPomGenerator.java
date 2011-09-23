@@ -16,7 +16,7 @@ import org.apache.maven.model.io.ModelReader;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.generator.AbstractGenerator;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 
 public abstract class AbstractPomGenerator extends AbstractGenerator
 {
@@ -27,10 +27,10 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
    public final void generate(EObject inputElement, IConverter converter, ITemplates templates)
    {
       final boolean skipFacets = converter.getProperties().getBoolean("b2.pomGenerator.skipFacets", true);
-      generate((Annotateable) inputElement, skipFacets, converter, templates);
+      generate((Annotatable) inputElement, skipFacets, converter, templates);
    }
 
-   protected abstract void generate(Annotateable inputElement, boolean skipFacets, IConverter converter,
+   protected abstract void generate(Annotatable inputElement, boolean skipFacets, IConverter converter,
       ITemplates templates);
 
    protected Model readMavenModel(File pomFile)

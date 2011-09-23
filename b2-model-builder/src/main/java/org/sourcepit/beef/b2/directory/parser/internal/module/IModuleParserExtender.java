@@ -5,9 +5,9 @@
 package org.sourcepit.beef.b2.directory.parser.internal.module;
 
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 
 public interface IModuleParserExtender
 {
-   void extend(Annotateable modelElement, IConverter converter);
+   void extend(Annotatable modelElement, IConverter converter);
 }

@@ -29,7 +29,7 @@ public interface Annotation extends EObject
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.beef.b2.model.common.Annotateable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
+    * {@link org.sourcepit.beef.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
     * -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
@@ -38,13 +38,13 @@ public interface Annotation extends EObject
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Parent</em>' container reference.
-    * @see #setParent(Annotateable)
+    * @see #setParent(Annotatable)
     * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#getAnnotation_Parent()
-    * @see org.sourcepit.beef.b2.model.common.Annotateable#getAnnotations
+    * @see org.sourcepit.beef.b2.model.common.Annotatable#getAnnotations
     * @model opposite="annotations" required="true" transient="false"
     * @generated
     */
-   Annotateable getParent();
+   Annotatable getParent();
 
    /**
     * Sets the value of the '{@link org.sourcepit.beef.b2.model.common.Annotation#getParent <em>Parent</em>}' container
@@ -54,7 +54,7 @@ public interface Annotation extends EObject
     * @see #getParent()
     * @generated
     */
-   void setParent(Annotateable value);
+   void setParent(Annotatable value);
 
    /**
     * Returns the value of the '<em><b>Source</b></em>' attribute. <!-- begin-user-doc -->

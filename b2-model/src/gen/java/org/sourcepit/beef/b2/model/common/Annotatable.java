@@ -15,15 +15,15 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.beef.b2.model.common.Annotateable#getAnnotations <em>Annotations</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#getAnnotateable()
+ * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#getAnnotatable()
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface Annotateable extends EObject
+public interface Annotatable extends EObject
 {
    /**
     * Returns the value of the '<em><b>Annotations</b></em>' containment reference list. The list contents are of type
@@ -36,7 +36,7 @@ public interface Annotateable extends EObject
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Annotations</em>' containment reference list.
-    * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#getAnnotateable_Annotations()
+    * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#getAnnotatable_Annotations()
     * @see org.sourcepit.beef.b2.model.common.Annotation#getParent
     * @model opposite="parent" containment="true"
     * @generated

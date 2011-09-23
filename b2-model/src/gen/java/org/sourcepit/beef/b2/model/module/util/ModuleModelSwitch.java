@@ -9,7 +9,7 @@ package org.sourcepit.beef.b2.model.module.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
@@ -97,7 +97,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseFileContainer(abstractModule);
             if (result == null)
-               result = caseAnnotateable(abstractModule);
+               result = caseAnnotatable(abstractModule);
             if (result == null)
                result = caseIdentifiable(abstractModule);
             if (result == null)
@@ -113,7 +113,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseFileContainer(basicModule);
             if (result == null)
-               result = caseAnnotateable(basicModule);
+               result = caseAnnotatable(basicModule);
             if (result == null)
                result = caseIdentifiable(basicModule);
             if (result == null)
@@ -127,7 +127,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(abstractFacet);
             if (result == null)
-               result = caseAnnotateable(abstractFacet);
+               result = caseAnnotatable(abstractFacet);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -141,7 +141,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseFileContainer(compositeModule);
             if (result == null)
-               result = caseAnnotateable(compositeModule);
+               result = caseAnnotatable(compositeModule);
             if (result == null)
                result = caseIdentifiable(compositeModule);
             if (result == null)
@@ -159,7 +159,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(pluginsFacet);
             if (result == null)
-               result = caseAnnotateable(pluginsFacet);
+               result = caseAnnotatable(pluginsFacet);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -175,7 +175,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(featuresFacet);
             if (result == null)
-               result = caseAnnotateable(featuresFacet);
+               result = caseAnnotatable(featuresFacet);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -191,7 +191,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(sitesFacet);
             if (result == null)
-               result = caseAnnotateable(sitesFacet);
+               result = caseAnnotatable(sitesFacet);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -207,7 +207,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(pluginProject);
             if (result == null)
-               result = caseAnnotateable(pluginProject);
+               result = caseAnnotatable(pluginProject);
             if (result == null)
                result = caseIdentifiable(pluginProject);
             if (result == null)
@@ -227,7 +227,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(featureProject);
             if (result == null)
-               result = caseAnnotateable(featureProject);
+               result = caseAnnotatable(featureProject);
             if (result == null)
                result = caseIdentifiable(featureProject);
             if (result == null)
@@ -247,7 +247,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(siteProject);
             if (result == null)
-               result = caseAnnotateable(siteProject);
+               result = caseAnnotatable(siteProject);
             if (result == null)
                result = caseIdentifiable(siteProject);
             if (result == null)
@@ -263,7 +263,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(project);
             if (result == null)
-               result = caseAnnotateable(project);
+               result = caseAnnotatable(project);
             if (result == null)
                result = caseIdentifiable(project);
             if (result == null)
@@ -279,7 +279,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(projectFacet);
             if (result == null)
-               result = caseAnnotateable(projectFacet);
+               result = caseAnnotatable(projectFacet);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -353,7 +353,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseDerivable(productsFacet);
             if (result == null)
-               result = caseAnnotateable(productsFacet);
+               result = caseAnnotatable(productsFacet);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -363,7 +363,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
             ProductDefinition productDefinition = (ProductDefinition) theEObject;
             T result = caseProductDefinition(productDefinition);
             if (result == null)
-               result = caseAnnotateable(productDefinition);
+               result = caseAnnotatable(productDefinition);
             if (result == null)
                result = caseDerivable(productDefinition);
             if (result == null)
@@ -636,20 +636,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Annotateable</em>'. <!-- begin-user-doc -->
-    * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
-    * 
-    * @param object the target of the switch.
-    * @return the result of interpreting the object as an instance of '<em>Annotateable</em>'.
-    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-    * @generated
-    */
-   public T caseAnnotateable(Annotateable object)
-   {
-      return null;
-   }
-
-   /**
     * Returns the result of interpreting the object as an instance of '<em>Identifiable</em>'. <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
@@ -701,6 +687,20 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @generated
     */
    public T caseReference(Reference object)
+   {
+      return null;
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Annotatable</em>'. <!-- begin-user-doc -->
+    * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Annotatable</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseAnnotatable(Annotatable object)
    {
       return null;
    }

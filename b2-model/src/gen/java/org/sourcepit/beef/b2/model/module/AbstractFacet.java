@@ -6,7 +6,7 @@
 
 package org.sourcepit.beef.b2.model.module;
 
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 
 
 /**
@@ -24,7 +24,7 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractFacet extends Derivable, Annotateable
+public interface AbstractFacet extends Derivable, Annotatable
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '

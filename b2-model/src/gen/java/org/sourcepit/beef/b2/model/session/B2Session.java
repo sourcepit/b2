@@ -7,7 +7,7 @@
 package org.sourcepit.beef.b2.model.session;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Session</b></em>'. <!-- end-user-doc -->
@@ -24,7 +24,7 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * @model
  * @generated
  */
-public interface B2Session extends Annotateable
+public interface B2Session extends Annotatable
 {
 
    /**

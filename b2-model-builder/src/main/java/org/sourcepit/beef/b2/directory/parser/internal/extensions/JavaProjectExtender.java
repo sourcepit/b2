@@ -15,7 +15,7 @@ import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.beef.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.beef.b2.directory.parser.internal.module.IModuleParserExtender;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,13 +25,13 @@ import org.w3c.dom.Node;
 public class JavaProjectExtender extends AbstractModuleParserExtender implements IModuleParserExtender
 {
    @Override
-   protected void addInputTypes(Collection<Class<? extends Annotateable>> inputTypes)
+   protected void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes)
    {
       inputTypes.add(PluginProject.class);
    }
 
    @Override
-   protected void doExtend(Annotateable modelElement, IConverter converter)
+   protected void doExtend(Annotatable modelElement, IConverter converter)
    {
       final PluginProject pluginProject = (PluginProject) modelElement;
       final File projectDir = pluginProject.getDirectory();
@@ -39,7 +39,7 @@ public class JavaProjectExtender extends AbstractModuleParserExtender implements
       processClasspath(modelElement, projectDir);
    }
 
-   private void processClasspath(Annotateable modelElement, final File projectDir)
+   private void processClasspath(Annotatable modelElement, final File projectDir)
    {
       final File cpFile = new File(projectDir, ".classpath");
       if (cpFile.exists())
@@ -70,7 +70,7 @@ public class JavaProjectExtender extends AbstractModuleParserExtender implements
       }
    }
 
-   private void processJdtSettings(Annotateable modelElement, final File projectDir)
+   private void processJdtSettings(Annotatable modelElement, final File projectDir)
    {
       final File prefFile = new File(projectDir, ".settings/org.eclipse.jdt.core.prefs");
       if (prefFile.exists())

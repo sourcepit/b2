@@ -25,7 +25,7 @@ import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.ISourceManager;
 import org.sourcepit.beef.b2.model.builder.util.IUnpackStrategy;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
@@ -65,7 +65,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    }
 
    @Override
-   protected void generate(final Annotateable inputElement, boolean skipFacets, final IConverter converter,
+   protected void generate(final Annotatable inputElement, boolean skipFacets, final IConverter converter,
       final ITemplates templates)
    {
       if (skipFacets && inputElement instanceof AbstractFacet)

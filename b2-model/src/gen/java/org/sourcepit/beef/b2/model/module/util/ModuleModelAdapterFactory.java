@@ -10,7 +10,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
@@ -226,9 +226,9 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
       }
 
       @Override
-      public Adapter caseAnnotateable(Annotateable object)
+      public Adapter caseAnnotatable(Annotatable object)
       {
-         return createAnnotateableAdapter();
+         return createAnnotatableAdapter();
       }
 
       @Override
@@ -506,20 +506,6 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.common.Annotateable
-    * <em>Annotateable</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
-    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-    * 
-    * @return the new adapter.
-    * @see org.sourcepit.beef.b2.model.common.Annotateable
-    * @generated
-    */
-   public Adapter createAnnotateableAdapter()
-   {
-      return null;
-   }
-
-   /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.module.Identifiable
     * <em>Identifiable</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
@@ -572,6 +558,20 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createReferenceAdapter()
+   {
+      return null;
+   }
+
+   /**
+    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.common.Annotatable
+    * <em>Annotatable</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * 
+    * @return the new adapter.
+    * @see org.sourcepit.beef.b2.model.common.Annotatable
+    * @generated
+    */
+   public Adapter createAnnotatableAdapter()
    {
       return null;
    }

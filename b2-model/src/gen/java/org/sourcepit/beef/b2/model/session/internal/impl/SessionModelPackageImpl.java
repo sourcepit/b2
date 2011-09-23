@@ -362,8 +362,8 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       // Set bounds for type parameters
 
       // Add supertypes to classes
-      b2SessionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
-      moduleProjectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotateable());
+      b2SessionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
+      moduleProjectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
 
       // Initialize classes and features; add operations and parameters
       initEClass(b2SessionEClass, B2Session.class, "B2Session", !IS_ABSTRACT, !IS_INTERFACE,

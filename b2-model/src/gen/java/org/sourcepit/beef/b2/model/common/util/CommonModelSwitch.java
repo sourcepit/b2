@@ -11,7 +11,7 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 
@@ -71,10 +71,10 @@ public class CommonModelSwitch<T> extends Switch<T>
    {
       switch (classifierID)
       {
-         case CommonModelPackage.ANNOTATEABLE :
+         case CommonModelPackage.ANNOTATABLE :
          {
-            Annotateable annotateable = (Annotateable) theEObject;
-            T result = caseAnnotateable(annotateable);
+            Annotatable annotatable = (Annotatable) theEObject;
+            T result = caseAnnotatable(annotatable);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -102,15 +102,15 @@ public class CommonModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Annotateable</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Annotatable</em>'. <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
-    * @return the result of interpreting the object as an instance of '<em>Annotateable</em>'.
+    * @return the result of interpreting the object as an instance of '<em>Annotatable</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseAnnotateable(Annotateable object)
+   public T caseAnnotatable(Annotatable object)
    {
       return null;
    }

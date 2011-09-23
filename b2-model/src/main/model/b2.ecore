@@ -5,7 +5,7 @@
     nsURI="http://www.sourcepit.org/b2/model/0.1" nsPrefix="model">
   <eSubpackages name="common" nsURI="http://www.sourcepit.org/b2/model/0.1/common"
       nsPrefix="common">
-    <eClassifiers xsi:type="ecore:EClass" name="Annotateable" abstract="true" interface="true">
+    <eClassifiers xsi:type="ecore:EClass" name="Annotatable" abstract="true" interface="true">
       <eOperations name="getAnnotation" eType="#//common/Annotation">
         <eParameters name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </eOperations>
@@ -23,7 +23,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Annotation">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
-          eType="#//common/Annotateable" eOpposite="#//common/Annotateable/annotations"/>
+          eType="#//common/Annotatable" eOpposite="#//common/Annotatable/annotations"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
@@ -38,7 +38,7 @@
   </eSubpackages>
   <eSubpackages name="module" nsURI="http://www.sourcepit.org/b2/model/0.1/module"
       nsPrefix="module">
-    <eClassifiers xsi:type="ecore:EClass" name="AbstractModule" abstract="true" eSuperTypes="#//module/FileContainer #//common/Annotateable #//module/Identifiable">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractModule" abstract="true" eSuperTypes="#//module/FileContainer #//common/Annotatable #//module/Identifiable">
       <eOperations name="getFacets" lowerBound="1" upperBound="-1">
         <eGenericType eTypeParameter="#//module/AbstractModule/getFacets/T"/>
         <eTypeParameters name="T">
@@ -93,7 +93,7 @@
           eType="#//module/AbstractFacet" containment="true" eOpposite="#//module/AbstractFacet/parent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BasicModule" eSuperTypes="#//module/AbstractModule"/>
-    <eClassifiers xsi:type="ecore:EClass" name="AbstractFacet" abstract="true" eSuperTypes="#//module/Derivable #//common/Annotateable">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractFacet" abstract="true" eSuperTypes="#//module/Derivable #//common/Annotatable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//module/AbstractModule" eOpposite="#//module/AbstractModule/facets"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
@@ -150,7 +150,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
           eType="#//module/Category" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//module/FileContainer #//module/Derivable #//common/Annotateable #//module/Identifiable">
+    <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//module/FileContainer #//module/Derivable #//common/Annotatable #//module/Identifiable">
       <eOperations name="getParent">
         <eGenericType eClassifier="#//module/ProjectFacet">
           <eTypeArguments>
@@ -214,7 +214,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="productDefinitions" upperBound="-1"
           eType="#//module/ProductDefinition" containment="true" eOpposite="#//module/ProductDefinition/parent"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ProductDefinition" eSuperTypes="#//common/Annotateable #//module/Derivable">
+    <eClassifiers xsi:type="ecore:EClass" name="ProductDefinition" eSuperTypes="#//common/Annotatable #//module/Derivable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//module/ProductsFacet" eOpposite="#//module/ProductsFacet/productDefinitions"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1"
@@ -237,13 +237,13 @@
   </eSubpackages>
   <eSubpackages name="session" nsURI="http://www.sourcepit.org/b2/model/0.1/session"
       nsPrefix="session">
-    <eClassifiers xsi:type="ecore:EClass" name="B2Session" eSuperTypes="#//common/Annotateable">
+    <eClassifiers xsi:type="ecore:EClass" name="B2Session" eSuperTypes="#//common/Annotatable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
           eType="#//session/ModuleProject" containment="true" eOpposite="#//session/ModuleProject/session"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="currentProject" lowerBound="1"
           eType="#//session/ModuleProject"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ModuleProject" eSuperTypes="#//common/Annotateable">
+    <eClassifiers xsi:type="ecore:EClass" name="ModuleProject" eSuperTypes="#//common/Annotatable">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupId" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="session" lowerBound="1"

@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 
@@ -92,11 +92,11 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
     * 
     * @generated
     */
-   public Annotateable getParent()
+   public Annotatable getParent()
    {
       if (eContainerFeatureID() != CommonModelPackage.ANNOTATION__PARENT)
          return null;
-      return (Annotateable) eContainer();
+      return (Annotatable) eContainer();
    }
 
    /**
@@ -104,7 +104,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
     * 
     * @generated
     */
-   public NotificationChain basicSetParent(Annotateable newParent, NotificationChain msgs)
+   public NotificationChain basicSetParent(Annotatable newParent, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newParent, CommonModelPackage.ANNOTATION__PARENT, msgs);
       return msgs;
@@ -115,7 +115,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
     * 
     * @generated
     */
-   public void setParent(Annotateable newParent)
+   public void setParent(Annotatable newParent)
    {
       if (newParent != eInternalContainer()
          || (eContainerFeatureID() != CommonModelPackage.ANNOTATION__PARENT && newParent != null))
@@ -126,8 +126,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, CommonModelPackage.ANNOTATEABLE__ANNOTATIONS,
-               Annotateable.class, msgs);
+            msgs = ((InternalEObject) newParent).eInverseAdd(this, CommonModelPackage.ANNOTATABLE__ANNOTATIONS,
+               Annotatable.class, msgs);
          msgs = basicSetParent(newParent, msgs);
          if (msgs != null)
             msgs.dispatch();
@@ -188,7 +188,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
          case CommonModelPackage.ANNOTATION__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
-            return basicSetParent((Annotateable) otherEnd, msgs);
+            return basicSetParent((Annotatable) otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -222,8 +222,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
       switch (eContainerFeatureID())
       {
          case CommonModelPackage.ANNOTATION__PARENT :
-            return eInternalContainer().eInverseRemove(this, CommonModelPackage.ANNOTATEABLE__ANNOTATIONS,
-               Annotateable.class, msgs);
+            return eInternalContainer().eInverseRemove(this, CommonModelPackage.ANNOTATABLE__ANNOTATIONS,
+               Annotatable.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
    }
@@ -262,7 +262,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
       switch (featureID)
       {
          case CommonModelPackage.ANNOTATION__PARENT :
-            setParent((Annotateable) newValue);
+            setParent((Annotatable) newValue);
             return;
          case CommonModelPackage.ANNOTATION__SOURCE :
             setSource((String) newValue);
@@ -285,7 +285,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
       switch (featureID)
       {
          case CommonModelPackage.ANNOTATION__PARENT :
-            setParent((Annotateable) null);
+            setParent((Annotatable) null);
             return;
          case CommonModelPackage.ANNOTATION__SOURCE :
             setSource(SOURCE_EDEFAULT);

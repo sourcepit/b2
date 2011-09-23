@@ -9,7 +9,7 @@ package org.sourcepit.beef.b2.model.session;
 import java.io.File;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 /**
@@ -32,7 +32,7 @@ import org.sourcepit.beef.b2.model.module.AbstractModule;
  * @model
  * @generated
  */
-public interface ModuleProject extends Annotateable
+public interface ModuleProject extends Annotatable
 {
    /**
     * Returns the value of the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc -->

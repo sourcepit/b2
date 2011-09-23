@@ -15,20 +15,20 @@ import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.beef.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.beef.b2.directory.parser.internal.module.IModuleParserExtender;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.module.Project;
 
 @Named
 public class BuildPropertiesExtender extends AbstractModuleParserExtender implements IModuleParserExtender
 {
    @Override
-   protected void addInputTypes(Collection<Class<? extends Annotateable>> inputTypes)
+   protected void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes)
    {
       inputTypes.add(Project.class);
    }
 
    @Override
-   protected void doExtend(Annotateable modelElement, IConverter converter)
+   protected void doExtend(Annotatable modelElement, IConverter converter)
    {
       final Project project = (Project) modelElement;
       final File projectDir = project.getDirectory();

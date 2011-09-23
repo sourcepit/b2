@@ -9,7 +9,7 @@ package org.sourcepit.beef.b2.model.module;
 import java.util.Locale;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.beef.b2.model.common.Annotateable;
+import org.sourcepit.beef.b2.model.common.Annotatable;
 
 
 /**
@@ -29,7 +29,7 @@ import org.sourcepit.beef.b2.model.common.Annotateable;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractModule extends FileContainer, Annotateable, Identifiable
+public interface AbstractModule extends FileContainer, Annotatable, Identifiable
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
