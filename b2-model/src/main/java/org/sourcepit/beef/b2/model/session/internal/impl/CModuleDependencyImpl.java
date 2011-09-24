@@ -22,7 +22,15 @@ public class CModuleDependencyImpl extends ModuleDependencyImpl
             try
             {
                ArtifactVersion version = new DefaultArtifactVersion(moduleProject.getVersion());
-               return VersionRange.createFromVersionSpec(getVersionRange()).containsVersion(version);
+               VersionRange range = VersionRange.createFromVersionSpec(getVersionRange());
+               if (range.hasRestrictions())
+               {
+                  return range.containsVersion(version);
+               }
+               else
+               {
+                  return range.getRecommendedVersion().compareTo(version) == 0;
+               }
             }
             catch (InvalidVersionSpecificationException e)
             {

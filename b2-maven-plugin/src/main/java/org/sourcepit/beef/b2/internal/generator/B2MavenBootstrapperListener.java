@@ -169,7 +169,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             List<Dependency> dependencies = project.getDependencies();
             for (Dependency dependency : dependencies)
             {
-               if ("b2-module".equals(dependency.getType()))
+               if ("pom".equals(dependency.getType()))
                {
                   ModuleDependency moduleDependency = SessionModelFactory.eINSTANCE.createModuleDependency();
                   moduleDependency.setGroupId(dependency.getGroupId());

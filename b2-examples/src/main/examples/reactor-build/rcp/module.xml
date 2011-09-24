@@ -19,6 +19,21 @@
 		<sites></sites>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.sourcepit.b2.examples</groupId>
+			<artifactId>rcp.help</artifactId>
+			<version>${project.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.b2.examples</groupId>
+			<artifactId>rcp.ui</artifactId>
+			<version>${project.version}</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+
 	<profiles>
 		<profile>
 			<id>useSites</id>

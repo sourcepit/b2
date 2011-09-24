@@ -48,9 +48,9 @@ public class ModuleDependencyTest extends TestCase
       assertTrue(d1.isSatisfiableBy(p1));
 
       p1.setVersion("2.1.1");
-      assertTrue(d1.isSatisfiableBy(p1));
+      assertFalse(d1.isSatisfiableBy(p1));
 
       p1.setVersion("0.1.1");
-      assertTrue(d1.isSatisfiableBy(p1));
+      assertFalse(d1.isSatisfiableBy(p1));
    }
 }

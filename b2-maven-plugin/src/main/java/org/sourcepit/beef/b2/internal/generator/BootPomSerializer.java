@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.maven.model.Model;
+import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.project.MavenProject;
 import org.sourcepit.beef.b2.execution.IB2Listener;
@@ -36,21 +37,49 @@ public class BootPomSerializer implements IB2Listener
       {
          try
          {
-            final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
-            final File pomFile = new File(layout.pathOfMetaDataFile(module, "boot-pom.xml"));
-            if (!pomFile.exists())
-            {
-               pomFile.getParentFile().mkdirs();
-               pomFile.createNewFile();
-            }
-            final Model model = currentProject.getModel();
-            new DefaultModelWriter().write(pomFile, null, model);
-            module.putAnnotationEntry("maven", "bootPom", pomFile.getAbsolutePath());
+            final File bootPomFile = persistB2BootPom(module, currentProject);
+            persistModulePomTemplate(module, bootPomFile);
          }
          catch (IOException e)
          {
             throw new IllegalStateException(e);
          }
       }
+   }
+
+   private File persistB2BootPom(AbstractModule module, final MavenProject currentProject) throws IOException
+   {
+      final File pomFile = createFile(module, "boot-pom.xml");
+      final Model model = currentProject.getModel();
+      writeMavenModel(model, pomFile);
+      module.putAnnotationEntry("b2", "bootPom", pomFile.getAbsolutePath());
+      return pomFile;
+   }
+
+   private void persistModulePomTemplate(AbstractModule module, final File bootPomFile) throws IOException
+   {
+      final Model model = new DefaultModelReader().read(bootPomFile, null);
+      model.getDependencies().clear();
+
+      final File pomFile = createFile(module, "module-pom-template.xml");
+      writeMavenModel(model, pomFile);
+      module.putAnnotationEntry("b2", "modulePomTemplate", pomFile.getAbsolutePath());
+   }
+
+   private File createFile(AbstractModule module, String fileName) throws IOException
+   {
+      final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
+      final File pomFile = new File(layout.pathOfMetaDataFile(module, fileName));
+      if (!pomFile.exists())
+      {
+         pomFile.getParentFile().mkdirs();
+         pomFile.createNewFile();
+      }
+      return pomFile;
+   }
+
+   private void writeMavenModel(final Model model, final File pomFile) throws IOException
+   {
+      new DefaultModelWriter().write(pomFile, null, model);
    }
 }

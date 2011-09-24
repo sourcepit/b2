@@ -92,12 +92,17 @@ public final class XmlUtils
       {
          XPathExpression expr = XPathFactory.newInstance().newXPath().compile(xPath);
          Object result = expr.evaluate(document, XPathConstants.NODESET);
-         return result == null ? DomIterable.EMPTY_ITERABLE : new DomIterable((NodeList) result);
+         return toIterable((NodeList) result);
       }
       catch (XPathExpressionException e)
       {
          throw new IllegalArgumentException(e);
       }
+   }
+
+   public static Iterable<Node> toIterable(NodeList nodeList)
+   {
+      return nodeList == null ? DomIterable.EMPTY_ITERABLE : new DomIterable(nodeList);
    }
 
    public static String queryText(Document document, String xPath)
