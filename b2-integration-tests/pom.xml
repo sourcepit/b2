@@ -35,13 +35,13 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/m2</directory>
+		<testResources>
+			<testResource>
+				<directory>${basedir}/src/test/m2</directory>
 				<targetPath>${project.build.directory}/${b2.examples.finalName}/.m2</targetPath>
 				<filtering>true</filtering>
-			</resource>
-		</resources>
+			</testResource>
+		</testResources>
 		<pluginManagement>
 			<plugins>
 				<plugin>
