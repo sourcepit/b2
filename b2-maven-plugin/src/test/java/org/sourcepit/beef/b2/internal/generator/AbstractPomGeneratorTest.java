@@ -20,14 +20,14 @@ import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuildingRequest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.beef.b2.model.builder.util.DefaultConverter;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.internal.util.EWalkerImpl;
-import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
-public abstract class AbstractPomGeneratorTest extends AbstractInjectedWorkspaceTest
+public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspaceTest
 {
    @Inject
    protected IB2ModelBuilder modelBuilder;
@@ -41,15 +41,6 @@ public abstract class AbstractPomGeneratorTest extends AbstractInjectedWorkspace
    protected IInterpolationLayout getLayout(BasicModule module)
    {
       return layoutMap.get(module.getLayoutId());
-   }
-
-   @SuppressWarnings("unchecked")
-   protected <T extends AbstractModule> T buildModel(String path) throws Exception
-   {
-      File moduleDir = workspace.importResources(path);
-      assertTrue(moduleDir.canRead());
-      BasicModule module = buildModel(moduleDir.getAbsoluteFile());
-      return (T) module;
    }
 
    @SuppressWarnings("unchecked")

@@ -71,7 +71,7 @@ public final class XmlUtils
 
          // Prepare the output file
          Result result = new StreamResult(file);
-         
+
          // Write the DOM document to the file
          Transformer xformer = TransformerFactory.newInstance().newTransformer();
          xformer.transform(source, result);
@@ -93,6 +93,19 @@ public final class XmlUtils
          XPathExpression expr = XPathFactory.newInstance().newXPath().compile(xPath);
          Object result = expr.evaluate(document, XPathConstants.NODESET);
          return result == null ? DomIterable.EMPTY_ITERABLE : new DomIterable((NodeList) result);
+      }
+      catch (XPathExpressionException e)
+      {
+         throw new IllegalArgumentException(e);
+      }
+   }
+
+   public static String queryText(Document document, String xPath)
+   {
+      try
+      {
+         XPathExpression expr = XPathFactory.newInstance().newXPath().compile(xPath);
+         return (String) expr.evaluate(document, XPathConstants.STRING);
       }
       catch (XPathExpressionException e)
       {

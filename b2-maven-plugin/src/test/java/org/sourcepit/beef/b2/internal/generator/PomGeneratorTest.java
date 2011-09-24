@@ -16,7 +16,7 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
 {
    public void testSkipFacets() throws Exception
    {
-      BasicModule module = buildModel("composed-component/simple-layout");
+      BasicModule module = buildModel(b2Session.getCurrentProject().getDirectory());
       assertNotNull(module);
       assertNoPomFiles(module.getDirectory());
 
@@ -37,5 +37,11 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
       generatePom(facet, properties);
 
       assertTrue(facetPom.exists());
+   }
+
+   @Override
+   protected String getModulePath()
+   {
+      return "composed-component/simple-layout";
    }
 }

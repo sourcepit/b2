@@ -72,7 +72,9 @@ public final class DescriptorUtils
 
       public AbstractDescriptorResolutionStrategy(File baseDir, String defaultFilterPattern)
       {
-         defaultMatcher = PathMatcher.parseFilePatterns(baseDir, defaultFilterPattern);
+         defaultMatcher = PathMatcher.parseFilePatterns(baseDir, defaultFilterPattern == null
+            ? "**"
+            : defaultFilterPattern);
       }
 
       public boolean isSkipped(File parentDescriptor, File descriptor)
@@ -90,6 +92,9 @@ public final class DescriptorUtils
          return defaultMatcher;
       }
 
-      protected abstract String getFilterPattern(File descriptor);
+      protected String getFilterPattern(File descriptor)
+      {
+         return null;
+      }
    }
 }
