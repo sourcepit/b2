@@ -53,6 +53,7 @@
 		<dependency>
 			<groupId>org.sourcepit.beef</groupId>
 			<artifactId>b2-test-resources</artifactId>
+			<type>test-jar</type>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.beef</groupId>

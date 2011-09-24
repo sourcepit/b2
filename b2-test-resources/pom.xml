@@ -41,8 +41,26 @@
 				<executions>
 					<execution>
 						<goals>
-							<goal>share-resources</goal>
+							<goal>share-test-resources</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-examples</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/b2-examples</outputDirectory>
+							<includeGroupIds>org.sourcepit.beef</includeGroupIds>
+							<includeArtifactIds>b2-examples</includeArtifactIds>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

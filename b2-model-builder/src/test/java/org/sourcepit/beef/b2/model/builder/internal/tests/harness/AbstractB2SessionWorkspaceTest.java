@@ -19,6 +19,7 @@ import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 import com.google.inject.Binder;
 
@@ -80,6 +81,11 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
             project.setGroupId(XmlUtils.queryText(moduleXml, "/project/groupId"));
             project.setArtifactId(XmlUtils.queryText(moduleXml, "/project/artifactId"));
             project.setVersion(XmlUtils.queryText(moduleXml, "/project/version"));
+
+            for (Node node : XmlUtils.queryNodes(moduleXml, "/project/dependencies/dependency"))
+            {
+
+            }
 
             session.getProjects().add(project);
          }
