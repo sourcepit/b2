@@ -22,19 +22,19 @@ public class DelegatingPropertiesMapTest extends TestCase
       assertEquals("value2", propertiesMap.get("key2", "value2"));
       assertTrue(propertiesMap.containsKey("key"));
       assertFalse(propertiesMap.containsKey("key2"));
-      
+
       Properties javaProperties = propertiesMap.toJavaProperties();
       assertEquals("value", javaProperties.getProperty("key"));
       assertEquals("value2", javaProperties.getProperty("key2", "value2"));
       assertTrue(javaProperties.containsKey("key"));
       assertFalse(javaProperties.containsKey("key2"));
    }
-   
+
    public void testToJavaProperties2() throws Exception
    {
       PropertiesMap defaults = new LinkedPropertiesMap();
       defaults.put("key2", "value2");
-      
+
       LinkedPropertiesMap delegate = new LinkedPropertiesMap();
       delegate.setDefaultProperties(defaults);
       delegate.put("key", "value");
@@ -44,7 +44,7 @@ public class DelegatingPropertiesMapTest extends TestCase
       assertEquals("value2", propertiesMap.get("key2", "value2"));
       assertTrue(propertiesMap.containsKey("key"));
       assertFalse(propertiesMap.containsKey("key2"));
-      
+
       Properties javaProperties = propertiesMap.toJavaProperties();
       assertEquals("value", javaProperties.getProperty("key"));
       assertEquals("value2", javaProperties.getProperty("key2", "value2"));

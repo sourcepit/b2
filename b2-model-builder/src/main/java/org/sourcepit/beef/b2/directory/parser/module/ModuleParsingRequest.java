@@ -16,7 +16,7 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    private IConverter converter;
 
    private IModelCache modelCache;
-   
+
    private IModuleFilter moduleFilter;
 
    public static ModuleParsingRequest copy(IModuleParsingRequest request)
@@ -71,7 +71,7 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    {
       return moduleFilter;
    }
-   
+
    public void setModuleFilter(IModuleFilter moduleFilter)
    {
       this.moduleFilter = moduleFilter;

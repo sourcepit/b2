@@ -54,7 +54,7 @@ public class ModuleInterpolator implements IModuleInterpolator
 
    @Inject
    private B2Session b2Session;
-   
+
    public void interpolate(IModuleInterpolationRequest request)
    {
       checkRequest(request);

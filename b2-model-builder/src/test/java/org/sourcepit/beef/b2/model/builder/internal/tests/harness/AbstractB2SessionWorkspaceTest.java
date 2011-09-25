@@ -56,7 +56,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       }
       return null;
    }
-   
+
    protected File getModuleDirByArtifactId(String artifactId)
    {
       ModuleProject project = getModuleProjectByArtifactId(artifactId);

@@ -144,7 +144,7 @@ public class AbstractConverterTest extends TestCase
 
       IConverter converter = newConvertert(properties, false);
       assertFalse(converter.isSkipInterpolator());
-      
+
       converter = newConvertert(properties, true);
       assertFalse(converter.isSkipInterpolator());
 

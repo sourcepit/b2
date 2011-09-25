@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 public class LinkedPropertiesMap extends LinkedHashMap<String, String> implements PropertiesMap
@@ -105,7 +106,7 @@ public class LinkedPropertiesMap extends LinkedHashMap<String, String> implement
    {
       return PropertiesUtils.getBoolean(this, key, defaultValue);
    }
-   
+
    public void setBoolean(String key, boolean value)
    {
       PropertiesUtils.setBoolean(this, key, value);

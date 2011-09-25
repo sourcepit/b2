@@ -70,9 +70,9 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
    {
       ResourceSet resourceSet = new ResourceSetImpl();
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
-      
+
       B2Session b2Session = createB2Session(bootSession, resourceSet);
-      
+
       initJsr330(bootSession, b2Session);
 
       final DecouplingModelCache modelCache = initModelCache(bootSession, resourceSet);
@@ -127,7 +127,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       {
          throw new IllegalStateException(e);
       }
-      
+
       bootSession.setData(CACHE_KEY_SESSION, uri.toString());
 
       storeModelCache(bootSession, modelCache);

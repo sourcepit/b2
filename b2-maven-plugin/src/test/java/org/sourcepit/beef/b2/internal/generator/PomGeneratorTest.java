@@ -28,7 +28,7 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
 
       PluginsFacet facet = module.getFacets(PluginsFacet.class).get(0);
       assertNotNull(facet);
-      
+
       assertIsGeneratorInput(facet);
       generatePom(facet, null);
 

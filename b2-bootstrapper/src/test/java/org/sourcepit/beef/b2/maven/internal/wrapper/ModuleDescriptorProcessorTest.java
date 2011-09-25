@@ -25,7 +25,7 @@ public class ModuleDescriptorProcessorTest extends AbstractPlexusWorkspaceTest
    {
       File baseDir = workspace.importResources("composed-component");
       assertTrue(baseDir.canRead());
-      
+
       final MavenSession mavenSession = createMavenSession(baseDir);
 
       final List<File> descriptors = new ArrayList<File>();
@@ -67,7 +67,8 @@ public class ModuleDescriptorProcessorTest extends AbstractPlexusWorkspaceTest
       assertNotNull(descriptors);
       assertEquals(3, descriptors.size());
       assertEquals(1, skippedDescriptors.size());
-      assertEquals(new File(baseDir, "simple-layout/module.xml").getAbsoluteFile(), skippedDescriptors.get(0).getAbsoluteFile());
+      assertEquals(new File(baseDir, "simple-layout/module.xml").getAbsoluteFile(), skippedDescriptors.get(0)
+         .getAbsoluteFile());
 
       // order differs on win and linux...
       // assertEquals(new File(baseDir, "simple-layout/module.xml"), descriptors.get(0));

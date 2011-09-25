@@ -66,7 +66,7 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
             project.setFragmentHostVersion(hostHeader.getAttributes().get("bundle-version"));
          }
       }
-      
+
       return project;
    }
 }

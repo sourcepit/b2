@@ -29,7 +29,7 @@ public class DecouplingModelCache implements IModelCache
 
    private final ResourceSet resourceSet;
 
-   public DecouplingModelCache(ResourceSet resourceSet )
+   public DecouplingModelCache(ResourceSet resourceSet)
    {
       this.resourceSet = resourceSet;
    }

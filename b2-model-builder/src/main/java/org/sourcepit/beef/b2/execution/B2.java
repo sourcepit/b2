@@ -32,11 +32,12 @@ public class B2
 
    @Inject
    private B2Generator generator;
-   
+
    @Inject
    private List<IB2Listener> listeners;
 
-   public AbstractModule generate(File moduleDir, IModelCache modelCache, IModuleFilter traversalStrategy, IConverter converter, ITemplates templates)
+   public AbstractModule generate(File moduleDir, IModelCache modelCache, IModuleFilter traversalStrategy,
+      IConverter converter, ITemplates templates)
    {
       cleaner.clean(moduleDir);
 
@@ -55,7 +56,7 @@ public class B2
          {
             listener.startGeneration(module);
          }
-         
+
          final B2GenerationRequest genRequest = new B2GenerationRequest();
          genRequest.setModule(module);
          genRequest.setConverter(converter);

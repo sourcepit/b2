@@ -21,7 +21,7 @@ public abstract class AbstractInjectedWorkspaceTest extends InjectedTestCase
       super.configure(binder);
       binder.bind(Logger.class).toInstance(new ConsoleLogger());
    }
-   
+
    @Override
    protected void setUp() throws Exception
    {

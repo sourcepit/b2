@@ -14,9 +14,9 @@ public interface PropertiesMap extends Map<String, String>
    Map<String, String> getDefaultProperties();
 
    String get(String key, String defaultValue);
-   
+
    void setBoolean(String key, boolean value);
-   
+
    boolean getBoolean(String key, boolean defaultValue);
 
    Properties toJavaProperties();
@@ -28,7 +28,7 @@ public interface PropertiesMap extends Map<String, String>
     * @throws IllegalStateException if an error occurred when reading from the input stream.
     */
    void load(InputStream inputStream);
-   
+
    void load(ClassLoader classLoader, String resourcePath);
 
    /**
