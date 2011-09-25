@@ -39,6 +39,7 @@ import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleDependency;
 
 @Named
 public class ModuleInterpolator implements IModuleInterpolator
@@ -307,6 +308,29 @@ public class ModuleInterpolator implements IModuleInterpolator
       for (FeaturesFacet featuresFacet : featuresFacets)
       {
          collectFeatureIncludes(featuresFacet, featureIncs, matcher, converter);
+      }
+
+      EList<ModuleDependency> dependencies = b2Session.getCurrentProject().getDependencies();
+      for (ModuleDependency dependency : dependencies)
+      {
+         String prefix = dependency.getGroupId() + "." + dependency.getArtifactId();
+
+         List<String> features = new ArrayList<String>();
+
+         features.add(prefix + ".feature");
+         features.add(prefix + ".sdk.feature");
+         features.add(prefix + ".tests.feature");
+
+         for (String featureId : features)
+         {
+            if (matcher.isMatch(featureId))
+            {
+               final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
+               featureInclude.setId(featureId);
+               featureInclude.setVersionRange("0.0.0");
+               featureIncs.add(featureInclude);
+            }
+         }
       }
    }
 

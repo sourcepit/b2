@@ -59,7 +59,7 @@ public class BootPomSerializer implements IB2Listener
    private void persistModulePomTemplate(AbstractModule module, final File bootPomFile) throws IOException
    {
       final Model model = new DefaultModelReader().read(bootPomFile, null);
-      model.getDependencies().clear();
+      // model.getDependencies().clear();
 
       final File pomFile = createFile(module, "module-pom-template.xml");
       writeMavenModel(model, pomFile);
