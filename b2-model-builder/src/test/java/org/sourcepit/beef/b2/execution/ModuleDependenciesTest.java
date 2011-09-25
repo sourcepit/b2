@@ -15,31 +15,19 @@ import org.sourcepit.beef.b2.model.session.ModuleProject;
 public class ModuleDependenciesTest extends AbstractB2SessionWorkspaceTest
 {
    @Override
-   protected String getModulePath()
+   protected String setUpModulePath()
    {
       return "reactor-build";
    }
 
    public void testModuleDependencies() throws Exception
    {
-      ModuleProject rcpProject = getProject("rcp");
+      ModuleProject rcpProject = getModuleProjectByArtifactId("rcp");
 
       EList<ModuleDependency> dependencies = rcpProject.getDependencies();
       assertEquals(2, dependencies.size());
 
       assertEquals("rcp.help", dependencies.get(0).getArtifactId());
       assertEquals("rcp.ui", dependencies.get(1).getArtifactId());
-   }
-
-   protected ModuleProject getProject(String artifactId)
-   {
-      for (ModuleProject project : b2Session.getProjects())
-      {
-         if (artifactId.equals(project.getArtifactId()))
-         {
-            return project;
-         }
-      }
-      return null;
    }
 }

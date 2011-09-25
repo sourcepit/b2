@@ -63,7 +63,7 @@ public class BootPomSerializer implements IB2Listener
 
       final File pomFile = createFile(module, "module-pom-template.xml");
       writeMavenModel(model, pomFile);
-      module.putAnnotationEntry("b2", "modulePomTemplate", pomFile.getAbsolutePath());
+      module.putAnnotationEntry("maven", "modulePomTemplate", pomFile.getAbsolutePath());
    }
 
    private File createFile(AbstractModule module, String fileName) throws IOException

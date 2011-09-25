@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuilder;
+import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.internal.builder.B2ModelBuilder;
@@ -23,19 +24,24 @@ import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
-import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
 /**
  * @author Bernd
  */
-public class DecouplingModelCacheTest extends AbstractInjectedWorkspaceTest
+public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 {
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
 
+   @Override
+   protected String setUpModulePath()
+   {
+      return "composed-component";
+   }
+
    public void testUndecoupled() throws Exception
    {
-      final File moduleDir = workspace.importResources("composed-component");
+      final File moduleDir = getModuleDirByArtifactId("composite-layout");
 
       // get dummy module files
       final File parentFile = moduleDir;
@@ -83,7 +89,7 @@ public class DecouplingModelCacheTest extends AbstractInjectedWorkspaceTest
 
    public void testDecoupled() throws Exception
    {
-      final File moduleDir = workspace.importResources("composed-component");
+      final File moduleDir = getModuleDirByArtifactId("composite-layout");
 
       // get dummy module files
       final File parentFile = moduleDir;
@@ -138,7 +144,7 @@ public class DecouplingModelCacheTest extends AbstractInjectedWorkspaceTest
 
    public void testDecoupled_Interpolated() throws Exception
    {
-      final File moduleDir = workspace.importResources("composed-component");
+      final File moduleDir = getModuleDirByArtifactId("composite-layout");
 
       // get dummy module files
       final File parentFile = moduleDir;

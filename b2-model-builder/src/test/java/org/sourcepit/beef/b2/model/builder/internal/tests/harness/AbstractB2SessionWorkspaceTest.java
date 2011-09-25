@@ -36,7 +36,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
    {
       super.configure(binder);
 
-      final File moduleDir = getModuleDir();
+      final File moduleDir = setUpModuleDir();
       assertTrue(moduleDir.canRead());
 
       final B2Session session = createSession(moduleDir.getAbsoluteFile());
@@ -45,12 +45,39 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       binder.bind(B2Session.class).toInstance(session);
    }
 
-   protected File getModuleDir()
+   protected ModuleProject getModuleProjectByArtifactId(String artifactId)
    {
-      return workspace.importResources(getModulePath());
+      for (ModuleProject project : b2Session.getProjects())
+      {
+         if (artifactId.equals(project.getArtifactId()))
+         {
+            return project;
+         }
+      }
+      return null;
+   }
+   
+   protected File getModuleDirByArtifactId(String artifactId)
+   {
+      ModuleProject project = getModuleProjectByArtifactId(artifactId);
+      if (project != null)
+      {
+         return project.getDirectory();
+      }
+      return null;
    }
 
-   protected abstract String getModulePath();
+   protected File getCurrentModuleDir()
+   {
+      return b2Session.getCurrentProject().getDirectory();
+   }
+
+   protected File setUpModuleDir()
+   {
+      return workspace.importResources(setUpModulePath());
+   }
+
+   protected abstract String setUpModulePath();
 
    protected B2Session createSession(File moduleDir)
    {

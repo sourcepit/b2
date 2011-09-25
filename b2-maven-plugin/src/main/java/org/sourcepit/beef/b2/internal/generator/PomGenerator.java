@@ -36,6 +36,7 @@ import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.util.ModuleModelSwitch;
+import org.sourcepit.beef.b2.model.session.B2Session;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
@@ -48,6 +49,9 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Inject
    private IUnpackStrategy unpackStrategy;
+
+   @Inject
+   private B2Session b2Session;
 
    @Override
    public GeneratorType getGeneratorType()
@@ -190,11 +194,33 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setVersion(VersionUtils.toMavenVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
+      // EList<ModuleDependency> dependencies = b2Session.getCurrentProject().getDependencies();
+      // for (ModuleDependency moduleDependency : dependencies)
+      // {
+      // Repository repository = new Repository();
+      // repository.setId(moduleDependency.getGroupId() + "" + moduleDependency.getArtifactId());
+      // repository.setUrl("http://localhost/" + moduleDependency.getGroupId().replace('.', '/') + "/"
+      // + moduleDependency.getArtifactId() + ".site/" + moduleDependency.getVersionRange());
+      // repository.setLayout("p2");
+      //
+      // defaultModel.getRepositories().add(repository);
+      // }
+
       NlsUtils.injectNlsProperties(defaultModel.getProperties(), targetDir, "module", "properties");
 
       addAdditionalProjectProperties(module, converter, defaultModel);
 
-      final Model moduleModel = readMavenModel(new File(targetDir, "module.xml"));
+      final Model moduleModel;
+
+      final String path = module.getAnnotationEntry("maven", "modulePomTemplate");
+      if (path != null)
+      {
+         moduleModel = readMavenModel(new File(path));
+      }
+      else
+      {
+         moduleModel = readMavenModel(new File(targetDir, "module.xml"));
+      }
 
       new FixedModelMerger().merge(defaultModel, moduleModel, false, null);
 

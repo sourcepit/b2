@@ -14,9 +14,15 @@ import org.sourcepit.beef.b2.model.module.PluginsFacet;
 
 public class PomGeneratorTest extends AbstractPomGeneratorTest
 {
+   @Override
+   protected String setUpModulePath()
+   {
+      return "composed-component/simple-layout";
+   }
+
    public void testSkipFacets() throws Exception
    {
-      BasicModule module = buildModel(b2Session.getCurrentProject().getDirectory());
+      BasicModule module = buildModel(getCurrentModuleDir());
       assertNotNull(module);
       assertNoPomFiles(module.getDirectory());
 
@@ -37,11 +43,5 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
       generatePom(facet, properties);
 
       assertTrue(facetPom.exists());
-   }
-
-   @Override
-   protected String getModulePath()
-   {
-      return "composed-component/simple-layout";
    }
 }

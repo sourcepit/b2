@@ -13,6 +13,7 @@ import java.io.File;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.beef.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.beef.b2.model.builder.IB2ModelBuilder;
+import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
@@ -21,18 +22,22 @@ import org.sourcepit.beef.b2.model.module.CompositeModule;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.B2ModelHarness;
-import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
 /**
  * @author Bernd
  */
-public class B2ModelBuilderTest extends AbstractInjectedWorkspaceTest
+public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 {
-   /**
-    * Test if we are able to lookup and obtain our module instance from the container.
-    * 
-    * @throws Exception
-    */
+   @Override
+   protected String setUpModulePath()
+   {
+      if ("testComposedComposite".equals(getName()))
+      {
+         return "composed-component";
+      }
+      return "composed-component/simple-layout";
+   }
+
    public void testBasic() throws Exception
    {
       B2ModelBuilder module = lookup();
@@ -78,7 +83,7 @@ public class B2ModelBuilderTest extends AbstractInjectedWorkspaceTest
 
    public void testSimpleComponent() throws Exception
    {
-      File coreResources = workspace.importResources("composed-component/simple-layout");
+      File coreResources = getCurrentModuleDir();
       assertTrue(coreResources.canRead());
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
@@ -109,7 +114,7 @@ public class B2ModelBuilderTest extends AbstractInjectedWorkspaceTest
 
    public void testComposedComposite() throws Exception
    {
-      final File moduleDir = workspace.importResources("composed-component");
+      final File moduleDir = getModuleDirByArtifactId("composite-layout");
 
       // get dummy module files
       final File parentFile = moduleDir;
@@ -147,7 +152,7 @@ public class B2ModelBuilderTest extends AbstractInjectedWorkspaceTest
 
    public void testSkipInterpolator() throws Exception
    {
-      File coreResources = workspace.importResources("composed-component/simple-layout");
+      File coreResources = getCurrentModuleDir();
       assertTrue(coreResources.canRead());
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();

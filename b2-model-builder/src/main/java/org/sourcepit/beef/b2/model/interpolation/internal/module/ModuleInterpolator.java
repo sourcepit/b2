@@ -38,6 +38,7 @@ import org.sourcepit.beef.b2.model.module.PluginsFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
+import org.sourcepit.beef.b2.model.session.B2Session;
 
 @Named
 public class ModuleInterpolator implements IModuleInterpolator
@@ -51,6 +52,9 @@ public class ModuleInterpolator implements IModuleInterpolator
    @Inject
    private ISourceManager sourceManager;
 
+   @Inject
+   private B2Session b2Session;
+   
    public void interpolate(IModuleInterpolationRequest request)
    {
       checkRequest(request);

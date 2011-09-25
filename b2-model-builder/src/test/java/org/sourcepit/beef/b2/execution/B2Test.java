@@ -10,22 +10,27 @@ import javax.inject.Inject;
 
 import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
-import org.sourcepit.beef.b2.execution.B2;
 import org.sourcepit.beef.b2.internal.generator.DefaultTemplateCopier;
+import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.test.internal.harness.B2ModelHarness;
-import org.sourcepit.beef.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
-public class B2Test extends AbstractInjectedWorkspaceTest
+public class B2Test extends AbstractB2SessionWorkspaceTest
 {
    @Inject
    private B2 b2;
 
+   @Override
+   protected String setUpModulePath()
+   {
+      return "composed-component/simple-layout";
+   }
+
    public void testSkipInterpolator() throws Exception
    {
-      File moduleDir = workspace.importResources("composed-component/simple-layout");
+      File moduleDir = getCurrentModuleDir();
       assertTrue(moduleDir.canRead());
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -41,4 +46,5 @@ public class B2Test extends AbstractInjectedWorkspaceTest
       assertNotNull(module);
       B2ModelHarness.assertHasDerivedElements(module);
    }
+
 }

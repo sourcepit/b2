@@ -23,14 +23,14 @@ public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest
    private PomHierarchyGenerator hierarchyGenerator;
 
    @Override
-   protected String getModulePath()
+   protected String setUpModulePath()
    {
       return "composed-component/simple-layout";
    }
 
    public void testSkipFacets() throws Exception
    {
-      BasicModule module = buildModel(b2Session.getCurrentProject().getDirectory());
+      BasicModule module = buildModel(getCurrentModuleDir());
       assertNotNull(module);
       File moduleDir = module.getDirectory();
       assertNoPomFiles(moduleDir);
