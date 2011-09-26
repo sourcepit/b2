@@ -212,15 +212,15 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       final Model moduleModel;
 
-      // final String path = module.getAnnotationEntry("maven", "modulePomTemplate");
-      // if (path != null)
-      // {
-      // moduleModel = readMavenModel(new File(path));
-      // }
-      // else
-      // {
-      moduleModel = readMavenModel(new File(targetDir, "module.xml"));
-      // }
+      final String path = module.getAnnotationEntry("maven", "modulePomTemplate");
+      if (path != null)
+      {
+         moduleModel = readMavenModel(new File(path));
+      }
+      else
+      {
+         moduleModel = readMavenModel(new File(targetDir, "module.xml"));
+      }
 
       new FixedModelMerger().merge(defaultModel, moduleModel, false, null);
 

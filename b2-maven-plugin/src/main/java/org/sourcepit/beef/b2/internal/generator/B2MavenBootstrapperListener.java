@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.building.ModelBuilder;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
@@ -53,6 +54,9 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 {
    @Requirement
    private LegacySupport legacySupport;
+   
+   @Requirement
+   private ModelBuilder modelBuilder;
 
    @Requirement
    private Logger logger;
@@ -201,6 +205,8 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             bind(Logger.class).toInstance(logger);
             bind(BootstrapSession.class).toInstance(session);
             bind(B2Session.class).toInstance(b2Session);
+            bind(LegacySupport.class).toInstance(legacySupport);
+            bind(ModelBuilder.class).toInstance(modelBuilder);
 
             bind(IB2Listener.class).toInstance(bootPomSerializer);
          }
