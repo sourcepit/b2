@@ -6,23 +6,16 @@ package org.sourcepit.beef.b2.internal.generator;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
-import org.apache.maven.model.Reporting;
-import org.apache.maven.model.Resource;
 import org.apache.maven.model.building.DefaultModelBuildingRequest;
 import org.apache.maven.model.building.ModelBuilder;
 import org.apache.maven.model.building.ModelBuildingException;
 import org.apache.maven.model.building.ModelBuildingRequest;
-import org.apache.maven.model.building.ModelBuildingResult;
 import org.apache.maven.model.building.StringModelSource;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.project.MavenProject;
@@ -53,124 +46,14 @@ public class BootPomSerializer implements IB2Listener
       {
          try
          {
-            final File bootPomFile = persistB2BootPom(module, currentProject);
-            persistModulePomTemplate(module, bootPomFile);
+            persistB2BootPom(module, currentProject);
+            persistModulePomTemplate(module, currentProject);
          }
          catch (IOException e)
          {
             throw new IllegalStateException(e);
          }
       }
-   }
-
-   /**
-    * @param result
-    * @return
-    */
-   protected Model emptyModel(ModelBuildingResult result)
-   {
-      return result.getEffectiveModel();
-   }
-
-   private void remove(Model model, Model superModel)
-   {
-      model.setRepositories(remove(model.getRepositories(), superModel.getRepositories()));
-      model.setPluginRepositories(remove(model.getPluginRepositories(), superModel.getPluginRepositories()));
-      model.setBuild(remove(model.getBuild(), superModel.getBuild()));
-      model.setReporting(remove(model.getReporting(), superModel.getReporting()));
-   }
-
-   private <T> T remove(T object, T superObject)
-   {
-      if (object == null)
-      {
-         return null;
-      }
-
-      if (superObject == null)
-      {
-         return object;
-      }
-
-      if (object instanceof Collection)
-      {
-         Collection collection = (Collection) object;
-         Collection superCollection = (Collection) superObject;
-         List remove = new ArrayList(collection.size());
-         for (Object entry : collection)
-         {
-            if (contains(superCollection, entry))
-            {
-               remove.add(entry);
-            }
-         }
-         collection.removeAll(remove);
-         return object;
-      }
-
-      if (object instanceof Build)
-      {
-         Build build = (Build) object;
-         Build superBuild = (Build) superObject;
-
-         build.setDirectory(remove(build.getDirectory(), superBuild.getDirectory()));
-         build.setFinalName(remove(build.getFinalName(), superBuild.getFinalName()));
-         build.setOutputDirectory(remove(build.getOutputDirectory(), superBuild.getOutputDirectory()));
-         build
-            .setScriptSourceDirectory(remove(build.getScriptSourceDirectory(), superBuild.getScriptSourceDirectory()));
-         build.setSourceDirectory(remove(build.getSourceDirectory(), superBuild.getSourceDirectory()));
-         build.setTestOutputDirectory(remove(build.getTestOutputDirectory(), superBuild.getTestOutputDirectory()));
-         build.setTestSourceDirectory(remove(build.getTestSourceDirectory(), superBuild.getTestSourceDirectory()));
-
-         build.setResources(remove(build.getResources(), superBuild.getResources()));
-         build.setTestResources(remove(build.getTestResources(), superBuild.getTestResources()));
-         build.setPlugins(remove(build.getPlugins(), superBuild.getPlugins()));
-
-         return object;
-      }
-
-      if (object instanceof Reporting)
-      {
-         Reporting reporting = (Reporting) object;
-         Reporting superReporting = (Reporting) superObject;
-         reporting.setOutputDirectory(remove(reporting.getOutputDirectory(), superReporting.getOutputDirectory()));
-         return object;
-      }
-
-      return equals(object, superObject) ? null : object;
-   }
-
-   protected boolean contains(Collection superCollection, Object entry)
-   {
-      for (Object superEntry : superCollection)
-      {
-         if (equals(entry, superEntry))
-         {
-            return true;
-         }
-      }
-      return false;
-   }
-
-   protected boolean equals(Object o1, Object o2)
-   {
-      if (o1 == null)
-      {
-         return o2 == null;
-      }
-
-      if (o1 instanceof Resource)
-      {
-         Resource resource = (Resource) o1;
-         Resource superResource = (Resource) o2;
-         if (equals(resource.getDirectory(), superResource.getDirectory()))
-         {
-            return true;
-         }
-         return false;
-      }
-
-      return o1.equals(o2);
    }
 
    private File persistB2BootPom(AbstractModule module, final MavenProject currentProject) throws IOException
@@ -182,22 +65,29 @@ public class BootPomSerializer implements IB2Listener
       return pomFile;
    }
 
-   private void persistModulePomTemplate(AbstractModule module, final File bootPomFile) throws IOException
+   private void persistModulePomTemplate(AbstractModule module, final MavenProject currentProject) throws IOException
    {
-      final Model templateModel;// = new DefaultModelReader().read(bootPomFile, null);
-      // model.getDependencies().clear();
+      final Model mavenDefaults = getMavenDefaults(currentProject);
+      final Model templateModel = currentProject.getModel().clone();
+      new ModelCutter().cut(templateModel, mavenDefaults);
 
+      final File pomFile = createFile(module, "module-pom-template.xml");
+      writeMavenModel(templateModel, pomFile);
+      module.putAnnotationEntry("maven", "modulePomTemplate", pomFile.getAbsolutePath());
+   }
+
+   private Model getMavenDefaults(MavenProject mavenProject)
+   {
       try
       {
-         MavenProject mavenProject = bootSession.getCurrentProject();
-
          final Model model = new Model();
          model.setModelVersion(mavenProject.getModelVersion());
          model.setGroupId(mavenProject.getGroupId());
          model.setArtifactId(mavenProject.getArtifactId());
          model.setVersion(mavenProject.getVersion());
+         model.setPackaging(mavenProject.getPackaging());
 
-         ByteArrayOutputStream out = new ByteArrayOutputStream();
+         final ByteArrayOutputStream out = new ByteArrayOutputStream();
          try
          {
             new DefaultModelWriter().write(out, null, model);
@@ -219,22 +109,22 @@ public class BootPomSerializer implements IB2Listener
          request.setSystemProperties(projectBuildingRequest.getSystemProperties());
          request.setUserProperties(projectBuildingRequest.getUserProperties());
          request.setValidationLevel(ModelBuildingRequest.VALIDATION_LEVEL_MINIMAL);
+         request.setProcessPlugins(true);
          request.setTwoPhaseBuilding(false);
          request.setModelSource(modelSource);
          request.setPomFile(pomFile);
 
-         ModelBuildingResult result = modelBuilder.build(request);
-         templateModel = mavenProject.getModel();
-         remove(templateModel, emptyModel(result));
+         final Model defaultModel = modelBuilder.build(request).getEffectiveModel();
+         defaultModel.setGroupId(null);
+         defaultModel.setArtifactId(null);
+         defaultModel.setVersion(null);
+         defaultModel.setPomFile(null);
+         return defaultModel;
       }
       catch (ModelBuildingException e)
       {
          throw new IllegalStateException(e);
       }
-
-      final File pomFile = createFile(module, "module-pom-template.xml");
-      writeMavenModel(templateModel, pomFile);
-      module.putAnnotationEntry("maven", "modulePomTemplate", pomFile.getAbsolutePath());
    }
 
    private File createFile(AbstractModule module, String fileName) throws IOException

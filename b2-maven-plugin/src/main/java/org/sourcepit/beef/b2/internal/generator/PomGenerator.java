@@ -36,7 +36,6 @@ import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.util.ModuleModelSwitch;
-import org.sourcepit.beef.b2.model.session.B2Session;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
@@ -49,9 +48,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Inject
    private IUnpackStrategy unpackStrategy;
-
-   @Inject
-   private B2Session b2Session;
 
    @Override
    public GeneratorType getGeneratorType()
