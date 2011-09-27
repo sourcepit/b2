@@ -28,7 +28,7 @@ public class ModuleDependenciesTest extends AbstractB2SessionWorkspaceTest
       return "reactor-build";
    }
 
-   public void testModuleDependencies() throws Exception
+   public void _testModuleDependencies() throws Exception
    {
       ModuleProject rcpProject = getModuleProjectByArtifactId("rcp");
 
