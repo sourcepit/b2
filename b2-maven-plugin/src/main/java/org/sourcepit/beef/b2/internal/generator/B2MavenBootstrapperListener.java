@@ -160,7 +160,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
       storeModelCache(bootSession, modelCache);
 
-      createAndattachModuleJar(wrapperProject, interpolationLayout, b2Session, module, converter);
+      // createAndattachModuleJar(wrapperProject, interpolationLayout, b2Session, module, converter);
    }
 
    private void createAndattachModuleJar(MavenProject bootProject, IInterpolationLayout interpolationLayout,
