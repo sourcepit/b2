@@ -270,11 +270,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       }
    }
 
-   private boolean isInModule(AbstractModule module, File modelFile)
-   {
-      return modelFile.getPath().startsWith(module.getDirectory().getPath());
-   }
-
    private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet)
    {
       final B2Session b2Session;

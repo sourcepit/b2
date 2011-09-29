@@ -10,13 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Parent;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.model.io.ModelReader;
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.beef.b2.common.internal.utils.PathUtils;
 import org.sourcepit.beef.b2.generator.AbstractGenerator;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.common.Annotatable;
+import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 public abstract class AbstractPomGenerator extends AbstractGenerator
 {
@@ -32,6 +35,46 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
 
    protected abstract void generate(Annotatable inputElement, boolean skipFacets, IConverter converter,
       ITemplates templates);
+
+   protected File getPomFile(Annotatable annotateable)
+   {
+      final String path = annotateable.getAnnotationEntry(SOURCE_MAVEN, KEY_POM_FILE);
+      if (path != null)
+      {
+         return new File(path);
+      }
+      return null;
+   }
+
+   protected File resolvePomFile(Annotatable annotateable)
+   {
+      final File pomFile = new File(annotateable.getAnnotationEntry(SOURCE_MAVEN, KEY_POM_FILE));
+      if (!pomFile.exists())
+      {
+         throw new IllegalStateException("Pom file was not generated for " + annotateable);
+      }
+      return pomFile;
+   }
+
+   protected void setMavenParent(File mavenParentFile, Model mavenParent, File mavenModuleFile, Model mavenModule)
+   {
+      final String moduleToParentPath = PathUtils.getRelativePath(mavenParentFile, mavenModuleFile, "/");
+      final Parent parent = new Parent();
+      parent.setGroupId(mavenParent.getGroupId());
+      parent.setArtifactId(mavenParent.getArtifactId());
+      parent.setVersion(mavenParent.getVersion());
+      parent.setRelativePath(moduleToParentPath);
+      mavenModule.setParent(parent);
+
+      writeMavenModel(mavenModuleFile, mavenModule);
+   }
+
+   protected void setMavenModule(File mavenParentFile, Model mavenParent, File mavenModuleFile)
+   {
+      final String parentToModulePath = PathUtils.getRelativePath(mavenModuleFile, mavenParentFile, "/");
+      mavenParent.getModules().add(parentToModulePath);
+      writeMavenModel(mavenParentFile, mavenParent);
+   }
 
    protected Model readMavenModel(File pomFile)
    {
