@@ -16,6 +16,7 @@ import org.apache.maven.model.building.DefaultModelBuildingRequest;
 import org.apache.maven.model.building.ModelBuilder;
 import org.apache.maven.model.building.ModelBuildingException;
 import org.apache.maven.model.building.ModelBuildingRequest;
+import org.apache.maven.model.building.ModelProcessor;
 import org.apache.maven.model.building.StringModelSource;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.project.MavenProject;
@@ -59,7 +60,9 @@ public class BootPomSerializer implements IB2Listener
    private File persistB2BootPom(AbstractModule module, final MavenProject currentProject) throws IOException
    {
       final File pomFile = createFile(module, "boot-pom.xml");
-      final Model model = currentProject.getModel();
+      final Model model = currentProject.getOriginalModel().clone();
+      // final Model mavenDefaults = getMavenDefaults(currentProject);
+      // new ModelCutter().cut(model, mavenDefaults);
       writeMavenModel(model, pomFile);
       module.putAnnotationEntry("b2", "bootPom", pomFile.getAbsolutePath());
       return pomFile;

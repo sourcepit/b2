@@ -340,8 +340,17 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    {
       final File targetDir = project.getDirectory();
 
+      final AbstractModule module = project.getParent().getParent();
+
+      Properties properties = new Properties();
+      properties.setProperty("b2.module.groupId", converter.getNameSpace());
+      properties.setProperty("b2.module.artifactId", getArtifactIdForModule(module, converter));
+      properties.setProperty("b2.module.version", VersionUtils.toMavenVersion(module.getVersion()));
+      String classifier = project.getClassifier();
+      properties.setProperty("b2.project.classifier", classifier == null ? "" : project.getClassifier());
+
       final File pomFile = new File(targetDir, "site-pom.xml");
-      copyPomTemplate(templates, pomFile);
+      copyPomTemplate(templates, pomFile, properties);
 
       final Model defaultModel = new Model();
       defaultModel.setModelVersion("4.0.0");
