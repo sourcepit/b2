@@ -20,6 +20,17 @@
 		<!-- <sonar.jacoco.reportPath>d:/tmp/jacoco.exec</sonar.jacoco.reportPath> -->
 	</properties>
 
+	<distributionManagement>
+		<repository>
+			<id>b2-releases</id>
+			<url>file:////\${user.home}/repository/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>b2-snapshots</id>
+			<url>file:////\${user.home}/repository/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<extensions>
 			<extension>

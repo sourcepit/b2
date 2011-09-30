@@ -72,6 +72,7 @@ public class BootPomSerializer implements IB2Listener
    {
       final Model mavenDefaults = getMavenDefaults(currentProject);
       final Model templateModel = currentProject.getModel().clone();
+      templateModel.setParent(null);
       new ModelCutter().cut(templateModel, mavenDefaults);
 
       final File pomFile = createFile(module, "module-pom-template.xml");

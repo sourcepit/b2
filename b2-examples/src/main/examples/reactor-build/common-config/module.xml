@@ -11,12 +11,28 @@
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
-		<p2repo.version>${p2repo.version}</p2repo.version>
 		<b2.extension.version>${b2.extension.version}</b2.extension.version>
-		<p2repo>file:/\${user.dir}/../.p2</p2repo>
 	</properties>
 
+	<distributionManagement>
+		<repository>
+			<id>b2-releases</id>
+			<url>file:////\${user.home}/repository/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>b2-snapshots</id>
+			<url>file:////\${user.home}/repository/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav-jackrabbit</artifactId>
+				<version>1.0-beta-7</version>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.sourcepit.beef</groupId>
@@ -56,35 +72,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>deploySites</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.sourcepit.beef</groupId>
-						<artifactId>p2repo-maven-plugin</artifactId>
-						<version>\${p2repo.version}</version>
-						<executions>
-							<execution>
-								<id>deploySites</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>deploy-p2repo</goal>
-								</goals>
-								<configuration>
-									<repository>
-										<id>local-p2</id>
-										<url>\${p2repo}</url>
-									</repository>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 </project>

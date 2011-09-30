@@ -63,6 +63,7 @@ import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
 import org.sourcepit.beef.maven.wrapper.internal.session.IMavenBootstrapperListener;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
@@ -272,6 +273,8 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet)
    {
+      SessionModelPackage.eINSTANCE.getB2Session();
+
       final B2Session b2Session;
 
       final String uri = (String) session.getData(CACHE_KEY_SESSION);

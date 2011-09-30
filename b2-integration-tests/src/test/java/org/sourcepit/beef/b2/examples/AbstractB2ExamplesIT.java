@@ -70,7 +70,7 @@ public abstract class AbstractB2ExamplesIT extends TestCase
          System.out.println(mvnOpts);
       }
 
-      environment.put("MAVEN_ARGS", "-B -e clean verify");
+      environment.put("MAVEN_ARGS", "-B -e clean deploy");
    }
 
    private CommandLine createCmd() throws AssertionFailedError

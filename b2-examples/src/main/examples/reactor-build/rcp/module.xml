@@ -24,32 +24,16 @@
 			<groupId>org.sourcepit.b2.examples</groupId>
 			<artifactId>rcp.help</artifactId>
 			<version>${project.version}</version>
+			<classifier>internal</classifier>
 			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2.examples</groupId>
 			<artifactId>rcp.ui</artifactId>
 			<version>${project.version}</version>
+			<classifier>internal</classifier>
 			<type>pom</type>
 		</dependency>
 	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>useSites</id>
-			<repositories>
-				<repository>
-					<id>local-p2-rcp-help</id>
-					<layout>p2</layout>
-					<url>${p2repo}/org.sourcepit.b2.examples.rcp.help.internal.site/\${project.version}</url>
-				</repository>
-				<repository>
-					<id>local-p2-rcp-ui</id>
-					<layout>p2</layout>
-					<url>${p2repo}/org.sourcepit.b2.examples.rcp.ui.internal.site/\${project.version}</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
 
 </project>

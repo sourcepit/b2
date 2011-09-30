@@ -13,12 +13,28 @@
 		<tycho.version>${tycho.version}</tycho.version>
 	</properties>
 
+	<distributionManagement>
+		<repository>
+			<id>b2-releases</id>
+			<url>file:////\${user.home}/repository/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>b2-snapshots</id>
+			<url>file:////\${user.home}/repository/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<extensions>
 			<extension>
 				<groupId>org.sourcepit.beef</groupId>
 				<artifactId>b2-maven-plugin</artifactId>
 				<version>${b2.extension.version}</version>
+			</extension>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav-jackrabbit</artifactId>
+				<version>1.0-beta-7</version>
 			</extension>
 		</extensions>
 		<pluginManagement>

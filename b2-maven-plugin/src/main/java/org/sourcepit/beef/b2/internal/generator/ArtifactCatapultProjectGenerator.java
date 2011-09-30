@@ -20,6 +20,7 @@ import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
+import org.apache.maven.model.PluginExecution;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.generator.GeneratorType;
@@ -29,7 +30,6 @@ import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
-import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
@@ -64,17 +64,19 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       final AbstractModule module = (AbstractModule) inputElement;
       final File modulePom = resolvePomFile(module);
 
-      final Model parentModel = readMavenModel(modulePom);
+      final Model moduleModel = readMavenModel(modulePom);
 
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
 
-      final File projectDir = new File(layout.pathOfMetaDataFile(module, parentModel.getArtifactId()
+      final File projectDir = new File(layout.pathOfMetaDataFile(module, moduleModel.getArtifactId()
          + "-artifact-catapult"));
       projectDir.mkdirs();
 
+      final File bootPom = new File(layout.pathOfMetaDataFile(module, "boot-pom.xml"));
+
       final Properties properties = new Properties();
-      properties.setProperty("file", modulePom.getAbsolutePath());
-      properties.setProperty("pomFile", modulePom.getAbsolutePath());
+      properties.setProperty("file", bootPom.getAbsolutePath());
+      properties.setProperty("pomFile", bootPom.getAbsolutePath());
 
       final ArtifactRepository repo = bootstrapSession.getCurrentProject()
          .getDistributionManagementArtifactRepository();
@@ -100,43 +102,114 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          final Collection<Dependency> dependencies = gatherDependencies(module);
          model.getDependencies().addAll(dependencies);
 
-         StringBuilder files = new StringBuilder();
-         StringBuilder classifiers = new StringBuilder();
-         StringBuilder types = new StringBuilder();
-         for (ModuleArtifact artifact : artifacts)
-         {
-            files.append(artifact.file.getAbsolutePath());
-            files.append(',');
-            classifiers.append(artifact.classifer);
-            classifiers.append(',');
-            types.append(artifact.type);
-            types.append(',');
-         }
-         files.deleteCharAt(files.length() - 1);
-         classifiers.deleteCharAt(classifiers.length() - 1);
-         types.deleteCharAt(types.length() - 1);
+         final List<Plugin> plugins = model.getBuild().getPlugins();
 
-         Xpp3Dom filesNode = new Xpp3Dom("files");
-         filesNode.setValue(files.toString());
+         final Plugin installMojo = plugins.get(0);
+         configureInstallMojo(installMojo, moduleModel, artifacts);
 
-         Xpp3Dom classifiersNode = new Xpp3Dom("classifiers");
-         classifiersNode.setValue(classifiers.toString());
-
-         Xpp3Dom typesNode = new Xpp3Dom("types");
-         typesNode.setValue(types.toString());
-
-         List<Plugin> plugins = model.getBuild().getPlugins();
-         // Xpp3Dom installConfig = (Xpp3Dom) plugins.get(0).getExecutions().get(0).getConfiguration();
-         Xpp3Dom deployConfig = (Xpp3Dom) plugins.get(1).getExecutions().get(0).getConfiguration();
-         deployConfig.addChild(filesNode);
-         deployConfig.addChild(classifiersNode);
-         deployConfig.addChild(typesNode);
+         final Plugin deployMojo = plugins.get(1);
+         configureDeployMojo(deployMojo, artifacts);
       }
 
-      setMavenParent(modulePom, parentModel, pomFile, model);
-      setMavenModule(modulePom, parentModel, pomFile);
+      connectMavenModels(modulePom, moduleModel, pomFile, model);
+   }
+
+   private void connectMavenModels(final File modulePom, final Model moduleModel, final File pomFile, final Model model)
+   {
+      setMavenParent(modulePom, moduleModel, pomFile, model);
+      setMavenModule(modulePom, moduleModel, pomFile);
       writeMavenModel(pomFile, model);
-      writeMavenModel(modulePom, parentModel);
+      writeMavenModel(modulePom, moduleModel);
+   }
+
+   private void configureDeployMojo(final Plugin deployMojo, final Collection<ModuleArtifact> artifacts)
+   {
+      final StringBuilder files = new StringBuilder();
+      final StringBuilder classifiers = new StringBuilder();
+      final StringBuilder types = new StringBuilder();
+      for (ModuleArtifact artifact : artifacts)
+      {
+         files.append(artifact.file.getAbsolutePath());
+         files.append(',');
+         classifiers.append(artifact.classifier == null ? "" : artifact.classifier);
+         classifiers.append(',');
+         types.append(artifact.type);
+         types.append(',');
+      }
+      files.deleteCharAt(files.length() - 1);
+      classifiers.deleteCharAt(classifiers.length() - 1);
+      types.deleteCharAt(types.length() - 1);
+
+      Xpp3Dom filesNode = new Xpp3Dom("files");
+      filesNode.setValue(files.toString());
+
+      Xpp3Dom classifiersNode = new Xpp3Dom("classifiers");
+      classifiersNode.setValue(classifiers.toString());
+
+      Xpp3Dom typesNode = new Xpp3Dom("types");
+      typesNode.setValue(types.toString());
+
+      Xpp3Dom deployConfig = (Xpp3Dom) deployMojo.getExecutions().get(0).getConfiguration();
+      deployConfig.addChild(filesNode);
+      deployConfig.addChild(classifiersNode);
+      deployConfig.addChild(typesNode);
+   }
+
+   private void configureInstallMojo(final Plugin installMojo, final Model moduleModel,
+      final Collection<ModuleArtifact> artifacts)
+   {
+      for (ModuleArtifact artifact : artifacts)
+      {
+         // create additional executions for install mojo
+         final PluginExecution execution = installMojo.getExecutions().get(0).clone();
+         final StringBuilder idBuilder = new StringBuilder();
+         idBuilder.append("b2-install");
+         if (artifact.classifier != null && artifact.classifier.length() > 0)
+         {
+            idBuilder.append('-');
+            idBuilder.append(artifact.classifier);
+         }
+         if (artifact.type != null && artifact.type.length() > 0)
+         {
+            idBuilder.append('.');
+            idBuilder.append(artifact.type);
+         }
+         execution.setId(idBuilder.toString());
+
+         Xpp3Dom conf = new Xpp3Dom("configuration");
+         execution.setConfiguration(conf);
+
+         Xpp3Dom groupId = new Xpp3Dom("groupId");
+         groupId.setValue(moduleModel.getGroupId());
+         conf.addChild(groupId);
+
+         Xpp3Dom artifactId = new Xpp3Dom("artifactId");
+         artifactId.setValue(moduleModel.getArtifactId());
+         conf.addChild(artifactId);
+
+         Xpp3Dom version = new Xpp3Dom("version");
+         version.setValue(moduleModel.getVersion());
+         conf.addChild(version);
+
+         if (artifact.classifier != null && artifact.classifier.length() > 0)
+         {
+            Xpp3Dom classifer = new Xpp3Dom("classifier");
+            classifer.setValue(artifact.classifier);
+            conf.addChild(classifer);
+         }
+         if (artifact.type != null && artifact.type.length() > 0)
+         {
+            Xpp3Dom type = new Xpp3Dom("packaging"); // parameter for "type" is named "packaging" in InstallFileMojo
+            type.setValue(artifact.type);
+            conf.addChild(type);
+         }
+
+         Xpp3Dom file = new Xpp3Dom("file");
+         file.setValue(artifact.file.getAbsolutePath());
+         conf.addChild(file);
+
+         installMojo.getExecutions().add(execution);
+      }
    }
 
    private Collection<Dependency> gatherDependencies(final AbstractModule module)
@@ -208,16 +281,23 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
       final ModuleArtifact sessionModel = new ModuleArtifact();
       sessionModel.file = new File(layout.pathOfMetaDataFile(module, "b2.session"));
-      sessionModel.classifer = "b2";
+      // sessionModel.classifier = "b2";
       sessionModel.type = "session";
       artifacts.add(sessionModel);
 
       final ModuleArtifact moduleModel = new ModuleArtifact();
       moduleModel.file = new File(layout.pathOfMetaDataFile(module, "b2.module"));
-      moduleModel.classifer = "b2";
+      // moduleModel.classifier = "b2";
       moduleModel.type = "module";
       artifacts.add(moduleModel);
 
+      gatherSiteArtifacts(module, artifacts);
+
+      return artifacts;
+   }
+
+   private void gatherSiteArtifacts(final AbstractModule module, final List<ModuleArtifact> artifacts)
+   {
       for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
       {
          for (SiteProject siteProject : sitesFacet.getProjects())
@@ -225,13 +305,11 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
             final ModuleArtifact siteArtifact = new ModuleArtifact();
             siteArtifact.file = new File(siteProject.getDirectory(), "target/" + siteProject.getId() + ".zip");
             String cl = siteProject.getClassifier();
-            siteArtifact.classifer = cl == null || cl.length() == 0 ? "site" : cl + "-site";
+            siteArtifact.classifier = cl == null || cl.length() == 0 ? "site" : "site-" + cl;
             siteArtifact.type = "zip";
             artifacts.add(siteArtifact);
          }
       }
-
-      return artifacts;
    }
 
    private IInterpolationLayout getLayout(final String layoutId)
@@ -247,18 +325,11 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    private class ModuleArtifact
    {
       public File file;
-      public String classifer, type;
+      public String classifier, type;
 
       public ModuleArtifact()
       {
          super();
-      }
-
-      public ModuleArtifact(File file, String classifier, String type)
-      {
-         this.file = file;
-         this.classifer = classifier;
-         this.type = type;
       }
    }
 
