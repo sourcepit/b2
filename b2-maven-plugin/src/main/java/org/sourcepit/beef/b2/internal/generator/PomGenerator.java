@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import javax.inject.Named;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Repository;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.beef.b2.generator.GeneratorType;
@@ -26,6 +28,7 @@ import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.ISourceManager;
 import org.sourcepit.beef.b2.model.builder.util.IUnpackStrategy;
 import org.sourcepit.beef.b2.model.common.Annotatable;
+import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
@@ -36,6 +39,7 @@ import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.util.ModuleModelSwitch;
+import org.sourcepit.beef.b2.model.session.B2Session;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
@@ -48,6 +52,9 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Inject
    private IUnpackStrategy unpackStrategy;
+
+   @Inject
+   private B2Session b2Session;
 
    @Override
    public GeneratorType getGeneratorType()
@@ -174,7 +181,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    {
       final File targetDir = module.getDirectory();
 
-
       final File _pomFile = new File(targetDir, "module-pom.xml");
       copyPomTemplate(templates, _pomFile);
 
@@ -190,17 +196,18 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setVersion(VersionUtils.toMavenVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
-      // EList<ModuleDependency> dependencies = b2Session.getCurrentProject().getDependencies();
-      // for (ModuleDependency moduleDependency : dependencies)
-      // {
-      // Repository repository = new Repository();
-      // repository.setId(moduleDependency.getGroupId() + "" + moduleDependency.getArtifactId());
-      // repository.setUrl("http://localhost/" + moduleDependency.getGroupId().replace('.', '/') + "/"
-      // + moduleDependency.getArtifactId() + ".site/" + moduleDependency.getVersionRange());
-      // repository.setLayout("p2");
-      //
-      // defaultModel.getRepositories().add(repository);
-      // }
+      final Annotation annotation = b2Session.getCurrentProject().getAnnotation("b2.resolvedSites");
+      if (annotation != null)
+      {
+         for (Entry<String, String> idToUrlEntry : annotation.getEntries())
+         {
+            final Repository repository = new Repository();
+            repository.setId(idToUrlEntry.getKey());
+            repository.setUrl(idToUrlEntry.getValue());
+            repository.setLayout("p2");
+            defaultModel.getRepositories().add(repository);
+         }
+      }
 
       NlsUtils.injectNlsProperties(defaultModel.getProperties(), targetDir, "module", "properties");
 

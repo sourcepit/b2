@@ -19,7 +19,6 @@ import org.sourcepit.beef.b2.common.internal.utils.PathUtils;
 import org.sourcepit.beef.b2.generator.AbstractGenerator;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.common.Annotatable;
-import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 public abstract class AbstractPomGenerator extends AbstractGenerator
 {

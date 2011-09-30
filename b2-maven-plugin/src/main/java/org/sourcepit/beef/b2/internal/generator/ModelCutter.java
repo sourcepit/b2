@@ -349,7 +349,7 @@ public class ModelCutter
       {
          return ((Map) result).isEmpty();
       }
-      
+
       return false;
    }
 

@@ -291,6 +291,22 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       moduleModel.type = "module";
       artifacts.add(moduleModel);
 
+      final File modelFile = new File(layout.pathOfMetaDataFile(module, "b2.module"));
+      for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
+      {
+         for (SiteProject siteProject : sitesFacet.getProjects())
+         {
+            if (siteProject.getClassifier() != null && siteProject.getClassifier().length() > 0)
+            {
+               final ModuleArtifact classifiedModel = new ModuleArtifact();
+               classifiedModel.file = modelFile;
+               classifiedModel.classifier = siteProject.getClassifier();
+               classifiedModel.type = "module";
+               artifacts.add(classifiedModel);
+            }
+         }
+      }
+
       gatherSiteArtifacts(module, artifacts);
 
       return artifacts;

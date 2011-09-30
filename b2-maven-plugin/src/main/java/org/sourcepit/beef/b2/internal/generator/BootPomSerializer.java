@@ -16,7 +16,6 @@ import org.apache.maven.model.building.DefaultModelBuildingRequest;
 import org.apache.maven.model.building.ModelBuilder;
 import org.apache.maven.model.building.ModelBuildingException;
 import org.apache.maven.model.building.ModelBuildingRequest;
-import org.apache.maven.model.building.ModelProcessor;
 import org.apache.maven.model.building.StringModelSource;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.project.MavenProject;

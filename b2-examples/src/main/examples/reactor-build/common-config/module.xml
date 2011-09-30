@@ -14,6 +14,29 @@
 		<b2.extension.version>${b2.extension.version}</b2.extension.version>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>b2-releases</id>
+			<url>file:////\${user.home}/repository/releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>b2-snapshots</id>
+			<url>file:////\${user.home}/repository/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<distributionManagement>
 		<repository>
 			<id>b2-releases</id>

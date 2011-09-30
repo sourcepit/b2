@@ -4,59 +4,56 @@
 
 package org.sourcepit.beef.b2.internal.generator;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.jar.JarEntry;
-import java.util.jar.JarOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.RepositoryUtils;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Model;
 import org.apache.maven.model.building.ModelBuilder;
-import org.apache.maven.model.io.DefaultModelReader;
-import org.apache.maven.model.io.DefaultModelWriter;
-import org.apache.maven.model.io.ModelReader;
-import org.apache.maven.model.merge.MavenModelMerger;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.sonatype.aether.RepositorySystem;
+import org.sonatype.aether.resolution.ArtifactRequest;
+import org.sonatype.aether.resolution.ArtifactResolutionException;
+import org.sonatype.aether.resolution.ArtifactResult;
+import org.sonatype.aether.util.artifact.AbstractArtifact;
+import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sonatype.guice.bean.binders.SpaceModule;
 import org.sonatype.guice.bean.binders.WireModule;
 import org.sonatype.guice.bean.reflect.URLClassSpace;
 import org.sonatype.inject.BeanScanning;
-import org.sourcepit.beef.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.beef.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.beef.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.beef.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.beef.b2.execution.B2;
 import org.sourcepit.beef.b2.execution.IB2Listener;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingModelCache;
-import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.session.B2Session;
@@ -81,9 +78,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
    private ModelBuilder modelBuilder;
 
    @Requirement
-   private MavenProjectHelper projectHelper;
-
-   @Requirement
    private Logger logger;
 
    @Inject
@@ -101,8 +95,9 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
 
       B2Session b2Session = createB2Session(bootSession, resourceSet);
-
       initJsr330(bootSession, b2Session);
+
+      processDependencies(b2Session.getCurrentProject(), wrapperProject);
 
       final DecouplingModelCache modelCache = initModelCache(bootSession, resourceSet);
 
@@ -160,44 +155,74 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       bootSession.setData(CACHE_KEY_SESSION, uri.toString());
 
       storeModelCache(bootSession, modelCache);
-
-      // createAndattachModuleJar(wrapperProject, interpolationLayout, b2Session, module, converter);
    }
 
-   private void createAndattachModuleJar(MavenProject bootProject, IInterpolationLayout interpolationLayout,
-      B2Session b2Session, AbstractModule module, IConverter converter)
-   {
-      List<File> files = new ArrayList<File>();
-      files.add(new File(b2Session.eResource().getURI().toFileString()));
-      files.add(new File(module.eResource().getURI().toFileString()));
+   @Requirement
+   private RepositorySystem repositorySystem;
 
-      JarOutputStream jarOut = null;
-      FileInputStream inputStream = null;
+   private void processDependencies(ModuleProject moduleProject, final MavenProject wrapperProject)
+   {
+      for (Artifact artifact : wrapperProject.getArtifacts())
+      {
+         if ("module".equals(artifact.getType()))
+         {
+            final B2Session session = moduleProject.getSession();
+            String groupId = artifact.getGroupId();
+            String artifactId = artifact.getArtifactId();
+            String version = artifact.getBaseVersion();
+            if (findProject(session, groupId, artifactId, version) == null)
+            {
+               final Artifact siteArtifact = resolveSiteArtifact(wrapperProject, artifact);
+               final File zipFile = siteArtifact.getFile();
+               final File siteDir = unpackSite(zipFile);
+               moduleProject.putAnnotationEntry("b2.resolvedSites", artifact.getId().replace(':', '_'), "file:"
+                  + siteDir.getAbsolutePath());
+            }
+         }
+      }
+   }
+
+   private ModuleProject findProject(B2Session session, String groupId, String artifactId, String version)
+   {
+      EList<ModuleProject> projects = session.getProjects();
+      for (ModuleProject project : projects)
+      {
+         if (!groupId.equals(project.getGroupId()))
+         {
+            continue;
+         }
+
+         if (!artifactId.equals(project.getArtifactId()))
+         {
+            continue;
+         }
+
+         if (!version.equals(project.getVersion()))
+         {
+            continue;
+         }
+
+         return project;
+      }
+      return null;
+   }
+
+   private File unpackSite(final File zipFile)
+   {
+      FileInputStream zipStream = null;
       try
       {
-         final File moduleJar = new File(interpolationLayout.pathOfMetaDataFile(module,
-            module.getId() + "-" + module.getVersion() + ".jar"));
-
-         if (!moduleJar.exists())
+         zipStream = new FileInputStream(zipFile);
+         final String zipPath = zipFile.getAbsolutePath();
+         final File siteDir = new File(zipPath.substring(0, zipPath.length() - ".zip".length()));
+         if (siteDir.exists())
          {
-            moduleJar.getParentFile().mkdirs();
-            moduleJar.createNewFile();
+            FileUtils.forceDelete(siteDir);
          }
+         siteDir.mkdir();
+         unpack(zipStream, siteDir);
 
-         jarOut = new JarOutputStream(new FileOutputStream(moduleJar));
-         for (File file : files)
-         {
-            JarEntry entry = new JarEntry(file.getName());
-            jarOut.putNextEntry(entry);
-
-            inputStream = new FileInputStream(file);
-            IOUtils.copy(inputStream, jarOut);
-            jarOut.closeEntry();
-         }
-
-         projectHelper.attachArtifact(bootProject, "jar", moduleJar);
-
-         configureInstallPlugin(bootProject, module, moduleJar, converter);
+         return siteDir;
       }
       catch (IOException e)
       {
@@ -205,67 +230,35 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       }
       finally
       {
-         IOUtils.closeQuietly(inputStream);
-         IOUtils.closeQuietly(jarOut);
+         IOUtils.closeQuietly(zipStream);
       }
    }
 
-   private void configureInstallPlugin(MavenProject bootProject, AbstractModule module, File moduleJar,
-      IConverter converter)
+   private Artifact resolveSiteArtifact(final MavenProject wrapperProject, Artifact artifact)
    {
-      final String template;
+      final String classifier = artifact.getClassifier();
 
-      InputStream openStream = null;
-      try
+      final StringBuilder cl = new StringBuilder();
+      cl.append("site");
+      if (classifier != null && classifier.length() > 0)
       {
-         final URL url = getClass().getClassLoader().getResource(
-            "org/sourcepit/beef/b2/internal/generator/install-pom.xml");
-         openStream = url.openStream();
-         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-         IOUtils.copy(openStream, outputStream);
-
-         template = new String(outputStream.toByteArray(), "UTF-8");
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException(e);
-      }
-      finally
-      {
-         IOUtils.closeQuietly(openStream);
+         cl.append('-');
+         cl.append(classifier);
       }
 
-      File bootPom = new File(module.getAnnotationEntry("b2", "bootPom"));
+      final AbstractArtifact siteArtifact = new DefaultArtifact(artifact.getGroupId(), artifact.getArtifactId(),
+         cl.toString(), "zip", artifact.getBaseVersion());
 
-      PropertiesMap propertiesMap = new LinkedPropertiesMap();
-      propertiesMap.put("pomFile", bootPom.getAbsolutePath());
-      propertiesMap.put("file", moduleJar.getAbsolutePath());
-
-      ArtifactRepository repo = bootProject.getDistributionManagementArtifactRepository();
-      if (repo != null)
-      {
-         propertiesMap.put("repositoryId", repo.getId());
-         propertiesMap.put("url", repo.getUrl());
-         propertiesMap.put("b2.module.version", bootProject.getVersion());
-      }
-
-      String interpolate = converter.interpolate(template, propertiesMap);
+      ArtifactRequest request = new ArtifactRequest();
+      request.setArtifact(siteArtifact);
+      request.setRepositories(wrapperProject.getRemoteProjectRepositories());
 
       try
       {
-         final ModelReader modelReader = new DefaultModelReader();
-         final Map<String, String> options = Collections.singletonMap(ModelReader.IS_STRICT, "false");
-
-         final Model installConfig = modelReader.read(new ByteArrayInputStream(interpolate.getBytes()), options);
-
-         File pomFile = new File(module.getAnnotationEntry(PomGenerator.SOURCE_MAVEN, PomGenerator.KEY_POM_FILE));
-         final Model model = modelReader.read(pomFile, options);
-
-         new MavenModelMerger().merge(model, installConfig, false, null);
-
-         new DefaultModelWriter().write(pomFile, null, model);
+         final ArtifactResult result = repositorySystem.resolveArtifact(legacySupport.getRepositorySession(), request);
+         return RepositoryUtils.toArtifact(result.getArtifact());
       }
-      catch (IOException e)
+      catch (ArtifactResolutionException e)
       {
          throw new IllegalStateException(e);
       }
@@ -370,5 +363,39 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
    public void afterProjectBuild(BootstrapSession session, MavenProject wrapperProject)
    {
 
+   }
+
+   private void unpack(InputStream zipStream, File targetDirectory) throws IOException, FileNotFoundException
+   {
+      ZipInputStream in = new ZipInputStream(zipStream);
+      try
+      {
+         ZipEntry entry = in.getNextEntry();
+         while (entry != null)
+         {
+            File newFile = new File(targetDirectory, entry.getName());
+            if (entry.isDirectory())
+            {
+               newFile.mkdir();
+            }
+            else
+            {
+               OutputStream dest = new FileOutputStream(newFile);
+               try
+               {
+                  IOUtils.copy(in, dest);
+               }
+               finally
+               {
+                  IOUtils.closeQuietly(dest);
+               }
+            }
+            entry = in.getNextEntry();
+         }
+      }
+      finally
+      {
+         IOUtils.closeQuietly(in);
+      }
    }
 }

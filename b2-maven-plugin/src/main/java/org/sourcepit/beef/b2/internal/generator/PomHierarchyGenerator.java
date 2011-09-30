@@ -12,10 +12,8 @@ import java.util.List;
 import javax.inject.Named;
 
 import org.apache.maven.model.Model;
-import org.apache.maven.model.Parent;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.beef.b2.common.internal.utils.PathUtils;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
