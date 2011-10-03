@@ -17,6 +17,7 @@ import org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl;
 import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleAttachment;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
@@ -49,6 +50,13 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * @generated
     */
    private EClass moduleDependencyEClass = null;
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass moduleAttachmentEClass = null;
 
    /**
     * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
@@ -243,6 +251,16 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
+   public EReference getModuleProject_Attachments()
+   {
+      return (EReference) moduleProjectEClass.getEStructuralFeatures().get(7);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EClass getModuleDependency()
    {
       return moduleDependencyEClass;
@@ -276,6 +294,56 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
    public EAttribute getModuleDependency_VersionRange()
    {
       return (EAttribute) moduleDependencyEClass.getEStructuralFeatures().get(2);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EClass getModuleAttachment()
+   {
+      return moduleAttachmentEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getModuleAttachment_Classifier()
+   {
+      return (EAttribute) moduleAttachmentEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getModuleAttachment_Type()
+   {
+      return (EAttribute) moduleAttachmentEClass.getEStructuralFeatures().get(1);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getModuleAttachment_File()
+   {
+      return (EAttribute) moduleAttachmentEClass.getEStructuralFeatures().get(2);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getModuleAttachment_Parent()
+   {
+      return (EReference) moduleAttachmentEClass.getEStructuralFeatures().get(3);
    }
 
    /**
@@ -320,11 +388,18 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       createEAttribute(moduleProjectEClass, MODULE_PROJECT__DIRECTORY);
       createEReference(moduleProjectEClass, MODULE_PROJECT__DEPENDENCIES);
       createEReference(moduleProjectEClass, MODULE_PROJECT__MODULE_MODEL);
+      createEReference(moduleProjectEClass, MODULE_PROJECT__ATTACHMENTS);
 
       moduleDependencyEClass = createEClass(MODULE_DEPENDENCY);
       createEAttribute(moduleDependencyEClass, MODULE_DEPENDENCY__GROUP_ID);
       createEAttribute(moduleDependencyEClass, MODULE_DEPENDENCY__ARTIFACT_ID);
       createEAttribute(moduleDependencyEClass, MODULE_DEPENDENCY__VERSION_RANGE);
+
+      moduleAttachmentEClass = createEClass(MODULE_ATTACHMENT);
+      createEAttribute(moduleAttachmentEClass, MODULE_ATTACHMENT__CLASSIFIER);
+      createEAttribute(moduleAttachmentEClass, MODULE_ATTACHMENT__TYPE);
+      createEAttribute(moduleAttachmentEClass, MODULE_ATTACHMENT__FILE);
+      createEReference(moduleAttachmentEClass, MODULE_ATTACHMENT__PARENT);
    }
 
    /**
@@ -375,6 +450,11 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
          B2Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+      EOperation op = addEOperation(b2SessionEClass, this.getModuleProject(), "getProject", 0, 1, IS_UNIQUE, IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "groupId", 0, 1, IS_UNIQUE, IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "artifactId", 0, 1, IS_UNIQUE, IS_ORDERED);
+      addEParameter(op, ecorePackage.getEString(), "version", 0, 1, IS_UNIQUE, IS_ORDERED);
+
       initEClass(moduleProjectEClass, ModuleProject.class, "ModuleProject", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
       initEAttribute(getModuleProject_GroupId(), ecorePackage.getEString(), "groupId", null, 1, 1, ModuleProject.class,
@@ -396,6 +476,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       initEReference(getModuleProject_ModuleModel(), theModuleModelPackage.getAbstractModule(), null, "moduleModel",
          null, 0, 1, ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
          IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getModuleProject_Attachments(), this.getModuleAttachment(), this.getModuleAttachment_Parent(),
+         "attachments", null, 0, -1, ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+         !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(moduleDependencyEClass, ModuleDependency.class, "ModuleDependency", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
@@ -409,9 +492,23 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
          ModuleDependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
 
-      EOperation op = addEOperation(moduleDependencyEClass, ecorePackage.getEBoolean(), "isSatisfiableBy", 0, 1,
-         IS_UNIQUE, IS_ORDERED);
+      op = addEOperation(moduleDependencyEClass, ecorePackage.getEBoolean(), "isSatisfiableBy", 0, 1, IS_UNIQUE,
+         IS_ORDERED);
       addEParameter(op, this.getModuleProject(), "moduleProject", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+      initEClass(moduleAttachmentEClass, ModuleAttachment.class, "ModuleAttachment", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getModuleAttachment_Classifier(), ecorePackage.getEString(), "classifier", null, 0, 1,
+         ModuleAttachment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getModuleAttachment_Type(), ecorePackage.getEString(), "type", null, 1, 1, ModuleAttachment.class,
+         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getModuleAttachment_File(), theCommonModelPackage.getEJavaFile(), "file", null, 1, 1,
+         ModuleAttachment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+      initEReference(getModuleAttachment_Parent(), this.getModuleProject(), this.getModuleProject_Attachments(),
+         "parent", null, 1, 1, ModuleAttachment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+         !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       // Create resource
       createResource(eNS_URI);

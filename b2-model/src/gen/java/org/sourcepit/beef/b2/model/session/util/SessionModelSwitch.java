@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleAttachment;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
@@ -99,6 +100,14 @@ public class SessionModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
+         case SessionModelPackage.MODULE_ATTACHMENT :
+         {
+            ModuleAttachment moduleAttachment = (ModuleAttachment) theEObject;
+            T result = caseModuleAttachment(moduleAttachment);
+            if (result == null)
+               result = defaultCase(theEObject);
+            return result;
+         }
          default :
             return defaultCase(theEObject);
       }
@@ -142,6 +151,20 @@ public class SessionModelSwitch<T> extends Switch<T>
     * @generated
     */
    public T caseModuleDependency(ModuleDependency object)
+   {
+      return null;
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Module Attachment</em>'. <!-- begin-user-doc
+    * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Module Attachment</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseModuleAttachment(ModuleAttachment object)
    {
       return null;
    }

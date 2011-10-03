@@ -15,6 +15,8 @@ import org.sourcepit.beef.b2.common.internal.utils.DescriptorUtils;
 import org.sourcepit.beef.b2.common.internal.utils.DescriptorUtils.AbstractDescriptorResolutionStrategy;
 import org.sourcepit.beef.b2.common.internal.utils.DescriptorUtils.IDescriptorResolutionStrategy;
 import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
+import org.sourcepit.beef.b2.model.builder.util.B2SessionService;
+import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
@@ -29,7 +31,7 @@ import com.google.inject.Binder;
 public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWorkspaceTest
 {
    @Inject
-   protected B2Session b2Session;
+   protected IB2SessionService sessionService;
 
    @Override
    public void configure(Binder binder)
@@ -42,12 +44,20 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       final B2Session session = createSession(moduleDir.getAbsoluteFile());
       assertNotNull(session);
 
-      binder.bind(B2Session.class).toInstance(session);
+      B2SessionService sessionService = new B2SessionService();
+      sessionService.setCurrentSession(session);
+
+      binder.bind(IB2SessionService.class).toInstance(sessionService);
+   }
+
+   protected B2Session getCurrentSession()
+   {
+      return sessionService.getCurrentSession();
    }
 
    protected ModuleProject getModuleProjectByArtifactId(String artifactId)
    {
-      for (ModuleProject project : b2Session.getProjects())
+      for (ModuleProject project : getCurrentSession().getProjects())
       {
          if (artifactId.equals(project.getArtifactId()))
          {
@@ -69,7 +79,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
 
    protected File getCurrentModuleDir()
    {
-      return b2Session.getCurrentProject().getDirectory();
+      return getCurrentSession().getCurrentProject().getDirectory();
    }
 
    protected File setUpModuleDir()
@@ -82,7 +92,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
    protected B2Session createSession(File moduleDir)
    {
       final List<File> descriptors = new ArrayList<File>();
-      final List<File> skippedSescriptors = new ArrayList<File>();
+      final List<File> skippedDescriptors = new ArrayList<File>();
 
       final IDescriptorResolutionStrategy resolver = new AbstractDescriptorResolutionStrategy(moduleDir, null)
       {
@@ -97,12 +107,12 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
          }
       };
 
-      DescriptorUtils.findModuleDescriptors(moduleDir, descriptors, skippedSescriptors, resolver);
+      DescriptorUtils.findModuleDescriptors(moduleDir, descriptors, skippedDescriptors, resolver);
 
       final B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
       for (File descriptor : descriptors)
       {
-         if (!skippedSescriptors.contains(descriptor))
+         if (!skippedDescriptors.contains(descriptor))
          {
             final ModuleProject project = createProject(descriptor);
             session.getProjects().add(project);

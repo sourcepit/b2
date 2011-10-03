@@ -24,8 +24,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.builder.util.ISourceManager;
+import org.sourcepit.beef.b2.model.builder.util.ISourceService;
 import org.sourcepit.beef.b2.model.builder.util.IUnpackStrategy;
 import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.common.Annotation;
@@ -39,7 +40,6 @@ import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.Project;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.util.ModuleModelSwitch;
-import org.sourcepit.beef.b2.model.session.B2Session;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
@@ -48,13 +48,13 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    private Map<String, IInterpolationLayout> layoutMap;
 
    @Inject
-   private ISourceManager sourceManager;
+   private ISourceService sourceManager;
 
    @Inject
    private IUnpackStrategy unpackStrategy;
 
    @Inject
-   private B2Session b2Session;
+   private IB2SessionService b2SessionService;
 
    @Override
    public GeneratorType getGeneratorType()
@@ -196,7 +196,9 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setVersion(VersionUtils.toMavenVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
-      final Annotation annotation = b2Session.getCurrentProject().getAnnotation("b2.resolvedSites");
+      final Annotation annotation = b2SessionService.getCurrentSession().getCurrentProject()
+         .getAnnotation("b2.resolvedSites");
+
       if (annotation != null)
       {
          for (Entry<String, String> idToUrlEntry : annotation.getEntries())

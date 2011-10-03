@@ -70,4 +70,12 @@ public interface B2Session extends Annotatable
     * @generated
     */
    void setCurrentProject(ModuleProject value);
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @model
+    * @generated
+    */
+   ModuleProject getProject(String groupId, String artifactId, String version);
 } // Session

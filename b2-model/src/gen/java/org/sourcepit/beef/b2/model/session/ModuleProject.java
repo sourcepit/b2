@@ -25,6 +25,7 @@ import org.sourcepit.beef.b2.model.module.AbstractModule;
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getDirectory <em>Directory</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getDependencies <em>Dependencies</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getModuleModel <em>Module Model</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getAttachments <em>Attachments</em>}</li>
  * </ul>
  * </p>
  * 
@@ -207,5 +208,23 @@ public interface ModuleProject extends Annotatable
     * @generated
     */
    void setModuleModel(AbstractModule value);
+
+   /**
+    * Returns the value of the '<em><b>Attachments</b></em>' containment reference list. The list contents are of type
+    * {@link org.sourcepit.beef.b2.model.session.ModuleAttachment}. It is bidirectional and its opposite is '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleAttachment#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * <p>
+    * If the meaning of the '<em>Attachments</em>' containment reference list isn't clear, there really should be more
+    * of a description here...
+    * </p>
+    * <!-- end-user-doc -->
+    * 
+    * @return the value of the '<em>Attachments</em>' containment reference list.
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Attachments()
+    * @see org.sourcepit.beef.b2.model.session.ModuleAttachment#getParent
+    * @model opposite="parent" containment="true"
+    * @generated
+    */
+   EList<ModuleAttachment> getAttachments();
 
 } // ModuleProject

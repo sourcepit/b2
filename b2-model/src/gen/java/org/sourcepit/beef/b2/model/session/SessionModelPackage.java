@@ -186,13 +186,22 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__MODULE_MODEL = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 6;
 
    /**
+    * The feature id for the '<em><b>Attachments</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_PROJECT__ATTACHMENTS = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 7;
+
+   /**
     * The number of structural features of the '<em>Module Project</em>' class. <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 7;
+   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 8;
 
 
    /**
@@ -237,6 +246,58 @@ public interface SessionModelPackage extends EPackage
     * @ordered
     */
    int MODULE_DEPENDENCY_FEATURE_COUNT = 3;
+
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleAttachmentImpl
+    * <em>Module Attachment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.ModuleAttachmentImpl
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleAttachment()
+    * @generated
+    */
+   int MODULE_ATTACHMENT = 3;
+
+   /**
+    * The feature id for the '<em><b>Classifier</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_ATTACHMENT__CLASSIFIER = 0;
+
+   /**
+    * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_ATTACHMENT__TYPE = 1;
+
+   /**
+    * The feature id for the '<em><b>File</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_ATTACHMENT__FILE = 2;
+
+   /**
+    * The feature id for the '<em><b>Parent</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_ATTACHMENT__PARENT = 3;
+
+   /**
+    * The number of structural features of the '<em>Module Attachment</em>' class. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_ATTACHMENT_FEATURE_COUNT = 4;
 
 
    /**
@@ -363,6 +424,18 @@ public interface SessionModelPackage extends EPackage
    EReference getModuleProject_ModuleModel();
 
    /**
+    * Returns the meta object for the containment reference list '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleProject#getAttachments <em>Attachments</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference list '<em>Attachments</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleProject#getAttachments()
+    * @see #getModuleProject()
+    * @generated
+    */
+   EReference getModuleProject_Attachments();
+
+   /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.ModuleDependency
     * <em>Module Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -406,6 +479,62 @@ public interface SessionModelPackage extends EPackage
     * @generated
     */
    EAttribute getModuleDependency_VersionRange();
+
+   /**
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.ModuleAttachment
+    * <em>Module Attachment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for class '<em>Module Attachment</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleAttachment
+    * @generated
+    */
+   EClass getModuleAttachment();
+
+   /**
+    * Returns the meta object for the attribute '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleAttachment#getClassifier <em>Classifier</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Classifier</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleAttachment#getClassifier()
+    * @see #getModuleAttachment()
+    * @generated
+    */
+   EAttribute getModuleAttachment_Classifier();
+
+   /**
+    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.session.ModuleAttachment#getType
+    * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Type</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleAttachment#getType()
+    * @see #getModuleAttachment()
+    * @generated
+    */
+   EAttribute getModuleAttachment_Type();
+
+   /**
+    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.session.ModuleAttachment#getFile
+    * <em>File</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>File</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleAttachment#getFile()
+    * @see #getModuleAttachment()
+    * @generated
+    */
+   EAttribute getModuleAttachment_File();
+
+   /**
+    * Returns the meta object for the container reference '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleAttachment#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the container reference '<em>Parent</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleAttachment#getParent()
+    * @see #getModuleAttachment()
+    * @generated
+    */
+   EReference getModuleAttachment_Parent();
 
    /**
     * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -522,6 +651,14 @@ public interface SessionModelPackage extends EPackage
       EReference MODULE_PROJECT__MODULE_MODEL = eINSTANCE.getModuleProject_ModuleModel();
 
       /**
+       * The meta object literal for the '<em><b>Attachments</b></em>' containment reference list feature. <!--
+       * begin-user-doc --> <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference MODULE_PROJECT__ATTACHMENTS = eINSTANCE.getModuleProject_Attachments();
+
+      /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleDependencyImpl
        * <em>Module Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
@@ -554,6 +691,48 @@ public interface SessionModelPackage extends EPackage
        * @generated
        */
       EAttribute MODULE_DEPENDENCY__VERSION_RANGE = eINSTANCE.getModuleDependency_VersionRange();
+
+      /**
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleAttachmentImpl
+       * <em>Module Attachment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * 
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.ModuleAttachmentImpl
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleAttachment()
+       * @generated
+       */
+      EClass MODULE_ATTACHMENT = eINSTANCE.getModuleAttachment();
+
+      /**
+       * The meta object literal for the '<em><b>Classifier</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute MODULE_ATTACHMENT__CLASSIFIER = eINSTANCE.getModuleAttachment_Classifier();
+
+      /**
+       * The meta object literal for the '<em><b>Type</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute MODULE_ATTACHMENT__TYPE = eINSTANCE.getModuleAttachment_Type();
+
+      /**
+       * The meta object literal for the '<em><b>File</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute MODULE_ATTACHMENT__FILE = eINSTANCE.getModuleAttachment_File();
+
+      /**
+       * The meta object literal for the '<em><b>Parent</b></em>' container reference feature. <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference MODULE_ATTACHMENT__PARENT = eINSTANCE.getModuleAttachment_Parent();
 
    }
 

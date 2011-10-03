@@ -168,6 +168,18 @@ public class B2SessionImpl extends EObjectImpl implements B2Session
     * 
     * @generated
     */
+   public ModuleProject getProject(String groupId, String artifactId, String version)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public Annotation getAnnotation(String source)
    {
       // TODO: implement this method

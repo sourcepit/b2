@@ -12,6 +12,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleAttachment;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
@@ -93,6 +94,12 @@ public class SessionModelAdapterFactory extends AdapterFactoryImpl
       }
 
       @Override
+      public Adapter caseModuleAttachment(ModuleAttachment object)
+      {
+         return createModuleAttachmentAdapter();
+      }
+
+      @Override
       public Adapter caseAnnotatable(Annotatable object)
       {
          return createAnnotatableAdapter();
@@ -158,6 +165,21 @@ public class SessionModelAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createModuleDependencyAdapter()
+   {
+      return null;
+   }
+
+   /**
+    * Creates a new adapter for an object of class '{@link org.sourcepit.beef.b2.model.session.ModuleAttachment
+    * <em>Module Attachment</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+    * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
+    * end-user-doc -->
+    * 
+    * @return the new adapter.
+    * @see org.sourcepit.beef.b2.model.session.ModuleAttachment
+    * @generated
+    */
+   public Adapter createModuleAttachmentAdapter()
    {
       return null;
    }

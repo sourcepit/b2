@@ -238,6 +238,11 @@
   <eSubpackages name="session" nsURI="http://www.sourcepit.org/b2/model/0.1/session"
       nsPrefix="session">
     <eClassifiers xsi:type="ecore:EClass" name="B2Session" eSuperTypes="#//common/Annotatable">
+      <eOperations name="getProject" eType="#//session/ModuleProject">
+        <eParameters name="groupId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="artifactId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
           eType="#//session/ModuleProject" containment="true" eOpposite="#//session/ModuleProject/session"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="currentProject" lowerBound="1"
@@ -257,6 +262,8 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
           eType="#//session/ModuleDependency" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="moduleModel" eType="#//module/AbstractModule"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="attachments" upperBound="-1"
+          eType="#//session/ModuleAttachment" containment="true" eOpposite="#//session/ModuleAttachment/parent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ModuleDependency">
       <eOperations name="isSatisfiableBy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -268,6 +275,15 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionRange" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ModuleAttachment">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="classifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1"
+          eType="#//common/EJavaFile"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
+          eType="#//session/ModuleProject" eOpposite="#//session/ModuleProject/attachments"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

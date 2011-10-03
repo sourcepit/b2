@@ -42,8 +42,8 @@ public class ModuleDependenciesTest extends AbstractB2SessionWorkspaceTest
    public void testDependencyFeatures() throws Exception
    {
       ModuleProject rcpProject = getModuleProjectByArtifactId("rcp");
-      b2Session.setCurrentProject(rcpProject);
-      
+      getCurrentSession().setCurrentProject(rcpProject);
+
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
       request.setModuleDirectory(rcpProject.getDirectory());
       request.setConverter(ConverterUtils.TEST_CONVERTER);

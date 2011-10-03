@@ -2,7 +2,7 @@
  * Copyright (C) 2011 Bosch Software Innovations GmbH. All rights reserved.
  */
 
-package org.sourcepit.beef.b2.internal.generator;
+package org.sourcepit.beef.b2.internal.maven;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,10 +29,10 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.building.ModelBuilder;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -53,14 +53,27 @@ import org.sourcepit.beef.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.beef.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.beef.b2.execution.B2;
 import org.sourcepit.beef.b2.execution.IB2Listener;
+import org.sourcepit.beef.b2.internal.generator.AbstractPomGenerator;
+import org.sourcepit.beef.b2.internal.generator.BootPomSerializer;
+import org.sourcepit.beef.b2.internal.generator.DefaultTemplateCopier;
+import org.sourcepit.beef.b2.internal.generator.ITemplates;
+import org.sourcepit.beef.b2.internal.generator.MavenConverter;
+import org.sourcepit.beef.b2.model.builder.util.B2SessionService;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingModelCache;
-import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
+import org.sourcepit.beef.b2.model.common.util.GavResourceUtils;
+import org.sourcepit.beef.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
+import org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleAttachment;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
+import org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl;
 import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
 import org.sourcepit.beef.maven.wrapper.internal.session.IMavenBootstrapperListener;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
@@ -71,11 +84,38 @@ import com.google.inject.Injector;
 @Component(role = IMavenBootstrapperListener.class)
 public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 {
+   private final class B2ModelResourceURIResolver implements MavenProjectURIResolver
+   {
+      public URI resolveProjectUri(MavenProject project, String classifier, String type)
+      {
+         if ("module".equals(type))
+         {
+            final StringBuilder sb = new StringBuilder();
+            sb.append("b2");
+            if (classifier != null)
+            {
+               sb.append('-');
+               sb.append(classifier);
+            }
+            sb.append('.');
+            sb.append(type);
+
+            final File file = new File(project.getBasedir(), ".b2/" + sb.toString());
+            projectHelper.attachArtifact(project, type, classifier, file);
+            return URI.createFileURI(file.getAbsolutePath());
+         }
+         return null;
+      }
+   }
+
    @Requirement
    private LegacySupport legacySupport;
 
    @Requirement
    private ModelBuilder modelBuilder;
+
+   @Requirement
+   private MavenProjectHelper projectHelper;
 
    @Requirement
    private Logger logger;
@@ -84,18 +124,26 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
    private B2 b2;
 
    @Inject
-   private Map<String, IInterpolationLayout> layoutMap;
+   private LayoutManager layoutManager;
 
    private final static String CACHE_KEY = B2MavenBootstrapperListener.class.getName() + "#modelCache";
    private final static String CACHE_KEY_SESSION = B2MavenBootstrapperListener.class.getName() + "#session";
 
    public void beforeProjectBuild(BootstrapSession bootSession, final MavenProject wrapperProject)
    {
+      B2SessionService sessionService = new B2SessionService();
+      initJsr330(bootSession, sessionService);
+
+      MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getBootstrapProjects(),
+         bootSession.getCurrentProject());
+      mavenURIResolver.getProjectURIResolvers().add(new B2ModelResourceURIResolver());
+
       ResourceSet resourceSet = new ResourceSetImpl();
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
+      GavResourceUtils.configureResourceSet(resourceSet, mavenURIResolver);
 
       B2Session b2Session = createB2Session(bootSession, resourceSet);
-      initJsr330(bootSession, b2Session);
+      sessionService.setCurrentSession(b2Session);
 
       processDependencies(b2Session.getCurrentProject(), wrapperProject);
 
@@ -120,10 +168,12 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       {
          whitelist.add(project.getDirectory());
       }
-
       final IModuleFilter fileFilter = new WhitelistModuleFilter(whitelist);
 
       final AbstractModule module = b2.generate(moduleDir, modelCache, fileFilter, converter, templates);
+
+      final URI moduleUri = MavenURIResolver.toArtifactIdentifier(wrapperProject, null, "module").toUri();
+      resourceSet.createResource(moduleUri).getContents().add(module);
       modelCache.put(module);
 
       b2Session.getCurrentProject().setModuleModel(module);
@@ -134,12 +184,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       wrapperProject.setContextValue("pom", pomFile);
 
       final String layoutId = module.getLayoutId();
-      final IInterpolationLayout interpolationLayout = layoutMap.get(layoutId);
-      if (interpolationLayout == null)
-      {
-         throw new IllegalStateException("Layout " + layoutId + " is not supported.");
-      }
-      final URI uri = URI.createFileURI(interpolationLayout.pathOfMetaDataFile(module, "b2.session"));
+      final URI uri = URI.createFileURI(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, "b2.session"));
 
       final Resource resource = resourceSet.createResource(uri);
       resource.getContents().add(b2Session);
@@ -170,7 +215,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             String groupId = artifact.getGroupId();
             String artifactId = artifact.getArtifactId();
             String version = artifact.getBaseVersion();
-            if (findProject(session, groupId, artifactId, version) == null)
+            if (session.getProject(groupId, artifactId, version) == null)
             {
                final Artifact siteArtifact = resolveSiteArtifact(wrapperProject, artifact);
                final File zipFile = siteArtifact.getFile();
@@ -180,31 +225,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             }
          }
       }
-   }
-
-   private ModuleProject findProject(B2Session session, String groupId, String artifactId, String version)
-   {
-      EList<ModuleProject> projects = session.getProjects();
-      for (ModuleProject project : projects)
-      {
-         if (!groupId.equals(project.getGroupId()))
-         {
-            continue;
-         }
-
-         if (!artifactId.equals(project.getArtifactId()))
-         {
-            continue;
-         }
-
-         if (!version.equals(project.getVersion()))
-         {
-            continue;
-         }
-
-         return project;
-      }
-      return null;
    }
 
    private File unpackSite(final File zipFile)
@@ -266,7 +286,10 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet)
    {
-      SessionModelPackage.eINSTANCE.getB2Session();
+      ClassLoader classLoader = getClass().getClassLoader();
+      ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+      System.out.println(classLoader);
+      System.out.println(contextClassLoader);
 
       final B2Session b2Session;
 
@@ -320,7 +343,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       return b2Session;
    }
 
-   private void initJsr330(final BootstrapSession session, final B2Session b2Session)
+   private void initJsr330(final BootstrapSession session, final B2SessionService sessionService)
    {
       final BootPomSerializer bootPomSerializer = new BootPomSerializer();
       final Injector injector = Guice.createInjector(new WireModule(new com.google.inject.AbstractModule()
@@ -330,9 +353,9 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          {
             bind(Logger.class).toInstance(logger);
             bind(BootstrapSession.class).toInstance(session);
-            bind(B2Session.class).toInstance(b2Session);
             bind(LegacySupport.class).toInstance(legacySupport);
             bind(ModelBuilder.class).toInstance(modelBuilder);
+            bind(IB2SessionService.class).toInstance(sessionService);
 
             bind(IB2Listener.class).toInstance(bootPomSerializer);
          }
@@ -343,8 +366,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    private DecouplingModelCache initModelCache(BootstrapSession session, ResourceSet resourceSet)
    {
-      final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet);
-      modelCache.getIdToLayoutMap().putAll(layoutMap);
+      final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet, layoutManager);
 
       @SuppressWarnings("unchecked")
       final Map<File, String> dirToUriMap = (Map<File, String>) session.getData(CACHE_KEY);

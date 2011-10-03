@@ -6,6 +6,7 @@ package org.sourcepit.beef.b2.model.session.internal.impl;
 
 import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.internal.util.AnnotationUtils;
+import org.sourcepit.beef.b2.model.session.ModuleProject;
 
 /**
  * @author Bernd
@@ -28,5 +29,30 @@ public class CSessionImpl extends B2SessionImpl
    public String putAnnotationEntry(String source, String key, String value)
    {
       return AnnotationUtils.putAnnotationEntry(getAnnotations(), source, key, value);
+   }
+
+   @Override
+   public ModuleProject getProject(String groupId, String artifactId, String version)
+   {
+      for (ModuleProject project : getProjects())
+      {
+         if (!groupId.equals(project.getGroupId()))
+         {
+            continue;
+         }
+
+         if (!artifactId.equals(project.getArtifactId()))
+         {
+            continue;
+         }
+
+         if (!version.equals(project.getVersion()))
+         {
+            continue;
+         }
+
+         return project;
+      }
+      return null;
    }
 }

@@ -17,9 +17,10 @@ import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.beef.b2.common.internal.utils.PathMatcher;
+import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.builder.util.IModelCache;
-import org.sourcepit.beef.b2.model.builder.util.ISourceManager;
+import org.sourcepit.beef.b2.model.builder.util.ISourceService;
 import org.sourcepit.beef.b2.model.builder.util.IUnpackStrategy;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.interpolation.module.IModuleInterpolationRequest;
@@ -38,7 +39,6 @@ import org.sourcepit.beef.b2.model.module.PluginsFacet;
 import org.sourcepit.beef.b2.model.module.Reference;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
-import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 
 @Named
@@ -51,10 +51,10 @@ public class ModuleInterpolator implements IModuleInterpolator
    private IUnpackStrategy unpackStrategy;
 
    @Inject
-   private ISourceManager sourceManager;
+   private ISourceService sourceManager;
 
    @Inject
-   private B2Session b2Session;
+   private IB2SessionService sessionService;
 
    public void interpolate(IModuleInterpolationRequest request)
    {
@@ -310,7 +310,7 @@ public class ModuleInterpolator implements IModuleInterpolator
          collectFeatureIncludes(featuresFacet, featureIncs, matcher, converter);
       }
 
-      EList<ModuleDependency> dependencies = b2Session.getCurrentProject().getDependencies();
+      EList<ModuleDependency> dependencies = sessionService.getCurrentSession().getCurrentProject().getDependencies();
       for (ModuleDependency dependency : dependencies)
       {
          String prefix = dependency.getGroupId() + "." + dependency.getArtifactId();

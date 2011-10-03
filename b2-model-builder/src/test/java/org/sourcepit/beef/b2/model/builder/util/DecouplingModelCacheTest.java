@@ -20,7 +20,7 @@ import org.sourcepit.beef.b2.model.builder.internal.tests.harness.AbstractB2Sess
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.beef.b2.model.builder.internal.tests.harness.EcoreUtils;
 import org.sourcepit.beef.b2.model.internal.builder.B2ModelBuilder;
-import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.CompositeModule;
@@ -31,7 +31,7 @@ import org.sourcepit.beef.b2.model.module.CompositeModule;
 public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 {
    @Inject
-   private Map<String, IInterpolationLayout> layoutMap;
+   private LayoutManager layoutManager;
 
    @Override
    protected String setUpModulePath()
@@ -213,8 +213,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
    {
       ResourceSet resourceSet = new ResourceSetImpl();
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
-      final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet);
-      modelCache.getIdToLayoutMap().putAll(layoutMap);
+      final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet, layoutManager);
       if (dirToUriMap != null)
       {
          modelCache.getDirToUriMap().putAll(dirToUriMap);

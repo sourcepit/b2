@@ -9,7 +9,7 @@ import javax.inject.Named;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 
 @Named
-public class SourceManager implements ISourceManager
+public class SourceService implements ISourceService
 {
    /**
     * {@inheritDoc}

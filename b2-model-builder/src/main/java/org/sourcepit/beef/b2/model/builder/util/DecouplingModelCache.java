@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.beef.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 
 /**
@@ -21,7 +22,7 @@ import org.sourcepit.beef.b2.model.module.AbstractModule;
  */
 public class DecouplingModelCache implements IModelCache
 {
-   private final Map<String, IInterpolationLayout> idToLayoutMap = new HashMap<String, IInterpolationLayout>();
+   private final LayoutManager layoutManager;
 
    private final Map<File, String> dirToUriMap = new HashMap<File, String>();
 
@@ -29,14 +30,10 @@ public class DecouplingModelCache implements IModelCache
 
    private final ResourceSet resourceSet;
 
-   public DecouplingModelCache(ResourceSet resourceSet)
+   public DecouplingModelCache(ResourceSet resourceSet, LayoutManager layoutManager)
    {
       this.resourceSet = resourceSet;
-   }
-
-   public Map<String, IInterpolationLayout> getIdToLayoutMap()
-   {
-      return idToLayoutMap;
+      this.layoutManager = layoutManager;
    }
 
    public Map<File, String> getDirToUriMap()
@@ -81,16 +78,21 @@ public class DecouplingModelCache implements IModelCache
 
    public void put(AbstractModule module)
    {
-      final String layoutId = module.getLayoutId();
-      final IInterpolationLayout interpolationLayout = idToLayoutMap.get(layoutId);
-      if (interpolationLayout == null)
-      {
-         throw new UnsupportedOperationException("Layout " + layoutId + " is not supported.");
-      }
-      final URI uri = URI.createFileURI(interpolationLayout.pathOfMetaDataFile(module, "b2.module"));
+      Resource resource;
 
-      final Resource resource = resourceSet.createResource(uri);
-      resource.getContents().add(module);
+      if (module.eResource() != null)
+      {
+         resource = module.eResource();
+      }
+      else
+      {
+         final String layoutId = module.getLayoutId();
+         final IInterpolationLayout layout = layoutManager.getLayout(layoutId);
+         final URI uri = URI.createFileURI(layout.pathOfMetaDataFile(module, "b2.module"));
+         resource = resourceSet.createResource(uri);
+         resource.getContents().add(module);
+      }
+
       try
       {
          resource.save(null);
@@ -100,7 +102,7 @@ public class DecouplingModelCache implements IModelCache
          throw new IllegalStateException(e);
       }
 
-      dirToUriMap.put(module.getDirectory(), uri.toString());
+      dirToUriMap.put(module.getDirectory(), resource.getURI().toString());
       dirToModelMap.put(module.getDirectory(), module);
    }
 }

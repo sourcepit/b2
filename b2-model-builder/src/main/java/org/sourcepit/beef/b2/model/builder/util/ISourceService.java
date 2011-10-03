@@ -7,7 +7,7 @@ package org.sourcepit.beef.b2.model.builder.util;
 import org.sourcepit.beef.b2.model.module.PluginProject;
 
 
-public interface ISourceManager
+public interface ISourceService
 {
    boolean isSourceBuildEnabled(PluginProject pluginProject, IConverter converter);
 

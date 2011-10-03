@@ -24,6 +24,7 @@ import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.ModuleAttachment;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelPackage;
@@ -42,6 +43,7 @@ import org.sourcepit.beef.b2.model.session.SessionModelPackage;
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getDependencies <em>Dependencies</em>}
  * </li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getModuleModel <em>Module Model</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getAttachments <em>Attachments</em>}</li>
  * </ul>
  * </p>
  * 
@@ -158,6 +160,16 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * @ordered
     */
    protected AbstractModule moduleModel;
+
+   /**
+    * The cached value of the '{@link #getAttachments() <em>Attachments</em>}' containment reference list. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see #getAttachments()
+    * @generated
+    * @ordered
+    */
+   protected EList<ModuleAttachment> attachments;
 
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -406,6 +418,21 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
+   public EList<ModuleAttachment> getAttachments()
+   {
+      if (attachments == null)
+      {
+         attachments = new EObjectContainmentWithInverseEList<ModuleAttachment>(ModuleAttachment.class, this,
+            SessionModelPackage.MODULE_PROJECT__ATTACHMENTS, SessionModelPackage.MODULE_ATTACHMENT__PARENT);
+      }
+      return attachments;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public Annotation getAnnotation(String source)
    {
       // TODO: implement this method
@@ -454,6 +481,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetSession((B2Session) otherEnd, msgs);
+         case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAttachments()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -474,6 +503,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return basicSetSession(null, msgs);
          case SessionModelPackage.MODULE_PROJECT__DEPENDENCIES :
             return ((InternalEList<?>) getDependencies()).basicRemove(otherEnd, msgs);
+         case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
+            return ((InternalEList<?>) getAttachments()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -523,6 +554,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             if (resolve)
                return getModuleModel();
             return basicGetModuleModel();
+         case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
+            return getAttachments();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -564,6 +597,10 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__MODULE_MODEL :
             setModuleModel((AbstractModule) newValue);
             return;
+         case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
+            getAttachments().clear();
+            getAttachments().addAll((Collection<? extends ModuleAttachment>) newValue);
+            return;
       }
       super.eSet(featureID, newValue);
    }
@@ -602,6 +639,9 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__MODULE_MODEL :
             setModuleModel((AbstractModule) null);
             return;
+         case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
+            getAttachments().clear();
+            return;
       }
       super.eUnset(featureID);
    }
@@ -632,6 +672,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return dependencies != null && !dependencies.isEmpty();
          case SessionModelPackage.MODULE_PROJECT__MODULE_MODEL :
             return moduleModel != null;
+         case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
+            return attachments != null && !attachments.isEmpty();
       }
       return super.eIsSet(featureID);
    }
