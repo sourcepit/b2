@@ -7,21 +7,16 @@ package org.sourcepit.beef.b2.maven;
 import java.io.File;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.sourcepit.beef.b2.model.common.util.ArtifactReference;
 import org.sourcepit.beef.b2.model.common.util.ArtifactURIResolver;
-import org.sourcepit.beef.b2.model.common.util.ExtensibleResourceFactoryRegistryImpl;
 import org.sourcepit.beef.b2.model.common.util.GavResourceUtils;
-import org.sourcepit.beef.b2.model.common.util.GavURIHandlerImpl;
-import org.sourcepit.beef.b2.model.common.util.GavURIResolver;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.BasicModule;
 import org.sourcepit.beef.b2.model.module.ModuleModelFactory;
-import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
 import org.sourcepit.tools.shared.resources.harness.AbstractWorkspaceTest;
@@ -41,24 +36,26 @@ public class GAVResourceTest extends AbstractWorkspaceTest
 
       p1.setModuleModel(module);
 
-      final URI moduleUri = new ArtifactReference(p1.getGroupId(), p1.getArtifactId(), p1.getVersion(), "module").toUri();
+      final URI moduleUri = new ArtifactReference(p1.getGroupId(), p1.getArtifactId(), p1.getVersion(), "module")
+         .toUri();
       Resource resource = resourceSet.createResource(moduleUri);
       resource.getContents().add(module);
       resource.save(null);
 
-      final URI projectUri = new ArtifactReference(p1.getGroupId(), p1.getArtifactId(), p1.getVersion(), "session").toUri();
+      final URI projectUri = new ArtifactReference(p1.getGroupId(), p1.getArtifactId(), p1.getVersion(), "session")
+         .toUri();
       resource = resourceSet.createResource(projectUri);
       resource.getContents().add(p1);
       resource.save(null);
 
-      System.out.println();
-      
+      // TODO assert
+
       ResourceSet resourceSet2 = createResourceSet();
       Resource resource2 = resourceSet2.getResource(projectUri, true);
       ModuleProject project = (ModuleProject) resource2.getContents().get(0);
       AbstractModule model = project.getModuleModel();
-      
-      System.out.println();
+
+      // TODO assert
    }
 
    private ResourceSet createResourceSet()
@@ -77,7 +74,7 @@ public class GAVResourceTest extends AbstractWorkspaceTest
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
 
       GavResourceUtils.configureResourceSet(resourceSet, artifactResolver);
-      
+
       return resourceSet;
    }
 }

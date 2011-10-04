@@ -52,7 +52,7 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
       moduleDir = setUpModuleDir();
       mavenSession = createMavenSession(moduleDir, System.getProperties());
    }
-   
+
    protected File setUpModuleDir()
    {
       return workspace.importResources(setUpModulePath());
