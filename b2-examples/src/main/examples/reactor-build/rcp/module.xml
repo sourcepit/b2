@@ -16,17 +16,11 @@
 	<packaging>pom</packaging>
 
 	<properties>
+		<b2.product.sdk.filter>**.sdk.**</b2.product.sdk.filter>
 		<sites></sites>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.sourcepit.b2.examples</groupId>
-			<artifactId>rcp.help</artifactId>
-			<version>\${project.version}</version>
-			<classifier>internal</classifier>
-			<type>module</type>
-		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2.examples</groupId>
 			<artifactId>rcp.ui</artifactId>

@@ -27,7 +27,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Build;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
@@ -73,12 +72,14 @@ import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.beef.b2.model.common.util.GavResourceUtils;
 import org.sourcepit.beef.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
+import org.sourcepit.beef.b2.model.session.SessionModelPackage;
 import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
 import org.sourcepit.beef.maven.wrapper.internal.session.IMavenBootstrapperListener;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
@@ -136,6 +137,9 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    public void beforeProjectBuild(BootstrapSession bootSession, final MavenProject wrapperProject)
    {
+      ModuleModelPackage.eINSTANCE.getClass();
+      SessionModelPackage.eINSTANCE.getClass();
+
       B2SessionService sessionService = new B2SessionService();
       initJsr330(bootSession, sessionService);
 
@@ -146,11 +150,12 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       ResourceSet resourceSet = new ResourceSetImpl();
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
       GavResourceUtils.configureResourceSet(resourceSet, mavenURIResolver);
+      sessionService.setCurrentResourceSet(resourceSet);
 
       B2Session b2Session = createB2Session(bootSession, resourceSet);
       sessionService.setCurrentSession(b2Session);
 
-      processDependencies(b2Session.getCurrentProject(), wrapperProject);
+      processDependencies(resourceSet, b2Session.getCurrentProject(), wrapperProject);
 
       final DecouplingModelCache modelCache = initModelCache(bootSession, resourceSet);
 
@@ -214,9 +219,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       wrapperProject.setContextValue("pom", pomFile);
 
       final String layoutId = module.getLayoutId();
-
       final File sessionFile = new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, "b2.session"));
-
       final URI uri = URI.createFileURI(sessionFile.getAbsolutePath());
 
       final Resource resource = resourceSet.createResource(uri);
@@ -316,7 +319,8 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
    @Requirement
    private RepositorySystem repositorySystem;
 
-   private void processDependencies(ModuleProject moduleProject, final MavenProject wrapperProject)
+   private void processDependencies(ResourceSet resourceSet, ModuleProject moduleProject,
+      final MavenProject wrapperProject)
    {
       for (Artifact artifact : wrapperProject.getArtifacts())
       {
@@ -326,6 +330,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             String groupId = artifact.getGroupId();
             String artifactId = artifact.getArtifactId();
             String version = artifact.getBaseVersion();
+
             if (session.getProject(groupId, artifactId, version) == null)
             {
                final Artifact siteArtifact = resolveSiteArtifact(wrapperProject, artifact);
@@ -405,11 +410,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet)
    {
-      ClassLoader classLoader = getClass().getClassLoader();
-      ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-      System.out.println(classLoader);
-      System.out.println(contextClassLoader);
-
       final B2Session b2Session;
 
       final String uri = (String) session.getData(CACHE_KEY_SESSION);
@@ -438,20 +438,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             moduleProject.setVersion(project.getVersion());
             moduleProject.setDirectory(project.getBasedir());
 
-            List<Dependency> dependencies = project.getDependencies();
-            for (Dependency dependency : dependencies)
-            {
-               if ("pom".equals(dependency.getType()))
-               {
-                  ModuleDependency moduleDependency = SessionModelFactory.eINSTANCE.createModuleDependency();
-                  moduleDependency.setGroupId(dependency.getGroupId());
-                  moduleDependency.setArtifactId(dependency.getArtifactId());
-                  moduleDependency.setVersionRange(dependency.getVersion());
-
-                  moduleProject.getDependencies().add(moduleDependency);
-               }
-            }
-
             b2Session.getProjects().add(moduleProject);
             if (project.equals(session.getCurrentProject()))
             {
@@ -459,6 +445,26 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             }
          }
       }
+
+      ModuleProject currentProject = b2Session.getCurrentProject();
+      MavenProject project = session.getCurrentProject();
+
+      Set<Artifact> dependencies = project.getArtifacts();
+      for (Artifact dependency : dependencies)
+      {
+         if ("module".equals(dependency.getType()))
+         {
+            ModuleDependency moduleDependency = SessionModelFactory.eINSTANCE.createModuleDependency();
+            moduleDependency.setGroupId(dependency.getGroupId());
+            moduleDependency.setArtifactId(dependency.getArtifactId());
+            moduleDependency.setClassifier(dependency.getClassifier());
+            moduleDependency.setVersionRange(dependency.getVersion());
+
+            currentProject.getDependencies().add(moduleDependency);
+         }
+      }
+
+
       return b2Session;
    }
 

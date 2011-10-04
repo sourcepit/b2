@@ -239,13 +239,21 @@ public interface SessionModelPackage extends EPackage
    int MODULE_DEPENDENCY__VERSION_RANGE = 2;
 
    /**
+    * The feature id for the '<em><b>Classifier</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_DEPENDENCY__CLASSIFIER = 3;
+
+   /**
     * The number of structural features of the '<em>Module Dependency</em>' class. <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
     * @ordered
     */
-   int MODULE_DEPENDENCY_FEATURE_COUNT = 3;
+   int MODULE_DEPENDENCY_FEATURE_COUNT = 4;
 
 
    /**
@@ -481,6 +489,18 @@ public interface SessionModelPackage extends EPackage
    EAttribute getModuleDependency_VersionRange();
 
    /**
+    * Returns the meta object for the attribute '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleDependency#getClassifier <em>Classifier</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Classifier</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleDependency#getClassifier()
+    * @see #getModuleDependency()
+    * @generated
+    */
+   EAttribute getModuleDependency_Classifier();
+
+   /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.ModuleAttachment
     * <em>Module Attachment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -691,6 +711,14 @@ public interface SessionModelPackage extends EPackage
        * @generated
        */
       EAttribute MODULE_DEPENDENCY__VERSION_RANGE = eINSTANCE.getModuleDependency_VersionRange();
+
+      /**
+       * The meta object literal for the '<em><b>Classifier</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute MODULE_DEPENDENCY__CLASSIFIER = eINSTANCE.getModuleDependency_Classifier();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleAttachmentImpl

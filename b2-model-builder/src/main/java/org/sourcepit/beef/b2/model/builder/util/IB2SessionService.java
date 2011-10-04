@@ -4,16 +4,13 @@
 
 package org.sourcepit.beef.b2.model.builder.util;
 
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.beef.b2.model.session.B2Session;
 
-
-/**
- * IB2SessionService
- * @author Bernd
- */
 public interface IB2SessionService
 {
+   ResourceSet getCurrentResourceSet();
 
-   public abstract B2Session getCurrentSession();
+   B2Session getCurrentSession();
 
 }

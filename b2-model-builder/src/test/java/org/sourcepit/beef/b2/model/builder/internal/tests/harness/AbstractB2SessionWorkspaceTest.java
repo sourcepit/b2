@@ -169,6 +169,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       project.setGroupId(XmlUtils.queryText(moduleXml, "/project/groupId"));
       project.setArtifactId(XmlUtils.queryText(moduleXml, "/project/artifactId"));
       project.setVersion(XmlUtils.queryText(moduleXml, "/project/version"));
+      // TODO resolve transitive dependencies
       for (Node depNode : XmlUtils.queryNodes(moduleXml, "/project/dependencies/dependency"))
       {
          project.getDependencies().add(createDependency(depNode));

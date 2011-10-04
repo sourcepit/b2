@@ -61,6 +61,12 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, IConverter converter, ITemplates templates)
    {
+      // TODO ability to skip reactor projects
+      if (converter.isSkipInterpolator())
+      {
+         return;
+      }
+
       final AbstractModule module = (AbstractModule) inputElement;
       final File modulePom = resolvePomFile(module);
 

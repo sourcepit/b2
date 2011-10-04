@@ -28,15 +28,15 @@ public class ModuleDependenciesTest extends AbstractB2SessionWorkspaceTest
       return "reactor-build";
    }
 
-   public void _testModuleDependencies() throws Exception
+   public void testModuleDependencies() throws Exception
    {
       ModuleProject rcpProject = getModuleProjectByArtifactId("rcp");
 
       EList<ModuleDependency> dependencies = rcpProject.getDependencies();
-      assertEquals(2, dependencies.size());
+      assertEquals(1, dependencies.size());
 
-      assertEquals("rcp.help", dependencies.get(0).getArtifactId());
-      assertEquals("rcp.ui", dependencies.get(1).getArtifactId());
+      // assertEquals("rcp.help", dependencies.get(0).getArtifactId());
+      assertEquals("rcp.ui", dependencies.get(0).getArtifactId());
    }
 
    public void testDependencyFeatures() throws Exception

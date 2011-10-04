@@ -99,6 +99,32 @@ public interface ModuleDependency extends EObject
    void setVersionRange(String value);
 
    /**
+    * Returns the value of the '<em><b>Classifier</b></em>' attribute. <!-- begin-user-doc -->
+    * <p>
+    * If the meaning of the '<em>Classifier</em>' attribute isn't clear, there really should be more of a description
+    * here...
+    * </p>
+    * <!-- end-user-doc -->
+    * 
+    * @return the value of the '<em>Classifier</em>' attribute.
+    * @see #setClassifier(String)
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleDependency_Classifier()
+    * @model
+    * @generated
+    */
+   String getClassifier();
+
+   /**
+    * Sets the value of the '{@link org.sourcepit.beef.b2.model.session.ModuleDependency#getClassifier
+    * <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @param value the new value of the '<em>Classifier</em>' attribute.
+    * @see #getClassifier()
+    * @generated
+    */
+   void setClassifier(String value);
+
+   /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @model

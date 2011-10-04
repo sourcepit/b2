@@ -301,6 +301,16 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
+   public EAttribute getModuleDependency_Classifier()
+   {
+      return (EAttribute) moduleDependencyEClass.getEStructuralFeatures().get(3);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EClass getModuleAttachment()
    {
       return moduleAttachmentEClass;
@@ -394,6 +404,7 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       createEAttribute(moduleDependencyEClass, MODULE_DEPENDENCY__GROUP_ID);
       createEAttribute(moduleDependencyEClass, MODULE_DEPENDENCY__ARTIFACT_ID);
       createEAttribute(moduleDependencyEClass, MODULE_DEPENDENCY__VERSION_RANGE);
+      createEAttribute(moduleDependencyEClass, MODULE_DEPENDENCY__CLASSIFIER);
 
       moduleAttachmentEClass = createEClass(MODULE_ATTACHMENT);
       createEAttribute(moduleAttachmentEClass, MODULE_ATTACHMENT__CLASSIFIER);
@@ -489,6 +500,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
          ModuleDependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
       initEAttribute(getModuleDependency_VersionRange(), ecorePackage.getEString(), "versionRange", null, 1, 1,
+         ModuleDependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getModuleDependency_Classifier(), ecorePackage.getEString(), "classifier", null, 0, 1,
          ModuleDependency.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
 

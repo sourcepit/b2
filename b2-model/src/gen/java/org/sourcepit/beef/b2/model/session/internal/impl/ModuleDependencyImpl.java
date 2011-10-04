@@ -80,6 +80,25 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
    protected String versionRange = VERSION_RANGE_EDEFAULT;
 
    /**
+    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @see #getClassifier()
+    * @generated
+    * @ordered
+    */
+   protected static final String CLASSIFIER_EDEFAULT = null;
+   /**
+    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @see #getClassifier()
+    * @generated
+    * @ordered
+    */
+   protected String classifier = CLASSIFIER_EDEFAULT;
+
+   /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -177,6 +196,30 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
     * 
     * @generated
     */
+   public String getClassifier()
+   {
+      return classifier;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public void setClassifier(String newClassifier)
+   {
+      String oldClassifier = classifier;
+      classifier = newClassifier;
+      if (eNotificationRequired())
+         eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_DEPENDENCY__CLASSIFIER,
+            oldClassifier, classifier));
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public boolean isSatisfiableBy(ModuleProject moduleProject)
    {
       // TODO: implement this method
@@ -200,6 +243,8 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
             return getArtifactId();
          case SessionModelPackage.MODULE_DEPENDENCY__VERSION_RANGE :
             return getVersionRange();
+         case SessionModelPackage.MODULE_DEPENDENCY__CLASSIFIER :
+            return getClassifier();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -222,6 +267,9 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
             return;
          case SessionModelPackage.MODULE_DEPENDENCY__VERSION_RANGE :
             setVersionRange((String) newValue);
+            return;
+         case SessionModelPackage.MODULE_DEPENDENCY__CLASSIFIER :
+            setClassifier((String) newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -246,6 +294,9 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
          case SessionModelPackage.MODULE_DEPENDENCY__VERSION_RANGE :
             setVersionRange(VERSION_RANGE_EDEFAULT);
             return;
+         case SessionModelPackage.MODULE_DEPENDENCY__CLASSIFIER :
+            setClassifier(CLASSIFIER_EDEFAULT);
+            return;
       }
       super.eUnset(featureID);
    }
@@ -266,6 +317,8 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
             return ARTIFACT_ID_EDEFAULT == null ? artifactId != null : !ARTIFACT_ID_EDEFAULT.equals(artifactId);
          case SessionModelPackage.MODULE_DEPENDENCY__VERSION_RANGE :
             return VERSION_RANGE_EDEFAULT == null ? versionRange != null : !VERSION_RANGE_EDEFAULT.equals(versionRange);
+         case SessionModelPackage.MODULE_DEPENDENCY__CLASSIFIER :
+            return CLASSIFIER_EDEFAULT == null ? classifier != null : !CLASSIFIER_EDEFAULT.equals(classifier);
       }
       return super.eIsSet(featureID);
    }
@@ -288,6 +341,8 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
       result.append(artifactId);
       result.append(", versionRange: ");
       result.append(versionRange);
+      result.append(", classifier: ");
+      result.append(classifier);
       result.append(')');
       return result.toString();
    }

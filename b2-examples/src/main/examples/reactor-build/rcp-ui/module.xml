@@ -21,4 +21,14 @@
 		<sites>internal</sites>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.sourcepit.b2.examples</groupId>
+			<artifactId>rcp.help</artifactId>
+			<version>\${project.version}</version>
+			<classifier>internal</classifier>
+			<type>module</type>
+		</dependency>
+	</dependencies>
+
 </project>

@@ -11,6 +11,7 @@
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
+		<b2.product.sdk.filter>**.sdk.**</b2.product.sdk.filter>
 	</properties>
 
 	<distributionManagement>

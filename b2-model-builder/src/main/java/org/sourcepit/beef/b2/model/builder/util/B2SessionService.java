@@ -4,11 +4,14 @@
 
 package org.sourcepit.beef.b2.model.builder.util;
 
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.beef.b2.model.session.B2Session;
 
 public class B2SessionService implements IB2SessionService
 {
    private B2Session currentSession;
+   
+   private ResourceSet resourceSet;
 
    public void setCurrentSession(B2Session currentSession)
    {
@@ -18,5 +21,15 @@ public class B2SessionService implements IB2SessionService
    public B2Session getCurrentSession()
    {
       return currentSession;
+   }
+   
+   public void setCurrentResourceSet(ResourceSet currentResourceSet)
+   {
+      resourceSet = currentResourceSet;
+   }
+   
+   public ResourceSet getCurrentResourceSet()
+   {
+      return resourceSet;
    }
 }

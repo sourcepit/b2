@@ -88,11 +88,28 @@ public final class XmlUtils
 
    public static Iterable<Node> queryNodes(Document document, String xPath)
    {
+      return toIterable(queryNodeList(document, xPath));
+   }
+
+   public static Node queryNode(Document document, String xPath)
+   {
       try
       {
          XPathExpression expr = XPathFactory.newInstance().newXPath().compile(xPath);
-         Object result = expr.evaluate(document, XPathConstants.NODESET);
-         return toIterable((NodeList) result);
+         return (Node) expr.evaluate(document, XPathConstants.NODE);
+      }
+      catch (XPathExpressionException e)
+      {
+         throw new IllegalArgumentException(e);
+      }
+   }
+
+   public static NodeList queryNodeList(Document document, String xPath)
+   {
+      try
+      {
+         XPathExpression expr = XPathFactory.newInstance().newXPath().compile(xPath);
+         return (NodeList) expr.evaluate(document, XPathConstants.NODESET);
       }
       catch (XPathExpressionException e)
       {

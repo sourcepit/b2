@@ -123,6 +123,10 @@
           <element xmi:type="ecore:EAttribute" href="b2.ecore#//session/ModuleDependency/artifactId"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_NjBp4eQaEeCZTpyILFH5Rg"/>
         </children>
+        <children xmi:type="notation:Node" xmi:id="_LOPxUe6CEeCni-vnbmFuuA" type="2001">
+          <element xmi:type="ecore:EAttribute" href="b2.ecore#//session/ModuleDependency/classifier"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_LOPxUu6CEeCni-vnbmFuuA"/>
+        </children>
         <children xmi:type="notation:Node" xmi:id="_OThSsOQaEeCZTpyILFH5Rg" type="2001">
           <element xmi:type="ecore:EAttribute" href="b2.ecore#//session/ModuleDependency/versionRange"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_OThSseQaEeCZTpyILFH5Rg"/>
