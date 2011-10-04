@@ -13,15 +13,25 @@ exec "$MAVEN_EXEC" $MAVEN_ARGS -P buildProducts
 
 elif [ "$2" = "single" ] ; then
 
-cd rcp-help
+cd common-config
+echo
+echo ------------------------------------------------------------------------
+echo Starting single module build for \'common-config\'
+echo ------------------------------------------------------------------------
+echo Directory    : $PWD
+echo Command Line : $MAVEN_EXEC $MAVEN_ARGS
+echo
+exec "$MAVEN_EXEC" $MAVEN_ARGS
+
+cd ../rcp-help
 echo
 echo ------------------------------------------------------------------------
 echo Starting single module build for \'rcp-help\'
 echo ------------------------------------------------------------------------
 echo Directory    : $PWD
-echo Command Line : $MAVEN_EXEC $MAVEN_ARGS -P deploySites
+echo Command Line : $MAVEN_EXEC $MAVEN_ARGS
 echo
-exec "$MAVEN_EXEC" $MAVEN_ARGS -P deploySites
+exec "$MAVEN_EXEC" $MAVEN_ARGS
 
 cd ../rcp-ui
 echo
@@ -29,9 +39,9 @@ echo ------------------------------------------------------------------------
 echo Starting single module build for \'rcp-ui\'
 echo ------------------------------------------------------------------------
 echo Directory    : $PWD
-echo Command Line : $MAVEN_EXEC $MAVEN_ARGS -P deploySites
+echo Command Line : $MAVEN_EXEC $MAVEN_ARGS
 echo
-exec "$MAVEN_EXEC" $MAVEN_ARGS -P deploySites
+exec "$MAVEN_EXEC" $MAVEN_ARGS
 
 cd ../rcp
 echo
@@ -39,9 +49,9 @@ echo ------------------------------------------------------------------------
 echo Starting single module build for \'rcp\'
 echo ------------------------------------------------------------------------
 echo Directory    : $PWD
-echo Command Line : $MAVEN_EXEC $MAVEN_ARGS -P useSites,buildProducts
+echo Command Line : $MAVEN_EXEC $MAVEN_ARGS -P buildProducts
 echo
-exec "$MAVEN_EXEC" $MAVEN_ARGS -P useSites,buildProducts
+exec "$MAVEN_EXEC" $MAVEN_ARGS -P buildProducts
 
 else
 

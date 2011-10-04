@@ -5,15 +5,25 @@ if "%2"=="single" goto performSingleBuilds
 goto printOptions
 
 :performSingleBuilds
-cd rcp-help
+cd common-config
+echo.
+echo ------------------------------------------------------------------------
+echo Starting single module build for 'common-config'
+echo ------------------------------------------------------------------------
+echo Directory    : %cd%
+echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS%
+echo.
+call %MAVEN_EXEC% %MAVEN_ARGS%
+
+cd ../rcp-help
 echo.
 echo ------------------------------------------------------------------------
 echo Starting single module build for 'rcp-help'
 echo ------------------------------------------------------------------------
 echo Directory    : %cd%
-echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P deploySites
+echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS%
 echo.
-call %MAVEN_EXEC% %MAVEN_ARGS% -P deploySites
+call %MAVEN_EXEC% %MAVEN_ARGS%
 
 cd ../rcp-ui
 echo.
@@ -21,9 +31,9 @@ echo ------------------------------------------------------------------------
 echo Starting single module build for 'rcp-ui'
 echo ------------------------------------------------------------------------
 echo Directory    : %cd%
-echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P deploySites
+echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS%
 echo.
-call %MAVEN_EXEC% %MAVEN_ARGS% -P deploySites
+call %MAVEN_EXEC% %MAVEN_ARGS%
 
 cd ../rcp
 echo.
@@ -31,9 +41,9 @@ echo ------------------------------------------------------------------------
 echo Starting single module build for 'rcp'
 echo ------------------------------------------------------------------------
 echo Directory    : %cd%
-echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P useSites,buildProducts
+echo Command Line : %MAVEN_EXEC% %MAVEN_ARGS% -P buildProducts
 echo.
-call %MAVEN_EXEC% %MAVEN_ARGS% -P useSites,buildProducts
+call %MAVEN_EXEC% %MAVEN_ARGS% -P buildProducts
 goto end
 
 :performReactorBuild
