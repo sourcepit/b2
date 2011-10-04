@@ -330,7 +330,8 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             {
                final Artifact siteArtifact = resolveSiteArtifact(wrapperProject, artifact);
                final File zipFile = siteArtifact.getFile();
-               final File siteDir = unpackSite(zipFile);
+
+               final File siteDir = unpackSite(zipFile, artifact.getFile().lastModified());
                moduleProject.putAnnotationEntry("b2.resolvedSites", artifact.getId().replace(':', '_'), "file:"
                   + siteDir.getAbsolutePath());
             }
@@ -338,31 +339,38 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       }
    }
 
-   private File unpackSite(final File zipFile)
+   private File unpackSite(final File zipFile, long lastUpdated)
    {
-      FileInputStream zipStream = null;
-      try
+      final String zipPath = zipFile.getAbsolutePath();
+      final File siteDir = new File(zipPath.substring(0, zipPath.length() - ".zip".length()));
+      if (lastUpdated > siteDir.lastModified())
       {
-         zipStream = new FileInputStream(zipFile);
-         final String zipPath = zipFile.getAbsolutePath();
-         final File siteDir = new File(zipPath.substring(0, zipPath.length() - ".zip".length()));
-         if (siteDir.exists())
+         logger.info("Unpacking " + zipFile.getAbsolutePath() + " to " + siteDir.getAbsolutePath());
+         FileInputStream zipStream = null;
+         try
          {
-            FileUtils.forceDelete(siteDir);
+            zipStream = new FileInputStream(zipFile);
+            if (siteDir.exists())
+            {
+               FileUtils.forceDelete(siteDir);
+            }
+            siteDir.mkdir();
+            unpack(zipStream, siteDir);
          }
-         siteDir.mkdir();
-         unpack(zipStream, siteDir);
-
-         return siteDir;
+         catch (IOException e)
+         {
+            throw new IllegalStateException(e);
+         }
+         finally
+         {
+            IOUtils.closeQuietly(zipStream);
+         }
       }
-      catch (IOException e)
+      else
       {
-         throw new IllegalStateException(e);
+         logger.info("Skipped unpacking of " + zipFile.getAbsolutePath() + " to " + siteDir.getAbsolutePath());
       }
-      finally
-      {
-         IOUtils.closeQuietly(zipStream);
-      }
+      return siteDir;
    }
 
    private Artifact resolveSiteArtifact(final MavenProject wrapperProject, Artifact artifact)
