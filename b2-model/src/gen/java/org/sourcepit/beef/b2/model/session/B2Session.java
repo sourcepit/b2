@@ -40,7 +40,7 @@ public interface B2Session extends Annotatable
     * @return the value of the '<em>Projects</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getB2Session_Projects()
     * @see org.sourcepit.beef.b2.model.session.ModuleProject#getSession
-    * @model opposite="session" containment="true"
+    * @model opposite="session" containment="true" resolveProxies="true"
     * @generated
     */
    EList<ModuleProject> getProjects();

@@ -37,7 +37,7 @@ public interface CompositeModule extends AbstractModule
     * @return the value of the '<em>Modules</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getCompositeModule_Modules()
     * @see org.sourcepit.beef.b2.model.module.AbstractModule#getParent
-    * @model opposite="parent" containment="true"
+    * @model opposite="parent" containment="true" resolveProxies="true"
     * @generated
     */
    EList<AbstractModule> getModules();

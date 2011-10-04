@@ -112,6 +112,18 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
     * 
     * @generated
     */
+   public FeatureProject basicGetParent()
+   {
+      if (eContainerFeatureID() != ModuleModelPackage.PLUGIN_INCLUDE__PARENT)
+         return null;
+      return (FeatureProject) eInternalContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public NotificationChain basicSetParent(FeatureProject newParent, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.PLUGIN_INCLUDE__PARENT, msgs);
@@ -209,7 +221,9 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
          case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
             return isUnpack();
          case ModuleModelPackage.PLUGIN_INCLUDE__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -267,7 +281,7 @@ public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
          case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
             return unpack != UNPACK_EDEFAULT;
          case ModuleModelPackage.PLUGIN_INCLUDE__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
       }
       return super.eIsSet(featureID);
    }

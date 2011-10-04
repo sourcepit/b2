@@ -4,7 +4,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/b2-model/src/gen/java"
     modelPluginID="" templateDirectory="" redirection="" modelName="b2" modelPluginClass=""
     updateClasspath="false" importerID="org.eclipse.emf.importer.ecore" bundleManifest="false"
-    complianceLevel="5.0" copyrightFields="false">
+    containmentProxies="true" complianceLevel="5.0" copyrightFields="false">
   <foreignModel>b2.ecore</foreignModel>
   <genPackages prefix="Model" basePackage="org.sourcepit.beef.b2" disposableProviderFactory="true"
       ecorePackage="b2.ecore#/">
@@ -12,19 +12,19 @@
         ecorePackage="b2.ecore#//common">
       <genDataTypes ecoreDataType="b2.ecore#//common/EJavaFile"/>
       <genDataTypes ecoreDataType="b2.ecore#//common/ELocale"/>
-      <genClasses image="false" ecoreClass="b2.ecore#//common/Annotateable">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//common/Annotateable/annotations"/>
-        <genOperations ecoreOperation="b2.ecore#//common/Annotateable/getAnnotation">
-          <genParameters ecoreParameter="b2.ecore#//common/Annotateable/getAnnotation/source"/>
+      <genClasses image="false" ecoreClass="b2.ecore#//common/Annotatable">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//common/Annotatable/annotations"/>
+        <genOperations ecoreOperation="b2.ecore#//common/Annotatable/getAnnotation">
+          <genParameters ecoreParameter="b2.ecore#//common/Annotatable/getAnnotation/source"/>
         </genOperations>
-        <genOperations ecoreOperation="b2.ecore#//common/Annotateable/getAnnotationEntry">
-          <genParameters ecoreParameter="b2.ecore#//common/Annotateable/getAnnotationEntry/source"/>
-          <genParameters ecoreParameter="b2.ecore#//common/Annotateable/getAnnotationEntry/key"/>
+        <genOperations ecoreOperation="b2.ecore#//common/Annotatable/getAnnotationEntry">
+          <genParameters ecoreParameter="b2.ecore#//common/Annotatable/getAnnotationEntry/source"/>
+          <genParameters ecoreParameter="b2.ecore#//common/Annotatable/getAnnotationEntry/key"/>
         </genOperations>
-        <genOperations ecoreOperation="b2.ecore#//common/Annotateable/putAnnotationEntry">
-          <genParameters ecoreParameter="b2.ecore#//common/Annotateable/putAnnotationEntry/source"/>
-          <genParameters ecoreParameter="b2.ecore#//common/Annotateable/putAnnotationEntry/key"/>
-          <genParameters ecoreParameter="b2.ecore#//common/Annotateable/putAnnotationEntry/value"/>
+        <genOperations ecoreOperation="b2.ecore#//common/Annotatable/putAnnotationEntry">
+          <genParameters ecoreParameter="b2.ecore#//common/Annotatable/putAnnotationEntry/source"/>
+          <genParameters ecoreParameter="b2.ecore#//common/Annotatable/putAnnotationEntry/key"/>
+          <genParameters ecoreParameter="b2.ecore#//common/Annotatable/putAnnotationEntry/value"/>
         </genOperations>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//common/Annotation">
@@ -163,6 +163,11 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/B2Session/projects"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference b2.ecore#//session/B2Session/currentProject"/>
+        <genOperations ecoreOperation="b2.ecore#//session/B2Session/getProject">
+          <genParameters ecoreParameter="b2.ecore#//session/B2Session/getProject/groupId"/>
+          <genParameters ecoreParameter="b2.ecore#//session/B2Session/getProject/artifactId"/>
+          <genParameters ecoreParameter="b2.ecore#//session/B2Session/getProject/version"/>
+        </genOperations>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//session/ModuleProject">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleProject/groupId"/>
@@ -173,6 +178,7 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/dependencies"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/moduleModel"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/attachments"/>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//session/ModuleDependency">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleDependency/groupId"/>
@@ -181,6 +187,12 @@
         <genOperations ecoreOperation="b2.ecore#//session/ModuleDependency/isSatisfiableBy">
           <genParameters ecoreParameter="b2.ecore#//session/ModuleDependency/isSatisfiableBy/moduleProject"/>
         </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="b2.ecore#//session/ModuleAttachment">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleAttachment/classifier"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleAttachment/type"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleAttachment/file"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleAttachment/parent"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

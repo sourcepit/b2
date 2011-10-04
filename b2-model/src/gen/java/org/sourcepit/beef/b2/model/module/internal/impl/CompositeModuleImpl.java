@@ -72,7 +72,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       if (modules == null)
       {
-         modules = new EObjectContainmentWithInverseEList<AbstractModule>(AbstractModule.class, this,
+         modules = new EObjectContainmentWithInverseEList.Resolving<AbstractModule>(AbstractModule.class, this,
             ModuleModelPackage.COMPOSITE_MODULE__MODULES, ModuleModelPackage.ABSTRACT_MODULE__PARENT);
       }
       return modules;

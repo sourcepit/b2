@@ -68,6 +68,18 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
     * 
     * @generated
     */
+   public FeatureProject basicGetParent()
+   {
+      if (eContainerFeatureID() != ModuleModelPackage.FEATURE_INCLUDE__PARENT)
+         return null;
+      return (FeatureProject) eInternalContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public NotificationChain basicSetParent(FeatureProject newParent, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.FEATURE_INCLUDE__PARENT, msgs);
@@ -163,7 +175,9 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
       switch (featureID)
       {
          case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -213,7 +227,7 @@ public class FeatureIncludeImpl extends ReferenceImpl implements FeatureInclude
       switch (featureID)
       {
          case ModuleModelPackage.FEATURE_INCLUDE__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
       }
       return super.eIsSet(featureID);
    }

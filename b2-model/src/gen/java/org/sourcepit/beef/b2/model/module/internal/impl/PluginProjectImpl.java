@@ -154,6 +154,18 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
+   public PluginsFacet basicGetParent()
+   {
+      if (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT)
+         return null;
+      return (PluginsFacet) eInternalContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public NotificationChain basicSetParent(PluginsFacet newParent, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.PLUGIN_PROJECT__PARENT, msgs);
@@ -358,7 +370,9 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       switch (featureID)
       {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
          case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION :
             return getBundleVersion();
          case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN :
@@ -440,7 +454,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       switch (featureID)
       {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
          case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION :
             return BUNDLE_VERSION_EDEFAULT == null ? bundleVersion != null : !BUNDLE_VERSION_EDEFAULT
                .equals(bundleVersion);

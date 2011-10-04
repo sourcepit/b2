@@ -119,7 +119,7 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       if (featureReferences == null)
       {
-         featureReferences = new EObjectContainmentEList<Reference>(Reference.class, this,
+         featureReferences = new EObjectContainmentEList.Resolving<Reference>(Reference.class, this,
             ModuleModelPackage.CATEGORY__FEATURE_REFERENCES);
       }
       return featureReferences;

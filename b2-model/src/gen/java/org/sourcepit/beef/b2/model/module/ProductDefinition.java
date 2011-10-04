@@ -94,7 +94,7 @@ public interface ProductDefinition extends Annotatable, Derivable
     * @return the value of the '<em>Product Plugin</em>' containment reference.
     * @see #setProductPlugin(Reference)
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getProductDefinition_ProductPlugin()
-    * @model containment="true" required="true"
+    * @model containment="true" resolveProxies="true" required="true"
     * @generated
     */
    Reference getProductPlugin();

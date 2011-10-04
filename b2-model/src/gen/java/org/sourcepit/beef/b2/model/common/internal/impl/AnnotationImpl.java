@@ -104,6 +104,18 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
     * 
     * @generated
     */
+   public Annotatable basicGetParent()
+   {
+      if (eContainerFeatureID() != CommonModelPackage.ANNOTATION__PARENT)
+         return null;
+      return (Annotatable) eInternalContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public NotificationChain basicSetParent(Annotatable newParent, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newParent, CommonModelPackage.ANNOTATION__PARENT, msgs);
@@ -239,7 +251,9 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
       switch (featureID)
       {
          case CommonModelPackage.ANNOTATION__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
          case CommonModelPackage.ANNOTATION__SOURCE :
             return getSource();
          case CommonModelPackage.ANNOTATION__ENTRIES :
@@ -308,7 +322,7 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
       switch (featureID)
       {
          case CommonModelPackage.ANNOTATION__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
          case CommonModelPackage.ANNOTATION__SOURCE :
             return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
          case CommonModelPackage.ANNOTATION__ENTRIES :

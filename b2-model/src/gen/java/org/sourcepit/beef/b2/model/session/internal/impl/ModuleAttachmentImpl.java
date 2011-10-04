@@ -206,6 +206,18 @@ public class ModuleAttachmentImpl extends EObjectImpl implements ModuleAttachmen
     * 
     * @generated
     */
+   public ModuleProject basicGetParent()
+   {
+      if (eContainerFeatureID() != SessionModelPackage.MODULE_ATTACHMENT__PARENT)
+         return null;
+      return (ModuleProject) eInternalContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public NotificationChain basicSetParent(ModuleProject newParent, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newParent, SessionModelPackage.MODULE_ATTACHMENT__PARENT, msgs);
@@ -307,7 +319,9 @@ public class ModuleAttachmentImpl extends EObjectImpl implements ModuleAttachmen
          case SessionModelPackage.MODULE_ATTACHMENT__FILE :
             return getFile();
          case SessionModelPackage.MODULE_ATTACHMENT__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -381,7 +395,7 @@ public class ModuleAttachmentImpl extends EObjectImpl implements ModuleAttachmen
          case SessionModelPackage.MODULE_ATTACHMENT__FILE :
             return FILE_EDEFAULT == null ? file != null : !FILE_EDEFAULT.equals(file);
          case SessionModelPackage.MODULE_ATTACHMENT__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
       }
       return super.eIsSet(featureID);
    }

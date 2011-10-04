@@ -37,7 +37,7 @@ public interface FeaturesFacet extends ProjectFacet<FeatureProject>
     * @return the value of the '<em>Projects</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getFeaturesFacet_Projects()
     * @see org.sourcepit.beef.b2.model.module.FeatureProject#getParent
-    * @model opposite="parent" containment="true"
+    * @model opposite="parent" containment="true" resolveProxies="true"
     * @generated
     */
    EList<FeatureProject> getProjects();

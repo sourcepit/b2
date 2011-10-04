@@ -72,8 +72,9 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       if (productDefinitions == null)
       {
-         productDefinitions = new EObjectContainmentWithInverseEList<ProductDefinition>(ProductDefinition.class, this,
-            ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS, ModuleModelPackage.PRODUCT_DEFINITION__PARENT);
+         productDefinitions = new EObjectContainmentWithInverseEList.Resolving<ProductDefinition>(
+            ProductDefinition.class, this, ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
+            ModuleModelPackage.PRODUCT_DEFINITION__PARENT);
       }
       return productDefinitions;
    }

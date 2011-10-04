@@ -37,7 +37,7 @@ public interface SitesFacet extends ProjectFacet<SiteProject>
     * @return the value of the '<em>Projects</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getSitesFacet_Projects()
     * @see org.sourcepit.beef.b2.model.module.SiteProject#getParent
-    * @model opposite="parent" containment="true"
+    * @model opposite="parent" containment="true" resolveProxies="true"
     * @generated
     */
    EList<SiteProject> getProjects();

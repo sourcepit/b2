@@ -71,7 +71,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       if (projects == null)
       {
-         projects = new EObjectContainmentWithInverseEList<FeatureProject>(FeatureProject.class, this,
+         projects = new EObjectContainmentWithInverseEList.Resolving<FeatureProject>(FeatureProject.class, this,
             ModuleModelPackage.FEATURES_FACET__PROJECTS, ModuleModelPackage.FEATURE_PROJECT__PARENT);
       }
       return projects;

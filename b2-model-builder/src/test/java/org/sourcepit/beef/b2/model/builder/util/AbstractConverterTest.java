@@ -106,7 +106,7 @@ public class AbstractConverterTest extends TestCase
          propertiesMap.get("category.public.filter"));
       assertEquals("SDK", propertiesMap.get("category.sdk.classifier.label"));
       assertEquals("", propertiesMap.get("category.public.classifier.label"));
-      assertEquals("sdk, internal, public", propertiesMap.get("sites"));
+      assertEquals("public, sdk, internal", propertiesMap.get("sites"));
       assertEquals("sdk", propertiesMap.get("site.sdk.categories"));
       assertEquals("sdk, internal, public", propertiesMap.get("site.internal.categories"));
       assertEquals("public", propertiesMap.get("site.public.categories"));

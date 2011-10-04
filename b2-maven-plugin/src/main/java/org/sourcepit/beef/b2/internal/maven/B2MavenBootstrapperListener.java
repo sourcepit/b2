@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -25,14 +26,21 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.building.ModelBuilder;
+import org.apache.maven.model.io.DefaultModelReader;
+import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -56,6 +64,7 @@ import org.sourcepit.beef.b2.execution.IB2Listener;
 import org.sourcepit.beef.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.beef.b2.internal.generator.BootPomSerializer;
 import org.sourcepit.beef.b2.internal.generator.DefaultTemplateCopier;
+import org.sourcepit.beef.b2.internal.generator.FixedModelMerger;
 import org.sourcepit.beef.b2.internal.generator.ITemplates;
 import org.sourcepit.beef.b2.internal.generator.MavenConverter;
 import org.sourcepit.beef.b2.model.builder.util.B2SessionService;
@@ -64,6 +73,8 @@ import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.beef.b2.model.common.util.GavResourceUtils;
 import org.sourcepit.beef.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.SiteProject;
+import org.sourcepit.beef.b2.model.module.SitesFacet;
 import org.sourcepit.beef.b2.model.session.B2Session;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
@@ -166,9 +177,34 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
       final AbstractModule module = b2.generate(moduleDir, modelCache, fileFilter, converter, templates);
 
-      final URI moduleUri = MavenURIResolver.toArtifactIdentifier(wrapperProject, null, "module").toUri();
-      resourceSet.createResource(moduleUri).getContents().add(module);
-      modelCache.put(module);
+      final LinkedHashSet<String> classifiers = new LinkedHashSet<String>();
+      for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
+      {
+         for (SiteProject siteProject : sitesFacet.getProjects())
+         {
+            String cl = siteProject.getClassifier();
+            classifiers.add(cl == null || cl.length() == 0 ? null : cl);
+         }
+      }
+
+      // add default model if no site classifiers are specified
+      if (classifiers.isEmpty())
+      {
+         classifiers.add(null);
+      }
+
+      for (String classifier : classifiers)
+      {
+         AbstractModule _module = module;
+         if (_module.eResource() != null)
+         {
+            _module = EcoreUtil.copy(_module);
+         }
+
+         final URI moduleUri = MavenURIResolver.toArtifactIdentifier(wrapperProject, classifier, "module").toUri();
+         resourceSet.createResource(moduleUri).getContents().add(_module);
+         modelCache.put(_module);
+      }
 
       b2Session.getCurrentProject().setModuleModel(module);
 
@@ -178,7 +214,10 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       wrapperProject.setContextValue("pom", pomFile);
 
       final String layoutId = module.getLayoutId();
-      final URI uri = URI.createFileURI(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, "b2.session"));
+
+      final File sessionFile = new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, "b2.session"));
+
+      final URI uri = URI.createFileURI(sessionFile.getAbsolutePath());
 
       final Resource resource = resourceSet.createResource(uri);
       resource.getContents().add(b2Session);
@@ -191,9 +230,87 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          throw new IllegalStateException(e);
       }
 
+      projectHelper.attachArtifact(wrapperProject, "session", null, sessionFile);
+
+      processAttachments(wrapperProject, pomFile);
+
       bootSession.setData(CACHE_KEY_SESSION, uri.toString());
 
       storeModelCache(bootSession, modelCache);
+   }
+
+   private void processAttachments(MavenProject wrapperProject, File pomFile)
+   {
+      final List<Artifact> attachedArtifacts = wrapperProject.getAttachedArtifacts();
+      if (attachedArtifacts == null)
+      {
+         return;
+      }
+
+      Xpp3Dom artifactsNode = new Xpp3Dom("artifacts");
+      for (Artifact artifact : attachedArtifacts)
+      {
+         Xpp3Dom artifactNode = new Xpp3Dom("artifact");
+
+         if (artifact.getClassifier() != null)
+         {
+            Xpp3Dom classifierNode = new Xpp3Dom("classifier");
+            classifierNode.setValue(artifact.getClassifier());
+            artifactNode.addChild(classifierNode);
+         }
+
+         Xpp3Dom typeNode = new Xpp3Dom("type");
+         typeNode.setValue(artifact.getType());
+         artifactNode.addChild(typeNode);
+
+         Xpp3Dom fileNode = new Xpp3Dom("file");
+         fileNode.setValue(artifact.getFile().getAbsolutePath());
+         artifactNode.addChild(fileNode);
+
+         artifactsNode.addChild(artifactNode);
+      }
+
+      Xpp3Dom configNode = new Xpp3Dom("configuration");
+      configNode.addChild(artifactsNode);
+
+      PluginExecution exec = new PluginExecution();
+      exec.setId("b2-attach-artifatcs");
+      exec.setPhase("initialize");
+      exec.getGoals().add("attach-artifact");
+      exec.setConfiguration(configNode);
+
+      Plugin plugin = new Plugin();
+      plugin.setGroupId("org.codehaus.mojo");
+      plugin.setArtifactId("build-helper-maven-plugin");
+      plugin.setVersion("1.7");
+      plugin.getExecutions().add(exec);
+      plugin.setInherited(false);
+
+      Build build = new Build();
+      build.getPlugins().add(plugin);
+
+      Model model = new Model();
+      model.setBuild(build);
+
+      final Model moduleModel;
+      try
+      {
+         moduleModel = new DefaultModelReader().read(pomFile, null);
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException(e);
+      }
+
+      new FixedModelMerger().merge(moduleModel, model, false, null);
+      try
+      {
+         new DefaultModelWriter().write(pomFile, null, moduleModel);
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException(e);
+      }
    }
 
    @Requirement

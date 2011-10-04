@@ -113,6 +113,18 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * 
     * @generated
     */
+   public FeaturesFacet basicGetParent()
+   {
+      if (eContainerFeatureID() != ModuleModelPackage.FEATURE_PROJECT__PARENT)
+         return null;
+      return (FeaturesFacet) eInternalContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public NotificationChain basicSetParent(FeaturesFacet newParent, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.FEATURE_PROJECT__PARENT, msgs);
@@ -155,7 +167,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       if (includedPlugins == null)
       {
-         includedPlugins = new EObjectContainmentWithInverseEList<PluginInclude>(PluginInclude.class, this,
+         includedPlugins = new EObjectContainmentWithInverseEList.Resolving<PluginInclude>(PluginInclude.class, this,
             ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS, ModuleModelPackage.PLUGIN_INCLUDE__PARENT);
       }
       return includedPlugins;
@@ -170,8 +182,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       if (includedFeatures == null)
       {
-         includedFeatures = new EObjectContainmentWithInverseEList<FeatureInclude>(FeatureInclude.class, this,
-            ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES, ModuleModelPackage.FEATURE_INCLUDE__PARENT);
+         includedFeatures = new EObjectContainmentWithInverseEList.Resolving<FeatureInclude>(FeatureInclude.class,
+            this, ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES, ModuleModelPackage.FEATURE_INCLUDE__PARENT);
       }
       return includedFeatures;
    }
@@ -273,7 +285,9 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
          case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
             return getClassifier();
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             return getIncludedPlugins();
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
@@ -350,7 +364,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
          case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
             return CLASSIFIER_EDEFAULT == null ? classifier != null : !CLASSIFIER_EDEFAULT.equals(classifier);
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             return includedPlugins != null && !includedPlugins.isEmpty();
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :

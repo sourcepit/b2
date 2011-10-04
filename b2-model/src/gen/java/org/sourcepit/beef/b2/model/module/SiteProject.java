@@ -65,7 +65,7 @@ public interface SiteProject extends Project, Classified
     * 
     * @return the value of the '<em>Categories</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getSiteProject_Categories()
-    * @model containment="true"
+    * @model containment="true" resolveProxies="true"
     * @generated
     */
    EList<Category> getCategories();

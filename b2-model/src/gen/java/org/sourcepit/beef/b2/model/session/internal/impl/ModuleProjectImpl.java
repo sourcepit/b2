@@ -201,7 +201,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
             SessionModelPackage.MODULE_PROJECT__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
@@ -241,6 +241,18 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
       if (eContainerFeatureID() != SessionModelPackage.MODULE_PROJECT__SESSION)
          return null;
       return (B2Session) eContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public B2Session basicGetSession()
+   {
+      if (eContainerFeatureID() != SessionModelPackage.MODULE_PROJECT__SESSION)
+         return null;
+      return (B2Session) eInternalContainer();
    }
 
    /**
@@ -362,7 +374,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       if (dependencies == null)
       {
-         dependencies = new EObjectContainmentEList<ModuleDependency>(ModuleDependency.class, this,
+         dependencies = new EObjectContainmentEList.Resolving<ModuleDependency>(ModuleDependency.class, this,
             SessionModelPackage.MODULE_PROJECT__DEPENDENCIES);
       }
       return dependencies;
@@ -422,7 +434,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    {
       if (attachments == null)
       {
-         attachments = new EObjectContainmentWithInverseEList<ModuleAttachment>(ModuleAttachment.class, this,
+         attachments = new EObjectContainmentWithInverseEList.Resolving<ModuleAttachment>(ModuleAttachment.class, this,
             SessionModelPackage.MODULE_PROJECT__ATTACHMENTS, SessionModelPackage.MODULE_ATTACHMENT__PARENT);
       }
       return attachments;
@@ -541,7 +553,9 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__GROUP_ID :
             return getGroupId();
          case SessionModelPackage.MODULE_PROJECT__SESSION :
-            return getSession();
+            if (resolve)
+               return getSession();
+            return basicGetSession();
          case SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID :
             return getArtifactId();
          case SessionModelPackage.MODULE_PROJECT__VERSION :
@@ -661,7 +675,7 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__GROUP_ID :
             return GROUP_ID_EDEFAULT == null ? groupId != null : !GROUP_ID_EDEFAULT.equals(groupId);
          case SessionModelPackage.MODULE_PROJECT__SESSION :
-            return getSession() != null;
+            return basicGetSession() != null;
          case SessionModelPackage.MODULE_PROJECT__ARTIFACT_ID :
             return ARTIFACT_ID_EDEFAULT == null ? artifactId != null : !ARTIFACT_ID_EDEFAULT.equals(artifactId);
          case SessionModelPackage.MODULE_PROJECT__VERSION :

@@ -214,7 +214,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
             ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
@@ -230,6 +230,18 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_MODULE__PARENT)
          return null;
       return (CompositeModule) eContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public CompositeModule basicGetParent()
+   {
+      if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_MODULE__PARENT)
+         return null;
+      return (CompositeModule) eInternalContainer();
    }
 
    /**
@@ -317,7 +329,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    {
       if (facets == null)
       {
-         facets = new EObjectContainmentWithInverseEList<AbstractFacet>(AbstractFacet.class, this,
+         facets = new EObjectContainmentWithInverseEList.Resolving<AbstractFacet>(AbstractFacet.class, this,
             ModuleModelPackage.ABSTRACT_MODULE__FACETS, ModuleModelPackage.ABSTRACT_FACET__PARENT);
       }
       return facets;
@@ -508,7 +520,9 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
          case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             return getVersion();
          case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
          case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             return getLayoutId();
          case ModuleModelPackage.ABSTRACT_MODULE__LOCALES :
@@ -610,7 +624,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
          case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
          case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
          case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             return LAYOUT_ID_EDEFAULT == null ? layoutId != null : !LAYOUT_ID_EDEFAULT.equals(layoutId);
          case ModuleModelPackage.ABSTRACT_MODULE__LOCALES :

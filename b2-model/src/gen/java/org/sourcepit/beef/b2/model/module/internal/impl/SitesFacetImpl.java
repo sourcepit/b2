@@ -71,7 +71,7 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    {
       if (projects == null)
       {
-         projects = new EObjectContainmentWithInverseEList<SiteProject>(SiteProject.class, this,
+         projects = new EObjectContainmentWithInverseEList.Resolving<SiteProject>(SiteProject.class, this,
             ModuleModelPackage.SITES_FACET__PROJECTS, ModuleModelPackage.SITE_PROJECT__PARENT);
       }
       return projects;

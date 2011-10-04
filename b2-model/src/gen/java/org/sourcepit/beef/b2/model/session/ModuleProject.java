@@ -178,7 +178,7 @@ public interface ModuleProject extends Annotatable
     * 
     * @return the value of the '<em>Dependencies</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Dependencies()
-    * @model containment="true"
+    * @model containment="true" resolveProxies="true"
     * @generated
     */
    EList<ModuleDependency> getDependencies();
@@ -222,7 +222,7 @@ public interface ModuleProject extends Annotatable
     * @return the value of the '<em>Attachments</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Attachments()
     * @see org.sourcepit.beef.b2.model.session.ModuleAttachment#getParent
-    * @model opposite="parent" containment="true"
+    * @model opposite="parent" containment="true" resolveProxies="true"
     * @generated
     */
    EList<ModuleAttachment> getAttachments();

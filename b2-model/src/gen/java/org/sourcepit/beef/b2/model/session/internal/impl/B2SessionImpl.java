@@ -97,7 +97,7 @@ public class B2SessionImpl extends EObjectImpl implements B2Session
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
             SessionModelPackage.B2_SESSION__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
@@ -112,7 +112,7 @@ public class B2SessionImpl extends EObjectImpl implements B2Session
    {
       if (projects == null)
       {
-         projects = new EObjectContainmentWithInverseEList<ModuleProject>(ModuleProject.class, this,
+         projects = new EObjectContainmentWithInverseEList.Resolving<ModuleProject>(ModuleProject.class, this,
             SessionModelPackage.B2_SESSION__PROJECTS, SessionModelPackage.MODULE_PROJECT__SESSION);
       }
       return projects;

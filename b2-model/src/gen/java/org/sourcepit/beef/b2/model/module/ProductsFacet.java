@@ -37,7 +37,7 @@ public interface ProductsFacet extends AbstractFacet
     * @return the value of the '<em>Product Definitions</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getProductsFacet_ProductDefinitions()
     * @see org.sourcepit.beef.b2.model.module.ProductDefinition#getParent
-    * @model opposite="parent" containment="true"
+    * @model opposite="parent" containment="true" resolveProxies="true"
     * @generated
     */
    EList<ProductDefinition> getProductDefinitions();

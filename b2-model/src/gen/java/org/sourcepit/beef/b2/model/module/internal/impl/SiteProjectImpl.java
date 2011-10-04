@@ -128,6 +128,18 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
+   public SitesFacet basicGetParent()
+   {
+      if (eContainerFeatureID() != ModuleModelPackage.SITE_PROJECT__PARENT)
+         return null;
+      return (SitesFacet) eInternalContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public NotificationChain basicSetParent(SitesFacet newParent, NotificationChain msgs)
    {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.SITE_PROJECT__PARENT, msgs);
@@ -170,7 +182,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       if (categories == null)
       {
-         categories = new EObjectContainmentEList<Category>(Category.class, this,
+         categories = new EObjectContainmentEList.Resolving<Category>(Category.class, this,
             ModuleModelPackage.SITE_PROJECT__CATEGORIES);
       }
       return categories;
@@ -242,7 +254,9 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
          case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
             return getClassifier();
          case ModuleModelPackage.SITE_PROJECT__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return getCategories();
       }
@@ -310,7 +324,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
          case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
             return CLASSIFIER_EDEFAULT == null ? classifier != null : !CLASSIFIER_EDEFAULT.equals(classifier);
          case ModuleModelPackage.SITE_PROJECT__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return categories != null && !categories.isEmpty();
       }

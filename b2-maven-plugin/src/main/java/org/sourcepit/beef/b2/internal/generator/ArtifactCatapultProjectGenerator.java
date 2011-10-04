@@ -285,26 +285,37 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       sessionModel.type = "session";
       artifacts.add(sessionModel);
 
-      final ModuleArtifact moduleModel = new ModuleArtifact();
-      moduleModel.file = new File(layout.pathOfMetaDataFile(module, "b2.module"));
-      // moduleModel.classifier = "b2";
-      moduleModel.type = "module";
-      artifacts.add(moduleModel);
+      int artifactCount = artifacts.size();
 
-      final File modelFile = new File(layout.pathOfMetaDataFile(module, "b2.module"));
       for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
       {
          for (SiteProject siteProject : sitesFacet.getProjects())
          {
             if (siteProject.getClassifier() != null && siteProject.getClassifier().length() > 0)
             {
+               final String cl = siteProject.getClassifier();
+
+               final String clString = cl == null || cl.length() == 0 ? "" : ("-" + cl);
+
+               final File modelFile = new File(layout.pathOfMetaDataFile(module, "b2" + clString + ".module"));
+
                final ModuleArtifact classifiedModel = new ModuleArtifact();
                classifiedModel.file = modelFile;
-               classifiedModel.classifier = siteProject.getClassifier();
+               classifiedModel.classifier = cl;
                classifiedModel.type = "module";
                artifacts.add(classifiedModel);
             }
          }
+      }
+
+      // add default model if no site classifiers are specified
+      if (artifactCount == artifacts.size())
+      {
+         final ModuleArtifact moduleModel = new ModuleArtifact();
+         moduleModel.file = new File(layout.pathOfMetaDataFile(module, "b2.module"));
+         // moduleModel.classifier = "b2";
+         moduleModel.type = "module";
+         artifacts.add(moduleModel);
       }
 
       gatherSiteArtifacts(module, artifacts);

@@ -168,7 +168,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
             ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
@@ -184,6 +184,18 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
       if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_FACET__PARENT)
          return null;
       return (AbstractModule) eContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public AbstractModule basicGetParent()
+   {
+      if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_FACET__PARENT)
+         return null;
+      return (AbstractModule) eInternalContainer();
    }
 
    /**
@@ -331,7 +343,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
          case ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS :
             return getAnnotations();
          case ModuleModelPackage.ABSTRACT_FACET__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
          case ModuleModelPackage.ABSTRACT_FACET__NAME :
             return getName();
       }
@@ -407,7 +421,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
          case ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
          case ModuleModelPackage.ABSTRACT_FACET__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
          case ModuleModelPackage.ABSTRACT_FACET__NAME :
             return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       }

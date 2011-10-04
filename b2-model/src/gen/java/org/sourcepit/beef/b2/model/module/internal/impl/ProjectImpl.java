@@ -209,7 +209,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
             ModuleModelPackage.PROJECT__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;

@@ -37,7 +37,7 @@ public interface PluginsFacet extends ProjectFacet<PluginProject>
     * @return the value of the '<em>Projects</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getPluginsFacet_Projects()
     * @see org.sourcepit.beef.b2.model.module.PluginProject#getParent
-    * @model opposite="parent" containment="true"
+    * @model opposite="parent" containment="true" resolveProxies="true"
     * @generated
     */
    EList<PluginProject> getProjects();

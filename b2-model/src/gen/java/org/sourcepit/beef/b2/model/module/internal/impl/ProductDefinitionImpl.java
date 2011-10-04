@@ -134,7 +134,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
             ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
       }
       return annotations;
@@ -174,6 +174,18 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       if (eContainerFeatureID() != ModuleModelPackage.PRODUCT_DEFINITION__PARENT)
          return null;
       return (ProductsFacet) eContainer();
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public ProductsFacet basicGetParent()
+   {
+      if (eContainerFeatureID() != ModuleModelPackage.PRODUCT_DEFINITION__PARENT)
+         return null;
+      return (ProductsFacet) eInternalContainer();
    }
 
    /**
@@ -244,6 +256,37 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    public Reference getProductPlugin()
+   {
+      if (productPlugin != null && productPlugin.eIsProxy())
+      {
+         InternalEObject oldProductPlugin = (InternalEObject) productPlugin;
+         productPlugin = (Reference) eResolveProxy(oldProductPlugin);
+         if (productPlugin != oldProductPlugin)
+         {
+            InternalEObject newProductPlugin = (InternalEObject) productPlugin;
+            NotificationChain msgs = oldProductPlugin.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+               - ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, null);
+            if (newProductPlugin.eInternalContainer() == null)
+            {
+               msgs = newProductPlugin.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                  - ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
+            }
+            if (msgs != null)
+               msgs.dispatch();
+            if (eNotificationRequired())
+               eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                  ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, oldProductPlugin, productPlugin));
+         }
+      }
+      return productPlugin;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public Reference basicGetProductPlugin()
    {
       return productPlugin;
    }
@@ -403,11 +446,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
          case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
             return isDerived();
          case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
-            return getParent();
+            if (resolve)
+               return getParent();
+            return basicGetParent();
          case ModuleModelPackage.PRODUCT_DEFINITION__FILE :
             return getFile();
          case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
-            return getProductPlugin();
+            if (resolve)
+               return getProductPlugin();
+            return basicGetProductPlugin();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -487,7 +534,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
          case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
             return derived != DERIVED_EDEFAULT;
          case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
-            return getParent() != null;
+            return basicGetParent() != null;
          case ModuleModelPackage.PRODUCT_DEFINITION__FILE :
             return FILE_EDEFAULT == null ? file != null : !FILE_EDEFAULT.equals(file);
          case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :

@@ -39,7 +39,7 @@ public interface Category extends EObject
     * 
     * @return the value of the '<em>Feature References</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getCategory_FeatureReferences()
-    * @model containment="true"
+    * @model containment="true" resolveProxies="true"
     * @generated
     */
    EList<Reference> getFeatureReferences();

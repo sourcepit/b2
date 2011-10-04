@@ -38,7 +38,7 @@ public interface Annotatable extends EObject
     * @return the value of the '<em>Annotations</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.common.CommonModelPackage#getAnnotatable_Annotations()
     * @see org.sourcepit.beef.b2.model.common.Annotation#getParent
-    * @model opposite="parent" containment="true"
+    * @model opposite="parent" containment="true" resolveProxies="true"
     * @generated
     */
    EList<Annotation> getAnnotations();

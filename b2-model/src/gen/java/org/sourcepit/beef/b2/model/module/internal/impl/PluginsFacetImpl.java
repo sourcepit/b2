@@ -71,7 +71,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
    {
       if (projects == null)
       {
-         projects = new EObjectContainmentWithInverseEList<PluginProject>(PluginProject.class, this,
+         projects = new EObjectContainmentWithInverseEList.Resolving<PluginProject>(PluginProject.class, this,
             ModuleModelPackage.PLUGINS_FACET__PROJECTS, ModuleModelPackage.PLUGIN_PROJECT__PARENT);
       }
       return projects;

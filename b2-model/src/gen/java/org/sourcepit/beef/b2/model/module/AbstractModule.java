@@ -114,7 +114,7 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
     * @return the value of the '<em>Facets</em>' containment reference list.
     * @see org.sourcepit.beef.b2.model.module.ModuleModelPackage#getAbstractModule_Facets()
     * @see org.sourcepit.beef.b2.model.module.AbstractFacet#getParent
-    * @model opposite="parent" containment="true"
+    * @model opposite="parent" containment="true" resolveProxies="true"
     * @generated
     */
    EList<AbstractFacet> getFacets();
