@@ -263,32 +263,40 @@ public class SCM implements IB2Listener
 
       final SVNPropertyData svnProperty = client.doGetProperty(file, "svn:ignore", SVNRevision.WORKING,
          SVNRevision.WORKING);
-      final SVNPropertyValue value = svnProperty.getValue();
-      if (value != null)
+      if (svnProperty == null)
       {
-         final String rawIgnores = value.getString();
-         if (rawIgnores != null)
-         {
-            try
-            {
-               final BufferedReader rader = new BufferedReader(new StringReader(rawIgnores));
+         return ignores;
+      }
 
-               String line = rader.readLine();
-               while (line != null)
-               {
-                  final String ignore = line.trim();
-                  if (ignore.length() > 0)
-                  {
-                     ignores.add(ignore);
-                  }
-                  line = rader.readLine();
-               }
-            }
-            catch (IOException e)
+      final SVNPropertyValue value = svnProperty.getValue();
+      if (value == null)
+      {
+         return ignores;
+      }
+
+      final String rawIgnores = value.getString();
+      if (rawIgnores == null)
+      {
+         return ignores;
+      }
+      try
+      {
+         final BufferedReader rader = new BufferedReader(new StringReader(rawIgnores));
+
+         String line = rader.readLine();
+         while (line != null)
+         {
+            final String ignore = line.trim();
+            if (ignore.length() > 0)
             {
-               throw new IllegalStateException(e);
+               ignores.add(ignore);
             }
+            line = rader.readLine();
          }
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException(e);
       }
       return ignores;
    }
