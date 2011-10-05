@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.sourcepit.beef.b2.directory.parser.module.IModuleFilter;
-import org.sourcepit.beef.b2.internal.cleaner.ModuleCleaner;
+import org.sourcepit.beef.b2.internal.cleaner.IFileService;
 import org.sourcepit.beef.b2.internal.generator.B2GenerationRequest;
 import org.sourcepit.beef.b2.internal.generator.B2Generator;
 import org.sourcepit.beef.b2.internal.generator.ITemplates;
@@ -25,7 +25,7 @@ import org.sourcepit.beef.b2.model.module.AbstractModule;
 public class B2
 {
    @Inject
-   private ModuleCleaner cleaner;
+   private IFileService fileService;
 
    @Inject
    private IB2ModelBuilder modelBuilder;
@@ -39,7 +39,7 @@ public class B2
    public AbstractModule generate(File moduleDir, IModelCache modelCache, IModuleFilter traversalStrategy,
       IConverter converter, ITemplates templates)
    {
-      cleaner.clean(moduleDir);
+      fileService.clean(moduleDir);
 
       final B2ModelBuildingRequest modelRequest = new B2ModelBuildingRequest();
       modelRequest.setModuleDirectory(moduleDir);

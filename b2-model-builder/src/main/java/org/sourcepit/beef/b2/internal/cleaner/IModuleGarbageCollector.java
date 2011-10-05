@@ -6,7 +6,7 @@ package org.sourcepit.beef.b2.internal.cleaner;
 
 import java.io.File;
 
-public interface IModuleCleanerParticipant
+public interface IModuleGarbageCollector
 {
    boolean isGarbage(File file);
 }

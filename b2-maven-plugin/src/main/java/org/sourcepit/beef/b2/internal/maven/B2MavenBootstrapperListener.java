@@ -66,6 +66,7 @@ import org.sourcepit.beef.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.beef.b2.internal.generator.FixedModelMerger;
 import org.sourcepit.beef.b2.internal.generator.ITemplates;
 import org.sourcepit.beef.b2.internal.generator.MavenConverter;
+import org.sourcepit.beef.b2.internal.scm.svn.SCM;
 import org.sourcepit.beef.b2.model.builder.util.B2SessionService;
 import org.sourcepit.beef.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
@@ -131,6 +132,12 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    @Inject
    private LayoutManager layoutManager;
+
+   @Inject
+   private IB2SessionService sessionService;
+
+   @Inject
+   private SCM scm;
 
    private final static String CACHE_KEY = B2MavenBootstrapperListener.class.getName() + "#modelCache";
    private final static String CACHE_KEY_SESSION = B2MavenBootstrapperListener.class.getName() + "#session";
@@ -509,7 +516,28 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    public void afterProjectBuild(BootstrapSession session, MavenProject wrapperProject)
    {
+      final B2Session b2Session = sessionService.getCurrentSession();
+      for (ModuleProject project : b2Session.getProjects())
+      {
+         if (wrapperProject.getBasedir().equals(project.getDirectory()))
+         {
+            b2Session.setCurrentProject(project);
+            break;
+         }
+      }
 
+      final String setScmIgnoresProp = wrapperProject.getProperties().getProperty("b2.scm.setScmIgnores",
+         System.getProperty("b2.scm.setScmIgnores", "false"));
+
+      final boolean isSetScmIgnores = Boolean.valueOf(setScmIgnoresProp).booleanValue();
+      if (isSetScmIgnores)
+      {
+         ModuleProject project = b2Session.getCurrentProject();
+         if (project != null && project.getModuleModel() != null)
+         {
+            scm.doSetScmIgnores(project.getModuleModel());
+         }
+      }
    }
 
    private void unpack(InputStream zipStream, File targetDirectory) throws IOException, FileNotFoundException

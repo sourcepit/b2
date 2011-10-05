@@ -9,7 +9,7 @@ import java.io.File;
 import javax.inject.Named;
 
 @Named
-public class B2Cleaner implements IModuleCleanerParticipant
+public class B2Cleaner implements IModuleGarbageCollector
 {
    public boolean isGarbage(File file)
    {
