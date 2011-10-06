@@ -114,6 +114,8 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
       if (!artifacts.isEmpty())
       {
+         artifacts.addAll(gatherArtifacts(module));
+         
          Profile profile = new Profile();
          profile.setId("buildProducts");
          profile.setBuild(model.getBuild().clone());
