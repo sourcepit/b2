@@ -26,6 +26,7 @@ import org.sourcepit.beef.b2.model.module.AbstractModule;
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getDependencies <em>Dependencies</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getModuleModel <em>Module Model</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getAttachments <em>Attachments</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.ModuleProject#getEnvironements <em>Environements</em>}</li>
  * </ul>
  * </p>
  * 
@@ -226,5 +227,21 @@ public interface ModuleProject extends Annotatable
     * @generated
     */
    EList<ModuleAttachment> getAttachments();
+
+   /**
+    * Returns the value of the '<em><b>Environements</b></em>' containment reference list. The list contents are of type
+    * {@link org.sourcepit.beef.b2.model.session.Environment}. <!-- begin-user-doc -->
+    * <p>
+    * If the meaning of the '<em>Environements</em>' containment reference list isn't clear, there really should be more
+    * of a description here...
+    * </p>
+    * <!-- end-user-doc -->
+    * 
+    * @return the value of the '<em>Environements</em>' containment reference list.
+    * @see org.sourcepit.beef.b2.model.session.SessionModelPackage#getModuleProject_Environements()
+    * @model containment="true" resolveProxies="true"
+    * @generated
+    */
+   EList<Environment> getEnvironements();
 
 } // ModuleProject

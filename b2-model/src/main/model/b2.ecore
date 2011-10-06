@@ -264,6 +264,8 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="moduleModel" eType="#//module/AbstractModule"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="attachments" upperBound="-1"
           eType="#//session/ModuleAttachment" containment="true" eOpposite="#//session/ModuleAttachment/parent"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="environements" upperBound="-1"
+          eType="#//session/Environment" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ModuleDependency">
       <eOperations name="isSatisfiableBy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -285,6 +287,11 @@
           eType="#//common/EJavaFile"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//session/ModuleProject" eOpposite="#//session/ModuleProject/attachments"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Environment">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="os" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ws" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="arch" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

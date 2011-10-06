@@ -77,6 +77,7 @@ import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.Environment;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.b2.model.session.SessionModelFactory;
@@ -471,6 +472,44 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          }
       }
 
+      for (Plugin plugin : project.getBuildPlugins())
+      {
+         if ("org.eclipse.tycho:target-platform-configuration".equals(plugin.getKey()))
+         {
+            Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
+            if (configuration != null)
+            {
+               Xpp3Dom envs = configuration.getChild("environments");
+               if (envs != null)
+               {
+                  for (Xpp3Dom envNode : envs.getChildren("environment"))
+                  {
+                     Environment env = SessionModelFactory.eINSTANCE.createEnvironment();
+
+                     Xpp3Dom node = envNode.getChild("os");
+                     if (node != null)
+                     {
+                        env.setOs(node.getValue());
+                     }
+
+                     node = envNode.getChild("ws");
+                     if (node != null)
+                     {
+                        env.setWs(node.getValue());
+                     }
+
+                     node = envNode.getChild("arch");
+                     if (node != null)
+                     {
+                        env.setArch(node.getValue());
+                     }
+                     
+                     currentProject.getEnvironements().add(env);
+                  }
+               }
+            }
+         }
+      }
 
       return b2Session;
    }

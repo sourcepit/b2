@@ -195,13 +195,22 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__ATTACHMENTS = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 7;
 
    /**
+    * The feature id for the '<em><b>Environements</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int MODULE_PROJECT__ENVIRONEMENTS = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 8;
+
+   /**
     * The number of structural features of the '<em>Module Project</em>' class. <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
     * @ordered
     */
-   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 8;
+   int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 9;
 
 
    /**
@@ -306,6 +315,50 @@ public interface SessionModelPackage extends EPackage
     * @ordered
     */
    int MODULE_ATTACHMENT_FEATURE_COUNT = 4;
+
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.EnvironmentImpl
+    * <em>Environment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.EnvironmentImpl
+    * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getEnvironment()
+    * @generated
+    */
+   int ENVIRONMENT = 4;
+
+   /**
+    * The feature id for the '<em><b>Os</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ENVIRONMENT__OS = 0;
+
+   /**
+    * The feature id for the '<em><b>Ws</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ENVIRONMENT__WS = 1;
+
+   /**
+    * The feature id for the '<em><b>Arch</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ENVIRONMENT__ARCH = 2;
+
+   /**
+    * The number of structural features of the '<em>Environment</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
+    * -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ENVIRONMENT_FEATURE_COUNT = 3;
 
 
    /**
@@ -444,6 +497,18 @@ public interface SessionModelPackage extends EPackage
    EReference getModuleProject_Attachments();
 
    /**
+    * Returns the meta object for the containment reference list '
+    * {@link org.sourcepit.beef.b2.model.session.ModuleProject#getEnvironements <em>Environements</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference list '<em>Environements</em>'.
+    * @see org.sourcepit.beef.b2.model.session.ModuleProject#getEnvironements()
+    * @see #getModuleProject()
+    * @generated
+    */
+   EReference getModuleProject_Environements();
+
+   /**
     * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.ModuleDependency
     * <em>Module Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -555,6 +620,49 @@ public interface SessionModelPackage extends EPackage
     * @generated
     */
    EReference getModuleAttachment_Parent();
+
+   /**
+    * Returns the meta object for class '{@link org.sourcepit.beef.b2.model.session.Environment <em>Environment</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for class '<em>Environment</em>'.
+    * @see org.sourcepit.beef.b2.model.session.Environment
+    * @generated
+    */
+   EClass getEnvironment();
+
+   /**
+    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.session.Environment#getOs
+    * <em>Os</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Os</em>'.
+    * @see org.sourcepit.beef.b2.model.session.Environment#getOs()
+    * @see #getEnvironment()
+    * @generated
+    */
+   EAttribute getEnvironment_Os();
+
+   /**
+    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.session.Environment#getWs
+    * <em>Ws</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Ws</em>'.
+    * @see org.sourcepit.beef.b2.model.session.Environment#getWs()
+    * @see #getEnvironment()
+    * @generated
+    */
+   EAttribute getEnvironment_Ws();
+
+   /**
+    * Returns the meta object for the attribute '{@link org.sourcepit.beef.b2.model.session.Environment#getArch
+    * <em>Arch</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Arch</em>'.
+    * @see org.sourcepit.beef.b2.model.session.Environment#getArch()
+    * @see #getEnvironment()
+    * @generated
+    */
+   EAttribute getEnvironment_Arch();
 
    /**
     * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -679,6 +787,14 @@ public interface SessionModelPackage extends EPackage
       EReference MODULE_PROJECT__ATTACHMENTS = eINSTANCE.getModuleProject_Attachments();
 
       /**
+       * The meta object literal for the '<em><b>Environements</b></em>' containment reference list feature. <!--
+       * begin-user-doc --> <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference MODULE_PROJECT__ENVIRONEMENTS = eINSTANCE.getModuleProject_Environements();
+
+      /**
        * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleDependencyImpl
        * <em>Module Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
@@ -761,6 +877,40 @@ public interface SessionModelPackage extends EPackage
        * @generated
        */
       EReference MODULE_ATTACHMENT__PARENT = eINSTANCE.getModuleAttachment_Parent();
+
+      /**
+       * The meta object literal for the '{@link org.sourcepit.beef.b2.model.session.internal.impl.EnvironmentImpl
+       * <em>Environment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * 
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.EnvironmentImpl
+       * @see org.sourcepit.beef.b2.model.session.internal.impl.SessionModelPackageImpl#getEnvironment()
+       * @generated
+       */
+      EClass ENVIRONMENT = eINSTANCE.getEnvironment();
+
+      /**
+       * The meta object literal for the '<em><b>Os</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute ENVIRONMENT__OS = eINSTANCE.getEnvironment_Os();
+
+      /**
+       * The meta object literal for the '<em><b>Ws</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute ENVIRONMENT__WS = eINSTANCE.getEnvironment_Ws();
+
+      /**
+       * The meta object literal for the '<em><b>Arch</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute ENVIRONMENT__ARCH = eINSTANCE.getEnvironment_Arch();
 
    }
 

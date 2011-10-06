@@ -21,17 +21,23 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
+import org.apache.maven.model.Profile;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
 import org.sourcepit.beef.b2.model.common.Annotatable;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractFacet;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
+import org.sourcepit.beef.b2.model.module.ProductDefinition;
+import org.sourcepit.beef.b2.model.module.ProductsFacet;
 import org.sourcepit.beef.b2.model.module.SiteProject;
 import org.sourcepit.beef.b2.model.module.SitesFacet;
+import org.sourcepit.beef.b2.model.session.Environment;
+import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
 
 /**
@@ -45,6 +51,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
    @Inject
    private BootstrapSession bootstrapSession;
+
+   @Inject
+   private IB2SessionService sessionService;
 
    @Override
    public GeneratorType getGeneratorType()
@@ -102,20 +111,36 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       final Model model = readMavenModel(pomFile);
       new FixedModelMerger().merge(model, defaultModel, false, null);
 
-      final Collection<ModuleArtifact> artifacts = gatherArtifacts(module);
+      Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
       if (!artifacts.isEmpty())
       {
-         final Collection<Dependency> dependencies = gatherDependencies(module);
-         model.getDependencies().addAll(dependencies);
+         Profile profile = new Profile();
+         profile.setId("buildProducts");
+         profile.setBuild(model.getBuild().clone());
 
-         final List<Plugin> plugins = model.getBuild().getPlugins();
-
+         final List<Plugin> plugins = profile.getBuild().getPlugins();
          final Plugin installMojo = plugins.get(0);
-         configureInstallMojo(installMojo, moduleModel, artifacts);
-
          final Plugin deployMojo = plugins.get(1);
+
+         configureInstallMojo(installMojo, moduleModel, artifacts);
+         configureDeployMojo(deployMojo, artifacts);
+         
+         model.getProfiles().add(profile);
+      }
+
+      artifacts = gatherArtifacts(module);
+      if (!artifacts.isEmpty())
+      {
+         final List<Plugin> plugins = model.getBuild().getPlugins();
+         final Plugin installMojo = plugins.get(0);
+         final Plugin deployMojo = plugins.get(1);
+
+         configureInstallMojo(installMojo, moduleModel, artifacts);
          configureDeployMojo(deployMojo, artifacts);
       }
+
+      final Collection<Dependency> dependencies = gatherDependencies(module);
+      model.getDependencies().addAll(dependencies);
 
       connectMavenModels(modulePom, moduleModel, pomFile, model);
    }
@@ -343,6 +368,65 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
             artifacts.add(siteArtifact);
          }
       }
+   }
+
+   private List<ModuleArtifact> gatherProductArtifacts(final AbstractModule module)
+   {
+      final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
+
+      ModuleProject project = sessionService.getCurrentSession().getCurrentProject();
+
+      final List<String> envAppendixes = new ArrayList<String>();
+
+      for (Environment environment : project.getEnvironements())
+      {
+         StringBuilder sb = new StringBuilder();
+         if (environment.getOs() != null)
+         {
+            sb.append(environment.getOs());
+            sb.append('.');
+         }
+         if (environment.getWs() != null)
+         {
+            sb.append(environment.getWs());
+            sb.append('.');
+         }
+         if (environment.getArch() != null)
+         {
+            sb.append(environment.getArch());
+            sb.append('.');
+         }
+         if (sb.length() > 0)
+         {
+            sb.deleteCharAt(sb.length() - 1);
+            sb.insert(0, '-');
+         }
+
+         envAppendixes.add(sb.toString());
+      }
+
+      for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class))
+      {
+         for (ProductDefinition product : productsFacet.getProductDefinitions())
+         {
+            final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
+            final String uid = product.getAnnotationEntry("product", "uid");
+            final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
+            for (String envAppendix : envAppendixes)
+            {
+               // target/products/de.visualrules.modeler-linux.gtk.x86.zip
+               final File file = new File(projectDir, "target/products/" + uid + envAppendix + ".zip");
+
+               final ModuleArtifact productArtifact = new ModuleArtifact();
+               productArtifact.file = file;
+               productArtifact.classifier = envAppendix.length() > 0 ? envAppendix.substring(1) : envAppendix;
+               productArtifact.type = "zip";
+               artifacts.add(productArtifact);
+            }
+         }
+      }
+
+      return artifacts;
    }
 
    private IInterpolationLayout getLayout(final String layoutId)

@@ -17,6 +17,7 @@ import org.sourcepit.beef.b2.model.common.internal.impl.CommonModelPackageImpl;
 import org.sourcepit.beef.b2.model.module.ModuleModelPackage;
 import org.sourcepit.beef.b2.model.module.internal.impl.ModuleModelPackageImpl;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.Environment;
 import org.sourcepit.beef.b2.model.session.ModuleAttachment;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
@@ -57,6 +58,13 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * @generated
     */
    private EClass moduleAttachmentEClass = null;
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass environmentEClass = null;
 
    /**
     * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
@@ -261,6 +269,16 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
+   public EReference getModuleProject_Environements()
+   {
+      return (EReference) moduleProjectEClass.getEStructuralFeatures().get(8);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EClass getModuleDependency()
    {
       return moduleDependencyEClass;
@@ -361,6 +379,46 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
     * 
     * @generated
     */
+   public EClass getEnvironment()
+   {
+      return environmentEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getEnvironment_Os()
+   {
+      return (EAttribute) environmentEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getEnvironment_Ws()
+   {
+      return (EAttribute) environmentEClass.getEStructuralFeatures().get(1);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getEnvironment_Arch()
+   {
+      return (EAttribute) environmentEClass.getEStructuralFeatures().get(2);
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public SessionModelFactory getSessionModelFactory()
    {
       return (SessionModelFactory) getEFactoryInstance();
@@ -399,6 +457,7 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       createEReference(moduleProjectEClass, MODULE_PROJECT__DEPENDENCIES);
       createEReference(moduleProjectEClass, MODULE_PROJECT__MODULE_MODEL);
       createEReference(moduleProjectEClass, MODULE_PROJECT__ATTACHMENTS);
+      createEReference(moduleProjectEClass, MODULE_PROJECT__ENVIRONEMENTS);
 
       moduleDependencyEClass = createEClass(MODULE_DEPENDENCY);
       createEAttribute(moduleDependencyEClass, MODULE_DEPENDENCY__GROUP_ID);
@@ -411,6 +470,11 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       createEAttribute(moduleAttachmentEClass, MODULE_ATTACHMENT__TYPE);
       createEAttribute(moduleAttachmentEClass, MODULE_ATTACHMENT__FILE);
       createEReference(moduleAttachmentEClass, MODULE_ATTACHMENT__PARENT);
+
+      environmentEClass = createEClass(ENVIRONMENT);
+      createEAttribute(environmentEClass, ENVIRONMENT__OS);
+      createEAttribute(environmentEClass, ENVIRONMENT__WS);
+      createEAttribute(environmentEClass, ENVIRONMENT__ARCH);
    }
 
    /**
@@ -490,6 +554,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       initEReference(getModuleProject_Attachments(), this.getModuleAttachment(), this.getModuleAttachment_Parent(),
          "attachments", null, 0, -1, ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
          IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getModuleProject_Environements(), this.getEnvironment(), null, "environements", null, 0, -1,
+         ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(moduleDependencyEClass, ModuleDependency.class, "ModuleDependency", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
@@ -523,6 +590,15 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
       initEReference(getModuleAttachment_Parent(), this.getModuleProject(), this.getModuleProject_Attachments(),
          "parent", null, 1, 1, ModuleAttachment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
          IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+      initEClass(environmentEClass, Environment.class, "Environment", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getEnvironment_Os(), ecorePackage.getEString(), "os", null, 0, 1, Environment.class,
+         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getEnvironment_Ws(), ecorePackage.getEString(), "ws", null, 0, 1, Environment.class,
+         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getEnvironment_Arch(), ecorePackage.getEString(), "arch", null, 0, 1, Environment.class,
+         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       // Create resource
       createResource(eNS_URI);

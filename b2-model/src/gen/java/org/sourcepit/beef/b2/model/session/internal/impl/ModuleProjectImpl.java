@@ -24,6 +24,7 @@ import org.sourcepit.beef.b2.model.common.Annotation;
 import org.sourcepit.beef.b2.model.common.CommonModelPackage;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.session.B2Session;
+import org.sourcepit.beef.b2.model.session.Environment;
 import org.sourcepit.beef.b2.model.session.ModuleAttachment;
 import org.sourcepit.beef.b2.model.session.ModuleDependency;
 import org.sourcepit.beef.b2.model.session.ModuleProject;
@@ -44,6 +45,8 @@ import org.sourcepit.beef.b2.model.session.SessionModelPackage;
  * </li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getModuleModel <em>Module Model</em>}</li>
  * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getAttachments <em>Attachments</em>}</li>
+ * <li>{@link org.sourcepit.beef.b2.model.session.internal.impl.ModuleProjectImpl#getEnvironements <em>Environements
+ * </em>}</li>
  * </ul>
  * </p>
  * 
@@ -170,6 +173,16 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * @ordered
     */
    protected EList<ModuleAttachment> attachments;
+
+   /**
+    * The cached value of the '{@link #getEnvironements() <em>Environements</em>}' containment reference list. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see #getEnvironements()
+    * @generated
+    * @ordered
+    */
+   protected EList<Environment> environements;
 
    /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -445,6 +458,21 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
     * 
     * @generated
     */
+   public EList<Environment> getEnvironements()
+   {
+      if (environements == null)
+      {
+         environements = new EObjectContainmentEList.Resolving<Environment>(Environment.class, this,
+            SessionModelPackage.MODULE_PROJECT__ENVIRONEMENTS);
+      }
+      return environements;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public Annotation getAnnotation(String source)
    {
       // TODO: implement this method
@@ -517,6 +545,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return ((InternalEList<?>) getDependencies()).basicRemove(otherEnd, msgs);
          case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
             return ((InternalEList<?>) getAttachments()).basicRemove(otherEnd, msgs);
+         case SessionModelPackage.MODULE_PROJECT__ENVIRONEMENTS :
+            return ((InternalEList<?>) getEnvironements()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -570,6 +600,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return basicGetModuleModel();
          case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
             return getAttachments();
+         case SessionModelPackage.MODULE_PROJECT__ENVIRONEMENTS :
+            return getEnvironements();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -615,6 +647,10 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             getAttachments().clear();
             getAttachments().addAll((Collection<? extends ModuleAttachment>) newValue);
             return;
+         case SessionModelPackage.MODULE_PROJECT__ENVIRONEMENTS :
+            getEnvironements().clear();
+            getEnvironements().addAll((Collection<? extends Environment>) newValue);
+            return;
       }
       super.eSet(featureID, newValue);
    }
@@ -656,6 +692,9 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
             getAttachments().clear();
             return;
+         case SessionModelPackage.MODULE_PROJECT__ENVIRONEMENTS :
+            getEnvironements().clear();
+            return;
       }
       super.eUnset(featureID);
    }
@@ -688,6 +727,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return moduleModel != null;
          case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
             return attachments != null && !attachments.isEmpty();
+         case SessionModelPackage.MODULE_PROJECT__ENVIRONEMENTS :
+            return environements != null && !environements.isEmpty();
       }
       return super.eIsSet(featureID);
    }
