@@ -157,7 +157,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       }
    }
 
-   protected static String getClassifier(String productFileName)
+   public static String getClassifier(String productFileName)
    {
       String classifier = productFileName;
       int idx = classifier.lastIndexOf('.');

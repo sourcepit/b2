@@ -124,7 +124,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
          configureInstallMojo(installMojo, moduleModel, artifacts);
          configureDeployMojo(deployMojo, artifacts);
-         
+
          model.getProfiles().add(profile);
       }
 
@@ -409,6 +409,16 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       {
          for (ProductDefinition product : productsFacet.getProductDefinitions())
          {
+            String classifierPrefix = ProductProjectGenerator.getClassifier(product.getFile().getName());
+            if (classifierPrefix == null)
+            {
+               classifierPrefix = "";
+            }
+            else
+            {
+               classifierPrefix = "." + classifierPrefix;
+            }
+
             final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
             final String uid = product.getAnnotationEntry("product", "uid");
             final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
@@ -417,9 +427,11 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
                // target/products/de.visualrules.modeler-linux.gtk.x86.zip
                final File file = new File(projectDir, "target/products/" + uid + envAppendix + ".zip");
 
+               String classifierApendix = envAppendix.length() > 0 ? envAppendix.substring(1) : envAppendix;
+
                final ModuleArtifact productArtifact = new ModuleArtifact();
                productArtifact.file = file;
-               productArtifact.classifier = envAppendix.length() > 0 ? envAppendix.substring(1) : envAppendix;
+               productArtifact.classifier = classifierPrefix + classifierApendix;
                productArtifact.type = "zip";
                artifacts.add(productArtifact);
             }
