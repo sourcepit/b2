@@ -416,7 +416,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
             }
             else
             {
-               classifierPrefix = "." + classifierPrefix;
+               classifierPrefix = classifierPrefix + ".";
             }
 
             final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
