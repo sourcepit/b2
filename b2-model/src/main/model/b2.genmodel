@@ -6,7 +6,7 @@
     updateClasspath="false" importerID="org.eclipse.emf.importer.ecore" bundleManifest="false"
     containmentProxies="true" complianceLevel="5.0" copyrightFields="false">
   <foreignModel>b2.ecore</foreignModel>
-  <genPackages prefix="Model" basePackage="org.sourcepit.beef.b2" disposableProviderFactory="true"
+  <genPackages prefix="Model" basePackage="org.sourcepit.b2" disposableProviderFactory="true"
       ecorePackage="b2.ecore#/">
     <nestedGenPackages prefix="CommonModel" disposableProviderFactory="true" classPackageSuffix="internal.impl"
         ecorePackage="b2.ecore#//common">

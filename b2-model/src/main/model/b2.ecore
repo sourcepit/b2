@@ -222,7 +222,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="productPlugin" lowerBound="1"
           eType="#//module/Reference" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EDataType" name="Identifier" instanceClassName="org.sourcepit.beef.b2.model.module.util.Identifier"/>
+    <eClassifiers xsi:type="ecore:EDataType" name="Identifier" instanceClassName="org.sourcepit.b2.model.module.util.Identifier"/>
     <eClassifiers xsi:type="ecore:EClass" name="Reference">
       <eOperations name="isSatisfiableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="identifier" eType="#//module/Identifier"/>
