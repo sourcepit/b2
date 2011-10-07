@@ -16,8 +16,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<b2.product.sdk.filter>**.sdk.**</b2.product.sdk.filter>
-		<sites></sites>
+		<b2.aggregate.feature.sdk.filter>**.sdk.**</b2.aggregate.feature.sdk.filter>
+		<sites>sdk</sites>
 	</properties>
 
 	<dependencies>

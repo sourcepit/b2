@@ -18,18 +18,14 @@ import javax.inject.Named;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.beef.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.beef.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.beef.b2.generator.AbstractGenerator;
 import org.sourcepit.beef.b2.generator.GeneratorType;
 import org.sourcepit.beef.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.beef.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.beef.b2.model.builder.util.IConverter;
-import org.sourcepit.beef.b2.model.common.util.ArtifactIdentifier;
+import org.sourcepit.beef.b2.model.interpolation.internal.module.IAggregationService;
 import org.sourcepit.beef.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.beef.b2.model.module.AbstractModule;
 import org.sourcepit.beef.b2.model.module.FeatureProject;
@@ -38,8 +34,6 @@ import org.sourcepit.beef.b2.model.module.PluginProject;
 import org.sourcepit.beef.b2.model.module.PluginsFacet;
 import org.sourcepit.beef.b2.model.module.ProductDefinition;
 import org.sourcepit.beef.b2.model.module.Reference;
-import org.sourcepit.beef.b2.model.session.ModuleDependency;
-import org.sourcepit.beef.b2.model.session.ModuleProject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -48,10 +42,10 @@ import org.w3c.dom.Node;
 public class ProductProjectGenerator extends AbstractGenerator implements IB2GenerationParticipant
 {
    @Inject
-   private Map<String, IInterpolationLayout> layoutMap;
+   private IAggregationService aggregationService;
 
    @Inject
-   private IB2SessionService sessionService;
+   private Map<String, IInterpolationLayout> layoutMap;
 
    @Override
    protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
@@ -95,19 +89,17 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       boolean modified = false;
 
       final String classifier = getClassifier(productFile.getName());
-
-      final StringBuilder sb = new StringBuilder();
-      sb.append("b2.product");
-      if (classifier != null)
+      
+      final List<FeatureProject> featureIncludes = new ArrayList<FeatureProject>();
+      
+      //TODO mode to "IIncludeService"?
+      final String pattern = converter.getProperties().get("b2.product." + classifier + ".filter");
+      if (pattern != null)
       {
-         sb.append('.');
-         sb.append(classifier);
+         collectIncludedFeatures(featureIncludes, PathMatcher.parsePackagePatterns(pattern), module);
       }
-      sb.append(".filter");
-
-      final PathMatcher matcher = PathMatcher.parsePackagePatterns(converter.getProperties().get(sb.toString(), "**"));
-
-      final List<FeatureProject> featureIncludes = resolveFeatureIncludes(module, matcher);
+      
+      featureIncludes.addAll(aggregationService.resolveProductIncludes(module, classifier, converter));
       if (!featureIncludes.isEmpty())
       {
          Element features = (Element) XmlUtils.queryNode(productDoc, "/product/features");
@@ -157,6 +149,21 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       }
    }
 
+   private void collectIncludedFeatures(List<FeatureProject> includes, PathMatcher matcher, AbstractModule module)
+   {
+      for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
+      {
+         EList<FeatureProject> projects = featuresFacet.getProjects();
+         for (FeatureProject featureProject : projects)
+         {
+            if (matcher.isMatch(featureProject.getId()))
+            {
+               includes.add(featureProject);
+            }
+         }
+      }
+   }
+
    public static String getClassifier(String productFileName)
    {
       String classifier = productFileName;
@@ -174,50 +181,8 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       {
          classifier = null;
       }
-      return classifier == null || classifier.length() == 0 ? null : classifier;
-   }
-
-   private List<FeatureProject> resolveFeatureIncludes(AbstractModule module, PathMatcher matcher)
-   {
-      List<FeatureProject> includes = new ArrayList<FeatureProject>();
-
-      collectIncludedFeatures(includes, matcher, module);
-
-      ResourceSet resourceSet = sessionService.getCurrentResourceSet();
-      ModuleProject project = sessionService.getCurrentSession().getCurrentProject();
-
-      for (ModuleDependency dependency : project.getDependencies())
-      {
-         AbstractModule depModule = resolveModule(resourceSet, dependency);
-         collectIncludedFeatures(includes, matcher, depModule);
-      }
-
-      return includes;
-   }
-
-   private void collectIncludedFeatures(List<FeatureProject> includes, PathMatcher matcher, AbstractModule module)
-   {
-      for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
-      {
-         EList<FeatureProject> projects = featuresFacet.getProjects();
-         for (FeatureProject featureProject : projects)
-         {
-            if (matcher.isMatch(featureProject.getId()))
-            {
-               includes.add(featureProject);
-            }
-         }
-      }
-   }
-
-   private AbstractModule resolveModule(ResourceSet resourceSet, ModuleDependency dependency)
-   {
-      final URI uri = new ArtifactIdentifier(dependency.getGroupId(), dependency.getArtifactId(),
-         dependency.getVersionRange(), dependency.getClassifier(), "module").toUri();
-
-      Resource resource = resourceSet.getResource(uri, true);
-      AbstractModule module = (AbstractModule) resource.getContents().get(0);
-      return module;
+      // TODO create classifier mapping
+      return classifier == null || classifier.length() == 0 ? "public" : classifier;
    }
 
    private PluginProject resolveProductPlugin(final AbstractModule module, final ProductDefinition project)

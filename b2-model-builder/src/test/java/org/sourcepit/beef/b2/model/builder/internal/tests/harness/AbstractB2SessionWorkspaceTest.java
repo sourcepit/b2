@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.sourcepit.beef.b2.common.internal.utils.DescriptorUtils;
 import org.sourcepit.beef.b2.common.internal.utils.DescriptorUtils.AbstractDescriptorResolutionStrategy;
 import org.sourcepit.beef.b2.common.internal.utils.DescriptorUtils.IDescriptorResolutionStrategy;
@@ -46,6 +47,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
 
       B2SessionService sessionService = new B2SessionService();
       sessionService.setCurrentSession(session);
+      sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       binder.bind(IB2SessionService.class).toInstance(sessionService);
    }

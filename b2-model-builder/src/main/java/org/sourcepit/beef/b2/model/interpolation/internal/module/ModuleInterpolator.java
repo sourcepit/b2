@@ -43,6 +43,9 @@ import org.sourcepit.beef.b2.model.module.SitesFacet;
 public class ModuleInterpolator implements IModuleInterpolator
 {
    @Inject
+   private IAggregationService aggregationService;
+
+   @Inject
    private Map<String, IInterpolationLayout> layoutMap;
 
    @Inject
@@ -125,6 +128,16 @@ public class ModuleInterpolator implements IModuleInterpolator
             final PathMatcher matcher = converter.createIdMatcherForCategory(module.getLayoutId(), categoryClassifer);
             final List<FeatureInclude> featureIncs = new ArrayList<FeatureInclude>();
             collectFeatureIncludes(module, featureIncs, matcher, converter);
+            
+            for (FeatureProject includedFeatures : aggregationService.resolveCategoryIncludes(module, categoryClassifer,
+               converter))
+            {
+               final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
+               featureInclude.setId(includedFeatures.getId());
+               featureInclude.setVersionRange(includedFeatures.getVersion());
+               featureIncs.add(featureInclude);
+            }
+            
             for (FeatureInclude featureInc : featureIncs)
             {
                final Reference featureRef = ModuleModelFactory.eINSTANCE.createReference();
@@ -228,29 +241,39 @@ public class ModuleInterpolator implements IModuleInterpolator
    }
 
    private List<FeatureProject> interpolateFacetFeature(AbstractModule module, PluginsFacet pluginFacet,
-      IConverter converter, String featureClassifer)
+      IConverter converter, String featureClassifier)
    {
       final List<FeatureProject> result = new ArrayList<FeatureProject>();
 
-      final PathMatcher matcher = converter.createIdMatcherForFeature(module.getLayoutId(), featureClassifer);
+      final PathMatcher matcher = converter.createIdMatcherForFeature(module.getLayoutId(), featureClassifier);
 
       final List<PluginInclude> pluginIncs = new ArrayList<PluginInclude>();
       final List<PluginInclude> sourceIncs = new ArrayList<PluginInclude>();
       collectPluginIncludes(pluginFacet, pluginIncs, sourceIncs, matcher, converter);
 
-      final FeatureProject featureProject = createFeatureProject(module, featureClassifer, converter.getModuleVersion());
+      final FeatureProject featureProject = createFeatureProject(module, featureClassifier,
+         converter.getModuleVersion());
       result.add(featureProject);
       featureProject.getIncludedPlugins().addAll(pluginIncs);
 
       if (!sourceIncs.isEmpty())
       {
          final FeatureProject sourcesFeatureProject = createFeatureProject(module,
-            converter.createSourceFeatureClassifer(featureClassifer), converter.getModuleVersion());
+            converter.createSourceFeatureClassifer(featureClassifier), converter.getModuleVersion());
          if (matcher.isMatch(sourcesFeatureProject.getId()))
          {
             sourcesFeatureProject.getIncludedPlugins().addAll(sourceIncs);
             result.add(sourcesFeatureProject);
          }
+      }
+
+      for (FeatureProject includedFeatures : aggregationService.resolveFeatureIncludes(module, featureClassifier,
+         converter))
+      {
+         final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
+         featureInclude.setId(includedFeatures.getId());
+         featureInclude.setVersionRange(includedFeatures.getVersion());
+         featureProject.getIncludedFeatures().add(featureInclude);
       }
 
       return result;
@@ -277,6 +300,15 @@ public class ModuleInterpolator implements IModuleInterpolator
       featureProject.getIncludedPlugins().addAll(sourceIncs);
 
       result.add(featureProject);
+
+      for (FeatureProject includedFeatures : aggregationService.resolveFeatureIncludes(module, featureClassifer,
+         converter))
+      {
+         final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
+         featureInclude.setId(includedFeatures.getId());
+         featureInclude.setVersionRange(includedFeatures.getVersion());
+         featureProject.getIncludedFeatures().add(featureInclude);
+      }
 
       return result;
    }
@@ -418,4 +450,5 @@ public class ModuleInterpolator implements IModuleInterpolator
    {
       return unpackStrategy == null ? false : unpackStrategy.isUnpack(pluginProject);
    }
+
 }

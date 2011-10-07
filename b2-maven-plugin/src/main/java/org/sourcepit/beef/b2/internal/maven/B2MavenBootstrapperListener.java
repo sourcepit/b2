@@ -5,25 +5,16 @@
 package org.sourcepit.beef.b2.internal.maven;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Build;
@@ -341,52 +332,20 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
             if (session.getProject(groupId, artifactId, version) == null)
             {
-               final Artifact siteArtifact = resolveSiteArtifact(wrapperProject, artifact);
+               final Artifact siteArtifact = resolveSiteZip(wrapperProject, artifact);
                final File zipFile = siteArtifact.getFile();
 
-               final File siteDir = unpackSite(zipFile, artifact.getFile().lastModified());
-               moduleProject.putAnnotationEntry("b2.resolvedSites", artifact.getId().replace(':', '_'), "file:"
-                  + siteDir.getAbsolutePath());
+               final String path = zipFile.getAbsolutePath().replace('\\', '/');
+               final String siteUrl = "jar:file:/" + path + "!/";
+               moduleProject.putAnnotationEntry("b2.resolvedSites", artifact.getId().replace(':', '_'), siteUrl);
+
+               logger.info("Using site " + siteUrl);
             }
          }
       }
    }
 
-   private File unpackSite(final File zipFile, long lastUpdated)
-   {
-      final String zipPath = zipFile.getAbsolutePath();
-      final File siteDir = new File(zipPath.substring(0, zipPath.length() - ".zip".length()));
-      if (lastUpdated > siteDir.lastModified())
-      {
-         logger.info("Unpacking " + zipFile.getAbsolutePath() + " to " + siteDir.getAbsolutePath());
-         FileInputStream zipStream = null;
-         try
-         {
-            zipStream = new FileInputStream(zipFile);
-            if (siteDir.exists())
-            {
-               FileUtils.forceDelete(siteDir);
-            }
-            siteDir.mkdir();
-            unpack(zipStream, siteDir);
-         }
-         catch (IOException e)
-         {
-            throw new IllegalStateException(e);
-         }
-         finally
-         {
-            IOUtils.closeQuietly(zipStream);
-         }
-      }
-      else
-      {
-         logger.info("Skipped unpacking of " + zipFile.getAbsolutePath() + " to " + siteDir.getAbsolutePath());
-      }
-      return siteDir;
-   }
-
-   private Artifact resolveSiteArtifact(final MavenProject wrapperProject, Artifact artifact)
+   private Artifact resolveSiteZip(final MavenProject wrapperProject, Artifact artifact)
    {
       final String classifier = artifact.getClassifier();
 
@@ -503,7 +462,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
                      {
                         env.setArch(node.getValue());
                      }
-                     
+
                      currentProject.getEnvironements().add(env);
                   }
                }
@@ -576,40 +535,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          {
             scm.doSetScmIgnores(project.getModuleModel());
          }
-      }
-   }
-
-   private void unpack(InputStream zipStream, File targetDirectory) throws IOException, FileNotFoundException
-   {
-      ZipInputStream in = new ZipInputStream(zipStream);
-      try
-      {
-         ZipEntry entry = in.getNextEntry();
-         while (entry != null)
-         {
-            File newFile = new File(targetDirectory, entry.getName());
-            if (entry.isDirectory())
-            {
-               newFile.mkdir();
-            }
-            else
-            {
-               OutputStream dest = new FileOutputStream(newFile);
-               try
-               {
-                  IOUtils.copy(in, dest);
-               }
-               finally
-               {
-                  IOUtils.closeQuietly(dest);
-               }
-            }
-            entry = in.getNextEntry();
-         }
-      }
-      finally
-      {
-         IOUtils.closeQuietly(in);
       }
    }
 }
