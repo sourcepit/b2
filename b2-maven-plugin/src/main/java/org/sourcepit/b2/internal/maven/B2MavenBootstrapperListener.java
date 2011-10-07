@@ -336,7 +336,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
                final File zipFile = siteArtifact.getFile();
 
                final String path = zipFile.getAbsolutePath().replace('\\', '/');
-               final String siteUrl = "jar:file:/" + path + "!/";
+               final String siteUrl = "jar:file:" + path + "!/";
                moduleProject.putAnnotationEntry("b2.resolvedSites", artifact.getId().replace(':', '_'), siteUrl);
 
                logger.info("Using site " + siteUrl);
