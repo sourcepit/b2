@@ -22,7 +22,7 @@ public class ConverterPropertiesTest extends TestCase
 {
    public void testFacetNameToClassifier() throws Exception
    {
-      IConverter converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", null);
+      IConverter converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", null);
       try
       {
          converter.convertFacetNameToFeatureClassifier(null);
@@ -63,7 +63,7 @@ public class ConverterPropertiesTest extends TestCase
       PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("facet.tests.classifier", "Foo");
 
-      IConverter converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", properties);
+      IConverter converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", properties);
 
       assertEquals("features", converter.convertFacetNameToFeatureClassifier("features"));
       assertEquals("", converter.convertFacetNameToFeatureClassifier("plugins"));
@@ -73,7 +73,7 @@ public class ConverterPropertiesTest extends TestCase
 
    public void testGetFeatureClassifiers() throws Exception
    {
-      IConverter converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", null);
+      IConverter converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", null);
 
       Set<String> classifiers = converter.getFeatureClassifiers(null);
       assertEquals(Collections.singleton("sdk"), classifiers);
@@ -107,7 +107,7 @@ public class ConverterPropertiesTest extends TestCase
 
    public void testCreateIdMatcherForFeature() throws Exception
    {
-      IConverter converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", null);
+      IConverter converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", null);
       try
       {
          converter.createIdMatcherForFeature("simple", null);
@@ -138,7 +138,7 @@ public class ConverterPropertiesTest extends TestCase
 
    public void testGetSourceClassiferForFeature() throws Exception
    {
-      IConverter converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", null);
+      IConverter converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", null);
       try
       {
          converter.getSourceClassiferForFeature(null);
@@ -156,7 +156,7 @@ public class ConverterPropertiesTest extends TestCase
       map.put("feature.source.classifer", "muh");
       map.put("feature.sdk.source.classifer", "bar");
 
-      converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", map);
+      converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", map);
 
       assertEquals("muh", converter.getSourceClassiferForFeature(""));
       assertEquals("bar", converter.getSourceClassiferForFeature("sdk"));
@@ -165,7 +165,7 @@ public class ConverterPropertiesTest extends TestCase
 
    public void testGetSourceClassiferForPlugin() throws Exception
    {
-      IConverter converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", null);
+      IConverter converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", null);
       try
       {
          converter.getSourceClassiferForPlugin(null);
@@ -183,7 +183,7 @@ public class ConverterPropertiesTest extends TestCase
       map.put("plugin.source.classifer", "muh");
       map.put("plugin.sdk.source.classifer", "bar");
 
-      converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", map);
+      converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", map);
 
       assertEquals("muh", converter.getSourceClassiferForPlugin(""));
       assertEquals("bar", converter.getSourceClassiferForPlugin("sdk"));
@@ -192,7 +192,7 @@ public class ConverterPropertiesTest extends TestCase
 
    public void _testCreateModuleDirectoryMacher() throws Exception
    {
-      DefaultConverter converter = new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", null);
+      DefaultConverter converter = new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", null);
       PathMatcher macher = converter.createModuleDirectoryMacher(new File("").getAbsoluteFile());
       assertNotNull(macher);
       assertTrue(macher.getIncludes().isEmpty());

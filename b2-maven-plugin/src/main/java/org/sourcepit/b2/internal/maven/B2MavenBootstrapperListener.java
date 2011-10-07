@@ -73,8 +73,8 @@ import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
-import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
-import org.sourcepit.beef.maven.wrapper.internal.session.IMavenBootstrapperListener;
+import org.sourcepit.maven.wrapper.internal.session.BootstrapSession;
+import org.sourcepit.maven.wrapper.internal.session.IMavenBootstrapperListener;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
 
 import com.google.inject.Guice;

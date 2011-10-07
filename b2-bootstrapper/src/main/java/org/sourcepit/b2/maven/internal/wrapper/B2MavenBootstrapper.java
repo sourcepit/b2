@@ -14,8 +14,8 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
-import org.sourcepit.beef.maven.wrapper.internal.session.AbstractMavenBootstrapper;
-import org.sourcepit.beef.maven.wrapper.internal.session.ISessionListener;
+import org.sourcepit.maven.wrapper.internal.session.AbstractMavenBootstrapper;
+import org.sourcepit.maven.wrapper.internal.session.ISessionListener;
 
 @Component(role = ISessionListener.class)
 public class B2MavenBootstrapper extends AbstractMavenBootstrapper

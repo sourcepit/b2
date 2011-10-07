@@ -28,7 +28,7 @@ public class DefaultModuleDescriptorConverterTest extends AbstractPlexusWorkspac
 
       Model mavenModel = converter.convert(moduleDescriptor);
       assertNotNull(mavenModel);
-      assertEquals("org.sourcepit.beef", mavenModel.getGroupId());
+      assertEquals("org.sourcepit.b2", mavenModel.getGroupId());
       assertEquals("component-properties", mavenModel.getArtifactId());
       assertEquals("0.1.0-SNAPSHOT", mavenModel.getVersion());
 

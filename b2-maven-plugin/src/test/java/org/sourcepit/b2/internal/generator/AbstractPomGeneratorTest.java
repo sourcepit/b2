@@ -29,7 +29,7 @@ import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.internal.util.EWalkerImpl;
-import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
+import org.sourcepit.maven.wrapper.internal.session.BootstrapSession;
 
 import com.google.inject.Binder;
 

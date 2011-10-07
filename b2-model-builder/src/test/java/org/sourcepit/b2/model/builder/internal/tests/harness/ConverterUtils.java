@@ -19,6 +19,6 @@ public final class ConverterUtils
 
    public static DefaultConverter newDefaultTestConverter(PropertiesMap properties)
    {
-      return new DefaultConverter("org.sourcepit.beef", "0.0.1.qualifier", properties);
+      return new DefaultConverter("org.sourcepit.b2", "0.0.1.qualifier", properties);
    }
 }

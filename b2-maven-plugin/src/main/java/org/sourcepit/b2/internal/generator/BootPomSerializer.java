@@ -23,7 +23,7 @@ import org.apache.maven.project.ProjectBuildingRequest;
 import org.sourcepit.b2.execution.IB2Listener;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
+import org.sourcepit.maven.wrapper.internal.session.BootstrapSession;
 
 /**
  * @author Bernd

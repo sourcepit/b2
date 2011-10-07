@@ -40,7 +40,7 @@ import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.session.Environment;
 import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.beef.maven.wrapper.internal.session.BootstrapSession;
+import org.sourcepit.maven.wrapper.internal.session.BootstrapSession;
 
 /**
  * @author Bernd

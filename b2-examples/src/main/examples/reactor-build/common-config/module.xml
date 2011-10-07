@@ -58,7 +58,7 @@
 		</extensions>
 		<plugins>
 			<plugin>
-				<groupId>org.sourcepit.beef</groupId>
+				<groupId>org.sourcepit.b2</groupId>
 				<artifactId>b2-maven-plugin</artifactId>
 				<version>\${b2.extension.version}</version>
 				<extensions>true</extensions>
