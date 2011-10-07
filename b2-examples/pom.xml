@@ -85,14 +85,14 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/dist/</outputDirectory>
 								</artifactItem>
-								<artifactItem>
-									<groupId>com.googlecode.t7mp</groupId>
-									<artifactId>tomcat</artifactId>
-									<version>7.0.21</version>
-									<type>zip</type>
-									<overWrite>true</overWrite>
-									<outputDirectory>${project.build.directory}/dist/</outputDirectory>
-								</artifactItem>
+								<!-- <artifactItem> -->
+								<!-- <groupId>com.googlecode.t7mp</groupId> -->
+								<!-- <artifactId>tomcat</artifactId> -->
+								<!-- <version>7.0.21</version> -->
+								<!-- <type>zip</type> -->
+								<!-- <overWrite>true</overWrite> -->
+								<!-- <outputDirectory>${project.build.directory}/dist/</outputDirectory> -->
+								<!-- </artifactItem> -->
 							</artifactItems>
 						</configuration>
 					</execution>
