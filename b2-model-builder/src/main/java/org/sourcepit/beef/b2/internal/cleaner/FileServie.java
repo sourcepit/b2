@@ -55,7 +55,7 @@ public class FileServie implements IFileService
       // e.g. pom.xml is needed to detect the target folder
       for (File file : garbage)
       {
-         logger.info("Deleting " + (file.isDirectory() ? "directory" : "file") + " '"
+         logger.debug("Deleting " + (file.isDirectory() ? "directory" : "file") + " '"
             + PathUtils.getRelativePath(file, dir, File.separator) + "'");
          try
          {
@@ -66,6 +66,7 @@ public class FileServie implements IFileService
             throw new IllegalStateException(e);
          }
       }
+      logger.info("Deleted " + garbage.size() + " files");
    }
 
    public void accept(File dir, final IFileVisitor visitor)
