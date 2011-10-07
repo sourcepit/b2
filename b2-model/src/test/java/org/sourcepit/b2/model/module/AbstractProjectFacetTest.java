@@ -8,9 +8,6 @@
 
 package org.sourcepit.b2.model.module;
 
-import org.sourcepit.b2.model.module.Project;
-import org.sourcepit.b2.model.module.ProjectFacet;
-
 import junit.framework.TestCase;
 
 /**

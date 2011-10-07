@@ -22,13 +22,12 @@ import org.sourcepit.b2.model.module.PluginsFacet;
  * The following features are implemented:
  * <ul>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getBundleVersion <em>Bundle Version
- * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getBundleVersion <em>Bundle Version</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#isTestPlugin <em>Test Plugin</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostSymbolicName <em>
- * Fragment Host Symbolic Name</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostVersion <em>Fragment
- * Host Version</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostSymbolicName <em>Fragment
+ * Host Symbolic Name</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostVersion <em>Fragment Host
+ * Version</em>}</li>
  * </ul>
  * </p>
  * 

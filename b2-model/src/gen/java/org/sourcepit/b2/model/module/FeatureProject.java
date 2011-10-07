@@ -46,8 +46,8 @@ public interface FeatureProject extends Project, Classified
    FeaturesFacet getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.FeatureProject#getParent <em>Parent</em>}'
-    * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.FeatureProject#getParent <em>Parent</em>}' container
+    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()

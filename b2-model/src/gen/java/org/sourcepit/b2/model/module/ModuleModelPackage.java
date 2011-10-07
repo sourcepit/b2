@@ -1094,8 +1094,8 @@ public interface ModuleModelPackage extends EPackage
    int PLUGIN_INCLUDE_FEATURE_COUNT = REFERENCE_FEATURE_COUNT + 2;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl
-    * <em>Category</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl <em>Category</em>}'
+    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.module.internal.impl.CategoryImpl
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getCategory()
@@ -1199,8 +1199,8 @@ public interface ModuleModelPackage extends EPackage
    int CLASSIFIED_FEATURE_COUNT = 1;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}' class.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}' class. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.module.Identifiable
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifiable()
@@ -1365,8 +1365,8 @@ public interface ModuleModelPackage extends EPackage
    int IDENTIFIER = 22;
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.AbstractModule
-    * <em>Abstract Module</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.AbstractModule <em>Abstract Module</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Abstract Module</em>'.
     * @see org.sourcepit.b2.model.module.AbstractModule
@@ -1398,9 +1398,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getAbstractModule_LayoutId();
 
    /**
-    * Returns the meta object for the attribute list '
-    * {@link org.sourcepit.b2.model.module.AbstractModule#getLocales <em>Locales</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * Returns the meta object for the attribute list '{@link org.sourcepit.b2.model.module.AbstractModule#getLocales
+    * <em>Locales</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute list '<em>Locales</em>'.
     * @see org.sourcepit.b2.model.module.AbstractModule#getLocales()
@@ -1422,8 +1421,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getAbstractModule_Facets();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.BasicModule <em>Basic Module</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.BasicModule <em>Basic Module</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Basic Module</em>'.
     * @see org.sourcepit.b2.model.module.BasicModule
@@ -1432,8 +1431,8 @@ public interface ModuleModelPackage extends EPackage
    EClass getBasicModule();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.AbstractFacet
-    * <em>Abstract Facet</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.AbstractFacet <em>Abstract Facet</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Abstract Facet</em>'.
     * @see org.sourcepit.b2.model.module.AbstractFacet
@@ -1442,9 +1441,8 @@ public interface ModuleModelPackage extends EPackage
    EClass getAbstractFacet();
 
    /**
-    * Returns the meta object for the container reference '
-    * {@link org.sourcepit.b2.model.module.AbstractFacet#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * Returns the meta object for the container reference '{@link org.sourcepit.b2.model.module.AbstractFacet#getParent
+    * <em>Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.b2.model.module.AbstractFacet#getParent()
@@ -1465,8 +1463,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getAbstractFacet_Name();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.CompositeModule
-    * <em>Composite Module</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.CompositeModule <em>Composite Module</em>}
+    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Composite Module</em>'.
     * @see org.sourcepit.b2.model.module.CompositeModule
@@ -1476,8 +1474,8 @@ public interface ModuleModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.module.CompositeModule#getModules <em>Modules</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.b2.model.module.CompositeModule#getModules <em>Modules</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Modules</em>'.
     * @see org.sourcepit.b2.model.module.CompositeModule#getModules()
@@ -1487,8 +1485,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getCompositeModule_Modules();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.PluginsFacet <em>Plugins Facet</em>}
-    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.PluginsFacet <em>Plugins Facet</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Plugins Facet</em>'.
     * @see org.sourcepit.b2.model.module.PluginsFacet
@@ -1498,8 +1496,8 @@ public interface ModuleModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.module.PluginsFacet#getProjects <em>Projects</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.b2.model.module.PluginsFacet#getProjects <em>Projects</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Projects</em>'.
     * @see org.sourcepit.b2.model.module.PluginsFacet#getProjects()
@@ -1509,8 +1507,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getPluginsFacet_Projects();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeaturesFacet
-    * <em>Features Facet</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeaturesFacet <em>Features Facet</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Features Facet</em>'.
     * @see org.sourcepit.b2.model.module.FeaturesFacet
@@ -1520,8 +1518,8 @@ public interface ModuleModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.module.FeaturesFacet#getProjects <em>Projects</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.b2.model.module.FeaturesFacet#getProjects <em>Projects</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Projects</em>'.
     * @see org.sourcepit.b2.model.module.FeaturesFacet#getProjects()
@@ -1531,8 +1529,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getFeaturesFacet_Projects();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.SitesFacet <em>Sites Facet</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.SitesFacet <em>Sites Facet</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Sites Facet</em>'.
     * @see org.sourcepit.b2.model.module.SitesFacet
@@ -1553,8 +1551,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getSitesFacet_Projects();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.PluginProject
-    * <em>Plugin Project</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.PluginProject <em>Plugin Project</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Plugin Project</em>'.
     * @see org.sourcepit.b2.model.module.PluginProject
@@ -1563,9 +1561,8 @@ public interface ModuleModelPackage extends EPackage
    EClass getPluginProject();
 
    /**
-    * Returns the meta object for the container reference '
-    * {@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * Returns the meta object for the container reference '{@link org.sourcepit.b2.model.module.PluginProject#getParent
+    * <em>Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.b2.model.module.PluginProject#getParent()
@@ -1575,9 +1572,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getPluginProject_Parent();
 
    /**
-    * Returns the meta object for the attribute '
-    * {@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion <em>Bundle Version</em>}'. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for the attribute ' {@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion
+    * <em>Bundle Version</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Bundle Version</em>'.
     * @see org.sourcepit.b2.model.module.PluginProject#getBundleVersion()
@@ -1611,8 +1607,8 @@ public interface ModuleModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '
-    * {@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion <em>Fragment Host Version</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * {@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion <em>Fragment Host Version</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Fragment Host Version</em>'.
     * @see org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion()
@@ -1622,8 +1618,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getPluginProject_FragmentHostVersion();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeatureProject
-    * <em>Feature Project</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeatureProject <em>Feature Project</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Feature Project</em>'.
     * @see org.sourcepit.b2.model.module.FeatureProject
@@ -1668,8 +1664,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getFeatureProject_IncludedFeatures();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.SiteProject <em>Site Project</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.SiteProject <em>Site Project</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Site Project</em>'.
     * @see org.sourcepit.b2.model.module.SiteProject
@@ -1678,9 +1674,8 @@ public interface ModuleModelPackage extends EPackage
    EClass getSiteProject();
 
    /**
-    * Returns the meta object for the container reference '
-    * {@link org.sourcepit.b2.model.module.SiteProject#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * Returns the meta object for the container reference '{@link org.sourcepit.b2.model.module.SiteProject#getParent
+    * <em>Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.b2.model.module.SiteProject#getParent()
@@ -1691,8 +1686,8 @@ public interface ModuleModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.module.SiteProject#getCategories <em>Categories</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.b2.model.module.SiteProject#getCategories <em>Categories</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Categories</em>'.
     * @see org.sourcepit.b2.model.module.SiteProject#getCategories()
@@ -1712,8 +1707,8 @@ public interface ModuleModelPackage extends EPackage
    EClass getProject();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.ProjectFacet <em>Project Facet</em>}
-    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.ProjectFacet <em>Project Facet</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Project Facet</em>'.
     * @see org.sourcepit.b2.model.module.ProjectFacet
@@ -1722,8 +1717,8 @@ public interface ModuleModelPackage extends EPackage
    EClass getProjectFacet();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FileContainer
-    * <em>File Container</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FileContainer <em>File Container</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>File Container</em>'.
     * @see org.sourcepit.b2.model.module.FileContainer
@@ -1764,8 +1759,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getDerivable_Derived();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.PluginInclude
-    * <em>Plugin Include</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.PluginInclude <em>Plugin Include</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Plugin Include</em>'.
     * @see org.sourcepit.b2.model.module.PluginInclude
@@ -1785,9 +1780,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getPluginInclude_Unpack();
 
    /**
-    * Returns the meta object for the container reference '
-    * {@link org.sourcepit.b2.model.module.PluginInclude#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * Returns the meta object for the container reference '{@link org.sourcepit.b2.model.module.PluginInclude#getParent
+    * <em>Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.b2.model.module.PluginInclude#getParent()
@@ -1819,8 +1813,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getCategory_FeatureReferences();
 
    /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Category#getName
-    * <em>Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Category#getName <em>Name</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Name</em>'.
     * @see org.sourcepit.b2.model.module.Category#getName()
@@ -1830,8 +1824,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getCategory_Name();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeatureInclude
-    * <em>Feature Include</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeatureInclude <em>Feature Include</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Feature Include</em>'.
     * @see org.sourcepit.b2.model.module.FeatureInclude
@@ -1852,8 +1846,8 @@ public interface ModuleModelPackage extends EPackage
    EReference getFeatureInclude_Parent();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Classified</em>'.
     * @see org.sourcepit.b2.model.module.Classified
@@ -1873,8 +1867,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getClassified_Classifier();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Identifiable</em>'.
     * @see org.sourcepit.b2.model.module.Identifiable
@@ -1883,8 +1877,8 @@ public interface ModuleModelPackage extends EPackage
    EClass getIdentifiable();
 
    /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Identifiable#getId
-    * <em>Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Identifiable#getId <em>Id</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Id</em>'.
     * @see org.sourcepit.b2.model.module.Identifiable#getId()
@@ -1905,8 +1899,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getIdentifiable_Version();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.ProductsFacet
-    * <em>Products Facet</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.ProductsFacet <em>Products Facet</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Products Facet</em>'.
     * @see org.sourcepit.b2.model.module.ProductsFacet
@@ -1938,8 +1932,8 @@ public interface ModuleModelPackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
+    * {@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
+    * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.b2.model.module.ProductDefinition#getParent()
@@ -1982,8 +1976,8 @@ public interface ModuleModelPackage extends EPackage
    EClass getReference();
 
    /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Reference#getId <em>Id</em>}
-    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Reference#getId <em>Id</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Id</em>'.
     * @see org.sourcepit.b2.model.module.Reference#getId()
@@ -2004,8 +1998,8 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getReference_VersionRange();
 
    /**
-    * Returns the meta object for data type '{@link org.sourcepit.b2.model.module.util.Identifier
-    * <em>Identifier</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for data type '{@link org.sourcepit.b2.model.module.util.Identifier <em>Identifier</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for data type '<em>Identifier</em>'.
     * @see org.sourcepit.b2.model.module.util.Identifier
@@ -2335,8 +2329,8 @@ public interface ModuleModelPackage extends EPackage
       EAttribute FILE_CONTAINER__DIRECTORY = eINSTANCE.getFileContainer_Directory();
 
       /**
-       * The meta object literal for the '{@link org.sourcepit.b2.model.module.Derivable <em>Derivable</em>}'
-       * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '{@link org.sourcepit.b2.model.module.Derivable <em>Derivable</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.module.Derivable
        * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getDerivable()
@@ -2423,8 +2417,8 @@ public interface ModuleModelPackage extends EPackage
       EReference FEATURE_INCLUDE__PARENT = eINSTANCE.getFeatureInclude_Parent();
 
       /**
-       * The meta object literal for the '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}'
-       * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.module.Classified
        * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getClassified()

@@ -4,10 +4,6 @@
 
 package org.sourcepit.b2.model.session;
 
-import org.sourcepit.b2.model.session.ModuleDependency;
-import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.b2.model.session.SessionModelFactory;
-
 import junit.framework.TestCase;
 
 public class ModuleDependencyTest extends TestCase

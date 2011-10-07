@@ -18,7 +18,6 @@ import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
-import org.sourcepit.b2.model.session.internal.impl.CSessionModelFactoryImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->

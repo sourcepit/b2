@@ -74,8 +74,8 @@ public interface ProductDefinition extends Annotatable, Derivable
    File getFile();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getFile <em>File</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getFile <em>File</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>File</em>' attribute.
     * @see #getFile()

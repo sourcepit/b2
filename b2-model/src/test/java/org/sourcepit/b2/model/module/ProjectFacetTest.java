@@ -7,8 +7,6 @@ package org.sourcepit.b2.model.module;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
 

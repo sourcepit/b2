@@ -13,10 +13,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.sourcepit.b2.model.common.Annotatable;
-import org.sourcepit.b2.model.common.Annotation;
-import org.sourcepit.b2.model.common.CommonModelFactory;
-import org.sourcepit.b2.model.common.CommonModelPackage;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 

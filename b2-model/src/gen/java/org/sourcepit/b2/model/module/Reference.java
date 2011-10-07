@@ -69,8 +69,8 @@ public interface Reference extends EObject
    String getVersionRange();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.Reference#getVersionRange <em>Version Range</em>}
-    * ' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.Reference#getVersionRange <em>Version Range</em>}'
+    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Version Range</em>' attribute.
     * @see #getVersionRange()

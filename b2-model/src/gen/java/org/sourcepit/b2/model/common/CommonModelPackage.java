@@ -57,8 +57,8 @@ public interface CommonModelPackage extends EPackage
    CommonModelPackage eINSTANCE = org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl.init();
 
    /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.common.Annotatable <em>Annotatable</em>}' class.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.b2.model.common.Annotatable <em>Annotatable</em>}' class. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.common.Annotatable
     * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotatable()
@@ -85,8 +85,8 @@ public interface CommonModelPackage extends EPackage
    int ANNOTATABLE_FEATURE_COUNT = 1;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.common.internal.impl.AnnotationImpl
-    * <em>Annotation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.b2.model.common.internal.impl.AnnotationImpl <em>Annotation</em>}
+    * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.common.internal.impl.AnnotationImpl
     * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotation()
@@ -182,8 +182,8 @@ public interface CommonModelPackage extends EPackage
 
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.common.Annotatable <em>Annotatable</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.common.Annotatable <em>Annotatable</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Annotatable</em>'.
     * @see org.sourcepit.b2.model.common.Annotatable
@@ -193,8 +193,8 @@ public interface CommonModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
-    * --> <!-- end-user-doc -->
+    * {@link org.sourcepit.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Annotations</em>'.
     * @see org.sourcepit.b2.model.common.Annotatable#getAnnotations()
@@ -204,8 +204,8 @@ public interface CommonModelPackage extends EPackage
    EReference getAnnotatable_Annotations();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.common.Annotation <em>Annotation</em>}'.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.common.Annotation <em>Annotation</em>}'. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Annotation</em>'.
     * @see org.sourcepit.b2.model.common.Annotation
@@ -214,9 +214,8 @@ public interface CommonModelPackage extends EPackage
    EClass getAnnotation();
 
    /**
-    * Returns the meta object for the container reference '
-    * {@link org.sourcepit.b2.model.common.Annotation#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * Returns the meta object for the container reference '{@link org.sourcepit.b2.model.common.Annotation#getParent
+    * <em>Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.b2.model.common.Annotation#getParent()
@@ -237,8 +236,8 @@ public interface CommonModelPackage extends EPackage
    EAttribute getAnnotation_Source();
 
    /**
-    * Returns the meta object for the map '{@link org.sourcepit.b2.model.common.Annotation#getEntries
-    * <em>Entries</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for the map '{@link org.sourcepit.b2.model.common.Annotation#getEntries <em>Entries</em>}
+    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the map '<em>Entries</em>'.
     * @see org.sourcepit.b2.model.common.Annotation#getEntries()
@@ -325,8 +324,8 @@ public interface CommonModelPackage extends EPackage
    interface Literals
    {
       /**
-       * The meta object literal for the '{@link org.sourcepit.b2.model.common.Annotatable <em>Annotatable</em>}'
-       * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '{@link org.sourcepit.b2.model.common.Annotatable <em>Annotatable</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.common.Annotatable
        * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotatable()

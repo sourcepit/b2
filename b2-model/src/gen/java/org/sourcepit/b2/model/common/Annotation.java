@@ -29,8 +29,7 @@ public interface Annotation extends EObject
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc
-    * -->
+    * {@link org.sourcepit.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -73,8 +72,8 @@ public interface Annotation extends EObject
    String getSource();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.common.Annotation#getSource <em>Source</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.common.Annotation#getSource <em>Source</em>}' attribute. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Source</em>' attribute.
     * @see #getSource()

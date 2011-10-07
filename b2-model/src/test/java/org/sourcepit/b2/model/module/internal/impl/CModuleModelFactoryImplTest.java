@@ -7,8 +7,6 @@ package org.sourcepit.b2.model.module.internal.impl;
 import org.eclipse.emf.ecore.EFactory;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.module.internal.impl.CModuleModelFactoryImpl;
-import org.sourcepit.b2.model.module.internal.impl.ModuleModelFactoryImpl;
 
 public class CModuleModelFactoryImplTest extends AbstractCustomModelFactoryImplTest
 {

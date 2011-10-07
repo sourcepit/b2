@@ -5,7 +5,6 @@
 package org.sourcepit.b2.model.session.internal.impl;
 
 import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl;
 import org.sourcepit.b2.model.session.util.ArtifactVersion;
 import org.sourcepit.b2.model.session.util.DefaultArtifactVersion;
 import org.sourcepit.b2.model.session.util.InvalidVersionSpecificationException;

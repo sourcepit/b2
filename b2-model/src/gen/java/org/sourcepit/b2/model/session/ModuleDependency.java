@@ -63,8 +63,8 @@ public interface ModuleDependency extends EObject
    String getArtifactId();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleDependency#getArtifactId
-    * <em>Artifact Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleDependency#getArtifactId <em>Artifact Id</em>}'
+    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Artifact Id</em>' attribute.
     * @see #getArtifactId()
@@ -115,8 +115,8 @@ public interface ModuleDependency extends EObject
    String getClassifier();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleDependency#getClassifier
-    * <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleDependency#getClassifier <em>Classifier</em>}'
+    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Classifier</em>' attribute.
     * @see #getClassifier()

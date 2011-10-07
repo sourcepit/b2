@@ -92,8 +92,8 @@ public interface Environment extends EObject
    String getArch();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.Environment#getArch <em>Arch</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.Environment#getArch <em>Arch</em>}' attribute. <!--
+    * begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Arch</em>' attribute.
     * @see #getArch()

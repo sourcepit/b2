@@ -11,7 +11,6 @@ import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.Reference;
-import org.sourcepit.b2.model.module.internal.impl.BasicModuleImpl;
 import org.sourcepit.b2.model.module.internal.util.FacetUtils;
 import org.sourcepit.b2.model.module.internal.util.IdentifiableUtils;
 import org.sourcepit.b2.model.module.util.Identifier;

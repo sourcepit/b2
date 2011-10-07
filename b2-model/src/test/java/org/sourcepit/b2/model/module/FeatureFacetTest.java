@@ -8,10 +8,6 @@
 
 package org.sourcepit.b2.model.module;
 
-import org.sourcepit.b2.model.module.FeatureProject;
-import org.sourcepit.b2.model.module.FeaturesFacet;
-import org.sourcepit.b2.model.module.ModuleModelFactory;
-
 
 /**
  * @author Bernd

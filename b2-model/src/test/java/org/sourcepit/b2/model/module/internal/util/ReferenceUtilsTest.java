@@ -6,7 +6,6 @@ package org.sourcepit.b2.model.module.internal.util;
 
 import junit.framework.TestCase;
 
-import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
 import org.sourcepit.b2.model.module.util.Identifier;
 
 /**

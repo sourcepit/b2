@@ -26,8 +26,8 @@ import org.sourcepit.b2.model.module.Reference;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl#getFeatureReferences <em>Feature References
- * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl#getFeatureReferences <em>Feature References</em>}
+ * </li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>

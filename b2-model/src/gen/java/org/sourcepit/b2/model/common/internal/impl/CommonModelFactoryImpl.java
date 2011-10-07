@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.common.CommonModelFactory;
 import org.sourcepit.b2.model.common.CommonModelPackage;
-import org.sourcepit.b2.model.common.internal.impl.CCommonModelFactoryImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->

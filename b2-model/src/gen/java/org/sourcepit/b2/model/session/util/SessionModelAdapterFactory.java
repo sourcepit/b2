@@ -134,9 +134,9 @@ public class SessionModelAdapterFactory extends AdapterFactoryImpl
 
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.session.B2Session
-    * <em>B2 Session</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
-    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.session.B2Session <em>B2 Session</em>}
+    * '. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+    * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.b2.model.session.B2Session

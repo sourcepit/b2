@@ -41,12 +41,10 @@ import org.sourcepit.b2.model.session.SessionModelPackage;
  * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getArtifactId <em>Artifact Id</em>}</li>
  * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getVersion <em>Version</em>}</li>
  * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getDirectory <em>Directory</em>}</li>
- * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getDependencies <em>Dependencies</em>}
- * </li>
+ * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getDependencies <em>Dependencies</em>}</li>
  * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getModuleModel <em>Module Model</em>}</li>
  * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getAttachments <em>Attachments</em>}</li>
- * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getEnvironements <em>Environements
- * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl#getEnvironements <em>Environements</em>}</li>
  * </ul>
  * </p>
  * 

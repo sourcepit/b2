@@ -10,7 +10,6 @@ package org.sourcepit.b2.model.module.internal.impl;
 
 import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.common.internal.util.AnnotationUtils;
-import org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl;
 import org.sourcepit.b2.model.module.internal.util.IdentifiableUtils;
 import org.sourcepit.b2.model.module.util.Identifier;
 

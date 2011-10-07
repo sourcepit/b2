@@ -7,7 +7,6 @@ package org.sourcepit.b2.model.session.internal.impl;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.b2.model.session.internal.impl.SessionModelFactoryImpl;
 
 public class CSessionModelFactoryImpl extends SessionModelFactoryImpl
 {

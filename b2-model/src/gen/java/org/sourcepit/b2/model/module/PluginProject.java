@@ -16,8 +16,8 @@ package org.sourcepit.b2.model.module;
  * <li>{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion <em>Bundle Version</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.PluginProject#isTestPlugin <em>Test Plugin</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName <em>Fragment Host Symbolic
- * Name</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName <em>Fragment Host Symbolic Name
+ * </em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion <em>Fragment Host Version</em>}</li>
  * </ul>
  * </p>
@@ -47,8 +47,8 @@ public interface PluginProject extends Project
    PluginsFacet getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}'
-    * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}' container
+    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()

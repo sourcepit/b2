@@ -9,8 +9,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.sourcepit.b2.model.module.internal.impl.AbstractCustomModelFactoryImplTest;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
-import org.sourcepit.b2.model.session.internal.impl.CSessionModelFactoryImpl;
-import org.sourcepit.b2.model.session.internal.impl.SessionModelFactoryImpl;
 
 public class CSessionModelFactoryImplTest extends AbstractCustomModelFactoryImplTest
 {

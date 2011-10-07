@@ -81,8 +81,8 @@ public interface ModuleProject extends Annotatable
    B2Session getSession();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getSession <em>Session</em>}'
-    * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getSession <em>Session</em>}' container
+    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Session</em>' container reference.
     * @see #getSession()
@@ -107,8 +107,8 @@ public interface ModuleProject extends Annotatable
    String getArtifactId();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getArtifactId
-    * <em>Artifact Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getArtifactId <em>Artifact Id</em>}'
+    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Artifact Id</em>' attribute.
     * @see #getArtifactId()
@@ -201,8 +201,8 @@ public interface ModuleProject extends Annotatable
    AbstractModule getModuleModel();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getModuleModel
-    * <em>Module Model</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getModuleModel <em>Module Model</em>}'
+    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Module Model</em>' reference.
     * @see #getModuleModel()

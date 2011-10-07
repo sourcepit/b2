@@ -17,7 +17,6 @@ import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
-import org.sourcepit.b2.model.module.internal.impl.ModuleModelFactoryImpl;
 
 public class CModuleModelFactoryImpl extends ModuleModelFactoryImpl
 {

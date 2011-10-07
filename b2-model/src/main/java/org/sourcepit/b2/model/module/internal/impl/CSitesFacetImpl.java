@@ -12,7 +12,6 @@ import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.common.internal.util.AnnotationUtils;
 import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.SiteProject;
-import org.sourcepit.b2.model.module.internal.impl.SitesFacetImpl;
 import org.sourcepit.b2.model.module.internal.util.FacetUtils;
 import org.sourcepit.b2.model.module.internal.util.ProjectUtils;
 

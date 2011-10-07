@@ -30,8 +30,7 @@ import org.sourcepit.b2.model.session.SessionModelPackage;
  * <ul>
  * <li>{@link org.sourcepit.b2.model.session.internal.impl.B2SessionImpl#getAnnotations <em>Annotations</em>}</li>
  * <li>{@link org.sourcepit.b2.model.session.internal.impl.B2SessionImpl#getProjects <em>Projects</em>}</li>
- * <li>{@link org.sourcepit.b2.model.session.internal.impl.B2SessionImpl#getCurrentProject <em>Current Project
- * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.session.internal.impl.B2SessionImpl#getCurrentProject <em>Current Project</em>}</li>
  * </ul>
  * </p>
  * 

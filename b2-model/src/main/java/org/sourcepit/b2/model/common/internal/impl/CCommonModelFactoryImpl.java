@@ -7,7 +7,6 @@ package org.sourcepit.b2.model.common.internal.impl;
 import java.util.Locale;
 
 import org.eclipse.emf.ecore.EDataType;
-import org.sourcepit.b2.model.common.internal.impl.CommonModelFactoryImpl;
 
 public class CCommonModelFactoryImpl extends CommonModelFactoryImpl
 {

@@ -47,8 +47,8 @@ public interface ModuleAttachment extends EObject
    String getClassifier();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleAttachment#getClassifier
-    * <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleAttachment#getClassifier <em>Classifier</em>}'
+    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Classifier</em>' attribute.
     * @see #getClassifier()
@@ -72,8 +72,8 @@ public interface ModuleAttachment extends EObject
    String getType();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleAttachment#getType <em>Type</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleAttachment#getType <em>Type</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Type</em>' attribute.
     * @see #getType()
@@ -97,8 +97,8 @@ public interface ModuleAttachment extends EObject
    File getFile();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleAttachment#getFile <em>File</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleAttachment#getFile <em>File</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>File</em>' attribute.
     * @see #getFile()
@@ -108,8 +108,7 @@ public interface ModuleAttachment extends EObject
 
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.session.ModuleProject#getAttachments <em>Attachments</em>}'. <!--
-    * begin-user-doc -->
+    * {@link org.sourcepit.b2.model.session.ModuleProject#getAttachments <em>Attachments</em>}'. <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...

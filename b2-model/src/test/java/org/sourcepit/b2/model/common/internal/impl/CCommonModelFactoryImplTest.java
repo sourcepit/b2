@@ -8,8 +8,6 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.sourcepit.b2.model.common.CommonModelFactory;
 import org.sourcepit.b2.model.common.CommonModelPackage;
-import org.sourcepit.b2.model.common.internal.impl.CCommonModelFactoryImpl;
-import org.sourcepit.b2.model.common.internal.impl.CommonModelFactoryImpl;
 import org.sourcepit.b2.model.module.internal.impl.AbstractCustomModelFactoryImplTest;
 
 public class CCommonModelFactoryImplTest extends AbstractCustomModelFactoryImplTest

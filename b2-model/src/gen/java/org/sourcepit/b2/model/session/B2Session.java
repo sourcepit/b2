@@ -62,8 +62,8 @@ public interface B2Session extends Annotatable
    ModuleProject getCurrentProject();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.session.B2Session#getCurrentProject
-    * <em>Current Project</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.session.B2Session#getCurrentProject <em>Current Project</em>}
+    * ' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Current Project</em>' reference.
     * @see #getCurrentProject()

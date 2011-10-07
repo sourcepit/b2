@@ -68,8 +68,8 @@ public interface Identifiable extends EObject
    String getVersion();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.Identifiable#getVersion <em>Version</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.Identifiable#getVersion <em>Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Version</em>' attribute.
     * @see #getVersion()

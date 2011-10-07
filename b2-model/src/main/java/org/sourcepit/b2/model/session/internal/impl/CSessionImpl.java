@@ -7,7 +7,6 @@ package org.sourcepit.b2.model.session.internal.impl;
 import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.common.internal.util.AnnotationUtils;
 import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.b2.model.session.internal.impl.B2SessionImpl;
 
 /**
  * @author Bernd

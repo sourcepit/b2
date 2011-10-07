@@ -42,8 +42,8 @@ public interface PluginInclude extends Reference
    boolean isUnpack();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginInclude#isUnpack <em>Unpack</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginInclude#isUnpack <em>Unpack</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Unpack</em>' attribute.
     * @see #isUnpack()
@@ -71,8 +71,8 @@ public interface PluginInclude extends Reference
    FeatureProject getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginInclude#getParent <em>Parent</em>}'
-    * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginInclude#getParent <em>Parent</em>}' container
+    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()

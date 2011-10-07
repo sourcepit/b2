@@ -4,7 +4,6 @@
 
 package org.sourcepit.b2.model.module.internal.impl;
 
-import org.sourcepit.b2.model.module.internal.impl.ReferenceImpl;
 import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
 import org.sourcepit.b2.model.module.util.Identifier;
 

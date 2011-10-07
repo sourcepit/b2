@@ -394,9 +394,9 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Project <em>Project</em>}
-    * '. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
-    * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Project <em>Project</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
+    * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.b2.model.module.Project
@@ -436,9 +436,9 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Derivable
-    * <em>Derivable</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
-    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Derivable <em>Derivable</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
+    * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.b2.model.module.Derivable
@@ -464,9 +464,9 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Category
-    * <em>Category</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore
-    * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Category <em>Category</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
+    * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.b2.model.module.Category
@@ -492,9 +492,9 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Classified
-    * <em>Classified</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
-    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}
+    * '. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+    * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.b2.model.module.Classified
@@ -549,9 +549,9 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Reference
-    * <em>Reference</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
-    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Reference <em>Reference</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
+    * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.b2.model.module.Reference
