@@ -10,7 +10,6 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho.version>0.12.0</tycho.version>
 		<b2.extension.version>${project.version}</b2.extension.version>
 	</properties>
 
