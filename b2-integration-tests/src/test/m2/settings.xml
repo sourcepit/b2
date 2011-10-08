@@ -255,10 +255,13 @@ ${proxy.settings}
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+      <properties>
+		<srcpit.maven.repo.url>${srcpit.nexus.url}/content/groups/public/</srcpit.maven.repo.url>
+	  </properties>
       <pluginRepositories>
         <pluginRepository>
           <id>srcpit-public</id>
-          <url>${srcpit.nexus.url}/content/groups/public/</url>
+          <url>${srcpit.maven.repo.url}</url>
         </pluginRepository>
       </pluginRepositories>
     </profile>
