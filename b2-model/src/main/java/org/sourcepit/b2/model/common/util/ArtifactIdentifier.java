@@ -71,6 +71,7 @@ public final class ArtifactIdentifier
       return result;
    }
 
+   // CSOFF
    @Override
    public boolean equals(Object obj)
    {
@@ -89,7 +90,7 @@ public final class ArtifactIdentifier
       else if (!ref.equals(other.ref))
          return false;
       return true;
-   }
+   } // CSON
 
 
 }

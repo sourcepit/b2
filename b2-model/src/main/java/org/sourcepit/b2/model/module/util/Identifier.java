@@ -41,6 +41,7 @@ public final class Identifier
       return result;
    }
 
+   // CSOFF
    @Override
    public boolean equals(Object obj)
    {
@@ -66,6 +67,6 @@ public final class Identifier
       else if (!version.equals(other.version))
          return false;
       return true;
-   }
+   } // CSON
 
 }
