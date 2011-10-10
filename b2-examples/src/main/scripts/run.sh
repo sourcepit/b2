@@ -15,7 +15,7 @@ echo Maven Opts:            : $MAVEN_OPTS
 
 export MAVEN_EXEC="$M2_HOME""/bin/mvn"
 if [ -z "$MAVEN_ARGS" ] ; then
-  export MAVEN_ARGS="clean verify"
+  export MAVEN_ARGS="clean deploy"
 fi
 
 cd $1
