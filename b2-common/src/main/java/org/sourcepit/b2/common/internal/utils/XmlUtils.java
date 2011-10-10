@@ -139,7 +139,7 @@ public final class XmlUtils
 
    public static class DomIterable implements Iterable<Node>
    {
-      private final static DomIterable EMPTY_ITERABLE = new DomIterable(new NodeList()
+      private static final DomIterable EMPTY_ITERABLE = new DomIterable(new NodeList()
       {
          public Node item(int index)
          {

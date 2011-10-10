@@ -105,7 +105,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    protected File doGenerate(final EObject inputElement, final IConverter converter, final ITemplates templates)
    {
-      return new ModuleModelSwitch<File>()
+      final ModuleModelSwitch<File> modelSwitch = new ModuleModelSwitch<File>()
       {
          @Override
          public File casePluginProject(PluginProject project)
@@ -146,7 +146,8 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
             throw new UnsupportedOperationException("Input type '" + object.getClass()
                + "' is currently not supported.");
          }
-      }.doSwitch(inputElement);
+      };
+      return modelSwitch.doSwitch(inputElement);
    }
 
    protected File generateProductProject(ProductDefinition product, IConverter converter, ITemplates templates)
