@@ -1,0 +1,8 @@
+#Mon Oct 10 16:25:20 CEST 2011
+analyseLocally=true
+eclipse.preferences.version=1
+projectArtifactId=b2-model-builder
+projectBranch=
+projectGroupId=org.sourcepit.b2
+serverUrl=http\://sonar.sourcepit.org
+version=1

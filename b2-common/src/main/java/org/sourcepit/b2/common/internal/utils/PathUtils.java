@@ -15,8 +15,13 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.FilenameUtils;
 
-public class PathUtils
+public final class PathUtils
 {
+   private PathUtils()
+   {
+      super();
+   }
+
    public static String trimFileExtension(String fileName)
    {
       if (fileName == null)

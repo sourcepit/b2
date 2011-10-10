@@ -9,16 +9,18 @@ package org.sourcepit.b2.internal.generator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @author Bernd
- */
-public class VersionUtils
+public final class VersionUtils
 {
    private static final String SUFFIX_QUALIFIER = ".qualifier";
 
    private static final String SUFFIX_SNAPSHOT = "-SNAPSHOT";
 
    private static final String SNAPSHOT_VERSION = "SNAPSHOT";
+
+   private VersionUtils()
+   {
+      super();
+   }
 
    public static String toBundleVersion(String version)
    {
