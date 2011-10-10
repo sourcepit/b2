@@ -63,34 +63,15 @@ public final class PathUtils
     */
    public static String getRelativePath(String targetPath, String basePath, String pathSeparator)
    {
-      // Normalize the paths
-      String normalizedTargetPath = FilenameUtils.normalizeNoEndSeparator(targetPath);
-      String normalizedBasePath = FilenameUtils.normalizeNoEndSeparator(basePath);
+      final String normalizedTargetPath = normalize(targetPath, pathSeparator);
+      final String normalizedBasePath = normalize(basePath, pathSeparator);
 
-      // Undo the changes to the separators made by normalization
-      if (pathSeparator.equals("/"))
-      {
-         normalizedTargetPath = FilenameUtils.separatorsToUnix(normalizedTargetPath);
-         normalizedBasePath = FilenameUtils.separatorsToUnix(normalizedBasePath);
-
-      }
-      else if (pathSeparator.equals("\\"))
-      {
-         normalizedTargetPath = FilenameUtils.separatorsToWindows(normalizedTargetPath);
-         normalizedBasePath = FilenameUtils.separatorsToWindows(normalizedBasePath);
-
-      }
-      else
-      {
-         throw new IllegalArgumentException("Unrecognised dir separator '" + pathSeparator + "'");
-      }
-
-      String[] base = normalizedBasePath.split(Pattern.quote(pathSeparator));
-      String[] target = normalizedTargetPath.split(Pattern.quote(pathSeparator));
+      final String[] base = segments(normalizedBasePath, pathSeparator);
+      final String[] target = segments(normalizedTargetPath, pathSeparator);
 
       // First get all the common elements. Store them as a string,
       // and also count how many of them there are.
-      StringBuffer common = new StringBuffer();
+      final StringBuilder common = new StringBuilder();
 
       int commonIndex = 0;
       while (commonIndex < target.length && commonIndex < base.length && target[commonIndex].equals(base[commonIndex]))
@@ -132,7 +113,7 @@ public final class PathUtils
          baseIsFile = false;
       }
 
-      StringBuffer relative = new StringBuffer();
+      final StringBuilder relative = new StringBuilder();
 
       if (base.length != commonIndex)
       {
@@ -145,6 +126,44 @@ public final class PathUtils
       }
       relative.append(normalizedTargetPath.substring(common.length()));
       return relative.toString();
+   }
+
+   /**
+    * @param normalizedBasePath
+    * @param pathSeparator
+    * @return
+    */
+   private static String[] segments(String normalizedBasePath, String pathSeparator)
+   {
+      return normalizedBasePath.split(Pattern.quote(pathSeparator));
+   }
+
+   /**
+    * @param targetPath
+    * @param pathSeparator
+    * @return
+    */
+   private static String normalize(String targetPath, String pathSeparator)
+   {
+      // Normalize the paths
+      String normalizedTargetPath = FilenameUtils.normalizeNoEndSeparator(targetPath);
+
+      // Undo the changes to the separators made by normalization
+      if (pathSeparator.equals("/"))
+      {
+         normalizedTargetPath = FilenameUtils.separatorsToUnix(normalizedTargetPath);
+
+      }
+      else if (pathSeparator.equals("\\"))
+      {
+         normalizedTargetPath = FilenameUtils.separatorsToWindows(normalizedTargetPath);
+
+      }
+      else
+      {
+         throw new IllegalArgumentException("Unrecognised dir separator '" + pathSeparator + "'");
+      }
+      return normalizedTargetPath;
    }
 
    public static class PathResolutionException extends RuntimeException

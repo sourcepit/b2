@@ -16,7 +16,7 @@ import org.sourcepit.tools.shared.resources.harness.AbstractWorkspaceTest;
 
 public class NlsUtilsTest extends AbstractWorkspaceTest
 {
-   public void testExtractLocale_Null() throws Exception
+   public void testExtractLocale() throws Exception
    {
       try
       {

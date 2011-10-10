@@ -11,7 +11,7 @@ import org.sourcepit.b2.model.module.util.Identifier;
 
 public final class IdentifiableUtils
 {
-   public IdentifiableUtils()
+   private IdentifiableUtils()
    {
       super();
    }

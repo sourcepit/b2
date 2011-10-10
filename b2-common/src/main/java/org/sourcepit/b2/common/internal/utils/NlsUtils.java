@@ -27,15 +27,21 @@ public final class NlsUtils
       super();
    }
 
-   public static Map<Locale, File> getNlsPropertyFiles(File directory, final String fileName, final String fileExtension)
+   public static Map<Locale, File> getNlsPropertyFiles(File directory, final String fileName, String fileExtension)
    {
-      final String _fileExtension = fileExtension != null && !fileExtension.startsWith(".")
-         ? "." + fileExtension
-         : fileExtension;
+      final String dotFileExt;
+      if (fileExtension != null && !fileExtension.startsWith("."))
+      {
+         dotFileExt = "." + fileExtension;
+      }
+      else
+      {
+         dotFileExt = fileExtension;
+      }
 
       final Map<Locale, File> fileToLocaleMap = new LinkedHashMap<Locale, File>();
 
-      final File defaultProperties = new File(directory, fileName + _fileExtension);
+      final File defaultProperties = new File(directory, fileName + dotFileExt);
       if (defaultProperties.isFile() && defaultProperties.canRead())
       {
          fileToLocaleMap.put(DEFAULT_LOCALE, defaultProperties);
@@ -47,7 +53,7 @@ public final class NlsUtils
          {
             if (file.isFile())
             {
-               final Locale locale = extractLocale(file.getName(), fileName, _fileExtension);
+               final Locale locale = extractLocale(file.getName(), fileName, dotFileExt);
                if (locale != null)
                {
                   fileToLocaleMap.put(locale, file);

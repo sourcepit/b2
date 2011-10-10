@@ -11,7 +11,7 @@ import org.sourcepit.b2.examples.structured.module.ExampleUtilsTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-public class AllContinuousTests
+public final class AllContinuousTests
 {
    public static Test suite()
    {
@@ -23,5 +23,10 @@ public class AllContinuousTests
 
       // $JUnit-END$
       return suite;
+   }
+
+   private AllContinuousTests()
+   {
+      super();
    }
 }

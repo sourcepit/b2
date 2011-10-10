@@ -15,7 +15,9 @@ import org.apache.maven.model.merge.ModelMerger;
 public class FixedModelMerger extends ModelMerger
 {
    // see https://jira.codehaus.org/browse/MNG-5153
+   // CSOFF
    protected void mergeModel_Parent(Model target, Model source, boolean sourceDominant, Map<Object, Object> context)
+   // CSON
    {
       final Parent src = source.getParent();
       if (src != null)

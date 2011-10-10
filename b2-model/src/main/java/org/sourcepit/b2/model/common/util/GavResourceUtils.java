@@ -9,7 +9,7 @@ package org.sourcepit.b2.model.common.util;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
-public class GavResourceUtils
+public final class GavResourceUtils
 {
    private GavResourceUtils()
    {

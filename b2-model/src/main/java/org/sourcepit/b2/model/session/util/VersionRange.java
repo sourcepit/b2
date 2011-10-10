@@ -30,7 +30,7 @@ import java.util.List;
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
  * @version $Id: VersionRange.java 932035 2010-04-08 18:01:20Z hboutemy $
  */
-public class VersionRange
+public final class VersionRange
 {
    private final ArtifactVersion recommendedVersion;
 

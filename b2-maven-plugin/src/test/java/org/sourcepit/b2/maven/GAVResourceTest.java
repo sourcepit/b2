@@ -29,35 +29,44 @@ public class GAVResourceTest extends AbstractWorkspaceTest
    {
       ResourceSet resourceSet = createResourceSet();
 
-      BasicModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
+      BasicModule m1 = ModuleModelFactory.eINSTANCE.createBasicModule();
+      m1.setId("foo");
 
       ModuleProject p1 = SessionModelFactory.eINSTANCE.createModuleProject();
       p1.setGroupId("org.sourcepit");
       p1.setArtifactId("p1");
       p1.setVersion("1.0");
 
-      p1.setModuleModel(module);
+      p1.setModuleModel(m1);
 
       final URI moduleUri = new ArtifactReference(p1.getGroupId(), p1.getArtifactId(), p1.getVersion(), "module")
          .toUri();
       Resource resource = resourceSet.createResource(moduleUri);
-      resource.getContents().add(module);
+      resource.getContents().add(m1);
       resource.save(null);
 
-      final URI projectUri = new ArtifactReference(p1.getGroupId(), p1.getArtifactId(), p1.getVersion(), "session")
-         .toUri();
+      final ArtifactReference projectRef = new ArtifactReference(p1.getGroupId(), p1.getArtifactId(), p1.getVersion(),
+         "session");
+      final URI projectUri = projectRef.toUri();
+
+      File projectFile = toFile(projectRef);
+      assertFalse(projectFile.exists());
+
       resource = resourceSet.createResource(projectUri);
       resource.getContents().add(p1);
       resource.save(null);
 
-      // TODO assert
+      assertTrue(projectFile.exists());
 
       ResourceSet resourceSet2 = createResourceSet();
       Resource resource2 = resourceSet2.getResource(projectUri, true);
-      ModuleProject project = (ModuleProject) resource2.getContents().get(0);
-      AbstractModule model = project.getModuleModel();
+      ModuleProject p2 = (ModuleProject) resource2.getContents().get(0);
+      assertEquals(p1.getGroupId(), p2.getGroupId());
+      assertEquals(p1.getArtifactId(), p2.getArtifactId());
+      assertEquals(p1.getVersion(), p2.getVersion());
 
-      // TODO assert
+      AbstractModule m2 = p2.getModuleModel();
+      assertEquals(m1.getId(), m2.getId());
    }
 
    private ResourceSet createResourceSet()
@@ -66,8 +75,7 @@ public class GAVResourceTest extends AbstractWorkspaceTest
       {
          public URI resolve(ArtifactReference artifactReference)
          {
-            final File file = new File(getWorkspace().getDir(), artifactReference.getArtifactId() + "."
-               + artifactReference.getType());
+            final File file = toFile(artifactReference);
             return URI.createFileURI(file.getAbsolutePath());
          }
       };
@@ -78,5 +86,10 @@ public class GAVResourceTest extends AbstractWorkspaceTest
       GavResourceUtils.configureResourceSet(resourceSet, artifactResolver);
 
       return resourceSet;
+   }
+
+   private File toFile(ArtifactReference artifactReference)
+   {
+      return new File(getWorkspace().getDir(), artifactReference.getArtifactId() + "." + artifactReference.getType());
    }
 }

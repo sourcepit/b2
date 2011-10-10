@@ -11,8 +11,13 @@ import org.osgi.framework.Version;
 import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.util.Identifier;
 
-public class ReferenceUtils
+public final class ReferenceUtils
 {
+   private ReferenceUtils()
+   {
+      super();
+   }
+
    public static boolean isSatisfiableBy(Reference reference, Identifier identifier)
    {
       return isSatisfiableBy(reference.getId(), reference.getVersionRange(), identifier);

@@ -18,7 +18,7 @@ import org.sourcepit.b2.model.module.Reference;
 /**
  * @author Bernd
  */
-public class FacetUtils
+public final class FacetUtils
 {
    private FacetUtils()
    {

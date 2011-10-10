@@ -12,7 +12,7 @@ import org.sourcepit.b2.model.builder.util.IConverter;
 
 public final class ConverterUtils
 {
-   public static IConverter TEST_CONVERTER = newDefaultTestConverter(null);
+   public static final IConverter TEST_CONVERTER = newDefaultTestConverter(null);
 
    private ConverterUtils()
    {

@@ -119,7 +119,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       if (!artifacts.isEmpty())
       {
          artifacts.addAll(gatherArtifacts(module));
-         
+
          Profile profile = new Profile();
          profile.setId("buildProducts");
          profile.setBuild(model.getBuild().clone());
@@ -166,11 +166,11 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       final StringBuilder types = new StringBuilder();
       for (ModuleArtifact artifact : artifacts)
       {
-         files.append(artifact.file.getAbsolutePath());
+         files.append(artifact.getFile().getAbsolutePath());
          files.append(',');
-         classifiers.append(artifact.classifier == null ? "" : artifact.classifier);
+         classifiers.append(artifact.getClassifier() == null ? "" : artifact.getClassifier());
          classifiers.append(',');
-         types.append(artifact.type);
+         types.append(artifact.getType());
          types.append(',');
       }
       files.deleteCharAt(files.length() - 1);
@@ -201,15 +201,15 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          final PluginExecution execution = installMojo.getExecutions().get(0).clone();
          final StringBuilder idBuilder = new StringBuilder();
          idBuilder.append("b2-install");
-         if (artifact.classifier != null && artifact.classifier.length() > 0)
+         if (artifact.getClassifier() != null && artifact.getClassifier().length() > 0)
          {
             idBuilder.append('-');
-            idBuilder.append(artifact.classifier);
+            idBuilder.append(artifact.getClassifier());
          }
-         if (artifact.type != null && artifact.type.length() > 0)
+         if (artifact.getType() != null && artifact.getType().length() > 0)
          {
             idBuilder.append('.');
-            idBuilder.append(artifact.type);
+            idBuilder.append(artifact.getType());
          }
          execution.setId(idBuilder.toString());
 
@@ -228,21 +228,21 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          version.setValue(moduleModel.getVersion());
          conf.addChild(version);
 
-         if (artifact.classifier != null && artifact.classifier.length() > 0)
+         if (artifact.getClassifier() != null && artifact.getClassifier().length() > 0)
          {
             Xpp3Dom classifer = new Xpp3Dom("classifier");
-            classifer.setValue(artifact.classifier);
+            classifer.setValue(artifact.getClassifier());
             conf.addChild(classifer);
          }
-         if (artifact.type != null && artifact.type.length() > 0)
+         if (artifact.getType() != null && artifact.getType().length() > 0)
          {
             Xpp3Dom type = new Xpp3Dom("packaging"); // parameter for "type" is named "packaging" in InstallFileMojo
-            type.setValue(artifact.type);
+            type.setValue(artifact.getType());
             conf.addChild(type);
          }
 
          Xpp3Dom file = new Xpp3Dom("file");
-         file.setValue(artifact.file.getAbsolutePath());
+         file.setValue(artifact.getFile().getAbsolutePath());
          conf.addChild(file);
 
          installMojo.getExecutions().add(execution);
@@ -317,9 +317,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
 
       final ModuleArtifact sessionModel = new ModuleArtifact();
-      sessionModel.file = new File(layout.pathOfMetaDataFile(module, "b2.session"));
+      sessionModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.session")));
       // sessionModel.classifier = "b2";
-      sessionModel.type = "session";
+      sessionModel.setType("session");
       artifacts.add(sessionModel);
 
       int artifactCount = artifacts.size();
@@ -337,9 +337,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
                final File modelFile = new File(layout.pathOfMetaDataFile(module, "b2" + clString + ".module"));
 
                final ModuleArtifact classifiedModel = new ModuleArtifact();
-               classifiedModel.file = modelFile;
-               classifiedModel.classifier = cl;
-               classifiedModel.type = "module";
+               classifiedModel.setFile(modelFile);
+               classifiedModel.setClassifier(cl);
+               classifiedModel.setType("module");
                artifacts.add(classifiedModel);
             }
          }
@@ -349,9 +349,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       if (artifactCount == artifacts.size())
       {
          final ModuleArtifact moduleModel = new ModuleArtifact();
-         moduleModel.file = new File(layout.pathOfMetaDataFile(module, "b2.module"));
+         moduleModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.module")));
          // moduleModel.classifier = "b2";
-         moduleModel.type = "module";
+         moduleModel.setType("module");
          artifacts.add(moduleModel);
       }
 
@@ -367,10 +367,10 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          for (SiteProject siteProject : sitesFacet.getProjects())
          {
             final ModuleArtifact siteArtifact = new ModuleArtifact();
-            siteArtifact.file = new File(siteProject.getDirectory(), "target/" + siteProject.getId() + ".zip");
+            siteArtifact.setFile(new File(siteProject.getDirectory(), "target/" + siteProject.getId() + ".zip"));
             String cl = siteProject.getClassifier();
-            siteArtifact.classifier = cl == null || cl.length() == 0 ? "site" : "site-" + cl;
-            siteArtifact.type = "zip";
+            siteArtifact.setClassifier(cl == null || cl.length() == 0 ? "site" : "site-" + cl);
+            siteArtifact.setType("zip");
             artifacts.add(siteArtifact);
          }
       }
@@ -383,32 +383,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       ModuleProject project = sessionService.getCurrentSession().getCurrentProject();
 
       final List<String> envAppendixes = new ArrayList<String>();
-
       for (Environment environment : project.getEnvironements())
       {
-         StringBuilder sb = new StringBuilder();
-         if (environment.getOs() != null)
-         {
-            sb.append(environment.getOs());
-            sb.append('.');
-         }
-         if (environment.getWs() != null)
-         {
-            sb.append(environment.getWs());
-            sb.append('.');
-         }
-         if (environment.getArch() != null)
-         {
-            sb.append(environment.getArch());
-            sb.append('.');
-         }
-         if (sb.length() > 0)
-         {
-            sb.deleteCharAt(sb.length() - 1);
-            sb.insert(0, '-');
-         }
-
-         envAppendixes.add(sb.toString());
+         envAppendixes.add(toEnvAppendix(environment));
       }
 
       for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class))
@@ -436,15 +413,47 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
                String classifierApendix = envAppendix.length() > 0 ? envAppendix.substring(1) : envAppendix;
 
                final ModuleArtifact productArtifact = new ModuleArtifact();
-               productArtifact.file = file;
-               productArtifact.classifier = classifierPrefix + classifierApendix;
-               productArtifact.type = "zip";
+               productArtifact.setFile(file);
+               productArtifact.setClassifier(classifierPrefix + classifierApendix);
+               productArtifact.setType("zip");
                artifacts.add(productArtifact);
             }
          }
       }
 
       return artifacts;
+   }
+
+   /**
+    * @param environment
+    * @return
+    */
+   private String toEnvAppendix(Environment environment)
+   {
+      StringBuilder sb = new StringBuilder();
+      if (environment.getOs() != null)
+      {
+         sb.append(environment.getOs());
+         sb.append('.');
+      }
+      if (environment.getWs() != null)
+      {
+         sb.append(environment.getWs());
+         sb.append('.');
+      }
+      if (environment.getArch() != null)
+      {
+         sb.append(environment.getArch());
+         sb.append('.');
+      }
+      if (sb.length() > 0)
+      {
+         sb.deleteCharAt(sb.length() - 1);
+         sb.insert(0, '-');
+      }
+
+      String evnAppendix = sb.toString();
+      return evnAppendix;
    }
 
    private IInterpolationLayout getLayout(final String layoutId)
@@ -455,17 +464,6 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          throw new UnsupportedOperationException("Layout " + layoutId + " is not supported.");
       }
       return layout;
-   }
-
-   private class ModuleArtifact
-   {
-      public File file;
-      public String classifier, type;
-
-      public ModuleArtifact()
-      {
-         super();
-      }
    }
 
 }

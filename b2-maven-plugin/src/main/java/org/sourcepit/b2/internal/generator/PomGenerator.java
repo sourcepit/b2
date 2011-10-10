@@ -184,12 +184,12 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    {
       final File targetDir = module.getDirectory();
 
-      final File _pomFile = new File(targetDir, "module-pom.xml");
-      copyPomTemplate(templates, _pomFile);
+      final File tmpPomFile = new File(targetDir, "module-pom.xml");
+      copyPomTemplate(templates, tmpPomFile);
 
       // rename module pom do default poms name that we can start maven just with 'mvn <goals>'
       final File pomFile = new File(targetDir, "pom.xml");
-      moveFile(_pomFile, pomFile);
+      moveFile(tmpPomFile, pomFile);
 
       final Model defaultModel = new Model();
       defaultModel.setModelVersion("4.0.0");
@@ -313,23 +313,23 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
 
-      File _pomFile = new File(layout.pathOfFacetMetaData(module, facet.getName(), facet.getName() + "-pom.xml"));
+      File tmpPomFile = new File(layout.pathOfFacetMetaData(module, facet.getName(), facet.getName() + "-pom.xml"));
 
       try
       {
-         copyPomTemplate(templates, _pomFile);
+         copyPomTemplate(templates, tmpPomFile);
       }
       catch (IllegalArgumentException e)
       {
-         _pomFile = new File(layout.pathOfFacetMetaData(module, facet.getName(), "facet-pom.xml"));
-         copyPomTemplate(templates, _pomFile);
+         tmpPomFile = new File(layout.pathOfFacetMetaData(module, facet.getName(), "facet-pom.xml"));
+         copyPomTemplate(templates, tmpPomFile);
 
-         final File pomFile = new File(_pomFile.getParentFile(), facet.getName() + "-pom.xml");
-         moveFile(_pomFile, pomFile);
-         _pomFile = pomFile;
+         final File pomFile = new File(tmpPomFile.getParentFile(), facet.getName() + "-pom.xml");
+         moveFile(tmpPomFile, pomFile);
+         tmpPomFile = pomFile;
       }
 
-      final File pomFile = _pomFile;
+      final File pomFile = tmpPomFile;
 
       final Model defaultModel = new Model();
       defaultModel.setModelVersion("4.0.0");

@@ -133,28 +133,16 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
    @Inject
    private SCM scm;
 
-   private final static String CACHE_KEY = B2MavenBootstrapperListener.class.getName() + "#modelCache";
-   private final static String CACHE_KEY_SESSION = B2MavenBootstrapperListener.class.getName() + "#session";
+   private static final String CACHE_KEY = B2MavenBootstrapperListener.class.getName() + "#modelCache";
+   private static final String CACHE_KEY_SESSION = B2MavenBootstrapperListener.class.getName() + "#session";
 
    public void beforeProjectBuild(BootstrapSession bootSession, final MavenProject wrapperProject)
    {
-      ModuleModelPackage.eINSTANCE.getClass();
-      SessionModelPackage.eINSTANCE.getClass();
+      intEMF();
+      initB2Session(bootSession);
 
-      B2SessionService sessionService = new B2SessionService();
-      initJsr330(bootSession, sessionService);
-
-      MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getBootstrapProjects(),
-         bootSession.getCurrentProject());
-      mavenURIResolver.getProjectURIResolvers().add(new B2ModelResourceURIResolver());
-
-      ResourceSet resourceSet = new ResourceSetImpl();
-      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
-      GavResourceUtils.configureResourceSet(resourceSet, mavenURIResolver);
-      sessionService.setCurrentResourceSet(resourceSet);
-
-      B2Session b2Session = createB2Session(bootSession, resourceSet);
-      sessionService.setCurrentSession(b2Session);
+      final B2Session b2Session = sessionService.getCurrentSession();
+      final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
 
       processDependencies(resourceSet, b2Session.getCurrentProject(), wrapperProject);
 
@@ -201,15 +189,15 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
       for (String classifier : classifiers)
       {
-         AbstractModule _module = module;
-         if (_module.eResource() != null)
+         AbstractModule classifiedModule = module;
+         if (classifiedModule.eResource() != null)
          {
-            _module = EcoreUtil.copy(_module);
+            classifiedModule = EcoreUtil.copy(classifiedModule);
          }
 
          final URI moduleUri = MavenURIResolver.toArtifactIdentifier(wrapperProject, classifier, "module").toUri();
-         resourceSet.createResource(moduleUri).getContents().add(_module);
-         modelCache.put(_module);
+         resourceSet.createResource(moduleUri).getContents().add(classifiedModule);
+         modelCache.put(classifiedModule);
       }
 
       b2Session.getCurrentProject().setModuleModel(module);
@@ -241,6 +229,30 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       bootSession.setData(CACHE_KEY_SESSION, uri.toString());
 
       storeModelCache(bootSession, modelCache);
+   }
+
+   private void initB2Session(BootstrapSession bootSession)
+   {
+      B2SessionService sessionService = new B2SessionService();
+      initJsr330(bootSession, sessionService);
+
+      MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getBootstrapProjects(),
+         bootSession.getCurrentProject());
+      mavenURIResolver.getProjectURIResolvers().add(new B2ModelResourceURIResolver());
+
+      ResourceSet resourceSet = new ResourceSetImpl();
+      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
+      GavResourceUtils.configureResourceSet(resourceSet, mavenURIResolver);
+      sessionService.setCurrentResourceSet(resourceSet);
+
+      B2Session b2Session = createB2Session(bootSession, resourceSet);
+      sessionService.setCurrentSession(b2Session);
+   }
+
+   private void intEMF()
+   {
+      ModuleModelPackage.eINSTANCE.getClass();
+      SessionModelPackage.eINSTANCE.getClass();
    }
 
    private void processAttachments(MavenProject wrapperProject, File pomFile)
@@ -415,10 +427,22 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          }
       }
 
-      ModuleProject currentProject = b2Session.getCurrentProject();
-      MavenProject project = session.getCurrentProject();
+      final ModuleProject currentProject = b2Session.getCurrentProject();
+      final MavenProject project = session.getCurrentProject();
+      configureModuleProject(currentProject, project);
 
-      Set<Artifact> dependencies = project.getArtifacts();
+      return b2Session;
+   }
+
+   private void configureModuleProject(ModuleProject moduleProject, MavenProject bootProject)
+   {
+      configureModuleDependencies(moduleProject, bootProject);
+      configureModuleTargetEnvironments(moduleProject, bootProject);
+   }
+
+   private void configureModuleDependencies(ModuleProject moduleProject, MavenProject bootProject)
+   {
+      Set<Artifact> dependencies = bootProject.getArtifacts();
       for (Artifact dependency : dependencies)
       {
          if ("module".equals(dependency.getType()))
@@ -429,10 +453,13 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             moduleDependency.setClassifier(dependency.getClassifier());
             moduleDependency.setVersionRange(dependency.getVersion());
 
-            currentProject.getDependencies().add(moduleDependency);
+            moduleProject.getDependencies().add(moduleDependency);
          }
       }
+   }
 
+   private void configureModuleTargetEnvironments(ModuleProject currentProject, MavenProject project)
+   {
       for (Plugin plugin : project.getBuildPlugins())
       {
          if ("org.eclipse.tycho:target-platform-configuration".equals(plugin.getKey()))
@@ -471,8 +498,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             }
          }
       }
-
-      return b2Session;
    }
 
    private void initJsr330(final BootstrapSession session, final B2SessionService sessionService)

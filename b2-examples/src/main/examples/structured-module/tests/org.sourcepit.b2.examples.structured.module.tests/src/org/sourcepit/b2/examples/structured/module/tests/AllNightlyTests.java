@@ -9,7 +9,7 @@ package org.sourcepit.b2.examples.structured.module.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-public class AllNightlyTests
+public final class AllNightlyTests
 {
    public static Test suite()
    {
@@ -20,5 +20,10 @@ public class AllNightlyTests
 
       // $JUnit-END$
       return suite;
+   }
+
+   private AllContinuousTests()
+   {
+      super();
    }
 }

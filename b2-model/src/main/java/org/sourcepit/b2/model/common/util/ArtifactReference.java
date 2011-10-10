@@ -170,6 +170,7 @@ public final class ArtifactReference
       return result;
    }
 
+   // CSOFF
    @Override
    public boolean equals(Object obj)
    {
@@ -216,5 +217,5 @@ public final class ArtifactReference
       else if (!versionRange.equals(other.versionRange))
          return false;
       return true;
-   }
+   } // CSON
 }

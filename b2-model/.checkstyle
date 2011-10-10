@@ -8,6 +8,7 @@
     <filter-data value="java"/>
   </filter>
   <filter name="FilesFromPackage" enabled="true">
-    <filter-data value="src/gen/java/org/sourcepit/b2/model"/>
+    <filter-data value="src/gen/java"/>
   </filter>
+  <filter name="NonSrcDirs" enabled="true"/>
 </fileset-config>

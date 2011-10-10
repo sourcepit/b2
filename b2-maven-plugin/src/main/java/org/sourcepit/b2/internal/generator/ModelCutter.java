@@ -6,11 +6,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -26,203 +23,6 @@ import org.apache.maven.model.Resource;
 
 public class ModelCutter
 {
-   private final static class Property
-   {
-      public Class<?> type;
-      public String name;
-      public Method getter;
-      public Method setter;
-
-      public Object getValue(Object owner)
-      {
-         try
-         {
-            return getter.invoke(owner, (Object[]) null);
-         }
-         catch (InvocationTargetException e)
-         {
-            throw new IllegalStateException(e.getTargetException());
-         }
-         catch (Exception e)
-         {
-            throw new IllegalStateException(e);
-         }
-      }
-
-      public void setValue(Object owner, Object value)
-      {
-         try
-         {
-            setter.invoke(owner, value);
-         }
-         catch (InvocationTargetException e)
-         {
-            throw new IllegalStateException(e.getTargetException());
-         }
-         catch (Exception e)
-         {
-            throw new IllegalStateException(e);
-         }
-      }
-
-      @Override
-      public String toString()
-      {
-         final StringBuilder sb = new StringBuilder();
-
-         sb.append(name);
-         sb.append(" : ");
-         if (type == null)
-         {
-            sb.append(type);
-         }
-         else
-         {
-            sb.append(type.getName());
-         }
-
-         return sb.toString();
-      }
-
-      private static Set<Property> getProperties(Class<?> clazz)
-      {
-         final Map<String, Property> nameToPropertyMap = new HashMap<String, ModelCutter.Property>();
-         for (Method method : clazz.getMethods())
-         {
-            final String methodName = method.getName();
-            final boolean isGetter = isGetter(method);
-            final boolean isSetter = isSetter(method);
-            if (isGetter || isSetter)
-            {
-               final Property property = getProperty(nameToPropertyMap, toPropertyName(methodName));
-               if (isSetter)
-               {
-                  property.setter = method;
-               }
-               if (isGetter)
-               {
-                  property.getter = method;
-               }
-
-               if (property.getter != null && property.setter != null)
-               {
-                  property.type = determinePropertyType(property.getter, property.setter);
-               }
-            }
-         }
-
-         final Set<Property> properties = new HashSet<ModelCutter.Property>();
-         for (Property property : nameToPropertyMap.values())
-         {
-            if (property.type != null)
-            {
-               properties.add(property);
-            }
-         }
-         return properties;
-      }
-
-      private static Class<?> determinePropertyType(Method getter, Method setter)
-      {
-         final Class<?> returnType = getter.getReturnType();
-         final Class<?> parameterType = setter.getParameterTypes()[0];
-         if (returnType != parameterType)
-         {
-            return null;
-         }
-         return returnType;
-      }
-
-      private static Property getProperty(Map<String, Property> nameToPropertyMap, final String propertyName)
-      {
-         Property property = nameToPropertyMap.get(propertyName);
-         if (property == null)
-         {
-            property = new Property();
-            property.name = propertyName;
-            nameToPropertyMap.put(propertyName, property);
-         }
-         return property;
-      }
-
-      private static String toPropertyName(String methodName)
-      {
-         if (methodName.startsWith("is"))
-         {
-            return methodName.substring(2, methodName.length());
-         }
-         return methodName.substring(3, methodName.length());
-      }
-
-      private static boolean isSetter(final Method method)
-      {
-         final String methodName = method.getName();
-         if (!isSetterName(methodName))
-         {
-            return false;
-         }
-
-         Class<?> returnType = method.getReturnType();
-         if (returnType != void.class)
-         {
-            return false;
-         }
-
-         if (method.getParameterTypes().length != 1)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
-      private static boolean isGetter(final Method method)
-      {
-         final String methodName = method.getName();
-         if (!isGetterName(methodName))
-         {
-            return false;
-         }
-
-         if (method.getReturnType() == null)
-         {
-            return false;
-         }
-
-         if (method.getParameterTypes().length != 0)
-         {
-            return false;
-         }
-
-         return true;
-      }
-
-      private static boolean isSetterName(final String methodName)
-      {
-         if (methodName.length() > 3)
-         {
-            return methodName.startsWith("set");
-         }
-         return false;
-      }
-
-      private static boolean isGetterName(final String methodName)
-      {
-         if (methodName.length() > 3)
-         {
-            return methodName.startsWith("get");
-         }
-         else if (methodName.length() > 2)
-         {
-            return methodName.startsWith("is");
-         }
-         else
-         {
-            return false;
-         }
-      }
-   }
-
    private final Collection<Class<?>> leafTypes;
 
    public ModelCutter()
@@ -294,14 +94,18 @@ public class ModelCutter
       return targetValues;
    }
 
-   @SuppressWarnings("unchecked")
    private Object cut(Object targetValue, Object sourceValue, Class<?> valueType)
    {
       if (targetValue == null || sourceValue == null)
       {
          return targetValue;
       }
+      return cutNullSafe(targetValue, sourceValue, valueType);
+   }
 
+   @SuppressWarnings("unchecked")
+   private Object cutNullSafe(Object targetValue, Object sourceValue, Class<?> valueType)
+   {
       if (Collection.class.isAssignableFrom(valueType))
       {
          return cut((Collection<Object>) targetValue, (Collection<Object>) sourceValue, valueType);
@@ -312,7 +116,7 @@ public class ModelCutter
          return cut((Map<Object, Object>) targetValue, (Map<Object, Object>) sourceValue, valueType);
       }
 
-      final Set<Property> properties = Property.getProperties(valueType);
+      final Set<JavaProperty> properties = JavaProperty.getProperties(valueType);
 
       if (properties.isEmpty() || isLeafType(valueType))
       {
@@ -321,10 +125,10 @@ public class ModelCutter
 
       boolean isEmpty = true;
 
-      for (Property property : properties)
+      for (JavaProperty property : properties)
       {
-         Object result = cut(property.getValue(targetValue), property.getValue(sourceValue), property.type);
-         property.setValue(targetValue, result);
+         Object result = cut(property.doGetValue(targetValue), property.doGetValue(sourceValue), property.getType());
+         property.doSetValue(targetValue, result);
          if (!isEmpty(result))
          {
             isEmpty = false;

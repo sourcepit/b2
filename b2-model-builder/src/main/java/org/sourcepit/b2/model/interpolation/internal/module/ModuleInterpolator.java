@@ -414,8 +414,7 @@ public class ModuleInterpolator implements IModuleInterpolator
          pluginFacetNames.add(pluginsFacet.getName());
       }
 
-      final Set<String> featureClassifiers = converter.getFeatureClassifiers(pluginFacetNames);
-      return featureClassifiers;
+      return converter.getFeatureClassifiers(pluginFacetNames);
    }
 
    private Map<String, PluginsFacet> createFeatureClassiferToPluginFacetMap(IConverter converter,
