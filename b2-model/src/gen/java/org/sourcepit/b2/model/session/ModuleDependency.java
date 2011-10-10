@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -12,6 +12,15 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Module Dependency</b></em>'. <!-- end-user-doc
  * -->
  * 
+ * <p>
+ * The following features are supported:
+ * <ul>
+ * <li>{@link org.sourcepit.b2.model.session.ModuleDependency#getGroupId <em>Group Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.session.ModuleDependency#getArtifactId <em>Artifact Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.session.ModuleDependency#getVersionRange <em>Version Range</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.session.ModuleDependency#getClassifier <em>Classifier</em>}</li>
+ * </ul>
+ * </p>
  * 
  * @see org.sourcepit.b2.model.session.SessionModelPackage#getModuleDependency()
  * @model
@@ -19,7 +28,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ModuleDependency extends EObject
 {
-
    /**
     * Returns the value of the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc -->
     * <p>
@@ -131,4 +139,5 @@ public interface ModuleDependency extends EObject
     * @generated
     */
    boolean isSatisfiableBy(ModuleProject moduleProject);
+
 } // ModuleDependency

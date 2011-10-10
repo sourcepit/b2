@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -9,7 +9,8 @@ package org.sourcepit.b2.model.module;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Module Package</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Composite Module</b></em>'. <!-- end-user-doc
+ * -->
  * 
  * <p>
  * The following features are supported:
@@ -42,4 +43,4 @@ public interface CompositeModule extends AbstractModule
     */
    EList<AbstractModule> getModules();
 
-} // ModulePackage
+} // CompositeModule

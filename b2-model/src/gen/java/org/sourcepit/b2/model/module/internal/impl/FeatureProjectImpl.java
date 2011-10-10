@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -30,7 +30,12 @@ import org.sourcepit.b2.model.module.PluginInclude;
  * <p>
  * The following features are implemented:
  * <ul>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getClassifier <em>Classifier</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getParent <em>Parent</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedPlugins <em>Included Plugins
+ * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedFeatures <em>Included Features
+ * </em>}</li>
  * </ul>
  * </p>
  * 
@@ -47,6 +52,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * @ordered
     */
    protected static final String CLASSIFIER_EDEFAULT = null;
+
    /**
     * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
     * end-user-doc -->
@@ -56,6 +62,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * @ordered
     */
    protected String classifier = CLASSIFIER_EDEFAULT;
+
    /**
     * The cached value of the '{@link #getIncludedPlugins() <em>Included Plugins</em>}' containment reference list. <!--
     * begin-user-doc --> <!-- end-user-doc -->
@@ -65,6 +72,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * @ordered
     */
    protected EList<PluginInclude> includedPlugins;
+
    /**
     * The cached value of the '{@link #getIncludedFeatures() <em>Included Features</em>}' containment reference list.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -94,6 +102,30 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    protected EClass eStaticClass()
    {
       return ModuleModelPackage.Literals.FEATURE_PROJECT;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public String getClassifier()
+   {
+      return classifier;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public void setClassifier(String newClassifier)
+   {
+      String oldClassifier = classifier;
+      classifier = newClassifier;
+      if (eNotificationRequired())
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER,
+            oldClassifier, classifier));
    }
 
    /**
@@ -186,30 +218,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             this, ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES, ModuleModelPackage.FEATURE_INCLUDE__PARENT);
       }
       return includedFeatures;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public String getClassifier()
-   {
-      return classifier;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public void setClassifier(String newClassifier)
-   {
-      String oldClassifier = classifier;
-      classifier = newClassifier;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER,
-            oldClassifier, classifier));
    }
 
    /**

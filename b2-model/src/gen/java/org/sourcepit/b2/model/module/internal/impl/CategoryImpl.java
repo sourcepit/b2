@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -92,6 +92,21 @@ public class CategoryImpl extends EObjectImpl implements Category
     * 
     * @generated
     */
+   public EList<Reference> getFeatureReferences()
+   {
+      if (featureReferences == null)
+      {
+         featureReferences = new EObjectContainmentEList.Resolving<Reference>(Reference.class, this,
+            ModuleModelPackage.CATEGORY__FEATURE_REFERENCES);
+      }
+      return featureReferences;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public String getName()
    {
       return name;
@@ -108,21 +123,6 @@ public class CategoryImpl extends EObjectImpl implements Category
       name = newName;
       if (eNotificationRequired())
          eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.CATEGORY__NAME, oldName, name));
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EList<Reference> getFeatureReferences()
-   {
-      if (featureReferences == null)
-      {
-         featureReferences = new EObjectContainmentEList.Resolving<Reference>(Reference.class, this,
-            ModuleModelPackage.CATEGORY__FEATURE_REFERENCES);
-      }
-      return featureReferences;
    }
 
    /**

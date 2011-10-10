@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -35,11 +35,11 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
    {
       try
       {
-         SessionModelFactory theSessionFactory = (SessionModelFactory) EPackage.Registry.INSTANCE
+         SessionModelFactory theSessionModelFactory = (SessionModelFactory) EPackage.Registry.INSTANCE
             .getEFactory(SessionModelPackage.eNS_URI);
-         if (theSessionFactory != null)
+         if (theSessionModelFactory != null)
          {
-            return theSessionFactory;
+            return theSessionModelFactory;
          }
       }
       catch (Exception exception)
@@ -161,4 +161,4 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
       return SessionModelPackage.eINSTANCE;
    }
 
-} // SessionFactoryImpl
+} // SessionModelFactoryImpl

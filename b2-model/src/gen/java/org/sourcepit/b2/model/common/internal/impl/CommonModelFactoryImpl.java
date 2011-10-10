@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -36,11 +36,11 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    {
       try
       {
-         CommonModelFactory theCommonFactory = (CommonModelFactory) EPackage.Registry.INSTANCE
+         CommonModelFactory theCommonModelFactory = (CommonModelFactory) EPackage.Registry.INSTANCE
             .getEFactory(CommonModelPackage.eNS_URI);
-         if (theCommonFactory != null)
+         if (theCommonModelFactory != null)
          {
-            return theCommonFactory;
+            return theCommonModelFactory;
          }
       }
       catch (Exception exception)
@@ -201,4 +201,4 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
       return CommonModelPackage.eINSTANCE;
    }
 
-} // CommonFactoryImpl
+} // CommonModelFactoryImpl

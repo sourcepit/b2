@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -8,7 +8,6 @@ package org.sourcepit.b2.model.module;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Category</b></em>'. <!-- end-user-doc -->
@@ -27,7 +26,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Category extends EObject
 {
-
    /**
     * Returns the value of the '<em><b>Feature References</b></em>' containment reference list. The list contents are of
     * type {@link org.sourcepit.b2.model.module.Reference}. <!-- begin-user-doc -->
@@ -68,4 +66,5 @@ public interface Category extends EObject
     * @generated
     */
    void setName(String value);
+
 } // Category

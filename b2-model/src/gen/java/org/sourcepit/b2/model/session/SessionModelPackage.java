@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -212,7 +212,6 @@ public interface SessionModelPackage extends EPackage
     */
    int MODULE_PROJECT_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 9;
 
-
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl
     * <em>Module Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -264,7 +263,6 @@ public interface SessionModelPackage extends EPackage
     */
    int MODULE_DEPENDENCY_FEATURE_COUNT = 4;
 
-
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.session.internal.impl.ModuleAttachmentImpl
     * <em>Module Attachment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -315,7 +313,6 @@ public interface SessionModelPackage extends EPackage
     * @ordered
     */
    int MODULE_ATTACHMENT_FEATURE_COUNT = 4;
-
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.session.internal.impl.EnvironmentImpl
@@ -473,7 +470,7 @@ public interface SessionModelPackage extends EPackage
    EReference getModuleProject_Dependencies();
 
    /**
-    * Returns the meta object for the reference ' {@link org.sourcepit.b2.model.session.ModuleProject#getModuleModel
+    * Returns the meta object for the reference '{@link org.sourcepit.b2.model.session.ModuleProject#getModuleModel
     * <em>Module Model</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the reference '<em>Module Model</em>'.
@@ -529,7 +526,7 @@ public interface SessionModelPackage extends EPackage
    EAttribute getModuleDependency_GroupId();
 
    /**
-    * Returns the meta object for the attribute ' {@link org.sourcepit.b2.model.session.ModuleDependency#getArtifactId
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleDependency#getArtifactId
     * <em>Artifact Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Artifact Id</em>'.
@@ -540,9 +537,8 @@ public interface SessionModelPackage extends EPackage
    EAttribute getModuleDependency_ArtifactId();
 
    /**
-    * Returns the meta object for the attribute '
-    * {@link org.sourcepit.b2.model.session.ModuleDependency#getVersionRange <em>Version Range</em>}'. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleDependency#getVersionRange
+    * <em>Version Range</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Version Range</em>'.
     * @see org.sourcepit.b2.model.session.ModuleDependency#getVersionRange()
@@ -552,7 +548,7 @@ public interface SessionModelPackage extends EPackage
    EAttribute getModuleDependency_VersionRange();
 
    /**
-    * Returns the meta object for the attribute ' {@link org.sourcepit.b2.model.session.ModuleDependency#getClassifier
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleDependency#getClassifier
     * <em>Classifier</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Classifier</em>'.
@@ -573,7 +569,7 @@ public interface SessionModelPackage extends EPackage
    EClass getModuleAttachment();
 
    /**
-    * Returns the meta object for the attribute ' {@link org.sourcepit.b2.model.session.ModuleAttachment#getClassifier
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleAttachment#getClassifier
     * <em>Classifier</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Classifier</em>'.

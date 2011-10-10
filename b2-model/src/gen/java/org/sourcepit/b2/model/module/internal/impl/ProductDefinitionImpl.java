@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -33,6 +33,8 @@ import org.sourcepit.b2.model.module.Reference;
  * <p>
  * The following features are implemented:
  * <ul>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProductDefinitionImpl#getAnnotations <em>Annotations</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProductDefinitionImpl#isDerived <em>Derived</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProductDefinitionImpl#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProductDefinitionImpl#getFile <em>File</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProductDefinitionImpl#getProductPlugin <em>Product Plugin

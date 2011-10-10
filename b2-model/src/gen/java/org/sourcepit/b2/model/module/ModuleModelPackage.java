@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -65,126 +65,6 @@ public interface ModuleModelPackage extends EPackage
    ModuleModelPackage eINSTANCE = org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl.init();
 
    /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl
-    * <em>Abstract Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractModule()
-    * @generated
-    */
-   int ABSTRACT_MODULE = 0;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.BasicModuleImpl
-    * <em>Basic Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.BasicModuleImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getBasicModule()
-    * @generated
-    */
-   int BASIC_MODULE = 1;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractFacetImpl
-    * <em>Abstract Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.AbstractFacetImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractFacet()
-    * @generated
-    */
-   int ABSTRACT_FACET = 2;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.CompositeModuleImpl
-    * <em>Composite Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.CompositeModuleImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getCompositeModule()
-    * @generated
-    */
-   int COMPOSITE_MODULE = 3;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.ProjectFacetImpl
-    * <em>Project Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.ProjectFacetImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getProjectFacet()
-    * @generated
-    */
-   int PROJECT_FACET = 11;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.PluginsFacetImpl
-    * <em>Plugins Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.PluginsFacetImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginsFacet()
-    * @generated
-    */
-   int PLUGINS_FACET = 4;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FeaturesFacetImpl
-    * <em>Features Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.FeaturesFacetImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeaturesFacet()
-    * @generated
-    */
-   int FEATURES_FACET = 5;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.SitesFacetImpl
-    * <em>Sites Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.SitesFacetImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getSitesFacet()
-    * @generated
-    */
-   int SITES_FACET = 6;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl <em>Project</em>}'
-    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.ProjectImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getProject()
-    * @generated
-    */
-   int PROJECT = 10;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl
-    * <em>Plugin Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginProject()
-    * @generated
-    */
-   int PLUGIN_PROJECT = 7;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl
-    * <em>Feature Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureProject()
-    * @generated
-    */
-   int FEATURE_PROJECT = 8;
-
-   /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl
-    * <em>Site Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getSiteProject()
-    * @generated
-    */
-   int SITE_PROJECT = 9;
-
-   /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FileContainerImpl
     * <em>File Container</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
@@ -210,6 +90,16 @@ public interface ModuleModelPackage extends EPackage
     * @ordered
     */
    int FILE_CONTAINER_FEATURE_COUNT = 1;
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl
+    * <em>Abstract Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractModule()
+    * @generated
+    */
+   int ABSTRACT_MODULE = 0;
 
    /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -285,6 +175,16 @@ public interface ModuleModelPackage extends EPackage
     * @ordered
     */
    int ABSTRACT_MODULE_FEATURE_COUNT = FILE_CONTAINER_FEATURE_COUNT + 7;
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.BasicModuleImpl
+    * <em>Basic Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.BasicModuleImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getBasicModule()
+    * @generated
+    */
+   int BASIC_MODULE = 1;
 
    /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -388,6 +288,16 @@ public interface ModuleModelPackage extends EPackage
    int DERIVABLE_FEATURE_COUNT = 1;
 
    /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractFacetImpl
+    * <em>Abstract Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.AbstractFacetImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractFacet()
+    * @generated
+    */
+   int ABSTRACT_FACET = 2;
+
+   /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -428,6 +338,16 @@ public interface ModuleModelPackage extends EPackage
     * @ordered
     */
    int ABSTRACT_FACET_FEATURE_COUNT = DERIVABLE_FEATURE_COUNT + 3;
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.CompositeModuleImpl
+    * <em>Composite Module</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.CompositeModuleImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getCompositeModule()
+    * @generated
+    */
+   int COMPOSITE_MODULE = 3;
 
    /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -514,6 +434,16 @@ public interface ModuleModelPackage extends EPackage
    int COMPOSITE_MODULE_FEATURE_COUNT = ABSTRACT_MODULE_FEATURE_COUNT + 1;
 
    /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.ProjectFacetImpl
+    * <em>Project Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.ProjectFacetImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getProjectFacet()
+    * @generated
+    */
+   int PROJECT_FACET = 11;
+
+   /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -554,6 +484,16 @@ public interface ModuleModelPackage extends EPackage
     * @ordered
     */
    int PROJECT_FACET_FEATURE_COUNT = ABSTRACT_FACET_FEATURE_COUNT + 0;
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.PluginsFacetImpl
+    * <em>Plugins Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.PluginsFacetImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginsFacet()
+    * @generated
+    */
+   int PLUGINS_FACET = 4;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -607,6 +547,16 @@ public interface ModuleModelPackage extends EPackage
    int PLUGINS_FACET_FEATURE_COUNT = PROJECT_FACET_FEATURE_COUNT + 1;
 
    /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FeaturesFacetImpl
+    * <em>Features Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.FeaturesFacetImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeaturesFacet()
+    * @generated
+    */
+   int FEATURES_FACET = 5;
+
+   /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -656,6 +606,16 @@ public interface ModuleModelPackage extends EPackage
     * @ordered
     */
    int FEATURES_FACET_FEATURE_COUNT = PROJECT_FACET_FEATURE_COUNT + 1;
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.SitesFacetImpl
+    * <em>Sites Facet</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.SitesFacetImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getSitesFacet()
+    * @generated
+    */
+   int SITES_FACET = 6;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -709,6 +669,16 @@ public interface ModuleModelPackage extends EPackage
    int SITES_FACET_FEATURE_COUNT = PROJECT_FACET_FEATURE_COUNT + 1;
 
    /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl <em>Project</em>}'
+    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.ProjectImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getProject()
+    * @generated
+    */
+   int PROJECT = 10;
+
+   /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -756,6 +726,16 @@ public interface ModuleModelPackage extends EPackage
     * @ordered
     */
    int PROJECT_FEATURE_COUNT = FILE_CONTAINER_FEATURE_COUNT + 4;
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl
+    * <em>Plugin Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getPluginProject()
+    * @generated
+    */
+   int PLUGIN_PROJECT = 7;
 
    /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -850,6 +830,16 @@ public interface ModuleModelPackage extends EPackage
    int PLUGIN_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 5;
 
    /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl
+    * <em>Feature Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureProject()
+    * @generated
+    */
+   int FEATURE_PROJECT = 8;
+
+   /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -934,6 +924,16 @@ public interface ModuleModelPackage extends EPackage
    int FEATURE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 4;
 
    /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl
+    * <em>Site Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getSiteProject()
+    * @generated
+    */
+   int SITE_PROJECT = 9;
+
+   /**
     * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
@@ -1009,10 +1009,10 @@ public interface ModuleModelPackage extends EPackage
    int SITE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 3;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.Reference <em>Reference</em>}' class. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.ReferenceImpl <em>Reference</em>}'
+    * class. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @see org.sourcepit.b2.model.module.Reference
+    * @see org.sourcepit.b2.model.module.internal.impl.ReferenceImpl
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getReference()
     * @generated
     */
@@ -1364,6 +1364,7 @@ public interface ModuleModelPackage extends EPackage
     */
    int IDENTIFIER = 22;
 
+
    /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.AbstractModule <em>Abstract Module</em>}'.
     * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1572,7 +1573,7 @@ public interface ModuleModelPackage extends EPackage
    EReference getPluginProject_Parent();
 
    /**
-    * Returns the meta object for the attribute ' {@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion
     * <em>Bundle Version</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Bundle Version</em>'.
@@ -2549,4 +2550,4 @@ public interface ModuleModelPackage extends EPackage
 
    }
 
-} // B2ModelPackage
+} // ModuleModelPackage

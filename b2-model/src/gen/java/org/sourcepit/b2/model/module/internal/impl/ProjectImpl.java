@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -136,6 +136,44 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
+   public boolean isDerived()
+   {
+      return derived;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public void setDerived(boolean newDerived)
+   {
+      boolean oldDerived = derived;
+      derived = newDerived;
+      if (eNotificationRequired())
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PROJECT__DERIVED, oldDerived, derived));
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EList<Annotation> getAnnotations()
+   {
+      if (annotations == null)
+      {
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
+            ModuleModelPackage.PROJECT__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
+      }
+      return annotations;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public String getId()
    {
       return id;
@@ -175,44 +213,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       version = newVersion;
       if (eNotificationRequired())
          eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PROJECT__VERSION, oldVersion, version));
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public boolean isDerived()
-   {
-      return derived;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public void setDerived(boolean newDerived)
-   {
-      boolean oldDerived = derived;
-      derived = newDerived;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PROJECT__DERIVED, oldDerived, derived));
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EList<Annotation> getAnnotations()
-   {
-      if (annotations == null)
-      {
-         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
-            ModuleModelPackage.PROJECT__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
-      }
-      return annotations;
    }
 
    /**

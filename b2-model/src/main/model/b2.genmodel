@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/b2-model/src/gen/java"
-    modelPluginID="" templateDirectory="" redirection="" modelName="b2" modelPluginClass=""
-    updateClasspath="false" importerID="org.eclipse.emf.importer.ecore" bundleManifest="false"
-    containmentProxies="true" complianceLevel="5.0" copyrightFields="false">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying&#xD;&#xA;materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,&#xD;&#xA;and is available at http://www.eclipse.org/legal/epl-v10.html"
+    modelDirectory="/b2-model/src/gen/java" modelPluginID="" templateDirectory=""
+    redirection="" modelName="b2" modelPluginClass="" updateClasspath="false" importerID="org.eclipse.emf.importer.ecore"
+    bundleManifest="false" containmentProxies="true" complianceLevel="5.0" copyrightFields="false">
   <foreignModel>b2.ecore</foreignModel>
   <genPackages prefix="Model" basePackage="org.sourcepit.b2" disposableProviderFactory="true"
       ecorePackage="b2.ecore#/">
@@ -179,11 +179,13 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/moduleModel"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/attachments"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/environements"/>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//session/ModuleDependency">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleDependency/groupId"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleDependency/artifactId"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleDependency/versionRange"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleDependency/classifier"/>
         <genOperations ecoreOperation="b2.ecore#//session/ModuleDependency/isSatisfiableBy">
           <genParameters ecoreParameter="b2.ecore#//session/ModuleDependency/isSatisfiableBy/moduleProject"/>
         </genOperations>
@@ -193,6 +195,11 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleAttachment/type"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleAttachment/file"/>
         <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleAttachment/parent"/>
+      </genClasses>
+      <genClasses ecoreClass="b2.ecore#//session/Environment">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/Environment/os"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/Environment/ws"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/Environment/arch"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

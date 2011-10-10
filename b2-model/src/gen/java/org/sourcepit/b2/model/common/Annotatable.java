@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Annotateable</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Annotatable</b></em>'. <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -67,4 +67,4 @@ public interface Annotatable extends EObject
     */
    String putAnnotationEntry(String source, String key, String value);
 
-} // Annotateable
+} // Annotatable

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.common.Annotatable;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Session</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>B2 Session</b></em>'. <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -26,7 +26,6 @@ import org.sourcepit.b2.model.common.Annotatable;
  */
 public interface B2Session extends Annotatable
 {
-
    /**
     * Returns the value of the '<em><b>Projects</b></em>' containment reference list. The list contents are of type
     * {@link org.sourcepit.b2.model.session.ModuleProject}. It is bidirectional and its opposite is '
@@ -78,4 +77,5 @@ public interface B2Session extends Annotatable
     * @generated
     */
    ModuleProject getProject(String groupId, String artifactId, String version);
-} // Session
+
+} // B2Session

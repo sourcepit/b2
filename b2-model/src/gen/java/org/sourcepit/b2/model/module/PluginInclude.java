@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -25,7 +25,7 @@ package org.sourcepit.b2.model.module;
 public interface PluginInclude extends Reference
 {
    /**
-    * Returns the value of the '<em><b>Unpack</b></em>' attribute. The default value is <code>"false"</code>. <!--
+    * Returns the value of the '<em><b>Unpack</b></em>' attribute. The default value is <code>"true"</code>. <!--
     * begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Unpack</em>' attribute isn't clear, there really should be more of a description
@@ -36,7 +36,7 @@ public interface PluginInclude extends Reference
     * @return the value of the '<em>Unpack</em>' attribute.
     * @see #setUnpack(boolean)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginInclude_Unpack()
-    * @model default="false"
+    * @model default="true"
     * @generated
     */
    boolean isUnpack();

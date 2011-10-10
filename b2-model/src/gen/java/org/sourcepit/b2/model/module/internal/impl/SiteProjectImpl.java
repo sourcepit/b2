@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -47,6 +47,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @ordered
     */
    protected static final String CLASSIFIER_EDEFAULT = null;
+
    /**
     * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
     * end-user-doc -->
@@ -56,6 +57,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @ordered
     */
    protected String classifier = CLASSIFIER_EDEFAULT;
+
    /**
     * The cached value of the '{@link #getCategories() <em>Categories</em>}' containment reference list. <!--
     * begin-user-doc --> <!-- end-user-doc -->

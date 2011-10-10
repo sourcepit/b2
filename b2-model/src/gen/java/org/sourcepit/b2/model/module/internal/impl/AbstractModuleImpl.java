@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -38,10 +38,13 @@ import org.sourcepit.b2.model.module.util.Identifier;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getName <em>Name</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getDirectory <em>Directory</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getAnnotations <em>Annotations</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getId <em>Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getVersion <em>Version</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getLayoutId <em>Layout Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getLocales <em>Locales</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getFacets <em>Facets</em>}</li>
  * </ul>
  * </p>
  * 
@@ -163,6 +166,21 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
+   public EList<Annotation> getAnnotations()
+   {
+      if (annotations == null)
+      {
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
+            ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
+      }
+      return annotations;
+   }
+
+   /**
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public String getId()
    {
       return id;
@@ -203,21 +221,6 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       if (eNotificationRequired())
          eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_MODULE__VERSION, oldVersion,
             version));
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EList<Annotation> getAnnotations()
-   {
-      if (annotations == null)
-      {
-         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
-            ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
-      }
-      return annotations;
    }
 
    /**

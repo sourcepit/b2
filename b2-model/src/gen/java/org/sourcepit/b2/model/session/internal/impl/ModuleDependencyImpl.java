@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -18,6 +18,13 @@ import org.sourcepit.b2.model.session.SessionModelPackage;
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Module Dependency</b></em>'. <!-- end-user-doc
  * -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl#getGroupId <em>Group Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl#getArtifactId <em>Artifact Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl#getVersionRange <em>Version Range</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl#getClassifier <em>Classifier</em>}</li>
+ * </ul>
  * </p>
  * 
  * @generated
@@ -33,6 +40,7 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
     * @ordered
     */
    protected static final String GROUP_ID_EDEFAULT = null;
+
    /**
     * The cached value of the '{@link #getGroupId() <em>Group Id</em>}' attribute. <!-- begin-user-doc --> <!--
     * end-user-doc -->
@@ -42,6 +50,7 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
     * @ordered
     */
    protected String groupId = GROUP_ID_EDEFAULT;
+
    /**
     * The default value of the '{@link #getArtifactId() <em>Artifact Id</em>}' attribute. <!-- begin-user-doc --> <!--
     * end-user-doc -->
@@ -51,6 +60,7 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
     * @ordered
     */
    protected static final String ARTIFACT_ID_EDEFAULT = null;
+
    /**
     * The cached value of the '{@link #getArtifactId() <em>Artifact Id</em>}' attribute. <!-- begin-user-doc --> <!--
     * end-user-doc -->
@@ -60,6 +70,7 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
     * @ordered
     */
    protected String artifactId = ARTIFACT_ID_EDEFAULT;
+
    /**
     * The default value of the '{@link #getVersionRange() <em>Version Range</em>}' attribute. <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -69,6 +80,7 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
     * @ordered
     */
    protected static final String VERSION_RANGE_EDEFAULT = null;
+
    /**
     * The cached value of the '{@link #getVersionRange() <em>Version Range</em>}' attribute. <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -88,6 +100,7 @@ public class ModuleDependencyImpl extends EObjectImpl implements ModuleDependenc
     * @ordered
     */
    protected static final String CLASSIFIER_EDEFAULT = null;
+
    /**
     * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
     * end-user-doc -->

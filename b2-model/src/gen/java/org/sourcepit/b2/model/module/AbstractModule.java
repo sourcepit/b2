@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -11,9 +11,8 @@ import java.util.Locale;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.common.Annotatable;
 
-
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Module</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Abstract Module</b></em>'. <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -62,7 +61,7 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
    /**
     * Returns the value of the '<em><b>Layout Id</b></em>' attribute. <!-- begin-user-doc -->
     * <p>
-    * If the meaning of the '<em>Layout</em>' attribute isn't clear, there really should be more of a description
+    * If the meaning of the '<em>Layout Id</em>' attribute isn't clear, there really should be more of a description
     * here...
     * </p>
     * <!-- end-user-doc -->
@@ -151,5 +150,4 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
     */
    <P extends Project, F extends ProjectFacet<P>> P resolveReference(Reference reference, Class<F> facetType);
 
-
-} // Module
+} // AbstractModule

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -46,11 +46,11 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    {
       try
       {
-         ModuleModelFactory theB2ModelFactory = (ModuleModelFactory) EPackage.Registry.INSTANCE
+         ModuleModelFactory theModuleModelFactory = (ModuleModelFactory) EPackage.Registry.INSTANCE
             .getEFactory(ModuleModelPackage.eNS_URI);
-         if (theB2ModelFactory != null)
+         if (theModuleModelFactory != null)
          {
-            return theB2ModelFactory;
+            return theModuleModelFactory;
          }
       }
       catch (Exception exception)
@@ -343,4 +343,4 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
       return ModuleModelPackage.eINSTANCE;
    }
 
-} // B2ModelFactoryImpl
+} // ModuleModelFactoryImpl

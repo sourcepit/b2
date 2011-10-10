@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
@@ -24,7 +24,7 @@ import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Session</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>B2 Session</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -47,6 +47,7 @@ public class B2SessionImpl extends EObjectImpl implements B2Session
     * @ordered
     */
    protected EList<Annotation> annotations;
+
    /**
     * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list. <!-- begin-user-doc
     * --> <!-- end-user-doc -->
@@ -56,6 +57,7 @@ public class B2SessionImpl extends EObjectImpl implements B2Session
     * @ordered
     */
    protected EList<ModuleProject> projects;
+
    /**
     * The cached value of the '{@link #getCurrentProject() <em>Current Project</em>}' reference. <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -338,4 +340,4 @@ public class B2SessionImpl extends EObjectImpl implements B2Session
       return super.eIsSet(featureID);
    }
 
-} // SessionImpl
+} // B2SessionImpl
