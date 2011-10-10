@@ -8,7 +8,7 @@
     <filter-data value="java"/>
   </filter>
   <filter name="FilesFromPackage" enabled="true">
-    <filter-data value="src/gen/java"/>
+    <filter-data value="src/test/java"/>
   </filter>
   <filter name="NonSrcDirs" enabled="true"/>
 </fileset-config>

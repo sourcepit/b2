@@ -7,7 +7,7 @@
   <filter name="FileTypesFilter" enabled="true">
     <filter-data value="java"/>
   </filter>
-  <filter name="FilesFromPackage" enabled="true">
+  <filter name="FilesFromPackage" enabled="false">
     <filter-data value="src/gen/java"/>
   </filter>
   <filter name="NonSrcDirs" enabled="true"/>

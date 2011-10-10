@@ -97,7 +97,7 @@ public final class ArtifactReference
             range = VersionRange.createFromVersionSpec(getVersionRange());
          }
          catch (InvalidVersionSpecificationException e)
-         {
+         { // range is null if invalid
          }
       }
       return range;

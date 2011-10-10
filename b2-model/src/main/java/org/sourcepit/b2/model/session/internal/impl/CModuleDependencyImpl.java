@@ -35,7 +35,7 @@ public class CModuleDependencyImpl extends ModuleDependencyImpl
                }
             }
             catch (InvalidVersionSpecificationException e)
-            {
+            { // ignore invalid ranges
             }
          }
       }

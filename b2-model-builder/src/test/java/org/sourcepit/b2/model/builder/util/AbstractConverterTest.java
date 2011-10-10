@@ -45,7 +45,7 @@ public class AbstractConverterTest extends TestCase
          fail();
       }
       catch (NullPointerException e)
-      {
+      { // noop
       }
 
       assertEquals("", converter.toClassifierLabel(""));
