@@ -22,7 +22,7 @@ public final class AllNightlyTests
       return suite;
    }
 
-   private AllContinuousTests()
+   private AllNightlyTests()
    {
       super();
    }
