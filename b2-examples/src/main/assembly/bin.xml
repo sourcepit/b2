@@ -8,9 +8,19 @@
 		<fileSet>
 			<directory>${project.build.directory}/dist/</directory>
 			<outputDirectory>/</outputDirectory>
+			<directoryMode>0755</directoryMode>
 			<excludes>
-				<exclude>examples/**/bin/**</exclude>
+				<exclude>example-modules/**/bin/**</exclude>
+				<exclude>**/*.sh</exclude>
 			</excludes>
+		</fileSet>
+		<fileSet>
+			<directory>${project.build.directory}/dist/</directory>
+			<outputDirectory>/</outputDirectory>
+			<fileMode>0754</fileMode>
+			<includes>
+				<include>**/*.sh</include>
+			</includes>
 		</fileSet>
 	</fileSets>
 </assembly>
