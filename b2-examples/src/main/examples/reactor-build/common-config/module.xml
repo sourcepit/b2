@@ -11,6 +11,7 @@
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
+		<b2.extension.version>${b2.extension.version}</b2.extension.version>
 	</properties>
 
 	<repositories>
