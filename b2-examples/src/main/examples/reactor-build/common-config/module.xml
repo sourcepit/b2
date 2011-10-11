@@ -6,12 +6,11 @@
 
 	<groupId>org.sourcepit.b2.examples.reactor</groupId>
 	<artifactId>common-config</artifactId>
-	<version>${project.version}</version>
+	<version>${b2.examples.version}</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
-		<b2.extension.version>${b2.extension.version}</b2.extension.version>
 	</properties>
 
 	<repositories>

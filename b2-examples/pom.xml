@@ -10,7 +10,6 @@
 
 	<properties>
 		<b2.extension.version>${project.version}</b2.extension.version>
-		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 
 	<dependencies>

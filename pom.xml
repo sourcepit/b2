@@ -20,6 +20,7 @@
 
 	<properties>
 		<tycho.version>0.13.0</tycho.version>
+		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 		<sonar.jacoco.reportPath>${user.dir}/target/jacoco.exec</sonar.jacoco.reportPath>

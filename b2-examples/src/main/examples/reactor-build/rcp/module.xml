@@ -7,12 +7,11 @@
 	<parent>
 		<groupId>org.sourcepit.b2.examples.reactor</groupId>
 		<artifactId>common-config</artifactId>
-		<version>${project.version}</version>
+		<version>${b2.examples.version}</version>
 		<relativePath>../common-config/module.xml</relativePath>
 	</parent>
 
 	<artifactId>rcp</artifactId>
-	<version>${project.version}</version>
 	<packaging>pom</packaging>
 
 	<properties>
