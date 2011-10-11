@@ -76,6 +76,7 @@
 							<outputDirectory>${project.build.directory}</outputDirectory>
 							<includeGroupIds>org.sourcepit.b2</includeGroupIds>
 							<includeArtifactIds>b2-examples</includeArtifactIds>
+							<includeTypes>tar</includeTypes>
 						</configuration>
 					</execution>
 				</executions>
