@@ -11,17 +11,33 @@
 			<directoryMode>0755</directoryMode>
 			<fileMode>0644</fileMode>
 			<excludes>
-				<exclude>example-modules/**/bin/**</exclude>
 				<exclude>**/*.sh</exclude>
+				<exclude>**/bin/**</exclude>
 			</excludes>
 		</fileSet>
 		<fileSet>
 			<directory>${project.build.directory}/dist/</directory>
 			<outputDirectory>/</outputDirectory>
+			<directoryMode>0755</directoryMode>
 			<fileMode>0754</fileMode>
 			<includes>
 				<include>**/*.sh</include>
 			</includes>
+			<excludes>
+				<exclude>**/bin/**</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet>
+			<directory>${project.build.directory}/dist/</directory>
+			<outputDirectory>/</outputDirectory>
+			<directoryMode>0755</directoryMode>
+			<fileMode>0754</fileMode>
+			<includes>
+				<include>**/bin/**</include>
+			</includes>
+			<excludes>
+				<exclude>example-modules/**/bin/**</exclude>
+			</excludes>
 		</fileSet>
 	</fileSets>
 </assembly>
