@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.sourcepit.b2.examples</groupId>
+		<groupId>org.sourcepit.b2.examples.reactor</groupId>
 		<artifactId>common-config</artifactId>
 		<version>${project.version}</version>
 		<relativePath>../common-config/module.xml</relativePath>
@@ -22,7 +22,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.sourcepit.b2.examples</groupId>
+			<groupId>org.sourcepit.b2.examples.reactor</groupId>
 			<artifactId>rcp.ui</artifactId>
 			<version>\${project.version}</version>
 			<classifier>internal</classifier>

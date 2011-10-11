@@ -4,9 +4,9 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.sourcepit.b2.examples</groupId>
+	<groupId>org.sourcepit.b2.examples.rcp</groupId>
 	<artifactId>rcp</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>${b2.examples.version}</version>
 	<packaging>pom</packaging>
 
 	<properties>
