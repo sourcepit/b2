@@ -76,7 +76,6 @@
 							<outputDirectory>${project.build.directory}</outputDirectory>
 							<includeGroupIds>org.sourcepit.b2</includeGroupIds>
 							<includeArtifactIds>b2-examples</includeArtifactIds>
-							<includeTypes>tar</includeTypes>
 						</configuration>
 					</execution>
 				</executions>
@@ -97,7 +96,7 @@
 							<target>
 								<untar dest="${project.build.directory}">
 									<fileset dir="${project.build.directory}">
-										<include name="b2-examples*.tar" />
+										<include name="b2-examples*.zip" />
 									</fileset>
 								</untar>
 							</target>
