@@ -28,7 +28,6 @@
       </win>
    </launcher>
 
-
    <vm>
    </vm>
 
@@ -38,7 +37,6 @@
    <features>
       <feature id="org.eclipse.rcp"/>
       <feature id="org.eclipse.help"/>
-      <feature id="org.sourcepit.b2.examples.rcp.sdk.feature"/>
    </features>
 
    <configurations>
