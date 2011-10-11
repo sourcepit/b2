@@ -94,11 +94,11 @@
 						</goals>
 						<configuration>
 							<target>
-								<unzip dest="${project.build.directory}">
+								<untar dest="${project.build.directory}">
 									<fileset dir="${project.build.directory}">
-										<include name="b2-examples*.zip" />
+										<include name="b2-examples*.tar" />
 									</fileset>
-								</unzip>
+								</untar>
 							</target>
 						</configuration>
 					</execution>
