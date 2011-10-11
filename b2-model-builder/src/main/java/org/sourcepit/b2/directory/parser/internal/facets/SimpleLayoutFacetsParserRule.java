@@ -33,7 +33,7 @@ import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
 @Named("simple")
 public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>
 {
-   private final static String LAYOUT = SimpleLayoutFacetsParserRule.class.getAnnotation(Named.class).value();
+   private static final String LAYOUT = SimpleLayoutFacetsParserRule.class.getAnnotation(Named.class).value();
 
    @Inject
    private ProjectParser projectParser;
@@ -135,7 +135,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
 
    private ProjectFacet<? extends Project> addProject(final List<ProjectFacet<?>> facets, Project project)
    {
-      return new ModuleModelSwitch<ProjectFacet<? extends Project>>()
+      final ModuleModelSwitch<ProjectFacet<? extends Project>> moduleSwitch = new ModuleModelSwitch<ProjectFacet<? extends Project>>()
       {
          public ProjectFacet<? extends Project> caseFeatureProject(FeatureProject project)
          {
@@ -208,6 +208,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
             });
          }
 
-      }.doSwitch(project);
+      };
+      return moduleSwitch.doSwitch(project);
    }
 }

@@ -43,10 +43,10 @@ public class PropertiesQuery
 
    public String lookup(Collection<ValueSource> valueSources)
    {
-      for (String key : keys)
+      for (String rawKey : keys)
       {
-         final String _key = prefix == null ? key : prefix + key;
-         final String result = lookup(valueSources, _key);
+         final String key = prefix == null ? rawKey : prefix + rawKey;
+         final String result = lookup(valueSources, key);
          if (result != null)
          {
             return result;

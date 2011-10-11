@@ -35,10 +35,10 @@ public final class ManifestUtils
          setField(mfClass, "entries", mf, new LinkedHashMap<Object, Object>());
       }
       catch (NoSuchFieldException e1)
-      {// hack the planet
+      { // hack the planet
       }
       catch (IllegalAccessException e1)
-      {// hack the planet
+      { // hack the planet
       }
 
       return mf;

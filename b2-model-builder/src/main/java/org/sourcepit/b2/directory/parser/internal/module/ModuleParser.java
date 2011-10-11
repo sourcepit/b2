@@ -65,7 +65,7 @@ public class ModuleParser implements IModuleParser
    {
       if (!extenders.isEmpty())
       {
-         new DecouplingB2ModelWalker(cache)
+         final DecouplingB2ModelWalker walker = new DecouplingB2ModelWalker(cache)
          {
             @Override
             protected boolean doVisit(EObject eObject)
@@ -79,7 +79,8 @@ public class ModuleParser implements IModuleParser
                }
                return true;
             }
-         }.walk(module);
+         };
+         walker.walk(module);
       }
       return module;
    }

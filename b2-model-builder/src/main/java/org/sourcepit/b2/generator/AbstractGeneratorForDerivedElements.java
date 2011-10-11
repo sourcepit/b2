@@ -34,9 +34,9 @@ public abstract class AbstractGeneratorForDerivedElements extends AbstractGenera
    @Override
    protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
    {
-      final Collection<Class<? extends Derivable>> _inputTypes = new ArrayList<Class<? extends Derivable>>();
-      addTypesOfInputs(_inputTypes);
-      inputTypes.addAll(_inputTypes);
+      final Collection<Class<? extends Derivable>> typesOfInputs = new ArrayList<Class<? extends Derivable>>();
+      addTypesOfInputs(typesOfInputs);
+      inputTypes.addAll(typesOfInputs);
    }
 
    protected abstract void addTypesOfInputs(Collection<Class<? extends Derivable>> inputTypes);

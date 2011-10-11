@@ -21,7 +21,7 @@ import org.sourcepit.b2.model.module.ProjectFacet;
 @Named("structured")
 public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>
 {
-   private final static String LAYOUT = StructuredLayoutFacetsParserRule.class.getAnnotation(Named.class).value();
+   private static final String LAYOUT = StructuredLayoutFacetsParserRule.class.getAnnotation(Named.class).value();
 
    @Inject
    @Named("simple")

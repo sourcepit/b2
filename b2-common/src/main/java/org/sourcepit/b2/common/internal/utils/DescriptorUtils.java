@@ -68,7 +68,7 @@ public final class DescriptorUtils
       boolean isSkipped(File parentDescriptor, File descriptor);
    }
 
-   public static abstract class AbstractDescriptorResolutionStrategy implements IDescriptorResolutionStrategy
+   public abstract static class AbstractDescriptorResolutionStrategy implements IDescriptorResolutionStrategy
    {
       private PathMatcher defaultMatcher;
 

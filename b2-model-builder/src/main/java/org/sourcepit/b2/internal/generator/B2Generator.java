@@ -33,7 +33,8 @@ public class B2Generator
 
       for (final IB2GenerationParticipant generator : copy)
       {
-         new DecouplingB2ModelWalker(request.getModelCache(), generator.isReverse(), true)
+         final DecouplingB2ModelWalker walker = new DecouplingB2ModelWalker(request.getModelCache(),
+            generator.isReverse(), true)
          {
             @Override
             protected boolean doVisit(EObject eObject)
@@ -44,7 +45,8 @@ public class B2Generator
                }
                return true;
             }
-         }.walk(module);
+         };
+         walker.walk(module);
       }
    }
 }

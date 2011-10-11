@@ -129,9 +129,13 @@ public final class VersionUtils
       {
          char c = modifier.charAt(i);
          if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_' || c == '-')
+         {
             result.append(c);
+         }
          else
+         {
             result.append('_');
+         }
       }
    }
 }
