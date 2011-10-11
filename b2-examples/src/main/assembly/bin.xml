@@ -9,6 +9,7 @@
 			<directory>${project.build.directory}/dist/</directory>
 			<outputDirectory>/</outputDirectory>
 			<directoryMode>0755</directoryMode>
+			<fileMode>0644</fileMode>
 			<excludes>
 				<exclude>example-modules/**/bin/**</exclude>
 				<exclude>**/*.sh</exclude>
