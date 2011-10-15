@@ -30,7 +30,7 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    /**
     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @generated NOT
+    * @generated
     */
    public static CommonModelFactory init()
    {
@@ -47,7 +47,7 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
       {
          EcorePlugin.INSTANCE.log(exception);
       }
-      return new CCommonModelFactoryImpl();
+      return new CommonModelFactoryImpl();
    }
 
    /**

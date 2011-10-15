@@ -29,7 +29,7 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
    /**
     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @generated NOT
+    * @generated
     */
    public static SessionModelFactory init()
    {
@@ -46,7 +46,7 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
       {
          EcorePlugin.INSTANCE.log(exception);
       }
-      return new CSessionModelFactoryImpl();
+      return new SessionModelFactoryImpl();
    }
 
    /**

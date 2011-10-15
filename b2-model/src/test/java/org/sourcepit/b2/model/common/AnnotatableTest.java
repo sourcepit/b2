@@ -26,7 +26,6 @@ public class AnnotatableTest extends TestCase
       for (EClass eClass : annotateableTypes)
       {
          Annotatable annotateable = createAnnotateable(eClass);
-
          try
          {
             annotateable.getAnnotation(null);

@@ -40,7 +40,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @generated NOT
+    * @generated
     */
    public static ModuleModelFactory init()
    {
@@ -57,7 +57,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
       {
          EcorePlugin.INSTANCE.log(exception);
       }
-      return new CModuleModelFactoryImpl();
+      return new ModuleModelFactoryImpl();
    }
 
    /**
