@@ -208,24 +208,9 @@
 					<version>1.5.5</version>
 				</plugin>
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>1.6</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>aspectj-maven-plugin</artifactId>
-					<version>1.4</version>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>2.5</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>2.9</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -237,8 +222,14 @@
 					<artifactId>maven-release-plugin</artifactId>
 					<version>2.2.2</version>
 				</plugin>
-				<!-- To assure that all artifact will be installed with its base version we use our own install mojo (org.sourcepit.tools:maven-install-mojo). 
-					See <plugins /> secion. -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.7</version>
+				</plugin>
+				<!-- To assure that all artifact will be installed with its base version 
+					we use our own install mojo (org.sourcepit.tools:maven-install-mojo). See 
+					<plugins /> secion. -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-install-plugin</artifactId>
@@ -254,16 +245,8 @@
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>2.3</version>
 				</plugin>
-				<plugin>
-					<!-- Build server is to week.. :( -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.9</version>
-					<configuration>
-						<argLine>-Xms64m -Xmx128m</argLine>
-					</configuration>
-				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -354,8 +337,7 @@
 			<id>its</id>
 			<properties>
 				<it.repo.activeByDefault>true</it.repo.activeByDefault>
-				<it.repo.dir>${user.dir}/target/it-repository</it.repo.dir>
-				<it.repo.url>file://${it.repo.dir}</it.repo.url>
+				<it.repo.url>file://${user.dir}/target/it-repository</it.repo.url>
 			</properties>
 			<modules>
 				<module>b2-integration-tests</module>
@@ -365,12 +347,12 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-deploy-plugin</artifactId>
-						<version>2.7</version>
 						<executions>
 							<execution>
 								<id>gather-artifacts</id>
-								<!-- As far we use our own install mojo that assures that each artifact will be deployed with its base version, we 
-									can call the deploy goal before the phase install, otherwise not! -->
+								<!-- As far we use our own install mojo that assures that each artifact 
+									will be deployed with its base version, we can call the deploy goal before 
+									the phase install, otherwise not! -->
 								<phase>pre-integration-test</phase>
 								<goals>
 									<goal>deploy</goal>
@@ -380,10 +362,6 @@
 								</configuration>
 							</execution>
 						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
 					</plugin>
 				</plugins>
 			</build>
