@@ -200,7 +200,7 @@
 				<plugin>
 					<groupId>org.sourcepit.tools</groupId>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>0.1.0-alpha-1</version>
+					<version>0.1.0-SNAPSHOT</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.plexus</groupId>
@@ -227,9 +227,8 @@
 					<artifactId>maven-deploy-plugin</artifactId>
 					<version>2.7</version>
 				</plugin>
-				<!-- To assure that all artifact will be installed with its base version 
-					we use our own install mojo (org.sourcepit.tools:maven-install-mojo). See 
-					<plugins /> secion. -->
+				<!-- To assure that all artifact will be installed with its base version we use our own install mojo (org.sourcepit.tools:maven-install-mojo). 
+					See <plugins /> secion. -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-install-plugin</artifactId>
@@ -245,8 +244,7 @@
 					<artifactId>maven-dependency-plugin</artifactId>
 					<version>2.3</version>
 				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -325,7 +323,7 @@
 					<execution>
 						<id>install-base</id>
 						<goals>
-							<goal>install-base</goal>
+							<goal>install</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -334,9 +332,37 @@
 	</build>
 	<profiles>
 		<profile>
+			<id>external-it-localRepository</id>
+			<activation>
+				<property>
+					<name>it.localRepository</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.sourcepit.tools</groupId>
+						<artifactId>maven-install-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>pre-integration-test</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>install</goal>
+								</goals>
+								<configuration>
+									<localRepositoryPath>${it.localRepository}</localRepositoryPath>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>its</id>
 			<properties>
-				<it.repo.activeByDefault>true</it.repo.activeByDefault>
+				<it.repo.active>true</it.repo.active>
 				<it.repo.url>file://${user.dir}/target/it-repository</it.repo.url>
 			</properties>
 			<modules>
@@ -350,9 +376,8 @@
 						<executions>
 							<execution>
 								<id>gather-artifacts</id>
-								<!-- As far we use our own install mojo that assures that each artifact 
-									will be deployed with its base version, we can call the deploy goal before 
-									the phase install, otherwise not! -->
+								<!-- As far we use our own install mojo that assures that each artifact will be deployed with its base version, we 
+									can call the deploy goal before the phase install, otherwise not! -->
 								<phase>pre-integration-test</phase>
 								<goals>
 									<goal>deploy</goal>

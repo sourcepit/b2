@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sourcepit.b2</groupId>
@@ -8,9 +9,8 @@
 	<artifactId>b2-integration-tests</artifactId>
 
 	<properties>
-		<sonar.phase>integration-test</sonar.phase>
-		<proxy.settings />
-		<it.localRepository />
+		<it.localRepositoryXml />
+		<proxy.settingsXml />
 		<b2.examples.finalName>b2-examples-${project.version}</b2.examples.finalName>
 	</properties>
 
@@ -86,7 +86,7 @@
 					<execution>
 						<id>integration-test</id>
 						<goals>
-							<goal>${sonar.phase}</goal>
+							<goal>integration-test</goal>
 						</goals>
 					</execution>
 					<execution>
@@ -109,18 +109,28 @@
 				</property>
 			</activation>
 			<properties>
-				<proxy.settings>&lt;proxy&gt;
+				<proxy.settingsXml>&lt;proxy&gt;
 					&lt;active&gt;true&lt;/active&gt;
 					&lt;protocol&gt;http&lt;/protocol&gt;
 					&lt;host&gt;${http.proxyHost}&lt;/host&gt;
 					&lt;port&gt;${http.proxyPort}&lt;/port&gt;
 					&lt;nonProxyHosts&gt;${http.nonProxyHosts}&lt;/nonProxyHosts&gt;
-					&lt;/proxy&gt;</proxy.settings>
+					&lt;/proxy&gt;</proxy.settingsXml>
 			</properties>
 		</profile>
 		<profile>
-			<!-- Due to a bug of the dependemcy mojo (MDEP-109: Dependency plugin 
-				looses file permissions) we have to set these manually -->
+			<id>it.localRepositoryXml-property</id>
+			<activation>
+				<property>
+					<name>it.localRepository</name>
+				</property>
+			</activation>
+			<properties>
+				<it.localRepositoryXml>&lt;localRepository&gt;${it.localRepository}&lt;/localRepository&gt;</it.localRepositoryXml>
+			</properties>
+		</profile>
+		<profile>
+			<!-- Due to a bug of the dependemcy mojo (MDEP-109: Dependency plugin looses file permissions) we have to set these manually -->
 			<id>exec-chmod</id>
 			<activation>
 				<os>
