@@ -11,13 +11,6 @@
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
-		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
-		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.jacoco.itReportPath>${user.dir}/target/jacoco-its.exec</sonar.jacoco.itReportPath>
-		<!-- <sonar.includedModules>structured,structured-plugins,org.sourcepit.b2.examples.structured.module</sonar.includedModules> -->
-		<sonar.skippedModules>org.sourcepit.b2.examples.structured.module.tests</sonar.skippedModules>
-		<!-- <sonar.phase>integration-test</sonar.phase> -->
-		<!-- <sonar.jacoco.reportPath>d:/tmp/jacoco.exec</sonar.jacoco.reportPath> -->
 	</properties>
 
 	<distributionManagement>
@@ -51,23 +44,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.5.3.201107060350</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${sonar.jacoco.itReportPath}</destFile>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
 
 </project>
