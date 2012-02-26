@@ -77,7 +77,7 @@
 								<artifactItem>
 									<groupId>org.apache.maven</groupId>
 									<artifactId>apache-maven</artifactId>
-									<version>3.0.3</version>
+									<version>${maven.version}</version>
 									<classifier>bin</classifier>
 									<type>zip</type>
 									<overWrite>true</overWrite>
@@ -101,7 +101,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/dist/apache-maven-3.0.3/lib/ext</outputDirectory>
+							<outputDirectory>${project.build.directory}/dist/apache-maven-${maven.version}/lib/ext</outputDirectory>
 							<includeGroupIds>org.sourcepit.b2</includeGroupIds>
 							<includeArtifactIds>b2-bootstrapper</includeArtifactIds>
 						</configuration>

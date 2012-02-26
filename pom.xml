@@ -19,7 +19,7 @@
 	</scm>
 
 	<properties>
-		<maven.version>3.0.3</maven.version>
+		<maven.version>3.0.4</maven.version>
 		<tycho.version>0.13.0</tycho.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>

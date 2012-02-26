@@ -1,7 +1,7 @@
 @echo off
 
 set BASE=%~dp0
-set M2_HOME=%BASE%apache-maven-3.0.3
+set M2_HOME=%BASE%apache-maven-${maven.version}
 set MAVEN_OPTS=-Duser.home=%BASE% %MAVEN_OPTS%
 
 echo.
