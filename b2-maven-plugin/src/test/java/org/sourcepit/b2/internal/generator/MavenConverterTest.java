@@ -26,6 +26,7 @@ public class MavenConverterTest extends TestCase
 
       Properties properties = new Properties();
       when(project.getProperties()).thenReturn(properties);
+      when(session.getUserProperties()).thenReturn(new Properties());
 
       MavenConverter converter = new MavenConverter(session, project);
       assertFalse(converter.isSkipInterpolator());
@@ -42,6 +43,7 @@ public class MavenConverterTest extends TestCase
 
       Properties properties = new Properties();
       when(project.getProperties()).thenReturn(properties);
+      when(session.getUserProperties()).thenReturn(new Properties());
 
       MavenConverter converter = new MavenConverter(session, project);
       assertFalse(converter.isSkipGenerator());

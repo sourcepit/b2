@@ -63,6 +63,7 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
       return new FacetsParseResult<ProjectFacet<? extends Project>>(LAYOUT, facets);
    }
 
+   @SuppressWarnings("unchecked")
    private ProjectFacet<? extends Project> parseFacetFolder(File member, IConverter converter)
    {
       final FacetsParseResult<ProjectFacet<? extends Project>> result = simpleLayoutParserRule.parse(member, converter);
@@ -78,13 +79,26 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
          return null;
       }
 
-      if (facets.size() > 1)
+      ProjectFacet<Project> f = null;
+      for (ProjectFacet<? extends Project> facet : facets)
       {
-         // TODO bernd: break ?!
+         if (f == null)
+         {
+            f = (ProjectFacet<Project>) facet;
+         }
+         else if (f.getClass() == facet.getClass())
+         {
+            for (Project project : new ArrayList<Project>(facet.getProjects()))
+            {
+               f.getProjects().add(project);
+            }
+         }
+         else
+         {
+            throw new IllegalStateException("Directory " + member.getName() + " contains projects of different kinds.");
+         }
       }
-
-      ProjectFacet<? extends Project> facet = facets.get(0);
-      facet.setName(converter.getFacetName(member));
-      return facet;
+      f.setName(converter.getFacetName(member));
+      return f;
    }
 }

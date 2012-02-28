@@ -10,9 +10,6 @@ import java.io.File;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.b2.directory.parser.internal.facets.AbstractFacetsParserRule;
-import org.sourcepit.b2.directory.parser.internal.facets.FacetsParseResult;
-import org.sourcepit.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRule;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.module.BasicModule;
@@ -70,6 +67,26 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       dummyComponent.getFacets().addAll(facets);
 
       assertStructuredLayout(dummyComponent);
+   }
+   
+   public void testBug49MixedTestsFacet() throws Exception
+   {
+      final File moduleDir = workspace.importResources("MixedTestsFacet");
+      assertTrue(moduleDir.exists());
+
+      final StructuredLayoutFacetsParserRule parserRule = lookupParserRule();
+      final FacetsParseResult<ProjectFacet<? extends Project>> result = parserRule.parse(moduleDir,
+         ConverterUtils.TEST_CONVERTER);
+      assertNotNull(result);
+
+      final List<ProjectFacet<? extends Project>> facets = result.getFacets();
+      assertEquals(2, facets.size());
+
+      final PluginsFacet plugins = (PluginsFacet) facets.get(0);
+      assertEquals(1, plugins.getProjects().size());
+
+      final PluginsFacet tests = (PluginsFacet) facets.get(1);
+      assertEquals(2, tests.getProjects().size());
    }
 
    public static void assertStructuredLayout(BasicModule module)

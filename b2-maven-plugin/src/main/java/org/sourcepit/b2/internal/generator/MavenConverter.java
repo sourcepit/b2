@@ -30,6 +30,7 @@ public class MavenConverter extends AbstractConverter
       final LinkedPropertiesMap propertiesMap = new LinkedPropertiesMap();
       propertiesMap.setDefaultProperties(loadConverterProperties());
       propertiesMap.putMap(project.getProperties());
+      propertiesMap.putMap(mavenSession.getUserProperties());
       this.properties = propertiesMap;
       this.mavenSession = mavenSession;
       this.project = project;

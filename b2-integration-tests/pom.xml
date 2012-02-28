@@ -9,6 +9,8 @@
 	<artifactId>b2-integration-tests</artifactId>
 
 	<properties>
+		<it.dir>${project.build.directory}/it</it.dir>
+		<it.user.home>${it.dir}/user.home</it.user.home>
 		<it.localRepositoryXml />
 		<proxy.settingsXml />
 		<b2.examples.finalName>b2-examples-${project.version}</b2.examples.finalName>
@@ -17,14 +19,27 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
-			<artifactId>b2-examples</artifactId>
-			<version>${project.version}</version>
-			<classifier>bin</classifier>
-			<type>zip</type>
+			<artifactId>b2-common</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-exec</artifactId>
+			<groupId>org.sourcepit.b2</groupId>
+			<artifactId>b2-model</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-model</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -32,12 +47,27 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.common</groupId>
+			<artifactId>common-testing</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+
 	<build>
 		<testResources>
 			<testResource>
 				<directory>${basedir}/src/test/m2</directory>
 				<targetPath>${project.build.directory}/${b2.examples.finalName}/.m2</targetPath>
+				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<directory>${basedir}/src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<directory>${basedir}/src/test/m2</directory>
+				<targetPath>${it.user.home}/.m2</targetPath>
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
@@ -67,14 +97,59 @@
 				<executions>
 					<execution>
 						<id>unpack-examples</id>
-						<phase>generate-resources</phase>
+						<phase>pre-integration-test</phase>
 						<goals>
-							<goal>unpack-dependencies</goal>
+							<goal>unpack</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}</outputDirectory>
-							<includeGroupIds>org.sourcepit.b2</includeGroupIds>
-							<includeArtifactIds>b2-examples</includeArtifactIds>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.sourcepit.b2</groupId>
+									<artifactId>b2-examples</artifactId>
+									<version>${project.version}</version>
+									<classifier>bin</classifier>
+									<type>zip</type>
+									<overWrite>true</overWrite>
+									<outputDirectory>${project.build.directory}</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-maven</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.apache.maven</groupId>
+									<artifactId>apache-maven</artifactId>
+									<version>${maven.version}</version>
+									<classifier>bin</classifier>
+									<type>zip</type>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${it.dir}</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>unpack-b2</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.sourcepit.b2</groupId>
+									<artifactId>b2-bootstrapper</artifactId>
+									<version>${project.version}</version>
+									<overWrite>true</overWrite>
+									<outputDirectory>${it.dir}/apache-maven-${maven.version}/lib/ext</outputDirectory>
+								</artifactItem>
+							</artifactItems>
 						</configuration>
 					</execution>
 				</executions>
