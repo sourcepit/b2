@@ -451,7 +451,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             moduleDependency.setGroupId(dependency.getGroupId());
             moduleDependency.setArtifactId(dependency.getArtifactId());
             moduleDependency.setClassifier(dependency.getClassifier());
-            moduleDependency.setVersionRange(dependency.getVersion());
+            moduleDependency.setVersionRange(dependency.getBaseVersion());
 
             moduleProject.getDependencies().add(moduleDependency);
          }
