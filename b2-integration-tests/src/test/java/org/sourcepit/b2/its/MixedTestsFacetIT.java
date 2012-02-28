@@ -19,7 +19,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.PluginsFacet;
 
-public class MixedTestsFacetIt extends AbstractB2It
+public class MixedTestsFacetIT extends AbstractB2IT
 {
    @Override
    protected boolean isDebug()

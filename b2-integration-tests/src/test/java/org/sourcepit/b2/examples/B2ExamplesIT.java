@@ -27,7 +27,6 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
 
    public void testReactor_Build() throws Exception
    {
-      // execute();
       execute("reactor");
       execute("single");
    }

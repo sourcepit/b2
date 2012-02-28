@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.sourcepit.b2.its</groupId>
-	<artifactId>MixedTestsFacetIt</artifactId>
+	<artifactId>MixedTestsFacetIT</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 

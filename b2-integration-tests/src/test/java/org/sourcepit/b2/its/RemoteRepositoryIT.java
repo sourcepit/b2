@@ -20,7 +20,7 @@ import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 
-public class RemoteRepositoryIt extends AbstractB2It
+public class RemoteRepositoryIT extends AbstractB2IT
 {
    @Override
    protected boolean isDebug()

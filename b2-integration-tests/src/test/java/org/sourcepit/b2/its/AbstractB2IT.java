@@ -34,7 +34,7 @@ import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.ExternalProcess;
 import org.sourcepit.common.testing.Workspace;
 
-public abstract class AbstractB2It
+public abstract class AbstractB2IT
 {
    protected Environment environment = Environment.get(getItPropertiesPath());
 
