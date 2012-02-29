@@ -6,18 +6,129 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import org.sourcepit.b2.internal.generator.ProductProjectGenerator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
+import java.io.File;
+import java.io.IOException;
 
-public class ProductProjectGeneratorTest extends TestCase
+import javax.inject.Inject;
+
+import org.codehaus.plexus.logging.Logger;
+import org.codehaus.plexus.logging.console.ConsoleLogger;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.hamcrest.core.Is;
+import org.junit.Rule;
+import org.junit.Test;
+import org.sonatype.guice.bean.containers.InjectedTest;
+import org.sourcepit.b2.common.internal.utils.XmlUtils;
+import org.sourcepit.b2.execution.B2;
+import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.b2.model.builder.util.B2SessionService;
+import org.sourcepit.b2.model.builder.util.IB2SessionService;
+import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
+import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.ProductDefinition;
+import org.sourcepit.b2.model.module.ProductsFacet;
+import org.sourcepit.b2.model.session.B2Session;
+import org.sourcepit.b2.model.session.ModuleProject;
+import org.sourcepit.b2.model.session.SessionModelFactory;
+import org.sourcepit.common.testing.Environment;
+import org.sourcepit.common.testing.Workspace;
+import org.w3c.dom.Node;
+
+import com.google.inject.Binder;
+
+public class ProductProjectGeneratorTest extends InjectedTest
 {
+   protected Environment environment = Environment.get("env-test.properties");
+
+   @Rule
+   public Workspace workspace = new Workspace(new File(environment.getBuildDir(), "test-ws"), false);
+
+   @Inject
+   private LayoutManager layoutManager;
+   
+   @Inject
+   private B2 b2;
+
+   private B2SessionService sessionService = new B2SessionService();
+
+   @Test
    public void testGetClassifier() throws Exception
    {
-    assertEquals("bar", ProductProjectGenerator.getClassifier("foo-bar.txt"));
-    assertEquals("public", ProductProjectGenerator.getClassifier("foo.txt"));
-    assertEquals("public", ProductProjectGenerator.getClassifier("foo-.txt"));
-    assertEquals("bar", ProductProjectGenerator.getClassifier("foo-bar"));
-    assertEquals("public", ProductProjectGenerator.getClassifier("foo")); 
+      assertEquals("bar", ProductProjectGenerator.getClassifier("foo-bar.txt"));
+      assertEquals("public", ProductProjectGenerator.getClassifier("foo.txt"));
+      assertEquals("public", ProductProjectGenerator.getClassifier("foo-.txt"));
+      assertEquals("bar", ProductProjectGenerator.getClassifier("foo-bar"));
+      assertEquals("public", ProductProjectGenerator.getClassifier("foo"));
+   }
+
+   @Override
+   public void configure(Binder binder)
+   {
+      super.configure(binder);
+      binder.bind(Logger.class).toInstance(new ConsoleLogger());
+      binder.bind(IB2SessionService.class).toInstance(sessionService);
+   }
+
+   @Test
+   public void testGenProduct_Bug37() throws Exception
+   {
+      final File moduleDir = getResource("ProductTest");
+
+      // TODO automate init of b2 session in an abstract test class
+      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
+      moduleProject.setDirectory(moduleDir);
+      moduleProject.setGroupId("org.sourcepit.b2.its");
+      moduleProject.setArtifactId("ProductTest");
+      moduleProject.setVersion("1.0.0-SNAPSHOT");
+      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
+      session.getProjects().add(moduleProject);
+      session.setCurrentProject(moduleProject);
+      sessionService.setCurrentSession(session);
+      sessionService.setCurrentResourceSet(new ResourceSetImpl());
+
+      File productFile = new File(moduleDir, "bundle.a/bundle.a.product");
+      Node features = XmlUtils.queryNode(XmlUtils.readXml(productFile), "/product/features");
+      assertNull(features);
+
+      // build model and generate
+      final AbstractModule module = b2.generate(moduleDir, null, null, ConverterUtils.TEST_CONVERTER,
+         new DefaultTemplateCopier());
+      assertNotNull(module);
+
+      EList<ProductsFacet> productsFacets = module.getFacets(ProductsFacet.class);
+      assertThat(productsFacets.size(), Is.is(1));
+
+      ProductsFacet productsFacet = productsFacets.get(0);
+      EList<ProductDefinition> productDefinitions = productsFacet.getProductDefinitions();
+      assertThat(productDefinitions.size(), Is.is(1));
+
+      ProductDefinition productDefinition = productDefinitions.get(0);
+      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      assertNotNull(uid);
+
+      final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
+      final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
+      assertTrue(projectDir.exists());
+
+      productFile = new File(projectDir, "bundle.a.product");
+      features = XmlUtils.queryNode(XmlUtils.readXml(productFile), "/product/features");
+      assertNotNull(features);
+   }
+
+   protected File getResource(String path) throws IOException
+   {
+      final File resourcesDir = environment.getPropertyAsFile("test.resources");
+      assertTrue(resourcesDir.exists());
+      final File resource = workspace.importDir(new File(resourcesDir, path));
+      assertTrue(resource.exists());
+      return resource;
    }
 }

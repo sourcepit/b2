@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sourcepit.b2</groupId>
@@ -59,8 +60,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
+			<artifactId>b2-default-templates</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-model</artifactId>
 			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.common</groupId>
+			<artifactId>common-testing</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -91,6 +102,12 @@
 	</repositories>
 
 	<build>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.plexus</groupId>

@@ -27,11 +27,12 @@ import org.sourcepit.b2.model.module.AbstractModule;
 public class ModuleParser implements IModuleParser
 {
    @Inject
-   private List<AbstractModuleParserRule<AbstractModule>> rules;
+   private List<AbstractModuleParserRule<? extends AbstractModule>> rules;
 
    @Inject
    private List<IModuleParserExtender> extenders;
 
+   @SuppressWarnings({ "unchecked", "rawtypes" })
    public AbstractModule parse(IModuleParsingRequest request)
    {
       checkRequest(request);
@@ -46,11 +47,11 @@ public class ModuleParser implements IModuleParser
          }
       }
 
-      final List<AbstractModuleParserRule<AbstractModule>> orderedRules = new ArrayList<AbstractModuleParserRule<AbstractModule>>(
+      final List<AbstractModuleParserRule<? extends AbstractModule>> orderedRules = new ArrayList<AbstractModuleParserRule<? extends AbstractModule>>(
          rules);
-      Collections.sort(orderedRules);
+      Collections.sort((List)orderedRules);
 
-      for (AbstractModuleParserRule<AbstractModule> rule : orderedRules)
+      for (AbstractModuleParserRule<? extends AbstractModule> rule : orderedRules)
       {
          final AbstractModule module = rule.parse(request);
          if (module != null)

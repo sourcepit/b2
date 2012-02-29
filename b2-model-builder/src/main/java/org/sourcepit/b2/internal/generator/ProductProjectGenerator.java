@@ -91,20 +91,20 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       boolean modified = false;
 
       final String classifier = getClassifier(productFile.getName());
-      
+
       final List<FeatureProject> featureIncludes = new ArrayList<FeatureProject>();
-      
-      //TODO mode to "IIncludeService"?
+
+      // TODO mode to "IIncludeService"?
       final String pattern = converter.getProperties().get("b2.product." + classifier + ".filter");
       if (pattern != null)
       {
          collectIncludedFeatures(featureIncludes, PathMatcher.parsePackagePatterns(pattern), module);
       }
-      
+
       featureIncludes.addAll(aggregationService.resolveProductIncludes(module, classifier, converter));
       if (!featureIncludes.isEmpty())
       {
-         Element features = (Element) XmlUtils.queryNode(productDoc, "/product/features");
+         Element features = getFeaturesNode(productDoc);
          for (FeatureProject featureProject : featureIncludes)
          {
             Element element = productDoc.createElement("feature");
@@ -149,6 +149,18 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       {
          XmlUtils.writeXml(productDoc, productFile);
       }
+   }
+
+   private Element getFeaturesNode(final Document productDoc)
+   {
+      Element features = (Element) XmlUtils.queryNode(productDoc, "/product/features");
+      if (features == null)
+      {
+         features = productDoc.createElement("features");
+         Element product = (Element) productDoc.getElementsByTagName("product").item(0);
+         product.appendChild(features);
+      }
+      return features;
    }
 
    private void collectIncludedFeatures(List<FeatureProject> includes, PathMatcher matcher, AbstractModule module)
