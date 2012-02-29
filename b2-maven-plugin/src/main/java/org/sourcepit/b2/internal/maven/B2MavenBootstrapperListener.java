@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sonatype.aether.RepositorySystem;
 import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
@@ -63,6 +64,7 @@ import org.sourcepit.b2.internal.scm.svn.SCM;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
+import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.util.GavResourceUtils;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -138,8 +140,10 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    public void beforeProjectBuild(BootstrapSession bootSession, final MavenProject wrapperProject)
    {
+      final MavenConverter converter = new MavenConverter(legacySupport.getSession(), wrapperProject);
+
       intEMF();
-      initB2Session(bootSession);
+      initB2Session(bootSession, converter);
 
       final B2Session b2Session = sessionService.getCurrentSession();
       final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
@@ -151,7 +155,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       final File moduleDir = wrapperProject.getBasedir();
       logger.info("Building model for directory " + moduleDir.getName());
 
-      final MavenConverter converter = new MavenConverter(legacySupport.getSession(), wrapperProject);
       final ITemplates templates = new DefaultTemplateCopier()
       {
          @Override
@@ -231,7 +234,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       storeModelCache(bootSession, modelCache);
    }
 
-   private void initB2Session(BootstrapSession bootSession)
+   private void initB2Session(BootstrapSession bootSession, IConverter converter)
    {
       B2SessionService sessionService = new B2SessionService();
       initJsr330(bootSession, sessionService);
@@ -245,7 +248,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       GavResourceUtils.configureResourceSet(resourceSet, mavenURIResolver);
       sessionService.setCurrentResourceSet(resourceSet);
 
-      B2Session b2Session = createB2Session(bootSession, resourceSet);
+      B2Session b2Session = createB2Session(bootSession, resourceSet, converter);
       sessionService.setCurrentSession(b2Session);
    }
 
@@ -389,7 +392,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       }
    }
 
-   private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet)
+   private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet, IConverter converter)
    {
       final B2Session b2Session;
 
@@ -429,15 +432,15 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
       final ModuleProject currentProject = b2Session.getCurrentProject();
       final MavenProject project = session.getCurrentProject();
-      configureModuleProject(currentProject, project);
+      configureModuleProject(currentProject, project, converter);
 
       return b2Session;
    }
 
-   private void configureModuleProject(ModuleProject moduleProject, MavenProject bootProject)
+   private void configureModuleProject(ModuleProject moduleProject, MavenProject bootProject, IConverter converter)
    {
       configureModuleDependencies(moduleProject, bootProject);
-      configureModuleTargetEnvironments(moduleProject, bootProject);
+      configureModuleTargetEnvironments(moduleProject, bootProject, converter);
    }
 
    private void configureModuleDependencies(ModuleProject moduleProject, MavenProject bootProject)
@@ -458,7 +461,8 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       }
    }
 
-   private void configureModuleTargetEnvironments(ModuleProject currentProject, MavenProject project)
+   private void configureModuleTargetEnvironments(ModuleProject currentProject, MavenProject project,
+      IConverter converter)
    {
       for (Plugin plugin : project.getBuildPlugins())
       {
@@ -497,6 +501,22 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
                }
             }
          }
+      }
+
+      if (currentProject.getEnvironements().isEmpty())
+      {
+         Properties properties = converter.getProperties().toJavaProperties();
+
+         String os = PlatformPropertiesUtils.getOS(properties);
+         String ws = PlatformPropertiesUtils.getWS(properties);
+         String arch = PlatformPropertiesUtils.getArch(properties);
+
+         Environment env = SessionModelFactory.eINSTANCE.createEnvironment();
+         env.setOs(os);
+         env.setWs(ws);
+         env.setArch(arch);
+
+         currentProject.getEnvironements().add(env);
       }
    }
 

@@ -27,9 +27,17 @@ public class MavenConverter extends AbstractConverter
 
    public MavenConverter(MavenSession mavenSession, MavenProject project)
    {
+      // see org.eclipse.tycho.core.resolver.DefaultTychoDependencyResolver.setupProject(MavenSession, MavenProject,
+      // ReactorProject)
+      // Properties properties = new Properties();
+      // properties.putAll(project.getProperties());
+      // properties.putAll(session.getSystemProperties()); // session wins
+      // properties.putAll(session.getUserProperties());
+
       final LinkedPropertiesMap propertiesMap = new LinkedPropertiesMap();
       propertiesMap.setDefaultProperties(loadConverterProperties());
       propertiesMap.putMap(project.getProperties());
+      propertiesMap.putMap(mavenSession.getSystemProperties());
       propertiesMap.putMap(mavenSession.getUserProperties());
       this.properties = propertiesMap;
       this.mavenSession = mavenSession;
