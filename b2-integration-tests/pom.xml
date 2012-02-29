@@ -59,10 +59,16 @@
 		<testResources>
 			<testResource>
 				<directory>${basedir}/src/test/resources</directory>
-				<excludes>
-					<exclude>b2-examples</exclude>
-					<exclude>it</exclude>
-				</excludes>
+				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<directory>${basedir}/src/test/m2</directory>
+				<targetPath>${project.build.directory}/${b2.examples.finalName}/.m2/</targetPath>
+				<filtering>true</filtering>
+			</testResource>
+			<testResource>
+				<directory>${basedir}/src/test/m2</directory>
+				<targetPath>${it.user.home}/.m2/</targetPath>
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
@@ -92,7 +98,7 @@
 				<executions>
 					<execution>
 						<id>unpack-examples</id>
-						<phase>pre-integration-test</phase>
+						<phase>generate-test-resources</phase>
 						<goals>
 							<goal>unpack</goal>
 						</goals>
@@ -112,7 +118,7 @@
 					</execution>
 					<execution>
 						<id>unpack-maven</id>
-						<phase>pre-integration-test</phase>
+						<phase>generate-test-resources</phase>
 						<goals>
 							<goal>unpack</goal>
 						</goals>
@@ -131,7 +137,7 @@
 					</execution>
 					<execution>
 						<id>unpack-b2</id>
-						<phase>pre-integration-test</phase>
+						<phase>generate-test-resources</phase>
 						<goals>
 							<goal>copy</goal>
 						</goals>
@@ -149,45 +155,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-b2-examples-resources</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/${b2.examples.finalName}</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/test/resources/b2-examples</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>copy-it-resources</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${it.dir}</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/test/resources/it</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
