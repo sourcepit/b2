@@ -6,9 +6,14 @@
 
 package org.sourcepit.b2.model.builder.util;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.b2.model.session.B2Session;
 
+@Named
+@Singleton
 public class B2SessionService implements IB2SessionService
 {
    private B2Session currentSession;

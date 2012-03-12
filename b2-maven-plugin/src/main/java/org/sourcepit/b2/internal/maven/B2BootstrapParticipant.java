@@ -16,6 +16,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
@@ -23,14 +24,11 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
-import org.apache.maven.model.building.ModelBuilder;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.common.util.URI;
@@ -46,16 +44,10 @@ import org.sonatype.aether.resolution.ArtifactResolutionException;
 import org.sonatype.aether.resolution.ArtifactResult;
 import org.sonatype.aether.util.artifact.AbstractArtifact;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
-import org.sonatype.guice.bean.binders.SpaceModule;
-import org.sonatype.guice.bean.binders.WireModule;
-import org.sonatype.guice.bean.reflect.URLClassSpace;
-import org.sonatype.inject.BeanScanning;
 import org.sourcepit.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.b2.execution.B2;
-import org.sourcepit.b2.execution.IB2Listener;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
-import org.sourcepit.b2.internal.generator.BootPomSerializer;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.FixedModelMerger;
 import org.sourcepit.b2.internal.generator.ITemplates;
@@ -63,7 +55,6 @@ import org.sourcepit.b2.internal.generator.MavenConverter;
 import org.sourcepit.b2.internal.scm.svn.SCM;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.DecouplingModelCache;
-import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.util.GavResourceUtils;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -77,15 +68,12 @@ import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
-import org.sourcepit.maven.wrapper.internal.session.BootstrapSession;
-import org.sourcepit.maven.wrapper.internal.session.IMavenBootstrapperListener;
+import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
+import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-@Component(role = IMavenBootstrapperListener.class)
-public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
+@Named
+public class B2BootstrapParticipant implements BootstrapParticipant
 {
    private final class B2ModelResourceURIResolver implements MavenProjectURIResolver
    {
@@ -111,16 +99,16 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       }
    }
 
-   @Requirement
+   @Inject
    private LegacySupport legacySupport;
 
-   @Requirement
-   private ModelBuilder modelBuilder;
+   @Inject
+   private RepositorySystem repositorySystem;
 
-   @Requirement
+   @Inject
    private MavenProjectHelper projectHelper;
 
-   @Requirement
+   @Inject
    private Logger logger;
 
    @Inject
@@ -130,17 +118,22 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
    private LayoutManager layoutManager;
 
    @Inject
-   private IB2SessionService sessionService;
+   private B2SessionService sessionService;
+
+   @Inject
+   private BootstrapSessionService bootSessionService;
 
    @Inject
    private SCM scm;
 
-   private static final String CACHE_KEY = B2MavenBootstrapperListener.class.getName() + "#modelCache";
-   private static final String CACHE_KEY_SESSION = B2MavenBootstrapperListener.class.getName() + "#session";
+   private static final String CACHE_KEY = B2BootstrapParticipant.class.getName() + "#modelCache";
+   private static final String CACHE_KEY_SESSION = B2BootstrapParticipant.class.getName() + "#session";
 
-   public void beforeProjectBuild(BootstrapSession bootSession, final MavenProject wrapperProject)
+   public void beforeBuild(BootstrapSession bootSession, MavenProject bootProject)
    {
-      final MavenConverter converter = new MavenConverter(legacySupport.getSession(), wrapperProject);
+      bootSessionService.setBootstrapSession(bootSession);
+
+      final MavenConverter converter = new MavenConverter(legacySupport.getSession(), bootProject);
 
       intEMF();
       initB2Session(bootSession, converter);
@@ -148,11 +141,11 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       final B2Session b2Session = sessionService.getCurrentSession();
       final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
 
-      processDependencies(resourceSet, b2Session.getCurrentProject(), wrapperProject);
+      processDependencies(resourceSet, b2Session.getCurrentProject(), bootProject);
 
       final DecouplingModelCache modelCache = initModelCache(bootSession, resourceSet);
 
-      final File moduleDir = wrapperProject.getBasedir();
+      final File moduleDir = bootProject.getBasedir();
       logger.info("Building model for directory " + moduleDir.getName());
 
       final ITemplates templates = new DefaultTemplateCopier()
@@ -198,7 +191,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
             classifiedModule = EcoreUtil.copy(classifiedModule);
          }
 
-         final URI moduleUri = MavenURIResolver.toArtifactIdentifier(wrapperProject, classifier, "module").toUri();
+         final URI moduleUri = MavenURIResolver.toArtifactIdentifier(bootProject, classifier, "module").toUri();
          resourceSet.createResource(moduleUri).getContents().add(classifiedModule);
          modelCache.put(classifiedModule);
       }
@@ -208,7 +201,7 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       final File pomFile = new File(module.getAnnotationEntry(AbstractPomGenerator.SOURCE_MAVEN,
          AbstractPomGenerator.KEY_POM_FILE));
 
-      wrapperProject.setContextValue("pom", pomFile);
+      bootProject.setContextValue("pom", pomFile);
 
       final String layoutId = module.getLayoutId();
       final File sessionFile = new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, "b2.session"));
@@ -225,9 +218,9 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          throw new IllegalStateException(e);
       }
 
-      projectHelper.attachArtifact(wrapperProject, "session", null, sessionFile);
+      projectHelper.attachArtifact(bootProject, "session", null, sessionFile);
 
-      processAttachments(wrapperProject, pomFile);
+      processAttachments(bootProject, pomFile);
 
       bootSession.setData(CACHE_KEY_SESSION, uri.toString());
 
@@ -236,9 +229,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
 
    private void initB2Session(BootstrapSession bootSession, IConverter converter)
    {
-      B2SessionService sessionService = new B2SessionService();
-      initJsr330(bootSession, sessionService);
-
       MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getBootstrapProjects(),
          bootSession.getCurrentProject());
       mavenURIResolver.getProjectURIResolvers().add(new B2ModelResourceURIResolver());
@@ -331,9 +321,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
          throw new IllegalStateException(e);
       }
    }
-
-   @Requirement
-   private RepositorySystem repositorySystem;
 
    private void processDependencies(ResourceSet resourceSet, ModuleProject moduleProject,
       final MavenProject wrapperProject)
@@ -520,27 +507,6 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       }
    }
 
-   private void initJsr330(final BootstrapSession session, final B2SessionService sessionService)
-   {
-      final BootPomSerializer bootPomSerializer = new BootPomSerializer();
-      final Injector injector = Guice.createInjector(new WireModule(new com.google.inject.AbstractModule()
-      {
-         @Override
-         protected void configure()
-         {
-            bind(Logger.class).toInstance(logger);
-            bind(BootstrapSession.class).toInstance(session);
-            bind(LegacySupport.class).toInstance(legacySupport);
-            bind(ModelBuilder.class).toInstance(modelBuilder);
-            bind(IB2SessionService.class).toInstance(sessionService);
-
-            bind(IB2Listener.class).toInstance(bootPomSerializer);
-         }
-      }, new SpaceModule(new URLClassSpace(getClass().getClassLoader()), BeanScanning.CACHE)));
-      injector.injectMembers(bootPomSerializer);
-      injector.injectMembers(this);
-   }
-
    private DecouplingModelCache initModelCache(BootstrapSession session, ResourceSet resourceSet)
    {
       final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet, layoutManager);
@@ -559,19 +525,19 @@ public class B2MavenBootstrapperListener implements IMavenBootstrapperListener
       session.setData(CACHE_KEY, modelCache.getDirToUriMap());
    }
 
-   public void afterProjectBuild(BootstrapSession session, MavenProject wrapperProject)
+   public void afterBuild(BootstrapSession bootSession, MavenProject bootProject)
    {
       final B2Session b2Session = sessionService.getCurrentSession();
       for (ModuleProject project : b2Session.getProjects())
       {
-         if (wrapperProject.getBasedir().equals(project.getDirectory()))
+         if (bootProject.getBasedir().equals(project.getDirectory()))
          {
             b2Session.setCurrentProject(project);
             break;
          }
       }
 
-      final String setScmIgnoresProp = wrapperProject.getProperties().getProperty("b2.scm.setScmIgnores",
+      final String setScmIgnoresProp = bootProject.getProperties().getProperty("b2.scm.setScmIgnores",
          System.getProperty("b2.scm.setScmIgnores", "false"));
 
       final boolean isSetScmIgnores = Boolean.valueOf(setScmIgnoresProp).booleanValue();

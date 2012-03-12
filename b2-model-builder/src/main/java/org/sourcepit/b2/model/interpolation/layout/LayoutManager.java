@@ -10,8 +10,10 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 @Named
+@Singleton
 public class LayoutManager
 {
    @Inject

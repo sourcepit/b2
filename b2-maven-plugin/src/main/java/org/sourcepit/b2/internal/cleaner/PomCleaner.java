@@ -10,8 +10,6 @@ import java.io.File;
 
 import javax.inject.Named;
 
-import org.sourcepit.b2.internal.cleaner.IModuleGarbageCollector;
-
 @Named
 public class PomCleaner implements IModuleGarbageCollector
 {

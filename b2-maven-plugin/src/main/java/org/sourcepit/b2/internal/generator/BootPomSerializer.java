@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.maven.model.Model;
@@ -23,17 +24,18 @@ import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.sourcepit.b2.execution.IB2Listener;
+import org.sourcepit.b2.internal.maven.BootstrapSessionService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.maven.wrapper.internal.session.BootstrapSession;
 
 /**
  * @author Bernd
  */
+@Named
 public class BootPomSerializer implements IB2Listener
 {
    @Inject
-   private BootstrapSession bootSession;
+   private BootstrapSessionService bootSessionService;
 
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
@@ -43,7 +45,7 @@ public class BootPomSerializer implements IB2Listener
 
    public void startGeneration(AbstractModule module)
    {
-      final MavenProject currentProject = bootSession.getCurrentProject();
+      final MavenProject currentProject = bootSessionService.getBootstrapSession().getCurrentProject();
       if (module.getDirectory().equals(currentProject.getBasedir()))
       {
          try

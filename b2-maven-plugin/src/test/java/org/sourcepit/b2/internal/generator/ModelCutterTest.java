@@ -15,7 +15,6 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginManagement;
 import org.apache.maven.model.Repository;
-import org.sourcepit.b2.internal.generator.ModelCutter;
 
 public class ModelCutterTest extends TestCase
 {

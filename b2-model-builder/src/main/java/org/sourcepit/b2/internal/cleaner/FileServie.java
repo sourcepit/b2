@@ -17,12 +17,14 @@ import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.apache.commons.io.FileUtils;
 import org.codehaus.plexus.logging.Logger;
 import org.sourcepit.b2.common.internal.utils.PathUtils;
 
 @Named
+@Singleton
 public class FileServie implements IFileService
 {
    @Inject

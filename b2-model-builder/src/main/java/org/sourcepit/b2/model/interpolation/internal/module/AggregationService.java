@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -27,6 +28,7 @@ import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 
 @Named
+@Singleton
 public class AggregationService implements IAggregationService
 {
    @Inject

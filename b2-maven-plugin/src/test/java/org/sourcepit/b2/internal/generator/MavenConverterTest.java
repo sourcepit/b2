@@ -15,7 +15,6 @@ import junit.framework.TestCase;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
-import org.sourcepit.b2.internal.generator.MavenConverter;
 
 public class MavenConverterTest extends TestCase
 {

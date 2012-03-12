@@ -19,8 +19,6 @@ import org.apache.maven.model.io.ModelReader;
 import org.eclipse.emf.ecore.EObject;
 import org.mockito.Mockito;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
-import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
-import org.sourcepit.b2.internal.generator.PomGenerator;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.IB2ModelBuildingRequest;
@@ -31,7 +29,7 @@ import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.internal.util.EWalkerImpl;
-import org.sourcepit.maven.wrapper.internal.session.BootstrapSession;
+import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 
 import com.google.inject.Binder;
 

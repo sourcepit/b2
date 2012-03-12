@@ -15,8 +15,6 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
 import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
-import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
-import org.sourcepit.b2.internal.generator.PomHierarchyGenerator;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.PluginsFacet;

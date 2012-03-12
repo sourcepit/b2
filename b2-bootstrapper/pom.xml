@@ -10,17 +10,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.sourcepit.tools</groupId>
-			<artifactId>maven-wrapper-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.sourcepit.tools</groupId>
-			<artifactId>maven-wrapper-extension</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>maven-wrapper-api</artifactId>
-					<groupId>org.sourcepit.tools</groupId>
-				</exclusion>
-			</exclusions>
+			<artifactId>maven-bootstrap-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>

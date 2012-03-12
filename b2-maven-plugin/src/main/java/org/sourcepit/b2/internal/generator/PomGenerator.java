@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;

@@ -6,8 +6,6 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import org.sourcepit.b2.internal.generator.VersionUtils;
-
 import junit.framework.TestCase;
 
 /**

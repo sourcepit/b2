@@ -28,8 +28,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.internal.generator.ITemplates;
-import org.sourcepit.b2.internal.generator.ProductProjectGenerator;
+import org.sourcepit.b2.internal.maven.BootstrapSessionService;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
@@ -42,7 +41,6 @@ import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.session.Environment;
 import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.maven.wrapper.internal.session.BootstrapSession;
 
 /**
  * @author Bernd
@@ -54,7 +52,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    private Map<String, IInterpolationLayout> layoutMap;
 
    @Inject
-   private BootstrapSession bootstrapSession;
+   private BootstrapSessionService bootSessionService;
 
    @Inject
    private IB2SessionService sessionService;
@@ -97,7 +95,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       properties.setProperty("file", bootPom.getAbsolutePath());
       properties.setProperty("pomFile", bootPom.getAbsolutePath());
 
-      final ArtifactRepository repo = bootstrapSession.getCurrentProject()
+      final ArtifactRepository repo = bootSessionService.getBootstrapSession().getCurrentProject()
          .getDistributionManagementArtifactRepository();
       if (repo != null)
       {

@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractFacet;

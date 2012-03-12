@@ -7,10 +7,12 @@
 package org.sourcepit.b2.model.builder.util;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.sourcepit.b2.model.module.PluginProject;
 
 @Named
+@Singleton
 public class SourceService implements ISourceService
 {
    /**
