@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.sourcepit.b2.feature53.bundle.tests
+Bundle-Version: 1.0.0.qualifier

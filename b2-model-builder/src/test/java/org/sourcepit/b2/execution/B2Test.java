@@ -43,8 +43,13 @@ public class B2Test extends AbstractB2SessionWorkspaceTest
       IConverter converter = ConverterUtils.newDefaultTestConverter(properties);
       assertTrue(converter.isSkipInterpolator());
       assertTrue(converter.isSkipGenerator());
+      
+      B2Request request = new B2Request();
+      request.setModuleDirectory(moduleDir);
+      request.setConverter(converter);
+      request.setTemplates(new DefaultTemplateCopier());
 
-      AbstractModule module = b2.generate(moduleDir, null, null, converter, new DefaultTemplateCopier());
+      AbstractModule module = b2.generate(request);
 
       assertNotNull(module);
       B2ModelHarness.assertHasDerivedElements(module);

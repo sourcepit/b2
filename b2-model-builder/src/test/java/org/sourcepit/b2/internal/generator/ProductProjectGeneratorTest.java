@@ -27,9 +27,9 @@ import org.junit.Test;
 import org.sonatype.guice.bean.containers.InjectedTest;
 import org.sourcepit.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.b2.execution.B2;
+import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -53,11 +53,12 @@ public class ProductProjectGeneratorTest extends InjectedTest
 
    @Inject
    private LayoutManager layoutManager;
-   
+
    @Inject
    private B2 b2;
 
-   private B2SessionService sessionService = new B2SessionService();
+   @Inject
+   private B2SessionService sessionService;
 
    @Test
    public void testGetClassifier() throws Exception
@@ -74,7 +75,6 @@ public class ProductProjectGeneratorTest extends InjectedTest
    {
       super.configure(binder);
       binder.bind(Logger.class).toInstance(new ConsoleLogger());
-      binder.bind(IB2SessionService.class).toInstance(sessionService);
    }
 
    @Test
@@ -98,9 +98,14 @@ public class ProductProjectGeneratorTest extends InjectedTest
       Node features = XmlUtils.queryNode(XmlUtils.readXml(productFile), "/product/features");
       assertNull(features);
 
+      B2Request request = new B2Request();
+      request.setModuleDirectory(moduleDir);
+      request.setInterpolate(true);
+      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setTemplates(new DefaultTemplateCopier());
+
       // build model and generate
-      final AbstractModule module = b2.generate(moduleDir, null, null, ConverterUtils.TEST_CONVERTER,
-         new DefaultTemplateCopier());
+      final AbstractModule module = b2.generate(request);
       assertNotNull(module);
 
       EList<ProductsFacet> productsFacets = module.getFacets(ProductsFacet.class);

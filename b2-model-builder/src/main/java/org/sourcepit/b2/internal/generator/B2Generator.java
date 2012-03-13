@@ -21,8 +21,13 @@ import org.sourcepit.b2.model.module.AbstractModule;
 @Named
 public class B2Generator
 {
+   private final List<? extends IB2GenerationParticipant> generators;
+
    @Inject
-   private List<IB2GenerationParticipant> generators;
+   public B2Generator(List<? extends IB2GenerationParticipant> generators)
+   {
+      this.generators = generators;
+   }
 
    public void generate(final IB2GenerationRequest request)
    {

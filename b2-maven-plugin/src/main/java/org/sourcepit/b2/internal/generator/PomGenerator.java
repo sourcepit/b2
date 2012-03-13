@@ -83,6 +83,14 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       }
 
       File pomFile = doGenerate(inputElement, converter, templates);
+      
+      final File projectPomFile = new File(pomFile.getParentFile(), "project-pom.xml");
+      if (projectPomFile.exists())
+      {
+         final Model projectModel = readMavenModel(projectPomFile);
+         projectModel.setPackaging(null);
+         mergeIntoPomFile(pomFile, projectModel, true);
+      }
 
       if (!pomFile.getName().equals("pom.xml"))
       {
@@ -431,7 +439,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          }
       }
 
-
       mergeIntoPomFile(pomFile, defaultModel);
 
       return pomFile;
@@ -447,10 +454,15 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       templates.copy(pomFile.getName(), pomFile.getParentFile(), properties);
    }
 
-   private void mergeIntoPomFile(final File pomFile, final Model defaultModel)
+   private void mergeIntoPomFile(final File pomFile, final Model model, boolean force)
    {
       final Model mavenModel = readMavenModel(pomFile);
-      new FixedModelMerger().merge(mavenModel, defaultModel, false, null);
+      new FixedModelMerger().merge(mavenModel, model, force, null);
       writeMavenModel(pomFile, mavenModel);
+   }
+
+   private void mergeIntoPomFile(final File pomFile, final Model model)
+   {
+      mergeIntoPomFile(pomFile, model, false);
    }
 }
