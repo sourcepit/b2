@@ -83,7 +83,21 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       }
 
       File pomFile = doGenerate(inputElement, converter, templates);
-      
+
+      if (inputElement instanceof Project)
+      {
+         final Annotation additionalProps = inputElement.getAnnotation("project.properties");
+         if (additionalProps != null && !additionalProps.getEntries().isEmpty())
+         {
+            final Model model = readMavenModel(pomFile);
+            for (Entry<String, String> property : additionalProps.getEntries())
+            {
+               model.getProperties().setProperty(property.getKey(), property.getValue());
+            }
+            writeMavenModel(pomFile, model);
+         }
+      }
+
       final File projectPomFile = new File(pomFile.getParentFile(), "project-pom.xml");
       if (projectPomFile.exists())
       {
@@ -402,7 +416,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       Properties p = new Properties();
       p.put("generate.sources", String.valueOf(sourceManager.isSourceBuildEnabled(project, converter)));
-      p.put("bundle.symbolicName", project.getId());
 
       final File pomFile = new File(targetDir, project.isTestPlugin() ? "test-plugin-pom.xml" : "plugin-pom.xml");
       copyPomTemplate(templates, pomFile, p);
@@ -420,8 +433,11 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       {
          defaultModel.setPackaging("eclipse-plugin");
       }
+
       defaultModel.getProperties().setProperty("bundle.symbolicName", project.getId());
 
+      final String requiresUI = project.getAnnotationEntry("UI", "required");
+      defaultModel.getProperties().setProperty("bundle.requiresUI", requiresUI == null ? "false" : requiresUI);
 
       if (unpackStrategy.isUnpack(project))
       {
