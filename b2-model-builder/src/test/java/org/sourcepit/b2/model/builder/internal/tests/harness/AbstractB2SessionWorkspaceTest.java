@@ -15,11 +15,10 @@ import javax.inject.Inject;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.sourcepit.b2.common.internal.utils.DescriptorUtils;
-import org.sourcepit.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.b2.common.internal.utils.DescriptorUtils.AbstractDescriptorResolutionStrategy;
 import org.sourcepit.b2.common.internal.utils.DescriptorUtils.IDescriptorResolutionStrategy;
+import org.sourcepit.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
@@ -29,29 +28,24 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.google.inject.Binder;
-
 public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWorkspaceTest
 {
    @Inject
-   protected IB2SessionService sessionService;
+   protected B2SessionService sessionService;
 
    @Override
-   public void configure(Binder binder)
+   protected void setUp() throws Exception
    {
-      super.configure(binder);
-
+      super.setUp();
+      
       final File moduleDir = setUpModuleDir();
       assertTrue(moduleDir.canRead());
 
       final B2Session session = createSession(moduleDir.getAbsoluteFile());
       assertNotNull(session);
 
-      B2SessionService sessionService = new B2SessionService();
       sessionService.setCurrentSession(session);
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
-
-      binder.bind(IB2SessionService.class).toInstance(sessionService);
    }
 
    protected B2Session getCurrentSession()

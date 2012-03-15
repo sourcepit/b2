@@ -10,15 +10,21 @@ import java.io.File;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.sourcepit.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.builder.util.ModuleIdDerivator;
 import org.sourcepit.b2.model.module.AbstractModule;
 
 public abstract class AbstractModuleParserRule<M extends AbstractModule>
    implements
       Comparable<AbstractModuleParserRule<M>>
 {
+   @Inject
+   private ModuleIdDerivator moduleIdDerivator;
+
    public final M parse(IModuleParsingRequest request)
    {
       final M module = doParse(request);
@@ -45,10 +51,11 @@ public abstract class AbstractModuleParserRule<M extends AbstractModule>
       return converter.getModuleVersion();
    }
 
-   protected String getModuleId(final IConverter converter, final File baseDir)
+   protected String getModuleId(final File baseDir)
    {
-      return converter.getModuleId(baseDir);
+      return moduleIdDerivator.deriveModuleId(baseDir);
    }
+
 
    public int compareTo(AbstractModuleParserRule<M> otherRule)
    {

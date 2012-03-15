@@ -6,7 +6,6 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,12 +41,6 @@ public class MavenConverter extends AbstractConverter
       this.properties = propertiesMap;
       this.mavenSession = mavenSession;
       this.project = project;
-   }
-
-   @Override
-   public String getModuleId(File moduleDir)
-   {
-      return project.getGroupId() + "." + project.getArtifactId();
    }
 
    public String getModuleVersion()

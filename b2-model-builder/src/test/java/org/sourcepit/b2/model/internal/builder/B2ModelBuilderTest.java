@@ -94,7 +94,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       assertNotNull(module);
 
       assertNotNull(module.getId());
-      assertEquals(module.getId(), request.getConverter().getModuleId(coreResources));
+      assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
 
       assertEquals(4, module.getFacets().size());
 

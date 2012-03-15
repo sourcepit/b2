@@ -61,7 +61,7 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
       });
 
       final CompositeModule compositeModule = ModuleModelFactory.eINSTANCE.createCompositeModule();
-      compositeModule.setId(getModuleId(request.getConverter(), baseDir));
+      compositeModule.setId(getModuleId(baseDir));
       compositeModule.setVersion(getModuleVersion(request.getConverter()));
       compositeModule.setDirectory(baseDir);
       compositeModule.setLayoutId("composite");

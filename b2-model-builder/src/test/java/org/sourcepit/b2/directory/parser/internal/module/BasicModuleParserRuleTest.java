@@ -10,8 +10,6 @@ import java.io.File;
 
 import org.sourcepit.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
 import org.sourcepit.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
-import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserRule;
-import org.sourcepit.b2.directory.parser.internal.module.BasicModuleParserRule;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
@@ -28,11 +26,13 @@ public class BasicModuleParserRuleTest extends AbstractModuleParserTest
 
    public void testSimpleComponent() throws Exception
    {
-      File coreResources = workspace.importResources("composed-component/simple-layout");
-      assertTrue(coreResources.canRead());
+      File moduleDir = workspace.importResources("composed-component/simple-layout");
+      assertTrue(moduleDir.canRead());
+
+      setB2Session(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleDirectory(coreResources);
+      request.setModuleDirectory(moduleDir);
       request.setConverter(ConverterUtils.TEST_CONVERTER);
 
       BasicModuleParserRule parserRule = lookup();
@@ -42,7 +42,7 @@ public class BasicModuleParserRuleTest extends AbstractModuleParserTest
       IConverter converter = request.getConverter();
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
-      assertEquals(module.getId(), converter.getModuleId(coreResources));
+      assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
       assertEquals(module.getVersion(), converter.getModuleVersion());
 
       SimpleLayoutFacetsParserRuleTest.assertSimpleLayout(module);
@@ -50,11 +50,13 @@ public class BasicModuleParserRuleTest extends AbstractModuleParserTest
 
    public void testStructuredComponent() throws Exception
    {
-      File coreResources = workspace.importResources("composed-component/structured-layout");
-      assertTrue(coreResources.canRead());
+      File moduleDir = workspace.importResources("composed-component/structured-layout");
+      assertTrue(moduleDir.canRead());
+
+      setB2Session(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleDirectory(coreResources);
+      request.setModuleDirectory(moduleDir);
       request.setConverter(ConverterUtils.TEST_CONVERTER);
 
       BasicModuleParserRule parserRule = lookup();
@@ -64,7 +66,7 @@ public class BasicModuleParserRuleTest extends AbstractModuleParserTest
       IConverter converter = request.getConverter();
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
-      assertEquals(module.getId(), converter.getModuleId(coreResources));
+      assertEquals("org.sourcepit.b2.test.resources.structured.layout", module.getId());
       assertEquals(module.getVersion(), converter.getModuleVersion());
 
       StructuredLayoutFacetsParserRuleTest.assertStructuredLayout(module);

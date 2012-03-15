@@ -76,11 +76,6 @@ public abstract class AbstractConverter implements IConverter
 
    protected abstract PropertiesMap getPropertiesMap();
 
-   public String getModuleId(File moduleDir)
-   {
-      return getNameSpace() + "." + moduleDir.getName();
-   }
-
    public String getFacetName(File facetFolder)
    {
       return facetFolder.getName();

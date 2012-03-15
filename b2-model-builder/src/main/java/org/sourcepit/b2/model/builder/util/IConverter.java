@@ -38,9 +38,6 @@ public interface IConverter
 
    String interpolate(String value, PropertiesMap properties);
 
-   // TODO Parser utils?
-   String getModuleId(File moduleDir);
-
    String getFacetName(File facetFolder);
 
    // TODO converter helper?

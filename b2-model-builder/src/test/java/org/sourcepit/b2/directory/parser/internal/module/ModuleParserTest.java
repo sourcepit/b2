@@ -74,15 +74,17 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
    public void testSimpleComponent_WithoutNlsProperties() throws Exception
    {
-      File coreResources = workspace.importResources("composed-component/simple-layout");
-      assertTrue(coreResources.canRead());
+      File moduleDir = workspace.importResources("composed-component/simple-layout");
+      assertTrue(moduleDir.canRead());
 
-      FileUtils.forceDelete(new File(coreResources, "module.properties"));
-      FileUtils.forceDelete(new File(coreResources, "module_de.properties"));
+      FileUtils.forceDelete(new File(moduleDir, "module.properties"));
+      FileUtils.forceDelete(new File(moduleDir, "module_de.properties"));
+
+      setB2Session(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
-      request.setModuleDirectory(coreResources);
+      request.setModuleDirectory(moduleDir);
 
       ModuleParser modelParser = lookup();
       BasicModule module = (BasicModule) modelParser.parse(request);
@@ -90,7 +92,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
-      assertEquals(module.getId(), request.getConverter().getModuleId(coreResources));
+      assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
       assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
 
       EList<Locale> locales = module.getLocales();
@@ -100,12 +102,14 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
    public void testSimpleComponent() throws Exception
    {
-      File coreResources = workspace.importResources("composed-component/simple-layout");
-      assertTrue(coreResources.canRead());
+      File moduleDir = workspace.importResources("composed-component/simple-layout");
+      assertTrue(moduleDir.canRead());
+
+      setB2Session(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
-      request.setModuleDirectory(coreResources);
+      request.setModuleDirectory(moduleDir);
 
       ModuleParser modelParser = lookup();
       BasicModule module = (BasicModule) modelParser.parse(request);
@@ -113,7 +117,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
-      assertEquals(module.getId(), request.getConverter().getModuleId(coreResources));
+      assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
       assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
 
       EList<Locale> locales = module.getLocales();
@@ -143,6 +147,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final File simpleDir = new File(moduleDir, "simple-layout");
       final File structuredDir = new File(moduleDir, "structured-layout");
 
+      setB2Session(moduleDir);
+
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
       request.setModuleDirectory(moduleDir);
@@ -153,7 +159,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
-      assertEquals(module.getId(), request.getConverter().getModuleId(moduleDir));
+      assertEquals("org.sourcepit.b2.test.resources.composite.layout", module.getId());
       assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
 
       assertEquals(2, module.getModules().size());
@@ -171,6 +177,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final File simpleDir = new File(moduleDir, "simple-layout");
       final File structuredDir = new File(moduleDir, "structured-layout");
 
+      setB2Session(moduleDir);
+
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
       request.setModuleDirectory(moduleDir);
@@ -182,7 +190,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
-      assertEquals(module.getId(), request.getConverter().getModuleId(moduleDir));
+      assertEquals("org.sourcepit.b2.test.resources.composite.layout", module.getId());
       assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
 
       assertEquals(1, module.getModules().size());
