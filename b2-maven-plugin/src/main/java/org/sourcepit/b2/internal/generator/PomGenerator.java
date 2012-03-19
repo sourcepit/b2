@@ -301,16 +301,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    private String getArtifactIdForModule(AbstractModule module, IConverter converter)
    {
-      final String artifactId;
-      if (module.getId().startsWith(converter.getNameSpace() + "."))
-      {
-         artifactId = module.getId().substring(converter.getNameSpace().length() + 1);
-      }
-      else
-      {
-         artifactId = module.getId();
-      }
-      return artifactId;
+      return b2SessionService.getCurrentSession().getCurrentProject().getArtifactId();
    }
 
    private void moveFile(final File srcFile, final File destFile)
@@ -367,7 +358,9 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    private String getArtifactIdForFacet(AbstractFacet facet, IConverter converter)
    {
-      return getArtifactIdForModule(facet.getParent(), converter) + "-" + facet.getName();
+      final String moduleArtifactId = getArtifactIdForModule(facet.getParent(), converter);
+      final String separator = moduleArtifactId.indexOf('.') > -1 ? "." : "-";
+      return moduleArtifactId + separator + facet.getName();
    }
 
    protected File generateSiteProject(SiteProject project, IConverter converter, ITemplates templates)

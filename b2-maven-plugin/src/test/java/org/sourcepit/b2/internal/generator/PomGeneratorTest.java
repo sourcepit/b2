@@ -8,6 +8,7 @@ package org.sourcepit.b2.internal.generator;
 
 import java.io.File;
 
+import org.apache.maven.model.Model;
 import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
@@ -20,6 +21,24 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
    protected String setUpModulePath()
    {
       return "composed-component/simple-layout";
+   }
+   
+   public void testArtifactId() throws Exception
+   {
+      BasicModule module = buildModel(getCurrentModuleDir());
+      assertNotNull(module);
+      assertNoPomFiles(module.getDirectory());
+      
+      // Improvement #56
+      assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
+      
+      generatePom(module, null);
+      
+      File pomFile = new File(module.getDirectory(), "pom.xml");
+      assertTrue(pomFile.exists());
+      
+      Model pom = readMavenModel(pomFile);
+      assertEquals("simple-layout", pom.getArtifactId());
    }
 
    public void testSkipFacets() throws Exception

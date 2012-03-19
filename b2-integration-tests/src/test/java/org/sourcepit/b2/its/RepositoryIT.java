@@ -20,7 +20,7 @@ import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 
-public class RemoteRepositoryIT extends AbstractB2IT
+public class RepositoryIT extends AbstractB2IT
 {
    @Override
    protected boolean isDebug()
@@ -29,7 +29,31 @@ public class RemoteRepositoryIT extends AbstractB2IT
    }
 
    @Test
-   public void test() throws Exception
+   public void testLocal() throws Exception
+   {
+      final File modulesDir = getResource(getClass().getSimpleName());
+
+      // build module a
+      final File moduleADir = new File(modulesDir, "module-a");
+      assertTrue(moduleADir.exists());
+      int err = build(moduleADir, "-e", "-B", "install", "-P !p2-repo");
+      assertThat(err, is(0));
+
+      // build module b (depends on module a)
+      final File moduleBDir = new File(modulesDir, "module-b");
+      assertTrue(moduleBDir.exists());
+      err = build(moduleBDir, "-e", "-B", "verify", "-P !p2-repo");
+      assertThat(err, is(0));
+
+      // Bug #46 assure usage of base version
+      B2Session session = loadSession(moduleBDir);
+      ModuleProject moduleProject = session.getProjects().get(0);
+      ModuleDependency moduleDependency = moduleProject.getDependencies().get(0);
+      assertThat(moduleDependency.getVersionRange(), equalTo("1.0.0-SNAPSHOT"));
+   }
+
+   @Test
+   public void testRemote() throws Exception
    {
       final File modulesDir = getResource(getClass().getSimpleName());
 
