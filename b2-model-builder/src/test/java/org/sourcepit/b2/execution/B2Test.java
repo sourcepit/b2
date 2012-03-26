@@ -12,7 +12,6 @@ import javax.inject.Inject;
 
 import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
-import org.sourcepit.b2.execution.B2;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;

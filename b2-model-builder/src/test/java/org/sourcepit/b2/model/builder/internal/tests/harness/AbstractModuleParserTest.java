@@ -49,19 +49,30 @@ public abstract class AbstractModuleParserTest extends AbstractInjectedWorkspace
    }
 
 
-   protected void setB2Session(File coreResources)
+   protected B2Session initSession(File... moduleDirs)
    {
-      Model moduleXML = readModuleXML(coreResources);
+      final B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
+      
+      for (File moduleFile : moduleDirs)
+      {
+         Model moduleXML = readModuleXML(moduleFile);
+         
+         ModuleProject project = SessionModelFactory.eINSTANCE.createModuleProject();
+         project.setDirectory(moduleFile);
+         project.setGroupId(moduleXML.getGroupId());
+         project.setArtifactId(moduleXML.getArtifactId());
+         
+         session.getProjects().add(project);
+         
+         if (session.getCurrentProject() == null)
+         {
+            session.setCurrentProject(project);
+         }
+      }
 
-      ModuleProject project = SessionModelFactory.eINSTANCE.createModuleProject();
-      project.setGroupId(moduleXML.getGroupId());
-      project.setArtifactId(moduleXML.getArtifactId());
-
-      B2Session b2Session = SessionModelFactory.eINSTANCE.createB2Session();
-      b2Session.getProjects().add(project);
-      b2Session.setCurrentProject(project);
-
-      sessionService.setCurrentSession(b2Session);
+      sessionService.setCurrentSession(session);
+      
+      return session;
    }
 
    private Model readModuleXML(File moduleDir)

@@ -11,7 +11,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.sonatype.guice.bean.containers.InjectedTestCase;
-import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 

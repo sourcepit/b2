@@ -22,6 +22,8 @@ import javax.inject.Singleton;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.plexus.logging.Logger;
 import org.sourcepit.b2.common.internal.utils.PathUtils;
+import org.sourcepit.b2.directory.parser.internal.module.LifecyclePhase;
+import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named
 @Singleton
@@ -33,6 +35,9 @@ public class FileServie implements IFileService
    @Inject
    private List<IModuleGarbageCollector> participants;
 
+   @Inject
+   private List<ModuleCleanerLifecycleParticipant> lifecycleParticipants;
+
    private final Set<String> ignored;
 
    public FileServie()
@@ -43,7 +48,38 @@ public class FileServie implements IFileService
       ignored.add(".git");
    }
 
-   public void clean(final File dir)
+   public void clean(File dir)
+   {
+      newLifecyclePhase().execute(dir);
+   }
+
+   private LifecyclePhase<Void, File, ModuleCleanerLifecycleParticipant> newLifecyclePhase()
+   {
+      return new LifecyclePhase<Void, File, ModuleCleanerLifecycleParticipant>(lifecycleParticipants)
+      {
+         @Override
+         protected void pre(ModuleCleanerLifecycleParticipant participant, File moduleDir)
+         {
+            participant.preClean(moduleDir);
+         }
+
+         @Override
+         protected Void doExecute(File moduleDir)
+         {
+            doClean(moduleDir);
+            return null;
+         }
+
+         @Override
+         protected void post(ModuleCleanerLifecycleParticipant participant, File moduleDir, Void result,
+            ThrowablePipe errors)
+         {
+            participant.postClean(moduleDir, errors);
+         }
+      };
+   }
+
+   private void doClean(final File dir)
    {
       final Collection<File> garbage = new LinkedHashSet<File>();
       accept(dir, new AbstractFileVisitor()

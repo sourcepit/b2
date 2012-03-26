@@ -82,11 +82,11 @@ public class B2SessionInitializer
 
    private static final String CACHE_KEY_SESSION = B2BootstrapParticipant.class.getName() + "#session";
 
-   public void initialize(BootstrapSession bootSession, Properties properties)
+   public B2Session initialize(BootstrapSession bootSession, Properties properties)
    {
       bootSessionService.setBootstrapSession(bootSession);
       intEMF();
-      initB2Session(bootSession, properties);
+      return initB2Session(bootSession, properties);
    }
 
    private void intEMF()
@@ -95,7 +95,7 @@ public class B2SessionInitializer
       SessionModelPackage.eINSTANCE.getClass();
    }
 
-   private void initB2Session(BootstrapSession bootSession, Properties properties)
+   private B2Session initB2Session(BootstrapSession bootSession, Properties properties)
    {
       MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getBootstrapProjects(),
          bootSession.getCurrentProject());
@@ -108,6 +108,8 @@ public class B2SessionInitializer
 
       B2Session b2Session = createB2Session(bootSession, resourceSet, properties);
       sessionService.setCurrentSession(b2Session);
+      
+      return b2Session;
    }
 
    private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet, Properties properties)

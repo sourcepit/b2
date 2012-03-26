@@ -14,7 +14,6 @@ import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.builder.internal.tests.harness.EcoreUtils;
-import org.sourcepit.b2.model.internal.builder.B2ModelBuilder;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
@@ -124,14 +123,20 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
-      request.setModuleDirectory(structuredFile);
-      BasicModule structuredModule = (BasicModule) builder.build(request);
-
-      request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
       request.setModuleDirectory(simpleFile);
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
+      
+      getCurrentSession().getCurrentProject().setModuleModel(simpleModule);
+      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
+
+      request = new B2ModelBuildingRequest();
+      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleDirectory(structuredFile);
+      BasicModule structuredModule = (BasicModule) builder.build(request);
+      
+      getCurrentSession().getCurrentProject().setModuleModel(structuredModule);
+      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
 
       request = new B2ModelBuildingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
@@ -139,6 +144,8 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());
+      
+      getCurrentSession().getCurrentProject().setModuleModel(compositeModule);
 
       final EList<AbstractModule> modules = compositeModule.getModules();
       assertEquals(2, modules.size());

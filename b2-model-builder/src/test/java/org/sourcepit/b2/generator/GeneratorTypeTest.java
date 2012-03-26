@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.sourcepit.b2.generator.GeneratorType;
-
 import junit.framework.TestCase;
 
 public class GeneratorTypeTest extends TestCase

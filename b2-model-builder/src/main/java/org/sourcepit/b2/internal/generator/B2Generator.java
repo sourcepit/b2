@@ -14,22 +14,59 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.b2.directory.parser.internal.module.LifecyclePhase;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.DecouplingB2ModelWalker;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named
 public class B2Generator
 {
    private final List<? extends IB2GenerationParticipant> generators;
 
+   private final List<B2GeneratorLifecycleParticipant> lifecycleParticipants;
+
    @Inject
-   public B2Generator(List<? extends IB2GenerationParticipant> generators)
+   public B2Generator(List<? extends IB2GenerationParticipant> generators,
+      List<B2GeneratorLifecycleParticipant> lifecycleParticipants)
    {
       this.generators = generators;
+      this.lifecycleParticipants = lifecycleParticipants;
    }
 
    public void generate(final IB2GenerationRequest request)
+   {
+      newLifecyclePhase().execute(request);
+   }
+
+   private LifecyclePhase<Void, IB2GenerationRequest, B2GeneratorLifecycleParticipant> newLifecyclePhase()
+   {
+      return new LifecyclePhase<Void, IB2GenerationRequest, B2GeneratorLifecycleParticipant>(lifecycleParticipants)
+      {
+         @Override
+         protected void pre(B2GeneratorLifecycleParticipant participant, IB2GenerationRequest request)
+         {
+            participant.preGenerate(request.getModule());
+         }
+
+         @Override
+         protected Void doExecute(IB2GenerationRequest request)
+         {
+            doGenerate(request);
+            return null;
+         }
+
+         @Override
+         protected void post(B2GeneratorLifecycleParticipant participant, IB2GenerationRequest request, Void result,
+            ThrowablePipe errors)
+         {
+            participant.postGenerate(request.getModule(), errors);
+         }
+      };
+   }
+
+   private void doGenerate(final IB2GenerationRequest request)
    {
       final AbstractModule module = request.getModule();
 

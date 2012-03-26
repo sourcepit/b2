@@ -8,8 +8,6 @@ package org.sourcepit.b2.directory.parser.internal.project;
 
 import java.util.List;
 
-import org.sourcepit.b2.directory.parser.internal.project.AbstractProjectParserRule;
-import org.sourcepit.b2.directory.parser.internal.project.ProjectParser;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ReflectionUtils;
 import org.sourcepit.b2.model.builder.internal.tests.harness.TestProjectParserRule;

@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
 import org.sourcepit.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
-import org.sourcepit.b2.directory.parser.internal.module.ModuleParser;
 import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
@@ -26,6 +25,8 @@ import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.b2.model.session.B2Session;
+import org.sourcepit.common.utils.lang.PipedException;
 
 public class ModuleParserTest extends AbstractModuleParserTest
 {
@@ -43,8 +44,9 @@ public class ModuleParserTest extends AbstractModuleParserTest
          parser.parse(null);
          fail();
       }
-      catch (IllegalArgumentException e)
+      catch (PipedException e)
       {
+         assertTrue(e.getCause() instanceof IllegalArgumentException);
       }
 
       ModuleParsingRequest request = new ModuleParsingRequest();
@@ -55,8 +57,9 @@ public class ModuleParserTest extends AbstractModuleParserTest
          parser.parse(request);
          fail();
       }
-      catch (IllegalArgumentException e)
+      catch (PipedException e)
       {
+         assertTrue(e.getCause() instanceof IllegalArgumentException);
       }
 
       request.setModuleDirectory(new File(""));
@@ -67,8 +70,9 @@ public class ModuleParserTest extends AbstractModuleParserTest
          parser.parse(request);
          fail();
       }
-      catch (IllegalArgumentException e)
+      catch (PipedException e)
       {
+         assertTrue(e.getCause() instanceof IllegalArgumentException);
       }
    }
 
@@ -80,7 +84,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       FileUtils.forceDelete(new File(moduleDir, "module.properties"));
       FileUtils.forceDelete(new File(moduleDir, "module_de.properties"));
 
-      setB2Session(moduleDir);
+      initSession(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
@@ -105,7 +109,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.canRead());
 
-      setB2Session(moduleDir);
+      initSession(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
@@ -147,13 +151,24 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final File simpleDir = new File(moduleDir, "simple-layout");
       final File structuredDir = new File(moduleDir, "structured-layout");
 
-      setB2Session(moduleDir);
+      final B2Session session = initSession(simpleDir, structuredDir, moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
-      request.setModuleDirectory(moduleDir);
 
       ModuleParser modelParser = lookup();
+
+      request.setModuleDirectory(simpleDir);
+      session.getCurrentProject().setModuleModel(modelParser.parse(request));
+
+      session.setCurrentProject(session.getProjects().get(1));
+
+      request.setModuleDirectory(structuredDir);
+      session.getCurrentProject().setModuleModel(modelParser.parse(request));
+
+      session.setCurrentProject(session.getProjects().get(2));
+
+      request.setModuleDirectory(moduleDir);
       CompositeModule module = (CompositeModule) modelParser.parse(request);
       assertNotNull(module);
 
@@ -177,14 +192,25 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final File simpleDir = new File(moduleDir, "simple-layout");
       final File structuredDir = new File(moduleDir, "structured-layout");
 
-      setB2Session(moduleDir);
+      final B2Session session = initSession(simpleDir, structuredDir, moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setConverter(ConverterUtils.TEST_CONVERTER);
-      request.setModuleDirectory(moduleDir);
       request.setModuleFilter(new WhitelistModuleFilter(simpleDir));
 
       ModuleParser modelParser = lookup();
+      
+      request.setModuleDirectory(simpleDir);
+      session.getCurrentProject().setModuleModel(modelParser.parse(request));
+
+      session.setCurrentProject(session.getProjects().get(1));
+
+      request.setModuleDirectory(structuredDir);
+      session.getCurrentProject().setModuleModel(modelParser.parse(request));
+
+      session.setCurrentProject(session.getProjects().get(2));
+
+      request.setModuleDirectory(moduleDir);
       CompositeModule module = (CompositeModule) modelParser.parse(request);
       assertNotNull(module);
 

@@ -17,7 +17,7 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
    @Override
    protected boolean isDebug(String testName)
    {
-      return false;
+      return true;
    }
 
    public void testSimple_Module() throws Exception

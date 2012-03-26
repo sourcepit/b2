@@ -14,8 +14,6 @@ import junit.framework.TestCase;
 
 import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
-import org.sourcepit.b2.model.builder.util.AbstractConverter;
-import org.sourcepit.b2.model.builder.util.IConverter;
 
 public class AbstractConverterTest extends TestCase
 {

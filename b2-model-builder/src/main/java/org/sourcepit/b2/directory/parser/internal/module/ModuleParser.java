@@ -17,11 +17,13 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
+import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.model.builder.util.DecouplingB2ModelWalker;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named
 public class ModuleParser implements IModuleParser
@@ -32,31 +34,56 @@ public class ModuleParser implements IModuleParser
    @Inject
    private List<IModuleParserExtender> extenders;
 
+   @Inject
+   private List<ModuleParserLifecycleParticipant> lifecycleParticipants;
+
+   public AbstractModule parse(final IModuleParsingRequest request)
+   {
+      return newLifecyclePhase().execute(request);
+   }
+
+   private LifecyclePhase<AbstractModule, IModuleParsingRequest, ModuleParserLifecycleParticipant> newLifecyclePhase()
+   {
+      return new LifecyclePhase<AbstractModule, IModuleParsingRequest, ModuleParserLifecycleParticipant>(
+         lifecycleParticipants)
+      {
+         @Override
+         protected void pre(ModuleParserLifecycleParticipant participant, IModuleParsingRequest request)
+         {
+            participant.preParse(request.getModuleDirectory());
+         }
+
+         @Override
+         protected AbstractModule doExecute(IModuleParsingRequest request)
+         {
+            return doParse(request);
+         }
+
+         @Override
+         protected void post(ModuleParserLifecycleParticipant participant, IModuleParsingRequest request,
+            AbstractModule result, ThrowablePipe errors)
+         {
+            participant.postParse(request.getModuleDirectory(), result, errors);
+         }
+      };
+   }
+
    @SuppressWarnings({ "unchecked", "rawtypes" })
-   public AbstractModule parse(IModuleParsingRequest request)
+   private AbstractModule doParse(IModuleParsingRequest request)
    {
       checkRequest(request);
-
-      final IModelCache cache = request.getModelCache();
-      if (cache != null)
-      {
-         AbstractModule module = cache.get(request.getModuleDirectory());
-         if (module != null)
-         {
-            return module;
-         }
-      }
-
+      
       final List<AbstractModuleParserRule<? extends AbstractModule>> orderedRules = new ArrayList<AbstractModuleParserRule<? extends AbstractModule>>(
          rules);
-      Collections.sort((List)orderedRules);
+      // Task #58: Workaround for javac shortcoming
+      Collections.sort((List) orderedRules);
 
       for (AbstractModuleParserRule<? extends AbstractModule> rule : orderedRules)
       {
          final AbstractModule module = rule.parse(request);
          if (module != null)
          {
-            return enhance(module, request.getConverter(), cache);
+            return enhance(module, request.getConverter(), request.getModelCache());
          }
       }
       return null;

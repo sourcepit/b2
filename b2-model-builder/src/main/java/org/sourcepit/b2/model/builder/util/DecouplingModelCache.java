@@ -37,6 +37,11 @@ public class DecouplingModelCache implements IModelCache
       this.resourceSet = resourceSet;
       this.layoutManager = layoutManager;
    }
+   
+   public ResourceSet getResourceSet()
+   {
+      return resourceSet;
+   }
 
    public Map<File, String> getDirToUriMap()
    {

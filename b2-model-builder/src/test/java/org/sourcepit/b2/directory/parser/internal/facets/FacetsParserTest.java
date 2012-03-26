@@ -9,8 +9,6 @@ package org.sourcepit.b2.directory.parser.internal.facets;
 import java.io.File;
 import java.util.List;
 
-import org.sourcepit.b2.directory.parser.internal.facets.FacetsParseResult;
-import org.sourcepit.b2.directory.parser.internal.facets.FacetsParser;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.module.AbstractFacet;

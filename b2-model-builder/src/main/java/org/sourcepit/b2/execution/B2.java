@@ -32,7 +32,7 @@ public class B2
 
    @Inject
    private List<IB2Listener> listeners;
-
+   
    public AbstractModule generate(B2Request request)
    {
       fileService.clean(request.getModuleDirectory());

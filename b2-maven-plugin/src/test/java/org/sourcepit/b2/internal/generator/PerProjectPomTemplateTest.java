@@ -95,7 +95,8 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
          request.setModelCache(modelCache);
          request.setTemplates(b2Request.getTemplates());
 
-         final B2Generator generator = new B2Generator(Collections.singletonList(pomGenerator));
+         final B2Generator generator = new B2Generator(Collections.singletonList(pomGenerator),
+            Collections.<B2GeneratorLifecycleParticipant> emptyList());
          generator.generate(request);
 
          PluginProject pluginProject = findProject(module, PluginsFacet.class, "org.sourcepit.b2.feature53.bundle");

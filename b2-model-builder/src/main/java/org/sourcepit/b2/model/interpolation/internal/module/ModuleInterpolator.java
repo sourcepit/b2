@@ -19,6 +19,7 @@ import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.common.internal.utils.PathMatcher;
+import org.sourcepit.b2.directory.parser.internal.module.LifecyclePhase;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.builder.util.ISourceService;
@@ -26,6 +27,7 @@ import org.sourcepit.b2.model.builder.util.IUnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolationRequest;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolator;
+import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.Category;
@@ -40,6 +42,7 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
+import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named
 public class ModuleInterpolator implements IModuleInterpolator
@@ -56,6 +59,9 @@ public class ModuleInterpolator implements IModuleInterpolator
    @Inject
    private ISourceService sourceManager;
 
+   @Inject
+   private List<ModuleInterpolatorLifecycleParticipant> lifecycleParticipants;
+
    public void interpolate(IModuleInterpolationRequest request)
    {
       checkRequest(request);
@@ -70,7 +76,34 @@ public class ModuleInterpolator implements IModuleInterpolator
          }
       }
 
-      doInterpolate(module, request);
+      newLifecycleMethod().execute(request);
+   }
+
+   private LifecyclePhase<Void, IModuleInterpolationRequest, ModuleInterpolatorLifecycleParticipant> newLifecycleMethod()
+   {
+      return new LifecyclePhase<Void, IModuleInterpolationRequest, ModuleInterpolatorLifecycleParticipant>(
+         lifecycleParticipants)
+      {
+         @Override
+         protected void pre(ModuleInterpolatorLifecycleParticipant participant, IModuleInterpolationRequest input)
+         {
+            participant.preInterpolation(input.getModule());
+         }
+
+         @Override
+         protected Void doExecute(IModuleInterpolationRequest input)
+         {
+            doInterpolate(input);
+            return null;
+         }
+
+         @Override
+         protected void post(ModuleInterpolatorLifecycleParticipant participant, IModuleInterpolationRequest input,
+            Void result, ThrowablePipe errors)
+         {
+            participant.postInterpolation(input.getModule(), errors);
+         }
+      };
    }
 
    private void checkRequest(IModuleInterpolationRequest request)
@@ -92,8 +125,9 @@ public class ModuleInterpolator implements IModuleInterpolator
       }
    }
 
-   private void doInterpolate(AbstractModule module, IModuleInterpolationRequest request)
+   private void doInterpolate(IModuleInterpolationRequest request)
    {
+      final AbstractModule module = request.getModule();
       final boolean hasFestures = module.hasFacets(FeaturesFacet.class);
       if (!hasFestures)
       {
@@ -130,16 +164,16 @@ public class ModuleInterpolator implements IModuleInterpolator
             final PathMatcher matcher = converter.createIdMatcherForCategory(module.getLayoutId(), categoryClassifer);
             final List<FeatureInclude> featureIncs = new ArrayList<FeatureInclude>();
             collectFeatureIncludes(module, featureIncs, matcher, converter);
-            
-            for (FeatureProject includedFeatures : aggregationService.resolveCategoryIncludes(module, categoryClassifer,
-               converter))
+
+            for (FeatureProject includedFeatures : aggregationService.resolveCategoryIncludes(module,
+               categoryClassifer, converter))
             {
                final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
                featureInclude.setId(includedFeatures.getId());
                featureInclude.setVersionRange(includedFeatures.getVersion());
                featureIncs.add(featureInclude);
             }
-            
+
             for (FeatureInclude featureInc : featureIncs)
             {
                final Reference featureRef = ModuleModelFactory.eINSTANCE.createReference();

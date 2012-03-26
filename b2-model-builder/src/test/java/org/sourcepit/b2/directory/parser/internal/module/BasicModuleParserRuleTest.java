@@ -29,7 +29,7 @@ public class BasicModuleParserRuleTest extends AbstractModuleParserTest
       File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.canRead());
 
-      setB2Session(moduleDir);
+      initSession(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleDirectory(moduleDir);
@@ -53,7 +53,7 @@ public class BasicModuleParserRuleTest extends AbstractModuleParserTest
       File moduleDir = workspace.importResources("composed-component/structured-layout");
       assertTrue(moduleDir.canRead());
 
-      setB2Session(moduleDir);
+      initSession(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleDirectory(moduleDir);
