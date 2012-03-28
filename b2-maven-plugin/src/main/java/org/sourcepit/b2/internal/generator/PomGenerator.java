@@ -98,7 +98,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          }
       }
 
-      final File projectPomFile = new File(pomFile.getParentFile(), "project-pom.xml");
+      final File projectPomFile = new File(pomFile.getParentFile(), "b2-extension.xml");
       if (projectPomFile.exists())
       {
          final Model projectModel = readMavenModel(projectPomFile);
