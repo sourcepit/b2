@@ -45,6 +45,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       assertNotNull(session);
 
       sessionService.setCurrentSession(session);
+      sessionService.setCurrentProperties(ConverterUtils.TEST_CONVERTER.getProperties());
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
    }
 

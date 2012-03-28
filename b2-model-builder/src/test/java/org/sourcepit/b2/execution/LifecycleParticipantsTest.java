@@ -16,6 +16,7 @@ import org.apache.commons.exec.OS;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
+import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.internal.cleaner.ModuleCleanerLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.B2GeneratorLifecycleParticipant;
@@ -152,7 +153,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       // project composite-layout
       addFinalizeCalls(excpectedCalls, "composite-layout", "composite-layout",
          "org.sourcepit.b2.test.resources.composite.layout");
-      
+
       excpectedCalls.add("postFinalizeProjects ( session, null )");
 
       List<String> actualCalls = new ArrayList<String>();
@@ -290,16 +291,16 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
       public void postClean(File moduleDir, ThrowablePipe errors)
       {
-         recordMethodCall(moduleDir.getName(), errors);
+         recordMethodCall(moduleDir.getName(), errors.isEmpty() ? null : errors);
       }
 
-      public void preParse(File moduleDir)
+      public void preParse(IModuleParsingRequest request)
       {
          if (!barrier.isEmpty())
          {
             throw new IllegalStateException("Nested module parsing detected");
          }
-
+         final File moduleDir = request.getModuleDirectory();
          barrier.push(moduleDir);
 
          assertNotNull(moduleDir);
@@ -307,21 +308,21 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          recordMethodCall(moduleDir.getName());
       }
 
-      public void postParse(File moduleDir, AbstractModule module, ThrowablePipe errors)
+      public void postParse(IModuleParsingRequest request, AbstractModule module, ThrowablePipe errors)
       {
          barrier.pop();
 
-         if (errors != null)
+         if (!errors.isEmpty())
          {
             return;
          }
-
+         final File moduleDir = request.getModuleDirectory();
          assertNotNull(moduleDir);
          assertTrue(moduleDir.exists());
          assertNotNull(module);
          assertEquals(moduleDir, module.getDirectory());
-         assertNull(errors);
-         recordMethodCall(moduleDir.getName(), module.getId(), errors);
+         assertNotNull(errors);
+         recordMethodCall(moduleDir.getName(), module.getId(), errors.isEmpty() ? null : errors);
       }
 
       public void preInterpolation(AbstractModule module)
@@ -330,11 +331,12 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          recordMethodCall(module.getId());
       }
 
-      public void postInterpolation(AbstractModule module, ThrowablePipe error)
+      public void postInterpolation(AbstractModule module, ThrowablePipe errors)
       {
          assertNotNull(module);
-         assertNull(error);
-         recordMethodCall(module.getId(), error);
+         assertNotNull(errors);
+         assertTrue(errors.isEmpty());
+         recordMethodCall(module.getId(), errors.isEmpty() ? null : errors);
       }
 
       public void preGenerate(AbstractModule module)
@@ -343,22 +345,25 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          recordMethodCall(module.getId());
       }
 
-      public void postGenerate(AbstractModule module, ThrowablePipe error)
+      public void postGenerate(AbstractModule module, ThrowablePipe errors)
       {
          assertNotNull(module);
-         assertNull(error);
-         recordMethodCall(module.getId(), error);
+         assertNotNull(errors);
+         assertTrue(errors.isEmpty());
+         recordMethodCall(module.getId(), errors.isEmpty() ? null : errors);
       }
 
       public void postPrepareProject(B2Session session, ModuleProject project, B2Request request,
-         AbstractModule module, ThrowablePipe error)
+         AbstractModule module, ThrowablePipe errors)
       {
-         recordMethodCall("session", project.getArtifactId(), "request", module.getId(), error);
+         recordMethodCall("session", project.getArtifactId(), "request", module.getId(), errors.isEmpty()
+            ? null
+            : errors);
       }
 
       public void postPrepareProjects(B2Session session, ThrowablePipe errors)
       {
-         recordMethodCall("session", errors);
+         recordMethodCall("session", errors.isEmpty() ? null : errors);
       }
 
       public void preFinalizeProjects(B2Session session)
@@ -374,12 +379,12 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
       public void postFinalizeProject(B2Session session, ModuleProject project, ThrowablePipe errors)
       {
-         recordMethodCall("session", project.getArtifactId(), errors);
+         recordMethodCall("session", project.getArtifactId(), errors.isEmpty() ? null : errors);
       }
 
       public void postFinalizeProjects(B2Session session, ThrowablePipe errors)
       {
-         recordMethodCall("session", errors);
+         recordMethodCall("session", errors.isEmpty() ? null : errors);
       }
    }
 }

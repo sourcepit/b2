@@ -4,26 +4,29 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import java.io.File;
-import java.io.IOException;
-
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.sourcepit.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleRequirement;
 import org.sourcepit.common.manifest.osgi.PackageImport;
-import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 
 @Named
 @Singleton
 public class DefaultUIDetector implements UIDetector
 {
+   private final BundleManifestReader manifestReader;
+
+   @Inject
+   public DefaultUIDetector(BundleManifestReader manifestReader)
+   {
+      this.manifestReader = manifestReader;
+   }
+
    public boolean requiresUI(PluginProject pluginProject, IConverter converter)
    {
       final PathMatcher matcher = PathMatcher.parsePackagePatterns(converter.getProperties()
@@ -35,7 +38,7 @@ public class DefaultUIDetector implements UIDetector
          return true;
       }
 
-      final BundleManifest manifest = readManifest(pluginProject);
+      final BundleManifest manifest = manifestReader.readManifest(pluginProject);
 
       final EList<BundleRequirement> bundleRequirements = manifest.getRequireBundle();
       if (bundleRequirements != null)
@@ -68,26 +71,5 @@ public class DefaultUIDetector implements UIDetector
       }
 
       return false;
-   }
-
-   private BundleManifest readManifest(PluginProject pluginProject)
-   {
-      File manifestFile = new File(pluginProject.getDirectory(), "META-INF/MANIFEST.MF");
-
-      URI uri = URI.createFileURI(manifestFile.getAbsolutePath());
-
-      Resource resource = new BundleManifestResourceImpl();
-      resource.setURI(uri);
-      try
-      {
-         resource.load(null);
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException(e);
-      }
-
-      final BundleManifest manifest = (BundleManifest) resource.getContents().get(0);
-      return manifest;
    }
 }

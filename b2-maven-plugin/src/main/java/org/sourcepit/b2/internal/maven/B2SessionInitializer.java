@@ -244,6 +244,8 @@ public class B2SessionInitializer
 
       final B2Session b2Session = sessionService.getCurrentSession();
       final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
+      
+      sessionService.setCurrentProperties(converter.getProperties());
 
       processDependencies(resourceSet, b2Session.getCurrentProject(), bootProject);
 

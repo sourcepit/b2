@@ -29,7 +29,7 @@ import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
-import org.sourcepit.b2.model.builder.util.IUnpackStrategy;
+import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
@@ -53,7 +53,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    private ISourceService sourceManager;
 
    @Inject
-   private IUnpackStrategy unpackStrategy;
+   private UnpackStrategy unpackStrategy;
 
    @Inject
    private IB2SessionService b2SessionService;

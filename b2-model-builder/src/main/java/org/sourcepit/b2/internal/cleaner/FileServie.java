@@ -22,7 +22,7 @@ import javax.inject.Singleton;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.plexus.logging.Logger;
 import org.sourcepit.b2.common.internal.utils.PathUtils;
-import org.sourcepit.b2.directory.parser.internal.module.LifecyclePhase;
+import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named

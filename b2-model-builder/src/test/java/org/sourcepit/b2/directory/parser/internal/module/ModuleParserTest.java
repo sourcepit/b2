@@ -26,7 +26,6 @@ import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.common.utils.lang.PipedException;
 
 public class ModuleParserTest extends AbstractModuleParserTest
 {
@@ -44,9 +43,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
          parser.parse(null);
          fail();
       }
-      catch (PipedException e)
+      catch (IllegalArgumentException e)
       {
-         assertTrue(e.getCause() instanceof IllegalArgumentException);
       }
 
       ModuleParsingRequest request = new ModuleParsingRequest();
@@ -57,9 +55,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
          parser.parse(request);
          fail();
       }
-      catch (PipedException e)
+      catch (IllegalArgumentException e)
       {
-         assertTrue(e.getCause() instanceof IllegalArgumentException);
       }
 
       request.setModuleDirectory(new File(""));
@@ -70,9 +67,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
          parser.parse(request);
          fail();
       }
-      catch (PipedException e)
+      catch (IllegalArgumentException e)
       {
-         assertTrue(e.getCause() instanceof IllegalArgumentException);
       }
    }
 

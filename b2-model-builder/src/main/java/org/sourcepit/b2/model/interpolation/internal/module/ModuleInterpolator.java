@@ -19,11 +19,11 @@ import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.common.internal.utils.PathMatcher;
-import org.sourcepit.b2.directory.parser.internal.module.LifecyclePhase;
+import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.builder.util.ISourceService;
-import org.sourcepit.b2.model.builder.util.IUnpackStrategy;
+import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolationRequest;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolator;
@@ -54,7 +54,7 @@ public class ModuleInterpolator implements IModuleInterpolator
    private Map<String, IInterpolationLayout> layoutMap;
 
    @Inject
-   private IUnpackStrategy unpackStrategy;
+   private UnpackStrategy unpackStrategy;
 
    @Inject
    private ISourceService sourceManager;

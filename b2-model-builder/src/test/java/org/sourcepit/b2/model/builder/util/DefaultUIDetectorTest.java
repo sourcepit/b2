@@ -37,7 +37,7 @@ public class DefaultUIDetectorTest
    public void testSymbolicName() throws IOException
    {
       final IConverter converter = ConverterUtils.TEST_CONVERTER;
-      final DefaultUIDetector uiDetector = new DefaultUIDetector();
+      final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
 
       PluginProject pluginProject = newPluginProject("org.sourcepit.foo");
       assertFalse(uiDetector.requiresUI(pluginProject, converter));
@@ -54,7 +54,7 @@ public class DefaultUIDetectorTest
       final BundleManifest manifest = readManifest(pluginProject);
 
       final IConverter converter = ConverterUtils.TEST_CONVERTER;
-      final DefaultUIDetector uiDetector = new DefaultUIDetector();
+      final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
 
       assertFalse(uiDetector.requiresUI(pluginProject, converter));
 
@@ -73,7 +73,7 @@ public class DefaultUIDetectorTest
       final BundleManifest manifest = readManifest(pluginProject);
 
       final IConverter converter = ConverterUtils.TEST_CONVERTER;
-      final DefaultUIDetector uiDetector = new DefaultUIDetector();
+      final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
       
       assertFalse(uiDetector.requiresUI(pluginProject, converter));
 

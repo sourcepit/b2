@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.b2.directory.parser.internal.module.LifecyclePhase;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;

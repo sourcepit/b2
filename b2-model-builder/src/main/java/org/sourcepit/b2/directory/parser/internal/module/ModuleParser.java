@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
+import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.b2.model.builder.util.DecouplingB2ModelWalker;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.IModelCache;
@@ -39,6 +40,7 @@ public class ModuleParser implements IModuleParser
 
    public AbstractModule parse(final IModuleParsingRequest request)
    {
+      checkRequest(request);
       return newLifecyclePhase().execute(request);
    }
 
@@ -50,7 +52,7 @@ public class ModuleParser implements IModuleParser
          @Override
          protected void pre(ModuleParserLifecycleParticipant participant, IModuleParsingRequest request)
          {
-            participant.preParse(request.getModuleDirectory());
+            participant.preParse(request);
          }
 
          @Override
@@ -63,7 +65,7 @@ public class ModuleParser implements IModuleParser
          protected void post(ModuleParserLifecycleParticipant participant, IModuleParsingRequest request,
             AbstractModule result, ThrowablePipe errors)
          {
-            participant.postParse(request.getModuleDirectory(), result, errors);
+            participant.postParse(request, result, errors);
          }
       };
    }
@@ -71,8 +73,6 @@ public class ModuleParser implements IModuleParser
    @SuppressWarnings({ "unchecked", "rawtypes" })
    private AbstractModule doParse(IModuleParsingRequest request)
    {
-      checkRequest(request);
-      
       final List<AbstractModuleParserRule<? extends AbstractModule>> orderedRules = new ArrayList<AbstractModuleParserRule<? extends AbstractModule>>(
          rules);
       // Task #58: Workaround for javac shortcoming

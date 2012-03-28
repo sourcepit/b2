@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.common.utils.lang.PipedError;
 import org.sourcepit.common.utils.lang.PipedException;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
@@ -278,7 +279,7 @@ public class LifecyclePhaseTest
                sb.append("not-null");
             }
             sb.append(",");
-            if (errors == null)
+            if (errors.isEmpty())
             {
                sb.append("null");
             }

@@ -6,14 +6,12 @@
 
 package org.sourcepit.b2.directory.parser.module;
 
-import java.io.File;
-
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 public interface ModuleParserLifecycleParticipant
 {
-   void preParse(File moduleDir);
+   void preParse(IModuleParsingRequest request);
 
-   void postParse(File moduleDir, AbstractModule module, ThrowablePipe errors);
+   void postParse(IModuleParsingRequest request, AbstractModule module, ThrowablePipe errors);
 }

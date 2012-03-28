@@ -4,7 +4,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.sourcepit.b2.directory.parser.internal.module;
+package org.sourcepit.b2.execution;
 
 import java.util.List;
 
@@ -41,17 +41,17 @@ public abstract class LifecyclePhase<RESULT, INPUT, PARTICIPANT>
 
    public RESULT execute(INPUT input)
    {
-      ThrowablePipe errors = null;
+      final ThrowablePipe errors = Exceptions.newThrowablePipe();
       try
       {
          pre(input);
       }
       catch (Throwable e)
       {
-         errors = Exceptions.pipe(errors, e);
+         errors.add(e);
       }
       RESULT result = null;
-      if (errors == null)
+      if (errors.getCause() == null)
       {
          try
          {
@@ -59,7 +59,7 @@ public abstract class LifecyclePhase<RESULT, INPUT, PARTICIPANT>
          }
          catch (Throwable e)
          {
-            errors = Exceptions.pipe(errors, e);
+            errors.add(e);
          }
       }
       post(input, result, errors);
@@ -80,7 +80,7 @@ public abstract class LifecyclePhase<RESULT, INPUT, PARTICIPANT>
          }
          catch (Throwable e)
          {
-            errors = Exceptions.pipe(errors, e);
+            errors.add(e);
          }
       }
       Exceptions.throwPipe(errors);

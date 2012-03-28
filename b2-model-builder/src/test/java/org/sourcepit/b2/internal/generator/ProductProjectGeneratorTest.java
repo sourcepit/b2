@@ -92,6 +92,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       session.getProjects().add(moduleProject);
       session.setCurrentProject(moduleProject);
       sessionService.setCurrentSession(session);
+      sessionService.setCurrentProperties(ConverterUtils.TEST_CONVERTER.getProperties());
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       File productFile = new File(moduleDir, "bundle.a/bundle.a.product");
