@@ -131,7 +131,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
 
    protected File getResource(String path) throws IOException
    {
-      final File resourcesDir = environment.getPropertyAsFile("test.resources");
+      final File resourcesDir = environment.getResourcesDir();
       assertTrue(resourcesDir.exists());
       final File resource = workspace.importDir(new File(resourcesDir, path));
       assertTrue(resource.exists());

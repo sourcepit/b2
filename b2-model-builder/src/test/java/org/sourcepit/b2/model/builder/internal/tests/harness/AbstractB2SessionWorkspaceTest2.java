@@ -4,8 +4,6 @@
 
 package org.sourcepit.b2.model.builder.internal.tests.harness;
 
-import java.io.File;
-
 import org.sourcepit.common.maven.testing.EmbeddedMavenEnvironmentTest;
 import org.sourcepit.common.testing.Environment;
 
@@ -15,11 +13,5 @@ public abstract class AbstractB2SessionWorkspaceTest2 extends EmbeddedMavenEnvir
    protected Environment newEnvironment()
    {
       return Environment.get("env-test.properties");
-   }
-
-   @Override
-   protected File getResourcesRoot()
-   {
-      return getEnvironment().getPropertyAsFile("test.resources", true);
    }
 }
