@@ -40,7 +40,7 @@
 					<artifactId>tycho-surefire-plugin</artifactId>
 					<version>${tycho.version}</version>
 					<configuration>
-						<argLine>-Xms64m -Xmx128m</argLine>
+						<argLine>${test.memArgs}</argLine>
 					</configuration>
 				</plugin>
 			</plugins>
