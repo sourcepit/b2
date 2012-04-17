@@ -36,7 +36,12 @@ public class ModelCutter
 
    public void cut(Model target, Model source)
    {
+      final String targetPackaging = target.getPackaging();
       cut(target, source, Model.class);
+      if (!"jar".equals(targetPackaging) && target.getPackaging() == null)
+      {
+         target.setPackaging(targetPackaging);
+      }
    }
 
    private Object cut(Map<Object, Object> targetMap, Map<Object, Object> sourceMap, Class<?> valueType)
