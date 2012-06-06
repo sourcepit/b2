@@ -20,7 +20,7 @@
 	<properties>
 		<maven.version>3.0.4</maven.version>
 		<tycho.version>0.14.1</tycho.version>
-		<maven-bootstrap.version>0.1.0-alpha-2</maven-bootstrap.version>
+		<maven-bootstrap.version>0.1.0-SNAPSHOT</maven-bootstrap.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 

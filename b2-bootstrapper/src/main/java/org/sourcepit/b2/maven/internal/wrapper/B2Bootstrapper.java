@@ -24,6 +24,11 @@ public class B2Bootstrapper extends AbstractBootstrapper
 {
    @Requirement
    private ModuleDescriptorProcessor descriptorProcessor;
+   
+   public B2Bootstrapper()
+   {
+      super("org.sourcepit.b2", "b2-maven-plugin");
+   }
 
    protected void getModuleDescriptors(MavenSession session, Collection<File> descriptors,
       Collection<File> skippeDescriptors) throws MavenExecutionException
