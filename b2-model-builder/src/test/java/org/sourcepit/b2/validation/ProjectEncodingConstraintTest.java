@@ -119,7 +119,7 @@ public class ProjectEncodingConstraintTest
       }
       catch (IOException e)
       {
-         throw Exceptions.toPipedException(e);
+         throw Exceptions.pipe(e);
       }
       finally
       {

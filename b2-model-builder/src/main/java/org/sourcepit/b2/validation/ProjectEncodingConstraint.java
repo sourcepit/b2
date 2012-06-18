@@ -100,7 +100,7 @@ public class ProjectEncodingConstraint implements ModuleValidationConstraint
       }
       catch (IOException e)
       {
-         throw Exceptions.toPipedException(e);
+         throw Exceptions.pipe(e);
       }
       finally
       {
