@@ -20,7 +20,7 @@
 
 	<properties>
 		<tycho.version>0.14.1</tycho.version>
-		<maven-bootstrap.version>0.1.0-SNAPSHOT</maven-bootstrap.version>
+		<maven-bootstrap.version>0.1.0-alpha-3</maven-bootstrap.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 
@@ -139,7 +139,7 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-maven</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-4</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
