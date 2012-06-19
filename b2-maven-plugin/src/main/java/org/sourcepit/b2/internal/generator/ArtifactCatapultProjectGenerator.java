@@ -82,6 +82,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       final File modulePom = resolvePomFile(module);
 
       final Model moduleModel = readMavenModel(modulePom);
+      final String mavenVersion = moduleModel.getVersion();
 
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
 
@@ -116,7 +117,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
       if (!artifacts.isEmpty())
       {
-         artifacts.addAll(gatherArtifacts(module));
+         artifacts.addAll(gatherArtifacts(module, mavenVersion));
 
          Profile profile = new Profile();
          profile.setId("buildProducts");
@@ -132,7 +133,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          model.getProfiles().add(profile);
       }
 
-      artifacts = gatherArtifacts(module);
+      artifacts = gatherArtifacts(module, mavenVersion);
       if (!artifacts.isEmpty())
       {
          final List<Plugin> plugins = model.getBuild().getPlugins();
@@ -308,7 +309,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
    }
 
-   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module)
+   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, String mavenVersion)
    {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
@@ -350,19 +351,21 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          artifacts.add(moduleModel);
       }
 
-      gatherSiteArtifacts(module, artifacts);
+      gatherSiteArtifacts(module, mavenVersion, artifacts);
 
       return artifacts;
    }
 
-   private void gatherSiteArtifacts(final AbstractModule module, final List<ModuleArtifact> artifacts)
+   private void gatherSiteArtifacts(final AbstractModule module, String mavenVersion,
+      final List<ModuleArtifact> artifacts)
    {
       for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
       {
          for (SiteProject siteProject : sitesFacet.getProjects())
          {
             final ModuleArtifact siteArtifact = new ModuleArtifact();
-            siteArtifact.setFile(new File(siteProject.getDirectory(), "target/" + siteProject.getId() + ".zip"));
+            siteArtifact.setFile(new File(siteProject.getDirectory(), "target/" + siteProject.getId() + "-"
+               + mavenVersion + ".zip"));
             String cl = siteProject.getClassifier();
             siteArtifact.setClassifier(cl == null || cl.length() == 0 ? "site" : "site-" + cl);
             siteArtifact.setType("zip");
