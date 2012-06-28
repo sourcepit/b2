@@ -4,6 +4,8 @@
 
 package org.sourcepit.b2.execution;
 
+import static org.junit.Assert.assertThat;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,8 +14,8 @@ import java.util.Stack;
 
 import javax.inject.Inject;
 
-import org.apache.commons.exec.OS;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.hamcrest.core.Is;
 import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
@@ -102,64 +104,69 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       { // noop
       }
 
-      final boolean isLinux = OS.isFamilyUnix();
-
-      List<String> excpectedCalls = new ArrayList<String>();
-      excpectedCalls.add("prePrepareProjects ( session )");
-
-      if (isLinux)
-      {
-         addPrepareCalls(excpectedCalls, "structured-layout", "structured-layout",
-            "org.sourcepit.b2.test.resources.structured.layout");
-         addPrepareCalls(excpectedCalls, "simple-layout", "simple-layout",
-            "org.sourcepit.b2.test.resources.simple.layout");
-      }
-      else
-      {
-         addPrepareCalls(excpectedCalls, "simple-layout", "simple-layout",
-            "org.sourcepit.b2.test.resources.simple.layout");
-         addPrepareCalls(excpectedCalls, "structured-layout", "structured-layout",
-            "org.sourcepit.b2.test.resources.structured.layout");
-      }
-
-      // project composite-layout
-      addPrepareCalls(excpectedCalls, "testAll", "composite-layout", "org.sourcepit.b2.test.resources.composite.layout");
-
-      excpectedCalls.add("postPrepareProjects ( session, null )");
-
-      // finalize
-      excpectedCalls.add("preFinalizeProjects ( session )");
-      if (isLinux)
-      {
-         // project structured-layout
-         addFinalizeCalls(excpectedCalls, "structured-layout", "structured-layout",
-            "org.sourcepit.b2.test.resources.structured.layout");
-
-         // project simple-layout
-         addFinalizeCalls(excpectedCalls, "simple-layout", "simple-layout",
-            "org.sourcepit.b2.test.resources.simple.layout");
-      }
-      else
-      {
-         // project simple-layout
-         addFinalizeCalls(excpectedCalls, "simple-layout", "simple-layout",
-            "org.sourcepit.b2.test.resources.simple.layout");
-
-         // project structured-layout
-         addFinalizeCalls(excpectedCalls, "structured-layout", "structured-layout",
-            "org.sourcepit.b2.test.resources.structured.layout");
-      }
-
-      // project composite-layout
-      addFinalizeCalls(excpectedCalls, "composite-layout", "composite-layout",
-         "org.sourcepit.b2.test.resources.composite.layout");
-
-      excpectedCalls.add("postFinalizeProjects ( session, null )");
-
       List<String> actualCalls = new ArrayList<String>();
-      for (MethodCall call : participant.getCalls())
+      List<MethodCall> calls = participant.getCalls();
+      assertThat(calls.size(), Is.is(40));
+
+      final List<String> excpectedCalls = new ArrayList<String>();
+      excpectedCalls.add("prePrepareProjects ( session )");
+      for (int i = 0; i < calls.size(); i++)
       {
-         actualCalls.add(toString(call));
+         String call = toString(calls.get(i));
+         actualCalls.add(call);
+
+         if (i == 1)
+         {
+            if (call.startsWith("prePrepareProject ( session, simple-layout")) // order not defined :(
+            {
+               addPrepareCalls(excpectedCalls, "simple-layout", "simple-layout",
+                  "org.sourcepit.b2.test.resources.simple.layout");
+               addPrepareCalls(excpectedCalls, "structured-layout", "structured-layout",
+                  "org.sourcepit.b2.test.resources.structured.layout");
+            }
+            else
+            {
+               addPrepareCalls(excpectedCalls, "structured-layout", "structured-layout",
+                  "org.sourcepit.b2.test.resources.structured.layout");
+               addPrepareCalls(excpectedCalls, "simple-layout", "simple-layout",
+                  "org.sourcepit.b2.test.resources.simple.layout");
+            }
+         }
+         else if (i == 33)
+         {
+            // project composite-layout
+            addPrepareCalls(excpectedCalls, "testAll", "composite-layout",
+               "org.sourcepit.b2.test.resources.composite.layout");
+
+            excpectedCalls.add("postPrepareProjects ( session, null )");
+
+            // finalize
+            excpectedCalls.add("preFinalizeProjects ( session )");
+
+            if (call.startsWith("preFinalizeProject ( session, simple-layout"))
+            {
+               // project simple-layout
+               addFinalizeCalls(excpectedCalls, "simple-layout", "simple-layout",
+                  "org.sourcepit.b2.test.resources.simple.layout");
+               // project structured-layout
+               addFinalizeCalls(excpectedCalls, "structured-layout", "structured-layout",
+                  "org.sourcepit.b2.test.resources.structured.layout");
+            }
+            else
+            {
+               // project structured-layout
+               addFinalizeCalls(excpectedCalls, "structured-layout", "structured-layout",
+                  "org.sourcepit.b2.test.resources.structured.layout");
+               // project simple-layout
+               addFinalizeCalls(excpectedCalls, "simple-layout", "simple-layout",
+                  "org.sourcepit.b2.test.resources.simple.layout");
+            }
+            // project composite-layout
+            addFinalizeCalls(excpectedCalls, "composite-layout", "composite-layout",
+               "org.sourcepit.b2.test.resources.composite.layout");
+
+            excpectedCalls.add("postFinalizeProjects ( session, null )");
+         }
       }
 
       StringBuilder message = new StringBuilder();

@@ -68,7 +68,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
 
       assertStructuredLayout(dummyComponent);
    }
-   
+
    public void testBug49MixedTestsFacet() throws Exception
    {
       final File moduleDir = workspace.importResources("MixedTestsFacet");
@@ -82,11 +82,21 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       final List<ProjectFacet<? extends Project>> facets = result.getFacets();
       assertEquals(2, facets.size());
 
-      final PluginsFacet plugins = (PluginsFacet) facets.get(0);
-      assertEquals(1, plugins.getProjects().size());
+      final PluginsFacet pluginsFacet1 = (PluginsFacet) facets.get(0);
+      final PluginsFacet pluginsFacet2 = (PluginsFacet) facets.get(1);
+      if (pluginsFacet1.getProjects().get(0).isTestPlugin()) // facet order differs between linux/win or different vm
+                                                             // impls
+      {
+         assertEquals(2, pluginsFacet1.getProjects().size());
+         assertEquals(1, pluginsFacet2.getProjects().size());
+      }
+      else
+      {
+         assertTrue(pluginsFacet2.getProjects().get(0).isTestPlugin());
+         assertEquals(1, pluginsFacet1.getProjects().size());
+         assertEquals(2, pluginsFacet2.getProjects().size());
+      }
 
-      final PluginsFacet tests = (PluginsFacet) facets.get(1);
-      assertEquals(2, tests.getProjects().size());
    }
 
    public static void assertStructuredLayout(BasicModule module)
