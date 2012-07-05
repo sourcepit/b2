@@ -454,5 +454,19 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>vr</id>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>srcpit.snapshots</id>
+					<uniqueVersion>false</uniqueVersion>
+					<url>${env.VR_MAVEN_REPO_URL}/srcpit-snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>srcpit.releases</id>
+					<url>${env.VR_MAVEN_REPO_URL}/srcpit-releases/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
 	</profiles>
 </project>
