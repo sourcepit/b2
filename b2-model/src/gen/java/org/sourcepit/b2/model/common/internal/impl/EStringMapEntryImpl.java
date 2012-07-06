@@ -31,7 +31,8 @@ import org.sourcepit.b2.model.common.CommonModelPackage;
 public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<String, String>
 {
    /**
-    * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getTypedKey()
@@ -51,7 +52,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    protected String key = KEY_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getTypedValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getTypedValue()
@@ -61,7 +63,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    protected static final String VALUE_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getTypedValue() <em>Value</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getTypedValue()

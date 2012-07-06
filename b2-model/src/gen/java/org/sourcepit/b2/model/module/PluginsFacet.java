@@ -25,9 +25,11 @@ import org.eclipse.emf.common.util.EList;
 public interface PluginsFacet extends ProjectFacet<PluginProject>
 {
    /**
-    * Returns the value of the '<em><b>Projects</b></em>' containment reference list. The list contents are of type
-    * {@link org.sourcepit.b2.model.module.PluginProject}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Projects</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.PluginProject}.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.PluginProject#getParent
+    * <em>Parent</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Projects</em>' containment reference list isn't clear, there really should be more of a
     * description here...

@@ -8,12 +8,9 @@ package org.sourcepit.b2.model.module.internal.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
@@ -33,7 +30,8 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
 public class CompositeModuleImpl extends AbstractModuleImpl implements CompositeModule
 {
    /**
-    * The cached value of the '{@link #getModules() <em>Modules</em>}' containment reference list. <!-- begin-user-doc
+    * The cached value of the '{@link #getModules() <em>Modules</em>}' reference list.
+    * <!-- begin-user-doc
     * --> <!-- end-user-doc -->
     * 
     * @see #getModules()
@@ -72,43 +70,10 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       if (modules == null)
       {
-         modules = new EObjectContainmentWithInverseEList.Resolving<AbstractModule>(AbstractModule.class, this,
-            ModuleModelPackage.COMPOSITE_MODULE__MODULES, ModuleModelPackage.ABSTRACT_MODULE__PARENT);
+         modules = new EObjectResolvingEList<AbstractModule>(AbstractModule.class, this,
+            ModuleModelPackage.COMPOSITE_MODULE__MODULES);
       }
       return modules;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @SuppressWarnings("unchecked")
-   @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
-         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
-            return ((InternalEList<InternalEObject>) (InternalEList<?>) getModules()).basicAdd(otherEnd, msgs);
-      }
-      return super.eInverseAdd(otherEnd, featureID, msgs);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
-         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
-            return ((InternalEList<?>) getModules()).basicRemove(otherEnd, msgs);
-      }
-      return super.eInverseRemove(otherEnd, featureID, msgs);
    }
 
    /**

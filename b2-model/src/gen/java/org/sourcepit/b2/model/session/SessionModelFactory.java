@@ -18,14 +18,16 @@ import org.eclipse.emf.ecore.EFactory;
 public interface SessionModelFactory extends EFactory
 {
    /**
-    * The singleton instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The singleton instance of the factory.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    SessionModelFactory eINSTANCE = org.sourcepit.b2.model.session.internal.impl.SessionModelFactoryImpl.init();
 
    /**
-    * Returns a new object of class '<em>B2 Session</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns a new object of class '<em>B2 Session</em>'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return a new object of class '<em>B2 Session</em>'.
     * @generated
@@ -33,7 +35,8 @@ public interface SessionModelFactory extends EFactory
    B2Session createB2Session();
 
    /**
-    * Returns a new object of class '<em>Module Project</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns a new object of class '<em>Module Project</em>'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return a new object of class '<em>Module Project</em>'.
     * @generated
@@ -41,7 +44,8 @@ public interface SessionModelFactory extends EFactory
    ModuleProject createModuleProject();
 
    /**
-    * Returns a new object of class '<em>Module Dependency</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns a new object of class '<em>Module Dependency</em>'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return a new object of class '<em>Module Dependency</em>'.
     * @generated
@@ -49,7 +53,8 @@ public interface SessionModelFactory extends EFactory
    ModuleDependency createModuleDependency();
 
    /**
-    * Returns a new object of class '<em>Module Attachment</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns a new object of class '<em>Module Attachment</em>'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return a new object of class '<em>Module Attachment</em>'.
     * @generated
@@ -57,7 +62,8 @@ public interface SessionModelFactory extends EFactory
    ModuleAttachment createModuleAttachment();
 
    /**
-    * Returns a new object of class '<em>Environment</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns a new object of class '<em>Environment</em>'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return a new object of class '<em>Environment</em>'.
     * @generated
@@ -65,7 +71,8 @@ public interface SessionModelFactory extends EFactory
    Environment createEnvironment();
 
    /**
-    * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the package supported by this factory.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the package supported by this factory.
     * @generated

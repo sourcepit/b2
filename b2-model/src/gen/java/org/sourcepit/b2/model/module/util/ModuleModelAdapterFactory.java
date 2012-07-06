@@ -45,14 +45,16 @@ import org.sourcepit.b2.model.module.SitesFacet;
 public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 {
    /**
-    * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The cached model package.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    protected static ModuleModelPackage modelPackage;
 
    /**
-    * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates an instance of the adapter factory.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -65,7 +67,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Returns whether this factory is applicable for the type of the object. <!-- begin-user-doc --> This implementation
+    * Returns whether this factory is applicable for the type of the object.
+    * <!-- begin-user-doc --> This implementation
     * returns <code>true</code> if the object is either the model's package or is an instance object of the model. <!--
     * end-user-doc -->
     * 
@@ -87,7 +90,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * The switch that delegates to the <code>createXXX</code> methods. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The switch that delegates to the <code>createXXX</code> methods.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -239,7 +243,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    };
 
    /**
-    * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates an adapter for the <code>target</code>.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param target the object to adapt.
     * @return the adapter for the <code>target</code>.
@@ -254,7 +259,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.AbstractModule
-    * <em>Abstract Module</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Abstract Module</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -268,7 +274,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.BasicModule
-    * <em>Basic Module</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Basic Module</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -282,7 +289,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.AbstractFacet
-    * <em>Abstract Facet</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Abstract Facet</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -296,7 +304,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.CompositeModule
-    * <em>Composite Module</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+    * <em>Composite Module</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can
     * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
     * end-user-doc -->
     * 
@@ -311,7 +320,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.PluginsFacet
-    * <em>Plugins Facet</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Plugins Facet</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -325,7 +335,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.FeaturesFacet
-    * <em>Features Facet</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Features Facet</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -339,7 +350,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.SitesFacet
-    * <em>Sites Facet</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Sites Facet</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -353,7 +365,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.PluginProject
-    * <em>Plugin Project</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Plugin Project</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -367,7 +380,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.FeatureProject
-    * <em>Feature Project</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Feature Project</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -381,7 +395,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.SiteProject
-    * <em>Site Project</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Site Project</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -409,7 +424,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.ProjectFacet
-    * <em>Project Facet</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Project Facet</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -423,7 +439,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.FileContainer
-    * <em>File Container</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>File Container</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -451,7 +468,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.PluginInclude
-    * <em>Plugin Include</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Plugin Include</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -479,7 +497,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.FeatureInclude
-    * <em>Feature Include</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Feature Include</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -493,7 +512,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}
-    * '. <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
+    * '.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
     * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -507,7 +527,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Identifiable
-    * <em>Identifiable</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Identifiable</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -521,7 +542,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.ProductsFacet
-    * <em>Products Facet</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Products Facet</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -535,7 +557,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.ProductDefinition
-    * <em>Product Definition</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can
+    * <em>Product Definition</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can
     * easily ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
     * end-user-doc -->
     * 
@@ -564,7 +587,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.common.Annotatable
-    * <em>Annotatable</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we can easily
+    * <em>Annotatable</em>}'.
+    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
     * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
     * 
     * @return the new adapter.
@@ -577,7 +601,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for the default case. <!-- begin-user-doc --> This default implementation returns null. <!--
+    * Creates a new adapter for the default case.
+    * <!-- begin-user-doc --> This default implementation returns null. <!--
     * end-user-doc -->
     * 
     * @return the new adapter.

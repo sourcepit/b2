@@ -27,7 +27,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface Environment extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Os</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Os</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Os</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
@@ -52,7 +53,8 @@ public interface Environment extends EObject
    void setOs(String value);
 
    /**
-    * Returns the value of the '<em><b>Ws</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Ws</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Ws</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
@@ -77,7 +79,8 @@ public interface Environment extends EObject
    void setWs(String value);
 
    /**
-    * Returns the value of the '<em><b>Arch</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Arch</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Arch</em>' attribute isn't clear, there really should be more of a description here...
     * </p>

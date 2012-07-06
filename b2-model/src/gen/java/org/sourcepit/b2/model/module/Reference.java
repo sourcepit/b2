@@ -27,7 +27,8 @@ import org.sourcepit.b2.model.module.util.Identifier;
 public interface Reference extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Id</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Id</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
@@ -52,7 +53,8 @@ public interface Reference extends EObject
    void setId(String value);
 
    /**
-    * Returns the value of the '<em><b>Version Range</b></em>' attribute. The default value is <code>"0.0.0"</code>.
+    * Returns the value of the '<em><b>Version Range</b></em>' attribute.
+    * The default value is <code>"0.0.0"</code>.
     * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Version Range</em>' attribute isn't clear, there really should be more of a description
@@ -70,7 +72,8 @@ public interface Reference extends EObject
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.Reference#getVersionRange <em>Version Range</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Version Range</em>' attribute.
     * @see #getVersionRange()

@@ -57,7 +57,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    protected EList<Annotation> annotations;
 
    /**
-    * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isDerived()
@@ -67,7 +68,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    protected static final boolean DERIVED_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isDerived()

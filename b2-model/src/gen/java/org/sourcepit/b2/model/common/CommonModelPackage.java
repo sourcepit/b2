@@ -29,28 +29,32 @@ import org.eclipse.emf.ecore.EReference;
 public interface CommonModelPackage extends EPackage
 {
    /**
-    * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The package name.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    String eNAME = "common";
 
    /**
-    * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The package namespace URI.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    String eNS_URI = "http://www.sourcepit.org/b2/model/0.1/common";
 
    /**
-    * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The package namespace name.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    String eNS_PREFIX = "common";
 
    /**
-    * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The singleton instance of the package.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -67,7 +71,8 @@ public interface CommonModelPackage extends EPackage
    int ANNOTATABLE = 0;
 
    /**
-    * The feature id for the '<em><b>Annotations</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -86,7 +91,8 @@ public interface CommonModelPackage extends EPackage
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.common.internal.impl.AnnotationImpl <em>Annotation</em>}
-    * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * ' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.common.internal.impl.AnnotationImpl
     * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotation()
@@ -95,7 +101,8 @@ public interface CommonModelPackage extends EPackage
    int ANNOTATION = 1;
 
    /**
-    * The feature id for the '<em><b>Parent</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Parent</b></em>' container reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -103,7 +110,8 @@ public interface CommonModelPackage extends EPackage
    int ANNOTATION__PARENT = 0;
 
    /**
-    * The feature id for the '<em><b>Source</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Source</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -111,7 +119,8 @@ public interface CommonModelPackage extends EPackage
    int ANNOTATION__SOURCE = 1;
 
    /**
-    * The feature id for the '<em><b>Entries</b></em>' map. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Entries</b></em>' map.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -129,7 +138,8 @@ public interface CommonModelPackage extends EPackage
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.common.internal.impl.EStringMapEntryImpl
-    * <em>EString Map Entry</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>EString Map Entry</em>}' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.common.internal.impl.EStringMapEntryImpl
     * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getEStringMapEntry()
@@ -138,7 +148,8 @@ public interface CommonModelPackage extends EPackage
    int ESTRING_MAP_ENTRY = 2;
 
    /**
-    * The feature id for the '<em><b>Key</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Key</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -146,7 +157,8 @@ public interface CommonModelPackage extends EPackage
    int ESTRING_MAP_ENTRY__KEY = 0;
 
    /**
-    * The feature id for the '<em><b>Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Value</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -154,7 +166,8 @@ public interface CommonModelPackage extends EPackage
    int ESTRING_MAP_ENTRY__VALUE = 1;
 
    /**
-    * The number of structural features of the '<em>EString Map Entry</em>' class. <!-- begin-user-doc --> <!--
+    * The number of structural features of the '<em>EString Map Entry</em>' class.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -163,7 +176,8 @@ public interface CommonModelPackage extends EPackage
    int ESTRING_MAP_ENTRY_FEATURE_COUNT = 2;
 
    /**
-    * The meta object id for the '<em>EJava File</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '<em>EJava File</em>' data type.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see java.io.File
     * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getEJavaFile()
@@ -172,7 +186,8 @@ public interface CommonModelPackage extends EPackage
    int EJAVA_FILE = 3;
 
    /**
-    * The meta object id for the '<em>ELocale</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The meta object id for the '<em>ELocale</em>' data type.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see java.util.Locale
     * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getELocale()
@@ -193,7 +208,8 @@ public interface CommonModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc -->
+    * {@link org.sourcepit.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Annotations</em>'.
@@ -215,7 +231,8 @@ public interface CommonModelPackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '{@link org.sourcepit.b2.model.common.Annotation#getParent
-    * <em>Parent</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Parent</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
     * @see org.sourcepit.b2.model.common.Annotation#getParent()
@@ -226,7 +243,8 @@ public interface CommonModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.common.Annotation#getSource
-    * <em>Source</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Source</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Source</em>'.
     * @see org.sourcepit.b2.model.common.Annotation#getSource()
@@ -237,7 +255,8 @@ public interface CommonModelPackage extends EPackage
 
    /**
     * Returns the meta object for the map '{@link org.sourcepit.b2.model.common.Annotation#getEntries <em>Entries</em>}
-    * '. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * '.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the map '<em>Entries</em>'.
     * @see org.sourcepit.b2.model.common.Annotation#getEntries()
@@ -247,18 +266,21 @@ public interface CommonModelPackage extends EPackage
    EReference getAnnotation_Entries();
 
    /**
-    * Returns the meta object for class '{@link java.util.Map.Entry <em>EString Map Entry</em>}'. <!-- begin-user-doc
+    * Returns the meta object for class '{@link java.util.Map.Entry <em>EString Map Entry</em>}'.
+    * <!-- begin-user-doc
     * --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>EString Map Entry</em>'.
     * @see java.util.Map.Entry
-    * @model keyDataType="org.eclipse.emf.ecore.EString" valueDataType="org.eclipse.emf.ecore.EString"
+    * @model keyDataType="org.eclipse.emf.ecore.EString"
+    *        valueDataType="org.eclipse.emf.ecore.EString"
     * @generated
     */
    EClass getEStringMapEntry();
 
    /**
-    * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'. <!-- begin-user-doc --> <!--
+    * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Key</em>}'.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Key</em>'.
@@ -269,7 +291,8 @@ public interface CommonModelPackage extends EPackage
    EAttribute getEStringMapEntry_Key();
 
    /**
-    * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'. <!-- begin-user-doc -->
+    * Returns the meta object for the attribute '{@link java.util.Map.Entry <em>Value</em>}'.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Value</em>'.
@@ -280,7 +303,8 @@ public interface CommonModelPackage extends EPackage
    EAttribute getEStringMapEntry_Value();
 
    /**
-    * Returns the meta object for data type '{@link java.io.File <em>EJava File</em>}'. <!-- begin-user-doc --> <!--
+    * Returns the meta object for data type '{@link java.io.File <em>EJava File</em>}'.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @return the meta object for data type '<em>EJava File</em>'.
@@ -291,7 +315,8 @@ public interface CommonModelPackage extends EPackage
    EDataType getEJavaFile();
 
    /**
-    * Returns the meta object for data type '{@link java.util.Locale <em>ELocale</em>}'. <!-- begin-user-doc --> <!--
+    * Returns the meta object for data type '{@link java.util.Locale <em>ELocale</em>}'.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @return the meta object for data type '<em>ELocale</em>'.
@@ -302,7 +327,8 @@ public interface CommonModelPackage extends EPackage
    EDataType getELocale();
 
    /**
-    * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the factory that creates the instances of the model.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the factory that creates the instances of the model.
     * @generated
@@ -343,7 +369,8 @@ public interface CommonModelPackage extends EPackage
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.common.internal.impl.AnnotationImpl
-       * <em>Annotation</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * <em>Annotation</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.common.internal.impl.AnnotationImpl
        * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getAnnotation()
@@ -352,7 +379,8 @@ public interface CommonModelPackage extends EPackage
       EClass ANNOTATION = eINSTANCE.getAnnotation();
 
       /**
-       * The meta object literal for the '<em><b>Parent</b></em>' container reference feature. <!-- begin-user-doc -->
+       * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
+       * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
        * 
        * @generated
@@ -360,7 +388,8 @@ public interface CommonModelPackage extends EPackage
       EReference ANNOTATION__PARENT = eINSTANCE.getAnnotation_Parent();
 
       /**
-       * The meta object literal for the '<em><b>Source</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -368,7 +397,8 @@ public interface CommonModelPackage extends EPackage
       EAttribute ANNOTATION__SOURCE = eINSTANCE.getAnnotation_Source();
 
       /**
-       * The meta object literal for the '<em><b>Entries</b></em>' map feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Entries</b></em>' map feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -377,7 +407,8 @@ public interface CommonModelPackage extends EPackage
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.common.internal.impl.EStringMapEntryImpl
-       * <em>EString Map Entry</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * <em>EString Map Entry</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.common.internal.impl.EStringMapEntryImpl
        * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getEStringMapEntry()
@@ -386,7 +417,8 @@ public interface CommonModelPackage extends EPackage
       EClass ESTRING_MAP_ENTRY = eINSTANCE.getEStringMapEntry();
 
       /**
-       * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -394,7 +426,8 @@ public interface CommonModelPackage extends EPackage
       EAttribute ESTRING_MAP_ENTRY__KEY = eINSTANCE.getEStringMapEntry_Key();
 
       /**
-       * The meta object literal for the '<em><b>Value</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -402,7 +435,8 @@ public interface CommonModelPackage extends EPackage
       EAttribute ESTRING_MAP_ENTRY__VALUE = eINSTANCE.getEStringMapEntry_Value();
 
       /**
-       * The meta object literal for the '<em>EJava File</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '<em>EJava File</em>' data type.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see java.io.File
        * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getEJavaFile()
@@ -411,7 +445,8 @@ public interface CommonModelPackage extends EPackage
       EDataType EJAVA_FILE = eINSTANCE.getEJavaFile();
 
       /**
-       * The meta object literal for the '<em>ELocale</em>' data type. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * The meta object literal for the '<em>ELocale</em>' data type.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see java.util.Locale
        * @see org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl#getELocale()

@@ -11,6 +11,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -46,6 +47,15 @@ public class EWalkerImplTest extends TestCase
             modules.add((CompositeModule) eObject);
             return true;
          }
+
+         protected EList<? extends EObject> getChildren(EObject eObject)
+         {
+            if (eObject instanceof CompositeModule)
+            {
+               return ((CompositeModule) eObject).getModules();
+            }
+            return super.getChildren(eObject);
+         };
       }.walk(module);
 
       assertEquals(module_2_1.getId(), modules.get(0).getId());
@@ -84,6 +94,15 @@ public class EWalkerImplTest extends TestCase
             modules.add((CompositeModule) eObject);
             return true;
          }
+
+         protected EList<? extends EObject> getChildren(EObject eObject)
+         {
+            if (eObject instanceof CompositeModule)
+            {
+               return ((CompositeModule) eObject).getModules();
+            }
+            return super.getChildren(eObject);
+         };
       }.walk(module);
 
       assertEquals(module.getId(), modules.get(0).getId());
@@ -122,6 +141,15 @@ public class EWalkerImplTest extends TestCase
             modules.add((CompositeModule) eObject);
             return !"module_1".equals(((CompositeModule) eObject).getId());
          }
+
+         protected EList<? extends EObject> getChildren(EObject eObject)
+         {
+            if (eObject instanceof CompositeModule)
+            {
+               return ((CompositeModule) eObject).getModules();
+            }
+            return super.getChildren(eObject);
+         };
       }.walk(module);
 
       assertEquals(module.getId(), modules.get(0).getId());

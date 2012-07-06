@@ -27,7 +27,8 @@ import org.sourcepit.b2.model.module.util.Identifier;
 public interface Identifiable extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Id</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Id</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
@@ -52,7 +53,8 @@ public interface Identifiable extends EObject
    void setId(String value);
 
    /**
-    * Returns the value of the '<em><b>Version</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Version</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Version</em>' attribute isn't clear, there really should be more of a description
     * here...

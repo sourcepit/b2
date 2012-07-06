@@ -26,9 +26,11 @@ import org.eclipse.emf.ecore.EObject;
 public interface Annotatable extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Annotations</b></em>' containment reference list. The list contents are of type
-    * {@link org.sourcepit.b2.model.common.Annotation}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.common.Annotation#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.common.Annotation}.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.common.Annotation#getParent
+    * <em>Parent</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Annotations</em>' containment reference list isn't clear, there really should be more
     * of a description here...

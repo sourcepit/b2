@@ -49,7 +49,8 @@ public class B2SessionImpl extends EObjectImpl implements B2Session
    protected EList<Annotation> annotations;
 
    /**
-    * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list. <!-- begin-user-doc
+    * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list.
+    * <!-- begin-user-doc
     * --> <!-- end-user-doc -->
     * 
     * @see #getProjects()
@@ -59,7 +60,8 @@ public class B2SessionImpl extends EObjectImpl implements B2Session
    protected EList<ModuleProject> projects;
 
    /**
-    * The cached value of the '{@link #getCurrentProject() <em>Current Project</em>}' reference. <!-- begin-user-doc -->
+    * The cached value of the '{@link #getCurrentProject() <em>Current Project</em>}' reference.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @see #getCurrentProject()

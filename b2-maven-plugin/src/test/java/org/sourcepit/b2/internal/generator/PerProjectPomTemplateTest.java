@@ -72,8 +72,9 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
       {
          mavenSession.setCurrentProject(project);
 
-         final BootstrapSession bootSession = new BootstrapSession(projects, Collections.<File> emptyList());
-         bootSession.setCurrentProject(project);
+         final BootstrapSession bootSession = new BootstrapSession(mavenSession, projects,
+            Collections.<File> emptyList());
+         bootSession.setCurrentBootstrapProject(project);
 
          b2SessionInitializer.initialize(bootSession, properties);
 

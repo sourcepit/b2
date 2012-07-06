@@ -43,7 +43,8 @@ import org.sourcepit.b2.model.module.util.Identifier;
 public abstract class ProjectImpl extends FileContainerImpl implements Project
 {
    /**
-    * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isDerived()
@@ -53,7 +54,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    protected static final boolean DERIVED_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isDerived()
@@ -73,7 +75,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    protected EList<Annotation> annotations;
 
    /**
-    * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -82,7 +85,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    protected static final String ID_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -91,7 +95,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    protected String id = ID_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getVersion()
@@ -101,7 +106,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    protected static final String VERSION_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getVersion()

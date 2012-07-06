@@ -29,14 +29,16 @@ import org.sourcepit.b2.model.session.SessionModelPackage;
 public class SessionModelSwitch<T> extends Switch<T>
 {
    /**
-    * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The cached model package
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    protected static SessionModelPackage modelPackage;
 
    /**
-    * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates an instance of the switch.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -49,7 +51,8 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Checks whether this is a switch for the given package.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @parameter ePackage the package in question.
     * @return whether this is a switch for the given package.
@@ -123,7 +126,8 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>B2 Session</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>B2 Session</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -137,7 +141,8 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Module Project</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Module Project</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -151,7 +156,8 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Module Dependency</em>'. <!-- begin-user-doc
+    * Returns the result of interpreting the object as an instance of '<em>Module Dependency</em>'.
+    * <!-- begin-user-doc
     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -165,7 +171,8 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Module Attachment</em>'. <!-- begin-user-doc
+    * Returns the result of interpreting the object as an instance of '<em>Module Attachment</em>'.
+    * <!-- begin-user-doc
     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -179,7 +186,8 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Environment</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Environment</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -193,7 +201,8 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Annotatable</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Annotatable</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -207,7 +216,8 @@ public class SessionModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>EObject</em>'. <!-- begin-user-doc --> This
+    * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+    * <!-- begin-user-doc --> This
     * implementation returns null; returning a non-null result will terminate the switch, but this is the last case
     * anyway. <!-- end-user-doc -->
     * 

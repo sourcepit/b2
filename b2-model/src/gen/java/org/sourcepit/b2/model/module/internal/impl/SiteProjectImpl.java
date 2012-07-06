@@ -39,7 +39,8 @@ import org.sourcepit.b2.model.module.SitesFacet;
 public class SiteProjectImpl extends ProjectImpl implements SiteProject
 {
    /**
-    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getClassifier()
@@ -49,7 +50,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    protected static final String CLASSIFIER_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getClassifier()

@@ -17,6 +17,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.sourcepit.maven.bootstrap.core.AbstractBootstrapper;
+import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 import org.sourcepit.maven.exec.intercept.MavenExecutionParticipant;
 
 @Component(role = MavenExecutionParticipant.class)
@@ -24,7 +25,7 @@ public class B2Bootstrapper extends AbstractBootstrapper
 {
    @Requirement
    private ModuleDescriptorProcessor descriptorProcessor;
-   
+
    public B2Bootstrapper()
    {
       super("org.sourcepit.b2", "b2-maven-plugin");
@@ -37,21 +38,23 @@ public class B2Bootstrapper extends AbstractBootstrapper
    }
 
    @Override
-   protected void beforeBootstrapProjects(MavenSession bootSession, List<MavenProject> bootProjects)
-      throws MavenExecutionException
+   protected void beforeBootstrapProjects(BootstrapSession bootstrapSession) throws MavenExecutionException
    {
       // empty
    }
 
-   protected void afterWrapperProjectsInitialized(MavenSession bootSession, List<MavenProject> bootProjects)
+   protected void afterWrapperProjectsInitialized(BootstrapSession bootstrapSession)
    {
+      final List<MavenProject> bootProjects = bootstrapSession.getBootstrapProjects();
       if (!bootProjects.isEmpty())
       {
          final MavenProject mainProject = bootProjects.get(bootProjects.size() - 1);
          final File pom = (File) mainProject.getContextValue("pom");
          if (pom != null)
          {
-            final MavenExecutionRequest request = bootSession.getRequest();
+            final MavenSession mavenSession = bootstrapSession.getMavenSession();
+            
+            final MavenExecutionRequest request = mavenSession.getRequest();
             request.setPom(pom);
          }
       }

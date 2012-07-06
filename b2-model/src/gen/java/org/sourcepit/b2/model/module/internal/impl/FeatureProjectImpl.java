@@ -44,7 +44,8 @@ import org.sourcepit.b2.model.module.PluginInclude;
 public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
 {
    /**
-    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getClassifier()
@@ -54,7 +55,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    protected static final String CLASSIFIER_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getClassifier()

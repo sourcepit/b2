@@ -31,7 +31,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface ModuleAttachment extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Classifier</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Classifier</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Classifier</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -48,7 +49,8 @@ public interface ModuleAttachment extends EObject
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleAttachment#getClassifier <em>Classifier</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Classifier</em>' attribute.
     * @see #getClassifier()
@@ -57,7 +59,8 @@ public interface ModuleAttachment extends EObject
    void setClassifier(String value);
 
    /**
-    * Returns the value of the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Type</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Type</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
@@ -82,7 +85,8 @@ public interface ModuleAttachment extends EObject
    void setType(String value);
 
    /**
-    * Returns the value of the '<em><b>File</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>File</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>File</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
@@ -107,8 +111,10 @@ public interface ModuleAttachment extends EObject
    void setFile(File value);
 
    /**
-    * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.session.ModuleProject#getAttachments <em>Attachments</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Parent</b></em>' container reference.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.session.ModuleProject#getAttachments
+    * <em>Attachments</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -126,7 +132,8 @@ public interface ModuleAttachment extends EObject
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleAttachment#getParent <em>Parent</em>}'
-    * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * container reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()

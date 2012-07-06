@@ -17,14 +17,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.common.CommonModelPackage;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.Project;
@@ -63,7 +61,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected EList<Annotation> annotations;
 
    /**
-    * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -72,7 +71,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected static final String ID_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -81,7 +81,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected String id = ID_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getVersion()
@@ -91,7 +92,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected static final String VERSION_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getVersion()
@@ -101,7 +103,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected String version = VERSION_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getLayoutId() <em>Layout Id</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getLayoutId() <em>Layout Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getLayoutId()
@@ -111,7 +114,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected static final String LAYOUT_ID_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getLayoutId() <em>Layout Id</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getLayoutId() <em>Layout Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getLayoutId()
@@ -121,7 +125,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected String layoutId = LAYOUT_ID_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getLocales() <em>Locales</em>}' attribute list. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getLocales() <em>Locales</em>}' attribute list.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getLocales()
@@ -131,7 +136,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected EList<Locale> locales;
 
    /**
-    * The cached value of the '{@link #getFacets() <em>Facets</em>}' containment reference list. <!-- begin-user-doc -->
+    * The cached value of the '{@link #getFacets() <em>Facets</em>}' containment reference list.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @see #getFacets()
@@ -221,68 +227,6 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       if (eNotificationRequired())
          eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_MODULE__VERSION, oldVersion,
             version));
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public CompositeModule getParent()
-   {
-      if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_MODULE__PARENT)
-         return null;
-      return (CompositeModule) eContainer();
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public CompositeModule basicGetParent()
-   {
-      if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_MODULE__PARENT)
-         return null;
-      return (CompositeModule) eInternalContainer();
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public NotificationChain basicSetParent(CompositeModule newParent, NotificationChain msgs)
-   {
-      msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.ABSTRACT_MODULE__PARENT, msgs);
-      return msgs;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public void setParent(CompositeModule newParent)
-   {
-      if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_MODULE__PARENT && newParent != null))
-      {
-         if (EcoreUtil.isAncestor(this, newParent))
-            throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-         NotificationChain msgs = null;
-         if (eInternalContainer() != null)
-            msgs = eBasicRemoveFromContainer(msgs);
-         if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModuleModelPackage.COMPOSITE_MODULE__MODULES,
-               CompositeModule.class, msgs);
-         msgs = basicSetParent(newParent, msgs);
-         if (msgs != null)
-            msgs.dispatch();
-      }
-      else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_MODULE__PARENT, newParent,
-            newParent));
    }
 
    /**
@@ -459,10 +403,6 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
-         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            if (eInternalContainer() != null)
-               msgs = eBasicRemoveFromContainer(msgs);
-            return basicSetParent((CompositeModule) otherEnd, msgs);
          case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getFacets()).basicAdd(otherEnd, msgs);
       }
@@ -481,29 +421,10 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
-         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            return basicSetParent(null, msgs);
          case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
             return ((InternalEList<?>) getFacets()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs)
-   {
-      switch (eContainerFeatureID())
-      {
-         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.COMPOSITE_MODULE__MODULES,
-               CompositeModule.class, msgs);
-      }
-      return super.eBasicRemoveFromContainerFeature(msgs);
    }
 
    /**
@@ -522,10 +443,6 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
             return getId();
          case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             return getVersion();
-         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            if (resolve)
-               return getParent();
-            return basicGetParent();
          case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             return getLayoutId();
          case ModuleModelPackage.ABSTRACT_MODULE__LOCALES :
@@ -556,9 +473,6 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
             return;
          case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             setVersion((String) newValue);
-            return;
-         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            setParent((CompositeModule) newValue);
             return;
          case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             setLayoutId((String) newValue);
@@ -594,9 +508,6 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
          case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             setVersion(VERSION_EDEFAULT);
             return;
-         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            setParent((CompositeModule) null);
-            return;
          case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             setLayoutId(LAYOUT_ID_EDEFAULT);
             return;
@@ -626,8 +537,6 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
          case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
             return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-         case ModuleModelPackage.ABSTRACT_MODULE__PARENT :
-            return basicGetParent() != null;
          case ModuleModelPackage.ABSTRACT_MODULE__LAYOUT_ID :
             return LAYOUT_ID_EDEFAULT == null ? layoutId != null : !LAYOUT_ID_EDEFAULT.equals(layoutId);
          case ModuleModelPackage.ABSTRACT_MODULE__LOCALES :

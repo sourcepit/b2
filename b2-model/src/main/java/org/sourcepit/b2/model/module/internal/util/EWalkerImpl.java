@@ -59,7 +59,7 @@ public abstract class EWalkerImpl
 
       if (isRecursive)
       {
-         final EList<EObject> eContents = eObject.eContents();
+         final EList<? extends EObject> eContents = getChildren(eObject);
          final int size = eContents.size();
          for (int i = 0; i < size; i++)
          {
@@ -75,6 +75,11 @@ public abstract class EWalkerImpl
             return;
          }
       }
+   }
+
+   protected EList<? extends EObject> getChildren(EObject eObject)
+   {
+      return eObject.eContents();
    }
 
    protected abstract boolean visit(EObject eObject);

@@ -83,8 +83,6 @@
           </eGenericType>
         </eParameters>
       </eOperations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/CompositeModule"
-          eOpposite="#//module/CompositeModule/modules"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutId" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="locales" upperBound="-1"
@@ -101,7 +99,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="CompositeModule" eSuperTypes="#//module/AbstractModule">
       <eStructuralFeatures xsi:type="ecore:EReference" name="modules" upperBound="-1"
-          eType="#//module/AbstractModule" containment="true" eOpposite="#//module/AbstractModule/parent"/>
+          eType="#//module/AbstractModule"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="PluginsFacet">
       <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
@@ -261,7 +259,8 @@
           eType="#//common/EJavaFile"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="dependencies" upperBound="-1"
           eType="#//session/ModuleDependency" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="moduleModel" eType="#//module/AbstractModule"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="moduleModel" eType="#//module/AbstractModule"
+          containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="attachments" upperBound="-1"
           eType="#//session/ModuleAttachment" containment="true" eOpposite="#//session/ModuleAttachment/parent"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="environements" upperBound="-1"

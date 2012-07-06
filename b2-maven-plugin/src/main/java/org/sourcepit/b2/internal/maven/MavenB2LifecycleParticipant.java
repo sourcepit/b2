@@ -23,9 +23,11 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.sourcepit.b2.execution.AbstractB2SessionLifecycleParticipant;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
@@ -79,24 +81,38 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       }
 
       final BootstrapSession bootSession = bootSessionsService.getBootstrapSession();
-      final MavenProject bootProject = bootSession.getCurrentProject();
+      final MavenProject bootProject = bootSession.getCurrentBootstrapProject();
 
       // HACK
       final DecouplingModelCache modelCache = (DecouplingModelCache) request.getModelCache();
 
       final ResourceSet resourceSet = modelCache.getResourceSet();
+      
+      if (session.eResource() != null)
+      {
+         resourceSet.getResources().remove(session.eResource());
+         session.eResource().getContents().clear();
+      }
 
       for (String classifier : classifiers)
       {
-         AbstractModule classifiedModule = module;
-         if (classifiedModule.eResource() != null)
-         {
-            classifiedModule = EcoreUtil.copy(classifiedModule);
-         }
-
          final URI moduleUri = MavenURIResolver.toArtifactIdentifier(bootProject, classifier, "module").toUri();
-         resourceSet.createResource(moduleUri).getContents().add(classifiedModule);
-         modelCache.put(classifiedModule);
+
+         Resource moduleResource = module.eResource();
+         if (moduleResource == null)
+         {
+            moduleResource = resourceSet.createResource(moduleUri);
+            moduleResource.getContents().add(module);
+            modelCache.put(module);
+         }
+         else if (!moduleUri.equals(moduleResource.getURI()))
+         {
+            AbstractModule copy = EcoreUtil.copy(module);
+
+            moduleResource = resourceSet.createResource(moduleUri);
+            moduleResource.getContents().add(copy);
+            modelCache.put(copy);
+         }
       }
 
       final File pomFile = new File(module.getAnnotationEntry(AbstractPomGenerator.SOURCE_MAVEN,
@@ -126,6 +142,17 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       bootSession.setData(CACHE_KEY_SESSION, uri.toString());
 
       storeModelCache(bootSession, modelCache);
+   }
+
+   public static <T extends EObject> T copy(T eObject)
+   {
+      Copier copier = new Copier();
+      EObject result = copier.copy(eObject);
+      copier.copyReferences();
+
+      @SuppressWarnings("unchecked")
+      T t = (T) result;
+      return t;
    }
 
    private void storeModelCache(BootstrapSession session, final DecouplingModelCache modelCache)

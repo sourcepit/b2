@@ -32,7 +32,8 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements PluginsFacet
 {
    /**
-    * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list. <!-- begin-user-doc
+    * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list.
+    * <!-- begin-user-doc
     * --> <!-- end-user-doc -->
     * 
     * @see #getProjects()

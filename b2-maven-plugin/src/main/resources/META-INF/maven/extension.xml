@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<extension>
+	<exportedPackages>
+		<exportedPackage>org.sourcepit.b2.model.module</exportedPackage>
+		<exportedPackage>org.sourcepit.b2.model.module.util</exportedPackage>
+		<exportedPackage>org.sourcepit.b2.model.session</exportedPackage>
+		<exportedPackage>org.sourcepit.b2.model.session.util</exportedPackage>
+		<exportedPackage>org.sourcepit.b2.model.common</exportedPackage>
+		<exportedPackage>org.sourcepit.b2.model.common.util</exportedPackage>
+		<exportedPackage>org.sourcepit.b2.maven.core</exportedPackage>
+	</exportedPackages>
+
+	<exportedArtifacts>
+		<exportedArtifact>org.sourcepit.b2:b2-model</exportedArtifact>
+		<exportedArtifact>org.sourcepit.b2:b2-maven-core</exportedArtifact>
+	</exportedArtifacts>
+</extension>

@@ -46,14 +46,16 @@ import org.sourcepit.b2.model.module.SitesFacet;
 public class ModuleModelSwitch<T> extends Switch<T>
 {
    /**
-    * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The cached model package
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    protected static ModuleModelPackage modelPackage;
 
    /**
-    * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates an instance of the switch.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -66,7 +68,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Checks whether this is a switch for the given package.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @parameter ePackage the package in question.
     * @return whether this is a switch for the given package.
@@ -384,7 +387,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Abstract Module</em>'. <!-- begin-user-doc
+    * Returns the result of interpreting the object as an instance of '<em>Abstract Module</em>'.
+    * <!-- begin-user-doc
     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -398,7 +402,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Basic Module</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Basic Module</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -412,7 +417,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Abstract Facet</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Abstract Facet</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -426,7 +432,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Composite Module</em>'. <!-- begin-user-doc
+    * Returns the result of interpreting the object as an instance of '<em>Composite Module</em>'.
+    * <!-- begin-user-doc
     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -440,7 +447,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Plugins Facet</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Plugins Facet</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -454,7 +462,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Features Facet</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Features Facet</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -468,7 +477,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Sites Facet</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Sites Facet</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -482,7 +492,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Plugin Project</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Plugin Project</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -496,7 +507,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Feature Project</em>'. <!-- begin-user-doc
+    * Returns the result of interpreting the object as an instance of '<em>Feature Project</em>'.
+    * <!-- begin-user-doc
     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -510,7 +522,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Site Project</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Site Project</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -524,7 +537,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Project</em>'. <!-- begin-user-doc --> This
+    * Returns the result of interpreting the object as an instance of '<em>Project</em>'.
+    * <!-- begin-user-doc --> This
     * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -538,7 +552,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Project Facet</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Project Facet</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -552,7 +567,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>File Container</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>File Container</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -566,7 +582,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Derivable</em>'. <!-- begin-user-doc --> This
+    * Returns the result of interpreting the object as an instance of '<em>Derivable</em>'.
+    * <!-- begin-user-doc --> This
     * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -580,7 +597,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Plugin Include</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Plugin Include</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -594,7 +612,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Category</em>'. <!-- begin-user-doc --> This
+    * Returns the result of interpreting the object as an instance of '<em>Category</em>'.
+    * <!-- begin-user-doc --> This
     * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -608,7 +627,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Feature Include</em>'. <!-- begin-user-doc
+    * Returns the result of interpreting the object as an instance of '<em>Feature Include</em>'.
+    * <!-- begin-user-doc
     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -622,7 +642,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Classified</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Classified</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -636,7 +657,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Identifiable</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Identifiable</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -650,7 +672,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Products Facet</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Products Facet</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -664,7 +687,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Product Definition</em>'. <!-- begin-user-doc
+    * Returns the result of interpreting the object as an instance of '<em>Product Definition</em>'.
+    * <!-- begin-user-doc
     * --> This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -678,7 +702,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Reference</em>'. <!-- begin-user-doc --> This
+    * Returns the result of interpreting the object as an instance of '<em>Reference</em>'.
+    * <!-- begin-user-doc --> This
     * implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -692,7 +717,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Annotatable</em>'. <!-- begin-user-doc -->
+    * Returns the result of interpreting the object as an instance of '<em>Annotatable</em>'.
+    * <!-- begin-user-doc -->
     * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
@@ -706,7 +732,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>EObject</em>'. <!-- begin-user-doc --> This
+    * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+    * <!-- begin-user-doc --> This
     * implementation returns null; returning a non-null result will terminate the switch, but this is the last case
     * anyway. <!-- end-user-doc -->
     * 

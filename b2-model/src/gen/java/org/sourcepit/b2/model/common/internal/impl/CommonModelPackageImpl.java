@@ -273,8 +273,9 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    private boolean isCreated = false;
 
    /**
-    * Creates the meta-model objects for the package. This method is guarded to have no affect on any invocation but its
-    * first. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates the meta-model objects for the package. This method is
+    * guarded to have no affect on any invocation but its first.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -310,8 +311,9 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    private boolean isInitialized = false;
 
    /**
-    * Complete the initialization of the package and its meta-model. This method is guarded to have no affect on any
-    * invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Complete the initialization of the package and its meta-model. This
+    * method is guarded to have no affect on any invocation but its first.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */

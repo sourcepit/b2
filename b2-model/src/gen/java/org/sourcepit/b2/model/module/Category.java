@@ -27,8 +27,9 @@ import org.eclipse.emf.ecore.EObject;
 public interface Category extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Feature References</b></em>' containment reference list. The list contents are of
-    * type {@link org.sourcepit.b2.model.module.Reference}. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Feature References</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.Reference}.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Feature References</em>' containment reference list isn't clear, there really should be
     * more of a description here...
@@ -43,7 +44,8 @@ public interface Category extends EObject
    EList<Reference> getFeatureReferences();
 
    /**
-    * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Name</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a description here...
     * </p>

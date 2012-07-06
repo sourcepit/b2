@@ -28,7 +28,8 @@ import org.sourcepit.b2.model.common.CommonModelPackage;
 public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelFactory
 {
    /**
-    * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates the default factory implementation.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -37,7 +38,7 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
       try
       {
          CommonModelFactory theCommonModelFactory = (CommonModelFactory) EPackage.Registry.INSTANCE
-            .getEFactory(CommonModelPackage.eNS_URI);
+            .getEFactory("http://www.sourcepit.org/b2/model/0.1/common");
          if (theCommonModelFactory != null)
          {
             return theCommonModelFactory;
@@ -51,7 +52,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates an instance of the factory.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */

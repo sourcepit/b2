@@ -31,7 +31,8 @@ import org.sourcepit.b2.model.module.PluginInclude;
 public class PluginIncludeImpl extends ReferenceImpl implements PluginInclude
 {
    /**
-    * The default value of the '{@link #isUnpack() <em>Unpack</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #isUnpack() <em>Unpack</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isUnpack()

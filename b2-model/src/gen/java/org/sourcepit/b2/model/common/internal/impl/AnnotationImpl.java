@@ -37,7 +37,8 @@ import org.sourcepit.b2.model.common.CommonModelPackage;
 public class AnnotationImpl extends EObjectImpl implements Annotation
 {
    /**
-    * The default value of the '{@link #getSource() <em>Source</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getSource()
@@ -47,7 +48,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    protected static final String SOURCE_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getSource() <em>Source</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getSource()

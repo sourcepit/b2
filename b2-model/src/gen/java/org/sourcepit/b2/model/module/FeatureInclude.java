@@ -44,7 +44,8 @@ public interface FeatureInclude extends Reference
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.FeatureInclude#getParent <em>Parent</em>}' container
-    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()

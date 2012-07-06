@@ -29,7 +29,8 @@ import org.sourcepit.b2.model.session.SessionModelPackage;
 public class EnvironmentImpl extends EObjectImpl implements Environment
 {
    /**
-    * The default value of the '{@link #getOs() <em>Os</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The default value of the '{@link #getOs() <em>Os</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getOs()
     * @generated
@@ -38,7 +39,8 @@ public class EnvironmentImpl extends EObjectImpl implements Environment
    protected static final String OS_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getOs() <em>Os</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getOs() <em>Os</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getOs()
     * @generated
@@ -47,7 +49,8 @@ public class EnvironmentImpl extends EObjectImpl implements Environment
    protected String os = OS_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getWs() <em>Ws</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The default value of the '{@link #getWs() <em>Ws</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getWs()
     * @generated
@@ -56,7 +59,8 @@ public class EnvironmentImpl extends EObjectImpl implements Environment
    protected static final String WS_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getWs() <em>Ws</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getWs() <em>Ws</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getWs()
     * @generated

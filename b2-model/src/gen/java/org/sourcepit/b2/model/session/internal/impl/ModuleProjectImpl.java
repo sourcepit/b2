@@ -63,7 +63,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected EList<Annotation> annotations;
 
    /**
-    * The default value of the '{@link #getGroupId() <em>Group Id</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getGroupId() <em>Group Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getGroupId()
@@ -73,7 +74,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected static final String GROUP_ID_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getGroupId() <em>Group Id</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getGroupId() <em>Group Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getGroupId()
@@ -83,7 +85,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected String groupId = GROUP_ID_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getArtifactId() <em>Artifact Id</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getArtifactId() <em>Artifact Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getArtifactId()
@@ -93,7 +96,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected static final String ARTIFACT_ID_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getArtifactId() <em>Artifact Id</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getArtifactId() <em>Artifact Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getArtifactId()
@@ -103,7 +107,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected String artifactId = ARTIFACT_ID_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getVersion()
@@ -113,7 +118,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected static final String VERSION_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getVersion()
@@ -123,7 +129,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected String version = VERSION_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getDirectory() <em>Directory</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getDirectory()
@@ -133,7 +140,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected static final File DIRECTORY_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getDirectory() <em>Directory</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getDirectory()
@@ -153,7 +161,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    protected EList<ModuleDependency> dependencies;
 
    /**
-    * The cached value of the '{@link #getModuleModel() <em>Module Model</em>}' reference. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getModuleModel() <em>Module Model</em>}' containment reference.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getModuleModel()
@@ -404,6 +413,16 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
          moduleModel = (AbstractModule) eResolveProxy(oldModuleModel);
          if (moduleModel != oldModuleModel)
          {
+            InternalEObject newModuleModel = (InternalEObject) moduleModel;
+            NotificationChain msgs = oldModuleModel.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+               - SessionModelPackage.MODULE_PROJECT__MODULE_MODEL, null, null);
+            if (newModuleModel.eInternalContainer() == null)
+            {
+               msgs = newModuleModel.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                  - SessionModelPackage.MODULE_PROJECT__MODULE_MODEL, null, msgs);
+            }
+            if (msgs != null)
+               msgs.dispatch();
             if (eNotificationRequired())
                eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                   SessionModelPackage.MODULE_PROJECT__MODULE_MODEL, oldModuleModel, moduleModel));
@@ -423,17 +442,50 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
    }
 
    /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public NotificationChain basicSetModuleModel(AbstractModule newModuleModel, NotificationChain msgs)
+   {
+      AbstractModule oldModuleModel = moduleModel;
+      moduleModel = newModuleModel;
+      if (eNotificationRequired())
+      {
+         ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+            SessionModelPackage.MODULE_PROJECT__MODULE_MODEL, oldModuleModel, newModuleModel);
+         if (msgs == null)
+            msgs = notification;
+         else
+            msgs.add(notification);
+      }
+      return msgs;
+   }
+
+   /**
     * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    public void setModuleModel(AbstractModule newModuleModel)
    {
-      AbstractModule oldModuleModel = moduleModel;
-      moduleModel = newModuleModel;
-      if (eNotificationRequired())
+      if (newModuleModel != moduleModel)
+      {
+         NotificationChain msgs = null;
+         if (moduleModel != null)
+            msgs = ((InternalEObject) moduleModel).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+               - SessionModelPackage.MODULE_PROJECT__MODULE_MODEL, null, msgs);
+         if (newModuleModel != null)
+            msgs = ((InternalEObject) newModuleModel).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+               - SessionModelPackage.MODULE_PROJECT__MODULE_MODEL, null, msgs);
+         msgs = basicSetModuleModel(newModuleModel, msgs);
+         if (msgs != null)
+            msgs.dispatch();
+      }
+      else if (eNotificationRequired())
          eNotify(new ENotificationImpl(this, Notification.SET, SessionModelPackage.MODULE_PROJECT__MODULE_MODEL,
-            oldModuleModel, moduleModel));
+            newModuleModel, newModuleModel));
    }
 
    /**
@@ -541,6 +593,8 @@ public class ModuleProjectImpl extends EObjectImpl implements ModuleProject
             return basicSetSession(null, msgs);
          case SessionModelPackage.MODULE_PROJECT__DEPENDENCIES :
             return ((InternalEList<?>) getDependencies()).basicRemove(otherEnd, msgs);
+         case SessionModelPackage.MODULE_PROJECT__MODULE_MODEL :
+            return basicSetModuleModel(null, msgs);
          case SessionModelPackage.MODULE_PROJECT__ATTACHMENTS :
             return ((InternalEList<?>) getAttachments()).basicRemove(otherEnd, msgs);
          case SessionModelPackage.MODULE_PROJECT__ENVIRONEMENTS :

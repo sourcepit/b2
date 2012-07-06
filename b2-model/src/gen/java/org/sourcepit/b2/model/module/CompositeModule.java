@@ -26,19 +26,18 @@ import org.eclipse.emf.common.util.EList;
 public interface CompositeModule extends AbstractModule
 {
    /**
-    * Returns the value of the '<em><b>Modules</b></em>' containment reference list. The list contents are of type
-    * {@link org.sourcepit.b2.model.module.AbstractModule}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.AbstractModule#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Modules</b></em>' reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.AbstractModule}.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Modules</em>' containment reference list isn't clear, there really should be more of a
     * description here...
     * </p>
     * <!-- end-user-doc -->
     * 
-    * @return the value of the '<em>Modules</em>' containment reference list.
+    * @return the value of the '<em>Modules</em>' reference list.
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getCompositeModule_Modules()
-    * @see org.sourcepit.b2.model.module.AbstractModule#getParent
-    * @model opposite="parent" containment="true" resolveProxies="true"
+    * @model
     * @generated
     */
    EList<AbstractModule> getModules();

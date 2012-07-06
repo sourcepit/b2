@@ -37,7 +37,8 @@ import org.sourcepit.b2.model.module.AbstractModule;
 public interface ModuleProject extends Annotatable
 {
    /**
-    * Returns the value of the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Group Id</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Group Id</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -54,7 +55,8 @@ public interface ModuleProject extends Annotatable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getGroupId <em>Group Id</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Group Id</em>' attribute.
     * @see #getGroupId()
@@ -63,8 +65,10 @@ public interface ModuleProject extends Annotatable
    void setGroupId(String value);
 
    /**
-    * Returns the value of the '<em><b>Session</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.session.B2Session#getProjects <em>Projects</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Session</b></em>' container reference.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.session.B2Session#getProjects
+    * <em>Projects</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Session</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -82,7 +86,8 @@ public interface ModuleProject extends Annotatable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getSession <em>Session</em>}' container
-    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Session</em>' container reference.
     * @see #getSession()
@@ -91,7 +96,8 @@ public interface ModuleProject extends Annotatable
    void setSession(B2Session value);
 
    /**
-    * Returns the value of the '<em><b>Artifact Id</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Artifact Id</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Artifact Id</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -108,7 +114,8 @@ public interface ModuleProject extends Annotatable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getArtifactId <em>Artifact Id</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Artifact Id</em>' attribute.
     * @see #getArtifactId()
@@ -117,7 +124,8 @@ public interface ModuleProject extends Annotatable
    void setArtifactId(String value);
 
    /**
-    * Returns the value of the '<em><b>Version</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Version</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Version</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -134,7 +142,8 @@ public interface ModuleProject extends Annotatable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getVersion <em>Version</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Version</em>' attribute.
     * @see #getVersion()
@@ -143,7 +152,8 @@ public interface ModuleProject extends Annotatable
    void setVersion(String value);
 
    /**
-    * Returns the value of the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Directory</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Directory</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -160,7 +170,8 @@ public interface ModuleProject extends Annotatable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getDirectory <em>Directory</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Directory</em>' attribute.
     * @see #getDirectory()
@@ -169,8 +180,9 @@ public interface ModuleProject extends Annotatable
    void setDirectory(File value);
 
    /**
-    * Returns the value of the '<em><b>Dependencies</b></em>' containment reference list. The list contents are of type
-    * {@link org.sourcepit.b2.model.session.ModuleDependency}. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Dependencies</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.session.ModuleDependency}.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Dependencies</em>' containment reference list isn't clear, there really should be more
     * of a description here...
@@ -185,35 +197,39 @@ public interface ModuleProject extends Annotatable
    EList<ModuleDependency> getDependencies();
 
    /**
-    * Returns the value of the '<em><b>Module Model</b></em>' reference. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Module Model</b></em>' containment reference.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Module Model</em>' reference isn't clear, there really should be more of a description
     * here...
     * </p>
     * <!-- end-user-doc -->
     * 
-    * @return the value of the '<em>Module Model</em>' reference.
+    * @return the value of the '<em>Module Model</em>' containment reference.
     * @see #setModuleModel(AbstractModule)
     * @see org.sourcepit.b2.model.session.SessionModelPackage#getModuleProject_ModuleModel()
-    * @model
+    * @model containment="true" resolveProxies="true"
     * @generated
     */
    AbstractModule getModuleModel();
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.ModuleProject#getModuleModel <em>Module Model</em>}'
-    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * containment reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @param value the new value of the '<em>Module Model</em>' reference.
+    * @param value the new value of the '<em>Module Model</em>' containment reference.
     * @see #getModuleModel()
     * @generated
     */
    void setModuleModel(AbstractModule value);
 
    /**
-    * Returns the value of the '<em><b>Attachments</b></em>' containment reference list. The list contents are of type
-    * {@link org.sourcepit.b2.model.session.ModuleAttachment}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.session.ModuleAttachment#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Attachments</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.session.ModuleAttachment}.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.session.ModuleAttachment#getParent
+    * <em>Parent</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Attachments</em>' containment reference list isn't clear, there really should be more
     * of a description here...
@@ -229,8 +245,9 @@ public interface ModuleProject extends Annotatable
    EList<ModuleAttachment> getAttachments();
 
    /**
-    * Returns the value of the '<em><b>Environements</b></em>' containment reference list. The list contents are of type
-    * {@link org.sourcepit.b2.model.session.Environment}. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Environements</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.session.Environment}.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Environements</em>' containment reference list isn't clear, there really should be more
     * of a description here...

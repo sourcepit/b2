@@ -29,7 +29,8 @@ import org.sourcepit.b2.model.module.util.Identifier;
 public class ReferenceImpl extends EObjectImpl implements Reference
 {
    /**
-    * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -38,7 +39,8 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    protected static final String ID_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -47,7 +49,8 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    protected String id = ID_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getVersionRange() <em>Version Range</em>}' attribute. <!-- begin-user-doc -->
+    * The default value of the '{@link #getVersionRange() <em>Version Range</em>}' attribute.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @see #getVersionRange()
@@ -57,7 +60,8 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    protected static final String VERSION_RANGE_EDEFAULT = "0.0.0";
 
    /**
-    * The cached value of the '{@link #getVersionRange() <em>Version Range</em>}' attribute. <!-- begin-user-doc -->
+    * The cached value of the '{@link #getVersionRange() <em>Version Range</em>}' attribute.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @see #getVersionRange()

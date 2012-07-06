@@ -29,7 +29,8 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
 public abstract class FileContainerImpl extends EObjectImpl implements FileContainer
 {
    /**
-    * The default value of the '{@link #getDirectory() <em>Directory</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getDirectory()
@@ -39,7 +40,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    protected static final File DIRECTORY_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getDirectory() <em>Directory</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getDirectory()

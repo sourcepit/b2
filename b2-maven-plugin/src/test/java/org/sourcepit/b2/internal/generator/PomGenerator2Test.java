@@ -32,8 +32,6 @@ import org.sourcepit.b2.internal.maven.B2SessionInitializer;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.module.Project;
-import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.common.maven.testing.MavenExecutionResult2;
 import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 
@@ -112,9 +110,9 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
 
       mavenSession.setCurrentProject(project);
 
-      final BootstrapSession bootSession = new BootstrapSession(mavenSession.getProjects(),
+      final BootstrapSession bootSession = new BootstrapSession(mavenSession, mavenSession.getProjects(),
          Collections.<File> emptyList());
-      bootSession.setCurrentProject(project);
+      bootSession.setCurrentBootstrapProject(project);
 
       b2SessionInitializer.initialize(bootSession, properties);
 

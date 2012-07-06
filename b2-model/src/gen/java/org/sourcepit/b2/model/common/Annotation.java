@@ -28,8 +28,10 @@ import org.eclipse.emf.ecore.EObject;
 public interface Annotation extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.common.Annotatable#getAnnotations <em>Annotations</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Parent</b></em>' container reference.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.common.Annotatable#getAnnotations
+    * <em>Annotations</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -47,7 +49,8 @@ public interface Annotation extends EObject
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.common.Annotation#getParent <em>Parent</em>}' container
-    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -56,7 +59,8 @@ public interface Annotation extends EObject
    void setParent(Annotatable value);
 
    /**
-    * Returns the value of the '<em><b>Source</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Source</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Source</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -82,8 +86,10 @@ public interface Annotation extends EObject
    void setSource(String value);
 
    /**
-    * Returns the value of the '<em><b>Entries</b></em>' map. The key is of type {@link java.lang.String}, and the value
-    * is of type {@link java.lang.String}, <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Entries</b></em>' map.
+    * The key is of type {@link java.lang.String},
+    * and the value is of type {@link java.lang.String},
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Entries</em>' map isn't clear, there really should be more of a description here...
     * </p>

@@ -45,7 +45,7 @@ public class BootPomSerializer implements IB2Listener
 
    public void startGeneration(AbstractModule module)
    {
-      final MavenProject currentProject = bootSessionService.getBootstrapSession().getCurrentProject();
+      final MavenProject currentProject = bootSessionService.getBootstrapSession().getCurrentBootstrapProject();
       if (module.getDirectory().equals(currentProject.getBasedir()))
       {
          try

@@ -96,7 +96,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       properties.setProperty("file", bootPom.getAbsolutePath());
       properties.setProperty("pomFile", bootPom.getAbsolutePath());
 
-      final ArtifactRepository repo = bootSessionService.getBootstrapSession().getCurrentProject()
+      final ArtifactRepository repo = bootSessionService.getBootstrapSession().getCurrentBootstrapProject()
          .getDistributionManagementArtifactRepository();
       if (repo != null)
       {

@@ -27,9 +27,11 @@ import org.sourcepit.b2.model.common.Annotatable;
 public interface B2Session extends Annotatable
 {
    /**
-    * Returns the value of the '<em><b>Projects</b></em>' containment reference list. The list contents are of type
-    * {@link org.sourcepit.b2.model.session.ModuleProject}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.session.ModuleProject#getSession <em>Session</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Projects</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.session.ModuleProject}.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.session.ModuleProject#getSession
+    * <em>Session</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Projects</em>' containment reference list isn't clear, there really should be more of a
     * description here...
@@ -45,7 +47,8 @@ public interface B2Session extends Annotatable
    EList<ModuleProject> getProjects();
 
    /**
-    * Returns the value of the '<em><b>Current Project</b></em>' reference. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Current Project</b></em>' reference.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Current Project</em>' reference isn't clear, there really should be more of a
     * description here...
@@ -62,7 +65,8 @@ public interface B2Session extends Annotatable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.session.B2Session#getCurrentProject <em>Current Project</em>}
-    * ' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * ' reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Current Project</em>' reference.
     * @see #getCurrentProject()

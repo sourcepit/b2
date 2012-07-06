@@ -25,7 +25,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface Classified extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Classifier</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Classifier</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Classifier</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -42,7 +43,8 @@ public interface Classified extends EObject
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.Classified#getClassifier <em>Classifier</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Classifier</em>' attribute.
     * @see #getClassifier()

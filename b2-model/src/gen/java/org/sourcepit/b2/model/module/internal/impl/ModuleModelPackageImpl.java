@@ -305,19 +305,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getAbstractModule_Parent()
-   {
-      return (EReference) abstractModuleEClass.getEStructuralFeatures().get(0);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
    public EAttribute getAbstractModule_LayoutId()
    {
-      return (EAttribute) abstractModuleEClass.getEStructuralFeatures().get(1);
+      return (EAttribute) abstractModuleEClass.getEStructuralFeatures().get(0);
    }
 
    /**
@@ -327,7 +317,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     */
    public EAttribute getAbstractModule_Locales()
    {
-      return (EAttribute) abstractModuleEClass.getEStructuralFeatures().get(2);
+      return (EAttribute) abstractModuleEClass.getEStructuralFeatures().get(1);
    }
 
    /**
@@ -337,7 +327,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     */
    public EReference getAbstractModule_Facets()
    {
-      return (EReference) abstractModuleEClass.getEStructuralFeatures().get(3);
+      return (EReference) abstractModuleEClass.getEStructuralFeatures().get(2);
    }
 
    /**
@@ -898,8 +888,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    private boolean isCreated = false;
 
    /**
-    * Creates the meta-model objects for the package. This method is guarded to have no affect on any invocation but its
-    * first. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates the meta-model objects for the package. This method is
+    * guarded to have no affect on any invocation but its first.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -911,7 +902,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       // Create classes and their features
       abstractModuleEClass = createEClass(ABSTRACT_MODULE);
-      createEReference(abstractModuleEClass, ABSTRACT_MODULE__PARENT);
       createEAttribute(abstractModuleEClass, ABSTRACT_MODULE__LAYOUT_ID);
       createEAttribute(abstractModuleEClass, ABSTRACT_MODULE__LOCALES);
       createEReference(abstractModuleEClass, ABSTRACT_MODULE__FACETS);
@@ -1002,8 +992,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    private boolean isInitialized = false;
 
    /**
-    * Complete the initialization of the package and its meta-model. This method is guarded to have no affect on any
-    * invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Complete the initialization of the package and its meta-model. This
+    * method is guarded to have no affect on any invocation but its first.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -1068,9 +1059,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       // Initialize classes and features; add operations and parameters
       initEClass(abstractModuleEClass, AbstractModule.class, "AbstractModule", IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getAbstractModule_Parent(), this.getCompositeModule(), this.getCompositeModule_Modules(),
-         "parent", null, 0, 1, AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEAttribute(getAbstractModule_LayoutId(), ecorePackage.getEString(), "layoutId", null, 1, 1,
          AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
@@ -1138,9 +1126,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       initEClass(compositeModuleEClass, CompositeModule.class, "CompositeModule", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getCompositeModule_Modules(), this.getAbstractModule(), this.getAbstractModule_Parent(),
-         "modules", null, 0, -1, CompositeModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getCompositeModule_Modules(), this.getAbstractModule(), null, "modules", null, 0, -1,
+         CompositeModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(pluginsFacetEClass, PluginsFacet.class, "PluginsFacet", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);

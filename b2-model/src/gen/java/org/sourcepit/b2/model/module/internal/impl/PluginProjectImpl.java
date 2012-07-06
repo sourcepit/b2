@@ -36,7 +36,8 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 public class PluginProjectImpl extends ProjectImpl implements PluginProject
 {
    /**
-    * The default value of the '{@link #getBundleVersion() <em>Bundle Version</em>}' attribute. <!-- begin-user-doc -->
+    * The default value of the '{@link #getBundleVersion() <em>Bundle Version</em>}' attribute.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @see #getBundleVersion()
@@ -46,7 +47,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    protected static final String BUNDLE_VERSION_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getBundleVersion() <em>Bundle Version</em>}' attribute. <!-- begin-user-doc -->
+    * The cached value of the '{@link #getBundleVersion() <em>Bundle Version</em>}' attribute.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @see #getBundleVersion()
@@ -56,7 +58,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    protected String bundleVersion = BUNDLE_VERSION_EDEFAULT;
 
    /**
-    * The default value of the '{@link #isTestPlugin() <em>Test Plugin</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #isTestPlugin() <em>Test Plugin</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isTestPlugin()
@@ -66,7 +69,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    protected static final boolean TEST_PLUGIN_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isTestPlugin() <em>Test Plugin</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #isTestPlugin() <em>Test Plugin</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isTestPlugin()

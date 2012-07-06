@@ -42,7 +42,8 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
 public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractFacet
 {
    /**
-    * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isDerived()
@@ -52,7 +53,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    protected static final boolean DERIVED_EDEFAULT = false;
 
    /**
-    * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #isDerived()

@@ -29,8 +29,10 @@ package org.sourcepit.b2.model.module;
 public interface PluginProject extends Project
 {
    /**
-    * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.PluginsFacet#getProjects <em>Projects</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Parent</b></em>' container reference.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.PluginsFacet#getProjects
+    * <em>Projects</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -48,7 +50,8 @@ public interface PluginProject extends Project
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}' container
-    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -57,7 +60,8 @@ public interface PluginProject extends Project
    void setParent(PluginsFacet value);
 
    /**
-    * Returns the value of the '<em><b>Bundle Version</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Bundle Version</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Bundle Version</em>' attribute isn't clear, there really should be more of a
     * description here...
@@ -74,7 +78,8 @@ public interface PluginProject extends Project
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion
-    * <em>Bundle Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Bundle Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Bundle Version</em>' attribute.
     * @see #getBundleVersion()
@@ -83,7 +88,8 @@ public interface PluginProject extends Project
    void setBundleVersion(String value);
 
    /**
-    * Returns the value of the '<em><b>Test Plugin</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Test Plugin</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Test Plugin</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -100,7 +106,8 @@ public interface PluginProject extends Project
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#isTestPlugin <em>Test Plugin</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Test Plugin</em>' attribute.
     * @see #isTestPlugin()
@@ -109,7 +116,8 @@ public interface PluginProject extends Project
    void setTestPlugin(boolean value);
 
    /**
-    * Returns the value of the '<em><b>Fragment Host Symbolic Name</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Fragment Host Symbolic Name</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Fragment Host Symbolic Name</em>' attribute isn't clear, there really should be more of
     * a description here...
@@ -126,7 +134,8 @@ public interface PluginProject extends Project
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName
-    * <em>Fragment Host Symbolic Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Fragment Host Symbolic Name</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Fragment Host Symbolic Name</em>' attribute.
     * @see #getFragmentHostSymbolicName()
@@ -135,7 +144,8 @@ public interface PluginProject extends Project
    void setFragmentHostSymbolicName(String value);
 
    /**
-    * Returns the value of the '<em><b>Fragment Host Version</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Fragment Host Version</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Fragment Host Version</em>' attribute isn't clear, there really should be more of a
     * description here...
@@ -152,7 +162,8 @@ public interface PluginProject extends Project
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion
-    * <em>Fragment Host Version</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Fragment Host Version</em>}' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Fragment Host Version</em>' attribute.
     * @see #getFragmentHostVersion()

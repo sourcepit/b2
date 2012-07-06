@@ -37,7 +37,8 @@ import org.sourcepit.b2.model.session.SessionModelPackage;
 public class ModuleAttachmentImpl extends EObjectImpl implements ModuleAttachment
 {
    /**
-    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getClassifier()
@@ -47,7 +48,8 @@ public class ModuleAttachmentImpl extends EObjectImpl implements ModuleAttachmen
    protected static final String CLASSIFIER_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute. <!-- begin-user-doc --> <!--
+    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @see #getClassifier()

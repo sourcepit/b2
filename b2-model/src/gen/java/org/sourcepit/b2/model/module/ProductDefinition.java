@@ -50,7 +50,8 @@ public interface ProductDefinition extends Annotatable, Derivable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}'
-    * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * container reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -59,7 +60,8 @@ public interface ProductDefinition extends Annotatable, Derivable
    void setParent(ProductsFacet value);
 
    /**
-    * Returns the value of the '<em><b>File</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>File</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>File</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
@@ -84,7 +86,8 @@ public interface ProductDefinition extends Annotatable, Derivable
    void setFile(File value);
 
    /**
-    * Returns the value of the '<em><b>Product Plugin</b></em>' containment reference. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Product Plugin</b></em>' containment reference.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Product Plugin</em>' containment reference isn't clear, there really should be more of
     * a description here...
@@ -101,7 +104,8 @@ public interface ProductDefinition extends Annotatable, Derivable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getProductPlugin
-    * <em>Product Plugin</em>}' containment reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Product Plugin</em>}' containment reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Product Plugin</em>' containment reference.
     * @see #getProductPlugin()

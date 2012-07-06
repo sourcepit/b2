@@ -27,7 +27,8 @@ import org.sourcepit.b2.model.session.SessionModelPackage;
 public class SessionModelFactoryImpl extends EFactoryImpl implements SessionModelFactory
 {
    /**
-    * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates the default factory implementation.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -36,7 +37,7 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
       try
       {
          SessionModelFactory theSessionModelFactory = (SessionModelFactory) EPackage.Registry.INSTANCE
-            .getEFactory(SessionModelPackage.eNS_URI);
+            .getEFactory("http://www.sourcepit.org/b2/model/0.1/session");
          if (theSessionModelFactory != null)
          {
             return theSessionModelFactory;
@@ -50,7 +51,8 @@ public class SessionModelFactoryImpl extends EFactoryImpl implements SessionMode
    }
 
    /**
-    * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates an instance of the factory.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */

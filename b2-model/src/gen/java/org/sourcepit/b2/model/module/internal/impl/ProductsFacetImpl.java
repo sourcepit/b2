@@ -34,7 +34,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
 {
    /**
     * The cached value of the '{@link #getProductDefinitions() <em>Product Definitions</em>}' containment reference
-    * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * list.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see #getProductDefinitions()
     * @generated

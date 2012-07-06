@@ -26,8 +26,10 @@ import org.sourcepit.b2.model.common.Annotatable;
 public interface AbstractFacet extends Derivable, Annotatable
 {
    /**
-    * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.AbstractModule#getFacets <em>Facets</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Parent</b></em>' container reference.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.AbstractModule#getFacets
+    * <em>Facets</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -45,7 +47,8 @@ public interface AbstractFacet extends Derivable, Annotatable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractFacet#getParent <em>Parent</em>}' container
-    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -54,7 +57,8 @@ public interface AbstractFacet extends Derivable, Annotatable
    void setParent(AbstractModule value);
 
    /**
-    * Returns the value of the '<em><b>Name</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Name</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a description here...
     * </p>

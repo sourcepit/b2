@@ -25,9 +25,11 @@ import org.eclipse.emf.common.util.EList;
 public interface ProductsFacet extends AbstractFacet
 {
    /**
-    * Returns the value of the '<em><b>Product Definitions</b></em>' containment reference list. The list contents are
-    * of type {@link org.sourcepit.b2.model.module.ProductDefinition}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Product Definitions</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.ProductDefinition}.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.ProductDefinition#getParent
+    * <em>Parent</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Product Definitions</em>' containment reference list isn't clear, there really should
     * be more of a description here...

@@ -25,7 +25,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface Derivable extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Derived</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Derived</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Derived</em>' attribute isn't clear, there really should be more of a description
     * here...

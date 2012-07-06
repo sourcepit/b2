@@ -51,6 +51,7 @@ import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
+import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
 
@@ -97,18 +98,36 @@ public class B2SessionInitializer
 
    private B2Session initB2Session(BootstrapSession bootSession, Properties properties)
    {
-      MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getBootstrapProjects(),
-         bootSession.getCurrentProject());
-      mavenURIResolver.getProjectURIResolvers().add(new B2ModelResourceURIResolver(projectHelper));
+      B2Session b2Session = Adapters.getAdapter(bootSession, B2Session.class);
+      if (b2Session == null)
+      {
+         MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getBootstrapProjects(),
+            bootSession.getCurrentBootstrapProject());
+         mavenURIResolver.getProjectURIResolvers().add(new B2ModelResourceURIResolver(projectHelper));
 
-      ResourceSet resourceSet = new ResourceSetImpl();
-      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
-      GavResourceUtils.configureResourceSet(resourceSet, mavenURIResolver);
-      sessionService.setCurrentResourceSet(resourceSet);
+         ResourceSet resourceSet = new ResourceSetImpl();
+         resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
+         GavResourceUtils.configureResourceSet(resourceSet, mavenURIResolver);
+         sessionService.setCurrentResourceSet(resourceSet);
 
-      B2Session b2Session = createB2Session(bootSession, resourceSet, properties);
-      sessionService.setCurrentSession(b2Session);
-      
+         b2Session = createB2Session(bootSession, resourceSet, properties);
+         sessionService.setCurrentSession(b2Session);
+         
+         Adapters.addAdapter(bootSession, b2Session);
+      }
+      else
+      {
+         sessionService.setCurrentSession(b2Session);
+         sessionService.setCurrentResourceSet(b2Session.eResource().getResourceSet());
+      }
+
+      final int currentIdx = bootSession.getBootstrapProjects().indexOf(bootSession.getCurrentBootstrapProject());
+      b2Session.setCurrentProject(b2Session.getProjects().get(currentIdx));
+
+      final ModuleProject currentProject = b2Session.getCurrentProject();
+      final MavenProject project = bootSession.getCurrentBootstrapProject();
+      configureModuleProject(currentProject, project, properties);
+
       return b2Session;
    }
 
@@ -124,7 +143,7 @@ public class B2SessionInitializer
          b2Session = EcoreUtil.copy(source);
          for (ModuleProject moduleProject : b2Session.getProjects())
          {
-            if (moduleProject.getDirectory().equals(session.getCurrentProject().getBasedir()))
+            if (moduleProject.getDirectory().equals(session.getCurrentBootstrapProject().getBasedir()))
             {
                b2Session.setCurrentProject(moduleProject);
             }
@@ -143,16 +162,12 @@ public class B2SessionInitializer
             moduleProject.setDirectory(project.getBasedir());
 
             b2Session.getProjects().add(moduleProject);
-            if (project.equals(session.getCurrentProject()))
+            if (project.equals(session.getCurrentBootstrapProject()))
             {
                b2Session.setCurrentProject(moduleProject);
             }
          }
       }
-
-      final ModuleProject currentProject = b2Session.getCurrentProject();
-      final MavenProject project = session.getCurrentProject();
-      configureModuleProject(currentProject, project, properties);
 
       return b2Session;
    }
@@ -244,7 +259,7 @@ public class B2SessionInitializer
 
       final B2Session b2Session = sessionService.getCurrentSession();
       final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
-      
+
       sessionService.setCurrentProperties(converter.getProperties());
 
       processDependencies(resourceSet, b2Session.getCurrentProject(), bootProject);

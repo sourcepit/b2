@@ -27,8 +27,10 @@ import org.eclipse.emf.common.util.EList;
 public interface FeatureProject extends Project, Classified
 {
    /**
-    * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.FeaturesFacet#getProjects <em>Projects</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Parent</b></em>' container reference.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.FeaturesFacet#getProjects
+    * <em>Projects</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -46,7 +48,8 @@ public interface FeatureProject extends Project, Classified
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.FeatureProject#getParent <em>Parent</em>}' container
-    * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -55,9 +58,11 @@ public interface FeatureProject extends Project, Classified
    void setParent(FeaturesFacet value);
 
    /**
-    * Returns the value of the '<em><b>Included Plugins</b></em>' containment reference list. The list contents are of
-    * type {@link org.sourcepit.b2.model.module.PluginInclude}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.PluginInclude#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Included Plugins</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.PluginInclude}.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.PluginInclude#getParent
+    * <em>Parent</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Included Plugins</em>' containment reference list isn't clear, there really should be
     * more of a description here...
@@ -73,9 +78,11 @@ public interface FeatureProject extends Project, Classified
    EList<PluginInclude> getIncludedPlugins();
 
    /**
-    * Returns the value of the '<em><b>Included Features</b></em>' containment reference list. The list contents are of
-    * type {@link org.sourcepit.b2.model.module.FeatureInclude}. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.FeatureInclude#getParent <em>Parent</em>}'. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Included Features</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.FeatureInclude}.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.FeatureInclude#getParent
+    * <em>Parent</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Included Features</em>' containment reference list isn't clear, there really should be
     * more of a description here...

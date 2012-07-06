@@ -27,7 +27,8 @@ import org.eclipse.emf.ecore.EObject;
 public interface FileContainer extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc -->
+    * Returns the value of the '<em><b>Directory</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Directory</em>' attribute isn't clear, there really should be more of a description
     * here...
@@ -44,7 +45,8 @@ public interface FileContainer extends EObject
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.FileContainer#getDirectory <em>Directory</em>}'
-    * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Directory</em>' attribute.
     * @see #getDirectory()

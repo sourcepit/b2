@@ -38,7 +38,8 @@ import org.sourcepit.b2.model.module.util.Identifier;
 public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelFactory
 {
    /**
-    * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates the default factory implementation.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -47,7 +48,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
       try
       {
          ModuleModelFactory theModuleModelFactory = (ModuleModelFactory) EPackage.Registry.INSTANCE
-            .getEFactory(ModuleModelPackage.eNS_URI);
+            .getEFactory("http://www.sourcepit.org/b2/model/0.1/module");
          if (theModuleModelFactory != null)
          {
             return theModuleModelFactory;
@@ -61,7 +62,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates an instance of the factory.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */

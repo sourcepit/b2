@@ -29,35 +29,40 @@ import org.sourcepit.b2.model.common.CommonModelPackage;
 public interface SessionModelPackage extends EPackage
 {
    /**
-    * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The package name.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    String eNAME = "session";
 
    /**
-    * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The package namespace URI.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    String eNS_URI = "http://www.sourcepit.org/b2/model/0.1/session";
 
    /**
-    * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The package namespace name.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    String eNS_PREFIX = "session";
 
    /**
-    * The package content type ID. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The package content type ID.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
    String eCONTENT_TYPE = "b2-session";
 
    /**
-    * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The singleton instance of the package.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -65,7 +70,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.session.internal.impl.B2SessionImpl <em>B2 Session</em>}
-    * ' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * ' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.session.internal.impl.B2SessionImpl
     * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getB2Session()
@@ -74,7 +80,8 @@ public interface SessionModelPackage extends EPackage
    int B2_SESSION = 0;
 
    /**
-    * The feature id for the '<em><b>Annotations</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -83,7 +90,8 @@ public interface SessionModelPackage extends EPackage
    int B2_SESSION__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
 
    /**
-    * The feature id for the '<em><b>Projects</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * The feature id for the '<em><b>Projects</b></em>' containment reference list.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -92,7 +100,8 @@ public interface SessionModelPackage extends EPackage
    int B2_SESSION__PROJECTS = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 0;
 
    /**
-    * The feature id for the '<em><b>Current Project</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Current Project</b></em>' reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -110,7 +119,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl
-    * <em>Module Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Module Project</em>}' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl
     * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleProject()
@@ -119,7 +129,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT = 1;
 
    /**
-    * The feature id for the '<em><b>Annotations</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -128,7 +139,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
 
    /**
-    * The feature id for the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Group Id</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -145,7 +157,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__SESSION = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 1;
 
    /**
-    * The feature id for the '<em><b>Artifact Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Artifact Id</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -153,7 +166,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__ARTIFACT_ID = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 2;
 
    /**
-    * The feature id for the '<em><b>Version</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Version</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -161,7 +175,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__VERSION = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 3;
 
    /**
-    * The feature id for the '<em><b>Directory</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Directory</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -169,7 +184,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__DIRECTORY = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 4;
 
    /**
-    * The feature id for the '<em><b>Dependencies</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * The feature id for the '<em><b>Dependencies</b></em>' containment reference list.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -178,7 +194,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__DEPENDENCIES = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 5;
 
    /**
-    * The feature id for the '<em><b>Module Model</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Module Model</b></em>' containment reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -186,7 +203,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__MODULE_MODEL = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 6;
 
    /**
-    * The feature id for the '<em><b>Attachments</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * The feature id for the '<em><b>Attachments</b></em>' containment reference list.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -195,7 +213,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__ATTACHMENTS = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 7;
 
    /**
-    * The feature id for the '<em><b>Environements</b></em>' containment reference list. <!-- begin-user-doc --> <!--
+    * The feature id for the '<em><b>Environements</b></em>' containment reference list.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -204,7 +223,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_PROJECT__ENVIRONEMENTS = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 8;
 
    /**
-    * The number of structural features of the '<em>Module Project</em>' class. <!-- begin-user-doc --> <!--
+    * The number of structural features of the '<em>Module Project</em>' class.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -214,7 +234,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl
-    * <em>Module Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Module Dependency</em>}' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl
     * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleDependency()
@@ -223,7 +244,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_DEPENDENCY = 2;
 
    /**
-    * The feature id for the '<em><b>Group Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Group Id</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -231,7 +253,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_DEPENDENCY__GROUP_ID = 0;
 
    /**
-    * The feature id for the '<em><b>Artifact Id</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Artifact Id</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -239,7 +262,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_DEPENDENCY__ARTIFACT_ID = 1;
 
    /**
-    * The feature id for the '<em><b>Version Range</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Version Range</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -247,7 +271,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_DEPENDENCY__VERSION_RANGE = 2;
 
    /**
-    * The feature id for the '<em><b>Classifier</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Classifier</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -255,7 +280,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_DEPENDENCY__CLASSIFIER = 3;
 
    /**
-    * The number of structural features of the '<em>Module Dependency</em>' class. <!-- begin-user-doc --> <!--
+    * The number of structural features of the '<em>Module Dependency</em>' class.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -265,7 +291,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.session.internal.impl.ModuleAttachmentImpl
-    * <em>Module Attachment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Module Attachment</em>}' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.session.internal.impl.ModuleAttachmentImpl
     * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleAttachment()
@@ -274,7 +301,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_ATTACHMENT = 3;
 
    /**
-    * The feature id for the '<em><b>Classifier</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Classifier</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -282,7 +310,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_ATTACHMENT__CLASSIFIER = 0;
 
    /**
-    * The feature id for the '<em><b>Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Type</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -290,7 +319,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_ATTACHMENT__TYPE = 1;
 
    /**
-    * The feature id for the '<em><b>File</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>File</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -298,7 +328,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_ATTACHMENT__FILE = 2;
 
    /**
-    * The feature id for the '<em><b>Parent</b></em>' container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Parent</b></em>' container reference.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -306,7 +337,8 @@ public interface SessionModelPackage extends EPackage
    int MODULE_ATTACHMENT__PARENT = 3;
 
    /**
-    * The number of structural features of the '<em>Module Attachment</em>' class. <!-- begin-user-doc --> <!--
+    * The number of structural features of the '<em>Module Attachment</em>' class.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @generated
@@ -316,7 +348,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.session.internal.impl.EnvironmentImpl
-    * <em>Environment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Environment</em>}' class.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @see org.sourcepit.b2.model.session.internal.impl.EnvironmentImpl
     * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getEnvironment()
@@ -325,7 +358,8 @@ public interface SessionModelPackage extends EPackage
    int ENVIRONMENT = 4;
 
    /**
-    * The feature id for the '<em><b>Os</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Os</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -333,7 +367,8 @@ public interface SessionModelPackage extends EPackage
    int ENVIRONMENT__OS = 0;
 
    /**
-    * The feature id for the '<em><b>Ws</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Ws</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -341,7 +376,8 @@ public interface SessionModelPackage extends EPackage
    int ENVIRONMENT__WS = 1;
 
    /**
-    * The feature id for the '<em><b>Arch</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * The feature id for the '<em><b>Arch</b></em>' attribute.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
@@ -370,7 +406,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.session.B2Session#getProjects <em>Projects</em>}'. <!-- begin-user-doc --> <!--
+    * {@link org.sourcepit.b2.model.session.B2Session#getProjects <em>Projects</em>}'.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Projects</em>'.
@@ -382,7 +419,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the reference '{@link org.sourcepit.b2.model.session.B2Session#getCurrentProject
-    * <em>Current Project</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Current Project</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the reference '<em>Current Project</em>'.
     * @see org.sourcepit.b2.model.session.B2Session#getCurrentProject()
@@ -403,7 +441,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleProject#getGroupId
-    * <em>Group Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Group Id</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Group Id</em>'.
     * @see org.sourcepit.b2.model.session.ModuleProject#getGroupId()
@@ -414,7 +453,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.b2.model.session.ModuleProject#getSession <em>Session</em>}'. <!-- begin-user-doc --> <!--
+    * {@link org.sourcepit.b2.model.session.ModuleProject#getSession <em>Session</em>}'.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Session</em>'.
@@ -426,7 +466,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleProject#getArtifactId
-    * <em>Artifact Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Artifact Id</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Artifact Id</em>'.
     * @see org.sourcepit.b2.model.session.ModuleProject#getArtifactId()
@@ -437,7 +478,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleProject#getVersion
-    * <em>Version</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Version</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Version</em>'.
     * @see org.sourcepit.b2.model.session.ModuleProject#getVersion()
@@ -448,7 +490,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleProject#getDirectory
-    * <em>Directory</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Directory</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Directory</em>'.
     * @see org.sourcepit.b2.model.session.ModuleProject#getDirectory()
@@ -459,7 +502,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.session.ModuleProject#getDependencies <em>Dependencies</em>}'. <!-- begin-user-doc
+    * {@link org.sourcepit.b2.model.session.ModuleProject#getDependencies <em>Dependencies</em>}'.
+    * <!-- begin-user-doc
     * --> <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Dependencies</em>'.
@@ -470,10 +514,11 @@ public interface SessionModelPackage extends EPackage
    EReference getModuleProject_Dependencies();
 
    /**
-    * Returns the meta object for the reference '{@link org.sourcepit.b2.model.session.ModuleProject#getModuleModel
-    * <em>Module Model</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the meta object for the containment reference '
+    * {@link org.sourcepit.b2.model.session.ModuleProject#getModuleModel <em>Module Model</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
-    * @return the meta object for the reference '<em>Module Model</em>'.
+    * @return the meta object for the containment reference '<em>Module Model</em>'.
     * @see org.sourcepit.b2.model.session.ModuleProject#getModuleModel()
     * @see #getModuleProject()
     * @generated
@@ -482,7 +527,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.session.ModuleProject#getAttachments <em>Attachments</em>}'. <!-- begin-user-doc -->
+    * {@link org.sourcepit.b2.model.session.ModuleProject#getAttachments <em>Attachments</em>}'.
+    * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Attachments</em>'.
@@ -494,7 +540,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the containment reference list '
-    * {@link org.sourcepit.b2.model.session.ModuleProject#getEnvironements <em>Environements</em>}'. <!-- begin-user-doc
+    * {@link org.sourcepit.b2.model.session.ModuleProject#getEnvironements <em>Environements</em>}'.
+    * <!-- begin-user-doc
     * --> <!-- end-user-doc -->
     * 
     * @return the meta object for the containment reference list '<em>Environements</em>'.
@@ -506,7 +553,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.session.ModuleDependency
-    * <em>Module Dependency</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Module Dependency</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Module Dependency</em>'.
     * @see org.sourcepit.b2.model.session.ModuleDependency
@@ -516,7 +564,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleDependency#getGroupId
-    * <em>Group Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Group Id</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Group Id</em>'.
     * @see org.sourcepit.b2.model.session.ModuleDependency#getGroupId()
@@ -527,7 +576,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleDependency#getArtifactId
-    * <em>Artifact Id</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Artifact Id</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Artifact Id</em>'.
     * @see org.sourcepit.b2.model.session.ModuleDependency#getArtifactId()
@@ -538,7 +588,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleDependency#getVersionRange
-    * <em>Version Range</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Version Range</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Version Range</em>'.
     * @see org.sourcepit.b2.model.session.ModuleDependency#getVersionRange()
@@ -549,7 +600,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleDependency#getClassifier
-    * <em>Classifier</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Classifier</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Classifier</em>'.
     * @see org.sourcepit.b2.model.session.ModuleDependency#getClassifier()
@@ -560,7 +612,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.session.ModuleAttachment
-    * <em>Module Attachment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Module Attachment</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for class '<em>Module Attachment</em>'.
     * @see org.sourcepit.b2.model.session.ModuleAttachment
@@ -570,7 +623,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleAttachment#getClassifier
-    * <em>Classifier</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Classifier</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Classifier</em>'.
     * @see org.sourcepit.b2.model.session.ModuleAttachment#getClassifier()
@@ -581,7 +635,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleAttachment#getType
-    * <em>Type</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Type</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Type</em>'.
     * @see org.sourcepit.b2.model.session.ModuleAttachment#getType()
@@ -592,7 +647,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.ModuleAttachment#getFile
-    * <em>File</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>File</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>File</em>'.
     * @see org.sourcepit.b2.model.session.ModuleAttachment#getFile()
@@ -603,7 +659,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the container reference '
-    * {@link org.sourcepit.b2.model.session.ModuleAttachment#getParent <em>Parent</em>}'. <!-- begin-user-doc --> <!--
+    * {@link org.sourcepit.b2.model.session.ModuleAttachment#getParent <em>Parent</em>}'.
+    * <!-- begin-user-doc --> <!--
     * end-user-doc -->
     * 
     * @return the meta object for the container reference '<em>Parent</em>'.
@@ -647,7 +704,8 @@ public interface SessionModelPackage extends EPackage
 
    /**
     * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.session.Environment#getArch
-    * <em>Arch</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <em>Arch</em>}'.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Arch</em>'.
     * @see org.sourcepit.b2.model.session.Environment#getArch()
@@ -657,7 +715,8 @@ public interface SessionModelPackage extends EPackage
    EAttribute getEnvironment_Arch();
 
    /**
-    * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the factory that creates the instances of the model.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @return the factory that creates the instances of the model.
     * @generated
@@ -680,7 +739,8 @@ public interface SessionModelPackage extends EPackage
    {
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.session.internal.impl.B2SessionImpl
-       * <em>B2 Session</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * <em>B2 Session</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.session.internal.impl.B2SessionImpl
        * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getB2Session()
@@ -697,7 +757,8 @@ public interface SessionModelPackage extends EPackage
       EReference B2_SESSION__PROJECTS = eINSTANCE.getB2Session_Projects();
 
       /**
-       * The meta object literal for the '<em><b>Current Project</b></em>' reference feature. <!-- begin-user-doc -->
+       * The meta object literal for the '<em><b>Current Project</b></em>' reference feature.
+       * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
        * 
        * @generated
@@ -706,7 +767,8 @@ public interface SessionModelPackage extends EPackage
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl
-       * <em>Module Project</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * <em>Module Project</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.session.internal.impl.ModuleProjectImpl
        * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleProject()
@@ -715,7 +777,8 @@ public interface SessionModelPackage extends EPackage
       EClass MODULE_PROJECT = eINSTANCE.getModuleProject();
 
       /**
-       * The meta object literal for the '<em><b>Group Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Group Id</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -723,7 +786,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_PROJECT__GROUP_ID = eINSTANCE.getModuleProject_GroupId();
 
       /**
-       * The meta object literal for the '<em><b>Session</b></em>' container reference feature. <!-- begin-user-doc -->
+       * The meta object literal for the '<em><b>Session</b></em>' container reference feature.
+       * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
        * 
        * @generated
@@ -731,7 +795,8 @@ public interface SessionModelPackage extends EPackage
       EReference MODULE_PROJECT__SESSION = eINSTANCE.getModuleProject_Session();
 
       /**
-       * The meta object literal for the '<em><b>Artifact Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Artifact Id</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -739,7 +804,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_PROJECT__ARTIFACT_ID = eINSTANCE.getModuleProject_ArtifactId();
 
       /**
-       * The meta object literal for the '<em><b>Version</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -747,7 +813,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_PROJECT__VERSION = eINSTANCE.getModuleProject_Version();
 
       /**
-       * The meta object literal for the '<em><b>Directory</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Directory</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -763,7 +830,8 @@ public interface SessionModelPackage extends EPackage
       EReference MODULE_PROJECT__DEPENDENCIES = eINSTANCE.getModuleProject_Dependencies();
 
       /**
-       * The meta object literal for the '<em><b>Module Model</b></em>' reference feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Module Model</b></em>' containment reference feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -788,7 +856,8 @@ public interface SessionModelPackage extends EPackage
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl
-       * <em>Module Dependency</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * <em>Module Dependency</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.session.internal.impl.ModuleDependencyImpl
        * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleDependency()
@@ -797,7 +866,8 @@ public interface SessionModelPackage extends EPackage
       EClass MODULE_DEPENDENCY = eINSTANCE.getModuleDependency();
 
       /**
-       * The meta object literal for the '<em><b>Group Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Group Id</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -805,7 +875,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_DEPENDENCY__GROUP_ID = eINSTANCE.getModuleDependency_GroupId();
 
       /**
-       * The meta object literal for the '<em><b>Artifact Id</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Artifact Id</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -813,7 +884,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_DEPENDENCY__ARTIFACT_ID = eINSTANCE.getModuleDependency_ArtifactId();
 
       /**
-       * The meta object literal for the '<em><b>Version Range</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Version Range</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -821,7 +893,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_DEPENDENCY__VERSION_RANGE = eINSTANCE.getModuleDependency_VersionRange();
 
       /**
-       * The meta object literal for the '<em><b>Classifier</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Classifier</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -830,7 +903,8 @@ public interface SessionModelPackage extends EPackage
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.session.internal.impl.ModuleAttachmentImpl
-       * <em>Module Attachment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * <em>Module Attachment</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.session.internal.impl.ModuleAttachmentImpl
        * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getModuleAttachment()
@@ -839,7 +913,8 @@ public interface SessionModelPackage extends EPackage
       EClass MODULE_ATTACHMENT = eINSTANCE.getModuleAttachment();
 
       /**
-       * The meta object literal for the '<em><b>Classifier</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Classifier</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -847,7 +922,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_ATTACHMENT__CLASSIFIER = eINSTANCE.getModuleAttachment_Classifier();
 
       /**
-       * The meta object literal for the '<em><b>Type</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -855,7 +931,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_ATTACHMENT__TYPE = eINSTANCE.getModuleAttachment_Type();
 
       /**
-       * The meta object literal for the '<em><b>File</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>File</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -863,7 +940,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute MODULE_ATTACHMENT__FILE = eINSTANCE.getModuleAttachment_File();
 
       /**
-       * The meta object literal for the '<em><b>Parent</b></em>' container reference feature. <!-- begin-user-doc -->
+       * The meta object literal for the '<em><b>Parent</b></em>' container reference feature.
+       * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
        * 
        * @generated
@@ -872,7 +950,8 @@ public interface SessionModelPackage extends EPackage
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.session.internal.impl.EnvironmentImpl
-       * <em>Environment</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+       * <em>Environment</em>}' class.
+       * <!-- begin-user-doc --> <!-- end-user-doc -->
        * 
        * @see org.sourcepit.b2.model.session.internal.impl.EnvironmentImpl
        * @see org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl#getEnvironment()
@@ -881,7 +960,8 @@ public interface SessionModelPackage extends EPackage
       EClass ENVIRONMENT = eINSTANCE.getEnvironment();
 
       /**
-       * The meta object literal for the '<em><b>Os</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Os</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -889,7 +969,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute ENVIRONMENT__OS = eINSTANCE.getEnvironment_Os();
 
       /**
-       * The meta object literal for the '<em><b>Ws</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Ws</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated
@@ -897,7 +978,8 @@ public interface SessionModelPackage extends EPackage
       EAttribute ENVIRONMENT__WS = eINSTANCE.getEnvironment_Ws();
 
       /**
-       * The meta object literal for the '<em><b>Arch</b></em>' attribute feature. <!-- begin-user-doc --> <!--
+       * The meta object literal for the '<em><b>Arch</b></em>' attribute feature.
+       * <!-- begin-user-doc --> <!--
        * end-user-doc -->
        * 
        * @generated

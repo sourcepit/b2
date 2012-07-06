@@ -437,20 +437,6 @@
       <element xsi:nil="true"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MGWbk-BsEeCuft77Tiw4BQ" points="[1, 0, -281, -168]$[177, 106, -105, -62]"/>
     </edges>
-    <edges xmi:type="notation:Edge" xmi:id="_MGY30OBsEeCuft77Tiw4BQ" type="3002" source="_LGdE0OBsEeCuft77Tiw4BQ" target="_MGEuwOBsEeCuft77Tiw4BQ">
-      <children xmi:type="notation:Node" xmi:id="_MGaF8OBsEeCuft77Tiw4BQ" type="4011">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_MGaF8eBsEeCuft77Tiw4BQ" x="-10" y="-10"/>
-      </children>
-      <children xmi:type="notation:Node" xmi:id="_MGaF8uBsEeCuft77Tiw4BQ" type="4012">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_MGaF8-BsEeCuft77Tiw4BQ" x="10" y="10"/>
-      </children>
-      <styles xmi:type="notation:ConnectorStyle" xmi:id="_MGY30eBsEeCuft77Tiw4BQ" lineColor="4210752"/>
-      <styles xmi:type="notation:FontStyle" xmi:id="_MGY30uBsEeCuft77Tiw4BQ" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
-      <element xmi:type="ecore:EReference" href="b2.ecore#//module/AbstractModule/parent"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_MGZe4OBsEeCuft77Tiw4BQ" points="[-105, -62, 177, 106]$[-281, -168, 1, 0]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_MGoIYOBsEeCuft77Tiw4BQ" id="(0.5,0.5)"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_MGoIYeBsEeCuft77Tiw4BQ" id="(0.5,0.5)"/>
-    </edges>
     <edges xmi:type="notation:Edge" xmi:id="_NSvWMOBsEeCuft77Tiw4BQ" type="3003" source="_NSih4OBsEeCuft77Tiw4BQ" target="_LGdE0OBsEeCuft77Tiw4BQ">
       <styles xmi:type="notation:ConnectorStyle" xmi:id="_NSvWMeBsEeCuft77Tiw4BQ" routing="Rectilinear" lineColor="4210752"/>
       <styles xmi:type="notation:FontStyle" xmi:id="_NSvWMuBsEeCuft77Tiw4BQ" fontName="Segoe UI"/>

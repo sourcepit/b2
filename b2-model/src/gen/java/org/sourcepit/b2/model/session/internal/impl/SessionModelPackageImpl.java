@@ -432,8 +432,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
    private boolean isCreated = false;
 
    /**
-    * Creates the meta-model objects for the package. This method is guarded to have no affect on any invocation but its
-    * first. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Creates the meta-model objects for the package. This method is
+    * guarded to have no affect on any invocation but its first.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -485,8 +486,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
    private boolean isInitialized = false;
 
    /**
-    * Complete the initialization of the package and its meta-model. This method is guarded to have no affect on any
-    * invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Complete the initialization of the package and its meta-model. This
+    * method is guarded to have no affect on any invocation but its first.
+    * <!-- begin-user-doc --> <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -549,8 +551,8 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
          ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEReference(getModuleProject_ModuleModel(), theModuleModelPackage.getAbstractModule(), null, "moduleModel",
-         null, 0, 1, ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+         null, 0, 1, ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEReference(getModuleProject_Attachments(), this.getModuleAttachment(), this.getModuleAttachment_Parent(),
          "attachments", null, 0, -1, ModuleProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
          IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
