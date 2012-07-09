@@ -25,13 +25,12 @@ public class B2MavenLifecycleParticipant extends AbstractMavenLifecycleParticipa
    public void afterProjectsRead(MavenSession mavenSession) throws MavenExecutionException
    {
       super.afterProjectsRead(mavenSession);
-
       final B2Session b2Session = Adapters.getAdapter(mavenSession, B2Session.class);
       if (b2Session == null)
       {
          return;
       }
-
+      Adapters.removeAdapters(mavenSession, B2Session.class);
       b2Bridge.connect(mavenSession, b2Session);
    }
 }
