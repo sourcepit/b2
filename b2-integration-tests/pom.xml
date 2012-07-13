@@ -225,6 +225,27 @@
 						<version>1.1</version>
 						<executions>
 							<execution>
+								<id>chmod-it-maven</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>exec</goal>
+								</goals>
+								<configuration>
+									<executable>find</executable>
+									<arguments>
+										<argument>${it.dir}/apache-maven-${maven.version}/bin</argument>
+										<argument>-type</argument>
+										<argument>f</argument>
+										<argument>-exec</argument>
+										<argument>chmod</argument>
+										<argument>u+x</argument>
+										<argument>{}</argument>
+										<argument>\;</argument>
+									</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>chmod-b2-examples</id>
 								<phase>pre-integration-test</phase>
 								<goals>
 									<goal>exec</goal>
