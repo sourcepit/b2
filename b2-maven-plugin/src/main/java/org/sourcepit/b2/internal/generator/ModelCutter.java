@@ -6,7 +6,10 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -15,11 +18,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.maven.model.Extension;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.Repository;
 import org.apache.maven.model.Resource;
+import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
+import org.sourcepit.common.utils.lang.Exceptions;
 
 public class ModelCutter
 {
@@ -166,20 +172,26 @@ public class ModelCutter
 
    private boolean equals(Object targetValue, Object sourceValue)
    {
-      if (targetValue instanceof Resource && sourceValue instanceof Resource)
-      {
-         return equalsDeluxe(((Resource) targetValue).getDirectory(), ((Resource) sourceValue).getDirectory());
-      }
-      return equalsDeluxe(targetValue, sourceValue);
-   }
-
-   private boolean equalsDeluxe(Object targetValue, Object sourceValue)
-   {
       if (targetValue == null)
       {
          return sourceValue == null;
       }
-      return targetValue.equals(sourceValue);
+      return Arrays.equals(toByteArray(targetValue), toByteArray(sourceValue));
+   }
+
+   private byte[] toByteArray(Object object)
+   {
+      try
+      {
+         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+         ObjectOutputStream outputStream = new ObjectOutputStream(byteOut);
+         outputStream.writeObject(object);
+         return byteOut.toByteArray();
+      }
+      catch (IOException e)
+      {
+         throw Exceptions.pipe(e);
+      }
    }
 
    private Object findSourceValue(Object targetValue, Collection<?> sourceValues)

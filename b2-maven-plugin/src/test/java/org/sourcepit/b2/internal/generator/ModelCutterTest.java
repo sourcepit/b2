@@ -6,15 +6,21 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.junit.Assert.assertThat;
+
+import java.util.List;
 import java.util.Properties;
 
 import junit.framework.TestCase;
 
 import org.apache.maven.model.Build;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginManagement;
 import org.apache.maven.model.Repository;
+import org.hamcrest.core.Is;
+import org.hamcrest.core.IsEqual;
 
 public class ModelCutterTest extends TestCase
 {
@@ -123,5 +129,132 @@ public class ModelCutterTest extends TestCase
       assertNotNull(target.getBuild());
       assertEquals(0, target.getBuild().getPlugins().size());
       assertEquals(1, target.getBuild().getPluginManagement().getPlugins().size());
+   }
+
+   public void testPluginEqualPlugin() throws Exception
+   {
+      Model source = new Model();
+      source.setBuild(new Build());
+      source.getBuild().setPluginManagement(new PluginManagement());
+      source.getBuild().getPluginManagement().getPlugins()
+         .add(createPlugin("org.sourcepit.b2", "b2-test-plugin", "1.0.0"));
+
+      Model target = new Model();
+      target.setBuild(new Build());
+      target.getBuild().setPluginManagement(new PluginManagement());
+      target.getBuild().getPluginManagement().getPlugins()
+         .add(createPlugin("org.sourcepit.b2", "b2-test-plugin", "1.0.0"));
+
+      new ModelCutter().cut(target, source);
+      assertNull(target.getBuild());
+   }
+
+   public void testPluginsWithDifferentVersions() throws Exception
+   {
+      Model source = new Model();
+      source.setBuild(new Build());
+      source.getBuild().setPluginManagement(new PluginManagement());
+      source.getBuild().getPluginManagement().getPlugins()
+         .add(createPlugin("org.sourcepit.b2", "b2-test-plugin", "1.0.0"));
+
+      Model target = new Model();
+      target.setBuild(new Build());
+      target.getBuild().setPluginManagement(new PluginManagement());
+      target.getBuild().getPluginManagement().getPlugins()
+         .add(createPlugin("org.sourcepit.b2", "b2-test-plugin", "2.0.0"));
+
+      new ModelCutter().cut(target, source);
+      assertNotNull(target.getBuild());
+      assertNotNull(target.getBuild().getPluginManagement());
+
+      List<Plugin> plugins = target.getBuild().getPluginManagement().getPlugins();
+      assertThat(plugins.size(), Is.is(1));
+
+      Plugin plugin = plugins.get(0);
+      assertThat(plugin.getGroupId(), IsEqual.equalTo("org.sourcepit.b2"));
+      assertThat(plugin.getArtifactId(), IsEqual.equalTo("b2-test-plugin"));
+      assertThat(plugin.getVersion(), IsEqual.equalTo("2.0.0"));
+   }
+   
+   public void testPluginsWithEqualDependencies() throws Exception
+   {
+      Model source = new Model();
+      source.setBuild(new Build());
+      source.getBuild().setPluginManagement(new PluginManagement());
+      Dependency sourceDependency = new Dependency();
+      sourceDependency.setGroupId("foo");
+      sourceDependency.setArtifactId("bar");
+      sourceDependency.setVersion("1");
+      Plugin sourcePlugin = createPlugin("org.sourcepit.b2", "b2-test-plugin", "1.0.0");
+      sourcePlugin.getDependencies().add(sourceDependency);
+      source.getBuild().getPluginManagement().getPlugins().add(sourcePlugin);
+
+      Model target = new Model();
+      target.setBuild(new Build());
+      target.getBuild().setPluginManagement(new PluginManagement());
+      Dependency targetDependency = new Dependency();
+      targetDependency.setGroupId("foo");
+      targetDependency.setArtifactId("bar");
+      targetDependency.setVersion("1");
+      Plugin targetPlugin = createPlugin("org.sourcepit.b2", "b2-test-plugin", "1.0.0");
+      targetPlugin.getDependencies().add(targetDependency);
+      target.getBuild().getPluginManagement().getPlugins().add(targetPlugin);
+
+      new ModelCutter().cut(target, source);
+      assertNull(target.getBuild());
+   }
+
+   public void testPluginsWithDifferentDependencies() throws Exception
+   {
+      Model source = new Model();
+      source.setBuild(new Build());
+      source.getBuild().setPluginManagement(new PluginManagement());
+      Dependency sourceDependency = new Dependency();
+      sourceDependency.setGroupId("foo");
+      sourceDependency.setArtifactId("bar");
+      sourceDependency.setVersion("1");
+      Plugin sourcePlugin = createPlugin("org.sourcepit.b2", "b2-test-plugin", "1.0.0");
+      sourcePlugin.getDependencies().add(sourceDependency);
+      source.getBuild().getPluginManagement().getPlugins().add(sourcePlugin);
+
+      Model target = new Model();
+      target.setBuild(new Build());
+      target.getBuild().setPluginManagement(new PluginManagement());
+      Dependency targetDependency = new Dependency();
+      targetDependency.setGroupId("foo");
+      targetDependency.setArtifactId("bar");
+      targetDependency.setVersion("2");
+      Plugin targetPlugin = createPlugin("org.sourcepit.b2", "b2-test-plugin", "1.0.0");
+      targetPlugin.getDependencies().add(targetDependency);
+      target.getBuild().getPluginManagement().getPlugins().add(targetPlugin);
+
+      new ModelCutter().cut(target, source);
+      assertNotNull(target.getBuild());
+      assertNotNull(target.getBuild().getPluginManagement());
+
+      List<Plugin> plugins = target.getBuild().getPluginManagement().getPlugins();
+      assertThat(plugins.size(), Is.is(1));
+      
+      Plugin plugin = plugins.get(0);
+      assertThat(plugin.getGroupId(), IsEqual.equalTo("org.sourcepit.b2"));
+      assertThat(plugin.getArtifactId(), IsEqual.equalTo("b2-test-plugin"));
+      assertThat(plugin.getVersion(), IsEqual.equalTo("1.0.0"));
+      
+      List<Dependency> dependencies = plugin.getDependencies();
+      assertThat(dependencies.size(), Is.is(1));
+      
+      Dependency dependency = dependencies.get(0);
+      assertThat(dependency.getGroupId(), IsEqual.equalTo("foo"));
+      assertThat(dependency.getArtifactId(), IsEqual.equalTo("bar"));
+      assertThat(dependency.getVersion(), IsEqual.equalTo("2"));
+   }
+
+   private Plugin createPlugin(String groupId, String artifatcId, String version)
+   {
+      final Plugin plugin = new Plugin();
+      plugin.setGroupId(groupId);
+      plugin.setArtifactId(artifatcId);
+      plugin.setVersion(version);
+      return plugin;
    }
 }
