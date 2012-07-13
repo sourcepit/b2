@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.sourcepit.b2.its</groupId>
+	<artifactId>module-b</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<tycho.version>${tycho.version}</tycho.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>vrdev</id>
+			<url>http://immplbui01.innovations.de:47080/artifactory/vrdev</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.sourcepit.b2</groupId>
+				<artifactId>b2-maven-plugin</artifactId>
+				<version>${project.version}</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.sourcepit.b2.its</groupId>
+			<artifactId>module-a</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<type>module</type>
+		</dependency>
+	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>b2-releases</id>
+			<url>file:////${it.dir}/remote-repository/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>b2-snapshots</id>
+			<url>file:////${it.dir}/remote-repository/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+</project>

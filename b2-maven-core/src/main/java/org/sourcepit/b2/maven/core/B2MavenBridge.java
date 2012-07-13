@@ -130,6 +130,18 @@ public class B2MavenBridge
       return Adapters.getAdapter(b2Session, MavenSession.class);
    }
 
+   public ModuleProject findContainingModuleProject(MavenProject mavenProject)
+   {
+      ModuleProject moduleProject = null;
+      MavenProject parentProject = mavenProject;
+      while (parentProject != null && moduleProject == null)
+      {
+         moduleProject = getModuleProject(parentProject);
+         parentProject = parentProject.getParent();
+      }
+      return moduleProject;
+   }
+
    public ModuleProject getModuleProject(MavenProject mavenProject)
    {
       return findAdapter(mavenProject, ModuleProject.class);
