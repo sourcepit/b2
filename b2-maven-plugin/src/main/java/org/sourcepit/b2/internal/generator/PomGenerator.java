@@ -6,8 +6,11 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.common.utils.io.IOResources.cpIn;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -42,6 +45,7 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
+import org.sourcepit.common.utils.io.IOOperation;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
@@ -260,6 +264,23 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    private void addAdditionalProjectProperties(AbstractModule module, IConverter converter, Model defaultModel)
    {
+      final Properties b2Props = new Properties();
+      new IOOperation<InputStream>(cpIn(getClass().getClassLoader(),
+         "META-INF/b2/b2.properties"))
+      {
+         @Override
+         protected void run(InputStream openResource) throws IOException
+         {
+            b2Props.load(openResource);
+         }
+      }.run();
+      final String b2Version = b2Props.getProperty("b2.version");
+      if (b2Version == null)
+      {
+         throw new IllegalStateException("Unable to determine b2.version");
+      }
+      defaultModel.getProperties().putAll(b2Props);
+      
       final List<String> sonarExcludes = new ArrayList<String>();
       collectSonarExcludes(module, converter, sonarExcludes);
       if (sonarExcludes.size() > 0)
