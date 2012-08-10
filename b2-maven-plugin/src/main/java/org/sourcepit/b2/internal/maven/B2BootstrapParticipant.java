@@ -6,14 +6,23 @@
 
 package org.sourcepit.b2.internal.maven;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.bval.jsr303.ApacheValidationProvider;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.repository.RepositorySystem;
+import org.eclipse.tycho.core.UnknownEnvironmentException;
+import org.eclipse.tycho.core.utils.ExecutionEnvironmentUtils;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
 import org.sourcepit.b2.execution.B2SessionRunner;
@@ -24,12 +33,16 @@ import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
 import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
+import org.sourcepit.osgify.maven.p2.P2UpdateSiteGenerator;
 
 @Named
 public class B2BootstrapParticipant implements BootstrapParticipant
 {
    @Inject
    private LegacySupport legacySupport;
+
+   @Inject
+   private RepositorySystem repositorySystem;
 
    @Inject
    private B2SessionService sessionService;
@@ -42,6 +55,9 @@ public class B2BootstrapParticipant implements BootstrapParticipant
 
    @Inject
    private B2SessionRunner sessionRunner;
+
+   @Inject
+   private P2UpdateSiteGenerator updateSiteGenerator;
 
    public void beforeBuild(BootstrapSession bootSession, final MavenProject bootProject)
    {
@@ -61,6 +77,34 @@ public class B2BootstrapParticipant implements BootstrapParticipant
             return b2SessionInitializer.newB2Request(bootProject);
          }
       };
+
+      File targetDir = new File(bootProject.getBuild().getDirectory());
+      List<ArtifactRepository> remoteArtifactRepositories = bootProject.getRemoteArtifactRepositories();
+      ArtifactRepository localRepository = legacySupport.getSession().getLocalRepository();
+      String repositoryName = bootProject.getName();
+
+      Artifact artifact = repositorySystem.createArtifact("org.apache.maven", "maven-model", "3.0.4", "jar");
+
+      // ClassLoader classLoader = ApacheValidationProvider.class.getClassLoader();
+      // Thread.currentThread().setContextClassLoader(classLoader);
+
+      MavenSession session = legacySupport.getSession();
+      try
+      {
+
+         MavenSession clone = session.clone();
+         clone.setProjects(bootSession.getBootstrapProjects());
+
+         legacySupport.setSession(clone);
+
+         updateSiteGenerator.generateUpdateSite(targetDir, artifact, remoteArtifactRepositories, localRepository,
+            repositoryName, true, 0);
+      }
+      finally
+      {
+         legacySupport.setSession(session);
+      }
+
 
       sessionRunner.prepareNext(b2Session, b2RequestFactory);
    }
