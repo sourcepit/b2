@@ -22,11 +22,6 @@ public class PomCleaner implements IModuleGarbageCollector
          {
             return true;
          }
-
-         if (file.isDirectory() && "target".equals(file.getName()))
-         {
-            return true;
-         }
       }
       return false;
    }
