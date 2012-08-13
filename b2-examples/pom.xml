@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sourcepit.b2</groupId>
@@ -83,14 +84,6 @@
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.build.directory}/dist/</outputDirectory>
 								</artifactItem>
-								<!-- <artifactItem> -->
-								<!-- <groupId>com.googlecode.t7mp</groupId> -->
-								<!-- <artifactId>tomcat</artifactId> -->
-								<!-- <version>7.0.21</version> -->
-								<!-- <type>zip</type> -->
-								<!-- <overWrite>true</overWrite> -->
-								<!-- <outputDirectory>${project.build.directory}/dist/</outputDirectory> -->
-								<!-- </artifactItem> -->
 							</artifactItems>
 						</configuration>
 					</execution>
@@ -121,34 +114,6 @@
 							<descriptors>
 								<descriptor>src/main/assembly/bin.xml</descriptor>
 							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>test-jar</goal>
-						</goals>
-						<configuration>
-							<defaultManifestFile>${project.build.testOutputDirectory}/META-INF/MANIFEST.MF</defaultManifestFile>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sourcepit.tools</groupId>
-				<artifactId>shared-resources-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>share-test-resources</goal>
-						</goals>
-						<configuration>
-							<resourcesDirectory>${project.build.directory}/dist/example-modules</resourcesDirectory>
 						</configuration>
 					</execution>
 				</executions>
