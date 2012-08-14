@@ -8,6 +8,9 @@ package org.sourcepit.b2.internal.generator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -15,6 +18,7 @@ import javax.inject.Named;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Profile;
 import org.apache.maven.model.building.DefaultModelBuildingRequest;
 import org.apache.maven.model.building.ModelBuilder;
 import org.apache.maven.model.building.ModelBuildingException;
@@ -76,11 +80,33 @@ public class BootPomSerializer implements IB2Listener
       final Model mavenDefaults = getMavenDefaults(currentProject);
       final Model templateModel = currentProject.getModel().clone();
       templateModel.setParent(null);
+      templateModel.setProfiles(collectProfiles(currentProject)); // Bug #76: Parent profiles are lost while generating
+                                                                  // Maven poms
+
       new ModelCutter().cut(templateModel, mavenDefaults);
 
       final File pomFile = createFile(module, "module-pom-template.xml");
       writeMavenModel(templateModel, pomFile);
       module.putAnnotationEntry("maven", "modulePomTemplate", pomFile.getAbsolutePath());
+   }
+
+   private List<Profile> collectProfiles(MavenProject project)
+   {
+      final Map<String, Profile> profileMap = new LinkedHashMap<String, Profile>();
+      MavenProject currentProject = project;
+      while (currentProject != null)
+      {
+         for (Profile profile : currentProject.getOriginalModel().getProfiles())
+         {
+            final String id = profile.getId();
+            if (!profileMap.containsKey(id))
+            {
+               profileMap.put(id, profile);
+            }
+         }
+         currentProject = currentProject.getParent();
+      }
+      return new ArrayList<Profile>(profileMap.values());
    }
 
    private Model getMavenDefaults(MavenProject mavenProject)
