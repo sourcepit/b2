@@ -26,9 +26,18 @@
 	<profiles>
 		<profile>
 			<id>parent-parent-profile</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<foo>\${basedir}</foo>
 			</properties>
+			<repositories>
+				<repository>
+					<id>parent-parent-repository</id>
+					<url>file:///\${basedir}</url>
+				</repository>
+			</repositories>
 		</profile>
 	</profiles>
 </project>
