@@ -43,6 +43,9 @@ public class MavenProfilesIT extends AbstractB2IT
       List<Profile> profiles = pomParentParent.getProfiles();
 
       assertParentParentProfile(profiles);
+      // assert that values of duplicate profiles ids are merged and not just overridden
+      assertThat(getProfile(profiles, "parent-parent-profile").getProperties().getProperty("name"),
+         equalTo("parent-parent-profile"));
       // assert that repo of active parent profile is not merged into actual pom
       assertNull(getRepository(pomParentParent.getRepositories(), "parent-parent-repository"));
 
@@ -55,8 +58,11 @@ public class MavenProfilesIT extends AbstractB2IT
       profiles = pomReactor.getProfiles();
 
       assertParentParentProfile(profiles);
+      // assert that values of duplicate profiles ids are merged and not just overridden
+      assertThat(getProfile(profiles, "parent-parent-profile").getProperties().getProperty("name"),
+         equalTo("module-parent-profile"));
       // assert that repo of active parent profile is not merged into actual pom
-      assertNull(getRepository(pomParentParent.getRepositories(), "parent-parent-repository"));
+      assertNull(getRepository(pomReactor.getRepositories(), "parent-parent-repository"));
 
       assertThat(getProfile(profiles, "reactor-profile"), notNullValue());
       assertThat(getProfile(profiles, "parent-parent-profile"), notNullValue());
@@ -67,8 +73,11 @@ public class MavenProfilesIT extends AbstractB2IT
       profiles = pomModuleParent.getProfiles();
 
       assertParentParentProfile(profiles);
+      // assert that values of duplicate profiles ids are merged and not just overridden
+      assertThat(getProfile(profiles, "parent-parent-profile").getProperties().getProperty("name"),
+         equalTo("module-parent-profile"));
       // assert that repo of active parent profile is not merged into actual pom
-      assertNull(getRepository(pomParentParent.getRepositories(), "parent-parent-repository"));
+      assertNull(getRepository(pomModuleParent.getRepositories(), "parent-parent-repository"));
 
       assertThat(getProfile(profiles, "reactor-profile"), nullValue());
       assertThat(getProfile(profiles, "parent-parent-profile"), notNullValue());
@@ -79,8 +88,11 @@ public class MavenProfilesIT extends AbstractB2IT
       profiles = pomModule.getProfiles();
 
       assertParentParentProfile(profiles);
+      // assert that values of duplicate profiles ids are merged and not just overridden
+      assertThat(getProfile(profiles, "parent-parent-profile").getProperties().getProperty("name"),
+         equalTo("module-profile"));
       // assert that repo of active parent profile is not merged into actual pom
-      assertNull(getRepository(pomParentParent.getRepositories(), "parent-parent-repository"));
+      assertNull(getRepository(pomModule.getRepositories(), "parent-parent-repository"));
 
       assertThat(getProfile(profiles, "reactor-profile"), nullValue());
       assertThat(getProfile(profiles, "parent-parent-profile"), notNullValue());

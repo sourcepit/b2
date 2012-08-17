@@ -14,9 +14,12 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.maven.model.Activation;
+import org.apache.maven.model.BuildBase;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.inheritance.InheritanceAssembler;
+import org.apache.maven.model.merge.ModelMerger;
 import org.apache.maven.model.normalization.ModelNormalizer;
 import org.apache.maven.project.MavenProject;
 
@@ -28,6 +31,64 @@ public class ModulePomBuilder
 
    @Inject
    private InheritanceAssembler inheritanceAssembler;
+
+   private static class ProfileMerger extends ModelMerger
+   {
+      @Override
+      public void mergeModel_Profiles(Model target, Model source, boolean sourceDominant, Map<Object, Object> context)
+      {
+         final Map<String, Profile> targetProfiles = new LinkedHashMap<String, Profile>();
+         for (Profile profile : target.getProfiles())
+         {
+            targetProfiles.put(profile.getId(), profile);
+         }
+         for (Profile srcProfile : source.getProfiles())
+         {
+            final Profile tgtProfile = targetProfiles.get(srcProfile.getId());
+            if (tgtProfile == null)
+            {
+               targetProfiles.put(srcProfile.getId(), srcProfile.clone());
+            }
+            else
+            {
+               mergeProfile(tgtProfile, srcProfile, sourceDominant, context);
+            }
+         }
+         target.setProfiles(new ArrayList<Profile>(targetProfiles.values()));
+      }
+
+      @Override
+      protected void mergeProfile(Profile tgtProfile, Profile srcProfile, boolean sourceDominant,
+         Map<Object, Object> context)
+      {
+         final Activation tgtActivation = tgtProfile.getActivation();
+         final Activation srcActivation = srcProfile.getActivation();
+         if (tgtActivation == null)
+         {
+            tgtProfile.setActivation(srcActivation);
+         }
+         else if (srcActivation != null)
+         {
+            if (sourceDominant)
+            {
+               tgtProfile.setActivation(srcActivation);
+            }
+         }
+
+         mergeModelBase(tgtProfile, srcProfile, sourceDominant, context);
+
+         BuildBase tgtBuild = tgtProfile.getBuild();
+         BuildBase srcBuild = srcProfile.getBuild();
+         if (tgtBuild == null)
+         {
+            tgtProfile.setBuild(srcBuild);
+         }
+         else if (srcBuild != null)
+         {
+            mergeBuildBase(tgtBuild, srcBuild, sourceDominant, context);
+         }
+      }
+   }
 
    public Model buildModulePom(MavenProject bootProject)
    {
@@ -41,14 +102,17 @@ public class ModulePomBuilder
          Model parent = modelHierarchy.get(i + 1);
          Model child = modelHierarchy.get(i);
          inheritanceAssembler.assembleModelInheritance(child, parent, null, null);
+
+         // Bug #76: Parent profiles are lost while generating Maven poms
+         new ProfileMerger().mergeModel_Profiles(child, parent, false, null);
       }
 
       Model resultModel = modelHierarchy.get(0);
       modelNormalizer.mergeDuplicates(resultModel, null, null);
 
       resultModel.setParent(null);
-      resultModel.setProfiles(collectProfiles(bootProject)); // Bug #76: Parent profiles are lost while generating Maven
-                                                             // poms
+
+      // poms
       return resultModel;
    }
 
@@ -62,24 +126,5 @@ public class ModulePomBuilder
          currentProject = currentProject.getParent();
       }
       return models;
-   }
-
-   private List<Profile> collectProfiles(MavenProject project)
-   {
-      final Map<String, Profile> profileMap = new LinkedHashMap<String, Profile>();
-      MavenProject currentProject = project;
-      while (currentProject != null)
-      {
-         for (Profile profile : currentProject.getOriginalModel().getProfiles())
-         {
-            final String id = profile.getId();
-            if (!profileMap.containsKey(id))
-            {
-               profileMap.put(id, profile.clone());
-            }
-         }
-         currentProject = currentProject.getParent();
-      }
-      return new ArrayList<Profile>(profileMap.values());
    }
 }
