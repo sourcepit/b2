@@ -8,25 +8,14 @@ package org.sourcepit.b2.internal.generator;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.maven.model.Model;
-import org.apache.maven.model.Profile;
-import org.apache.maven.model.building.DefaultModelBuildingRequest;
-import org.apache.maven.model.building.ModelBuilder;
-import org.apache.maven.model.building.ModelBuildingException;
-import org.apache.maven.model.building.ModelBuildingRequest;
-import org.apache.maven.model.building.StringModelSource;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.ProjectBuildingRequest;
 import org.sourcepit.b2.execution.IB2Listener;
 import org.sourcepit.b2.internal.maven.BootstrapSessionService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
@@ -43,9 +32,9 @@ public class BootPomSerializer implements IB2Listener
 
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
-
+   
    @Inject
-   private ModelBuilder modelBuilder;
+   private ModulePomBuilder modulePomBuilder;
 
    public void startGeneration(AbstractModule module)
    {
@@ -68,8 +57,6 @@ public class BootPomSerializer implements IB2Listener
    {
       final File pomFile = createFile(module, "boot-pom.xml");
       final Model model = currentProject.getOriginalModel().clone();
-      // final Model mavenDefaults = getMavenDefaults(currentProject);
-      // new ModelCutter().cut(model, mavenDefaults);
       writeMavenModel(model, pomFile);
       module.putAnnotationEntry("b2", "bootPom", pomFile.getAbsolutePath());
       return pomFile;
@@ -77,87 +64,10 @@ public class BootPomSerializer implements IB2Listener
 
    private void persistModulePomTemplate(AbstractModule module, final MavenProject currentProject) throws IOException
    {
-      final Model mavenDefaults = getMavenDefaults(currentProject);
-      final Model templateModel = currentProject.getModel().clone();
-      templateModel.setParent(null);
-      templateModel.setProfiles(collectProfiles(currentProject)); // Bug #76: Parent profiles are lost while generating
-                                                                  // Maven poms
-
-      new ModelCutter().cut(templateModel, mavenDefaults);
-
+      final Model pomTemplate = modulePomBuilder.buildModulePom(currentProject);
       final File pomFile = createFile(module, "module-pom-template.xml");
-      writeMavenModel(templateModel, pomFile);
+      writeMavenModel(pomTemplate, pomFile);
       module.putAnnotationEntry("maven", "modulePomTemplate", pomFile.getAbsolutePath());
-   }
-
-   private List<Profile> collectProfiles(MavenProject project)
-   {
-      final Map<String, Profile> profileMap = new LinkedHashMap<String, Profile>();
-      MavenProject currentProject = project;
-      while (currentProject != null)
-      {
-         for (Profile profile : currentProject.getOriginalModel().getProfiles())
-         {
-            final String id = profile.getId();
-            if (!profileMap.containsKey(id))
-            {
-               profileMap.put(id, profile);
-            }
-         }
-         currentProject = currentProject.getParent();
-      }
-      return new ArrayList<Profile>(profileMap.values());
-   }
-
-   private Model getMavenDefaults(MavenProject mavenProject)
-   {
-      try
-      {
-         final Model model = new Model();
-         model.setModelVersion(mavenProject.getModelVersion());
-         model.setGroupId(mavenProject.getGroupId());
-         model.setArtifactId(mavenProject.getArtifactId());
-         model.setVersion(mavenProject.getVersion());
-         model.setPackaging(mavenProject.getPackaging());
-
-         final ByteArrayOutputStream out = new ByteArrayOutputStream();
-         try
-         {
-            new DefaultModelWriter().write(out, null, model);
-         }
-         catch (IOException e)
-         {
-            throw new IllegalStateException(e);
-         }
-
-         String dummyModel = out.toString();
-         File pomFile = new File(mavenProject.getBasedir(), "dummy.pom");
-         StringModelSource modelSource = new StringModelSource(dummyModel, pomFile.getPath());
-
-         ProjectBuildingRequest projectBuildingRequest = mavenProject.getProjectBuildingRequest();
-
-         ModelBuildingRequest request = new DefaultModelBuildingRequest();
-         request.setActiveProfileIds(projectBuildingRequest.getActiveProfileIds());
-         request.setProfiles(projectBuildingRequest.getProfiles());
-         request.setSystemProperties(projectBuildingRequest.getSystemProperties());
-         request.setUserProperties(projectBuildingRequest.getUserProperties());
-         request.setValidationLevel(ModelBuildingRequest.VALIDATION_LEVEL_MINIMAL);
-         request.setProcessPlugins(true);
-         request.setTwoPhaseBuilding(false);
-         request.setModelSource(modelSource);
-         request.setPomFile(pomFile);
-
-         final Model defaultModel = modelBuilder.build(request).getEffectiveModel();
-         defaultModel.setGroupId(null);
-         defaultModel.setArtifactId(null);
-         defaultModel.setVersion(null);
-         defaultModel.setPomFile(null);
-         return defaultModel;
-      }
-      catch (ModelBuildingException e)
-      {
-         throw new IllegalStateException(e);
-      }
    }
 
    private File createFile(AbstractModule module, String fileName) throws IOException

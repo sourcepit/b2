@@ -18,6 +18,12 @@
 		<profile>
 			<id>module-parent-profile</id>
 		</profile>
+		<profile>
+			<id>parent-parent-profile</id>
+			<properties>
+				<name>module-parent-profile</name>
+			</properties>
+		</profile>
 	</profiles>
 
 </project>
