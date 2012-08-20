@@ -35,6 +35,7 @@
 		<module>b2-default-templates</module>
 		<module>b2-maven-core</module>
 		<module>b2-maven-release-manager</module>
+		<module>b2-p2-site-generator</module>
 	</modules>
 
 	<licenses>
