@@ -36,7 +36,6 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.common.maven.testing.MavenExecutionResult2;
-import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 
 public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
 {
@@ -72,11 +71,7 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
       {
          mavenSession.setCurrentProject(project);
 
-         final BootstrapSession bootSession = new BootstrapSession(mavenSession, projects,
-            Collections.<File> emptyList());
-         bootSession.setCurrentBootstrapProject(project);
-
-         b2SessionInitializer.initialize(bootSession, properties);
+         b2SessionInitializer.initialize(mavenSession, properties);
 
          final B2Request b2Request = b2SessionInitializer.newB2Request(project);
          if (modelCache == null)

@@ -265,8 +265,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    private void addAdditionalProjectProperties(AbstractModule module, IConverter converter, Model defaultModel)
    {
       final Properties b2Props = new Properties();
-      new IOOperation<InputStream>(cpIn(getClass().getClassLoader(),
-         "META-INF/b2/b2.properties"))
+      new IOOperation<InputStream>(cpIn(getClass().getClassLoader(), "META-INF/b2/b2.properties"))
       {
          @Override
          protected void run(InputStream openResource) throws IOException
@@ -280,7 +279,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          throw new IllegalStateException("Unable to determine b2.version");
       }
       defaultModel.getProperties().putAll(b2Props);
-      
+
       final List<String> sonarExcludes = new ArrayList<String>();
       collectSonarExcludes(module, converter, sonarExcludes);
       if (sonarExcludes.size() > 0)
