@@ -15,7 +15,6 @@ import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.IB2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.util.IConverter;
-import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolator;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolationRequest;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -39,16 +38,6 @@ public class B2ModelBuilder implements IB2ModelBuilder
    {
       checkRequest(request);
 
-      final IModelCache cache = request.getModelCache();
-      if (cache != null)
-      {
-         AbstractModule module = cache.get(request.getModuleDirectory());
-         if (module != null)
-         {
-            return module;
-         }
-      }
-
       final AbstractModule module = moduleParser.parse(request);
 
       if (request.isInterpolate())
@@ -56,7 +45,6 @@ public class B2ModelBuilder implements IB2ModelBuilder
          final ModuleInterpolationRequest iRequest = new ModuleInterpolationRequest();
          iRequest.setModule(module);
          iRequest.setConverter(request.getConverter());
-         iRequest.setModelCache(request.getModelCache());
          interpolator.interpolate(iRequest);
       }
 

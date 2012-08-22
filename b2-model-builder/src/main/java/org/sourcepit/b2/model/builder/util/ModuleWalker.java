@@ -7,23 +7,18 @@
 package org.sourcepit.b2.model.builder.util;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.internal.util.EWalkerImpl;
 
-public abstract class DecouplingB2ModelWalker extends EWalkerImpl
+public abstract class ModuleWalker extends EWalkerImpl
 {
-   protected IModelCache cache;
-
-   public DecouplingB2ModelWalker(IModelCache cache)
+   public ModuleWalker()
    {
       super();
-      this.cache = CacheUtils.getNullSafeCache(cache);
    }
 
-   public DecouplingB2ModelWalker(IModelCache cache, boolean isReverse, boolean isRecursive)
+   public ModuleWalker(boolean isReverse, boolean isRecursive)
    {
       super(isReverse, isRecursive);
-      this.cache = CacheUtils.getNullSafeCache(cache);
    }
 
    @Override
@@ -38,11 +33,6 @@ public abstract class DecouplingB2ModelWalker extends EWalkerImpl
 
    protected boolean acceptVisit(EObject eObject)
    {
-      if (eObject instanceof AbstractModule)
-      {
-         AbstractModule module = (AbstractModule) eObject;
-         return cache.get(module.getDirectory()) == null;
-      }
       return true;
    }
 

@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.b2.model.builder.util.IConverter;
-import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
@@ -65,17 +64,6 @@ public class ModuleInterpolator implements IModuleInterpolator
    public void interpolate(IModuleInterpolationRequest request)
    {
       checkRequest(request);
-      AbstractModule module = request.getModule();
-
-      final IModelCache cache = request.getModelCache();
-      if (cache != null)
-      {
-         if (cache.get(module.getDirectory()) != null)
-         {
-            return;
-         }
-      }
-
       newLifecycleMethod().execute(request);
    }
 

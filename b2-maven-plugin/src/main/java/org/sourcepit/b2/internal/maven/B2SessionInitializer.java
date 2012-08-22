@@ -38,10 +38,8 @@ import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.internal.generator.MavenConverter;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.common.util.GavResourceUtils;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
-import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.Environment;
@@ -72,10 +70,6 @@ public class B2SessionInitializer
 
    @Inject
    private B2SessionService sessionService;
-
-   private static final String CACHE_KEY = B2BootstrapParticipant.class.getName() + "#modelCache";
-
-   private static final String CACHE_KEY_SESSION = B2BootstrapParticipant.class.getName() + "#session";
 
    public B2Session initialize(MavenSession bootSession, Properties properties)
    {
@@ -257,8 +251,6 @@ public class B2SessionInitializer
 
       processDependencies(resourceSet, b2Session.getCurrentProject(), bootProject);
 
-      final IModelCache modelCache = initModelCache(legacySupport.getSession(), resourceSet);
-
       final File moduleDir = bootProject.getBasedir();
       logger.info("Building model for directory " + moduleDir.getName());
 
@@ -282,32 +274,10 @@ public class B2SessionInitializer
       final B2Request b2Request = new B2Request();
       b2Request.setModuleDirectory(moduleDir);
       b2Request.setConverter(converter);
-      b2Request.setModelCache(modelCache);
       b2Request.setModuleFilter(fileFilter);
       b2Request.setInterpolate(!converter.isSkipInterpolator());
       b2Request.setTemplates(templates);
       return b2Request;
-   }
-
-   private IModelCache initModelCache(MavenSession bootSession, ResourceSet resourceSet)
-   {
-      // final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet, layoutManager);
-      //
-      // @SuppressWarnings("unchecked")
-      // final Map<File, String> dirToUriMap = (Map<File, String>) session.getData(CACHE_KEY);
-      // if (dirToUriMap != null)
-      // {
-      // modelCache.getDirToUriMap().putAll(dirToUriMap);
-      // }
-      return new IModelCache()
-      {
-
-         public AbstractModule get(File moduleDir)
-         {
-            // TODO Auto-generated method stub
-            return null;
-         }
-      };
    }
 
    private void processDependencies(ResourceSet resourceSet, ModuleProject moduleProject,

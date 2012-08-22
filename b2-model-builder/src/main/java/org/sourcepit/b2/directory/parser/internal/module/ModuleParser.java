@@ -19,9 +19,8 @@ import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.execution.LifecyclePhase;
-import org.sourcepit.b2.model.builder.util.DecouplingB2ModelWalker;
+import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.builder.util.IConverter;
-import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
@@ -83,17 +82,17 @@ public class ModuleParser implements IModuleParser
          final AbstractModule module = rule.parse(request);
          if (module != null)
          {
-            return enhance(module, request.getConverter(), request.getModelCache());
+            return enhance(module, request.getConverter());
          }
       }
       return null;
    }
 
-   protected AbstractModule enhance(AbstractModule module, final IConverter converter, IModelCache cache)
+   protected AbstractModule enhance(AbstractModule module, final IConverter converter)
    {
       if (!extenders.isEmpty())
       {
-         final DecouplingB2ModelWalker walker = new DecouplingB2ModelWalker(cache)
+         final ModuleWalker walker = new ModuleWalker()
          {
             @Override
             protected boolean doVisit(EObject eObject)

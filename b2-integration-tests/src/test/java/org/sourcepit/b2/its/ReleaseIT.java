@@ -45,7 +45,7 @@ public class ReleaseIT extends AbstractB2IT
    @Override
    protected boolean isDebug()
    {
-      return true;
+      return false;
    }
 
    @Test

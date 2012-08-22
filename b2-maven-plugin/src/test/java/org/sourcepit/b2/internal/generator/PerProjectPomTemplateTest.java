@@ -29,7 +29,6 @@ import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.internal.maven.B2SessionInitializer;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
-import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
@@ -66,7 +65,6 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
       properties.putAll(mavenSession.getSystemProperties());
       properties.putAll(mavenSession.getUserProperties());
 
-      IModelCache modelCache = null;
       for (MavenProject project : projects)
       {
          mavenSession.setCurrentProject(project);
@@ -74,21 +72,12 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
          b2SessionInitializer.initialize(mavenSession, properties);
 
          final B2Request b2Request = b2SessionInitializer.newB2Request(project);
-         if (modelCache == null)
-         {
-            modelCache = b2Request.getModelCache();
-         }
-         else
-         {
-            b2Request.setModelCache(modelCache);
-         }
 
          final AbstractModule module = modelBuilder.build(b2Request);
 
          final B2GenerationRequest request = new B2GenerationRequest();
          request.setModule(module);
          request.setConverter(b2Request.getConverter());
-         request.setModelCache(modelCache);
          request.setTemplates(b2Request.getTemplates());
 
          final B2Generator generator = new B2Generator(Collections.singletonList(pomGenerator),

@@ -49,10 +49,6 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
    implements
       B2SessionLifecycleParticipant
 {
-   private static final String CACHE_KEY = B2BootstrapParticipant.class.getName() + "#modelCache";
-
-   private static final String CACHE_KEY_SESSION = B2BootstrapParticipant.class.getName() + "#session";
-
    @Inject
    private MavenProjectHelper projectHelper;
 
