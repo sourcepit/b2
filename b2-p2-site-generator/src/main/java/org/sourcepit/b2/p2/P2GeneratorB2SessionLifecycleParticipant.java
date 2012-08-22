@@ -22,7 +22,6 @@ import org.apache.maven.repository.RepositorySystem;
 import org.sourcepit.b2.execution.AbstractB2SessionLifecycleParticipant;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
-import org.sourcepit.b2.internal.maven.BootstrapSessionService;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
@@ -48,23 +47,22 @@ public class P2GeneratorB2SessionLifecycleParticipant extends AbstractB2SessionL
    {
       super.prePrepareProject(b2Session, project, request);
       
-      final MavenProject bootProject = legacySupport.getSession().getCurrentProject();
+      final MavenSession bootSession = legacySupport.getSession();
+      final MavenProject bootProject = bootSession.getCurrentProject();
       
       File targetDir = new File(bootProject.getBuild().getDirectory());
       List<ArtifactRepository> remoteArtifactRepositories = bootProject.getRemoteArtifactRepositories();
-      ArtifactRepository localRepository = legacySupport.getSession().getLocalRepository();
+      ArtifactRepository localRepository = bootSession.getLocalRepository();
       String repositoryName = bootProject.getName();
 
       Artifact artifact = repositorySystem.createArtifact("org.apache.maven", "maven-model", "3.0.4", "jar");
 
-      MavenSession session = legacySupport.getSession();
       try
       {
-
-         final MavenSession clone = session.clone();
+         final MavenSession clone = bootSession.clone();
 
          final List<MavenProject> clones = new ArrayList<MavenProject>();
-         for (MavenProject mavenProject : bootSession.getBootstrapProjects())
+         for (MavenProject mavenProject : bootSession.getProjects())
          {
             clones.add(mavenProject.clone());
          }
@@ -78,7 +76,7 @@ public class P2GeneratorB2SessionLifecycleParticipant extends AbstractB2SessionL
       }
       finally
       {
-         legacySupport.setSession(session);
+         legacySupport.setSession(bootSession);
       }
    }
 
