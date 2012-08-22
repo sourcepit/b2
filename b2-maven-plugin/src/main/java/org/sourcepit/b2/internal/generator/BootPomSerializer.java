@@ -15,9 +15,9 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelWriter;
+import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.sourcepit.b2.execution.IB2Listener;
-import org.sourcepit.b2.internal.maven.BootstrapSessionService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 
@@ -28,17 +28,17 @@ import org.sourcepit.b2.model.module.AbstractModule;
 public class BootPomSerializer implements IB2Listener
 {
    @Inject
-   private BootstrapSessionService bootSessionService;
+   private LegacySupport legacySupport;
 
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
-   
+
    @Inject
    private ModulePomBuilder modulePomBuilder;
 
    public void startGeneration(AbstractModule module)
    {
-      final MavenProject currentProject = bootSessionService.getBootstrapSession().getCurrentBootstrapProject();
+      final MavenProject currentProject = legacySupport.getSession().getCurrentProject();
       if (module.getDirectory().equals(currentProject.getBasedir()))
       {
          try

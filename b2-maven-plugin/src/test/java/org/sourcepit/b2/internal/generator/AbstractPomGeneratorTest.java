@@ -17,7 +17,6 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.ModelReader;
 import org.eclipse.emf.ecore.EObject;
-import org.mockito.Mockito;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
@@ -29,7 +28,6 @@ import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.internal.util.EWalkerImpl;
-import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 
 import com.google.inject.Binder;
 
@@ -48,7 +46,6 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
    public void configure(Binder binder)
    {
       super.configure(binder);
-      binder.bind(BootstrapSession.class).toInstance(Mockito.mock(BootstrapSession.class));
    }
 
    protected IInterpolationLayout getLayout(BasicModule module)

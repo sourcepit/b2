@@ -24,11 +24,11 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.Profile;
+import org.apache.maven.plugin.LegacySupport;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.internal.maven.BootstrapSessionService;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
@@ -52,10 +52,10 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    private Map<String, IInterpolationLayout> layoutMap;
 
    @Inject
-   private BootstrapSessionService bootSessionService;
+   private IB2SessionService sessionService;
 
    @Inject
-   private IB2SessionService sessionService;
+   private LegacySupport legacySupport;
 
    @Override
    public GeneratorType getGeneratorType()
@@ -96,7 +96,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       properties.setProperty("file", bootPom.getAbsolutePath());
       properties.setProperty("pomFile", bootPom.getAbsolutePath());
 
-      final ArtifactRepository repo = bootSessionService.getBootstrapSession().getCurrentBootstrapProject()
+      final ArtifactRepository repo = legacySupport.getSession().getCurrentProject()
          .getDistributionManagementArtifactRepository();
       if (repo != null)
       {
