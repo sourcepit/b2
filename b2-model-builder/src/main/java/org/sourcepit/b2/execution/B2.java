@@ -50,7 +50,6 @@ public class B2
          final B2GenerationRequest genRequest = new B2GenerationRequest();
          genRequest.setModule(module);
          genRequest.setConverter(converter);
-         genRequest.setModelCache(request.getModelCache());
          genRequest.setTemplates(request.getTemplates());
 
          generator.generate(genRequest);

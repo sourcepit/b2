@@ -33,7 +33,6 @@ import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.maven.testing.MavenExecutionResult2;
-import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 
 public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
 {
@@ -110,11 +109,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
 
       mavenSession.setCurrentProject(project);
 
-      final BootstrapSession bootSession = new BootstrapSession(mavenSession, mavenSession.getProjects(),
-         Collections.<File> emptyList());
-      bootSession.setCurrentBootstrapProject(project);
-
-      b2SessionInitializer.initialize(bootSession, properties);
+      b2SessionInitializer.initialize(mavenSession, properties);
 
       final B2Request b2Request = b2SessionInitializer.newB2Request(project);
 
@@ -123,7 +118,6 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       final B2GenerationRequest request = new B2GenerationRequest();
       request.setModule(module);
       request.setConverter(b2Request.getConverter());
-      request.setModelCache(b2Request.getModelCache());
       request.setTemplates(b2Request.getTemplates());
 
       final B2Generator generator = new B2Generator(Collections.singletonList(pomGenerator),

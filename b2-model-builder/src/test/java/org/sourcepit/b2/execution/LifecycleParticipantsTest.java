@@ -14,7 +14,6 @@ import java.util.Stack;
 
 import javax.inject.Inject;
 
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.hamcrest.core.Is;
 import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.common.internal.utils.PropertiesMap;
@@ -25,7 +24,6 @@ import org.sourcepit.b2.internal.generator.B2GeneratorLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
-import org.sourcepit.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
@@ -74,9 +72,6 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
    public void testAll() throws Exception
    {
-      final ResourceSetImpl resourceSet = new ResourceSetImpl();
-      final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet, layoutManager);
-
       final B2RequestFactory requestFactory = new B2RequestFactory()
       {
          public B2Request newRequest(B2Session session)
@@ -88,7 +83,6 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
             request.setConverter(converter);
             request.setInterpolate(true);
             request.setTemplates(new DefaultTemplateCopier());
-            request.setModelCache(modelCache);
             return request;
          }
       };

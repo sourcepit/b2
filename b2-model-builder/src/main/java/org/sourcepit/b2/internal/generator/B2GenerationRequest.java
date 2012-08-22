@@ -7,14 +7,11 @@
 package org.sourcepit.b2.internal.generator;
 
 import org.sourcepit.b2.model.builder.util.IConverter;
-import org.sourcepit.b2.model.builder.util.IModelCache;
 import org.sourcepit.b2.model.module.AbstractModule;
 
 public class B2GenerationRequest implements IB2GenerationRequest
 {
    private AbstractModule module;
-
-   private IModelCache modelCache;
 
    private IConverter converter;
 
@@ -31,19 +28,6 @@ public class B2GenerationRequest implements IB2GenerationRequest
    public void setModule(AbstractModule module)
    {
       this.module = module;
-   }
-
-   /**
-    * {@inheritDoc}
-    */
-   public IModelCache getModelCache()
-   {
-      return modelCache;
-   }
-
-   public void setModelCache(IModelCache modelCache)
-   {
-      this.modelCache = modelCache;
    }
 
    /**

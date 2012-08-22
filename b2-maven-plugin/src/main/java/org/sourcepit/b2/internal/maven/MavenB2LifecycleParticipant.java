@@ -19,6 +19,7 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.DefaultModelWriter;
+import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -33,7 +34,8 @@ import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.FixedModelMerger;
-import org.sourcepit.b2.model.builder.util.DecouplingModelCache;
+import org.sourcepit.b2.model.builder.util.B2SessionService;
+import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.SiteProject;
@@ -41,25 +43,23 @@ import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
-import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 
 @Named
 public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParticipant
    implements
       B2SessionLifecycleParticipant
 {
-   private static final String CACHE_KEY = B2BootstrapParticipant.class.getName() + "#modelCache";
-
-   private static final String CACHE_KEY_SESSION = B2BootstrapParticipant.class.getName() + "#session";
-
    @Inject
    private MavenProjectHelper projectHelper;
 
    @Inject
-   private BootstrapSessionService bootSessionsService;
+   private LayoutManager layoutManager;
 
    @Inject
-   private LayoutManager layoutManager;
+   private LegacySupport legacySupport;
+
+   @Inject
+   private B2SessionService b2SessionService;
 
    public void postPrepareProject(B2Session session, ModuleProject project, B2Request request, AbstractModule module,
       ThrowablePipe errors)
@@ -80,14 +80,14 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
          classifiers.add(null);
       }
 
-      final BootstrapSession bootSession = bootSessionsService.getBootstrapSession();
-      final MavenProject bootProject = bootSession.getCurrentBootstrapProject();
+      final MavenProject bootProject = legacySupport.getSession().getCurrentProject();
 
       // HACK
-      final DecouplingModelCache modelCache = (DecouplingModelCache) request.getModelCache();
+      // final DecouplingModelCache modelCache = (DecouplingModelCache)
+      // request.getModelCache();DecouplingModelCache.class.getClassLoader()
 
-      final ResourceSet resourceSet = modelCache.getResourceSet();
-      
+      final ResourceSet resourceSet = b2SessionService.getCurrentResourceSet();
+
       if (session.eResource() != null)
       {
          resourceSet.getResources().remove(session.eResource());
@@ -103,15 +103,14 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
          {
             moduleResource = resourceSet.createResource(moduleUri);
             moduleResource.getContents().add(module);
-            modelCache.put(module);
+            save(resourceSet, module);
          }
          else if (!moduleUri.equals(moduleResource.getURI()))
          {
             AbstractModule copy = EcoreUtil.copy(module);
-
             moduleResource = resourceSet.createResource(moduleUri);
             moduleResource.getContents().add(copy);
-            modelCache.put(copy);
+            save(resourceSet, copy);
          }
       }
 
@@ -139,9 +138,36 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
 
       processAttachments(bootProject, pomFile);
 
-      bootSession.setData(CACHE_KEY_SESSION, uri.toString());
+      // bootSession.setData(CACHE_KEY_SESSION, uri.toString());
+      //
+      // storeModelCache(bootSession, modelCache);
+   }
 
-      storeModelCache(bootSession, modelCache);
+   private void save(ResourceSet resourceSet, AbstractModule module)
+   {
+      Resource resource;
+
+      if (module.eResource() != null)
+      {
+         resource = module.eResource();
+      }
+      else
+      {
+         final String layoutId = module.getLayoutId();
+         final IInterpolationLayout layout = layoutManager.getLayout(layoutId);
+         final URI uri = URI.createFileURI(layout.pathOfMetaDataFile(module, "b2.module"));
+         resource = resourceSet.createResource(uri);
+         resource.getContents().add(module);
+      }
+
+      try
+      {
+         resource.save(null);
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException(e);
+      }
    }
 
    public static <T extends EObject> T copy(T eObject)
@@ -155,10 +181,10 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       return t;
    }
 
-   private void storeModelCache(BootstrapSession session, final DecouplingModelCache modelCache)
-   {
-      session.setData(CACHE_KEY, modelCache.getDirToUriMap());
-   }
+   // private void storeModelCache(BootstrapSession session, final DecouplingModelCache modelCache)
+   // {
+   // session.setData(CACHE_KEY, modelCache.getDirToUriMap());
+   // }
 
    private void processAttachments(MavenProject wrapperProject, File pomFile)
    {

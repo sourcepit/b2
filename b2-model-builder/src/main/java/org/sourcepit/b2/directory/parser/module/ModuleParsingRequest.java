@@ -9,15 +9,12 @@ package org.sourcepit.b2.directory.parser.module;
 import java.io.File;
 
 import org.sourcepit.b2.model.builder.util.IConverter;
-import org.sourcepit.b2.model.builder.util.IModelCache;
 
 public class ModuleParsingRequest implements IModuleParsingRequest
 {
    private File moduleDirectory;
 
    private IConverter converter;
-
-   private IModelCache modelCache;
 
    private IModuleFilter moduleFilter;
 
@@ -26,7 +23,6 @@ public class ModuleParsingRequest implements IModuleParsingRequest
       ModuleParsingRequest copy = new ModuleParsingRequest();
       copy.setModuleDirectory(request.getModuleDirectory());
       copy.setConverter(request.getConverter());
-      copy.setModelCache(request.getModelCache());
       return copy;
    }
 
@@ -54,19 +50,6 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    public void setConverter(IConverter converter)
    {
       this.converter = converter;
-   }
-
-   /**
-    * {@inheritDoc}
-    */
-   public IModelCache getModelCache()
-   {
-      return modelCache;
-   }
-
-   public void setModelCache(IModelCache modelCache)
-   {
-      this.modelCache = modelCache;
    }
 
    public IModuleFilter getModuleFilter()

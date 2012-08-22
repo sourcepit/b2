@@ -19,8 +19,7 @@ import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.builder.util.DecouplingB2ModelWalker;
-import org.sourcepit.b2.model.builder.util.IModelCache;
+import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
@@ -52,7 +51,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
 
          final Map<String, ModuleValidationConstraint> enabledConstraintsMap = getEnabledConstraints(properties);
 
-         validate(enabledConstraintsMap, module, properties, request.getModelCache());
+         validate(enabledConstraintsMap, module, properties);
       }
    }
 
@@ -71,7 +70,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
    }
 
    private void validate(final Map<String, ModuleValidationConstraint> enabledConstraintsMap, AbstractModule module,
-      final PropertiesMap properties, final IModelCache modelCache)
+      final PropertiesMap properties)
    {
       final boolean quickFixesEnabled = properties.getBoolean("b2.validation.quickFixes.enabled", false);
       if (quickFixesEnabled)
@@ -84,7 +83,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
             .info("Quick fixes are disabled. You can enable it by setting the propety b2.validation.quickFixes.enabled=true.");
       }
 
-      final DecouplingB2ModelWalker walker = new DecouplingB2ModelWalker(modelCache, false, true)
+      final ModuleWalker walker = new ModuleWalker(false, true)
       {
          @Override
          protected boolean doVisit(EObject eObject)

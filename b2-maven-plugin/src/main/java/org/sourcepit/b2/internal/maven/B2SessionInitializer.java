@@ -6,7 +6,6 @@ package org.sourcepit.b2.internal.maven;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -15,17 +14,15 @@ import javax.inject.Named;
 
 import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sonatype.aether.RepositorySystem;
@@ -41,7 +38,6 @@ import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.internal.generator.MavenConverter;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.builder.util.DecouplingModelCache;
 import org.sourcepit.b2.model.common.util.GavResourceUtils;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
@@ -52,7 +48,6 @@ import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.common.utils.adapt.Adapters;
-import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
 
 @Named
@@ -76,16 +71,8 @@ public class B2SessionInitializer
    @Inject
    private B2SessionService sessionService;
 
-   @Inject
-   private BootstrapSessionService bootSessionService;
-
-   private static final String CACHE_KEY = B2BootstrapParticipant.class.getName() + "#modelCache";
-
-   private static final String CACHE_KEY_SESSION = B2BootstrapParticipant.class.getName() + "#session";
-
-   public B2Session initialize(BootstrapSession bootSession, Properties properties)
+   public B2Session initialize(MavenSession bootSession, Properties properties)
    {
-      bootSessionService.setBootstrapSession(bootSession);
       intEMF();
       return initB2Session(bootSession, properties);
    }
@@ -96,13 +83,13 @@ public class B2SessionInitializer
       SessionModelPackage.eINSTANCE.getClass();
    }
 
-   private B2Session initB2Session(BootstrapSession bootSession, Properties properties)
+   private B2Session initB2Session(MavenSession bootSession, Properties properties)
    {
       B2Session b2Session = Adapters.getAdapter(bootSession, B2Session.class);
       if (b2Session == null)
       {
-         MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getBootstrapProjects(),
-            bootSession.getCurrentBootstrapProject());
+         MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getProjects(),
+            bootSession.getCurrentProject());
          mavenURIResolver.getProjectURIResolvers().add(new B2ModelResourceURIResolver(projectHelper));
 
          ResourceSet resourceSet = new ResourceSetImpl();
@@ -112,7 +99,7 @@ public class B2SessionInitializer
 
          b2Session = createB2Session(bootSession, resourceSet, properties);
          sessionService.setCurrentSession(b2Session);
-         
+
          Adapters.addAdapter(bootSession, b2Session);
       }
       else
@@ -121,53 +108,53 @@ public class B2SessionInitializer
          sessionService.setCurrentResourceSet(b2Session.eResource().getResourceSet());
       }
 
-      final int currentIdx = bootSession.getBootstrapProjects().indexOf(bootSession.getCurrentBootstrapProject());
+      final int currentIdx = bootSession.getProjects().indexOf(bootSession.getCurrentProject());
       b2Session.setCurrentProject(b2Session.getProjects().get(currentIdx));
 
       final ModuleProject currentProject = b2Session.getCurrentProject();
-      final MavenProject project = bootSession.getCurrentBootstrapProject();
+      final MavenProject project = bootSession.getCurrentProject();
       configureModuleProject(currentProject, project, properties);
 
       return b2Session;
    }
 
-   private B2Session createB2Session(BootstrapSession session, ResourceSet resourceSet, Properties properties)
+   private B2Session createB2Session(MavenSession bootSession, ResourceSet resourceSet, Properties properties)
    {
       final B2Session b2Session;
 
-      final String uri = (String) session.getData(CACHE_KEY_SESSION);
-      if (uri != null)
+      // final String uri = (String) session.getData(CACHE_KEY_SESSION);
+      // if (uri != null)
+      // {
+      // Resource resource = resourceSet.getResource(URI.createURI(uri), true);
+      // B2Session source = (B2Session) resource.getContents().get(0);
+      // b2Session = EcoreUtil.copy(source);
+      // for (ModuleProject moduleProject : b2Session.getProjects())
+      // {
+      // if (moduleProject.getDirectory().equals(bootSession.getCurrentProject().getBasedir()))
+      // {
+      // b2Session.setCurrentProject(moduleProject);
+      // }
+      // }
+      // }
+      // else
+      // {
+      b2Session = SessionModelFactory.eINSTANCE.createB2Session();
+
+      for (MavenProject project : bootSession.getProjects())
       {
-         Resource resource = resourceSet.getResource(URI.createURI(uri), true);
-         B2Session source = (B2Session) resource.getContents().get(0);
-         b2Session = EcoreUtil.copy(source);
-         for (ModuleProject moduleProject : b2Session.getProjects())
+         final ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
+         moduleProject.setGroupId(project.getGroupId());
+         moduleProject.setArtifactId(project.getArtifactId());
+         moduleProject.setVersion(project.getVersion());
+         moduleProject.setDirectory(project.getBasedir());
+
+         b2Session.getProjects().add(moduleProject);
+         if (project.equals(bootSession.getCurrentProject()))
          {
-            if (moduleProject.getDirectory().equals(session.getCurrentBootstrapProject().getBasedir()))
-            {
-               b2Session.setCurrentProject(moduleProject);
-            }
+            b2Session.setCurrentProject(moduleProject);
          }
       }
-      else
-      {
-         b2Session = SessionModelFactory.eINSTANCE.createB2Session();
-
-         for (MavenProject project : session.getBootstrapProjects())
-         {
-            final ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-            moduleProject.setGroupId(project.getGroupId());
-            moduleProject.setArtifactId(project.getArtifactId());
-            moduleProject.setVersion(project.getVersion());
-            moduleProject.setDirectory(project.getBasedir());
-
-            b2Session.getProjects().add(moduleProject);
-            if (project.equals(session.getCurrentBootstrapProject()))
-            {
-               b2Session.setCurrentProject(moduleProject);
-            }
-         }
-      }
+      // }
 
       return b2Session;
    }
@@ -264,8 +251,6 @@ public class B2SessionInitializer
 
       processDependencies(resourceSet, b2Session.getCurrentProject(), bootProject);
 
-      final DecouplingModelCache modelCache = initModelCache(bootSessionService.getBootstrapSession(), resourceSet);
-
       final File moduleDir = bootProject.getBasedir();
       logger.info("Building model for directory " + moduleDir.getName());
 
@@ -289,24 +274,10 @@ public class B2SessionInitializer
       final B2Request b2Request = new B2Request();
       b2Request.setModuleDirectory(moduleDir);
       b2Request.setConverter(converter);
-      b2Request.setModelCache(modelCache);
       b2Request.setModuleFilter(fileFilter);
       b2Request.setInterpolate(!converter.isSkipInterpolator());
       b2Request.setTemplates(templates);
       return b2Request;
-   }
-
-   private DecouplingModelCache initModelCache(BootstrapSession session, ResourceSet resourceSet)
-   {
-      final DecouplingModelCache modelCache = new DecouplingModelCache(resourceSet, layoutManager);
-
-      @SuppressWarnings("unchecked")
-      final Map<File, String> dirToUriMap = (Map<File, String>) session.getData(CACHE_KEY);
-      if (dirToUriMap != null)
-      {
-         modelCache.getDirToUriMap().putAll(dirToUriMap);
-      }
-      return modelCache;
    }
 
    private void processDependencies(ResourceSet resourceSet, ModuleProject moduleProject,

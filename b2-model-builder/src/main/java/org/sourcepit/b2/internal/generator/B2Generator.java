@@ -16,7 +16,7 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.model.builder.util.DecouplingB2ModelWalker;
+import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
@@ -75,8 +75,7 @@ public class B2Generator
 
       for (final IB2GenerationParticipant generator : copy)
       {
-         final DecouplingB2ModelWalker walker = new DecouplingB2ModelWalker(request.getModelCache(),
-            generator.isReverse(), true)
+         final ModuleWalker walker = new ModuleWalker(generator.isReverse(), true)
          {
             @Override
             protected boolean doVisit(EObject eObject)

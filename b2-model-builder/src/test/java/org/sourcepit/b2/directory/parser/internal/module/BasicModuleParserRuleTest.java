@@ -1,93 +1,104 @@
 /**
- * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
+ * Copyright (c) 2012 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
 package org.sourcepit.b2.directory.parser.internal.module;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createB2Session;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createParsingRequest;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initModuleDir;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initPluginDir;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.mkdir;
+
 import java.io.File;
 
-import org.sourcepit.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
-import org.sourcepit.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
+import org.junit.Before;
+import org.junit.Test;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.BasicModule;
 
-public class BasicModuleParserRuleTest extends AbstractModuleParserTest
+public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
 {
-   public void testBasic() throws Exception
+   private File moduleDir;
+
+   @Override
+   @Before
+   public void setUp() throws Exception
    {
-      BasicModuleParserRule parserRule = lookup();
-      assertNotNull(parserRule);
+      super.setUp();
+
+      moduleDir = ws.getRoot();
+      initModuleDir(moduleDir);
+
+      final B2SessionService sessionService = gLookup(B2SessionService.class);
+      sessionService.setCurrentSession(createB2Session(moduleDir));
    }
 
-   public void testSimpleComponent() throws Exception
+   @Test
+   public void testEmptyModule() throws Exception
    {
-      File moduleDir = workspace.importResources("composed-component/simple-layout");
-      assertTrue(moduleDir.canRead());
+      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      // TODO I think we should expect a simple module here because the module dir contains a module.xml file?
+      final ModuleParsingRequest request = createParsingRequest(moduleDir);
+      assertNull(rule.parse(request));
+   }
 
-      initSession(moduleDir);
+   @Test
+   public void testSimpleModule() throws Exception
+   {
+      initPluginDir(mkdir(moduleDir, "foo"));
 
-      ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleDirectory(moduleDir);
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      final ModuleParsingRequest request = createParsingRequest(moduleDir);
+      final BasicModule module = rule.parse(request);
 
-      BasicModuleParserRule parserRule = lookup();
-      BasicModule module = (BasicModule) parserRule.parse(request);
       assertNotNull(module);
-
-      IConverter converter = request.getConverter();
-      assertNotNull(module.getId());
-      assertNotNull(module.getVersion());
-      assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
-      assertEquals(module.getVersion(), converter.getModuleVersion());
-
-      SimpleLayoutFacetsParserRuleTest.assertSimpleLayout(module);
+      assertEquals(moduleDir, module.getDirectory());
+      assertEquals("simple", module.getLayoutId());
+      assertEquals(1, module.getFacets().size());
    }
 
-   public void testStructuredComponent() throws Exception
+   @Test
+   public void testSimpleModuleWithPluginsAndTests() throws Exception
    {
-      File moduleDir = workspace.importResources("composed-component/structured-layout");
-      assertTrue(moduleDir.canRead());
+      initPluginDir(mkdir(moduleDir, "foo"));
+      initPluginDir(mkdir(moduleDir, "foo.tests"));
 
-      initSession(moduleDir);
+      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      final ModuleParsingRequest request = createParsingRequest(moduleDir);
+      final BasicModule module = rule.parse(request);
 
-      ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleDirectory(moduleDir);
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
-
-      BasicModuleParserRule parserRule = lookup();
-      BasicModule module = (BasicModule) parserRule.parse(request);
       assertNotNull(module);
-
-      IConverter converter = request.getConverter();
-      assertNotNull(module.getId());
-      assertNotNull(module.getVersion());
-      assertEquals("org.sourcepit.b2.test.resources.structured.layout", module.getId());
-      assertEquals(module.getVersion(), converter.getModuleVersion());
-
-      StructuredLayoutFacetsParserRuleTest.assertStructuredLayout(module);
+      assertEquals(moduleDir, module.getDirectory());
+      assertEquals("simple", module.getLayoutId());
+      assertEquals(2, module.getFacets().size());
    }
 
-   public void testCompositeComponent() throws Exception
+   @Test
+   public void testStructuredModule() throws Exception
    {
-      File coreResources = workspace.importResources("composed-component");
-      assertTrue(coreResources.canRead());
+      final File pluginsDir = mkdir(moduleDir, "plugins");
+      final File testsDir = mkdir(moduleDir, "tests");
+      final File examplesDir = mkdir(moduleDir, "examples");
 
-      ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleDirectory(coreResources);
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      initPluginDir(mkdir(pluginsDir, "foo"));
+      initPluginDir(mkdir(testsDir, "foo.tests"));
+      initPluginDir(mkdir(examplesDir, "foo.example"));
 
-      BasicModuleParserRule parserRule = lookup();
-      BasicModule module = (BasicModule) parserRule.parse(request);
-      assertNull(module);
+      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      final ModuleParsingRequest request = createParsingRequest(moduleDir);
+      final BasicModule module = rule.parse(request);
+
+      assertNotNull(module);
+      assertEquals(moduleDir, module.getDirectory());
+      assertEquals("structured", module.getLayoutId());
+      assertEquals(3, module.getFacets().size());
    }
 
-   private BasicModuleParserRule lookup() throws Exception
-   {
-      return (BasicModuleParserRule) lookup(AbstractModuleParserRule.class, "module");
-   }
 }

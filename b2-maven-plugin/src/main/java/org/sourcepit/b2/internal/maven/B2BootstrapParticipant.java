@@ -24,7 +24,6 @@ import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
-import org.sourcepit.maven.bootstrap.participation.BootstrapSession;
 
 @Named
 public class B2BootstrapParticipant implements BootstrapParticipant
@@ -47,16 +46,15 @@ public class B2BootstrapParticipant implements BootstrapParticipant
    @Inject
    private B2SessionRunner sessionRunner;
 
-   public void beforeBuild(BootstrapSession bootSession, final MavenProject bootProject)
+   public void beforeBuild(MavenSession bootSession, final MavenProject bootProject, MavenSession actualSession)
    {
-
       final MavenSession mavenSession = legacySupport.getSession();
       final Properties properties = new Properties();
       properties.putAll(mavenSession.getSystemProperties());
       properties.putAll(mavenSession.getUserProperties());
 
       final B2Session b2Session = b2SessionInitializer.initialize(bootSession, properties);
-      mapSessions(bootSession, b2Session);
+      mapSessions(actualSession, b2Session);
 
       final B2RequestFactory b2RequestFactory = new B2RequestFactory()
       {
@@ -69,24 +67,21 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       sessionRunner.prepareNext(b2Session, b2RequestFactory);
    }
 
-   private static void mapSessions(BootstrapSession bootSession, B2Session b2Session)
+   private static void mapSessions(MavenSession actualSession, B2Session b2Session)
    {
-      final MavenSession mavenSession = bootSession.getMavenSession();
-
-      final BootstrapSession currentBootSession = Adapters.getAdapter(mavenSession, BootstrapSession.class);
-      if (currentBootSession != null && !currentBootSession.equals(bootSession))
+      final B2Session currentB2Session = Adapters.getAdapter(actualSession, B2Session.class);
+      if (currentB2Session != null && !currentB2Session.equals(b2Session))
       {
-         throw new IllegalStateException("Another bootstrap session is already mapped with the current maven session.");
+         throw new IllegalStateException("Another b2 session is already mapped with the current maven session.");
       }
 
-      if (currentBootSession == null)
+      if (currentB2Session == null)
       {
-         Adapters.addAdapter(mavenSession, bootSession);
-         Adapters.addAdapter(mavenSession, b2Session);
+         Adapters.addAdapter(actualSession, b2Session);
       }
    }
 
-   public void afterBuild(BootstrapSession bootSession, MavenProject bootProject)
+   public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)
    {
       final B2Session b2Session = sessionService.getCurrentSession();
       for (ModuleProject project : b2Session.getProjects())
