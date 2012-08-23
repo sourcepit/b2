@@ -31,6 +31,12 @@ public class B2Bootstrapper extends AbstractBootstrapper
    {
       super("org.sourcepit.b2", "b2-maven-plugin");
    }
+   
+   @Override
+   protected boolean isAllowExtensionExtensions(MavenSession bootSession, MavenProject bootProject)
+   {
+      return true;
+   }
 
    @Override
    protected void discoverProjectDescriptors(MavenSession session, Collection<File> descriptors,
@@ -81,7 +87,7 @@ public class B2Bootstrapper extends AbstractBootstrapper
             break;
          }
       }
-      
+
       final File pom = (File) mainBootProject.getContextValue("pom");
       if (pom != null)
       {
