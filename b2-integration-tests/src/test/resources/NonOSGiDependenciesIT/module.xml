@@ -22,13 +22,6 @@
 		</dependency>
 	</dependencies>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>srcpit-public</id>
-			<url>http://nexus.sourcepit.org/content/groups/public/</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<build>
 		<plugins>
 			<plugin>
