@@ -20,7 +20,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.junit.Test;
 
-public class NonOSGiDependenciesIT extends AbstractB2IT
+public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
 {
    @Override
    protected boolean isDebug()
