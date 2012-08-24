@@ -46,7 +46,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 @Named
-public class PomDependenciesSiteGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
+public class MavenDependenciesSiteGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
 {
    @Inject
    private LegacySupport legacySupport;

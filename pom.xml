@@ -35,7 +35,7 @@
 		<module>b2-default-templates</module>
 		<module>b2-maven-core</module>
 		<module>b2-maven-release-manager</module>
-		<module>b2-p2-site-generator</module>
+		<module>b2-maven-dependencies-site-generator</module>
 	</modules>
 
 	<licenses>
@@ -130,7 +130,7 @@
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.b2</groupId>
-				<artifactId>b2-p2-site-generator</artifactId>
+				<artifactId>b2-maven-dependencies-site-generator</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

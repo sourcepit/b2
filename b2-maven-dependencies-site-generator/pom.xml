@@ -6,7 +6,7 @@
 		<artifactId>b2</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>b2-p2-site-generator</artifactId>
+	<artifactId>b2-maven-dependencies-site-generator</artifactId>
 
 	<dependencies>
 		<dependency>
