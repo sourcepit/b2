@@ -10,14 +10,14 @@ import java.io.File;
 
 import javax.inject.Inject;
 
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.test.internal.harness.B2ModelHarness;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class B2Test extends AbstractB2SessionWorkspaceTest
 {

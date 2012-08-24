@@ -17,6 +17,12 @@
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-maven-core</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>org.eclipse.osgi</artifactId>
+					<groupId>org.eclipse.osgi</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.tmatesoft.svnkit</groupId>
@@ -67,6 +73,10 @@
 			<groupId>org.sourcepit</groupId>
 			<artifactId>slf4j-plexus</artifactId>
 			<version>0.1.0-alpha-2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.common</groupId>
+			<artifactId>common-constraints</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>

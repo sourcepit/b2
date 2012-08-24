@@ -15,8 +15,6 @@ import java.util.Stack;
 import javax.inject.Inject;
 
 import org.hamcrest.core.Is;
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.internal.cleaner.ModuleCleanerLifecycleParticipant;
@@ -31,6 +29,8 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 import com.google.inject.Binder;
 import com.google.inject.Key;

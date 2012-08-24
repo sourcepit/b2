@@ -7,7 +7,7 @@
 package org.sourcepit.b2.validation;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public interface ModuleValidationConstraint
 {

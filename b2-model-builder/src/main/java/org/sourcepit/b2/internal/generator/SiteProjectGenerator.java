@@ -24,7 +24,6 @@ import javax.inject.Named;
 import org.codehaus.plexus.interpolation.ValueSource;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
-import org.sourcepit.b2.common.internal.utils.PropertiesUtils;
 import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
@@ -34,6 +33,7 @@ import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.common.utils.props.PropertiesUtils;
 
 @Named
 public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant

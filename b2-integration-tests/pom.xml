@@ -34,6 +34,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.sourcepit.b2</groupId>
+			<artifactId>b2-maven-dependencies-site-generator</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.tmatesoft.svnkit</groupId>
 			<artifactId>svnkit</artifactId>
 			<version>1.7.5</version>
@@ -223,7 +228,8 @@
 			</properties>
 		</profile>
 		<profile>
-			<!-- Due to a bug of the dependemcy mojo (MDEP-109: Dependency plugin looses file permissions) we have to set these manually -->
+			<!-- Due to a bug of the dependemcy mojo (MDEP-109: Dependency plugin 
+				looses file permissions) we have to set these manually -->
 			<id>exec-chmod</id>
 			<activation>
 				<os>

@@ -12,8 +12,8 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class AbstractConverterTest extends TestCase
 {

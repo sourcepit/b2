@@ -18,11 +18,10 @@ import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.model.builder.util.BundleManifestReader;
 import org.sourcepit.b2.model.builder.util.DefaultBundleManifestReader;
-import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.builder.util.DefaultUnpackStrategy;
+import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
@@ -32,6 +31,7 @@ import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.manifest.resource.ManifestResource;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 
 public class EclipseBundleShapeConstraintTest
 {
