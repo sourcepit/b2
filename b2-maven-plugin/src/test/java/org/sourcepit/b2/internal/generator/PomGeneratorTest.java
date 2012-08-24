@@ -9,11 +9,11 @@ package org.sourcepit.b2.internal.generator;
 import java.io.File;
 
 import org.apache.maven.model.Model;
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class PomGeneratorTest extends AbstractPomGeneratorTest
 {

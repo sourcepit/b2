@@ -8,8 +8,8 @@ package org.sourcepit.b2.examples;
 
 import java.io.File;
 
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 
 public class B2ExamplesIT extends AbstractB2ExamplesIT

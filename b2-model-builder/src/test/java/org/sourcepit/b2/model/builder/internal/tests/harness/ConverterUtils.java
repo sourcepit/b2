@@ -6,9 +6,9 @@
 
 package org.sourcepit.b2.model.builder.internal.tests.harness;
 
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.model.builder.util.DefaultConverter;
 import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public final class ConverterUtils
 {

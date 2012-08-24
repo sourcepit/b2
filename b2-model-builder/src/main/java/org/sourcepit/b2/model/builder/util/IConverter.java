@@ -12,7 +12,7 @@ import java.util.Set;
 
 import org.codehaus.plexus.interpolation.ValueSource;
 import org.sourcepit.b2.common.internal.utils.PathMatcher;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 
 

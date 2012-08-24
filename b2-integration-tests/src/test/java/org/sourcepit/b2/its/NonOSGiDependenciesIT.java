@@ -8,28 +8,24 @@ package org.sourcepit.b2.its;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.hamcrest.core.IsEqual;
 import org.junit.Test;
-import org.sourcepit.b2.common.internal.utils.XmlUtils;
-import org.w3c.dom.Element;
 
-public class P2GeneratorB2ExtensionIT extends AbstractB2IT
+public class NonOSGiDependenciesIT extends AbstractB2IT
 {
    @Override
    protected boolean isDebug()
    {
       return true;
    }
-   
+
    @Test
    public void test() throws Exception
    {
       final File moduleDir = getResource(getClass().getSimpleName());
-      int err = build(moduleDir, "-e", "-B", "clean");
+      int err = build(moduleDir, "-e", "-B", "clean", "package", "-P", "!p2-repo");
       assertThat(err, is(0));
    }
 }

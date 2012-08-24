@@ -20,13 +20,13 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.lang.Exceptions;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class ProjectEncodingConstraintTest
 {

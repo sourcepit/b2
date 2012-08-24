@@ -5,20 +5,29 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.sourcepit.b2.its</groupId>
-	<artifactId>module-a</artifactId>
+	<artifactId>NonOSGiDependenciesIT</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
+		<b2.osgify.forceManifestGeneration>javax.mail.mail</b2.osgify.forceManifestGeneration>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>vrdev</id>
-			<url>http://immplbui01.innovations.de:47080/artifactory/vrdev</url>
-		</repository>
-	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+	</dependencies>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>srcpit-public</id>
+			<url>http://nexus.sourcepit.org/content/groups/public/</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<build>
 		<plugins>
@@ -39,16 +48,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<distributionManagement>
-		<repository>
-			<id>b2-releases</id>
-			<url>file:////${it.dir}/remote-repository/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>b2-snapshots</id>
-			<url>file:////${it.dir}/remote-repository/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 </project>

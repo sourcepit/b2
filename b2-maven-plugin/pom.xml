@@ -75,6 +75,10 @@
 			<version>0.1.0-alpha-2</version>
 		</dependency>
 		<dependency>
+			<groupId>org.sourcepit.common</groupId>
+			<artifactId>common-constraints</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-test-resources</artifactId>
 			<type>test-jar</type>

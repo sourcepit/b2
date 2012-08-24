@@ -10,9 +10,9 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesUtils;
 import org.sourcepit.b2.model.session.B2Session;
+import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesUtils;
 
 @Named
 @Singleton

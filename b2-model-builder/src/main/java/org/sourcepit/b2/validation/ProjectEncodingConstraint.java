@@ -18,10 +18,10 @@ import javax.inject.Named;
 import org.apache.commons.io.IOUtils;
 import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.lang.Exceptions;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 @Named("projectEncoding")
 public class ProjectEncodingConstraint implements ModuleValidationConstraint

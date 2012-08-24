@@ -28,7 +28,6 @@ import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.common.internal.utils.NlsUtils;
-import org.sourcepit.b2.common.internal.utils.PropertiesUtils;
 import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
@@ -37,6 +36,7 @@ import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.common.utils.props.PropertiesUtils;
 
 @Named
 public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant

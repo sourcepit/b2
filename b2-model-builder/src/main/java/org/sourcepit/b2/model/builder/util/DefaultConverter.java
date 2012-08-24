@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 /**
  * @author Bernd

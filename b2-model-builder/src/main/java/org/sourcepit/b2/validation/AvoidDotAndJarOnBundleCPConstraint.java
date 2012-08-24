@@ -12,12 +12,12 @@ import javax.inject.Named;
 import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.model.builder.util.BundleManifestReader;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.ClassPathEntry;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 @Named("avoidDotAndJarOnBundleCP")
 public class AvoidDotAndJarOnBundleCPConstraint implements ModuleValidationConstraint

@@ -15,13 +15,13 @@ import javax.inject.Named;
 
 import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.common.internal.utils.PropertiesMap;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 /**
  * @author Bernd Vogt <bernd.vogt@sourcepit.org>

@@ -7,6 +7,7 @@
 package org.sourcepit.b2.its;
 
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertNotNull;
@@ -20,8 +21,6 @@ import java.util.List;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
-
-import static org.hamcrest.core.IsEqual.*;
 import org.junit.Test;
 
 public class MavenProfilesIT extends AbstractB2IT

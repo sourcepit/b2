@@ -18,6 +18,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.sourcepit.common.utils.props.PropertiesUtils;
+
 public final class NlsUtils
 {
    public static final Locale DEFAULT_LOCALE = new Locale("");

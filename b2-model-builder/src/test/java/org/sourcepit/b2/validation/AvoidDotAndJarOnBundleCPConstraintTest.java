@@ -7,7 +7,8 @@
 package org.sourcepit.b2.validation;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +17,6 @@ import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.common.internal.utils.LinkedPropertiesMap;
 import org.sourcepit.b2.model.builder.util.BundleManifestReader;
 import org.sourcepit.b2.model.builder.util.DefaultBundleManifestReader;
 import org.sourcepit.b2.model.builder.util.DefaultUnpackStrategy;
@@ -30,6 +30,7 @@ import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.manifest.resource.ManifestResource;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 
 public class AvoidDotAndJarOnBundleCPConstraintTest
 {
