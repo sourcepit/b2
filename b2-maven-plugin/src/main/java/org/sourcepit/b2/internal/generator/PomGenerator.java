@@ -23,7 +23,6 @@ import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
-import org.apache.maven.model.Extension;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.eclipse.emf.ecore.EObject;
@@ -255,20 +254,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       else
       {
          moduleModel = readMavenModel(new File(targetDir, "module.xml"));
-      }
-
-      Build build = moduleModel.getBuild();
-      if (build != null)
-      {
-         List<Extension> extensions = build.getExtensions();
-         for (Extension extension : extensions)
-         {
-            if ("b2-maven-plugin".equals(extension.getArtifactId()))
-            {
-               extensions.remove(extension);
-               break;
-            }
-         }
       }
 
       mergeIntoPomFile(pomFile, defaultModel);
