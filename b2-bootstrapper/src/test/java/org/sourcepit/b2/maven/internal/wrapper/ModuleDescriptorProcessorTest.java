@@ -19,7 +19,6 @@ import java.util.Properties;
 import org.apache.maven.execution.DefaultMavenExecutionRequest;
 import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenSession;
-import org.sourcepit.b2.maven.internal.wrapper.ModuleDescriptorProcessor;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractPlexusWorkspaceTest;
 
 public class ModuleDescriptorProcessorTest extends AbstractPlexusWorkspaceTest

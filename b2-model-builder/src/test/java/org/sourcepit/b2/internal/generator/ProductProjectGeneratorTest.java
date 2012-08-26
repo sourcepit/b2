@@ -25,7 +25,6 @@ import org.hamcrest.core.Is;
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonatype.guice.bean.containers.InjectedTest;
-import org.sourcepit.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.b2.execution.B2;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
@@ -40,6 +39,7 @@ import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
+import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Node;
 
 import com.google.inject.Binder;

@@ -26,7 +26,6 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
@@ -46,6 +45,7 @@ import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
 import org.sourcepit.common.utils.io.IOOperation;
+import org.sourcepit.common.utils.nls.NlsUtils;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant

@@ -10,12 +10,12 @@ import java.io.File;
 
 import javax.inject.Named;
 
-import org.sourcepit.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

@@ -10,10 +10,10 @@ import java.io.File;
 
 import javax.inject.Named;
 
-import org.sourcepit.b2.common.internal.utils.XmlUtils;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.common.utils.xml.XmlUtils;
 
 @Named("site")
 public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject>

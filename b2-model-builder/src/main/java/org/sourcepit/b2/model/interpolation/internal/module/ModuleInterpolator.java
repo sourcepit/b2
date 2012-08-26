@@ -18,7 +18,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
@@ -42,6 +41,7 @@ import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
+import org.sourcepit.common.utils.path.PathMatcher;
 
 @Named
 public class ModuleInterpolator implements IModuleInterpolator

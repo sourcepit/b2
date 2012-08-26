@@ -17,10 +17,10 @@ import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.model.io.ModelReader;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.common.internal.utils.PathUtils;
 import org.sourcepit.b2.generator.AbstractGenerator;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
+import org.sourcepit.common.utils.path.PathUtils;
 
 public abstract class AbstractPomGenerator extends AbstractGenerator
 {

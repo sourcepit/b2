@@ -14,7 +14,7 @@ import java.util.Set;
 
 import junit.framework.TestCase;
 
-import org.sourcepit.b2.common.internal.utils.PathMatcher;
+import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 

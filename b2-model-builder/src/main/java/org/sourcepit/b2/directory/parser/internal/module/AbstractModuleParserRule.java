@@ -12,11 +12,11 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.sourcepit.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.ModuleIdDerivator;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.nls.NlsUtils;
 
 public abstract class AbstractModuleParserRule<M extends AbstractModule>
    implements

@@ -12,7 +12,6 @@ import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.b2.common.internal.utils.NlsUtils;
 import org.sourcepit.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
 import org.sourcepit.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
 import org.sourcepit.b2.directory.parser.module.IModuleParser;
@@ -26,6 +25,7 @@ import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.session.B2Session;
+import org.sourcepit.common.utils.nls.NlsUtils;
 
 public class ModuleParserTest extends AbstractModuleParserTest
 {

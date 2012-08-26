@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Collection;
 
+import org.sourcepit.common.utils.path.PathMatcher;
+
 public final class DescriptorUtils
 {
    private DescriptorUtils()

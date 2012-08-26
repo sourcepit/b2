@@ -9,11 +9,11 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleRequirement;
 import org.sourcepit.common.manifest.osgi.PackageImport;
+import org.sourcepit.common.utils.path.PathMatcher;
 
 @Named
 @Singleton

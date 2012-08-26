@@ -10,8 +10,6 @@ import java.io.File;
 import java.util.Properties;
 
 import org.apache.maven.model.Model;
-import org.sourcepit.b2.maven.internal.converter.DefaultModuleDescriptorConverter;
-import org.sourcepit.b2.maven.internal.converter.IModuleDescriptorConverter;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractPlexusWorkspaceTest;
 
 

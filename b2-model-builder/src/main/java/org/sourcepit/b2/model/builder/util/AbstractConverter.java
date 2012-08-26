@@ -15,8 +15,8 @@ import java.util.Set;
 
 import org.codehaus.plexus.interpolation.MapBasedValueSource;
 import org.codehaus.plexus.interpolation.ValueSource;
-import org.sourcepit.b2.common.internal.utils.PathMatcher;
 import org.sourcepit.b2.internal.generator.PropertiesQuery;
+import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesUtils;
