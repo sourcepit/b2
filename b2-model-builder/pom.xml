@@ -27,10 +27,6 @@
 			<artifactId>b2-model</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.sourcepit.b2</groupId>
-			<artifactId>b2-common</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.sourcepit.tools</groupId>
 			<artifactId>shared-resources-harness</artifactId>
 		</dependency>
@@ -61,6 +57,11 @@
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-default-templates</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.b2</groupId>
+			<artifactId>b2-bootstrapper</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

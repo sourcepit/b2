@@ -14,9 +14,9 @@ import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils.AbstractDescriptorResolutionStrategy;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils.IDescriptorResolutionStrategy;
+import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils;
+import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescriptorResolutionStrategy;
+import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleDependency;

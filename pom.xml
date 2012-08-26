@@ -30,7 +30,6 @@
 		<module>b2-maven-plugin</module>
 		<module>b2-bootstrapper</module>
 		<module>b2-test-resources</module>
-		<module>b2-common</module>
 		<module>b2-examples</module>
 		<module>b2-default-templates</module>
 		<module>b2-maven-core</module>
@@ -107,11 +106,6 @@
 				<artifactId>b2-test-resources</artifactId>
 				<version>${project.version}</version>
 				<type>test-jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.sourcepit.b2</groupId>
-				<artifactId>b2-common</artifactId>
-				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.b2</groupId>

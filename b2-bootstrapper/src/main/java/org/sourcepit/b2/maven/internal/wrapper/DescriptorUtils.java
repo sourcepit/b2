@@ -4,7 +4,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.sourcepit.b2.common.internal.utils;
+package org.sourcepit.b2.maven.internal.wrapper;
 
 import java.io.File;
 import java.io.FileFilter;

@@ -37,10 +37,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
-			<artifactId>b2-common</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-model-builder</artifactId>
 		</dependency>
 		<dependency>
@@ -76,6 +72,11 @@
 			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-test-resources</artifactId>
 			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.b2</groupId>
+			<artifactId>b2-bootstrapper</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

@@ -15,10 +15,9 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Model;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils.AbstractDescriptorResolutionStrategy;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils.IDescriptorResolutionStrategy;
 import org.sourcepit.b2.maven.internal.converter.IModuleDescriptorConverter;
+import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescriptorResolutionStrategy;
+import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
 
 @Component(role = ModuleDescriptorProcessor.class)
 public class ModuleDescriptorProcessor
