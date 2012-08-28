@@ -69,13 +69,11 @@ public class ModuleParser implements IModuleParser
       };
    }
 
-   @SuppressWarnings({ "unchecked", "rawtypes" })
    private AbstractModule doParse(IModuleParsingRequest request)
    {
       final List<AbstractModuleParserRule<? extends AbstractModule>> orderedRules = new ArrayList<AbstractModuleParserRule<? extends AbstractModule>>(
          rules);
-      // Task #58: Workaround for javac shortcoming
-      Collections.sort((List) orderedRules);
+      Collections.sort(orderedRules);
 
       for (AbstractModuleParserRule<? extends AbstractModule> rule : orderedRules)
       {
