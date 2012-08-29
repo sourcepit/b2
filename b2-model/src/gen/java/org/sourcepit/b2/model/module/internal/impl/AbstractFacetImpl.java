@@ -26,7 +26,9 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Abstract Facet</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Abstract Facet</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -43,8 +45,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
 {
    /**
     * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #isDerived()
     * @generated
@@ -54,8 +56,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
 
    /**
     * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #isDerived()
     * @generated
@@ -64,8 +66,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    protected boolean derived = DERIVED_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getAnnotations()
     * @generated
@@ -74,8 +77,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    protected EList<Annotation> annotations;
 
    /**
-    * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
+    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getName()
     * @generated
@@ -84,8 +88,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    protected static final String NAME_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
+    * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getName()
     * @generated
@@ -94,7 +99,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    protected String name = NAME_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -104,7 +110,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -115,7 +122,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -125,7 +133,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -139,7 +148,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -154,7 +164,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -166,7 +177,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -178,7 +190,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -189,7 +202,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -216,7 +230,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -226,7 +241,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -239,7 +255,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -251,7 +268,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -263,7 +281,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -275,7 +294,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -296,7 +316,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -314,7 +335,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -331,7 +353,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -355,7 +378,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -383,7 +407,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -409,7 +434,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -431,7 +457,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -452,7 +479,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -473,7 +501,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

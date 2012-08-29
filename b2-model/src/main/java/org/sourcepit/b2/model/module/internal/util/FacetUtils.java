@@ -10,10 +10,10 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
-import org.sourcepit.b2.model.module.Reference;
 
 /**
  * @author Bernd
@@ -58,7 +58,7 @@ public final class FacetUtils
    }
 
    public static <P extends Project, F extends ProjectFacet<P>> P resolveReference(AbstractModule module,
-      Reference reference, Class<F> facetType, boolean recursive)
+      AbstractReference reference, Class<F> facetType, boolean recursive)
    {
       if (reference == null)
       {
@@ -88,7 +88,7 @@ public final class FacetUtils
       return null;
    }
 
-   public static <P extends Project> P resolveReference(ProjectFacet<P> projectFacet, Reference reference)
+   public static <P extends Project> P resolveReference(ProjectFacet<P> projectFacet, AbstractReference reference)
    {
       if (reference == null)
       {
@@ -96,7 +96,7 @@ public final class FacetUtils
       }
       for (P project : projectFacet.getProjects())
       {
-         if (reference.isSatisfiableBy(project.toIdentifier()))
+         if (reference.isSatisfiableBy(project))
          {
             return project;
          }

@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.CompositeModule;
-import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -25,13 +24,17 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
-import org.sourcepit.b2.model.module.Reference;
+import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
+import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.b2.model.module.util.Identifier;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Factory</b>.
+ * <!-- end-user-doc -->
  * 
  * @generated
  */
@@ -39,7 +42,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
 {
    /**
     * Creates the default factory implementation.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -63,7 +67,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
 
    /**
     * Creates an instance of the factory.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -73,7 +78,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -102,21 +108,22 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
             return createPluginInclude();
          case ModuleModelPackage.CATEGORY :
             return createCategory();
-         case ModuleModelPackage.FEATURE_INCLUDE :
-            return createFeatureInclude();
          case ModuleModelPackage.PRODUCTS_FACET :
             return createProductsFacet();
          case ModuleModelPackage.PRODUCT_DEFINITION :
             return createProductDefinition();
-         case ModuleModelPackage.REFERENCE :
-            return createReference();
+         case ModuleModelPackage.RULED_REFERENCE :
+            return createRuledReference();
+         case ModuleModelPackage.STRICT_REFERENCE :
+            return createStrictReference();
          default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
       }
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -125,6 +132,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    {
       switch (eDataType.getClassifierID())
       {
+         case ModuleModelPackage.VERSION_MATCH_RULE :
+            return createVersionMatchRuleFromString(eDataType, initialValue);
          case ModuleModelPackage.IDENTIFIER :
             return createIdentifierFromString(eDataType, initialValue);
          default :
@@ -133,7 +142,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -142,6 +152,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    {
       switch (eDataType.getClassifierID())
       {
+         case ModuleModelPackage.VERSION_MATCH_RULE :
+            return convertVersionMatchRuleToString(eDataType, instanceValue);
          case ModuleModelPackage.IDENTIFIER :
             return convertIdentifierToString(eDataType, instanceValue);
          default :
@@ -150,7 +162,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -161,7 +174,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -172,7 +186,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -183,7 +198,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -194,7 +210,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -205,7 +222,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -216,7 +234,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -227,7 +246,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -238,7 +258,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -249,7 +270,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -260,18 +282,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public FeatureInclude createFeatureInclude()
-   {
-      FeatureIncludeImpl featureInclude = new FeatureIncludeImpl();
-      return featureInclude;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -282,7 +294,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -293,18 +306,58 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public Reference createReference()
+   public RuledReference createRuledReference()
    {
-      ReferenceImpl reference = new ReferenceImpl();
-      return reference;
+      RuledReferenceImpl ruledReference = new RuledReferenceImpl();
+      return ruledReference;
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public StrictReference createStrictReference()
+   {
+      StrictReferenceImpl strictReference = new StrictReferenceImpl();
+      return strictReference;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public VersionMatchRule createVersionMatchRuleFromString(EDataType eDataType, String initialValue)
+   {
+      VersionMatchRule result = VersionMatchRule.get(initialValue);
+      if (result == null)
+         throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+            + eDataType.getName() + "'");
+      return result;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public String convertVersionMatchRuleToString(EDataType eDataType, Object instanceValue)
+   {
+      return instanceValue == null ? null : instanceValue.toString();
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -314,7 +367,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -324,7 +378,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -334,7 +389,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @deprecated
     * @generated

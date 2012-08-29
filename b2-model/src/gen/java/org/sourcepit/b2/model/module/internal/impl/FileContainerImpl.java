@@ -16,7 +16,9 @@ import org.sourcepit.b2.model.module.FileContainer;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>File Container</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>File Container</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -30,8 +32,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
 {
    /**
     * The default value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getDirectory()
     * @generated
@@ -41,8 +43,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
 
    /**
     * The cached value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getDirectory()
     * @generated
@@ -51,7 +53,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    protected File directory = DIRECTORY_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -61,7 +64,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -72,7 +76,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -82,7 +87,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -96,7 +102,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -112,7 +119,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -129,7 +137,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -146,7 +155,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -162,7 +172,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

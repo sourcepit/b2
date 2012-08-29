@@ -19,7 +19,9 @@ import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Features Facet</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Features Facet</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -33,8 +35,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
 {
    /**
     * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list.
-    * <!-- begin-user-doc
-    * --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getProjects()
     * @generated
@@ -43,7 +45,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    protected EList<FeatureProject> projects;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -53,7 +56,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -64,7 +68,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -79,7 +84,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -96,7 +102,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -112,7 +119,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -128,7 +136,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -147,7 +156,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -164,7 +174,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

@@ -9,7 +9,9 @@ package org.sourcepit.b2.model.module;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Site Project</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Site Project</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -48,7 +50,8 @@ public interface SiteProject extends Project, Classified
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.SiteProject#getParent <em>Parent</em>}' container
     * reference.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()

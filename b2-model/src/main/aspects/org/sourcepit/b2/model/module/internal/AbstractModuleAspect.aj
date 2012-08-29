@@ -11,7 +11,7 @@ import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
-import org.sourcepit.b2.model.module.Reference;
+import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.internal.util.FacetUtils;
 
 public aspect AbstractModuleAspect
@@ -22,8 +22,8 @@ public aspect AbstractModuleAspect
 
    pointcut getFacetByName(AbstractModule module, String type): target(module) && args(type) && execution(AbstractFacet getFacetByName(String));
 
-   pointcut resolveReference(AbstractModule module, Reference reference,
-      @SuppressWarnings("rawtypes") Class<? extends ProjectFacet> facetType) : target(module) && args(reference, facetType) && execution(Project resolveReference(Reference, Class));
+   pointcut resolveReference(AbstractModule module, AbstractReference reference,
+      @SuppressWarnings("rawtypes") Class<? extends ProjectFacet> facetType) : target(module) && args(reference, facetType) && execution(Project resolveReference(AbstractReference, Class));
 
    Object around(AbstractModule module, Class<? extends AbstractFacet> facetType) : getFacets(module ,facetType)
    {
@@ -41,7 +41,7 @@ public aspect AbstractModuleAspect
    }
 
    @SuppressWarnings("unchecked")
-   Project around(AbstractModule module, Reference reference,
+   Project around(AbstractModule module, AbstractReference reference,
       @SuppressWarnings("rawtypes") Class<? extends ProjectFacet> facetType) : resolveReference(module, reference, facetType)
    {
       return FacetUtils.resolveReference(module, reference, facetType, false);

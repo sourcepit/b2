@@ -9,7 +9,9 @@ package org.sourcepit.b2.model.module;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Classified</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Classified</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -44,7 +46,8 @@ public interface Classified extends EObject
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.Classified#getClassifier <em>Classifier</em>}'
     * attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Classifier</em>' attribute.
     * @see #getClassifier()

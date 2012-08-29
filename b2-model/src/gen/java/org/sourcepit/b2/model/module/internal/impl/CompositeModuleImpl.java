@@ -16,8 +16,9 @@ import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Composite Module</b></em>'. <!-- end-user-doc
- * -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Composite Module</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -31,8 +32,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
 {
    /**
     * The cached value of the '{@link #getModules() <em>Modules</em>}' reference list.
-    * <!-- begin-user-doc
-    * --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getModules()
     * @generated
@@ -41,7 +42,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    protected EList<AbstractModule> modules;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -51,7 +53,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -62,7 +65,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -77,7 +81,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -93,7 +98,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -112,7 +118,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -129,7 +136,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

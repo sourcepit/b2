@@ -10,44 +10,45 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.b2.model.module.VersionMatchRule;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Plugin Include</b></em>'.
+ * An implementation of the model object '<em><b>Ruled Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginIncludeImpl#isUnpack <em>Unpack</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.RuledReferenceImpl#getMatchRule <em>Match Rule</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
-public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements PluginInclude
+public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledReference
 {
    /**
-    * The default value of the '{@link #isUnpack() <em>Unpack</em>}' attribute.
+    * The default value of the '{@link #getMatchRule() <em>Match Rule</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @see #isUnpack()
+    * @see #getMatchRule()
     * @generated
     * @ordered
     */
-   protected static final boolean UNPACK_EDEFAULT = true;
+   protected static final VersionMatchRule MATCH_RULE_EDEFAULT = VersionMatchRule.COMPATIBLE;
 
    /**
-    * The cached value of the '{@link #isUnpack() <em>Unpack</em>}' attribute.
+    * The cached value of the '{@link #getMatchRule() <em>Match Rule</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @see #isUnpack()
+    * @see #getMatchRule()
     * @generated
     * @ordered
     */
-   protected boolean unpack = UNPACK_EDEFAULT;
+   protected VersionMatchRule matchRule = MATCH_RULE_EDEFAULT;
 
    /**
     * <!-- begin-user-doc -->
@@ -55,7 +56,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * 
     * @generated
     */
-   protected PluginIncludeImpl()
+   protected RuledReferenceImpl()
    {
       super();
    }
@@ -69,7 +70,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    @Override
    protected EClass eStaticClass()
    {
-      return ModuleModelPackage.Literals.PLUGIN_INCLUDE;
+      return ModuleModelPackage.Literals.RULED_REFERENCE;
    }
 
    /**
@@ -78,9 +79,9 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * 
     * @generated
     */
-   public boolean isUnpack()
+   public VersionMatchRule getMatchRule()
    {
-      return unpack;
+      return matchRule;
    }
 
    /**
@@ -89,13 +90,13 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * 
     * @generated
     */
-   public void setUnpack(boolean newUnpack)
+   public void setMatchRule(VersionMatchRule newMatchRule)
    {
-      boolean oldUnpack = unpack;
-      unpack = newUnpack;
+      VersionMatchRule oldMatchRule = matchRule;
+      matchRule = newMatchRule == null ? MATCH_RULE_EDEFAULT : newMatchRule;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_INCLUDE__UNPACK, oldUnpack,
-            unpack));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.RULED_REFERENCE__MATCH_RULE,
+            oldMatchRule, matchRule));
    }
 
    /**
@@ -109,8 +110,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
-            return isUnpack();
+         case ModuleModelPackage.RULED_REFERENCE__MATCH_RULE :
+            return getMatchRule();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -126,8 +127,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
-            setUnpack((Boolean) newValue);
+         case ModuleModelPackage.RULED_REFERENCE__MATCH_RULE :
+            setMatchRule((VersionMatchRule) newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -144,8 +145,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
-            setUnpack(UNPACK_EDEFAULT);
+         case ModuleModelPackage.RULED_REFERENCE__MATCH_RULE :
+            setMatchRule(MATCH_RULE_EDEFAULT);
             return;
       }
       super.eUnset(featureID);
@@ -162,8 +163,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
-            return unpack != UNPACK_EDEFAULT;
+         case ModuleModelPackage.RULED_REFERENCE__MATCH_RULE :
+            return matchRule != MATCH_RULE_EDEFAULT;
       }
       return super.eIsSet(featureID);
    }
@@ -181,10 +182,10 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
          return super.toString();
 
       StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (unpack: ");
-      result.append(unpack);
+      result.append(" (matchRule: ");
+      result.append(matchRule);
       result.append(')');
       return result.toString();
    }
 
-} // PluginIncludeImpl
+} // RuledReferenceImpl

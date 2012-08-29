@@ -9,7 +9,9 @@ package org.sourcepit.b2.model.module;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Plugins Facet</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Plugins Facet</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:

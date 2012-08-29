@@ -9,7 +9,9 @@ package org.sourcepit.b2.model.module;
 import org.sourcepit.b2.model.common.Annotatable;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Abstract Facet</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Abstract Facet</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -48,7 +50,8 @@ public interface AbstractFacet extends Derivable, Annotatable
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractFacet#getParent <em>Parent</em>}' container
     * reference.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -73,8 +76,9 @@ public interface AbstractFacet extends Derivable, Annotatable
    String getName();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractFacet#getName <em>Name</em>}' attribute. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractFacet#getName <em>Name</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Name</em>' attribute.
     * @see #getName()
