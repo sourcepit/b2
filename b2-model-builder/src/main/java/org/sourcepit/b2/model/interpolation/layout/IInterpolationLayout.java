@@ -22,6 +22,7 @@ public interface IInterpolationLayout
 
    String pathOfFeatureProject(AbstractModule module, String classifier);
 
+   @Deprecated
    String idOfFeatureProject(AbstractModule module, String classifier);
 
    String pathOfSiteProject(AbstractModule module, String classifier);

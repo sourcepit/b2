@@ -53,6 +53,7 @@ public interface IConverter
 
    String createSourcePluginId(String pluginId);
 
+   @Deprecated
    Set<String> getFeatureClassifiers(Set<String> pluginFacetNames);
 
    PathMatcher createIdMatcherForFeature(String layout, String featureClassifer);

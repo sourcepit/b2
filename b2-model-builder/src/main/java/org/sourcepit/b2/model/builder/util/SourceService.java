@@ -10,6 +10,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 @Singleton
@@ -20,8 +21,17 @@ public class SourceService implements ISourceService
     */
    public boolean isSourceBuildEnabled(PluginProject pluginProject, IConverter converter)
    {
-      return Boolean.valueOf(converter.getProperties().get("build.sources", "true")).booleanValue()
-         && hasSource(pluginProject);
+      return isSourceBuildEnabled(pluginProject, converter.getProperties());
+   }
+
+   public boolean isSourceBuildEnabled(PluginProject pluginProject, PropertiesSource buildProperties)
+   {
+      return isSourceBuildEnabled(buildProperties) && hasSource(pluginProject);
+   }
+
+   public boolean isSourceBuildEnabled(PropertiesSource buildProperties)
+   {
+      return Boolean.valueOf(buildProperties.get("build.sources", "true")).booleanValue();
    }
 
    /**
