@@ -23,23 +23,23 @@ import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.common.CommonModelPackage;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
-import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.util.Identifier;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Abstract Module</b></em>'. <!-- end-user-doc
- * -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Abstract Module</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getAnnotations <em>Annotations</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getId <em>Id</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getVersion <em>Version</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getLayoutId <em>Layout Id</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getLocales <em>Locales</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl#getFacets <em>Facets</em>}</li>
@@ -51,8 +51,9 @@ import org.sourcepit.b2.model.module.util.Identifier;
 public abstract class AbstractModuleImpl extends FileContainerImpl implements AbstractModule
 {
    /**
-    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getAnnotations()
     * @generated
@@ -62,7 +63,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
 
    /**
     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -72,7 +74,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
 
    /**
     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -82,8 +85,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
 
    /**
     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getVersion()
     * @generated
@@ -93,8 +96,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
 
    /**
     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getVersion()
     * @generated
@@ -104,8 +107,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
 
    /**
     * The default value of the '{@link #getLayoutId() <em>Layout Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getLayoutId()
     * @generated
@@ -115,8 +118,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
 
    /**
     * The cached value of the '{@link #getLayoutId() <em>Layout Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getLayoutId()
     * @generated
@@ -126,8 +129,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
 
    /**
     * The cached value of the '{@link #getLocales() <em>Locales</em>}' attribute list.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getLocales()
     * @generated
@@ -147,7 +150,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    protected EList<AbstractFacet> facets;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -157,7 +161,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -168,7 +173,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -183,7 +189,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -193,7 +200,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -206,7 +214,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -216,7 +225,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -230,7 +240,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -240,7 +251,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -254,7 +266,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -268,7 +281,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -283,7 +297,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -295,7 +310,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -307,7 +323,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -319,11 +336,13 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public <P extends Project, F extends ProjectFacet<P>> P resolveReference(Reference reference, Class<F> facetType)
+   public <P extends Project, F extends ProjectFacet<P>> P resolveReference(AbstractReference reference,
+      Class<F> facetType)
    {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
@@ -331,7 +350,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -343,7 +363,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -355,7 +376,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -367,7 +389,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -379,7 +402,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -391,7 +415,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -410,7 +435,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -428,7 +454,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -454,7 +481,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -490,7 +518,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -522,7 +551,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -548,7 +578,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -581,7 +612,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -614,7 +646,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

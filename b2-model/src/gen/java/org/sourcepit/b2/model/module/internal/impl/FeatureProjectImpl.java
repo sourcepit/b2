@@ -14,19 +14,20 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.b2.model.module.Classified;
-import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.StrictReference;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Feature Project</b></em>'. <!-- end-user-doc
- * -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Feature Project</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -45,8 +46,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
 {
    /**
     * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getClassifier()
     * @generated
@@ -56,8 +57,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
 
    /**
     * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getClassifier()
     * @generated
@@ -66,8 +67,9 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    protected String classifier = CLASSIFIER_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getIncludedPlugins() <em>Included Plugins</em>}' containment reference list. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getIncludedPlugins() <em>Included Plugins</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getIncludedPlugins()
     * @generated
@@ -77,16 +79,18 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
 
    /**
     * The cached value of the '{@link #getIncludedFeatures() <em>Included Features</em>}' containment reference list.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getIncludedFeatures()
     * @generated
     * @ordered
     */
-   protected EList<FeatureInclude> includedFeatures;
+   protected EList<StrictReference> includedFeatures;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -96,7 +100,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -107,7 +112,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -117,7 +123,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -131,7 +138,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -143,7 +151,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -155,7 +164,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -166,7 +176,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -193,7 +204,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -201,33 +213,34 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       if (includedPlugins == null)
       {
-         includedPlugins = new EObjectContainmentWithInverseEList.Resolving<PluginInclude>(PluginInclude.class, this,
-            ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS, ModuleModelPackage.PLUGIN_INCLUDE__PARENT);
+         includedPlugins = new EObjectContainmentEList.Resolving<PluginInclude>(PluginInclude.class, this,
+            ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS);
       }
       return includedPlugins;
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public EList<FeatureInclude> getIncludedFeatures()
+   public EList<StrictReference> getIncludedFeatures()
    {
       if (includedFeatures == null)
       {
-         includedFeatures = new EObjectContainmentWithInverseEList.Resolving<FeatureInclude>(FeatureInclude.class,
-            this, ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES, ModuleModelPackage.FEATURE_INCLUDE__PARENT);
+         includedFeatures = new EObjectContainmentEList.Resolving<StrictReference>(StrictReference.class, this,
+            ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES);
       }
       return includedFeatures;
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   @SuppressWarnings("unchecked")
    @Override
    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
@@ -237,16 +250,13 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
             return basicSetParent((FeaturesFacet) otherEnd, msgs);
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
-            return ((InternalEList<InternalEObject>) (InternalEList<?>) getIncludedPlugins()).basicAdd(otherEnd, msgs);
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
-            return ((InternalEList<InternalEObject>) (InternalEList<?>) getIncludedFeatures()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -266,7 +276,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -283,7 +294,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -307,7 +319,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -329,14 +342,15 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return;
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             getIncludedFeatures().clear();
-            getIncludedFeatures().addAll((Collection<? extends FeatureInclude>) newValue);
+            getIncludedFeatures().addAll((Collection<? extends StrictReference>) newValue);
             return;
       }
       super.eSet(featureID, newValue);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -362,7 +376,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -384,7 +399,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -405,7 +421,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -426,7 +443,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

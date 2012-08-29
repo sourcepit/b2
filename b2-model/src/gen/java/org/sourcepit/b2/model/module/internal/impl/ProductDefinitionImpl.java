@@ -25,11 +25,12 @@ import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
-import org.sourcepit.b2.model.module.Reference;
+import org.sourcepit.b2.model.module.StrictReference;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Product Definition</b></em>'. <!-- end-user-doc
- * -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Product Definition</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -47,8 +48,9 @@ import org.sourcepit.b2.model.module.Reference;
 public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinition
 {
    /**
-    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getAnnotations()
     * @generated
@@ -58,8 +60,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
 
    /**
     * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #isDerived()
     * @generated
@@ -69,8 +71,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
 
    /**
     * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #isDerived()
     * @generated
@@ -79,8 +81,9 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    protected boolean derived = DERIVED_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getFile() <em>File</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
+    * The default value of the '{@link #getFile() <em>File</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getFile()
     * @generated
@@ -89,8 +92,9 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    protected static final File FILE_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getFile() <em>File</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
+    * The cached value of the '{@link #getFile() <em>File</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getFile()
     * @generated
@@ -99,17 +103,19 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    protected File file = FILE_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getProductPlugin() <em>Product Plugin</em>}' containment reference. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getProductPlugin() <em>Product Plugin</em>}' containment reference.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getProductPlugin()
     * @generated
     * @ordered
     */
-   protected Reference productPlugin;
+   protected StrictReference productPlugin;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -119,7 +125,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -130,7 +137,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -145,7 +153,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -155,7 +164,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -169,7 +179,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -181,7 +192,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -193,7 +205,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -204,7 +217,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -231,7 +245,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -241,7 +256,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -255,16 +271,17 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public Reference getProductPlugin()
+   public StrictReference getProductPlugin()
    {
       if (productPlugin != null && productPlugin.eIsProxy())
       {
          InternalEObject oldProductPlugin = (InternalEObject) productPlugin;
-         productPlugin = (Reference) eResolveProxy(oldProductPlugin);
+         productPlugin = (StrictReference) eResolveProxy(oldProductPlugin);
          if (productPlugin != oldProductPlugin)
          {
             InternalEObject newProductPlugin = (InternalEObject) productPlugin;
@@ -286,23 +303,25 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public Reference basicGetProductPlugin()
+   public StrictReference basicGetProductPlugin()
    {
       return productPlugin;
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public NotificationChain basicSetProductPlugin(Reference newProductPlugin, NotificationChain msgs)
+   public NotificationChain basicSetProductPlugin(StrictReference newProductPlugin, NotificationChain msgs)
    {
-      Reference oldProductPlugin = productPlugin;
+      StrictReference oldProductPlugin = productPlugin;
       productPlugin = newProductPlugin;
       if (eNotificationRequired())
       {
@@ -317,11 +336,12 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public void setProductPlugin(Reference newProductPlugin)
+   public void setProductPlugin(StrictReference newProductPlugin)
    {
       if (newProductPlugin != productPlugin)
       {
@@ -342,7 +362,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -354,7 +375,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -366,7 +388,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -378,7 +401,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -399,7 +423,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -419,7 +444,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -436,7 +462,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -464,7 +491,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -488,14 +516,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
             setFile((File) newValue);
             return;
          case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
-            setProductPlugin((Reference) newValue);
+            setProductPlugin((StrictReference) newValue);
             return;
       }
       super.eSet(featureID, newValue);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -517,14 +546,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
             setFile(FILE_EDEFAULT);
             return;
          case ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN :
-            setProductPlugin((Reference) null);
+            setProductPlugin((StrictReference) null);
             return;
       }
       super.eUnset(featureID);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -548,7 +578,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -569,7 +600,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -590,7 +622,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

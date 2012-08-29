@@ -32,9 +32,9 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.Derivable;
-import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.props.PropertiesUtils;
 
@@ -210,7 +210,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
    {
       final StringWriter includes = new StringWriter();
       XMLWriter xml = new PrettyPrintXMLWriter(includes);
-      for (FeatureInclude include : feature.getIncludedFeatures())
+      for (StrictReference include : feature.getIncludedFeatures())
       {
          xml.startElement("includes");
          xml.addAttribute("id", include.getId());

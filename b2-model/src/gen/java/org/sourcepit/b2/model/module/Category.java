@@ -10,7 +10,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Category</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Category</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -28,7 +30,7 @@ public interface Category extends EObject
 {
    /**
     * Returns the value of the '<em><b>Feature References</b></em>' containment reference list.
-    * The list contents are of type {@link org.sourcepit.b2.model.module.Reference}.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.StrictReference}.
     * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Feature References</em>' containment reference list isn't clear, there really should be
@@ -41,7 +43,7 @@ public interface Category extends EObject
     * @model containment="true" resolveProxies="true"
     * @generated
     */
-   EList<Reference> getFeatureReferences();
+   EList<StrictReference> getFeatureReferences();
 
    /**
     * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -60,8 +62,9 @@ public interface Category extends EObject
    String getName();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.Category#getName <em>Name</em>}' attribute. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.Category#getName <em>Name</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Name</em>' attribute.
     * @see #getName()

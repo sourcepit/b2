@@ -22,7 +22,7 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
-import org.sourcepit.b2.model.module.Reference;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -90,9 +90,9 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                   final String id = elem.getAttribute("id");
                   if (id.startsWith(pluginProject.getId() + "."))
                   {
-                     final Reference productPlugin = ModuleModelFactory.eINSTANCE.createReference();
+                     final StrictReference productPlugin = ModuleModelFactory.eINSTANCE.createStrictReference();
                      productPlugin.setId(pluginProject.getId());
-                     productPlugin.setStrictVersion(pluginProject.getVersion());
+                     productPlugin.setVersion(pluginProject.getVersion());
                      productDef.setProductPlugin(productPlugin);
                   }
                   else
@@ -101,9 +101,9 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                      if (idx > -1 && id.length() > idx + 1)
                      {
                         final String pluginId = id.substring(0, idx);
-                        final Reference productPlugin = ModuleModelFactory.eINSTANCE.createReference();
+                        final StrictReference productPlugin = ModuleModelFactory.eINSTANCE.createStrictReference();
                         productPlugin.setId(pluginId);
-                        productPlugin.setVersionRange("0.0.0"); // set default version as we can't determine it here...
+                        productPlugin.setVersion("0.0.0"); // set default version as we can't determine it here...
                         productDef.setProductPlugin(productPlugin);
                      }
                   }

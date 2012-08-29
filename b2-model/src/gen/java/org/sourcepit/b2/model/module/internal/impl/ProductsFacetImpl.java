@@ -19,7 +19,9 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Products Facet</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Products Facet</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -35,7 +37,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * The cached value of the '{@link #getProductDefinitions() <em>Product Definitions</em>}' containment reference
     * list.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getProductDefinitions()
     * @generated
@@ -44,7 +47,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    protected EList<ProductDefinition> productDefinitions;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -54,7 +58,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -65,7 +70,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -81,7 +87,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -99,7 +106,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -115,7 +123,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -131,7 +140,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -150,7 +160,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -167,7 +178,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

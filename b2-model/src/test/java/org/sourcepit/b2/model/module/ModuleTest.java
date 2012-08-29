@@ -115,22 +115,16 @@ public class ModuleTest extends TestCase
 
             module.getFacets().add(facet);
 
-            Reference reference = ModuleModelFactory.eINSTANCE.createReference();
+            PluginInclude reference = ModuleModelFactory.eINSTANCE.createPluginInclude();
             reference.setId("foo");
 
-            reference.setVersionRange("1.0.0");
+            reference.setVersion("1.0.0");
             assertSame(project, module.resolveReference(reference, PluginsFacet.class));
 
-            reference.setVersionRange("0.0.0");
+            reference.setVersion("0.0.0");
             assertSame(project, module.resolveReference(reference, PluginsFacet.class));
 
-            reference.setVersionRange("[0.0.0,1.0.0)");
-            assertSame(null, module.resolveReference(reference, PluginsFacet.class));
-
-            reference.setVersionRange("2.0.0");
-            assertSame(project2, module.resolveReference(reference, PluginsFacet.class));
-
-            reference.setVersionRange("[2.0.0,2.0.0]");
+            reference.setVersion("2.0.0");
             assertSame(project2, module.resolveReference(reference, PluginsFacet.class));
          }
       });
