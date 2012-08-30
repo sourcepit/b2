@@ -15,7 +15,7 @@ package org.sourcepit.b2.model.module;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.RuledReference#getMatchRule <em>Match Rule</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.RuledReference#getVersionMatchRule <em>Version Match Rule</em>}</li>
  * </ul>
  * </p>
  * 
@@ -26,36 +26,36 @@ package org.sourcepit.b2.model.module;
 public interface RuledReference extends AbstractReference
 {
    /**
-    * Returns the value of the '<em><b>Match Rule</b></em>' attribute.
+    * Returns the value of the '<em><b>Version Match Rule</b></em>' attribute.
     * The default value is <code>"compatible"</code>.
     * The literals are from the enumeration {@link org.sourcepit.b2.model.module.VersionMatchRule}.
     * <!-- begin-user-doc -->
     * <p>
-    * If the meaning of the '<em>Match Rule</em>' attribute isn't clear, there really should be more of a description
-    * here...
+    * If the meaning of the '<em>Version Match Rule</em>' attribute isn't clear, there really should be more of a
+    * description here...
     * </p>
     * <!-- end-user-doc -->
     * 
-    * @return the value of the '<em>Match Rule</em>' attribute.
+    * @return the value of the '<em>Version Match Rule</em>' attribute.
     * @see org.sourcepit.b2.model.module.VersionMatchRule
-    * @see #setMatchRule(VersionMatchRule)
-    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getRuledReference_MatchRule()
+    * @see #setVersionMatchRule(VersionMatchRule)
+    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getRuledReference_VersionMatchRule()
     * @model default="compatible"
     * @generated
     */
-   VersionMatchRule getMatchRule();
+   VersionMatchRule getVersionMatchRule();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.RuledReference#getMatchRule <em>Match Rule</em>}'
-    * attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.RuledReference#getVersionMatchRule
+    * <em>Version Match Rule</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @param value the new value of the '<em>Match Rule</em>' attribute.
+    * @param value the new value of the '<em>Version Match Rule</em>' attribute.
     * @see org.sourcepit.b2.model.module.VersionMatchRule
-    * @see #getMatchRule()
+    * @see #getVersionMatchRule()
     * @generated
     */
-   void setMatchRule(VersionMatchRule value);
+   void setVersionMatchRule(VersionMatchRule value);
 
 } // RuledReference

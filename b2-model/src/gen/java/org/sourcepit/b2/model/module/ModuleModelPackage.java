@@ -1601,14 +1601,14 @@ public interface ModuleModelPackage extends EPackage
    int RULED_REFERENCE__VERSION = ABSTRACT_REFERENCE__VERSION;
 
    /**
-    * The feature id for the '<em><b>Match Rule</b></em>' attribute.
+    * The feature id for the '<em><b>Version Match Rule</b></em>' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @generated
     * @ordered
     */
-   int RULED_REFERENCE__MATCH_RULE = ABSTRACT_REFERENCE_FEATURE_COUNT + 0;
+   int RULED_REFERENCE__VERSION_MATCH_RULE = ABSTRACT_REFERENCE_FEATURE_COUNT + 0;
 
    /**
     * The number of structural features of the '<em>Ruled Reference</em>' class.
@@ -2360,17 +2360,17 @@ public interface ModuleModelPackage extends EPackage
    EClass getRuledReference();
 
    /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.RuledReference#getMatchRule
-    * <em>Match Rule</em>}'.
+    * Returns the meta object for the attribute '
+    * {@link org.sourcepit.b2.model.module.RuledReference#getVersionMatchRule <em>Version Match Rule</em>}'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @return the meta object for the attribute '<em>Match Rule</em>'.
-    * @see org.sourcepit.b2.model.module.RuledReference#getMatchRule()
+    * @return the meta object for the attribute '<em>Version Match Rule</em>'.
+    * @see org.sourcepit.b2.model.module.RuledReference#getVersionMatchRule()
     * @see #getRuledReference()
     * @generated
     */
-   EAttribute getRuledReference_MatchRule();
+   EAttribute getRuledReference_VersionMatchRule();
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.AbstractStrictReference
@@ -3005,13 +3005,13 @@ public interface ModuleModelPackage extends EPackage
       EClass RULED_REFERENCE = eINSTANCE.getRuledReference();
 
       /**
-       * The meta object literal for the '<em><b>Match Rule</b></em>' attribute feature.
+       * The meta object literal for the '<em><b>Version Match Rule</b></em>' attribute feature.
        * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
        * 
        * @generated
        */
-      EAttribute RULED_REFERENCE__MATCH_RULE = eINSTANCE.getRuledReference_MatchRule();
+      EAttribute RULED_REFERENCE__VERSION_MATCH_RULE = eINSTANCE.getRuledReference_VersionMatchRule();
 
       /**
        * The meta object literal for the '

@@ -430,7 +430,7 @@
       <children xmi:type="notation:Node" xmi:id="_0ixdsPH1EeGsreiU9-T2Zw" type="4001"/>
       <children xmi:type="notation:Node" xmi:id="_0ixdsfH1EeGsreiU9-T2Zw" type="5001">
         <children xmi:type="notation:Node" xmi:id="_l2oZYPH1EeGsreiU9-T2Zw" type="2001">
-          <element xmi:type="ecore:EAttribute" href="b2.ecore#//module/RuledReference/matchRule"/>
+          <element xmi:type="ecore:EAttribute" href="b2.ecore#//module/RuledReference/versionMatchRule"/>
           <layoutConstraint xmi:type="notation:Location" xmi:id="_l2oZYfH1EeGsreiU9-T2Zw"/>
         </children>
         <styles xmi:type="notation:DrawerStyle" xmi:id="_0ixdsvH1EeGsreiU9-T2Zw"/>

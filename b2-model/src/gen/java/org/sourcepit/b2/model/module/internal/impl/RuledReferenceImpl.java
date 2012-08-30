@@ -20,7 +20,8 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.RuledReferenceImpl#getMatchRule <em>Match Rule</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.RuledReferenceImpl#getVersionMatchRule <em>Version Match Rule
+ * </em>}</li>
  * </ul>
  * </p>
  * 
@@ -29,26 +30,26 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
 public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledReference
 {
    /**
-    * The default value of the '{@link #getMatchRule() <em>Match Rule</em>}' attribute.
+    * The default value of the '{@link #getVersionMatchRule() <em>Version Match Rule</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @see #getMatchRule()
+    * @see #getVersionMatchRule()
     * @generated
     * @ordered
     */
-   protected static final VersionMatchRule MATCH_RULE_EDEFAULT = VersionMatchRule.COMPATIBLE;
+   protected static final VersionMatchRule VERSION_MATCH_RULE_EDEFAULT = VersionMatchRule.COMPATIBLE;
 
    /**
-    * The cached value of the '{@link #getMatchRule() <em>Match Rule</em>}' attribute.
+    * The cached value of the '{@link #getVersionMatchRule() <em>Version Match Rule</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @see #getMatchRule()
+    * @see #getVersionMatchRule()
     * @generated
     * @ordered
     */
-   protected VersionMatchRule matchRule = MATCH_RULE_EDEFAULT;
+   protected VersionMatchRule versionMatchRule = VERSION_MATCH_RULE_EDEFAULT;
 
    /**
     * <!-- begin-user-doc -->
@@ -79,9 +80,9 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * 
     * @generated
     */
-   public VersionMatchRule getMatchRule()
+   public VersionMatchRule getVersionMatchRule()
    {
-      return matchRule;
+      return versionMatchRule;
    }
 
    /**
@@ -90,13 +91,13 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * 
     * @generated
     */
-   public void setMatchRule(VersionMatchRule newMatchRule)
+   public void setVersionMatchRule(VersionMatchRule newVersionMatchRule)
    {
-      VersionMatchRule oldMatchRule = matchRule;
-      matchRule = newMatchRule == null ? MATCH_RULE_EDEFAULT : newMatchRule;
+      VersionMatchRule oldVersionMatchRule = versionMatchRule;
+      versionMatchRule = newVersionMatchRule == null ? VERSION_MATCH_RULE_EDEFAULT : newVersionMatchRule;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.RULED_REFERENCE__MATCH_RULE,
-            oldMatchRule, matchRule));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE,
+            oldVersionMatchRule, versionMatchRule));
    }
 
    /**
@@ -110,8 +111,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
    {
       switch (featureID)
       {
-         case ModuleModelPackage.RULED_REFERENCE__MATCH_RULE :
-            return getMatchRule();
+         case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
+            return getVersionMatchRule();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -127,8 +128,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
    {
       switch (featureID)
       {
-         case ModuleModelPackage.RULED_REFERENCE__MATCH_RULE :
-            setMatchRule((VersionMatchRule) newValue);
+         case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
+            setVersionMatchRule((VersionMatchRule) newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -145,8 +146,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
    {
       switch (featureID)
       {
-         case ModuleModelPackage.RULED_REFERENCE__MATCH_RULE :
-            setMatchRule(MATCH_RULE_EDEFAULT);
+         case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
+            setVersionMatchRule(VERSION_MATCH_RULE_EDEFAULT);
             return;
       }
       super.eUnset(featureID);
@@ -163,8 +164,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
    {
       switch (featureID)
       {
-         case ModuleModelPackage.RULED_REFERENCE__MATCH_RULE :
-            return matchRule != MATCH_RULE_EDEFAULT;
+         case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
+            return versionMatchRule != VERSION_MATCH_RULE_EDEFAULT;
       }
       return super.eIsSet(featureID);
    }
@@ -182,8 +183,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
          return super.toString();
 
       StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (matchRule: ");
-      result.append(matchRule);
+      result.append(" (versionMatchRule: ");
+      result.append(versionMatchRule);
       result.append(')');
       return result.toString();
    }

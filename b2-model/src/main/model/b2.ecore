@@ -227,7 +227,7 @@
       <eLiterals name="greaterOrEqual" value="3"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RuledReference" eSuperTypes="#//module/AbstractReference">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchRule" eType="#//module/VersionMatchRule"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionMatchRule" eType="#//module/VersionMatchRule"
           defaultValueLiteral="compatible"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AbstractStrictReference" abstract="true"
