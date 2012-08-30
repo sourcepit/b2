@@ -7,6 +7,9 @@
 package org.sourcepit.b2.model.interpolation.internal.module;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.io.File;
@@ -19,12 +22,14 @@ import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.BasicModule;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.guplex.test.GuplexTest;
@@ -38,7 +43,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
    }
 
    @Test
-   public void test()
+   public void testOverall()
    {
       // setup
       BasicModule module = createBasicModule("foo");
@@ -53,15 +58,11 @@ public class FeaturesInterpolatorTest extends GuplexTest
       module.getFacets().add(pluginsFacet);
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
-      Converter2 converter = new DefaultConverter2();
+      moduleProperties.put("b2.facets[\"tests\"].requiredPlugins", "org.junit:4.10");
 
-      ISourceService sourceService = gLookup(ISourceService.class);
-      LayoutManager layoutManager = gLookup(LayoutManager.class);
-      UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
-      FeaturesInterpolator interpolator = new FeaturesInterpolator(sourceService, layoutManager, unpackStrategy);
 
       // interpolate
-      interpolator.interpolate(module, moduleProperties, converter);
+      interpolate(module, moduleProperties);
 
 
       // assert
@@ -70,7 +71,6 @@ public class FeaturesInterpolatorTest extends GuplexTest
 
       FeaturesFacet mainFeatures = featuresFacets.get(0);
       assertEquals("main.features", mainFeatures.getName());
-
       assertEquals(2, mainFeatures.getProjects().size());
 
       FeatureProject mainFeature = mainFeatures.getProjects().get(0);
@@ -78,23 +78,159 @@ public class FeaturesInterpolatorTest extends GuplexTest
       assertEquals(new File(".b2/features/foo.main.feature"), mainFeature.getDirectory());
       assertEquals(0, mainFeature.getIncludedFeatures().size());
       assertEquals(1, mainFeature.getIncludedPlugins().size());
-      
+      assertEquals(0, mainFeature.getRequiredFeatures().size());
+      assertEquals(0, mainFeature.getRequiredPlugins().size());
+
       PluginInclude mainPluginInclude = mainFeature.getIncludedPlugins().get(0);
       assertEquals("plugin.foo", mainPluginInclude.getId());
       assertEquals("1.0.0.qualifier", mainPluginInclude.getVersion());
-      
+
       FeatureProject srcMainFeature = mainFeatures.getProjects().get(1);
       assertEquals("foo.main.sources.feature", srcMainFeature.getId());
       assertEquals(new File(".b2/features/foo.main.sources.feature"), srcMainFeature.getDirectory());
       assertEquals(0, srcMainFeature.getIncludedFeatures().size());
       assertEquals(1, srcMainFeature.getIncludedPlugins().size());
-      
+
       PluginInclude srcMainPluginInclude = srcMainFeature.getIncludedPlugins().get(0);
       assertEquals("plugin.foo.source", srcMainPluginInclude.getId());
       assertEquals("1.0.0.qualifier", srcMainPluginInclude.getVersion());
 
       FeaturesFacet testFeatures = featuresFacets.get(1);
       assertEquals("tests.features", testFeatures.getName());
+      assertEquals(2, testFeatures.getProjects().size());
+
+      FeatureProject testFeature = testFeatures.getProjects().get(0);
+      assertEquals("foo.tests.feature", testFeature.getId());
+      assertEquals(new File(".b2/features/foo.tests.feature"), testFeature.getDirectory());
+      assertEquals(0, testFeature.getIncludedFeatures().size());
+      assertEquals(0, testFeature.getIncludedPlugins().size());
+      assertEquals(0, testFeature.getRequiredFeatures().size());
+      assertEquals(1, testFeature.getRequiredPlugins().size());
+   }
+
+   @Test
+   public void testIncludedFeatures() throws Exception
+   {
+      // setup
+      BasicModule module = createBasicModule("foo");
+      module.setDirectory(new File(""));
+
+      PluginsFacet pluginsFacet = createPluginsFacet("main");
+      module.getFacets().add(pluginsFacet);
+
+      pluginsFacet = createPluginsFacet("tests");
+      module.getFacets().add(pluginsFacet);
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("b2.facets[\"main\"].includedSourceFeatures", "org.eclipse.platform:3.8.0");
+      moduleProperties.put("b2.facets[\"tests\"].includedFeatures", "org.junit:4.10:optional");
+
+
+      // interpolate
+      interpolate(module, moduleProperties);
+
+      FeatureProject mainFeature = getFeatureProject(module, "foo.main.feature");
+      assertNotNull(mainFeature);
+      assertEquals(0, mainFeature.getIncludedFeatures().size());
+      assertEquals(0, mainFeature.getIncludedPlugins().size());
+      assertEquals(0, mainFeature.getRequiredFeatures().size());
+      assertEquals(0, mainFeature.getRequiredPlugins().size());
+
+      FeatureProject srcMainFeature = getFeatureProject(module, "foo.main.sources.feature");
+      assertNotNull(srcMainFeature);
+      assertEquals(1, srcMainFeature.getIncludedFeatures().size());
+      assertEquals(0, srcMainFeature.getIncludedPlugins().size());
+      assertEquals(0, srcMainFeature.getRequiredFeatures().size());
+      assertEquals(0, srcMainFeature.getRequiredPlugins().size());
+
+      FeatureInclude featureInclude = srcMainFeature.getIncludedFeatures().get(0);
+      assertEquals("org.eclipse.platform", featureInclude.getId());
+      assertEquals("3.8.0", featureInclude.getVersion());
+      assertFalse(featureInclude.isOptional());
+
+      FeatureProject testFeature = getFeatureProject(module, "foo.tests.feature");
+      assertNotNull(testFeature);
+      assertEquals(1, testFeature.getIncludedFeatures().size());
+      assertEquals(0, testFeature.getIncludedPlugins().size());
+      assertEquals(0, testFeature.getRequiredFeatures().size());
+      assertEquals(0, testFeature.getRequiredPlugins().size());
+
+      featureInclude = testFeature.getIncludedFeatures().get(0);
+      assertEquals("org.junit", featureInclude.getId());
+      assertEquals("4.10", featureInclude.getVersion());
+      assertTrue(featureInclude.isOptional());
+   }
+
+   @Test
+   public void testIncludedPlugins() throws Exception
+   {
+      // setup
+      BasicModule module = createBasicModule("foo");
+      module.setDirectory(new File(""));
+
+      PluginsFacet pluginsFacet = createPluginsFacet("main");
+      module.getFacets().add(pluginsFacet);
+
+      pluginsFacet = createPluginsFacet("tests");
+      module.getFacets().add(pluginsFacet);
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("b2.facets[\"main\"].includedSourcePlugins", "org.eclipse.platform:3.8.0");
+      moduleProperties.put("b2.facets[\"tests\"].includedPlugins", "org.junit:4.10:unpack");
+
+
+      // interpolate
+      interpolate(module, moduleProperties);
+
+      FeatureProject mainFeature = getFeatureProject(module, "foo.main.feature");
+      assertNotNull(mainFeature);
+      assertEquals(0, mainFeature.getIncludedFeatures().size());
+      assertEquals(0, mainFeature.getIncludedPlugins().size());
+      assertEquals(0, mainFeature.getRequiredFeatures().size());
+      assertEquals(0, mainFeature.getRequiredPlugins().size());
+
+      FeatureProject srcMainFeature = getFeatureProject(module, "foo.main.sources.feature");
+      assertNotNull(srcMainFeature);
+      assertEquals(0, srcMainFeature.getIncludedFeatures().size());
+      assertEquals(1, srcMainFeature.getIncludedPlugins().size());
+      assertEquals(0, srcMainFeature.getRequiredFeatures().size());
+      assertEquals(0, srcMainFeature.getRequiredPlugins().size());
+
+      PluginInclude featureInclude = srcMainFeature.getIncludedPlugins().get(0);
+      assertEquals("org.eclipse.platform", featureInclude.getId());
+      assertEquals("3.8.0", featureInclude.getVersion());
+      assertFalse(featureInclude.isUnpack());
+
+      FeatureProject testFeature = getFeatureProject(module, "foo.tests.feature");
+      assertNotNull(testFeature);
+      assertEquals(0, testFeature.getIncludedFeatures().size());
+      assertEquals(1, testFeature.getIncludedPlugins().size());
+      assertEquals(0, testFeature.getRequiredFeatures().size());
+      assertEquals(0, testFeature.getRequiredPlugins().size());
+
+      featureInclude = testFeature.getIncludedPlugins().get(0);
+      assertEquals("org.junit", featureInclude.getId());
+      assertEquals("4.10", featureInclude.getVersion());
+      assertTrue(featureInclude.isUnpack());
+   }
+
+   private void interpolate(BasicModule module, PropertiesMap moduleProperties)
+   {
+      Converter2 converter = new DefaultConverter2();
+
+      ISourceService sourceService = gLookup(ISourceService.class);
+      LayoutManager layoutManager = gLookup(LayoutManager.class);
+      UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
+      FeaturesInterpolator interpolator = new FeaturesInterpolator(sourceService, layoutManager, unpackStrategy);
+
+      interpolator.interpolate(module, moduleProperties, converter);
+   }
+
+   private static FeatureProject getFeatureProject(BasicModule module, String id)
+   {
+      StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
+      ref.setId(id);
+      return module.resolveReference(ref, FeaturesFacet.class);
    }
 
    private BasicModule createBasicModule(String id)

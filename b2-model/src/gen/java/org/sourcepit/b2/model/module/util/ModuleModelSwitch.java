@@ -19,6 +19,7 @@ import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.FileContainer;
@@ -412,6 +413,18 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = caseAbstractStrictReference(strictReference);
             if (result == null)
                result = caseAbstractReference(strictReference);
+            if (result == null)
+               result = defaultCase(theEObject);
+            return result;
+         }
+         case ModuleModelPackage.FEATURE_INCLUDE :
+         {
+            FeatureInclude featureInclude = (FeatureInclude) theEObject;
+            T result = caseFeatureInclude(featureInclude);
+            if (result == null)
+               result = caseAbstractStrictReference(featureInclude);
+            if (result == null)
+               result = caseAbstractReference(featureInclude);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -825,6 +838,23 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @generated
     */
    public T caseStrictReference(StrictReference object)
+   {
+      return null;
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Feature Include</em>'.
+    * <!-- begin-user-doc -->
+    * This implementation returns null;
+    * returning a non-null result will terminate the switch.
+    * <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Feature Include</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseFeatureInclude(FeatureInclude object)
    {
       return null;
    }

@@ -9,27 +9,17 @@ package org.sourcepit.b2.model.builder.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 import org.osgi.framework.Version;
+import org.sourcepit.b2.model.module.AbstractReference;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class DefaultConverter2 implements Converter2
 {
-   // public String getCategoryId(PropertiesSource properties, String facetName)
-   // {
-   // if (facetName.length() == 0)
-   // {
-   // throw new IllegalArgumentException("facetName must not be empty.");
-   // }
-   //
-   // // TODO assert result is valid id
-   // return properties.get(facetKey(facetName, "categoryId"), toValidId(facetName));
-   // }
-
    private static String toValidId(String string)
    {
       // TODO assert not empty
@@ -79,6 +69,50 @@ public class DefaultConverter2 implements Converter2
       return properties.get(facetKey(facetName, "classifier"), toValidId(facetName));
    }
 
+   public List<FeatureInclude> getIncludedFeatures(PropertiesSource moduleProperties, String facetName, boolean isSource)
+   {
+      final String key = isSource ? "includedSourceFeatures" : "includedFeatures";
+      final String rawIncludes = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+
+      final List<FeatureInclude> result = new ArrayList<FeatureInclude>();
+
+      if (rawIncludes != null)
+      {
+         for (String rawInclude : rawIncludes.split(","))
+         {
+            final String include = rawInclude.trim();
+            if (include.length() > 0)
+            {
+               result.add(toFeatureInclude(include));
+            }
+         }
+      }
+
+      return result;
+   }
+
+   public List<PluginInclude> getIncludedPlugins(PropertiesSource moduleProperties, String facetName, boolean isSource)
+   {
+      final String key = isSource ? "includedSourcePlugins" : "includedPlugins";
+      final String rawIncludes = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+
+      final List<PluginInclude> result = new ArrayList<PluginInclude>();
+
+      if (rawIncludes != null)
+      {
+         for (String rawInclude : rawIncludes.split(","))
+         {
+            final String include = rawInclude.trim();
+            if (include.length() > 0)
+            {
+               result.add(toPluginInclude(include));
+            }
+         }
+      }
+
+      return result;
+   }
+
    public List<RuledReference> getRequiredFeatures(PropertiesSource moduleProperties, String facetName, boolean isSource)
    {
       final String key = isSource ? "requiredSourceFeatures" : "requiredFeatures";
@@ -122,21 +156,8 @@ public class DefaultConverter2 implements Converter2
          throw new IllegalArgumentException(string + " is not a valid requirement specification");
       }
 
-      ref.setId(segments[0].trim());
+      parseAndSetIdAndVersion(string, ref, segments);
 
-      if (segments.length > 1)
-      {
-         final String versionString = segments[1].trim();
-         try
-         {
-            new Version(versionString);
-         }
-         catch (IllegalArgumentException e)
-         {
-            throw new IllegalArgumentException("'" + versionString + "' in " + string + " is not a valid version");
-         }
-         ref.setVersion(versionString);
-      }
       if (segments.length > 2)
       {
          final String ruleString = segments[2].trim();
@@ -148,7 +169,82 @@ public class DefaultConverter2 implements Converter2
          }
          ref.setVersionMatchRule(rule);
       }
+
       return ref;
+   }
+
+   private static void parseAndSetIdAndVersion(String reference, final AbstractReference ref, final String[] segments)
+   {
+      // TODO assert is valid
+      ref.setId(segments[0].trim());
+
+      if (segments.length > 1)
+      {
+         final String versionString = segments[1].trim();
+         try
+         {
+            new Version(versionString);
+         }
+         catch (IllegalArgumentException e)
+         {
+            throw new IllegalArgumentException("'" + versionString + "' in " + reference + " is not a valid version");
+         }
+         ref.setVersion(versionString);
+      }
+   }
+
+   private static FeatureInclude toFeatureInclude(String include)
+   {
+      // foo:1.0.0:optional
+      final FeatureInclude inc = ModuleModelFactory.eINSTANCE.createFeatureInclude();
+      final String[] segments = include.split(":");
+      if (segments.length < 1 || segments.length > 3)
+      {
+         throw new IllegalArgumentException(include + " is not a valid feature include specification");
+      }
+
+      parseAndSetIdAndVersion(include, inc, segments);
+
+      if (segments.length > 2)
+      {
+         final String optionalString = segments[2].trim();
+         if (!"optional".equals(optionalString))
+         {
+            throw new IllegalArgumentException("'" + optionalString + "' in " + include
+               + " must be 'optional' or missing");
+         }
+         inc.setOptional(true);
+      }
+
+      return inc;
+   }
+
+   private static PluginInclude toPluginInclude(String include)
+   {
+      // foo:1.0.0:unpack
+      final PluginInclude inc = ModuleModelFactory.eINSTANCE.createPluginInclude();
+      final String[] segments = include.split(":");
+      if (segments.length < 1 || segments.length > 3)
+      {
+         throw new IllegalArgumentException(include + " is not a valid plugin include specification");
+      }
+
+      parseAndSetIdAndVersion(include, inc, segments);
+
+      inc.setUnpack(false);
+
+      if (segments.length > 2)
+      {
+         final String optionalString = segments[2].trim();
+         if (!"unpack".equals(optionalString))
+         {
+            throw new IllegalArgumentException("'" + optionalString + "' in " + include
+               + " must be 'optional' or missing");
+         }
+         inc.setUnpack(true);
+      }
+
+      return inc;
    }
 
    private static String facetKey(String facetName, String key)
@@ -193,7 +289,7 @@ public class DefaultConverter2 implements Converter2
       return idOfProject(moduleId, sb.toString(), "feature");
    }
 
-   public String getSourcePluginId(@NotNull PropertiesSource moduleProperties, @NotNull String pluginId)
+   public String getSourcePluginId(PropertiesSource moduleProperties, String pluginId)
    {
       final StringBuilder sb = new StringBuilder();
       sb.append(pluginId);
@@ -203,30 +299,6 @@ public class DefaultConverter2 implements Converter2
          sb.append(moduleProperties.get("b2.pluginsSourceClassifier", "source"));
       }
       return sb.toString();
-   }
-
-   private String getSourceClassifer(PropertiesSource properties, final String customKey, final String defaultKey)
-   {
-      final String value = getPropertyValue(properties, customKey, defaultKey);
-      if (value.length() == 0)
-      {
-         throw new IllegalStateException("Source classifer must not be empty for:" + customKey + ", " + defaultKey);
-      }
-      return toValidId(value);
-   }
-
-   private String getPropertyValue(PropertiesSource properties, final String customKey, final String defaultKey)
-   {
-      String value = properties.get(customKey);
-      if (value == null)
-      {
-         value = properties.get(defaultKey);
-      }
-      if (value == null)
-      {
-         throw new IllegalStateException("No value found for: " + customKey + ", " + defaultKey);
-      }
-      return value;
    }
 
    private static String idOfProject(String moduleId, String classifier, String appendix)
@@ -244,10 +316,5 @@ public class DefaultConverter2 implements Converter2
          sb.append(appendix);
       }
       return sb.toString();
-   }
-
-   private static String spacer(String classifier)
-   {
-      return classifier.length() == 0 ? "." : "." + classifier + ".";
    }
 }

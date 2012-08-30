@@ -30,6 +30,7 @@ import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.CompositeModule;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -149,19 +150,19 @@ public class ModuleInterpolator implements IModuleInterpolator
             category.setName(categoryClassifer);
 
             final PathMatcher matcher = converter.createIdMatcherForCategory(module.getLayoutId(), categoryClassifer);
-            final List<StrictReference> featureIncs = new ArrayList<StrictReference>();
+            final List<FeatureInclude> featureIncs = new ArrayList<FeatureInclude>();
             collectFeatureIncludes(module, featureIncs, matcher, converter);
 
             for (FeatureProject includedFeatures : aggregationService.resolveCategoryIncludes(module,
                categoryClassifer, converter))
             {
-               final StrictReference featureInclude = ModuleModelFactory.eINSTANCE.createStrictReference();
+               final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
                featureInclude.setId(includedFeatures.getId());
                featureInclude.setVersion(includedFeatures.getVersion());
                featureIncs.add(featureInclude);
             }
 
-            for (StrictReference featureInc : featureIncs)
+            for (FeatureInclude featureInc : featureIncs)
             {
                final StrictReference featureRef = ModuleModelFactory.eINSTANCE.createStrictReference();
                featureRef.setId(featureInc.getId());
@@ -293,7 +294,7 @@ public class ModuleInterpolator implements IModuleInterpolator
       for (FeatureProject includedFeatures : aggregationService.resolveFeatureIncludes(module, featureClassifier,
          converter))
       {
-         final StrictReference featureInclude = ModuleModelFactory.eINSTANCE.createStrictReference();
+         final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
          featureInclude.setId(includedFeatures.getId());
          featureInclude.setVersion(includedFeatures.getVersion());
          featureProject.getIncludedFeatures().add(featureInclude);
@@ -315,7 +316,7 @@ public class ModuleInterpolator implements IModuleInterpolator
       final List<PluginInclude> sourceIncs = new ArrayList<PluginInclude>();
       collectPluginIncludes(module, pluginIncs, sourceIncs, matcher, converter);
 
-      final List<StrictReference> featureIncs = new ArrayList<StrictReference>();
+      final List<FeatureInclude> featureIncs = new ArrayList<FeatureInclude>();
       collectFeatureIncludes(module, featureIncs, matcher, converter);
 
       featureProject.getIncludedFeatures().addAll(featureIncs);
@@ -327,7 +328,7 @@ public class ModuleInterpolator implements IModuleInterpolator
       for (FeatureProject includedFeatures : aggregationService.resolveFeatureIncludes(module, featureClassifer,
          converter))
       {
-         final StrictReference featureInclude = ModuleModelFactory.eINSTANCE.createStrictReference();
+         final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
          featureInclude.setId(includedFeatures.getId());
          featureInclude.setVersion(includedFeatures.getVersion());
          featureProject.getIncludedFeatures().add(featureInclude);
@@ -336,7 +337,7 @@ public class ModuleInterpolator implements IModuleInterpolator
       return result;
    }
 
-   private void collectFeatureIncludes(AbstractModule module, List<StrictReference> featureIncs, PathMatcher matcher,
+   private void collectFeatureIncludes(AbstractModule module, List<FeatureInclude> featureIncs, PathMatcher matcher,
       IConverter converter)
    {
       final List<FeaturesFacet> featuresFacets = new ArrayList<FeaturesFacet>();
@@ -374,14 +375,14 @@ public class ModuleInterpolator implements IModuleInterpolator
       }
    }
 
-   private void collectFeatureIncludes(FeaturesFacet featuresFacet, List<StrictReference> featureIncs,
+   private void collectFeatureIncludes(FeaturesFacet featuresFacet, List<FeatureInclude> featureIncs,
       PathMatcher matcher, IConverter converter)
    {
       for (FeatureProject featureProject : featuresFacet.getProjects())
       {
          if (matcher.isMatch(featureProject.getId()))
          {
-            final StrictReference featureInclude = ModuleModelFactory.eINSTANCE.createStrictReference();
+            final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
             featureInclude.setId(featureProject.getId());
             featureInclude.setVersion(featureProject.getVersion());
             featureIncs.add(featureInclude);

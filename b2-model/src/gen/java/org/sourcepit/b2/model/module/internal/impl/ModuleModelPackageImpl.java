@@ -27,6 +27,7 @@ import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.FileContainer;
@@ -249,6 +250,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * @generated
     */
    private EClass strictReferenceEClass = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass featureIncludeEClass = null;
 
    /**
     * <!-- begin-user-doc -->
@@ -1011,6 +1020,28 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
+   public EClass getFeatureInclude()
+   {
+      return featureIncludeEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getFeatureInclude_Optional()
+   {
+      return (EAttribute) featureIncludeEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EEnum getVersionMatchRule()
    {
       return versionMatchRuleEEnum;
@@ -1145,6 +1176,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       strictReferenceEClass = createEClass(STRICT_REFERENCE);
 
+      featureIncludeEClass = createEClass(FEATURE_INCLUDE);
+      createEAttribute(featureIncludeEClass, FEATURE_INCLUDE__OPTIONAL);
+
       // Create enums
       versionMatchRuleEEnum = createEEnum(VERSION_MATCH_RULE);
 
@@ -1227,6 +1261,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       ruledReferenceEClass.getESuperTypes().add(this.getAbstractReference());
       abstractStrictReferenceEClass.getESuperTypes().add(this.getAbstractReference());
       strictReferenceEClass.getESuperTypes().add(this.getAbstractStrictReference());
+      featureIncludeEClass.getESuperTypes().add(this.getAbstractStrictReference());
 
       // Initialize classes and features; add operations and parameters
       initEClass(abstractModuleEClass, AbstractModule.class, "AbstractModule", IS_ABSTRACT, !IS_INTERFACE,
@@ -1348,8 +1383,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEReference(getFeatureProject_IncludedPlugins(), this.getPluginInclude(), null, "includedPlugins", null, 0,
          -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getFeatureProject_IncludedFeatures(), this.getStrictReference(), null, "includedFeatures", null,
-         0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+      initEReference(getFeatureProject_IncludedFeatures(), this.getFeatureInclude(), null, "includedFeatures", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEReference(getFeatureProject_RequiredFeatures(), this.getRuledReference(), null, "requiredFeatures", null, 0,
          -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
@@ -1480,6 +1515,12 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       initEClass(strictReferenceEClass, StrictReference.class, "StrictReference", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
+
+      initEClass(featureIncludeEClass, FeatureInclude.class, "FeatureInclude", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getFeatureInclude_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1,
+         FeatureInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
 
       // Initialize enums and add enum literals
       initEEnum(versionMatchRuleEEnum, VersionMatchRule.class, "VersionMatchRule");

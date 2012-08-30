@@ -11,9 +11,9 @@ import java.io.File;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginInclude;
-import org.sourcepit.b2.model.module.StrictReference;
 
 public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
 {
@@ -50,7 +50,7 @@ public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
       assertEquals("example.feature", project.getId());
       assertEquals("1.0.0.qualifier", project.getVersion());
 
-      EList<StrictReference> featureIncludes = project.getIncludedFeatures();
+      EList<FeatureInclude> featureIncludes = project.getIncludedFeatures();
       assertEquals(1, featureIncludes.size());
       assertEquals("org.eclipse.platform", featureIncludes.get(0).getId());
 

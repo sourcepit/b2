@@ -18,12 +18,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.b2.model.module.Classified;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.RuledReference;
-import org.sourcepit.b2.model.module.StrictReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -91,7 +91,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * @generated
     * @ordered
     */
-   protected EList<StrictReference> includedFeatures;
+   protected EList<FeatureInclude> includedFeatures;
 
    /**
     * The cached value of the '{@link #getRequiredFeatures() <em>Required Features</em>}' containment reference list.
@@ -252,11 +252,11 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * 
     * @generated
     */
-   public EList<StrictReference> getIncludedFeatures()
+   public EList<FeatureInclude> getIncludedFeatures()
    {
       if (includedFeatures == null)
       {
-         includedFeatures = new EObjectContainmentEList.Resolving<StrictReference>(StrictReference.class, this,
+         includedFeatures = new EObjectContainmentEList.Resolving<FeatureInclude>(FeatureInclude.class, this,
             ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES);
       }
       return includedFeatures;
@@ -409,7 +409,7 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return;
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             getIncludedFeatures().clear();
-            getIncludedFeatures().addAll((Collection<? extends StrictReference>) newValue);
+            getIncludedFeatures().addAll((Collection<? extends FeatureInclude>) newValue);
             return;
          case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
             getRequiredFeatures().clear();

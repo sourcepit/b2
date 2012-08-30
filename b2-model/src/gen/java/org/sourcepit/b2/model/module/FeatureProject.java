@@ -81,7 +81,7 @@ public interface FeatureProject extends Project, Classified
 
    /**
     * Returns the value of the '<em><b>Included Features</b></em>' containment reference list.
-    * The list contents are of type {@link org.sourcepit.b2.model.module.StrictReference}.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.FeatureInclude}.
     * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Included Features</em>' containment reference list isn't clear, there really should be
@@ -94,7 +94,7 @@ public interface FeatureProject extends Project, Classified
     * @model containment="true" resolveProxies="true"
     * @generated
     */
-   EList<StrictReference> getIncludedFeatures();
+   EList<FeatureInclude> getIncludedFeatures();
 
    /**
     * Returns the value of the '<em><b>Required Features</b></em>' containment reference list.

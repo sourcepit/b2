@@ -20,6 +20,7 @@ import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -91,13 +92,23 @@ public class FeaturesInterpolator
 
       final String facetName = pluginsFacet.getName();
 
+      // TODO check duplicated includes
+      final List<FeatureInclude> includedFeatures;
+      includedFeatures = converter.getIncludedFeatures(moduleProperties, facetName, isSource);
+      featureProject.getIncludedFeatures().addAll(includedFeatures);
+
+      final List<PluginInclude> includedPlugins;
+      includedPlugins = converter.getIncludedPlugins(moduleProperties, facetName, isSource);
+      featureProject.getIncludedPlugins().addAll(includedPlugins);
+
       // TODO calc inter facet dependencies
       // TODO calc inter module dependencies
-      final List<RuledReference> requiredFeatures = converter
-         .getRequiredFeatures(moduleProperties, facetName, isSource);
+      final List<RuledReference> requiredFeatures;
+      requiredFeatures = converter.getRequiredFeatures(moduleProperties, facetName, isSource);
       featureProject.getRequiredFeatures().addAll(requiredFeatures);
 
-      final List<RuledReference> requiredPlugins = converter.getRequiredPlugins(moduleProperties, facetName, isSource);
+      final List<RuledReference> requiredPlugins;
+      requiredPlugins = converter.getRequiredPlugins(moduleProperties, facetName, isSource);
       featureProject.getRequiredPlugins().addAll(requiredPlugins);
 
       return featureProject;

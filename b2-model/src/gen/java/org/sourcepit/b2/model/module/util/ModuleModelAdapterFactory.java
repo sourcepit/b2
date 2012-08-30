@@ -20,6 +20,7 @@ import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.FileContainer;
@@ -247,6 +248,12 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseStrictReference(StrictReference object)
       {
          return createStrictReferenceAdapter();
+      }
+
+      @Override
+      public Adapter caseFeatureInclude(FeatureInclude object)
+      {
+         return createFeatureIncludeAdapter();
       }
 
       @Override
@@ -679,6 +686,23 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createStrictReferenceAdapter()
+   {
+      return null;
+   }
+
+   /**
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.FeatureInclude
+    * <em>Feature Include</em>}'.
+    * <!-- begin-user-doc -->
+    * This default implementation returns null so that we can easily ignore cases;
+    * it's useful to ignore a case when inheritance will catch all the cases anyway.
+    * <!-- end-user-doc -->
+    * 
+    * @return the new adapter.
+    * @see org.sourcepit.b2.model.module.FeatureInclude
+    * @generated
+    */
+   public Adapter createFeatureIncludeAdapter()
    {
       return null;
    }

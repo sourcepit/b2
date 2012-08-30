@@ -8,15 +8,19 @@ package org.sourcepit.b2.model.builder.util;
 
 import java.util.List;
 
+import org.sourcepit.b2.model.module.FeatureInclude;
+import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 
 public interface Converter2
 {
-   // String getCategoryId(PropertiesSource properties, String facetName);
-
    String getFacetClassifier(PropertiesSource moduleProperties, String facetName);
+   
+   List<FeatureInclude> getIncludedFeatures(PropertiesSource moduleProperties, String facetName, boolean isSource);
+
+   List<PluginInclude> getIncludedPlugins(PropertiesSource moduleProperties, String facetName, boolean isSource);
 
    List<RuledReference> getRequiredFeatures(PropertiesSource moduleProperties, String facetName, boolean isSource);
 

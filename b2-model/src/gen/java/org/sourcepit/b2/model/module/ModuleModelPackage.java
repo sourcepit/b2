@@ -1683,6 +1683,58 @@ public interface ModuleModelPackage extends EPackage
    int STRICT_REFERENCE_FEATURE_COUNT = ABSTRACT_STRICT_REFERENCE_FEATURE_COUNT + 0;
 
    /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl
+    * <em>Feature Include</em>}' class.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureInclude()
+    * @generated
+    */
+   int FEATURE_INCLUDE = 24;
+
+   /**
+    * The feature id for the '<em><b>Id</b></em>' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE__ID = ABSTRACT_STRICT_REFERENCE__ID;
+
+   /**
+    * The feature id for the '<em><b>Version</b></em>' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE__VERSION = ABSTRACT_STRICT_REFERENCE__VERSION;
+
+   /**
+    * The feature id for the '<em><b>Optional</b></em>' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE__OPTIONAL = ABSTRACT_STRICT_REFERENCE_FEATURE_COUNT + 0;
+
+   /**
+    * The number of structural features of the '<em>Feature Include</em>' class.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE_FEATURE_COUNT = ABSTRACT_STRICT_REFERENCE_FEATURE_COUNT + 1;
+
+   /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.VersionMatchRule <em>Version Match Rule</em>}'
     * enum.
     * <!-- begin-user-doc -->
@@ -1692,7 +1744,7 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getVersionMatchRule()
     * @generated
     */
-   int VERSION_MATCH_RULE = 24;
+   int VERSION_MATCH_RULE = 25;
 
    /**
     * The meta object id for the '<em>Identifier</em>' data type.
@@ -1703,7 +1755,7 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifier()
     * @generated
     */
-   int IDENTIFIER = 25;
+   int IDENTIFIER = 26;
 
 
    /**
@@ -2443,6 +2495,30 @@ public interface ModuleModelPackage extends EPackage
    EClass getStrictReference();
 
    /**
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeatureInclude <em>Feature Include</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for class '<em>Feature Include</em>'.
+    * @see org.sourcepit.b2.model.module.FeatureInclude
+    * @generated
+    */
+   EClass getFeatureInclude();
+
+   /**
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.FeatureInclude#isOptional
+    * <em>Optional</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Optional</em>'.
+    * @see org.sourcepit.b2.model.module.FeatureInclude#isOptional()
+    * @see #getFeatureInclude()
+    * @generated
+    */
+   EAttribute getFeatureInclude_Optional();
+
+   /**
     * Returns the meta object for enum '{@link org.sourcepit.b2.model.module.VersionMatchRule
     * <em>Version Match Rule</em>}'.
     * <!-- begin-user-doc -->
@@ -3101,6 +3177,27 @@ public interface ModuleModelPackage extends EPackage
        * @generated
        */
       EClass STRICT_REFERENCE = eINSTANCE.getStrictReference();
+
+      /**
+       * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl
+       * <em>Feature Include</em>}' class.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @see org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl
+       * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureInclude()
+       * @generated
+       */
+      EClass FEATURE_INCLUDE = eINSTANCE.getFeatureInclude();
+
+      /**
+       * The meta object literal for the '<em><b>Optional</b></em>' attribute feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute FEATURE_INCLUDE__OPTIONAL = eINSTANCE.getFeatureInclude_Optional();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.VersionMatchRule
