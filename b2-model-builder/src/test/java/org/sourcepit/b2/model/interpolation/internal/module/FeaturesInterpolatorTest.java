@@ -67,15 +67,15 @@ public class FeaturesInterpolatorTest extends GuplexTest
 
       // assert
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
-      assertEquals(2, featuresFacets.size());
+      assertEquals(1, featuresFacets.size());
 
-      FeaturesFacet mainFeatures = featuresFacets.get(0);
-      assertEquals("main.features", mainFeatures.getName());
-      assertEquals(2, mainFeatures.getProjects().size());
+      FeaturesFacet featuresFacet = featuresFacets.get(0);
+      assertEquals("facet-features", featuresFacet.getName());
+      assertEquals(4, featuresFacet.getProjects().size());
 
-      FeatureProject mainFeature = mainFeatures.getProjects().get(0);
+      FeatureProject mainFeature = featuresFacet.getProjects().get(0);
       assertEquals("foo.main.feature", mainFeature.getId());
-      assertEquals(new File(".b2/features/foo.main.feature"), mainFeature.getDirectory());
+      assertEquals(new File(".b2/facet-features/foo.main.feature"), mainFeature.getDirectory());
       assertEquals(0, mainFeature.getIncludedFeatures().size());
       assertEquals(1, mainFeature.getIncludedPlugins().size());
       assertEquals(0, mainFeature.getRequiredFeatures().size());
@@ -85,9 +85,9 @@ public class FeaturesInterpolatorTest extends GuplexTest
       assertEquals("plugin.foo", mainPluginInclude.getId());
       assertEquals("1.0.0.qualifier", mainPluginInclude.getVersion());
 
-      FeatureProject srcMainFeature = mainFeatures.getProjects().get(1);
+      FeatureProject srcMainFeature = featuresFacet.getProjects().get(1);
       assertEquals("foo.main.sources.feature", srcMainFeature.getId());
-      assertEquals(new File(".b2/features/foo.main.sources.feature"), srcMainFeature.getDirectory());
+      assertEquals(new File(".b2/facet-features/foo.main.sources.feature"), srcMainFeature.getDirectory());
       assertEquals(0, srcMainFeature.getIncludedFeatures().size());
       assertEquals(1, srcMainFeature.getIncludedPlugins().size());
 
@@ -95,13 +95,9 @@ public class FeaturesInterpolatorTest extends GuplexTest
       assertEquals("plugin.foo.source", srcMainPluginInclude.getId());
       assertEquals("1.0.0.qualifier", srcMainPluginInclude.getVersion());
 
-      FeaturesFacet testFeatures = featuresFacets.get(1);
-      assertEquals("tests.features", testFeatures.getName());
-      assertEquals(2, testFeatures.getProjects().size());
-
-      FeatureProject testFeature = testFeatures.getProjects().get(0);
+      FeatureProject testFeature = featuresFacet.getProjects().get(2);
       assertEquals("foo.tests.feature", testFeature.getId());
-      assertEquals(new File(".b2/features/foo.tests.feature"), testFeature.getDirectory());
+      assertEquals(new File(".b2/facet-features/foo.tests.feature"), testFeature.getDirectory());
       assertEquals(0, testFeature.getIncludedFeatures().size());
       assertEquals(0, testFeature.getIncludedPlugins().size());
       assertEquals(0, testFeature.getRequiredFeatures().size());

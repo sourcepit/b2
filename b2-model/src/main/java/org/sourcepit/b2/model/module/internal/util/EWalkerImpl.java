@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.model.module.internal.util;
 
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
@@ -59,13 +61,7 @@ public abstract class EWalkerImpl
 
       if (isRecursive)
       {
-         final EList<? extends EObject> eContents = getChildren(eObject);
-         final int size = eContents.size();
-         for (int i = 0; i < size; i++)
-         {
-            final int j = isReverse ? size - i - 1 : i;
-            walk(eContents.get(j));
-         }
+         walk(getChildren(eObject));
       }
 
       if (isReverse)
@@ -74,6 +70,16 @@ public abstract class EWalkerImpl
          {
             return;
          }
+      }
+   }
+
+   public void walk(final List<? extends EObject> eContents)
+   {
+      final int size = eContents.size();
+      for (int i = 0; i < size; i++)
+      {
+         final int j = isReverse ? size - i - 1 : i;
+         walk(eContents.get(j));
       }
    }
 

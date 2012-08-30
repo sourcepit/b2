@@ -16,47 +16,77 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
+import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class DefaultConverter2 implements Converter2
 {
-   private static String toValidId(String string)
+   public List<String> getAssemblyNames(PropertiesSource moduleProperties)
    {
-      // TODO assert not empty
-      return toJavaIdentifier(string.toLowerCase());
+      final List<String> assemblies = new ArrayList<String>();
+      final String rawAssemblies = moduleProperties.get("b2.assemblies");
+      if (rawAssemblies != null)
+      {
+         for (String rawAssembly : rawAssemblies.split(","))
+         {
+            final String assembly = rawAssembly.trim();
+            if (assembly.length() > 0 && !assemblies.contains(assembly))
+            {
+               assemblies.add(assembly);
+            }
+         }
+      }
+      return assemblies;
    }
 
-   /**
-    * Converts the specified string into a valid Java identifier. All illegal characters are replaced by underscores.
-    * 
-    * @param aString <i>(required)</i>. The string must contain at least one character.
-    * @return <i>(required)</i>.
-    */
-   private static String toJavaIdentifier(String aString)
+   public String getAssemblyClassifier(PropertiesSource properties, String assemblyName)
    {
-      if (aString.length() == 0)
+      if (assemblyName.length() == 0)
       {
-         return "_";
+         throw new IllegalArgumentException("assemblyName must not be empty.");
       }
+      // TODO assert result is valid id
+      return properties.get(assemblyKey(assemblyName, "classifier"), toValidId(assemblyName));
+   }
+   
+   public PathMatcher getFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "featureFilter"), "**");
+      return PathMatcher.parse(patterns, ",", ".");
+   }
+   
+   public PathMatcher getPluginMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "pluginFilter"), "!**");
+      return PathMatcher.parse(patterns, ",", ".");
+   }
 
-      final StringBuilder res = new StringBuilder();
-      int idx = 0;
-      char c = aString.charAt(idx);
-      if (Character.isJavaIdentifierStart(c))
-      {
-         res.append(c);
-         idx++;
-      }
-      else if (Character.isJavaIdentifierPart(c))
-      {
-         res.append('_');
-      }
-      while (idx < aString.length())
-      {
-         c = aString.charAt(idx++);
-         res.append(Character.isJavaIdentifierPart(c) ? c : '_');
-      }
-      return res.toString();
+   public List<FeatureInclude> getIncludedFeaturesForAssembly(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String key = "includedFeatures";
+      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), b2Key(key));
+      return toFeatureIncludeList(rawIncludes);
+   }
+
+   public List<PluginInclude> getIncludedPluginsForAssembly(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String key = "includedPlugins";
+      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), b2Key(key));
+      return toPluginIncludeList(rawIncludes);
+   }
+
+   public List<RuledReference> getRequiredFeaturesForAssembly(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String key = "requiredFeatures";
+      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), b2Key(key));
+      return toRuledReferenceList(rawIncludes);
+   }
+
+   public List<RuledReference> getRequiredPluginsForAssembly(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String key = "requiredPlugins";
+      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), b2Key(key));
+      return toRuledReferenceList(rawIncludes);
    }
 
    public String getFacetClassifier(PropertiesSource properties, String facetName)
@@ -69,11 +99,22 @@ public class DefaultConverter2 implements Converter2
       return properties.get(facetKey(facetName, "classifier"), toValidId(facetName));
    }
 
-   public List<FeatureInclude> getIncludedFeatures(PropertiesSource moduleProperties, String facetName, boolean isSource)
+   public PathMatcher getPluginMatcherForFacet(PropertiesSource moduleProperties, String facetName)
+   {
+      final String patterns = moduleProperties.get(facetKey(facetName, "pluginFilter"), "**");
+      return PathMatcher.parse(patterns, ",", ".");
+   }
+   
+   public List<FeatureInclude> getIncludedFeaturesForFacet(PropertiesSource moduleProperties, String facetName,
+      boolean isSource)
    {
       final String key = isSource ? "includedSourceFeatures" : "includedFeatures";
       final String rawIncludes = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+      return toFeatureIncludeList(rawIncludes);
+   }
 
+   private List<FeatureInclude> toFeatureIncludeList(final String rawIncludes)
+   {
       final List<FeatureInclude> result = new ArrayList<FeatureInclude>();
 
       if (rawIncludes != null)
@@ -91,11 +132,16 @@ public class DefaultConverter2 implements Converter2
       return result;
    }
 
-   public List<PluginInclude> getIncludedPlugins(PropertiesSource moduleProperties, String facetName, boolean isSource)
+   public List<PluginInclude> getIncludedPluginsForFacet(PropertiesSource moduleProperties, String facetName,
+      boolean isSource)
    {
       final String key = isSource ? "includedSourcePlugins" : "includedPlugins";
       final String rawIncludes = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+      return toPluginIncludeList(rawIncludes);
+   }
 
+   private List<PluginInclude> toPluginIncludeList(final String rawIncludes)
+   {
       final List<PluginInclude> result = new ArrayList<PluginInclude>();
 
       if (rawIncludes != null)
@@ -113,14 +159,16 @@ public class DefaultConverter2 implements Converter2
       return result;
    }
 
-   public List<RuledReference> getRequiredFeatures(PropertiesSource moduleProperties, String facetName, boolean isSource)
+   public List<RuledReference> getRequiredFeaturesForFacet(PropertiesSource moduleProperties, String facetName,
+      boolean isSource)
    {
       final String key = isSource ? "requiredSourceFeatures" : "requiredFeatures";
       final String requirements = get(moduleProperties, facetKey(facetName, key), b2Key(key));
       return toRuledReferenceList(requirements);
    }
 
-   public List<RuledReference> getRequiredPlugins(PropertiesSource moduleProperties, String facetName, boolean isSource)
+   public List<RuledReference> getRequiredPluginsForFacet(PropertiesSource moduleProperties, String facetName,
+      boolean isSource)
    {
       final String key = isSource ? "requiredSourcePlugins" : "requiredPlugins";
       final String requirements = get(moduleProperties, facetKey(facetName, key), b2Key(key));
@@ -247,6 +295,11 @@ public class DefaultConverter2 implements Converter2
       return inc;
    }
 
+   private static String assemblyKey(String assemblyName, String key)
+   {
+      return b2Key("assemblies[\"" + assemblyName + "\"]." + key);
+   }
+
    private static String facetKey(String facetName, String key)
    {
       return b2Key("facets[\"" + facetName + "\"]." + key);
@@ -316,5 +369,44 @@ public class DefaultConverter2 implements Converter2
          sb.append(appendix);
       }
       return sb.toString();
+   }
+
+   private static String toValidId(String string)
+   {
+      // TODO assert not empty
+      return toJavaIdentifier(string.toLowerCase());
+   }
+
+   /**
+    * Converts the specified string into a valid Java identifier. All illegal characters are replaced by underscores.
+    * 
+    * @param aString <i>(required)</i>. The string must contain at least one character.
+    * @return <i>(required)</i>.
+    */
+   private static String toJavaIdentifier(String aString)
+   {
+      if (aString.length() == 0)
+      {
+         return "_";
+      }
+
+      final StringBuilder res = new StringBuilder();
+      int idx = 0;
+      char c = aString.charAt(idx);
+      if (Character.isJavaIdentifierStart(c))
+      {
+         res.append(c);
+         idx++;
+      }
+      else if (Character.isJavaIdentifierPart(c))
+      {
+         res.append('_');
+      }
+      while (idx < aString.length())
+      {
+         c = aString.charAt(idx++);
+         res.append(Character.isJavaIdentifierPart(c) ? c : '_');
+      }
+      return res.toString();
    }
 }

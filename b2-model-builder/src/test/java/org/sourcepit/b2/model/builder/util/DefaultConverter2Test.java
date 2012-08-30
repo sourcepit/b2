@@ -25,7 +25,7 @@ public class DefaultConverter2Test
 {
 
    @Test
-   public void testGetIncludedFeatures() throws Exception
+   public void testGetIncludedFeaturesForFacet() throws Exception
    {
       String facetName = "foo";
       String propertyName = "includedFeatures";
@@ -44,13 +44,13 @@ public class DefaultConverter2Test
 
       Converter2 converter = new DefaultConverter2();
 
-      List<FeatureInclude> result = converter.getIncludedFeatures(properties, facetName, isSource);
+      List<FeatureInclude> result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
       assertEquals("key1", result.get(0).getId());
    }
 
    @Test
-   public void testGetIncludedSourceFeatures() throws Exception
+   public void testGetIncludedSourceFeaturesForFacet() throws Exception
    {
       String facetName = "foo";
       String propertyName = "includedSourceFeatures";
@@ -69,7 +69,7 @@ public class DefaultConverter2Test
 
       Converter2 converter = new DefaultConverter2();
 
-      List<FeatureInclude> result = converter.getIncludedFeatures(properties, facetName, isSource);
+      List<FeatureInclude> result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
       assertEquals("key1", result.get(0).getId());
    }
@@ -83,18 +83,18 @@ public class DefaultConverter2Test
       List<FeatureInclude> result;
 
       // empty
-      result = converter.getIncludedFeatures(properties, facetName, isSource);
+      result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(0, result.size());
 
       properties.put(key, " ,, ");
-      result = converter.getIncludedFeatures(properties, facetName, isSource);
+      result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(0, result.size());
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
       try
       {
-         result = converter.getIncludedFeatures(properties, facetName, isSource);
+         result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -104,7 +104,7 @@ public class DefaultConverter2Test
       properties.put(key, "foo.feature:1.0.0:murks");
       try
       {
-         result = converter.getIncludedFeatures(properties, facetName, isSource);
+         result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -114,7 +114,7 @@ public class DefaultConverter2Test
       properties.put(key, "foo.feature:1.0.0:optional:murks");
       try
       {
-         result = converter.getIncludedFeatures(properties, facetName, isSource);
+         result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -123,7 +123,7 @@ public class DefaultConverter2Test
 
       // valid
       properties.put(key, "foo.feature, foo.feature:1.0.0, foo.feature:1.0.0:optional");
-      result = converter.getIncludedFeatures(properties, facetName, isSource);
+      result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(3, result.size());
 
       FeatureInclude requirement;
@@ -144,7 +144,7 @@ public class DefaultConverter2Test
    }
 
    @Test
-   public void testGetIncludedPlugins() throws Exception
+   public void testGetIncludedPluginsForFacet() throws Exception
    {
       String facetName = "foo";
       String propertyName = "includedPlugins";
@@ -163,13 +163,13 @@ public class DefaultConverter2Test
 
       Converter2 converter = new DefaultConverter2();
 
-      List<PluginInclude> result = converter.getIncludedPlugins(properties, facetName, isSource);
+      List<PluginInclude> result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
       assertEquals("key1", result.get(0).getId());
    }
 
    @Test
-   public void testGetIncludedSourcePlugins() throws Exception
+   public void testGetIncludedSourcePluginsForFacet() throws Exception
    {
       String facetName = "foo";
       String propertyName = "includedSourcePlugins";
@@ -188,7 +188,7 @@ public class DefaultConverter2Test
 
       Converter2 converter = new DefaultConverter2();
 
-      List<PluginInclude> result = converter.getIncludedPlugins(properties, facetName, isSource);
+      List<PluginInclude> result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
       assertEquals("key1", result.get(0).getId());
    }
@@ -202,18 +202,18 @@ public class DefaultConverter2Test
       List<PluginInclude> result;
 
       // empty
-      result = converter.getIncludedPlugins(properties, facetName, isSource);
+      result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(0, result.size());
 
       properties.put(key, " ,, ");
-      result = converter.getIncludedPlugins(properties, facetName, isSource);
+      result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(0, result.size());
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
       try
       {
-         result = converter.getIncludedPlugins(properties, facetName, isSource);
+         result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -223,7 +223,7 @@ public class DefaultConverter2Test
       properties.put(key, "foo.feature:1.0.0:murks");
       try
       {
-         result = converter.getIncludedPlugins(properties, facetName, isSource);
+         result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -233,7 +233,7 @@ public class DefaultConverter2Test
       properties.put(key, "foo.feature:1.0.0:unpack:murks");
       try
       {
-         result = converter.getIncludedPlugins(properties, facetName, isSource);
+         result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -242,7 +242,7 @@ public class DefaultConverter2Test
 
       // valid
       properties.put(key, "foo.feature, foo.feature:1.0.0, foo.feature:1.0.0:unpack");
-      result = converter.getIncludedPlugins(properties, facetName, isSource);
+      result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(3, result.size());
 
       PluginInclude include;
@@ -263,7 +263,7 @@ public class DefaultConverter2Test
    }
 
    @Test
-   public void testGetRequiredFeatures() throws Exception
+   public void testGetRequiredFeaturesForFacet() throws Exception
    {
       final Method method = Converter2.class.getDeclaredMethod("getRequiredFeatures", PropertiesSource.class,
          String.class, boolean.class);
@@ -287,7 +287,7 @@ public class DefaultConverter2Test
    }
 
    @Test
-   public void testGetRequiredPlugins() throws Exception
+   public void testGetRequiredPluginsForFacet() throws Exception
    {
       final Method method = Converter2.class.getDeclaredMethod("getRequiredPlugins", PropertiesSource.class,
          String.class, boolean.class);
@@ -299,7 +299,7 @@ public class DefaultConverter2Test
    }
 
    @Test
-   public void testGetRequiredSourcePlugins() throws Exception
+   public void testGetRequiredSourcePluginsForFacet() throws Exception
    {
       final Method method = Converter2.class.getDeclaredMethod("getRequiredPlugins", PropertiesSource.class,
          String.class, boolean.class);

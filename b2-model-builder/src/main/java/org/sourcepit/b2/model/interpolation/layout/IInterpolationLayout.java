@@ -18,7 +18,7 @@ public interface IInterpolationLayout
 
    String pathOfMetaDataFile(AbstractModule module, String path);
 
-   String pathOfFacetMetaData(AbstractModule module, String facetType, String name);
+   String pathOfFacetMetaData(AbstractModule module, String facetName, String name);
 
    String pathOfFeatureProject(AbstractModule module, String classifier);
 
