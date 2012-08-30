@@ -1063,6 +1063,26 @@ public interface ModuleModelPackage extends EPackage
    int FEATURE_PROJECT__INCLUDED_FEATURES = PROJECT_FEATURE_COUNT + 3;
 
    /**
+    * The feature id for the '<em><b>Required Features</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_PROJECT__REQUIRED_FEATURES = PROJECT_FEATURE_COUNT + 4;
+
+   /**
+    * The feature id for the '<em><b>Required Plugins</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_PROJECT__REQUIRED_PLUGINS = PROJECT_FEATURE_COUNT + 5;
+
+   /**
     * The number of structural features of the '<em>Feature Project</em>' class.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -1070,7 +1090,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int FEATURE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 4;
+   int FEATURE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 6;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl
@@ -2009,6 +2029,32 @@ public interface ModuleModelPackage extends EPackage
    EReference getFeatureProject_IncludedFeatures();
 
    /**
+    * Returns the meta object for the containment reference list '
+    * {@link org.sourcepit.b2.model.module.FeatureProject#getRequiredFeatures <em>Required Features</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference list '<em>Required Features</em>'.
+    * @see org.sourcepit.b2.model.module.FeatureProject#getRequiredFeatures()
+    * @see #getFeatureProject()
+    * @generated
+    */
+   EReference getFeatureProject_RequiredFeatures();
+
+   /**
+    * Returns the meta object for the containment reference list '
+    * {@link org.sourcepit.b2.model.module.FeatureProject#getRequiredPlugins <em>Required Plugins</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference list '<em>Required Plugins</em>'.
+    * @see org.sourcepit.b2.model.module.FeatureProject#getRequiredPlugins()
+    * @see #getFeatureProject()
+    * @generated
+    */
+   EReference getFeatureProject_RequiredPlugins();
+
+   /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.SiteProject <em>Site Project</em>}'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -2705,6 +2751,24 @@ public interface ModuleModelPackage extends EPackage
        * @generated
        */
       EReference FEATURE_PROJECT__INCLUDED_FEATURES = eINSTANCE.getFeatureProject_IncludedFeatures();
+
+      /**
+       * The meta object literal for the '<em><b>Required Features</b></em>' containment reference list feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference FEATURE_PROJECT__REQUIRED_FEATURES = eINSTANCE.getFeatureProject_RequiredFeatures();
+
+      /**
+       * The meta object literal for the '<em><b>Required Plugins</b></em>' containment reference list feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference FEATURE_PROJECT__REQUIRED_PLUGINS = eINSTANCE.getFeatureProject_RequiredPlugins();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl

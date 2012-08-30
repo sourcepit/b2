@@ -89,14 +89,16 @@ public class FeaturesInterpolator
          featureProject.getIncludedPlugins().add(pluginInclude);
       }
 
-      String facetName = pluginsFacet.getName();
-      
-      // TODO rename RuledReference and StrictReference
-      // TODO featureProject.getRequiredFeatures().addAll(requiredFeatures)
+      final String facetName = pluginsFacet.getName();
+
       // TODO calc inter facet dependencies
       // TODO calc inter module dependencies
-      List<RuledReference> requiredFeatures = converter.getRequiredFeatures(moduleProperties, facetName);
-      List<RuledReference> requiredPlugins = converter.getRequiredPlugins(moduleProperties, facetName);
+      final List<RuledReference> requiredFeatures = converter
+         .getRequiredFeatures(moduleProperties, facetName, isSource);
+      featureProject.getRequiredFeatures().addAll(requiredFeatures);
+
+      final List<RuledReference> requiredPlugins = converter.getRequiredPlugins(moduleProperties, facetName, isSource);
+      featureProject.getRequiredPlugins().addAll(requiredPlugins);
 
       return featureProject;
    }

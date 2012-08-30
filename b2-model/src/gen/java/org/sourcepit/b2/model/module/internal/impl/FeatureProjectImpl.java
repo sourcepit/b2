@@ -22,6 +22,7 @@ import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.StrictReference;
 
 /**
@@ -36,6 +37,10 @@ import org.sourcepit.b2.model.module.StrictReference;
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedPlugins <em>Included Plugins
  * </em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedFeatures <em>Included Features
+ * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getRequiredFeatures <em>Required Features
+ * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getRequiredPlugins <em>Required Plugins
  * </em>}</li>
  * </ul>
  * </p>
@@ -87,6 +92,28 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * @ordered
     */
    protected EList<StrictReference> includedFeatures;
+
+   /**
+    * The cached value of the '{@link #getRequiredFeatures() <em>Required Features</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see #getRequiredFeatures()
+    * @generated
+    * @ordered
+    */
+   protected EList<RuledReference> requiredFeatures;
+
+   /**
+    * The cached value of the '{@link #getRequiredPlugins() <em>Required Plugins</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see #getRequiredPlugins()
+    * @generated
+    * @ordered
+    */
+   protected EList<RuledReference> requiredPlugins;
 
    /**
     * <!-- begin-user-doc -->
@@ -241,6 +268,38 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * 
     * @generated
     */
+   public EList<RuledReference> getRequiredFeatures()
+   {
+      if (requiredFeatures == null)
+      {
+         requiredFeatures = new EObjectContainmentEList.Resolving<RuledReference>(RuledReference.class, this,
+            ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES);
+      }
+      return requiredFeatures;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EList<RuledReference> getRequiredPlugins()
+   {
+      if (requiredPlugins == null)
+      {
+         requiredPlugins = new EObjectContainmentEList.Resolving<RuledReference>(RuledReference.class, this,
+            ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS);
+      }
+      return requiredPlugins;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    @Override
    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
@@ -271,6 +330,10 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return ((InternalEList<?>) getIncludedPlugins()).basicRemove(otherEnd, msgs);
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return ((InternalEList<?>) getIncludedFeatures()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            return ((InternalEList<?>) getRequiredFeatures()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            return ((InternalEList<?>) getRequiredPlugins()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -314,6 +377,10 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return getIncludedPlugins();
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return getIncludedFeatures();
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            return getRequiredFeatures();
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            return getRequiredPlugins();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -344,6 +411,14 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             getIncludedFeatures().clear();
             getIncludedFeatures().addAll((Collection<? extends StrictReference>) newValue);
             return;
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            getRequiredFeatures().clear();
+            getRequiredFeatures().addAll((Collection<? extends RuledReference>) newValue);
+            return;
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            getRequiredPlugins().clear();
+            getRequiredPlugins().addAll((Collection<? extends RuledReference>) newValue);
+            return;
       }
       super.eSet(featureID, newValue);
    }
@@ -371,6 +446,12 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             getIncludedFeatures().clear();
             return;
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            getRequiredFeatures().clear();
+            return;
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            getRequiredPlugins().clear();
+            return;
       }
       super.eUnset(featureID);
    }
@@ -394,6 +475,10 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return includedPlugins != null && !includedPlugins.isEmpty();
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return includedFeatures != null && !includedFeatures.isEmpty();
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            return requiredFeatures != null && !requiredFeatures.isEmpty();
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            return requiredPlugins != null && !requiredPlugins.isEmpty();
       }
       return super.eIsSet(featureID);
    }

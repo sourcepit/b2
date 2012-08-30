@@ -79,16 +79,16 @@ public class DefaultConverter2 implements Converter2
       return properties.get(facetKey(facetName, "classifier"), toValidId(facetName));
    }
 
-   public List<RuledReference> getRequiredFeatures(PropertiesSource moduleProperties, String facetName)
+   public List<RuledReference> getRequiredFeatures(PropertiesSource moduleProperties, String facetName, boolean isSource)
    {
-      final String key = "requiredFeatures";
+      final String key = isSource ? "requiredSourceFeatures" : "requiredFeatures";
       final String requirements = get(moduleProperties, facetKey(facetName, key), b2Key(key));
       return toRuledReferenceList(requirements);
    }
 
-   public List<RuledReference> getRequiredPlugins(PropertiesSource moduleProperties, String facetName)
+   public List<RuledReference> getRequiredPlugins(PropertiesSource moduleProperties, String facetName, boolean isSource)
    {
-      final String key = "requiredPlugins";
+      final String key = isSource ? "requiredSourcePlugins" : "requiredPlugins";
       final String requirements = get(moduleProperties, facetKey(facetName, key), b2Key(key));
       return toRuledReferenceList(requirements);
    }
@@ -146,7 +146,7 @@ public class DefaultConverter2 implements Converter2
             throw new IllegalArgumentException("'" + ruleString + "' in " + string
                + " is not a valid version matching rule");
          }
-         ref.setMatchRule(rule);
+         ref.setVersionMatchRule(rule);
       }
       return ref;
    }

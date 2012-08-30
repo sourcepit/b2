@@ -139,6 +139,10 @@
           eType="#//module/PluginInclude" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="includedFeatures" upperBound="-1"
           eType="#//module/StrictReference" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="requiredFeatures" upperBound="-1"
+          eType="#//module/RuledReference" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="requiredPlugins" upperBound="-1"
+          eType="#//module/RuledReference" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SiteProject" eSuperTypes="#//module/Project #//module/Classified">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/SitesFacet"

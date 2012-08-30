@@ -637,6 +637,28 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
+   public EReference getFeatureProject_RequiredFeatures()
+   {
+      return (EReference) featureProjectEClass.getEStructuralFeatures().get(3);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getFeatureProject_RequiredPlugins()
+   {
+      return (EReference) featureProjectEClass.getEStructuralFeatures().get(4);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EClass getSiteProject()
    {
       return siteProjectEClass;
@@ -1073,6 +1095,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEReference(featureProjectEClass, FEATURE_PROJECT__PARENT);
       createEReference(featureProjectEClass, FEATURE_PROJECT__INCLUDED_PLUGINS);
       createEReference(featureProjectEClass, FEATURE_PROJECT__INCLUDED_FEATURES);
+      createEReference(featureProjectEClass, FEATURE_PROJECT__REQUIRED_FEATURES);
+      createEReference(featureProjectEClass, FEATURE_PROJECT__REQUIRED_PLUGINS);
 
       siteProjectEClass = createEClass(SITE_PROJECT);
       createEReference(siteProjectEClass, SITE_PROJECT__PARENT);
@@ -1326,6 +1350,12 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEReference(getFeatureProject_IncludedFeatures(), this.getStrictReference(), null, "includedFeatures", null,
          0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_RequiredFeatures(), this.getRuledReference(), null, "requiredFeatures", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_RequiredPlugins(), this.getRuledReference(), null, "requiredPlugins", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(siteProjectEClass, SiteProject.class, "SiteProject", !IS_ABSTRACT, !IS_INTERFACE,

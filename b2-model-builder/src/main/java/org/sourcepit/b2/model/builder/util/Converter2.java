@@ -18,10 +18,10 @@ public interface Converter2
 
    String getFacetClassifier(PropertiesSource moduleProperties, String facetName);
 
-   List<RuledReference> getRequiredFeatures(PropertiesSource moduleProperties, String facetName);
-   
-   List<RuledReference> getRequiredPlugins(PropertiesSource moduleProperties, String facetName);
-   
+   List<RuledReference> getRequiredFeatures(PropertiesSource moduleProperties, String facetName, boolean isSource);
+
+   List<RuledReference> getRequiredPlugins(PropertiesSource moduleProperties, String facetName, boolean isSource);
+
    String getFeatureId(PropertiesSource moduleProperties, String moduleId, String classifier, boolean isSource);
 
    String getSourcePluginId(PropertiesSource moduleProperties, String pluginId);
