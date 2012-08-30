@@ -81,7 +81,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
       
       PluginInclude mainPluginInclude = mainFeature.getIncludedPlugins().get(0);
       assertEquals("plugin.foo", mainPluginInclude.getId());
-      assertEquals("1.0.0.qualifier", mainPluginInclude.getVersionRange());
+      assertEquals("1.0.0.qualifier", mainPluginInclude.getVersion());
       
       FeatureProject srcMainFeature = mainFeatures.getProjects().get(1);
       assertEquals("foo.main.sources.feature", srcMainFeature.getId());
@@ -91,7 +91,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
       
       PluginInclude srcMainPluginInclude = srcMainFeature.getIncludedPlugins().get(0);
       assertEquals("plugin.foo.source", srcMainPluginInclude.getId());
-      assertEquals("1.0.0.qualifier", srcMainPluginInclude.getVersionRange());
+      assertEquals("1.0.0.qualifier", srcMainPluginInclude.getVersion());
 
       FeaturesFacet testFeatures = featuresFacets.get(1);
       assertEquals("tests.features", testFeatures.getName());

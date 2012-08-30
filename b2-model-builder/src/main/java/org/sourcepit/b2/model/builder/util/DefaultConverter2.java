@@ -6,8 +6,15 @@
 
 package org.sourcepit.b2.model.builder.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
+import org.osgi.framework.Version;
+import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class DefaultConverter2 implements Converter2
@@ -20,7 +27,7 @@ public class DefaultConverter2 implements Converter2
    // }
    //
    // // TODO assert result is valid id
-   // return properties.get("b2.facets['" + facetName + "'].categoryId", toValidId(facetName));
+   // return properties.get(facetKey(facetName, "categoryId"), toValidId(facetName));
    // }
 
    private static String toValidId(String string)
@@ -69,7 +76,102 @@ public class DefaultConverter2 implements Converter2
          throw new IllegalArgumentException("facetName must not be empty.");
       }
       // TODO assert result is valid id
-      return properties.get("b2.facets['" + facetName + "'].classifier", toValidId(facetName));
+      return properties.get(facetKey(facetName, "classifier"), toValidId(facetName));
+   }
+
+   public List<RuledReference> getRequiredFeatures(PropertiesSource moduleProperties, String facetName)
+   {
+      final String key = "requiredFeatures";
+      final String requirements = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+      return toRuledReferenceList(requirements);
+   }
+
+   public List<RuledReference> getRequiredPlugins(PropertiesSource moduleProperties, String facetName)
+   {
+      final String key = "requiredPlugins";
+      final String requirements = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+      return toRuledReferenceList(requirements);
+   }
+
+   private static List<RuledReference> toRuledReferenceList(String rawRequirements)
+   {
+      final List<RuledReference> result = new ArrayList<RuledReference>();
+
+      // foo.feature:1.0.0:compatible,
+      if (rawRequirements != null)
+      {
+         for (String rawRequirement : rawRequirements.split(","))
+         {
+            final String requirement = rawRequirement.trim();
+            if (requirement.length() > 0)
+            {
+               result.add(toRuledReference(requirement));
+            }
+         }
+      }
+
+      return result;
+   }
+
+   private static RuledReference toRuledReference(String string)
+   {
+      final RuledReference ref = ModuleModelFactory.eINSTANCE.createRuledReference();
+      final String[] segments = string.split(":");
+      if (segments.length < 1 || segments.length > 3)
+      {
+         throw new IllegalArgumentException(string + " is not a valid requirement specification");
+      }
+
+      ref.setId(segments[0].trim());
+
+      if (segments.length > 1)
+      {
+         final String versionString = segments[1].trim();
+         try
+         {
+            new Version(versionString);
+         }
+         catch (IllegalArgumentException e)
+         {
+            throw new IllegalArgumentException("'" + versionString + "' in " + string + " is not a valid version");
+         }
+         ref.setVersion(versionString);
+      }
+      if (segments.length > 2)
+      {
+         final String ruleString = segments[2].trim();
+         final VersionMatchRule rule = VersionMatchRule.get(ruleString);
+         if (rule == null)
+         {
+            throw new IllegalArgumentException("'" + ruleString + "' in " + string
+               + " is not a valid version matching rule");
+         }
+         ref.setMatchRule(rule);
+      }
+      return ref;
+   }
+
+   private static String facetKey(String facetName, String key)
+   {
+      return b2Key("facets[\"" + facetName + "\"]." + key);
+   }
+
+   private static String b2Key(String key)
+   {
+      return "b2." + key;
+   }
+
+   private static String get(PropertiesSource moduleProperties, String... keys)
+   {
+      for (String key : keys)
+      {
+         final String value = moduleProperties.get(key);
+         if (value != null)
+         {
+            return value;
+         }
+      }
+      return null;
    }
 
    public String getFeatureId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)

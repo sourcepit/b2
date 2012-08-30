@@ -7,6 +7,7 @@
 package org.sourcepit.b2.model.interpolation.internal.module;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,6 +26,7 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
@@ -87,6 +89,15 @@ public class FeaturesInterpolator
          featureProject.getIncludedPlugins().add(pluginInclude);
       }
 
+      String facetName = pluginsFacet.getName();
+      
+      // TODO rename RuledReference and StrictReference
+      // TODO featureProject.getRequiredFeatures().addAll(requiredFeatures)
+      // TODO calc inter facet dependencies
+      // TODO calc inter module dependencies
+      List<RuledReference> requiredFeatures = converter.getRequiredFeatures(moduleProperties, facetName);
+      List<RuledReference> requiredPlugins = converter.getRequiredPlugins(moduleProperties, facetName);
+
       return featureProject;
    }
 
@@ -99,7 +110,7 @@ public class FeaturesInterpolator
 
       final PluginInclude pluginInclude = ModuleModelFactory.eINSTANCE.createPluginInclude();
       pluginInclude.setId(pluginId);
-      pluginInclude.setVersionRange(pluginProject.getVersion());
+      pluginInclude.setVersion(pluginProject.getVersion());
       pluginInclude.setUnpack(unpackStrategy.isUnpack(pluginProject));
 
       return pluginInclude;
