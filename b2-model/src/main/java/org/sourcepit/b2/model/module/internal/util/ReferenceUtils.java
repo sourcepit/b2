@@ -53,7 +53,7 @@ public final class ReferenceUtils
       else if (reference instanceof RuledReference)
       {
          isStrict = false;
-         rule = ((RuledReference) reference).getMatchRule();
+         rule = ((RuledReference) reference).getVersionMatchRule();
       }
       else
       {

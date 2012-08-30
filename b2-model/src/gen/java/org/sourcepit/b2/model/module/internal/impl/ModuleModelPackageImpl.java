@@ -956,7 +956,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getRuledReference_MatchRule()
+   public EAttribute getRuledReference_VersionMatchRule()
    {
       return (EAttribute) ruledReferenceEClass.getEStructuralFeatures().get(0);
    }
@@ -1115,7 +1115,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEAttribute(abstractReferenceEClass, ABSTRACT_REFERENCE__VERSION);
 
       ruledReferenceEClass = createEClass(RULED_REFERENCE);
-      createEAttribute(ruledReferenceEClass, RULED_REFERENCE__MATCH_RULE);
+      createEAttribute(ruledReferenceEClass, RULED_REFERENCE__VERSION_MATCH_RULE);
 
       abstractStrictReferenceEClass = createEClass(ABSTRACT_STRICT_REFERENCE);
 
@@ -1441,9 +1441,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       initEClass(ruledReferenceEClass, RuledReference.class, "RuledReference", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getRuledReference_MatchRule(), this.getVersionMatchRule(), "matchRule", "compatible", 0, 1,
-         RuledReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getRuledReference_VersionMatchRule(), this.getVersionMatchRule(), "versionMatchRule",
+         "compatible", 0, 1, RuledReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(abstractStrictReferenceEClass, AbstractStrictReference.class, "AbstractStrictReference", IS_ABSTRACT,
          !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

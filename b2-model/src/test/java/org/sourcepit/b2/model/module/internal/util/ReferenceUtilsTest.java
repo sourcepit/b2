@@ -87,16 +87,16 @@ public class ReferenceUtilsTest extends TestCase
       fr.setVersion("1.0.0");
       assertTrue(fr.isSatisfiableBy(fp));
       
-      fr.setMatchRule(VersionMatchRule.PERFECT);
+      fr.setVersionMatchRule(VersionMatchRule.PERFECT);
       assertFalse(fr.isSatisfiableBy(fp));
       
-      fr.setMatchRule(VersionMatchRule.EQUIVALENT);
+      fr.setVersionMatchRule(VersionMatchRule.EQUIVALENT);
       assertTrue(fr.isSatisfiableBy(fp));
       
-      fr.setMatchRule(VersionMatchRule.COMPATIBLE);
+      fr.setVersionMatchRule(VersionMatchRule.COMPATIBLE);
       assertTrue(fr.isSatisfiableBy(fp));
       
-      fr.setMatchRule(VersionMatchRule.GREATER_OR_EQUAL);
+      fr.setVersionMatchRule(VersionMatchRule.GREATER_OR_EQUAL);
       assertTrue(fr.isSatisfiableBy(fp));
       
       fp.setId("fooooo");
