@@ -17,7 +17,6 @@ import java.io.File;
 import org.eclipse.emf.common.util.EList;
 import org.junit.Test;
 import org.sourcepit.b2.model.builder.util.Converter2;
-import org.sourcepit.b2.model.builder.util.DefaultConverter2;
 import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -212,14 +211,15 @@ public class FeaturesInterpolatorTest extends GuplexTest
 
    private void interpolate(BasicModule module, PropertiesMap moduleProperties)
    {
-      Converter2 converter = new DefaultConverter2();
-
       ISourceService sourceService = gLookup(ISourceService.class);
       LayoutManager layoutManager = gLookup(LayoutManager.class);
       UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
-      FeaturesInterpolator interpolator = new FeaturesInterpolator(sourceService, layoutManager, unpackStrategy);
+      Converter2 converter = gLookup(Converter2.class);
+      
+      FeaturesInterpolator interpolator;
+      interpolator = new FeaturesInterpolator(sourceService, layoutManager, unpackStrategy, converter);
 
-      interpolator.interpolate(module, moduleProperties, converter);
+      interpolator.interpolate(module, moduleProperties);
    }
 
    private static FeatureProject getFeatureProject(BasicModule module, String id)

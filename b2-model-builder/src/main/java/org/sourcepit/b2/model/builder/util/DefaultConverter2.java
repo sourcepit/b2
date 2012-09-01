@@ -9,6 +9,8 @@ package org.sourcepit.b2.model.builder.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Named;
+
 import org.osgi.framework.Version;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -19,6 +21,7 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
+@Named
 public class DefaultConverter2 implements Converter2
 {
    public List<String> getAssemblyNames(PropertiesSource moduleProperties)

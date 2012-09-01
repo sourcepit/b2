@@ -42,17 +42,20 @@ public class FeaturesInterpolator
 
    private final UnpackStrategy unpackStrategy;
 
+   private final Converter2 converter;
+
    @Inject
    public FeaturesInterpolator(@NotNull ISourceService sourceService, @NotNull LayoutManager layoutManager,
-      @NotNull UnpackStrategy unpackStrategy)
+      @NotNull UnpackStrategy unpackStrategy, Converter2 converter)
    {
       this.sourceService = sourceService;
       this.layoutManager = layoutManager;
       this.unpackStrategy = unpackStrategy;
+      this.converter = converter;
    }
 
 
-   public void interpolate(AbstractModule module, PropertiesSource moduleProperties, Converter2 converter)
+   public void interpolate(AbstractModule module, PropertiesSource moduleProperties)
    {
       final EList<PluginsFacet> pluginsFacets = module.getFacets(PluginsFacet.class);
       if (!pluginsFacets.isEmpty())
@@ -60,16 +63,15 @@ public class FeaturesInterpolator
          final FeaturesFacet featuresFacet = createFeaturesFacet("facet-features");
          for (PluginsFacet pluginsFacet : pluginsFacets)
          {
-            interpolatePluginFeatures(module, featuresFacet, pluginsFacet, moduleProperties, converter);
+            interpolatePluginFeatures(module, featuresFacet, pluginsFacet, moduleProperties);
          }
          module.getFacets().add(featuresFacet);
       }
 
-      interpolateAssemblyFeatures(module, moduleProperties, converter);
+      interpolateAssemblyFeatures(module, moduleProperties);
    }
 
-   private void interpolateAssemblyFeatures(AbstractModule module, PropertiesSource moduleProperties,
-      Converter2 converter)
+   private void interpolateAssemblyFeatures(AbstractModule module, PropertiesSource moduleProperties)
    {
       final List<String> assemplyNames = converter.getAssemblyNames(moduleProperties);
       if (!assemplyNames.isEmpty())
@@ -77,7 +79,7 @@ public class FeaturesInterpolator
          FeaturesFacet featuresFacet = createFeaturesFacet("assembly-features");
          for (String assemblyName : assemplyNames)
          {
-            final String featureId = deriveFeatureId(module, assemblyName, moduleProperties, converter);
+            final String featureId = deriveFeatureId(module, assemblyName, moduleProperties);
             final String facetName = featuresFacet.getName();
 
             final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
@@ -100,18 +102,18 @@ public class FeaturesInterpolator
             final String assemblyName = featureProject.getAnnotationEntry("b2", "assemblyName");
 
             final EWalkerImpl eWalker;
-            eWalker = createIncludesAppenderForAssembly(moduleProperties, converter, featureProject, assemblyName);
+            eWalker = createIncludesAppenderForAssembly(moduleProperties, featureProject, assemblyName);
             eWalker.walk(module.getFacets(FeaturesFacet.class));
             eWalker.walk(module.getFacets(PluginsFacet.class));
 
-            addCustomIncludesAndRequirements(featureProject, assemblyName, moduleProperties, converter);
+            addCustomIncludesAndRequirements(featureProject, assemblyName, moduleProperties);
          }
       }
    }
 
 
    private void addCustomIncludesAndRequirements(final FeatureProject featureProject, String assemplyName,
-      PropertiesSource moduleProperties, Converter2 converter)
+      PropertiesSource moduleProperties)
    {
       // TODO check duplicated includes
       final List<FeatureInclude> includedFeatures;
@@ -134,23 +136,22 @@ public class FeaturesInterpolator
    }
 
    private void interpolatePluginFeatures(AbstractModule module, FeaturesFacet featuresFacet,
-      PluginsFacet pluginsFacet, PropertiesSource moduleProperties, Converter2 converter)
+      PluginsFacet pluginsFacet, PropertiesSource moduleProperties)
    {
-      FeatureProject featureProject = createFeatureProject(module, featuresFacet, pluginsFacet, moduleProperties,
-         converter, false);
+      FeatureProject featureProject = createFeatureProject(module, featuresFacet, pluginsFacet, moduleProperties, false);
       featuresFacet.getProjects().add(featureProject);
 
       if (sourceService.isSourceBuildEnabled(moduleProperties))
       {
-         featureProject = createFeatureProject(module, featuresFacet, pluginsFacet, moduleProperties, converter, true);
+         featureProject = createFeatureProject(module, featuresFacet, pluginsFacet, moduleProperties, true);
          featuresFacet.getProjects().add(featureProject);
       }
    }
 
    private FeatureProject createFeatureProject(AbstractModule module, FeaturesFacet featuresFacet,
-      PluginsFacet pluginsFacet, PropertiesSource moduleProperties, Converter2 converter, boolean isSource)
+      PluginsFacet pluginsFacet, PropertiesSource moduleProperties, boolean isSource)
    {
-      final String featureId = deriveFeatureId(module, pluginsFacet, moduleProperties, converter, isSource);
+      final String featureId = deriveFeatureId(module, pluginsFacet, moduleProperties, isSource);
 
       final FeatureProject featureProject = ModuleModelFactory.eINSTANCE.createFeatureProject();
       featureProject.setDerived(true);
@@ -165,18 +166,17 @@ public class FeaturesInterpolator
 
 
       final IncludesAppender includesAppender;
-      includesAppender = createIncludesAppenderForFacet(moduleProperties, converter, isSource, featureProject,
-         facetName);
+      includesAppender = createIncludesAppenderForFacet(moduleProperties, isSource, featureProject, facetName);
       includesAppender.walk(pluginsFacet.getProjects());
 
-      addCustomIncludesAndRequirements(featureProject, pluginsFacet, moduleProperties, converter, isSource);
+      addCustomIncludesAndRequirements(featureProject, pluginsFacet, moduleProperties, isSource);
 
       return featureProject;
    }
 
 
    private void addCustomIncludesAndRequirements(FeatureProject featureProject, PluginsFacet pluginsFacet,
-      PropertiesSource moduleProperties, Converter2 converter, boolean isSource)
+      PropertiesSource moduleProperties, boolean isSource)
    {
       final String facetName = pluginsFacet.getName();
 
@@ -200,15 +200,14 @@ public class FeaturesInterpolator
       featureProject.getRequiredPlugins().addAll(requiredPlugins);
    }
 
-   private String deriveFeatureId(AbstractModule module, String assemblyName, PropertiesSource properties,
-      Converter2 converter)
+   private String deriveFeatureId(AbstractModule module, String assemblyName, PropertiesSource properties)
    {
       final String classifier = converter.getAssemblyClassifier(properties, assemblyName);
       return converter.getFeatureId(properties, module.getId(), classifier, false);
    }
 
    private String deriveFeatureId(AbstractModule module, PluginsFacet pluginsFacet, PropertiesSource properties,
-      Converter2 converter, boolean isSource)
+      boolean isSource)
    {
       final String classifier = converter.getFacetClassifier(properties, pluginsFacet.getName());
       return converter.getFeatureId(properties, module.getId(), classifier, isSource);
@@ -223,7 +222,7 @@ public class FeaturesInterpolator
    }
 
    private IncludesAppender createIncludesAppenderForAssembly(final PropertiesSource moduleProperties,
-      final Converter2 converter, final FeatureProject featureProject, final String assemblyName)
+      final FeatureProject featureProject, final String assemblyName)
    {
       return new IncludesAppender(unpackStrategy, featureProject, false)
       {
@@ -232,13 +231,13 @@ public class FeaturesInterpolator
          {
             throw new UnsupportedOperationException();
          }
-   
+
          @Override
          protected PathMatcher createFeatureMatcher()
          {
             return converter.getFeatureMatcherForAssembly(moduleProperties, assemblyName);
          }
-   
+
          @Override
          protected PathMatcher createPluginMatcher()
          {
@@ -247,8 +246,8 @@ public class FeaturesInterpolator
       };
    }
 
-   private IncludesAppender createIncludesAppenderForFacet(final PropertiesSource moduleProperties,
-      final Converter2 converter, boolean isSource, final FeatureProject featureProject, final String facetName)
+   private IncludesAppender createIncludesAppenderForFacet(final PropertiesSource moduleProperties, boolean isSource,
+      final FeatureProject featureProject, final String facetName)
    {
       final IncludesAppender includesAppender;
       includesAppender = new IncludesAppender(unpackStrategy, featureProject, isSource)
@@ -258,13 +257,13 @@ public class FeaturesInterpolator
          {
             return converter.getSourcePluginId(moduleProperties, pp.getId());
          }
-   
+
          @Override
          protected PathMatcher createPluginMatcher()
          {
             return converter.getPluginMatcherForFacet(moduleProperties, facetName);
          }
-   
+
          @Override
          protected PathMatcher createFeatureMatcher()
          {
@@ -281,7 +280,7 @@ public class FeaturesInterpolator
       private final PathMatcher pluginMatcher;
       private final UnpackStrategy unpackStrategy;
       private final boolean isSource;
-   
+
       private IncludesAppender(UnpackStrategy unpackStrategy, FeatureProject targetProject, boolean isSource)
       {
          this.unpackStrategy = unpackStrategy;
@@ -290,7 +289,7 @@ public class FeaturesInterpolator
          this.pluginMatcher = createPluginMatcher();
          this.isSource = isSource;
       }
-   
+
       @Override
       protected boolean visit(EObject eObject)
       {
@@ -307,7 +306,7 @@ public class FeaturesInterpolator
          }
          return eObject instanceof FeaturesFacet || eObject instanceof PluginsFacet;
       }
-   
+
       private void process(FeatureProject fp)
       {
          if (featureMatcher.isMatch(fp.getId()))
@@ -318,7 +317,7 @@ public class FeaturesInterpolator
             targetProject.getIncludedFeatures().add(inc);
          }
       }
-   
+
       private void process(PluginProject pp)
       {
          final String pluginId = isSource ? getSourcePluginId(pp) : pp.getId();
@@ -338,11 +337,11 @@ public class FeaturesInterpolator
             targetProject.getIncludedPlugins().add(inc);
          }
       }
-   
+
       protected abstract String getSourcePluginId(PluginProject pp);
-   
+
       protected abstract PathMatcher createPluginMatcher();
-   
+
       protected abstract PathMatcher createFeatureMatcher();
    }
 }
