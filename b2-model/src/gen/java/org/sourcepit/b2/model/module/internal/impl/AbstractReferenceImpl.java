@@ -6,10 +6,19 @@
 
 package org.sourcepit.b2.model.module.internal.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.sourcepit.b2.model.common.Annotation;
+import org.sourcepit.b2.model.common.CommonModelPackage;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
@@ -21,6 +30,7 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getAnnotations <em>Annotations</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getId <em>Id</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getVersion <em>Version</em>}</li>
  * </ul>
@@ -30,6 +40,17 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  */
 public abstract class AbstractReferenceImpl extends EObjectImpl implements AbstractReference
 {
+   /**
+    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see #getAnnotations()
+    * @generated
+    * @ordered
+    */
+   protected EList<Annotation> annotations;
+
    /**
     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -103,6 +124,22 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * 
     * @generated
     */
+   public EList<Annotation> getAnnotations()
+   {
+      if (annotations == null)
+      {
+         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
+            ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
+      }
+      return annotations;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public String getId()
    {
       return id;
@@ -167,11 +204,87 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * 
     * @generated
     */
+   public Annotation getAnnotation(String source)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public String getAnnotationEntry(String source, String key)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public String putAnnotationEntry(String source, String key, String value)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   @SuppressWarnings("unchecked")
+   @Override
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+   {
+      switch (featureID)
+      {
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
+      }
+      return super.eInverseAdd(otherEnd, featureID, msgs);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   @Override
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+   {
+      switch (featureID)
+      {
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+            return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
+      }
+      return super.eInverseRemove(otherEnd, featureID, msgs);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    @Override
    public Object eGet(int featureID, boolean resolve, boolean coreType)
    {
       switch (featureID)
       {
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+            return getAnnotations();
          case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             return getId();
          case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
@@ -186,11 +299,16 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * 
     * @generated
     */
+   @SuppressWarnings("unchecked")
    @Override
    public void eSet(int featureID, Object newValue)
    {
       switch (featureID)
       {
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+            getAnnotations().clear();
+            getAnnotations().addAll((Collection<? extends Annotation>) newValue);
+            return;
          case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             setId((String) newValue);
             return;
@@ -212,6 +330,9 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       switch (featureID)
       {
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+            getAnnotations().clear();
+            return;
          case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             setId(ID_EDEFAULT);
             return;
@@ -233,6 +354,8 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       switch (featureID)
       {
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+            return annotations != null && !annotations.isEmpty();
          case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
          case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :

@@ -25,7 +25,12 @@ import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 /**
  * @author Bernd
  */
-public abstract class AbstractConverter extends DefaultConverter2 implements IConverter, Converter2
+public abstract class AbstractConverter extends DefaultConverter2
+   implements
+      IConverter,
+      SitesConverter,
+      FeaturesConverter,
+      BasicConverter
 {
    private List<ValueSource> valueSources;
 

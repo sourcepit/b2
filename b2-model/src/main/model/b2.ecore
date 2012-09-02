@@ -217,7 +217,8 @@
           eType="#//module/StrictReference" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EDataType" name="Identifier" instanceClassName="org.sourcepit.b2.model.module.util.Identifier"/>
-    <eClassifiers xsi:type="ecore:EClass" name="AbstractReference" abstract="true">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractReference" abstract="true"
+        eSuperTypes="#//common/Annotatable">
       <eOperations name="isSatisfiableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="identifier" eType="#//module/Identifiable"/>
       </eOperations>

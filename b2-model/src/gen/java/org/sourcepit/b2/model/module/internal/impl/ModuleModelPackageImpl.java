@@ -1258,6 +1258,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       productsFacetEClass.getESuperTypes().add(this.getAbstractFacet());
       productDefinitionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       productDefinitionEClass.getESuperTypes().add(this.getDerivable());
+      abstractReferenceEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       ruledReferenceEClass.getESuperTypes().add(this.getAbstractReference());
       abstractStrictReferenceEClass.getESuperTypes().add(this.getAbstractReference());
       strictReferenceEClass.getESuperTypes().add(this.getAbstractStrictReference());

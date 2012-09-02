@@ -42,7 +42,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      Converter2 converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter2();
 
       List<FeatureInclude> result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -67,7 +67,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      Converter2 converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter2();
 
       List<FeatureInclude> result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -76,7 +76,7 @@ public class DefaultConverter2Test
 
    private void testGetIncludedFeatures(String key, String facetName, boolean isSource)
    {
-      Converter2 converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter2();
 
       PropertiesMap properties = new LinkedPropertiesMap();
 
@@ -161,7 +161,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      Converter2 converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter2();
 
       List<PluginInclude> result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -186,7 +186,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      Converter2 converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter2();
 
       List<PluginInclude> result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -195,7 +195,7 @@ public class DefaultConverter2Test
 
    private void testGetIncludedPlugins(String key, String facetName, boolean isSource)
    {
-      Converter2 converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter2();
 
       PropertiesMap properties = new LinkedPropertiesMap();
 
@@ -265,7 +265,7 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredFeaturesForFacet() throws Exception
    {
-      final Method method = Converter2.class.getDeclaredMethod("getRequiredFeatures", PropertiesSource.class,
+      final Method method = SitesConverter.class.getDeclaredMethod("getRequiredFeatures", PropertiesSource.class,
          String.class, boolean.class);
       final boolean isSource = false;
 
@@ -277,7 +277,7 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredSourceFeatures() throws Exception
    {
-      final Method method = Converter2.class.getDeclaredMethod("getRequiredFeatures", PropertiesSource.class,
+      final Method method = SitesConverter.class.getDeclaredMethod("getRequiredFeatures", PropertiesSource.class,
          String.class, boolean.class);
       final boolean isSource = true;
 
@@ -289,7 +289,7 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredPluginsForFacet() throws Exception
    {
-      final Method method = Converter2.class.getDeclaredMethod("getRequiredPlugins", PropertiesSource.class,
+      final Method method = SitesConverter.class.getDeclaredMethod("getRequiredPlugins", PropertiesSource.class,
          String.class, boolean.class);
       final boolean isSource = false;
 
@@ -301,7 +301,7 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredSourcePluginsForFacet() throws Exception
    {
-      final Method method = Converter2.class.getDeclaredMethod("getRequiredPlugins", PropertiesSource.class,
+      final Method method = SitesConverter.class.getDeclaredMethod("getRequiredPlugins", PropertiesSource.class,
          String.class, boolean.class);
       final boolean isSource = true;
 
@@ -324,7 +324,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      Converter2 converter = new DefaultConverter2();
+      BasicConverter converter = new DefaultConverter2();
 
       List<RuledReference> result = invoke(method, converter, properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -334,7 +334,7 @@ public class DefaultConverter2Test
    private void testGetRequiredFeaturesOrPlugins(final Method method, final String key, String facetName,
       boolean isSource) throws Exception
    {
-      Converter2 converter = new DefaultConverter2();
+      BasicConverter converter = new DefaultConverter2();
 
       PropertiesMap properties = new LinkedPropertiesMap();
 
@@ -402,7 +402,7 @@ public class DefaultConverter2Test
    }
 
    @SuppressWarnings("unchecked")
-   private static List<RuledReference> invoke(final Method method, Converter2 converter, PropertiesMap properties,
+   private static List<RuledReference> invoke(final Method method, BasicConverter converter, PropertiesMap properties,
       String facetName, boolean isSource) throws Exception
    {
       try

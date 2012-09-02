@@ -1207,6 +1207,16 @@ public interface ModuleModelPackage extends EPackage
    int ABSTRACT_REFERENCE = 20;
 
    /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ABSTRACT_REFERENCE__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
+
+   /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -1214,7 +1224,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE__ID = 0;
+   int ABSTRACT_REFERENCE__ID = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1224,7 +1234,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE__VERSION = 1;
+   int ABSTRACT_REFERENCE__VERSION = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 1;
 
    /**
     * The number of structural features of the '<em>Abstract Reference</em>' class.
@@ -1234,7 +1244,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE_FEATURE_COUNT = 2;
+   int ABSTRACT_REFERENCE_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 2;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractStrictReferenceImpl
@@ -1247,6 +1257,16 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     */
    int ABSTRACT_STRICT_REFERENCE = 22;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ABSTRACT_STRICT_REFERENCE__ANNOTATIONS = ABSTRACT_REFERENCE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1289,6 +1309,16 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     */
    int PLUGIN_INCLUDE = 14;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int PLUGIN_INCLUDE__ANNOTATIONS = ABSTRACT_STRICT_REFERENCE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1601,6 +1631,16 @@ public interface ModuleModelPackage extends EPackage
    int RULED_REFERENCE = 21;
 
    /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int RULED_REFERENCE__ANNOTATIONS = ABSTRACT_REFERENCE__ANNOTATIONS;
+
+   /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -1653,6 +1693,16 @@ public interface ModuleModelPackage extends EPackage
    int STRICT_REFERENCE = 23;
 
    /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int STRICT_REFERENCE__ANNOTATIONS = ABSTRACT_STRICT_REFERENCE__ANNOTATIONS;
+
+   /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -1693,6 +1743,16 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     */
    int FEATURE_INCLUDE = 24;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE__ANNOTATIONS = ABSTRACT_STRICT_REFERENCE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.

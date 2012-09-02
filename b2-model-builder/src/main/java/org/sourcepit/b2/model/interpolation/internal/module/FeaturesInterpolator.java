@@ -7,7 +7,11 @@
 package org.sourcepit.b2.model.interpolation.internal.module;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -15,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.model.builder.util.Converter2;
+import org.sourcepit.b2.model.builder.util.FeaturesConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
@@ -42,11 +46,11 @@ public class FeaturesInterpolator
 
    private final UnpackStrategy unpackStrategy;
 
-   private final Converter2 converter;
+   private final FeaturesConverter converter;
 
    @Inject
    public FeaturesInterpolator(@NotNull ISourceService sourceService, @NotNull LayoutManager layoutManager,
-      @NotNull UnpackStrategy unpackStrategy, Converter2 converter)
+      @NotNull UnpackStrategy unpackStrategy, FeaturesConverter converter)
    {
       this.sourceService = sourceService;
       this.layoutManager = layoutManager;
@@ -57,26 +61,39 @@ public class FeaturesInterpolator
 
    public void interpolate(AbstractModule module, PropertiesSource moduleProperties)
    {
+      final FeaturesFacet featuresFacet = createFeaturesFacet("features");
+
       final EList<PluginsFacet> pluginsFacets = module.getFacets(PluginsFacet.class);
       if (!pluginsFacets.isEmpty())
       {
-         final FeaturesFacet featuresFacet = createFeaturesFacet("facet-features");
          for (PluginsFacet pluginsFacet : pluginsFacets)
          {
             interpolatePluginFeatures(module, featuresFacet, pluginsFacet, moduleProperties);
          }
+      }
+
+      final int size = featuresFacet.getProjects().size();
+      if (size > 0)
+      {
          module.getFacets().add(featuresFacet);
       }
 
-      interpolateAssemblyFeatures(module, moduleProperties);
+      interpolateAssemblyFeatures(module, featuresFacet, moduleProperties);
+
+      if (size == 0 && !featuresFacet.getProjects().isEmpty())
+      {
+         module.getFacets().add(featuresFacet);
+      }
    }
 
-   private void interpolateAssemblyFeatures(AbstractModule module, PropertiesSource moduleProperties)
+   private void interpolateAssemblyFeatures(AbstractModule module, FeaturesFacet featuresFacet,
+      PropertiesSource moduleProperties)
    {
       final List<String> assemplyNames = converter.getAssemblyNames(moduleProperties);
       if (!assemplyNames.isEmpty())
       {
-         FeaturesFacet featuresFacet = createFeaturesFacet("assembly-features");
+         final List<FeatureProject> assemblyFeatures = new ArrayList<FeatureProject>();
+
          for (String assemblyName : assemplyNames)
          {
             final String featureId = deriveFeatureId(module, assemblyName, moduleProperties);
@@ -88,18 +105,10 @@ public class FeaturesInterpolator
             final FeatureProject featureProject = ModuleModelFactory.eINSTANCE.createFeatureProject();
             featureProject.setDerived(true);
             featureProject.setId(featureId);
+            featureProject.setVersion(module.getVersion());
             featureProject.setDirectory(new File(path));
 
-            featureProject.putAnnotationEntry("b2", "assemblyName", assemblyName);
-
-            featuresFacet.getProjects().add(featureProject);
-         }
-
-         module.getFacets().add(featuresFacet);
-
-         for (final FeatureProject featureProject : featuresFacet.getProjects())
-         {
-            final String assemblyName = featureProject.getAnnotationEntry("b2", "assemblyName");
+            appendAssemblyName(featureProject, assemblyName);
 
             final EWalkerImpl eWalker;
             eWalker = createIncludesAppenderForAssembly(moduleProperties, featureProject, assemblyName);
@@ -107,11 +116,89 @@ public class FeaturesInterpolator
             eWalker.walk(module.getFacets(PluginsFacet.class));
 
             addCustomIncludesAndRequirements(featureProject, assemblyName, moduleProperties);
+
+            // skip assembly feature if there is onle one single include
+            final FeatureProject singleIncludedFeature = returnSingleIncludedFeatureProject(module, featureProject);
+            if (singleIncludedFeature == null)
+            {
+               if (hasIncludes(featureProject))
+               {
+                  assemblyFeatures.add(featureProject);
+               }
+            }
+            else
+            {
+               appendAssemblyName(singleIncludedFeature, assemblyName);
+            }
+         }
+         // hide assembly features until all assembly names are processed
+         featuresFacet.getProjects().addAll(assemblyFeatures);
+      }
+   }
+
+   private static boolean hasIncludes(FeatureProject featureProject)
+   {
+      return !featureProject.getIncludedFeatures().isEmpty() || !featureProject.getIncludedPlugins().isEmpty();
+   }
+
+   private FeatureProject returnSingleIncludedFeatureProject(AbstractModule module, final FeatureProject featureProject)
+   {
+      if (isIncludesJustOneFeature(featureProject))
+      {
+         return module.resolveReference(featureProject.getIncludedFeatures().get(0), FeaturesFacet.class);
+      }
+      return null;
+   }
+
+   private boolean isIncludesJustOneFeature(final FeatureProject featureProject)
+   {
+      return featureProject.getIncludedFeatures().size() == 1 && featureProject.getIncludedPlugins().isEmpty()
+         && featureProject.getRequiredFeatures().isEmpty() && featureProject.getRequiredPlugins().isEmpty();
+   }
+
+
+   private void appendAssemblyName(FeatureProject featureProject, String assemblyName)
+   {
+      Set<String> names = new LinkedHashSet<String>();
+      split(names, featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      names.add(assemblyName);
+      featureProject.putAnnotationEntry("b2", "assemblyNames", toValuesString(names));
+   }
+
+   private String toValuesString(Collection<String> values)
+   {
+      final StringBuilder sb = new StringBuilder();
+      for (String value : values)
+      {
+         sb.append(value);
+         sb.append(", ");
+      }
+      if (sb.length() > 0)
+      {
+         sb.deleteCharAt(sb.length() - 1);
+         sb.deleteCharAt(sb.length() - 1);
+      }
+      return sb.length() > 0 ? sb.toString() : null;
+   }
+
+
+   static void split(Collection<String> values, String rawValues)
+   {
+      if (rawValues != null)
+      {
+         for (String rawValue : rawValues.split(","))
+         {
+            String name = rawValue.trim();
+            if (name.length() > 0)
+            {
+               values.add(name);
+            }
          }
       }
    }
 
-
+   // TODO calc inter assembly requirements
+   // TODO calc inter module requirements and includes
    private void addCustomIncludesAndRequirements(final FeatureProject featureProject, String assemplyName,
       PropertiesSource moduleProperties)
    {
@@ -124,8 +211,6 @@ public class FeaturesInterpolator
       includedPlugins = converter.getIncludedPluginsForAssembly(moduleProperties, assemplyName);
       featureProject.getIncludedPlugins().addAll(includedPlugins);
 
-      // TODO calc inter assembly dependencies
-      // TODO calc inter module dependencies
       final List<RuledReference> requiredFeatures;
       requiredFeatures = converter.getRequiredFeaturesForAssembly(moduleProperties, assemplyName);
       featureProject.getRequiredFeatures().addAll(requiredFeatures);
@@ -156,6 +241,7 @@ public class FeaturesInterpolator
       final FeatureProject featureProject = ModuleModelFactory.eINSTANCE.createFeatureProject();
       featureProject.setDerived(true);
       featureProject.setId(featureId);
+      featureProject.setVersion(module.getVersion());
 
       final String facetName = pluginsFacet.getName();
       featureProject.putAnnotationEntry("b2", "facetName", facetName);
@@ -174,7 +260,8 @@ public class FeaturesInterpolator
       return featureProject;
    }
 
-
+   // TODO calc inter facet requirements (and includes?)
+   // TODO calc inter module requirements (and includes?)
    private void addCustomIncludesAndRequirements(FeatureProject featureProject, PluginsFacet pluginsFacet,
       PropertiesSource moduleProperties, boolean isSource)
    {
@@ -189,8 +276,6 @@ public class FeaturesInterpolator
       includedPlugins = converter.getIncludedPluginsForFacet(moduleProperties, facetName, isSource);
       featureProject.getIncludedPlugins().addAll(includedPlugins);
 
-      // TODO calc inter facet dependencies
-      // TODO calc inter module dependencies
       final List<RuledReference> requiredFeatures;
       requiredFeatures = converter.getRequiredFeaturesForFacet(moduleProperties, facetName, isSource);
       featureProject.getRequiredFeatures().addAll(requiredFeatures);
@@ -314,6 +399,19 @@ public class FeaturesInterpolator
             final FeatureInclude inc = ModuleModelFactory.eINSTANCE.createFeatureInclude();
             inc.setId(fp.getId());
             inc.setVersion(fp.getVersion());
+            
+            final String assemblyNames = fp.getAnnotationEntry("b2", "assemblyNames");
+            if (assemblyNames != null)
+            {
+               inc.putAnnotationEntry("b2", "assemblyNames", assemblyNames);
+            }
+
+            final String facetName = fp.getAnnotationEntry("b2", "facetName");
+            if (facetName != null)
+            {
+               inc.putAnnotationEntry("b2", "facetName", facetName);
+            }
+
             targetProject.getIncludedFeatures().add(inc);
          }
       }
@@ -334,6 +432,19 @@ public class FeaturesInterpolator
             {
                inc.setUnpack(unpackStrategy.isUnpack(pp));
             }
+            
+            final String assemblyNames = pp.getAnnotationEntry("b2", "assemblyNames");
+            if (assemblyNames != null)
+            {
+               inc.putAnnotationEntry("b2", "assemblyNames", assemblyNames);
+            }
+
+            final String facetName = pp.getAnnotationEntry("b2", "facetName");
+            if (facetName != null)
+            {
+               inc.putAnnotationEntry("b2", "facetName", facetName);
+            }
+
             targetProject.getIncludedPlugins().add(inc);
          }
       }

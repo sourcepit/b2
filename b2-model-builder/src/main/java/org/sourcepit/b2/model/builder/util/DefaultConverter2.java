@@ -22,7 +22,7 @@ import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class DefaultConverter2 implements Converter2
+public class DefaultConverter2 implements SitesConverter, BasicConverter, FeaturesConverter
 {
    public List<String> getAssemblyNames(PropertiesSource moduleProperties)
    {
@@ -54,14 +54,14 @@ public class DefaultConverter2 implements Converter2
    
    public PathMatcher getFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
-      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "featureFilter"), "**");
-      return PathMatcher.parse(patterns, ",", ".");
+      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "featuresFilter"), "**");
+      return PathMatcher.parse(patterns, ".", ",");
    }
    
    public PathMatcher getPluginMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
-      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "pluginFilter"), "!**");
-      return PathMatcher.parse(patterns, ",", ".");
+      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "pluginsFilter"), "!**");
+      return PathMatcher.parse(patterns, ".", ",");
    }
 
    public List<FeatureInclude> getIncludedFeaturesForAssembly(PropertiesSource moduleProperties, String assemblyName)
@@ -104,8 +104,8 @@ public class DefaultConverter2 implements Converter2
 
    public PathMatcher getPluginMatcherForFacet(PropertiesSource moduleProperties, String facetName)
    {
-      final String patterns = moduleProperties.get(facetKey(facetName, "pluginFilter"), "**");
-      return PathMatcher.parse(patterns, ",", ".");
+      final String patterns = moduleProperties.get(facetKey(facetName, "pluginsFilter"), "**");
+      return PathMatcher.parse(patterns, ".", ",");
    }
    
    public List<FeatureInclude> getIncludedFeaturesForFacet(PropertiesSource moduleProperties, String facetName,
@@ -355,6 +355,11 @@ public class DefaultConverter2 implements Converter2
          sb.append(moduleProperties.get("b2.pluginsSourceClassifier", "source"));
       }
       return sb.toString();
+   }
+   
+   public String getSiteId(PropertiesSource moduleProperties, String moduleId, String classifier)
+   {
+      return idOfProject(moduleId, classifier, "site");
    }
 
    private static String idOfProject(String moduleId, String classifier, String appendix)

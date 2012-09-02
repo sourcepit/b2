@@ -572,18 +572,6 @@
       <element xmi:type="ecore:EReference" href="b2.ecore#//module/FeatureProject/includedPlugins"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_8KDAkfKDEeGsreiU9-T2Zw" points="[1, 0, -573, -370]$[536, 346, -38, -24]"/>
     </edges>
-    <edges xmi:type="notation:Edge" xmi:id="_8KEOsPKDEeGsreiU9-T2Zw" type="3002" source="_8JsbQPKDEeGsreiU9-T2Zw" target="_Rg37APISEeGsreiU9-T2Zw">
-      <children xmi:type="notation:Node" xmi:id="_8KEOtPKDEeGsreiU9-T2Zw" type="4011">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_8KEOtfKDEeGsreiU9-T2Zw" x="-10" y="-10"/>
-      </children>
-      <children xmi:type="notation:Node" xmi:id="_8KEOtvKDEeGsreiU9-T2Zw" type="4012">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_8KEOt_KDEeGsreiU9-T2Zw" x="10" y="10"/>
-      </children>
-      <styles xmi:type="notation:ConnectorStyle" xmi:id="_8KEOsfKDEeGsreiU9-T2Zw" lineColor="4210752"/>
-      <styles xmi:type="notation:FontStyle" xmi:id="_8KEOsvKDEeGsreiU9-T2Zw" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
-      <element xmi:type="ecore:EReference" href="b2.ecore#//module/FeatureProject/includedFeatures"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_8KEOs_KDEeGsreiU9-T2Zw" points="[1, 1, -356, -379]$[337, 360, -20, -20]"/>
-    </edges>
     <edges xmi:type="notation:Edge" xmi:id="_93rnEPKDEeGsreiU9-T2Zw" type="3002" source="_8JsbQPKDEeGsreiU9-T2Zw" target="_0iwPkPH1EeGsreiU9-T2Zw">
       <children xmi:type="notation:Node" xmi:id="_93sOIPKDEeGsreiU9-T2Zw" type="4011">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_93sOIfKDEeGsreiU9-T2Zw" x="-10" y="-10"/>

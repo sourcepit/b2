@@ -324,6 +324,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseAbstractReference(pluginInclude);
             if (result == null)
+               result = caseAnnotatable(pluginInclude);
+            if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
@@ -382,6 +384,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             AbstractReference abstractReference = (AbstractReference) theEObject;
             T result = caseAbstractReference(abstractReference);
             if (result == null)
+               result = caseAnnotatable(abstractReference);
+            if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
@@ -392,6 +396,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseAbstractReference(ruledReference);
             if (result == null)
+               result = caseAnnotatable(ruledReference);
+            if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
@@ -401,6 +407,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             T result = caseAbstractStrictReference(abstractStrictReference);
             if (result == null)
                result = caseAbstractReference(abstractStrictReference);
+            if (result == null)
+               result = caseAnnotatable(abstractStrictReference);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -414,6 +422,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseAbstractReference(strictReference);
             if (result == null)
+               result = caseAnnotatable(strictReference);
+            if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
@@ -425,6 +435,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = caseAbstractStrictReference(featureInclude);
             if (result == null)
                result = caseAbstractReference(featureInclude);
+            if (result == null)
+               result = caseAnnotatable(featureInclude);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
