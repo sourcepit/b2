@@ -951,6 +951,16 @@ public interface ModuleModelPackage extends EPackage
    int PLUGIN_PROJECT__FRAGMENT_HOST_VERSION = PROJECT_FEATURE_COUNT + 4;
 
    /**
+    * The feature id for the '<em><b>Bundle Manifest</b></em>' containment reference.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int PLUGIN_PROJECT__BUNDLE_MANIFEST = PROJECT_FEATURE_COUNT + 5;
+
+   /**
     * The number of structural features of the '<em>Plugin Project</em>' class.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -958,7 +968,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PLUGIN_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 5;
+   int PLUGIN_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 6;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl
@@ -2091,6 +2101,19 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getPluginProject_FragmentHostVersion();
 
    /**
+    * Returns the meta object for the containment reference '
+    * {@link org.sourcepit.b2.model.module.PluginProject#getBundleManifest <em>Bundle Manifest</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference '<em>Bundle Manifest</em>'.
+    * @see org.sourcepit.b2.model.module.PluginProject#getBundleManifest()
+    * @see #getPluginProject()
+    * @generated
+    */
+   EReference getPluginProject_BundleManifest();
+
+   /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeatureProject <em>Feature Project</em>}'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -2848,6 +2871,15 @@ public interface ModuleModelPackage extends EPackage
        * @generated
        */
       EAttribute PLUGIN_PROJECT__FRAGMENT_HOST_VERSION = eINSTANCE.getPluginProject_FragmentHostVersion();
+
+      /**
+       * The meta object literal for the '<em><b>Bundle Manifest</b></em>' containment reference feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference PLUGIN_PROJECT__BUNDLE_MANIFEST = eINSTANCE.getPluginProject_BundleManifest();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl

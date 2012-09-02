@@ -131,6 +131,9 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="fragmentHostVersion"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="bundleManifest" lowerBound="1"
+          eType="ecore:EClass ../../../../common-manifest/src/main/emf/manifest.ecore#//osgi/BundleManifest"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FeatureProject" eSuperTypes="#//module/Project #//module/Classified">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/FeaturesFacet"

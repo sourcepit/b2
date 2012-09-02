@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying&#xD;&#xA;materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,&#xD;&#xA;and is available at http://www.eclipse.org/legal/epl-v10.html"
-    modelDirectory="/b2-model/src/gen/java" modelPluginID="" templateDirectory=""
-    redirection="" modelName="b2" modelPluginClass="" updateClasspath="false" importerID="org.eclipse.emf.importer.ecore"
-    bundleManifest="false" containmentProxies="true" complianceLevel="5.0" copyrightFields="false" usedGenPackages="../../../../common-manifest/src/main/emf/manifest.genmodel#//manifest">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/b2-model/src" modelPluginID="b2-model" modelName="Foo"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    usedGenPackages="../../../../common-manifest/src/main/emf/manifest.genmodel#//manifest">
   <foreignModel>b2.ecore</foreignModel>
-  <genPackages prefix="Model" basePackage="org.sourcepit.b2" disposableProviderFactory="true"
-      ecorePackage="b2.ecore#/">
-    <nestedGenPackages prefix="CommonModel" disposableProviderFactory="true" classPackageSuffix="internal.impl"
-        ecorePackage="b2.ecore#//common">
+  <genPackages prefix="Model" disposableProviderFactory="true" ecorePackage="b2.ecore#/">
+    <nestedGenPackages prefix="Common" disposableProviderFactory="true" ecorePackage="b2.ecore#//common">
       <genDataTypes ecoreDataType="b2.ecore#//common/EJavaFile"/>
       <genDataTypes ecoreDataType="b2.ecore#//common/ELocale"/>
       <genClasses image="false" ecoreClass="b2.ecore#//common/Annotatable">
@@ -37,11 +33,15 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//common/EStringMapEntry/value"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="ModuleModel" disposableProviderFactory="true" classPackageSuffix="internal.impl"
-        contentTypeIdentifier="b2-module" fileExtensions="module" ecorePackage="b2.ecore#//module">
+    <nestedGenPackages prefix="Module" disposableProviderFactory="true" ecorePackage="b2.ecore#//module">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="b2.ecore#//module/VersionMatchRule">
+        <genEnumLiterals ecoreEnumLiteral="b2.ecore#//module/VersionMatchRule/compatible"/>
+        <genEnumLiterals ecoreEnumLiteral="b2.ecore#//module/VersionMatchRule/perfect"/>
+        <genEnumLiterals ecoreEnumLiteral="b2.ecore#//module/VersionMatchRule/equivalent"/>
+        <genEnumLiterals ecoreEnumLiteral="b2.ecore#//module/VersionMatchRule/greaterOrEqual"/>
+      </genEnums>
       <genDataTypes ecoreDataType="b2.ecore#//module/Identifier"/>
       <genClasses image="false" ecoreClass="b2.ecore#//module/AbstractModule">
-        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//module/AbstractModule/parent"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/AbstractModule/layoutId"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/AbstractModule/locales"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/AbstractModule/facets"/>
@@ -69,7 +69,8 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/AbstractFacet/name"/>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//module/CompositeModule">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/CompositeModule/modules"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference b2.ecore#//module/CompositeModule/modules"/>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//module/PluginsFacet">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/PluginsFacet/projects"/>
@@ -86,12 +87,15 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/PluginProject/testPlugin"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/PluginProject/fragmentHostSymbolicName"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/PluginProject/fragmentHostVersion"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/PluginProject/bundleManifest"/>
         <genOperations ecoreOperation="b2.ecore#//module/PluginProject/isFragment"/>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//module/FeatureProject">
         <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//module/FeatureProject/parent"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/FeatureProject/includedPlugins"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/FeatureProject/includedFeatures"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/FeatureProject/requiredFeatures"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/FeatureProject/requiredPlugins"/>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//module/SiteProject">
         <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//module/SiteProject/parent"/>
@@ -118,14 +122,10 @@
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//module/PluginInclude">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/PluginInclude/unpack"/>
-        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//module/PluginInclude/parent"/>
       </genClasses>
       <genClasses ecoreClass="b2.ecore#//module/Category">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/Category/featureReferences"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/Category/name"/>
-      </genClasses>
-      <genClasses ecoreClass="b2.ecore#//module/FeatureInclude">
-        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference b2.ecore#//module/FeatureInclude/parent"/>
       </genClasses>
       <genClasses image="false" ecoreClass="b2.ecore#//module/Classified">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/Classified/classifier"/>
@@ -146,19 +146,23 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/ProductDefinition/file"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//module/ProductDefinition/productPlugin"/>
       </genClasses>
-      <genClasses ecoreClass="b2.ecore#//module/Reference">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/Reference/id"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/Reference/versionRange"/>
-        <genOperations ecoreOperation="b2.ecore#//module/Reference/isSatisfiableBy">
-          <genParameters ecoreParameter="b2.ecore#//module/Reference/isSatisfiableBy/identifier"/>
-        </genOperations>
-        <genOperations ecoreOperation="b2.ecore#//module/Reference/setStrictVersion">
-          <genParameters ecoreParameter="b2.ecore#//module/Reference/setStrictVersion/version"/>
+      <genClasses image="false" ecoreClass="b2.ecore#//module/AbstractReference">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/AbstractReference/id"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/AbstractReference/version"/>
+        <genOperations ecoreOperation="b2.ecore#//module/AbstractReference/isSatisfiableBy">
+          <genParameters ecoreParameter="b2.ecore#//module/AbstractReference/isSatisfiableBy/identifier"/>
         </genOperations>
       </genClasses>
+      <genClasses ecoreClass="b2.ecore#//module/RuledReference">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/RuledReference/versionMatchRule"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="b2.ecore#//module/AbstractStrictReference"/>
+      <genClasses ecoreClass="b2.ecore#//module/StrictReference"/>
+      <genClasses ecoreClass="b2.ecore#//module/FeatureInclude">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//module/FeatureInclude/optional"/>
+      </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="SessionModel" disposableProviderFactory="true" classPackageSuffix="internal.impl"
-        contentTypeIdentifier="b2-session" fileExtensions="session" ecorePackage="b2.ecore#//session">
+    <nestedGenPackages prefix="Session" disposableProviderFactory="true" ecorePackage="b2.ecore#//session">
       <genClasses ecoreClass="b2.ecore#//session/B2Session">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/B2Session/projects"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -176,8 +180,7 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleProject/version"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute b2.ecore#//session/ModuleProject/directory"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/dependencies"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/moduleModel"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/moduleModel"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/attachments"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference b2.ecore#//session/ModuleProject/environements"/>
       </genClasses>

@@ -49,6 +49,8 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.b2.model.module.util.Identifier;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl;
+import org.sourcepit.common.manifest.ManifestPackage;
+import org.sourcepit.common.manifest.osgi.BundleManifestPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -327,6 +329,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       isInited = true;
 
+      // Initialize simple dependencies
+      ManifestPackage.eINSTANCE.eClass();
+
       // Obtain or create and register interdependencies
       CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE
          .getEPackage(CommonModelPackage.eNS_URI) instanceof CommonModelPackageImpl ? EPackage.Registry.INSTANCE
@@ -594,6 +599,17 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    public EAttribute getPluginProject_FragmentHostVersion()
    {
       return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(4);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getPluginProject_BundleManifest()
+   {
+      return (EReference) pluginProjectEClass.getEStructuralFeatures().get(5);
    }
 
    /**
@@ -1121,6 +1137,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__TEST_PLUGIN);
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME);
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__FRAGMENT_HOST_VERSION);
+      createEReference(pluginProjectEClass, PLUGIN_PROJECT__BUNDLE_MANIFEST);
 
       featureProjectEClass = createEClass(FEATURE_PROJECT);
       createEReference(featureProjectEClass, FEATURE_PROJECT__PARENT);
@@ -1216,6 +1233,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       // Obtain other dependent packages
       CommonModelPackage theCommonModelPackage = (CommonModelPackage) EPackage.Registry.INSTANCE
          .getEPackage(CommonModelPackage.eNS_URI);
+      BundleManifestPackage theBundleManifestPackage = (BundleManifestPackage) EPackage.Registry.INSTANCE
+         .getEPackage(BundleManifestPackage.eNS_URI);
 
       // Create type parameters
       ETypeParameter projectFacetEClass_P = addETypeParameter(projectFacetEClass, "P");
@@ -1373,6 +1392,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getPluginProject_FragmentHostVersion(), ecorePackage.getEString(), "fragmentHostVersion", null, 0,
          1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
+      initEReference(getPluginProject_BundleManifest(), theBundleManifestPackage.getBundleManifest(), null,
+         "bundleManifest", null, 1, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       addEOperation(pluginProjectEClass, ecorePackage.getEBoolean(), "isFragment", 1, 1, IS_UNIQUE, IS_ORDERED);
 

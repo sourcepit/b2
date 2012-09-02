@@ -32,6 +32,8 @@ import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.common.manifest.osgi.BundleManifest;
+import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.guplex.test.GuplexTest;
@@ -58,10 +60,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
@@ -97,10 +96,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
@@ -161,15 +157,8 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo.tests", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("tests");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
@@ -206,6 +195,19 @@ public class FeaturesInterpolatorTest extends GuplexTest
       assertEquals(1, featureProject.getIncludedPlugins().size());
    }
 
+   public static void addPluginProject(BasicModule module, String facetName, String pluginId, String pluginVersion)
+   {
+      PluginsFacet pluginsFacet = module.getFacetByName(facetName);
+      if (pluginsFacet == null)
+      {
+         pluginsFacet = createPluginsFacet(facetName);
+         module.getFacets().add(pluginsFacet);
+      }
+
+      PluginProject plugin = createPluginProject(pluginId, pluginVersion);
+      pluginsFacet.getProjects().add(plugin);
+   }
+
    @Test
    public void testUC_2_PluginsAndTests_WithSource() throws Exception
    {
@@ -213,15 +215,8 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo.tests", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("tests");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
@@ -297,15 +292,8 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo.tests", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("tests");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
@@ -350,15 +338,8 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo.tests", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("tests");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
@@ -457,15 +438,8 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo.tests", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("tests");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
@@ -511,15 +485,8 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo.tests", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("tests");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
@@ -618,20 +585,9 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo.doc", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("doc");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo.tests", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("tests");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "doc", "foo.plugin.doc", "1.0.0.qualifier");
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
@@ -704,20 +660,9 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo.doc", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("doc");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      plugin = createPluginProject("plugin.foo.tests", "1.0.0.qualifier");
-      pluginsFacet = createPluginsFacet("tests");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "doc", "foo.plugin.doc", "1.0.0.qualifier");
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
@@ -842,10 +787,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "true"); // true is default
@@ -883,10 +825,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false");
@@ -916,12 +855,9 @@ public class FeaturesInterpolatorTest extends GuplexTest
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("main");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      addPluginProject(module, "main", "foo.plugin", "1.0.0.qualifier");
 
-      pluginsFacet = createPluginsFacet("tests");
+      PluginsFacet pluginsFacet = createPluginsFacet("tests");
       module.getFacets().add(pluginsFacet);
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
@@ -949,7 +885,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
       assertEquals(0, mainFeature.getRequiredPlugins().size());
 
       PluginInclude mainPluginInclude = mainFeature.getIncludedPlugins().get(0);
-      assertEquals("plugin.foo", mainPluginInclude.getId());
+      assertEquals("foo.plugin", mainPluginInclude.getId());
       assertEquals("1.0.0.qualifier", mainPluginInclude.getVersion());
 
       FeatureProject srcMainFeature = featuresFacet.getProjects().get(1);
@@ -959,7 +895,7 @@ public class FeaturesInterpolatorTest extends GuplexTest
       assertEquals(1, srcMainFeature.getIncludedPlugins().size());
 
       PluginInclude srcMainPluginInclude = srcMainFeature.getIncludedPlugins().get(0);
-      assertEquals("plugin.foo.source", srcMainPluginInclude.getId());
+      assertEquals("foo.plugin.source", srcMainPluginInclude.getId());
       assertEquals("1.0.0.qualifier", srcMainPluginInclude.getVersion());
 
       FeatureProject testFeature = featuresFacet.getProjects().get(2);
@@ -1113,6 +1049,14 @@ public class FeaturesInterpolatorTest extends GuplexTest
       final PluginProject plugin = eFactory.createPluginProject();
       plugin.setId(id);
       plugin.setVersion(version);
+
+      final BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
+
+      manifest.setBundleSymbolicName(id);
+      manifest.setBundleVersion(version);
+
+      plugin.setBundleManifest(manifest);
+
       return plugin;
    }
 

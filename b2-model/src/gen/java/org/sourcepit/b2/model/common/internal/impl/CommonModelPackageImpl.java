@@ -25,6 +25,7 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl;
+import org.sourcepit.common.manifest.ManifestPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -117,6 +118,9 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
          : new CommonModelPackageImpl());
 
       isInited = true;
+
+      // Initialize simple dependencies
+      ManifestPackage.eINSTANCE.eClass();
 
       // Obtain or create and register interdependencies
       ModuleModelPackageImpl theModuleModelPackage = (ModuleModelPackageImpl) (EPackage.Registry.INSTANCE
