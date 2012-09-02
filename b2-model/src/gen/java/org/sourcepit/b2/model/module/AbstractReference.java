@@ -7,26 +7,25 @@
 package org.sourcepit.b2.model.module;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.model.module.util.Identifier;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Identifiable</b></em>'.
+ * A representation of the model object '<em><b>Abstract Reference</b></em>'.
  * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.Identifiable#getId <em>Id</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.Identifiable#getVersion <em>Version</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.AbstractReference#getId <em>Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.AbstractReference#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.sourcepit.b2.model.module.ModuleModelPackage#getIdentifiable()
- * @model interface="true" abstract="true"
+ * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractReference()
+ * @model abstract="true"
  * @generated
  */
-public interface Identifiable extends EObject
+public interface AbstractReference extends EObject
 {
    /**
     * Returns the value of the '<em><b>Id</b></em>' attribute.
@@ -38,14 +37,14 @@ public interface Identifiable extends EObject
     * 
     * @return the value of the '<em>Id</em>' attribute.
     * @see #setId(String)
-    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getIdentifiable_Id()
-    * @model
+    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractReference_Id()
+    * @model required="true"
     * @generated
     */
    String getId();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.Identifiable#getId <em>Id</em>}' attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractReference#getId <em>Id</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
@@ -66,14 +65,15 @@ public interface Identifiable extends EObject
     * 
     * @return the value of the '<em>Version</em>' attribute.
     * @see #setVersion(String)
-    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getIdentifiable_Version()
+    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractReference_Version()
     * @model
     * @generated
     */
    String getVersion();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.Identifiable#getVersion <em>Version</em>}' attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractReference#getVersion <em>Version</em>}'
+    * attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
@@ -87,18 +87,9 @@ public interface Identifiable extends EObject
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @model required="true" identifierDataType="org.sourcepit.b2.model.module.Identifier"
+    * @model required="true"
     * @generated
     */
-   boolean isIdentifyableBy(Identifier identifier);
+   boolean isSatisfiableBy(Identifiable identifier);
 
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @model dataType="org.sourcepit.b2.model.module.Identifier" required="true"
-    * @generated
-    */
-   Identifier toIdentifier();
-
-} // Identifiable
+} // AbstractReference

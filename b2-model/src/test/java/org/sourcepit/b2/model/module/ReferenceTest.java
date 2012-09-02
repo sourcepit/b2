@@ -16,11 +16,11 @@ public class ReferenceTest extends TestCase
 {
    public void testIsSatisfying() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getReference(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractReference(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
-            Reference module = (Reference) eObject;
+            AbstractReference module = (AbstractReference) eObject;
             try
             {
                module.isSatisfiableBy(null);
@@ -29,37 +29,6 @@ public class ReferenceTest extends TestCase
             catch (IllegalArgumentException e)
             {
             }
-         }
-      });
-   }
-
-   public void testSetStrictVersion() throws Exception
-   {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getReference(), new RunnableWithEObject()
-      {
-         public void run(EObject eObject)
-         {
-            Reference reference = (Reference) eObject;
-            try
-            {
-               reference.setStrictVersion(null);
-               fail();
-            }
-            catch (NullPointerException e)
-            {
-            }
-
-            try
-            {
-               reference.setStrictVersion("[1.0.0,2.0.0)");
-               fail();
-            }
-            catch (IllegalArgumentException e)
-            {
-            }
-
-            reference.setStrictVersion("1.0.0");
-            assertEquals("[1.0.0,1.0.0]", reference.getVersionRange());
          }
       });
    }

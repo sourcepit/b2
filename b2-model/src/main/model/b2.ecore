@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model"
-    nsURI="http://www.sourcepit.org/b2/model/0.1" nsPrefix="model">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="http://www.sourcepit.org/b2/model/0.1" nsPrefix="model">
   <eSubpackages name="common" nsURI="http://www.sourcepit.org/b2/model/0.1/common"
       nsPrefix="common">
     <eClassifiers xsi:type="ecore:EClass" name="Annotatable" abstract="true" interface="true">
@@ -76,7 +74,7 @@
             <eTypeArguments eTypeParameter="#//module/AbstractModule/resolveReference/P"/>
           </eBounds>
         </eTypeParameters>
-        <eParameters name="reference" lowerBound="1" eType="#//module/Reference"/>
+        <eParameters name="reference" lowerBound="1" eType="#//module/AbstractReference"/>
         <eParameters name="facetType" lowerBound="1">
           <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass">
             <eTypeArguments eTypeParameter="#//module/AbstractModule/resolveReference/F"/>
@@ -138,9 +136,9 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/FeaturesFacet"
           eOpposite="#//module/FeaturesFacet/projects"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="includedPlugins" upperBound="-1"
-          eType="#//module/PluginInclude" containment="true" eOpposite="#//module/PluginInclude/parent"/>
+          eType="#//module/PluginInclude" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="includedFeatures" upperBound="-1"
-          eType="#//module/FeatureInclude" containment="true" eOpposite="#//module/FeatureInclude/parent"/>
+          eType="#//module/StrictReference" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="SiteProject" eSuperTypes="#//module/Project #//module/Classified">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/SitesFacet"
@@ -172,7 +170,7 @@
       </eOperations>
       <eOperations name="resolveReference">
         <eGenericType eTypeParameter="#//module/ProjectFacet/P"/>
-        <eParameters name="reference" lowerBound="1" eType="#//module/Reference"/>
+        <eParameters name="reference" lowerBound="1" eType="#//module/AbstractReference"/>
       </eOperations>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FileContainer" abstract="true">
@@ -181,21 +179,15 @@
     <eClassifiers xsi:type="ecore:EClass" name="Derivable" abstract="true" interface="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="derived" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="PluginInclude" eSuperTypes="#//module/Reference">
+    <eClassifiers xsi:type="ecore:EClass" name="PluginInclude" eSuperTypes="#//module/AbstractStrictReference">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="unpack" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
           defaultValueLiteral="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
-          eType="#//module/FeatureProject" eOpposite="#//module/FeatureProject/includedPlugins"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Category">
       <eStructuralFeatures xsi:type="ecore:EReference" name="featureReferences" upperBound="-1"
-          eType="#//module/Reference" containment="true"/>
+          eType="#//module/StrictReference" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FeatureInclude" eSuperTypes="#//module/Reference">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
-          eType="#//module/FeatureProject" eOpposite="#//module/FeatureProject/includedFeatures"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Classified" abstract="true" interface="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="classifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -218,20 +210,29 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1"
           eType="#//common/EJavaFile"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="productPlugin" lowerBound="1"
-          eType="#//module/Reference" containment="true"/>
+          eType="#//module/StrictReference" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EDataType" name="Identifier" instanceClassName="org.sourcepit.b2.model.module.util.Identifier"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Reference">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractReference" abstract="true">
       <eOperations name="isSatisfiableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-        <eParameters name="identifier" eType="#//module/Identifier"/>
-      </eOperations>
-      <eOperations name="setStrictVersion">
-        <eParameters name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        <eParameters name="identifier" eType="#//module/Identifiable"/>
       </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionRange" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          defaultValueLiteral="0.0.0"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="VersionMatchRule">
+      <eLiterals name="compatible"/>
+      <eLiterals name="perfect" value="1"/>
+      <eLiterals name="equivalent" value="2"/>
+      <eLiterals name="greaterOrEqual" value="3"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RuledReference" eSuperTypes="#//module/AbstractReference">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionMatchRule" eType="#//module/VersionMatchRule"
+          defaultValueLiteral="compatible"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractStrictReference" abstract="true"
+        eSuperTypes="#//module/AbstractReference"/>
+    <eClassifiers xsi:type="ecore:EClass" name="StrictReference" eSuperTypes="#//module/AbstractStrictReference"/>
   </eSubpackages>
   <eSubpackages name="session" nsURI="http://www.sourcepit.org/b2/model/0.1/session"
       nsPrefix="session">

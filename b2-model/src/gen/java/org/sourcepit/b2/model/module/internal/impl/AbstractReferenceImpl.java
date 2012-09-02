@@ -10,27 +10,30 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.sourcepit.b2.model.module.AbstractReference;
+import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.module.Reference;
-import org.sourcepit.b2.model.module.util.Identifier;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Reference</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Abstract Reference</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.ReferenceImpl#getId <em>Id</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.ReferenceImpl#getVersionRange <em>Version Range</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getId <em>Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
  * 
  * @generated
  */
-public class ReferenceImpl extends EObjectImpl implements Reference
+public abstract class AbstractReferenceImpl extends EObjectImpl implements AbstractReference
 {
    /**
     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -40,7 +43,8 @@ public class ReferenceImpl extends EObjectImpl implements Reference
 
    /**
     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -49,50 +53,53 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    protected String id = ID_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getVersionRange() <em>Version Range</em>}' attribute.
+    * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @see #getVersionRange()
+    * @see #getVersion()
     * @generated
     * @ordered
     */
-   protected static final String VERSION_RANGE_EDEFAULT = "0.0.0";
+   protected static final String VERSION_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getVersionRange() <em>Version Range</em>}' attribute.
+    * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @see #getVersionRange()
+    * @see #getVersion()
     * @generated
     * @ordered
     */
-   protected String versionRange = VERSION_RANGE_EDEFAULT;
+   protected String version = VERSION_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected ReferenceImpl()
+   protected AbstractReferenceImpl()
    {
       super();
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    @Override
    protected EClass eStaticClass()
    {
-      return ModuleModelPackage.Literals.REFERENCE;
+      return ModuleModelPackage.Literals.ABSTRACT_REFERENCE;
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -102,7 +109,8 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -111,39 +119,42 @@ public class ReferenceImpl extends EObjectImpl implements Reference
       String oldId = id;
       id = newId;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.REFERENCE__ID, oldId, id));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_REFERENCE__ID, oldId, id));
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public String getVersionRange()
+   public String getVersion()
    {
-      return versionRange;
+      return version;
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public void setVersionRange(String newVersionRange)
+   public void setVersion(String newVersion)
    {
-      String oldVersionRange = versionRange;
-      versionRange = newVersionRange;
+      String oldVersion = version;
+      version = newVersion;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.REFERENCE__VERSION_RANGE,
-            oldVersionRange, versionRange));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_REFERENCE__VERSION,
+            oldVersion, version));
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public boolean isSatisfiableBy(Identifier identifier)
+   public boolean isSatisfiableBy(Identifiable identifier)
    {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
@@ -151,19 +162,8 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public void setStrictVersion(String version)
-   {
-      // TODO: implement this method
-      // Ensure that you remove @generated or mark it @generated NOT
-      throw new UnsupportedOperationException();
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -172,16 +172,17 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    {
       switch (featureID)
       {
-         case ModuleModelPackage.REFERENCE__ID :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             return getId();
-         case ModuleModelPackage.REFERENCE__VERSION_RANGE :
-            return getVersionRange();
+         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
+            return getVersion();
       }
       return super.eGet(featureID, resolve, coreType);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -190,18 +191,19 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    {
       switch (featureID)
       {
-         case ModuleModelPackage.REFERENCE__ID :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             setId((String) newValue);
             return;
-         case ModuleModelPackage.REFERENCE__VERSION_RANGE :
-            setVersionRange((String) newValue);
+         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
+            setVersion((String) newValue);
             return;
       }
       super.eSet(featureID, newValue);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -210,18 +212,19 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    {
       switch (featureID)
       {
-         case ModuleModelPackage.REFERENCE__ID :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             setId(ID_EDEFAULT);
             return;
-         case ModuleModelPackage.REFERENCE__VERSION_RANGE :
-            setVersionRange(VERSION_RANGE_EDEFAULT);
+         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
+            setVersion(VERSION_EDEFAULT);
             return;
       }
       super.eUnset(featureID);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -230,16 +233,17 @@ public class ReferenceImpl extends EObjectImpl implements Reference
    {
       switch (featureID)
       {
-         case ModuleModelPackage.REFERENCE__ID :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-         case ModuleModelPackage.REFERENCE__VERSION_RANGE :
-            return VERSION_RANGE_EDEFAULT == null ? versionRange != null : !VERSION_RANGE_EDEFAULT.equals(versionRange);
+         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
+            return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
       }
       return super.eIsSet(featureID);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -252,10 +256,10 @@ public class ReferenceImpl extends EObjectImpl implements Reference
       StringBuffer result = new StringBuffer(super.toString());
       result.append(" (id: ");
       result.append(id);
-      result.append(", versionRange: ");
-      result.append(versionRange);
+      result.append(", version: ");
+      result.append(version);
       result.append(')');
       return result.toString();
    }
 
-} // ReferenceImpl
+} // AbstractReferenceImpl

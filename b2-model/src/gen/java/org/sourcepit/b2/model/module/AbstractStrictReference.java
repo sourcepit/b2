@@ -6,27 +6,17 @@
 
 package org.sourcepit.b2.model.module;
 
-import org.sourcepit.b2.model.common.Annotatable;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Project</b></em>'.
+ * A representation of the model object '<em><b>Abstract Strict Reference</b></em>'.
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProject()
+ * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractStrictReference()
  * @model abstract="true"
  * @generated
  */
-public interface Project extends FileContainer, Derivable, Annotatable, Identifiable
+public interface AbstractStrictReference extends AbstractReference
 {
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @model kind="operation"
-    * @generated
-    */
-   ProjectFacet<? extends Project> getParent();
-
-} // Project
+} // AbstractStrictReference

@@ -9,14 +9,14 @@ package org.sourcepit.b2.model.module;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Basic Module</b></em>'.
+ * A representation of the model object '<em><b>Strict Reference</b></em>'.
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.sourcepit.b2.model.module.ModuleModelPackage#getBasicModule()
+ * @see org.sourcepit.b2.model.module.ModuleModelPackage#getStrictReference()
  * @model
  * @generated
  */
-public interface BasicModule extends AbstractModule
+public interface StrictReference extends AbstractStrictReference
 {
-} // BasicModule
+} // StrictReference

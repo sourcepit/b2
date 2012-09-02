@@ -9,8 +9,9 @@ package org.sourcepit.b2.model.module;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Composite Module</b></em>'. <!-- end-user-doc
- * -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Composite Module</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -30,8 +31,8 @@ public interface CompositeModule extends AbstractModule
     * The list contents are of type {@link org.sourcepit.b2.model.module.AbstractModule}.
     * <!-- begin-user-doc -->
     * <p>
-    * If the meaning of the '<em>Modules</em>' containment reference list isn't clear, there really should be more of a
-    * description here...
+    * If the meaning of the '<em>Modules</em>' reference list isn't clear, there really should be more of a description
+    * here...
     * </p>
     * <!-- end-user-doc -->
     * 

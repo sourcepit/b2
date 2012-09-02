@@ -27,7 +27,9 @@ import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.util.Identifier;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Project</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -44,8 +46,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
 {
    /**
     * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #isDerived()
     * @generated
@@ -55,8 +57,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
 
    /**
     * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #isDerived()
     * @generated
@@ -65,8 +67,9 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    protected boolean derived = DERIVED_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getAnnotations()
     * @generated
@@ -76,7 +79,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
 
    /**
     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -86,7 +90,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
 
    /**
     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getId()
     * @generated
@@ -96,8 +101,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
 
    /**
     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getVersion()
     * @generated
@@ -107,8 +112,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
 
    /**
     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getVersion()
     * @generated
@@ -117,7 +122,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    protected String version = VERSION_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -127,7 +133,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -138,7 +145,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -148,7 +156,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -161,7 +170,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -176,7 +186,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -186,7 +197,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -199,7 +211,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -209,7 +222,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -222,7 +236,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -234,7 +249,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -246,7 +262,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -258,7 +275,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -270,7 +288,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -282,7 +301,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -294,7 +314,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -311,7 +332,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -327,7 +349,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -349,7 +372,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -377,7 +401,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -403,7 +428,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -425,7 +451,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -468,7 +495,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -511,7 +539,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

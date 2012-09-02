@@ -24,7 +24,9 @@ import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Site Project</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Site Project</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -40,8 +42,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
 {
    /**
     * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getClassifier()
     * @generated
@@ -51,8 +53,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
 
    /**
     * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getClassifier()
     * @generated
@@ -61,8 +63,9 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    protected String classifier = CLASSIFIER_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getCategories() <em>Categories</em>}' containment reference list. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getCategories() <em>Categories</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getCategories()
     * @generated
@@ -71,7 +74,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    protected EList<Category> categories;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -81,7 +85,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -92,7 +97,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -102,7 +108,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -116,7 +123,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -128,7 +136,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -140,7 +149,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -151,7 +161,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -178,7 +189,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -193,7 +205,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -211,7 +224,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -229,7 +243,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -246,7 +261,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -268,7 +284,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -293,7 +310,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -316,7 +334,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -336,7 +355,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -357,7 +377,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -378,7 +399,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

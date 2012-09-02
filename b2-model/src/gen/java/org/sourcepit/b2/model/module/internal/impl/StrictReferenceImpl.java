@@ -7,19 +7,19 @@
 package org.sourcepit.b2.model.module.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
+import org.sourcepit.b2.model.module.StrictReference;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Basic Module</b></em>'.
+ * An implementation of the model object '<em><b>Strict Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  * 
  * @generated
  */
-public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
+public class StrictReferenceImpl extends AbstractStrictReferenceImpl implements StrictReference
 {
    /**
     * <!-- begin-user-doc -->
@@ -27,7 +27,7 @@ public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
     * 
     * @generated
     */
-   protected BasicModuleImpl()
+   protected StrictReferenceImpl()
    {
       super();
    }
@@ -41,7 +41,7 @@ public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
    @Override
    protected EClass eStaticClass()
    {
-      return ModuleModelPackage.Literals.BASIC_MODULE;
+      return ModuleModelPackage.Literals.STRICT_REFERENCE;
    }
 
-} // BasicModuleImpl
+} // StrictReferenceImpl

@@ -17,7 +17,9 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Plugin Project</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Plugin Project</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -59,8 +61,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
 
    /**
     * The default value of the '{@link #isTestPlugin() <em>Test Plugin</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #isTestPlugin()
     * @generated
@@ -70,8 +72,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
 
    /**
     * The cached value of the '{@link #isTestPlugin() <em>Test Plugin</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #isTestPlugin()
     * @generated
@@ -81,7 +83,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
 
    /**
     * The default value of the '{@link #getFragmentHostSymbolicName() <em>Fragment Host Symbolic Name</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getFragmentHostSymbolicName()
     * @generated
@@ -91,7 +94,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
 
    /**
     * The cached value of the '{@link #getFragmentHostSymbolicName() <em>Fragment Host Symbolic Name</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getFragmentHostSymbolicName()
     * @generated
@@ -100,8 +104,9 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    protected String fragmentHostSymbolicName = FRAGMENT_HOST_SYMBOLIC_NAME_EDEFAULT;
 
    /**
-    * The default value of the '{@link #getFragmentHostVersion() <em>Fragment Host Version</em>}' attribute. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The default value of the '{@link #getFragmentHostVersion() <em>Fragment Host Version</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getFragmentHostVersion()
     * @generated
@@ -110,8 +115,9 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    protected static final String FRAGMENT_HOST_VERSION_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getFragmentHostVersion() <em>Fragment Host Version</em>}' attribute. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * The cached value of the '{@link #getFragmentHostVersion() <em>Fragment Host Version</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getFragmentHostVersion()
     * @generated
@@ -120,7 +126,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    protected String fragmentHostVersion = FRAGMENT_HOST_VERSION_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -130,7 +137,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -141,7 +149,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -153,7 +162,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -165,7 +175,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -176,7 +187,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -203,7 +215,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -213,7 +226,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -227,7 +241,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -237,7 +252,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -251,7 +267,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -261,7 +278,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -276,7 +294,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -286,7 +305,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -300,7 +320,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -312,7 +333,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -330,7 +352,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -346,7 +369,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -363,7 +387,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -389,7 +414,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -418,7 +444,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -447,7 +474,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -476,7 +504,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

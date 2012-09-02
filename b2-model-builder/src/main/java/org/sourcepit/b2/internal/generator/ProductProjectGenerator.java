@@ -33,7 +33,7 @@ import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
-import org.sourcepit.b2.model.module.Reference;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -201,7 +201,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
 
    private PluginProject resolveProductPlugin(final AbstractModule module, final ProductDefinition project)
    {
-      final Reference reference = project.getProductPlugin();
+      final StrictReference reference = project.getProductPlugin();
       if (reference != null)
       {
          return module.resolveReference(reference, PluginsFacet.class);

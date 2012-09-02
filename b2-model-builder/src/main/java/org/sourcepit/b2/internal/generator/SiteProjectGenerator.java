@@ -29,9 +29,9 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Derivable;
-import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.common.utils.props.PropertiesUtils;
 
@@ -66,16 +66,16 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
    private void insertCategoriesProperty(final SiteProject siteProject, final Properties properties)
    {
       final Map<String, Set<String>> fullFeatureIdToCategoriesMap = new HashMap<String, Set<String>>();
-      final Map<String, Reference> fullFeatureIdToRefMap = new HashMap<String, Reference>();
+      final Map<String, AbstractReference> fullFeatureIdToRefMap = new HashMap<String, AbstractReference>();
 
       for (Category category : siteProject.getCategories())
       {
          final String categoryName = category.getName();
 
-         for (Reference featureRef : category.getFeatureReferences())
+         for (AbstractReference featureRef : category.getFeatureReferences())
          {
             final String featureId = featureRef.getId();
-            final String version = featureRef.getVersionRange();
+            final String version = featureRef.getVersion();
 
             final String fully = featureId + "_" + version;
             Set<String> set = fullFeatureIdToCategoriesMap.get(fully);
@@ -93,11 +93,11 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       XMLWriter xml = new PrettyPrintXMLWriter(includes);
       for (Entry<String, Set<String>> entry : fullFeatureIdToCategoriesMap.entrySet())
       {
-         final Reference featureRef = fullFeatureIdToRefMap.get(entry.getKey());
+         final AbstractReference featureRef = fullFeatureIdToRefMap.get(entry.getKey());
          xml.startElement("feature");
          xml.addAttribute("url", "features/" + entry.getKey() + ".jar");
          xml.addAttribute("id", featureRef.getId());
-         xml.addAttribute("version", featureRef.getVersionRange());
+         xml.addAttribute("version", featureRef.getVersion());
          for (String categoryName : entry.getValue())
          {
             xml.startElement("category");
