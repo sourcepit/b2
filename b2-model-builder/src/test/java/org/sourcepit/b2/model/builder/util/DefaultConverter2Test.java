@@ -265,7 +265,7 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredFeaturesForFacet() throws Exception
    {
-      final Method method = SitesConverter.class.getDeclaredMethod("getRequiredFeatures", PropertiesSource.class,
+      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredFeaturesForFacet", PropertiesSource.class,
          String.class, boolean.class);
       final boolean isSource = false;
 
@@ -277,7 +277,7 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredSourceFeatures() throws Exception
    {
-      final Method method = SitesConverter.class.getDeclaredMethod("getRequiredFeatures", PropertiesSource.class,
+      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredFeaturesForFacet", PropertiesSource.class,
          String.class, boolean.class);
       final boolean isSource = true;
 
@@ -289,7 +289,7 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredPluginsForFacet() throws Exception
    {
-      final Method method = SitesConverter.class.getDeclaredMethod("getRequiredPlugins", PropertiesSource.class,
+      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredPluginsForFacet", PropertiesSource.class,
          String.class, boolean.class);
       final boolean isSource = false;
 
@@ -301,7 +301,7 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredSourcePluginsForFacet() throws Exception
    {
-      final Method method = SitesConverter.class.getDeclaredMethod("getRequiredPlugins", PropertiesSource.class,
+      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredPluginsForFacet", PropertiesSource.class,
          String.class, boolean.class);
       final boolean isSource = true;
 
