@@ -6,20 +6,25 @@
 
 package org.sourcepit.b2.directory.parser.internal.project;
 
+import static org.sourcepit.common.utils.io.IOResources.buffIn;
+import static org.sourcepit.common.utils.io.IOResources.fileIn;
+
 import java.io.File;
-import java.util.jar.Manifest;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.inject.Named;
 
-import org.sourcepit.b2.model.builder.internal.util.ManifestUtils;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
-
-import com.springsource.util.osgi.manifest.parse.DummyParserLogger;
-import com.springsource.util.osgi.manifest.parse.HeaderDeclaration;
-import com.springsource.util.osgi.manifest.parse.HeaderParser;
-import com.springsource.util.osgi.manifest.parse.HeaderParserFactory;
+import org.sourcepit.common.manifest.Manifest;
+import org.sourcepit.common.manifest.osgi.BundleManifest;
+import org.sourcepit.common.manifest.osgi.FragmentHost;
+import org.sourcepit.common.manifest.osgi.VersionRange;
+import org.sourcepit.common.manifest.osgi.resource.GenericManifestResourceImpl;
+import org.sourcepit.common.utils.io.IOOperation;
 
 /**
  * @author Bernd
@@ -30,41 +35,55 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
    @Override
    public PluginProject parse(File directory, IConverter converter)
    {
-      final Manifest manifest;
-      try
-      {
-         manifest = ManifestUtils.readManifest(new File(directory, "META-INF/MANIFEST.MF"));
-      }
-      catch (IllegalArgumentException e)
+      final File manifestFile = new File(directory, "META-INF/MANIFEST.MF");
+      if (!manifestFile.exists())
       {
          return null;
       }
 
-      final String symbolicName = ManifestUtils.getBundleSymbolicName(manifest);
-      if (symbolicName == null)
+      final Manifest manifest = readManifest(manifestFile);
+      if (manifest instanceof BundleManifest)
       {
-         return null;
-      }
+         final BundleManifest bundleManifest = (BundleManifest) manifest;
 
-      final PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
-      project.setId(symbolicName);
-      project.setVersion(ManifestUtils.getBundleVersion(manifest));
-      project.setDirectory(directory);
-      project.setTestPlugin(project.getId().endsWith(".tests"));
+         final PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
+         project.setId(bundleManifest.getBundleSymbolicName().getSymbolicName());
+         project.setVersion(bundleManifest.getBundleVersion().toString());
+         project.setBundleManifest(bundleManifest);
+         project.setDirectory(directory);
+         
+         // TODO replace with configurable filter pattern
+         project.setTestPlugin(project.getId().endsWith(".tests"));
 
-      final String fragmentHost = manifest.getMainAttributes().getValue("Fragment-Host");
-      if (fragmentHost != null)
-      {
-         final HeaderParser headerParser = HeaderParserFactory.newHeaderParser(new DummyParserLogger());
-         final HeaderDeclaration hostHeader = headerParser.parseFragmentHostHeader(fragmentHost);
-         if (!hostHeader.getNames().isEmpty())
+         final FragmentHost fragmentHost = bundleManifest.getFragmentHost();
+         if (fragmentHost != null)
          {
-            String hostName = hostHeader.getNames().get(0);
-            project.setFragmentHostSymbolicName(hostName);
-            project.setFragmentHostVersion(hostHeader.getAttributes().get("bundle-version"));
+            project.setFragmentHostSymbolicName(fragmentHost.getSymbolicName());
+            final VersionRange hostVersion = fragmentHost.getBundleVersion();
+            if (hostVersion != null)
+            {
+               project.setFragmentHostVersion(hostVersion.toString());
+            }
          }
+         return project;
       }
+      return null;
+   }
 
-      return project;
+   private Manifest readManifest(File file)
+   {
+      final Resource eResource = new GenericManifestResourceImpl();
+      new IOOperation<InputStream>(buffIn(fileIn(file)))
+      {
+         @Override
+         protected void run(InputStream openResource) throws IOException
+         {
+            eResource.load(openResource, null);
+         }
+      }.run();
+
+      final Manifest bundleManifest = (Manifest) eResource.getContents().get(0);
+      eResource.getContents().clear(); // disconnect from resource
+      return bundleManifest;
    }
 }

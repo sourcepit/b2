@@ -126,6 +126,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       request.setModuleDirectory(simpleFile);
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
+      assertNotNull(simpleModule);
       
       getCurrentSession().getCurrentProject().setModuleModel(simpleModule);
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
