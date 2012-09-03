@@ -32,7 +32,6 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
-import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.internal.util.EWalkerImpl;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -48,14 +47,18 @@ public class FeaturesInterpolator
 
    private final FeaturesConverter converter;
 
+   private final IncludesAndRequirementsResolver resolutionContextResolver;
+
    @Inject
    public FeaturesInterpolator(@NotNull ISourceService sourceService, @NotNull LayoutManager layoutManager,
-      @NotNull UnpackStrategy unpackStrategy, FeaturesConverter converter)
+      @NotNull UnpackStrategy unpackStrategy, FeaturesConverter converter,
+      IncludesAndRequirementsResolver resolutionContextResolver)
    {
       this.sourceService = sourceService;
       this.layoutManager = layoutManager;
       this.unpackStrategy = unpackStrategy;
       this.converter = converter;
+      this.resolutionContextResolver = resolutionContextResolver;
    }
 
 
@@ -64,18 +67,29 @@ public class FeaturesInterpolator
       final FeaturesFacet featuresFacet = createFeaturesFacet("features");
 
       final EList<PluginsFacet> pluginsFacets = module.getFacets(PluginsFacet.class);
-      if (!pluginsFacets.isEmpty())
+      for (PluginsFacet pluginsFacet : pluginsFacets)
       {
-         for (PluginsFacet pluginsFacet : pluginsFacets)
-         {
-            interpolatePluginFeatures(module, featuresFacet, pluginsFacet, moduleProperties);
-         }
+         interpolatePluginFeatures(module, featuresFacet, pluginsFacet, moduleProperties);
       }
 
       final int size = featuresFacet.getProjects().size();
       if (size > 0)
       {
          module.getFacets().add(featuresFacet);
+
+         for (PluginsFacet pluginsFacet : pluginsFacets)
+         {
+            final FeatureProject mainFeature = AbstractIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
+               pluginsFacet, false);
+            addIncludesAndRequirements(pluginsFacet, mainFeature, moduleProperties, false);
+
+            final FeatureProject sourceFeature = AbstractIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
+               pluginsFacet, true);
+            if (sourceFeature != null)
+            {
+               addIncludesAndRequirements(pluginsFacet, sourceFeature, moduleProperties, true);
+            }
+         }
       }
 
       interpolateAssemblyFeatures(module, featuresFacet, moduleProperties);
@@ -115,7 +129,8 @@ public class FeaturesInterpolator
             eWalker.walk(module.getFacets(FeaturesFacet.class));
             eWalker.walk(module.getFacets(PluginsFacet.class));
 
-            addCustomIncludesAndRequirements(featureProject, assemblyName, moduleProperties);
+            resolutionContextResolver.appendIncludesAndRequirements(moduleProperties, module, featureProject,
+               assemblyName);
 
             // skip assembly feature if there is onle one single include
             final FeatureProject singleIncludedFeature = returnSingleIncludedFeatureProject(module, featureProject);
@@ -197,29 +212,6 @@ public class FeaturesInterpolator
       }
    }
 
-   // TODO calc inter assembly requirements
-   // TODO calc inter module requirements and includes
-   private void addCustomIncludesAndRequirements(final FeatureProject featureProject, String assemplyName,
-      PropertiesSource moduleProperties)
-   {
-      // TODO check duplicated includes
-      final List<FeatureInclude> includedFeatures;
-      includedFeatures = converter.getIncludedFeaturesForAssembly(moduleProperties, assemplyName);
-      featureProject.getIncludedFeatures().addAll(includedFeatures);
-
-      final List<PluginInclude> includedPlugins;
-      includedPlugins = converter.getIncludedPluginsForAssembly(moduleProperties, assemplyName);
-      featureProject.getIncludedPlugins().addAll(includedPlugins);
-
-      final List<RuledReference> requiredFeatures;
-      requiredFeatures = converter.getRequiredFeaturesForAssembly(moduleProperties, assemplyName);
-      featureProject.getRequiredFeatures().addAll(requiredFeatures);
-
-      final List<RuledReference> requiredPlugins;
-      requiredPlugins = converter.getRequiredPluginsForAssembly(moduleProperties, assemplyName);
-      featureProject.getRequiredPlugins().addAll(requiredPlugins);
-   }
-
    private void interpolatePluginFeatures(AbstractModule module, FeaturesFacet featuresFacet,
       PluginsFacet pluginsFacet, PropertiesSource moduleProperties)
    {
@@ -245,44 +237,28 @@ public class FeaturesInterpolator
 
       final String facetName = pluginsFacet.getName();
       featureProject.putAnnotationEntry("b2", "facetName", facetName);
+      featureProject.putAnnotationEntry("b2", "isSourceFeature", Boolean.toString(isSource));
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
       featureProject.setDirectory(new File(layout.pathOfFacetMetaData(module, featuresFacet.getName(),
          featureProject.getId())));
 
-
-      final IncludesAppender includesAppender;
-      includesAppender = createIncludesAppenderForFacet(moduleProperties, isSource, featureProject, facetName);
-      includesAppender.walk(pluginsFacet.getProjects());
-
-      addCustomIncludesAndRequirements(featureProject, pluginsFacet, moduleProperties, isSource);
-
       return featureProject;
    }
 
-   // TODO calc inter facet requirements (and includes?)
-   // TODO calc inter module requirements (and includes?)
-   private void addCustomIncludesAndRequirements(FeatureProject featureProject, PluginsFacet pluginsFacet,
+   // TODO check duplicated includes
+   private void addIncludesAndRequirements(PluginsFacet pluginsFacet, FeatureProject featureProject,
       PropertiesSource moduleProperties, boolean isSource)
    {
       final String facetName = pluginsFacet.getName();
 
-      // TODO check duplicated includes
-      final List<FeatureInclude> includedFeatures;
-      includedFeatures = converter.getIncludedFeaturesForFacet(moduleProperties, facetName, isSource);
-      featureProject.getIncludedFeatures().addAll(includedFeatures);
+      // includes from module structure (plugin includes and assembly includes)
+      final IncludesAppender includesAppender;
+      includesAppender = createIncludesAppenderForFacet(moduleProperties, isSource, featureProject, facetName);
+      includesAppender.walk(pluginsFacet.getProjects());
 
-      final List<PluginInclude> includedPlugins;
-      includedPlugins = converter.getIncludedPluginsForFacet(moduleProperties, facetName, isSource);
-      featureProject.getIncludedPlugins().addAll(includedPlugins);
-
-      final List<RuledReference> requiredFeatures;
-      requiredFeatures = converter.getRequiredFeaturesForFacet(moduleProperties, facetName, isSource);
-      featureProject.getRequiredFeatures().addAll(requiredFeatures);
-
-      final List<RuledReference> requiredPlugins;
-      requiredPlugins = converter.getRequiredPluginsForFacet(moduleProperties, facetName, isSource);
-      featureProject.getRequiredPlugins().addAll(requiredPlugins);
+      // inter facets requirements
+      resolutionContextResolver.appendIncludesAndRequirements(moduleProperties, pluginsFacet.getParent(), featureProject);
    }
 
    private String deriveFeatureId(AbstractModule module, String assemblyName, PropertiesSource properties)
@@ -399,7 +375,7 @@ public class FeaturesInterpolator
             final FeatureInclude inc = ModuleModelFactory.eINSTANCE.createFeatureInclude();
             inc.setId(fp.getId());
             inc.setVersion(fp.getVersion());
-            
+
             final String assemblyNames = fp.getAnnotationEntry("b2", "assemblyNames");
             if (assemblyNames != null)
             {
@@ -410,6 +386,18 @@ public class FeaturesInterpolator
             if (facetName != null)
             {
                inc.putAnnotationEntry("b2", "facetName", facetName);
+            }
+
+            if (Boolean.valueOf(fp.getAnnotationEntry("b2", "isTestFeature")))
+            {
+               inc.putAnnotationEntry("b2", "isTestFeature", Boolean.toString(Boolean.TRUE));
+               targetProject.putAnnotationEntry("b2", "isTestFeature", Boolean.toString(Boolean.TRUE));
+            }
+
+            if (Boolean.valueOf(fp.getAnnotationEntry("b2", "isSourceFeature")))
+            {
+               targetProject.putAnnotationEntry("b2", "isSourceFeature", Boolean.toString(Boolean.TRUE));
+               inc.putAnnotationEntry("b2", "isSourceFeature", Boolean.toString(Boolean.TRUE));
             }
 
             targetProject.getIncludedFeatures().add(inc);
@@ -432,7 +420,7 @@ public class FeaturesInterpolator
             {
                inc.setUnpack(unpackStrategy.isUnpack(pp));
             }
-            
+
             final String assemblyNames = pp.getAnnotationEntry("b2", "assemblyNames");
             if (assemblyNames != null)
             {
@@ -443,6 +431,18 @@ public class FeaturesInterpolator
             if (facetName != null)
             {
                inc.putAnnotationEntry("b2", "facetName", facetName);
+            }
+
+            if (pp.isTestPlugin())
+            {
+               targetProject.putAnnotationEntry("b2", "isTestFeature", Boolean.toString(Boolean.TRUE));
+               inc.putAnnotationEntry("b2", "isTestPlugin", Boolean.toString(Boolean.TRUE));
+            }
+
+            if (isSource)
+            {
+               targetProject.putAnnotationEntry("b2", "isSourceFeature", Boolean.toString(Boolean.TRUE));
+               inc.putAnnotationEntry("b2", "isSourcePlugin", Boolean.toString(Boolean.TRUE));
             }
 
             targetProject.getIncludedPlugins().add(inc);

@@ -17,6 +17,8 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface FeaturesConverter extends BasicConverter
 {
+   PathMatcher getAggregatorFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName);
+   
    PathMatcher getFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemplyName);
 
    PathMatcher getPluginMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName);

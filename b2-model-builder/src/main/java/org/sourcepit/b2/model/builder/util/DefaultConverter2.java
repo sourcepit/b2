@@ -51,13 +51,26 @@ public class DefaultConverter2 implements SitesConverter, BasicConverter, Featur
       // TODO assert result is valid id
       return properties.get(assemblyKey(assemblyName, "classifier"), toValidId(assemblyName));
    }
-   
+
+   public AggregatorMode getAggregatorMode(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String literal = get(moduleProperties, assemblyKey(assemblyName, "aggregator.mode"),
+         b2Key("aggregator.mode"));
+      return literal == null ? AggregatorMode.OFF : AggregatorMode.valueOf(literal.toUpperCase());
+   }
+
+   public PathMatcher getAggregatorFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "aggregator.featuresFilter"), "!**");
+      return PathMatcher.parse(patterns, ".", ",");
+   }
+
    public PathMatcher getFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
       final String patterns = moduleProperties.get(assemblyKey(assemblyName, "featuresFilter"), "**");
       return PathMatcher.parse(patterns, ".", ",");
    }
-   
+
    public PathMatcher getPluginMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
       final String patterns = moduleProperties.get(assemblyKey(assemblyName, "pluginsFilter"), "!**");
@@ -107,7 +120,7 @@ public class DefaultConverter2 implements SitesConverter, BasicConverter, Featur
       final String patterns = moduleProperties.get(facetKey(facetName, "pluginsFilter"), "**");
       return PathMatcher.parse(patterns, ".", ",");
    }
-   
+
    public List<FeatureInclude> getIncludedFeaturesForFacet(PropertiesSource moduleProperties, String facetName,
       boolean isSource)
    {
@@ -356,7 +369,7 @@ public class DefaultConverter2 implements SitesConverter, BasicConverter, Featur
       }
       return sb.toString();
    }
-   
+
    public String getSiteId(PropertiesSource moduleProperties, String moduleId, String classifier)
    {
       return idOfProject(moduleId, classifier, "site");

@@ -13,6 +13,13 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface BasicConverter
 {
+   enum AggregatorMode
+   {
+      OFF, AGGREGATE, UNWRAP
+   }
+
+   AggregatorMode getAggregatorMode(PropertiesSource moduleProperties, String assemblyName);
+   
    List<String> getAssemblyNames(PropertiesSource moduleProperties);
 
    String getAssemblyClassifier(PropertiesSource moduleProperties, String assemblyName);
