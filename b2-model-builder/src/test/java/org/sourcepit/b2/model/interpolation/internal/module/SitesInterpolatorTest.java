@@ -79,10 +79,9 @@ public class SitesInterpolatorTest extends GuplexTest
       FeaturesConverter converter = gLookup(FeaturesConverter.class);
 
       FeaturesInterpolator interpolator;
-      interpolator = new FeaturesInterpolator(sourceService, layoutManager, unpackStrategy, converter,
-         new AbstractIncludesAndRequirementsResolver(converter)
+      interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter,
+         new AbstractIncludesAndRequirementsResolver(converter, unpackStrategy)
          {
-
             @Override
             protected void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
                AbstractModule module, boolean isTest)

@@ -8,6 +8,7 @@ package org.sourcepit.b2.model.interpolation.internal.module;
 
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
+import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface IncludesAndRequirementsResolver
@@ -16,5 +17,5 @@ public interface IncludesAndRequirementsResolver
       FeatureProject assemblyFeature, String assemblyName);
 
    void appendIncludesAndRequirements(PropertiesSource moduleProperties, AbstractModule module,
-      FeatureProject facetFeatrue);
+      PluginsFacet pluginsFacet, FeatureProject facetFeatrue);
 }

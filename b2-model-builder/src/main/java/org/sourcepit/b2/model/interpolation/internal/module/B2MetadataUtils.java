@@ -15,6 +15,7 @@ import org.sourcepit.b2.model.common.Annotation;
 
 public final class B2MetadataUtils
 {
+   private static final String IS_TEST_PLUGIN = "isTestPlugin";
    private static final String MODULE_VERSION = "moduleVersion";
    private static final String MODULE_ID = "moduleId";
    private static final String IS_TEST_FEATURE = "isTestFeature";
@@ -92,6 +93,16 @@ public final class B2MetadataUtils
    public static boolean isTestFeature(Annotatable annotatable)
    {
       return toBoolean(annotatable.getAnnotationEntry(B2, IS_TEST_FEATURE));
+   }
+
+   public static void setTestPlugin(Annotatable annotatable, boolean value)
+   {
+      setB2Metadata(annotatable, IS_TEST_PLUGIN, toString(value));
+   }
+   
+   public static boolean isTestPlugin(Annotatable annotatable)
+   {
+      return toBoolean(annotatable.getAnnotationEntry(B2, IS_TEST_PLUGIN));
    }
 
    private static void setB2Metadata(Annotatable annotatable, String key, String value)
