@@ -28,6 +28,7 @@ import org.apache.maven.model.Repository;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
@@ -61,6 +62,9 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Inject
    private IB2SessionService b2SessionService;
+   
+   @Inject
+   private BasicConverter basicConverter;
 
    @Override
    public GeneratorType getGeneratorType()
@@ -395,7 +399,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setArtifactId(project.getId());
       defaultModel.setVersion(VersionUtils.toMavenVersion(project.getVersion()));
       defaultModel.setPackaging("eclipse-repository");
-      final String classifier = project.getClassifier();
+      final String classifier = SiteProjectGenerator.getClassifier(basicConverter, converter.getProperties(), project);
       defaultModel.getProperties().setProperty("classifier", classifier == null ? "" : classifier);
 
       mergeIntoPomFile(pomFile, defaultModel);

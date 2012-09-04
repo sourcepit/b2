@@ -103,6 +103,8 @@ public class SitesInterpolator
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
       siteProject.setDirectory(new File(layout.pathOfFacetMetaData(module, sitesFacet.getName(), siteProject.getId())));
+      
+      B2MetadataUtils.addAssemblyName(siteProject, assemblyName);
 
       return siteProject;
    }

@@ -35,14 +35,14 @@ import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.FixedModelMerger;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.module.SiteProject;
-import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 @Named
 public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParticipant
@@ -61,17 +61,21 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
    @Inject
    private B2SessionService b2SessionService;
 
+   @Inject
+   private BasicConverter converter;
+
    public void postPrepareProject(B2Session session, ModuleProject project, B2Request request, AbstractModule module,
       ThrowablePipe errors)
    {
       final LinkedHashSet<String> classifiers = new LinkedHashSet<String>();
-      for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
+
+      PropertiesMap properties = request.getConverter().getProperties();
+
+      List<String> assemblyNames = converter.getAssemblyNames(properties);
+      for (String assemblyName : assemblyNames)
       {
-         for (SiteProject siteProject : sitesFacet.getProjects())
-         {
-            String cl = siteProject.getClassifier();
-            classifiers.add(cl == null || cl.length() == 0 ? null : cl);
-         }
+         String cl = converter.getAssemblyClassifier(properties, assemblyName);
+         classifiers.add(cl == null || cl.length() == 0 ? null : cl);
       }
 
       // add default model if no site classifiers are specified

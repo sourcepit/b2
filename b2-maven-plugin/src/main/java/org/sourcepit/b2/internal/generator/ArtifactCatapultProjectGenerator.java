@@ -29,6 +29,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
@@ -41,6 +42,7 @@ import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.session.Environment;
 import org.sourcepit.b2.model.session.ModuleProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd
@@ -56,6 +58,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
    @Inject
    private LegacySupport legacySupport;
+
+   @Inject
+   private BasicConverter basicConverter;
 
    @Override
    public GeneratorType getGeneratorType()
@@ -117,7 +122,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
       if (!artifacts.isEmpty())
       {
-         artifacts.addAll(gatherArtifacts(module, mavenVersion));
+         artifacts.addAll(gatherArtifacts(module, mavenVersion, converter.getProperties()));
 
          Profile profile = new Profile();
          profile.setId("buildProducts");
@@ -133,7 +138,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          model.getProfiles().add(profile);
       }
 
-      artifacts = gatherArtifacts(module, mavenVersion);
+      artifacts = gatherArtifacts(module, mavenVersion, converter.getProperties());
       if (!artifacts.isEmpty())
       {
          final List<Plugin> plugins = model.getBuild().getPlugins();
@@ -309,7 +314,8 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
    }
 
-   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, String mavenVersion)
+   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, String mavenVersion,
+      PropertiesSource properties)
    {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
@@ -327,7 +333,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       {
          for (SiteProject siteProject : sitesFacet.getProjects())
          {
-            final String cl = siteProject.getClassifier();
+            final String cl = SiteProjectGenerator.getClassifier(basicConverter, properties, siteProject);
 
             final String clString = cl == null || cl.length() == 0 ? "" : ("-" + cl);
 
@@ -351,13 +357,13 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          artifacts.add(moduleModel);
       }
 
-      gatherSiteArtifacts(module, mavenVersion, artifacts);
+      gatherSiteArtifacts(module, mavenVersion, artifacts, properties);
 
       return artifacts;
    }
 
    private void gatherSiteArtifacts(final AbstractModule module, String mavenVersion,
-      final List<ModuleArtifact> artifacts)
+      final List<ModuleArtifact> artifacts, PropertiesSource properties)
    {
       for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
       {
@@ -366,7 +372,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
             final ModuleArtifact siteArtifact = new ModuleArtifact();
             siteArtifact.setFile(new File(siteProject.getDirectory(), "target/" + siteProject.getId() + "-"
                + mavenVersion + ".zip"));
-            String cl = siteProject.getClassifier();
+            String cl = SiteProjectGenerator.getClassifier(basicConverter, properties, siteProject);
             siteArtifact.setClassifier(cl == null || cl.length() == 0 ? "site" : "site-" + cl);
             siteArtifact.setType("zip");
             artifacts.add(siteArtifact);

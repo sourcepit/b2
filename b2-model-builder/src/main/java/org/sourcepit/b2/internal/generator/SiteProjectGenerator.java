@@ -19,6 +19,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.codehaus.plexus.interpolation.ValueSource;
@@ -27,17 +28,23 @@ import org.codehaus.plexus.util.xml.XMLWriter;
 import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesUtils;
 
 @Named
 public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant
 {
+   @Inject
+   private BasicConverter converter;
+
    @Override
    public GeneratorType getGeneratorType()
    {
@@ -54,13 +61,24 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
    protected void generate(Derivable inputElement, IConverter converter, ITemplates templates)
    {
       final SiteProject siteProject = (SiteProject) inputElement;
+
+      final String classifier = getClassifier(this.converter, converter.getProperties(), siteProject);
+
       final Properties properties = new Properties();
       properties.setProperty("site.id", siteProject.getId());
       properties.setProperty("site.version", siteProject.getVersion());
-      properties.setProperty("site.classifier", siteProject.getClassifier() == null ? "" : siteProject.getClassifier());
+      properties.setProperty("site.classifier", classifier == null ? "" : classifier);
       insertCategoriesProperty(siteProject, properties);
       templates.copy("site-project", siteProject.getDirectory(), properties);
       generateProperties(converter, siteProject);
+   }
+
+   // TODO legacy compatibility
+   public static String getClassifier(BasicConverter converter, PropertiesSource properties, SiteProject site)
+   {
+      Set<String> assemblyNames = B2MetadataUtils.getAssemblyNames(site);
+      String assemblyName = assemblyNames.isEmpty() ? null : assemblyNames.iterator().next();
+      return assemblyName == null ? null : converter.getAssemblyClassifier(properties, assemblyName);
    }
 
    private void insertCategoriesProperty(final SiteProject siteProject, final Properties properties)

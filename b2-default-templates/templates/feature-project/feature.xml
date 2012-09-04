@@ -22,4 +22,6 @@
    
    ${feature.plugins}
    
+   ${feature.requires}
+   
 </feature>

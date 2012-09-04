@@ -678,11 +678,6 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       {
          if (featureMatcher.isMatch(fp.getId()))
          {
-            if (B2MetadataUtils.isTestFeature(fp))
-            {
-               System.out.println();
-            }
-
             final FeatureInclude inc = DefaultIncludesAndRequirementsResolver.toFeatureInclude(fp);
             targetProject.addFeatureInclude(inc);
          }
