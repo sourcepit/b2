@@ -8,10 +8,7 @@ package org.sourcepit.b2.model.interpolation.internal.module;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -79,12 +76,12 @@ public class FeaturesInterpolator
 
          for (PluginsFacet pluginsFacet : pluginsFacets)
          {
-            final FeatureProject mainFeature = AbstractIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
-               pluginsFacet, false);
+            final FeatureProject mainFeature = AbstractIncludesAndRequirementsResolver
+               .findFeatureProjectForPluginsFacet(pluginsFacet, false);
             addIncludesAndRequirements(pluginsFacet, mainFeature, moduleProperties, false);
 
-            final FeatureProject sourceFeature = AbstractIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
-               pluginsFacet, true);
+            final FeatureProject sourceFeature = AbstractIncludesAndRequirementsResolver
+               .findFeatureProjectForPluginsFacet(pluginsFacet, true);
             if (sourceFeature != null)
             {
                addIncludesAndRequirements(pluginsFacet, sourceFeature, moduleProperties, true);
@@ -122,7 +119,7 @@ public class FeaturesInterpolator
             featureProject.setVersion(module.getVersion());
             featureProject.setDirectory(new File(path));
 
-            appendAssemblyName(featureProject, assemblyName);
+            B2MetadataUtils.addAssemblyName(featureProject, assemblyName);
 
             final EWalkerImpl eWalker;
             eWalker = createIncludesAppenderForAssembly(moduleProperties, featureProject, assemblyName);
@@ -143,7 +140,7 @@ public class FeaturesInterpolator
             }
             else
             {
-               appendAssemblyName(singleIncludedFeature, assemblyName);
+               B2MetadataUtils.addAssemblyName(singleIncludedFeature, assemblyName);
             }
          }
          // hide assembly features until all assembly names are processed
@@ -172,46 +169,6 @@ public class FeaturesInterpolator
    }
 
 
-   private void appendAssemblyName(FeatureProject featureProject, String assemblyName)
-   {
-      Set<String> names = new LinkedHashSet<String>();
-      split(names, featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      names.add(assemblyName);
-      featureProject.putAnnotationEntry("b2", "assemblyNames", toValuesString(names));
-   }
-
-   private String toValuesString(Collection<String> values)
-   {
-      final StringBuilder sb = new StringBuilder();
-      for (String value : values)
-      {
-         sb.append(value);
-         sb.append(", ");
-      }
-      if (sb.length() > 0)
-      {
-         sb.deleteCharAt(sb.length() - 1);
-         sb.deleteCharAt(sb.length() - 1);
-      }
-      return sb.length() > 0 ? sb.toString() : null;
-   }
-
-
-   static void split(Collection<String> values, String rawValues)
-   {
-      if (rawValues != null)
-      {
-         for (String rawValue : rawValues.split(","))
-         {
-            String name = rawValue.trim();
-            if (name.length() > 0)
-            {
-               values.add(name);
-            }
-         }
-      }
-   }
-
    private void interpolatePluginFeatures(AbstractModule module, FeaturesFacet featuresFacet,
       PluginsFacet pluginsFacet, PropertiesSource moduleProperties)
    {
@@ -236,8 +193,8 @@ public class FeaturesInterpolator
       featureProject.setVersion(module.getVersion());
 
       final String facetName = pluginsFacet.getName();
-      featureProject.putAnnotationEntry("b2", "facetName", facetName);
-      featureProject.putAnnotationEntry("b2", "isSourceFeature", Boolean.toString(isSource));
+      B2MetadataUtils.setFacetName(featureProject, facetName);
+      B2MetadataUtils.setSourceFeature(featureProject, isSource);
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
       featureProject.setDirectory(new File(layout.pathOfFacetMetaData(module, featuresFacet.getName(),
@@ -258,7 +215,8 @@ public class FeaturesInterpolator
       includesAppender.walk(pluginsFacet.getProjects());
 
       // inter facets requirements
-      resolutionContextResolver.appendIncludesAndRequirements(moduleProperties, pluginsFacet.getParent(), featureProject);
+      resolutionContextResolver.appendIncludesAndRequirements(moduleProperties, pluginsFacet.getParent(),
+         featureProject);
    }
 
    private String deriveFeatureId(AbstractModule module, String assemblyName, PropertiesSource properties)
@@ -372,32 +330,16 @@ public class FeaturesInterpolator
       {
          if (featureMatcher.isMatch(fp.getId()))
          {
-            final FeatureInclude inc = ModuleModelFactory.eINSTANCE.createFeatureInclude();
-            inc.setId(fp.getId());
-            inc.setVersion(fp.getVersion());
+            final FeatureInclude inc = AbstractIncludesAndRequirementsResolver.toFeatureInclude(fp);
 
-            final String assemblyNames = fp.getAnnotationEntry("b2", "assemblyNames");
-            if (assemblyNames != null)
+            if (B2MetadataUtils.isTestFeature(fp))
             {
-               inc.putAnnotationEntry("b2", "assemblyNames", assemblyNames);
+               B2MetadataUtils.setTestFeature(targetProject, true);
             }
 
-            final String facetName = fp.getAnnotationEntry("b2", "facetName");
-            if (facetName != null)
+            if (B2MetadataUtils.isSourceFeature(fp))
             {
-               inc.putAnnotationEntry("b2", "facetName", facetName);
-            }
-
-            if (Boolean.valueOf(fp.getAnnotationEntry("b2", "isTestFeature")))
-            {
-               inc.putAnnotationEntry("b2", "isTestFeature", Boolean.toString(Boolean.TRUE));
-               targetProject.putAnnotationEntry("b2", "isTestFeature", Boolean.toString(Boolean.TRUE));
-            }
-
-            if (Boolean.valueOf(fp.getAnnotationEntry("b2", "isSourceFeature")))
-            {
-               targetProject.putAnnotationEntry("b2", "isSourceFeature", Boolean.toString(Boolean.TRUE));
-               inc.putAnnotationEntry("b2", "isSourceFeature", Boolean.toString(Boolean.TRUE));
+               B2MetadataUtils.setSourceFeature(targetProject, true);
             }
 
             targetProject.getIncludedFeatures().add(inc);
@@ -409,9 +351,8 @@ public class FeaturesInterpolator
          final String pluginId = isSource ? getSourcePluginId(pp) : pp.getId();
          if (pluginMatcher.isMatch(pluginId))
          {
-            final PluginInclude inc = ModuleModelFactory.eINSTANCE.createPluginInclude();
+            final PluginInclude inc = AbstractIncludesAndRequirementsResolver.toPluginInclude(pp);
             inc.setId(pluginId);
-            inc.setVersion(pp.getVersion());
             if (isSource)
             {
                inc.setUnpack(false);
@@ -421,28 +362,14 @@ public class FeaturesInterpolator
                inc.setUnpack(unpackStrategy.isUnpack(pp));
             }
 
-            final String assemblyNames = pp.getAnnotationEntry("b2", "assemblyNames");
-            if (assemblyNames != null)
-            {
-               inc.putAnnotationEntry("b2", "assemblyNames", assemblyNames);
-            }
-
-            final String facetName = pp.getAnnotationEntry("b2", "facetName");
-            if (facetName != null)
-            {
-               inc.putAnnotationEntry("b2", "facetName", facetName);
-            }
-
             if (pp.isTestPlugin())
             {
-               targetProject.putAnnotationEntry("b2", "isTestFeature", Boolean.toString(Boolean.TRUE));
-               inc.putAnnotationEntry("b2", "isTestPlugin", Boolean.toString(Boolean.TRUE));
+               B2MetadataUtils.setTestFeature(targetProject, true);
             }
 
             if (isSource)
             {
-               targetProject.putAnnotationEntry("b2", "isSourceFeature", Boolean.toString(Boolean.TRUE));
-               inc.putAnnotationEntry("b2", "isSourcePlugin", Boolean.toString(Boolean.TRUE));
+               B2MetadataUtils.setSourceFeature(targetProject, isSource);
             }
 
             targetProject.getIncludedPlugins().add(inc);

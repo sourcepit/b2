@@ -8,16 +8,18 @@ package org.sourcepit.b2.model.interpolation.internal.module;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.b2.model.builder.util.BasicConverter.AggregatorMode;
 import org.sourcepit.b2.model.builder.util.FeaturesConverter;
+import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
@@ -41,6 +43,114 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 public abstract class AbstractIncludesAndRequirementsResolver implements IncludesAndRequirementsResolver
 {
+   private static class IncludesAndRequirementsHandler
+   {
+      private final FeatureProject featureProject;
+
+      public IncludesAndRequirementsHandler(FeatureProject featureProject)
+      {
+         this.featureProject = featureProject;
+      }
+
+      public void addFeatureIncludes(Collection<FeatureInclude> includes)
+      {
+         for (FeatureInclude include : includes)
+         {
+            addFeatureInclude(include);
+         }
+      }
+
+      public void addFeatureInclude(FeatureInclude include)
+      {
+         addUnique(featureProject.getIncludedFeatures(), include);
+         removeAllWithId(featureProject.getRequiredFeatures(), include.getId());
+      }
+
+      public void addPluginIncludes(Collection<PluginInclude> includes)
+      {
+         for (PluginInclude include : includes)
+         {
+            addPluginInclude(include);
+         }
+      }
+
+      public void addPluginInclude(PluginInclude include)
+      {
+         addUnique(featureProject.getIncludedPlugins(), include);
+         removeAllWithId(featureProject.getRequiredPlugins(), include.getId());
+      }
+
+      public void addFeatureRequirements(Collection<RuledReference> requirements)
+      {
+         for (RuledReference requirement : requirements)
+         {
+            addFeatureRequirement(requirement);
+         }
+      }
+
+      public void addFeatureRequirement(RuledReference requirement)
+      {
+         if (findRefById(featureProject.getIncludedFeatures(), requirement.getId()) == null)
+         {
+            addUnique(featureProject.getRequiredFeatures(), requirement);
+         }
+      }
+
+      public void addPluginRequirements(Collection<RuledReference> requirements)
+      {
+         for (RuledReference requirement : requirements)
+         {
+            addPluginRequirement(requirement);
+         }
+      }
+
+      public void addPluginRequirement(RuledReference requirement)
+      {
+         if (findRefById(featureProject.getIncludedPlugins(), requirement.getId()) == null)
+         {
+            addUnique(featureProject.getRequiredPlugins(), requirement);
+         }
+      }
+
+      private static <R extends AbstractReference> void addUnique(Collection<R> refs, R ref)
+      {
+         if (findRefById(refs, ref.getId()) == null)
+         {
+            refs.add(ref);
+         }
+      }
+
+      private static <R extends AbstractReference> void removeAllWithId(Collection<R> refs, String id)
+      {
+         final List<R> obsolete = new ArrayList<R>();
+
+         for (R ref : refs)
+         {
+            if (id.equals(ref.getId()))
+            {
+               obsolete.add(ref);
+            }
+         }
+
+         if (!obsolete.isEmpty())
+         {
+            refs.removeAll(obsolete);
+         }
+      }
+
+      private static <R extends AbstractReference> R findRefById(Collection<R> refs, String id)
+      {
+         for (R ref : refs)
+         {
+            if (id.equals(ref.getId()))
+            {
+               return ref;
+            }
+         }
+         return null;
+      }
+   }
+
    private FeaturesConverter converter;
 
    public AbstractIncludesAndRequirementsResolver(FeaturesConverter converter)
@@ -48,38 +158,36 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
       this.converter = converter;
    }
 
-   // TODO check duplicates
    public void appendIncludesAndRequirements(PropertiesSource moduleProperties, AbstractModule module,
       FeatureProject assemblyFeature, String assemblyName)
    {
-      final List<FeatureInclude> result = new ArrayList<FeatureInclude>();
-      aggregateForeignFeatures(result, moduleProperties, module, assemblyFeature, assemblyName);
+      final IncludesAndRequirementsHandler handler = new IncludesAndRequirementsHandler(assemblyFeature);
+      aggregateForeignFeatures(handler, moduleProperties, module, assemblyFeature, assemblyName);
 
-      assemblyFeature.getIncludedFeatures().addAll(result);
-
-      List<FeatureInclude> includedFeatures = converter.getIncludedFeaturesForAssembly(moduleProperties, assemblyName);
-      assemblyFeature.getIncludedFeatures().addAll(includedFeatures);
+      final List<FeatureInclude> includedFeatures;
+      includedFeatures = converter.getIncludedFeaturesForAssembly(moduleProperties, assemblyName);
+      handler.addFeatureIncludes(includedFeatures);
 
       final List<PluginInclude> includedPlugins;
       includedPlugins = converter.getIncludedPluginsForAssembly(moduleProperties, assemblyName);
-      assemblyFeature.getIncludedPlugins().addAll(includedPlugins);
+      handler.addPluginIncludes(includedPlugins);
 
       final List<RuledReference> requiredFeatures;
       requiredFeatures = converter.getRequiredFeaturesForAssembly(moduleProperties, assemblyName);
-      assemblyFeature.getRequiredFeatures().addAll(requiredFeatures);
+      handler.addFeatureRequirements(requiredFeatures);
 
       final List<RuledReference> requiredPlugins;
       requiredPlugins = converter.getRequiredPluginsForAssembly(moduleProperties, assemblyName);
-      assemblyFeature.getRequiredPlugins().addAll(requiredPlugins);
+      handler.addPluginRequirements(requiredPlugins);
    }
 
-   private void aggregateForeignFeatures(final List<FeatureInclude> result, PropertiesSource moduleProperties,
+   private void aggregateForeignFeatures(IncludesAndRequirementsHandler handler, PropertiesSource moduleProperties,
       AbstractModule module, FeatureProject assemblyFeature, String assemblyName)
    {
       final AggregatorMode mode = converter.getAggregatorMode(moduleProperties, assemblyName);
       if (mode != AggregatorMode.OFF)
       {
-         final boolean isTest = Boolean.valueOf(assemblyFeature.getAnnotationEntry("b2", "isTestFeature"));
+         final boolean isTest = B2MetadataUtils.isTestFeature(assemblyFeature);
          final Iterable<FeatureProject> resolutionContext = resolveIncludeResolutionContext(module, isTest);
          if (mode == AggregatorMode.AGGREGATE)
          {
@@ -89,7 +197,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
             {
                if (matcher.isMatch(featureProject.getId()))
                {
-                  result.add(toFeatureInclude(featureProject));
+                  handler.addFeatureInclude(toFeatureInclude(featureProject));
                }
             }
          }
@@ -99,34 +207,67 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
             final PathMatcher pluginMatcher = converter.getPluginMatcherForAssembly(moduleProperties, assemblyName);
             for (FeatureProject featureProject : resolutionContext)
             {
-               for (FeatureInclude featureInclude : featureProject.getIncludedFeatures())
+               final boolean isFacetFeature = B2MetadataUtils.getFacetName(featureProject) != null;
+               if (isFacetFeature)
                {
-                  if (featureMatcher.isMatch(featureInclude.getId()))
+                  if (featureMatcher.isMatch(featureProject.getId()))
                   {
-                     result.add(EcoreUtil.copy(featureInclude));
+                     handler.addFeatureInclude(toFeatureInclude(featureProject));
+                  }
+               }
+               else
+               {
+
+                  for (FeatureInclude featureInclude : featureProject.getIncludedFeatures())
+                  {
+                     if (featureMatcher.isMatch(featureInclude.getId()))
+                     {
+                        handler.addFeatureInclude(EcoreUtil.copy(featureInclude));
+                     }
+                  }
+
+                  for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
+                  {
+                     if (pluginMatcher.isMatch(pluginInclude.getId()))
+                     {
+                        handler.addPluginInclude(pluginInclude);
+                     }
                   }
                }
 
-               for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
-               {
-                  if (pluginMatcher.isMatch(pluginInclude.getId()))
-                  {
-                     // TODO
-                     // result.add(EcoreUtil.copy(pluginInclude));
-                  }
-               }
-               
                // TODO requirements?
             }
          }
       }
    }
 
-   private FeatureInclude toFeatureInclude(FeatureProject featureProject)
+   public static FeatureInclude toFeatureInclude(FeatureProject featureProject)
    {
       FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
       featureInclude.setId(featureProject.getId());
-      featureInclude.setVersion(featureInclude.getVersion());
+      featureInclude.setVersion(featureProject.getVersion());
+
+      Annotation b2Metadata = B2MetadataUtils.getB2Metadata(featureProject);
+      if (b2Metadata != null)
+      {
+         featureInclude.getAnnotations().add(EcoreUtil.copy(b2Metadata));
+      }
+
+      return featureInclude;
+   }
+
+   public static PluginInclude toPluginInclude(PluginProject pluginProject)
+   {
+      PluginInclude featureInclude = ModuleModelFactory.eINSTANCE.createPluginInclude();
+      featureInclude.setId(pluginProject.getId());
+      featureInclude.setVersion(pluginProject.getVersion());
+
+      Annotation b2Metadata = B2MetadataUtils.getB2Metadata(pluginProject);
+      if (b2Metadata != null)
+      {
+         featureInclude.getAnnotations().add(EcoreUtil.copy(b2Metadata));
+      }
+
       return featureInclude;
    }
 
@@ -157,13 +298,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
             result.add(assemblyFeature);
          }
       }
-
-      // final FeatureProject assemblyFeature = findFeatureProjectForAssembly(module, assemblyName);
-      // if (assemblyFeature == null)
-      // {
-      // throw new IllegalStateException("Cannot find feature project for assembly " + assemblyName);
-      // }
-      return result;// new FilteredIterable<FeatureProject>(result, assemblyFeature);
+      return result;
    }
 
    private static FeatureProject findFeatureProjectForAssembly(AbstractModule module, String assemblyName)
@@ -172,8 +307,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
       {
          for (FeatureProject featureProject : featuresFacet.getProjects())
          {
-            Collection<String> assemblyNames = new HashSet<String>();
-            FeaturesInterpolator.split(assemblyNames, featureProject.getAnnotationEntry("b2", "assemblyNames"));
+            final Set<String> assemblyNames = B2MetadataUtils.getAssemblyNames(featureProject);
             if (assemblyNames.contains(assemblyName))
             {
                return featureProject;
@@ -190,9 +324,9 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
    public void appendIncludesAndRequirements(PropertiesSource moduleProperties, AbstractModule module,
       FeatureProject facetFeatrue)
    {
-      final String facetName = facetFeatrue.getAnnotationEntry("b2", "facetName");
+      final String facetName = B2MetadataUtils.getFacetName(facetFeatrue);
       final PluginsFacet sourcePlugins = module.getFacetByName(facetName);
-      final boolean isSource = Boolean.valueOf(facetFeatrue.getAnnotationEntry("b2", "isSourceFeature"));
+      final boolean isSource = B2MetadataUtils.isSourceFeature(facetFeatrue);
 
       final List<RuledReference> featureRequirements = new ArrayList<RuledReference>();
 
@@ -385,9 +519,9 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
       {
          for (FeatureProject featureProject : featuresFacet.getProjects())
          {
-            if (facetName.equals(featureProject.getAnnotationEntry("b2", "facetName")))
+            if (facetName.equals(B2MetadataUtils.getFacetName(featureProject)))
             {
-               if (isSource == Boolean.valueOf(featureProject.getAnnotationEntry("b2", "isSourceFeature")))
+               if (isSource == B2MetadataUtils.isSourceFeature(featureProject))
                {
                   return featureProject;
                }

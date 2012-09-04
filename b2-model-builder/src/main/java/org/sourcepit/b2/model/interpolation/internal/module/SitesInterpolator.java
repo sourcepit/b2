@@ -6,7 +6,6 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -88,7 +87,7 @@ public class SitesInterpolator
 
       for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures())
       {
-         String facetName = featureInclude.getAnnotationEntry("b2", "facetName");
+         String facetName = B2MetadataUtils.getFacetName(featureInclude);
          if (facetName == null || !knownCategoryNames.contains(facetName))
          {
             // TODO map unknown features to site categories
@@ -153,10 +152,7 @@ public class SitesInterpolator
       {
          for (FeatureProject featureProject : featuresFacet.getProjects())
          {
-            final List<String> assemblyNames = new ArrayList<String>();
-            FeaturesInterpolator.split(assemblyNames, featureProject.getAnnotationEntry("b2", "assemblyNames"));
-
-            for (String assemblyName : assemblyNames)
+            for (String assemblyName : B2MetadataUtils.getAssemblyNames(featureProject))
             {
                if (assemblyFeatures.put(assemblyName, featureProject) != null)
                {

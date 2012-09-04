@@ -61,7 +61,7 @@ public class DefaultConverter2 implements SitesConverter, BasicConverter, Featur
 
    public PathMatcher getAggregatorFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
-      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "aggregator.featuresFilter"), "!**");
+      final String patterns = moduleProperties.get(assemblyKey(assemblyName, "aggregator.featuresFilter"), "**");
       return PathMatcher.parse(patterns, ".", ",");
    }
 
