@@ -6,98 +6,1662 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
-import static org.mockito.Mockito.mock;
-import static org.sourcepit.b2.model.interpolation.internal.module.FeaturesInterpolatorTest.createBasicModule;
-import static org.sourcepit.b2.model.interpolation.internal.module.FeaturesInterpolatorTest.createPluginProject;
-import static org.sourcepit.b2.model.interpolation.internal.module.FeaturesInterpolatorTest.createPluginsFacet;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import org.junit.Test;
-import org.sourcepit.b2.model.builder.util.FeaturesConverter;
-import org.sourcepit.b2.model.builder.util.ISourceService;
+import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.util.SitesConverter;
-import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
-import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
-import org.sourcepit.b2.model.module.PluginProject;
-import org.sourcepit.b2.model.module.PluginsFacet;
-import org.sourcepit.common.utils.collections.MultiValueMap;
-import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.b2.model.module.Category;
+import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.b2.model.module.SitesFacet;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.props.PropertiesMap;
-import org.sourcepit.guplex.test.GuplexTest;
 
-public class SitesInterpolatorTest extends GuplexTest
+public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 {
 
-   @Test
-   public void testSinglePlugin() throws Exception
+   @Override
+   protected void interpolate(BasicModule module, PropertiesMap moduleProperties)
    {
-      // setup
-      BasicModule module = createBasicModule("foo");
-      module.setDirectory(new File(""));
+      super.interpolate(module, moduleProperties);
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
-
-      PropertiesMap moduleProperties = new LinkedPropertiesMap();
-      moduleProperties.put("build.sources", "false"); // true is default
-      moduleProperties.put("b2.assemblies", "main");
-
-      // interpolate
-      interpolate(module, moduleProperties);
+      new SitesInterpolator(gLookup(SitesConverter.class), gLookup(LayoutManager.class)).interpolate(module,
+         moduleProperties);
    }
 
-   @Test
-   public void testSourceBuild() throws Exception
+   @Override
+   protected void assertUC_1_SinglePlugin_NoSource(BasicModule module)
    {
-      // setup
-      BasicModule module = createBasicModule("foo");
-      module.setDirectory(new File(""));
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
 
-      PluginProject plugin = createPluginProject("plugin.foo", "1.0.0.qualifier");
-      PluginsFacet pluginsFacet = createPluginsFacet("plugins");
-      pluginsFacet.getProjects().add(plugin);
-      module.getFacets().add(pluginsFacet);
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(1, sitesFacet.getProjects().size());
 
-      PropertiesMap moduleProperties = new LinkedPropertiesMap();
-      // moduleProperties.put("build.sources", "true"); // true is default
-      moduleProperties.put("b2.assemblies", "main");
+      SiteProject siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
 
-      // interpolate
-      interpolate(module, moduleProperties);
+      assertEquals(1, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
    }
 
-   private void interpolate(BasicModule module, PropertiesMap moduleProperties)
+   @Override
+   protected void assertUC_1_SinglePlugin_WithSource(BasicModule module)
    {
-      ISourceService sourceService = gLookup(ISourceService.class);
-      LayoutManager layoutManager = gLookup(LayoutManager.class);
-      UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
-      FeaturesConverter converter = gLookup(FeaturesConverter.class);
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
 
-      ResolutionContextResolver contextResolver = new ResolutionContextResolver()
-      {
-         public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-            AbstractModule module, boolean isTest)
-         {
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(1, sitesFacet.getProjects().size());
 
-         }
-      };
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
 
-      DefaultIncludesAndRequirementsResolver includesAndRequirements = new DefaultIncludesAndRequirementsResolver(
-         converter, unpackStrategy, contextResolver);
+      assertEquals(2, siteProject.getCategories().size());
 
-      FeaturesInterpolator interpolator;
-      interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter, includesAndRequirements);
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
 
-      interpolator.interpolate(module, moduleProperties);
+      assertEquals(1, category.getFeatureReferences().size());
 
-      SitesInterpolator sitesInterpolator;
-      sitesInterpolator = new SitesInterpolator(gLookup(SitesConverter.class));
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.main.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      sitesInterpolator.interpolate(module, moduleProperties);
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
    }
+
+   @Override
+   protected void assertUC_2_PluginsAndTests_NoSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
+
+      assertEquals(1, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(1, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+   }
+
+   @Override
+   protected void assertUC_2_PluginsAndTests_WithSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.main.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+   }
+
+   @Override
+   protected void assertUC_3_EraseFacetClassifier_NoSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
+
+      assertEquals(1, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+
+      assertEquals(1, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+   }
+
+   @Override
+   protected void assertUC_3_EraseFacetClassifier_WithSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
+
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.main.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+   }
+
+   @Override
+   protected void assertUC_4_CustomAssemblies_PublicSdkTest_NoSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(3, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
+
+      assertEquals(1, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public, sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.sdk.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.sdk.site"), siteProject.getDirectory());
+      assertEquals(1, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public, sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(2);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(1, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_4_CustomAssemblies_PublicSdkTest_WithSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(3, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
+
+      assertEquals(1, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.sdk.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.sdk.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(2);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_NoSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.doc.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("doc", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(1, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_WithSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(4, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.doc.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("doc", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.doc.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("doc", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(2);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(3);
+      assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_6_InterFacetRequirements_NoSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.main.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.doc.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("doc", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(1, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+   }
+
+   @Override
+   protected void assertUC_6_InterFacetRequirements_WithSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.main.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(4, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.doc.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("doc", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.doc.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("doc", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(2);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(3);
+      assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_6_InterModuleFacetRequirements_NoSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("bar.main.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/bar.main.site"), siteProject.getDirectory());
+
+      assertEquals(1, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("bar.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/bar.test.site"), siteProject.getDirectory());
+      assertEquals(1, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_NoSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(3, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.public.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public, sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.sdk.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.sdk.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public, sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(2);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(3, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.public.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.sdk.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.sdk.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(4, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(2);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(3);
+      assertReference("bar.plugins.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(2);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(4, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(2);
+      assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(3);
+      assertReference("bar.tests.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(3, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.public.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public, sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.sdk.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.sdk.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public, sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(2);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
+   @Override
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource(BasicModule module)
+   {
+      EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, siteFacets.size());
+
+      SitesFacet sitesFacet = siteFacets.get(0);
+      assertEquals(3, sitesFacet.getProjects().size());
+
+      SiteProject siteProject;
+      siteProject = sitesFacet.getProjects().get(0);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category;
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      StrictReference reference;
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.public.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(2, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[public]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.sdk.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.sdk.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(3, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertTrue(B2MetadataUtils.getAssemblyNames(reference).isEmpty());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(2);
+      assertReference("bar.sdk.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[sdk]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertFalse(B2MetadataUtils.isTestFeature(reference));
+
+
+      siteProject = sitesFacet.getProjects().get(2);
+      assertTrue(siteProject.isDerived());
+      assertIdentifiable("foo.test.site", "1.0.0.qualifier", siteProject);
+      assertEquals(new File(".b2/sites/foo.test.site"), siteProject.getDirectory());
+      assertEquals(2, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals("assembly", category.getName());
+      assertEquals(1, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      category = siteProject.getCategories().get(1);
+      assertEquals("includes", category.getName());
+      assertEquals(3, category.getFeatureReferences().size());
+
+      reference = category.getFeatureReferences().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertFalse(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(1);
+      assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
+      assertEquals("foo", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+      reference = category.getFeatureReferences().get(2);
+      assertReference("bar.test.feature", "1.0.0.qualifier", reference);
+      assertEquals("bar", B2MetadataUtils.getModuleId(reference));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(reference).toString());
+      assertNull(B2MetadataUtils.getFacetName(reference));
+      assertTrue(B2MetadataUtils.isSourceFeature(reference));
+      assertTrue(B2MetadataUtils.isTestFeature(reference));
+
+   }
+
 }

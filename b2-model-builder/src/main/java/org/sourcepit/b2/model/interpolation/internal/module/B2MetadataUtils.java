@@ -39,9 +39,19 @@ public final class B2MetadataUtils
       setB2Metadata(annotatable, MODULE_ID, value);
    }
 
+   public static String getModuleId(Annotatable annotatable)
+   {
+      return annotatable.getAnnotationEntry(B2, MODULE_ID);
+   }
+
    public static void setModuleVersion(Annotatable annotatable, String value)
    {
       setB2Metadata(annotatable, MODULE_VERSION, value);
+   }
+   
+   public static String getModuleVersion(Annotatable annotatable)
+   {
+      return annotatable.getAnnotationEntry(B2, MODULE_VERSION);
    }
 
    public static Set<String> getAssemblyNames(Annotatable annotatable)
@@ -99,7 +109,7 @@ public final class B2MetadataUtils
    {
       setB2Metadata(annotatable, IS_TEST_PLUGIN, toString(value));
    }
-   
+
    public static boolean isTestPlugin(Annotatable annotatable)
    {
       return toBoolean(annotatable.getAnnotationEntry(B2, IS_TEST_PLUGIN));

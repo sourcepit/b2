@@ -6,32 +6,25 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.io.File;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.b2.model.builder.util.SitesConverter;
-import org.sourcepit.b2.model.module.AbstractFacet;
+import org.sourcepit.b2.model.common.Annotation;
+import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
+import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
-import org.sourcepit.b2.model.module.FeaturesFacet;
-import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
-import org.sourcepit.common.utils.collections.MultiValueHashMap;
-import org.sourcepit.common.utils.collections.MultiValueMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
@@ -39,10 +32,13 @@ public class SitesInterpolator
 {
    private final SitesConverter converter;
 
+   private final LayoutManager layoutManager;
+
    @Inject
-   public SitesInterpolator(SitesConverter converter)
+   public SitesInterpolator(SitesConverter converter, LayoutManager layoutManager)
    {
       this.converter = converter;
+      this.layoutManager = layoutManager;
    }
 
    public void interpolate(AbstractModule module, PropertiesSource moduleProperties)
@@ -53,114 +49,91 @@ public class SitesInterpolator
          final SitesFacet sitesFacet = ModuleModelFactory.eINSTANCE.createSitesFacet();
          sitesFacet.setDerived(true);
          sitesFacet.setName("sites");
-         module.getFacets().add(sitesFacet);
 
-         final Set<String> knownCategoryNames = getThisModulesCategoryNames(module);
-         final Map<String, FeatureProject> assemblyFeatures = getAssemblyFeatures(module);
          for (String assemblyName : assemblyNames)
          {
-            final SiteProject siteProject = ModuleModelFactory.eINSTANCE.createSiteProject();
-            siteProject.setDerived(true);
-
-            final String moduleId = module.getId();
-            final String classifier = converter.getAssemblyClassifier(moduleProperties, assemblyName);
-            siteProject.setId(converter.getSiteId(moduleProperties, moduleId, classifier));
-
-            // TODO setVersion in featuresinterpolator??
-            siteProject.setVersion(module.getVersion());
-
-            final FeatureProject assemblyFeature = assemblyFeatures.get(assemblyName);
-            if (assemblyFeature == null)
+            final FeatureProject assemblyFeature = DefaultIncludesAndRequirementsResolver
+               .findFeatureProjectForAssembly(module, assemblyName);
+            if (assemblyFeature != null)
             {
-               throw new IllegalStateException("Unable to find feature for assembly " + assemblyName);
+               interpolate(module, moduleProperties, sitesFacet, assemblyName, assemblyFeature);
             }
-            addCategories(siteProject, assemblyFeature, knownCategoryNames);
+         }
 
-            sitesFacet.getProjects().add(siteProject);
+         if (!sitesFacet.getProjects().isEmpty())
+         {
+            module.getFacets().add(sitesFacet);
          }
       }
    }
 
-   private void addCategories(SiteProject siteProject, FeatureProject assemblyFeature, Set<String> knownCategoryNames)
+   private void interpolate(AbstractModule module, PropertiesSource moduleProperties, SitesFacet sitesFacet,
+      String assemblyName, FeatureProject assemblyFeature)
    {
-      final MultiValueMap<String, StrictReference> facetNameToFeatureRefs = new MultiValueHashMap<String, StrictReference>();
+      final SiteProject siteProject = createSiteProject(module, moduleProperties, sitesFacet, assemblyName);
+      sitesFacet.getProjects().add(siteProject);
+
+      final Category assembly = ModuleModelFactory.eINSTANCE.createCategory();
+      assembly.setName("assembly");
+      assembly.getFeatureReferences().add(toStrictReference(assemblyFeature));
+      siteProject.getCategories().add(assembly);
+
+      final Category includes = ModuleModelFactory.eINSTANCE.createCategory();
+      includes.setName("includes");
 
       for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures())
       {
-         String facetName = B2MetadataUtils.getFacetName(featureInclude);
-         if (facetName == null || !knownCategoryNames.contains(facetName))
-         {
-            // TODO map unknown features to site categories
-            // TODO warn if realy unknown
-            facetName = "unknown";
-         }
-         facetNameToFeatureRefs.get(facetName, true).add(toStrictReference(featureInclude));
+         includes.getFeatureReferences().add(toStrictReference(featureInclude));
       }
 
-
-      Category category;
-
-      category = ModuleModelFactory.eINSTANCE.createCategory();
-      category.setName("assembly-feature");
-      category.getFeatureReferences().add(toStrictReference(assemblyFeature));
-      siteProject.getCategories().add(category);
-
-      for (Entry<String, Collection<StrictReference>> entry : facetNameToFeatureRefs.entrySet())
+      if (!includes.getFeatureReferences().isEmpty())
       {
-         category = ModuleModelFactory.eINSTANCE.createCategory();
-         category.setName(entry.getKey());
-         category.getFeatureReferences().addAll(entry.getValue());
-         siteProject.getCategories().add(category);
+         siteProject.getCategories().add(includes);
       }
    }
 
-   // TODO util class
-   private static StrictReference toStrictReference(final Identifiable identifiable)
+   private SiteProject createSiteProject(AbstractModule module, PropertiesSource moduleProperties,
+      SitesFacet sitesFacet, String assemblyName)
    {
-      final StrictReference inc = ModuleModelFactory.eINSTANCE.createStrictReference();
-      inc.setId(identifiable.getId());
-      inc.setVersion(identifiable.getVersion());
-      return inc;
+      final SiteProject siteProject = ModuleModelFactory.eINSTANCE.createSiteProject();
+      siteProject.setDerived(true);
+      siteProject.setId(converter.getSiteId(moduleProperties, module.getId(),
+         converter.getAssemblyClassifier(moduleProperties, assemblyName)));
+      siteProject.setVersion(module.getVersion());
+
+      final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
+      siteProject.setDirectory(new File(layout.pathOfFacetMetaData(module, sitesFacet.getName(), siteProject.getId())));
+
+      return siteProject;
    }
 
-   // TODO util class
-   private static StrictReference toStrictReference(final AbstractStrictReference reference)
+   private static StrictReference toStrictReference(FeatureProject featureProject)
    {
-      final StrictReference inc = ModuleModelFactory.eINSTANCE.createStrictReference();
-      inc.setId(reference.getId());
-      inc.setVersion(reference.getVersion());
-      return inc;
-   }
+      final StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
+      ref.setId(featureProject.getId());
+      ref.setVersion(featureProject.getVersion());
 
-   private Set<String> getThisModulesCategoryNames(AbstractModule module)
-   {
-      final Set<String> categoryNames = new LinkedHashSet<String>();
-      for (AbstractFacet abstractFacet : module.getFacets())
+      final Annotation b2Metadata = B2MetadataUtils.getB2Metadata(featureProject);
+      if (b2Metadata != null)
       {
-         if (!abstractFacet.isDerived())
-         {
-            categoryNames.add(abstractFacet.getName());
-         }
+         ref.getAnnotations().add(EcoreUtil.copy(b2Metadata));
       }
-      return categoryNames;
+
+      return ref;
    }
 
-   private static Map<String, FeatureProject> getAssemblyFeatures(AbstractModule module)
+   private static StrictReference toStrictReference(FeatureInclude featureInclude)
    {
-      final Map<String, FeatureProject> assemblyFeatures = new HashMap<String, FeatureProject>();
-      for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
+      final StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
+      ref.setId(featureInclude.getId());
+      ref.setVersion(featureInclude.getVersion());
+
+      final Annotation b2Metadata = B2MetadataUtils.getB2Metadata(featureInclude);
+      if (b2Metadata != null)
       {
-         for (FeatureProject featureProject : featuresFacet.getProjects())
-         {
-            for (String assemblyName : B2MetadataUtils.getAssemblyNames(featureProject))
-            {
-               if (assemblyFeatures.put(assemblyName, featureProject) != null)
-               {
-                  throw new IllegalStateException("Assembly with several assembly features detected: " + assemblyName);
-               }
-            }
-         }
+         ref.getAnnotations().add(EcoreUtil.copy(b2Metadata));
       }
-      return assemblyFeatures;
+
+      return ref;
    }
 }

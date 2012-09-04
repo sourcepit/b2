@@ -49,143 +49,6 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 @Named
 public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequirementsResolver
 {
-   private static class IncludesAndRequirementsHandler
-   {
-      private final FeatureProject featureProject;
-
-      public IncludesAndRequirementsHandler(FeatureProject featureProject)
-      {
-         this.featureProject = featureProject;
-      }
-
-      public void addFeatureIncludes(Collection<FeatureInclude> includes)
-      {
-         for (FeatureInclude include : includes)
-         {
-            addFeatureInclude(include);
-         }
-      }
-
-      public void addFeatureInclude(FeatureInclude include)
-      {
-         if (addUnique(featureProject.getIncludedFeatures(), include))
-         {
-            processB2Metadata(include);
-            removeAllWithId(featureProject.getRequiredFeatures(), include.getId());
-         }
-      }
-
-      public void addPluginIncludes(Collection<PluginInclude> includes)
-      {
-         for (PluginInclude include : includes)
-         {
-            addPluginInclude(include);
-         }
-      }
-
-      public void addPluginInclude(PluginInclude include)
-      {
-         if (addUnique(featureProject.getIncludedPlugins(), include))
-         {
-            processB2Metadata(include);
-            removeAllWithId(featureProject.getRequiredPlugins(), include.getId());
-         }
-      }
-
-      public void addFeatureRequirements(Collection<RuledReference> requirements)
-      {
-         for (RuledReference requirement : requirements)
-         {
-            addFeatureRequirement(requirement);
-         }
-      }
-
-      public void addFeatureRequirement(RuledReference requirement)
-      {
-         if (findRefById(featureProject.getIncludedFeatures(), requirement.getId()) == null)
-         {
-            if (addUnique(featureProject.getRequiredFeatures(), requirement))
-            {
-               processB2Metadata(requirement);
-            }
-         }
-      }
-
-      private void processB2Metadata(AbstractReference ref)
-      {
-         if (B2MetadataUtils.isTestFeature(ref))
-         {
-            B2MetadataUtils.setTestFeature(featureProject, true);
-         }
-         if (B2MetadataUtils.isTestPlugin(ref))
-         {
-            B2MetadataUtils.setTestFeature(featureProject, true);
-         }
-         if (B2MetadataUtils.isSourceFeature(ref))
-         {
-            B2MetadataUtils.setSourceFeature(featureProject, true);
-         }
-      }
-
-      public void addPluginRequirements(Collection<RuledReference> requirements)
-      {
-         for (RuledReference requirement : requirements)
-         {
-            addPluginRequirement(requirement);
-         }
-      }
-
-      public void addPluginRequirement(RuledReference requirement)
-      {
-         if (findRefById(featureProject.getIncludedPlugins(), requirement.getId()) == null)
-         {
-            if (addUnique(featureProject.getRequiredPlugins(), requirement))
-            {
-               processB2Metadata(requirement);
-            }
-         }
-      }
-
-      private static <R extends AbstractReference> boolean addUnique(Collection<R> refs, R ref)
-      {
-         if (findRefById(refs, ref.getId()) == null)
-         {
-            return refs.add(ref);
-         }
-         return false;
-      }
-
-      private static <R extends AbstractReference> void removeAllWithId(Collection<R> refs, String id)
-      {
-         final List<R> obsolete = new ArrayList<R>();
-
-         for (R ref : refs)
-         {
-            if (id.equals(ref.getId()))
-            {
-               obsolete.add(ref);
-            }
-         }
-
-         if (!obsolete.isEmpty())
-         {
-            refs.removeAll(obsolete);
-         }
-      }
-
-      private static <R extends AbstractReference> R findRefById(Collection<R> refs, String id)
-      {
-         for (R ref : refs)
-         {
-            if (id.equals(ref.getId()))
-            {
-               return ref;
-            }
-         }
-         return null;
-      }
-   }
-
    private final FeaturesConverter converter;
 
    private final UnpackStrategy unpackStrategy;
@@ -356,7 +219,8 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       return result;
    }
 
-   private static FeatureProject findFeatureProjectForAssembly(AbstractModule module, String assemblyName)
+   // TODO move to util and test it
+   public static FeatureProject findFeatureProjectForAssembly(AbstractModule module, String assemblyName)
    {
       for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
       {
@@ -636,6 +500,143 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
          }
       };
       return includesAppender;
+   }
+
+   private static class IncludesAndRequirementsHandler
+   {
+      private final FeatureProject featureProject;
+   
+      public IncludesAndRequirementsHandler(FeatureProject featureProject)
+      {
+         this.featureProject = featureProject;
+      }
+   
+      public void addFeatureIncludes(Collection<FeatureInclude> includes)
+      {
+         for (FeatureInclude include : includes)
+         {
+            addFeatureInclude(include);
+         }
+      }
+   
+      public void addFeatureInclude(FeatureInclude include)
+      {
+         if (addUnique(featureProject.getIncludedFeatures(), include))
+         {
+            processB2Metadata(include);
+            removeAllWithId(featureProject.getRequiredFeatures(), include.getId());
+         }
+      }
+   
+      public void addPluginIncludes(Collection<PluginInclude> includes)
+      {
+         for (PluginInclude include : includes)
+         {
+            addPluginInclude(include);
+         }
+      }
+   
+      public void addPluginInclude(PluginInclude include)
+      {
+         if (addUnique(featureProject.getIncludedPlugins(), include))
+         {
+            processB2Metadata(include);
+            removeAllWithId(featureProject.getRequiredPlugins(), include.getId());
+         }
+      }
+   
+      public void addFeatureRequirements(Collection<RuledReference> requirements)
+      {
+         for (RuledReference requirement : requirements)
+         {
+            addFeatureRequirement(requirement);
+         }
+      }
+   
+      public void addFeatureRequirement(RuledReference requirement)
+      {
+         if (findRefById(featureProject.getIncludedFeatures(), requirement.getId()) == null)
+         {
+            if (addUnique(featureProject.getRequiredFeatures(), requirement))
+            {
+               processB2Metadata(requirement);
+            }
+         }
+      }
+   
+      private void processB2Metadata(AbstractReference ref)
+      {
+         if (B2MetadataUtils.isTestFeature(ref))
+         {
+            B2MetadataUtils.setTestFeature(featureProject, true);
+         }
+         if (B2MetadataUtils.isTestPlugin(ref))
+         {
+            B2MetadataUtils.setTestFeature(featureProject, true);
+         }
+         if (B2MetadataUtils.isSourceFeature(ref))
+         {
+            B2MetadataUtils.setSourceFeature(featureProject, true);
+         }
+      }
+   
+      public void addPluginRequirements(Collection<RuledReference> requirements)
+      {
+         for (RuledReference requirement : requirements)
+         {
+            addPluginRequirement(requirement);
+         }
+      }
+   
+      public void addPluginRequirement(RuledReference requirement)
+      {
+         if (findRefById(featureProject.getIncludedPlugins(), requirement.getId()) == null)
+         {
+            if (addUnique(featureProject.getRequiredPlugins(), requirement))
+            {
+               processB2Metadata(requirement);
+            }
+         }
+      }
+   
+      private static <R extends AbstractReference> boolean addUnique(Collection<R> refs, R ref)
+      {
+         if (findRefById(refs, ref.getId()) == null)
+         {
+            return refs.add(ref);
+         }
+         return false;
+      }
+   
+      private static <R extends AbstractReference> void removeAllWithId(Collection<R> refs, String id)
+      {
+         final List<R> obsolete = new ArrayList<R>();
+   
+         for (R ref : refs)
+         {
+            if (id.equals(ref.getId()))
+            {
+               obsolete.add(ref);
+            }
+         }
+   
+         if (!obsolete.isEmpty())
+         {
+            refs.removeAll(obsolete);
+         }
+      }
+   
+      private static <R extends AbstractReference> R findRefById(Collection<R> refs, String id)
+      {
+         for (R ref : refs)
+         {
+            if (id.equals(ref.getId()))
+            {
+               return ref;
+            }
+         }
+         return null;
+      }
    }
 
    private static abstract class IncludesAppender extends EWalkerImpl
