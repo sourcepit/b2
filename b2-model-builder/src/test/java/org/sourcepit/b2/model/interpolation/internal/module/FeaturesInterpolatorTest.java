@@ -1785,10 +1785,9 @@ public class FeaturesInterpolatorTest extends GuplexTest
       UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
       FeaturesConverter converter = gLookup(FeaturesConverter.class);
 
-      IncludesAndRequirementsResolver resolver = new AbstractIncludesAndRequirementsResolver(converter, unpackStrategy)
+      ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {
-         @Override
-         protected void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
+         public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
             AbstractModule module, boolean isTest)
          {
             final Collection<AbstractModule> modules = resolutionContext.get();
@@ -1813,8 +1812,11 @@ public class FeaturesInterpolatorTest extends GuplexTest
          }
       };
 
+      DefaultIncludesAndRequirementsResolver includesAndRequirements = new DefaultIncludesAndRequirementsResolver(
+         converter, unpackStrategy, contextResolver);
+
       FeaturesInterpolator interpolator;
-      interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter, resolver);
+      interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter, includesAndRequirements);
 
       interpolator.interpolate(module, moduleProperties);
    }

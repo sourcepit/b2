@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -43,7 +46,8 @@ import org.sourcepit.common.utils.collections.MultiValueMap;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public abstract class AbstractIncludesAndRequirementsResolver implements IncludesAndRequirementsResolver
+@Named
+public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequirementsResolver
 {
    private static class IncludesAndRequirementsHandler
    {
@@ -186,10 +190,15 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
 
    private final UnpackStrategy unpackStrategy;
 
-   public AbstractIncludesAndRequirementsResolver(FeaturesConverter converter, UnpackStrategy unpackStrategy)
+   private final ResolutionContextResolver resolver;
+
+   @Inject
+   public DefaultIncludesAndRequirementsResolver(FeaturesConverter converter, UnpackStrategy unpackStrategy,
+      ResolutionContextResolver resolver)
    {
       this.converter = converter;
       this.unpackStrategy = unpackStrategy;
+      this.resolver = resolver;
    }
 
    public void appendIncludesAndRequirements(PropertiesSource moduleProperties, AbstractModule module,
@@ -281,7 +290,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
       }
    }
 
-   public static FeatureInclude toFeatureInclude(FeatureProject featureProject)
+   private static FeatureInclude toFeatureInclude(FeatureProject featureProject)
    {
       FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
       featureInclude.setId(featureProject.getId());
@@ -296,7 +305,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
       return featureInclude;
    }
 
-   public static PluginInclude toPluginInclude(PluginProject pluginProject)
+   private static PluginInclude toPluginInclude(PluginProject pluginProject)
    {
       PluginInclude featureInclude = ModuleModelFactory.eINSTANCE.createPluginInclude();
       featureInclude.setId(pluginProject.getId());
@@ -322,7 +331,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
       final MultiValueMap<AbstractModule, String> moduleToAssemblies = new LinkedMultiValuHashMap<AbstractModule, String>(
          LinkedHashSet.class);
 
-      determineForeignResolutionContext(moduleToAssemblies, module, isTest);
+      resolver.determineForeignResolutionContext(moduleToAssemblies, module, isTest);
 
       final Collection<FeatureProject> result = new LinkedHashSet<FeatureProject>();
       for (Entry<AbstractModule, Collection<String>> entry : moduleToAssemblies.entrySet())
@@ -362,9 +371,6 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
       }
       return null;
    }
-
-   protected abstract void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-      AbstractModule module, boolean isTest);
 
    public void appendIncludesAndRequirements(PropertiesSource moduleProperties, AbstractModule module,
       PluginsFacet pluginsFacet, FeatureProject facetFeatrue)
@@ -426,7 +432,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
 
       MultiValueMap<AbstractModule, String> moduleToAssemblies = new LinkedMultiValuHashMap<AbstractModule, String>(
          LinkedHashSet.class);
-      determineForeignResolutionContext(moduleToAssemblies, sourcePlugins.getParent(), isTest);
+      resolver.determineForeignResolutionContext(moduleToAssemblies, sourcePlugins.getParent(), isTest);
 
       final Collection<AbstractModule> collection = moduleToAssemblies.keySet();
       // TODO composit iterator
@@ -676,7 +682,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
                System.out.println();
             }
 
-            final FeatureInclude inc = AbstractIncludesAndRequirementsResolver.toFeatureInclude(fp);
+            final FeatureInclude inc = DefaultIncludesAndRequirementsResolver.toFeatureInclude(fp);
             targetProject.addFeatureInclude(inc);
          }
       }
@@ -686,7 +692,7 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
          final String pluginId = isSource ? getSourcePluginId(pp) : pp.getId();
          if (pluginMatcher.isMatch(pluginId))
          {
-            final PluginInclude inc = AbstractIncludesAndRequirementsResolver.toPluginInclude(pp);
+            final PluginInclude inc = DefaultIncludesAndRequirementsResolver.toPluginInclude(pp);
             inc.setId(pluginId);
             if (isSource)
             {

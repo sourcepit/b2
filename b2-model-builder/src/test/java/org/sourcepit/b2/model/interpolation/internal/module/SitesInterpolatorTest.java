@@ -78,18 +78,20 @@ public class SitesInterpolatorTest extends GuplexTest
       UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
       FeaturesConverter converter = gLookup(FeaturesConverter.class);
 
-      FeaturesInterpolator interpolator;
-      interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter,
-         new AbstractIncludesAndRequirementsResolver(converter, unpackStrategy)
+      ResolutionContextResolver contextResolver = new ResolutionContextResolver()
+      {
+         public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
+            AbstractModule module, boolean isTest)
          {
-            @Override
-            protected void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-               AbstractModule module, boolean isTest)
-            {
-               // TODO Auto-generated method stub
 
-            }
-         });
+         }
+      };
+
+      DefaultIncludesAndRequirementsResolver includesAndRequirements = new DefaultIncludesAndRequirementsResolver(
+         converter, unpackStrategy, contextResolver);
+
+      FeaturesInterpolator interpolator;
+      interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter, includesAndRequirements);
 
       interpolator.interpolate(module, moduleProperties);
 

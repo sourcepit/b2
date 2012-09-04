@@ -64,12 +64,12 @@ public class FeaturesInterpolator
 
          for (PluginsFacet pluginsFacet : pluginsFacets)
          {
-            final FeatureProject mainFeature = AbstractIncludesAndRequirementsResolver
+            final FeatureProject mainFeature = DefaultIncludesAndRequirementsResolver
                .findFeatureProjectForPluginsFacet(pluginsFacet, false);
             includesAndRequirements.appendIncludesAndRequirements(moduleProperties, pluginsFacet.getParent(),
                pluginsFacet, mainFeature);
 
-            final FeatureProject sourceFeature = AbstractIncludesAndRequirementsResolver
+            final FeatureProject sourceFeature = DefaultIncludesAndRequirementsResolver
                .findFeatureProjectForPluginsFacet(pluginsFacet, true);
             if (sourceFeature != null)
             {
