@@ -268,6 +268,12 @@ public abstract class AbstractIncludesAndRequirementsResolver implements Include
          featureInclude.getAnnotations().add(EcoreUtil.copy(b2Metadata));
       }
 
+      PluginsFacet facet = pluginProject.getParent();
+      AbstractModule module = facet.getParent();
+      B2MetadataUtils.setModuleId(pluginProject, module.getId());
+      B2MetadataUtils.setModuleVersion(pluginProject, module.getVersion());
+      B2MetadataUtils.setFacetName(pluginProject, facet.getName());
+
       return featureInclude;
    }
 

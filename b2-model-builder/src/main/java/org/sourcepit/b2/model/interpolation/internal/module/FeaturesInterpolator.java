@@ -58,7 +58,6 @@ public class FeaturesInterpolator
       this.resolutionContextResolver = resolutionContextResolver;
    }
 
-
    public void interpolate(AbstractModule module, PropertiesSource moduleProperties)
    {
       final FeaturesFacet featuresFacet = createFeaturesFacet("features");
@@ -119,6 +118,8 @@ public class FeaturesInterpolator
             featureProject.setVersion(module.getVersion());
             featureProject.setDirectory(new File(path));
 
+            B2MetadataUtils.setModuleId(featureProject, module.getId());
+            B2MetadataUtils.setModuleVersion(featureProject, module.getVersion());
             B2MetadataUtils.addAssemblyName(featureProject, assemblyName);
 
             final EWalkerImpl eWalker;
@@ -193,6 +194,8 @@ public class FeaturesInterpolator
       featureProject.setVersion(module.getVersion());
 
       final String facetName = pluginsFacet.getName();
+      B2MetadataUtils.setModuleId(featureProject, module.getId());
+      B2MetadataUtils.setModuleVersion(featureProject, module.getVersion());
       B2MetadataUtils.setFacetName(featureProject, facetName);
       B2MetadataUtils.setSourceFeature(featureProject, isSource);
 
