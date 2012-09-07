@@ -16,7 +16,6 @@ import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
-import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -236,8 +235,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseProject(featureProject);
             if (result == null)
-               result = caseClassified(featureProject);
-            if (result == null)
                result = caseFileContainer(featureProject);
             if (result == null)
                result = caseDerivable(featureProject);
@@ -255,8 +252,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
             T result = caseSiteProject(siteProject);
             if (result == null)
                result = caseProject(siteProject);
-            if (result == null)
-               result = caseClassified(siteProject);
             if (result == null)
                result = caseFileContainer(siteProject);
             if (result == null)
@@ -333,14 +328,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
          {
             Category category = (Category) theEObject;
             T result = caseCategory(category);
-            if (result == null)
-               result = defaultCase(theEObject);
-            return result;
-         }
-         case ModuleModelPackage.CLASSIFIED :
-         {
-            Classified classified = (Classified) theEObject;
-            T result = caseClassified(classified);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -714,23 +701,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @generated
     */
    public T caseCategory(Category object)
-   {
-      return null;
-   }
-
-   /**
-    * Returns the result of interpreting the object as an instance of '<em>Classified</em>'.
-    * <!-- begin-user-doc -->
-    * This implementation returns null;
-    * returning a non-null result will terminate the switch.
-    * <!-- end-user-doc -->
-    * 
-    * @param object the target of the switch.
-    * @return the result of interpreting the object as an instance of '<em>Classified</em>'.
-    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-    * @generated
-    */
-   public T caseClassified(Classified object)
    {
       return null;
    }

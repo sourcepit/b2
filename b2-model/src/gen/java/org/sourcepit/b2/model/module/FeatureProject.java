@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface FeatureProject extends Project, Classified
+public interface FeatureProject extends Project
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.

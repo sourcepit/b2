@@ -135,7 +135,7 @@
           eType="ecore:EClass ../../../../common-manifest/src/main/emf/manifest.ecore#//osgi/BundleManifest"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FeatureProject" eSuperTypes="#//module/Project #//module/Classified">
+    <eClassifiers xsi:type="ecore:EClass" name="FeatureProject" eSuperTypes="#//module/Project">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/FeaturesFacet"
           eOpposite="#//module/FeaturesFacet/projects"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="includedPlugins" upperBound="-1"
@@ -147,7 +147,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="requiredPlugins" upperBound="-1"
           eType="#//module/RuledReference" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="SiteProject" eSuperTypes="#//module/Project #//module/Classified">
+    <eClassifiers xsi:type="ecore:EClass" name="SiteProject" eSuperTypes="#//module/Project">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/SitesFacet"
           eOpposite="#//module/SitesFacet/projects"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
@@ -195,9 +195,6 @@
           eType="#//module/StrictReference" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Classified" abstract="true" interface="true">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="classifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true" interface="true">
       <eOperations name="isIdentifyableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">

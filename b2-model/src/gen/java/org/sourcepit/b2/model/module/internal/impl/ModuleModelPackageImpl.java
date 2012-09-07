@@ -24,7 +24,6 @@ import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
-import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -188,14 +187,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * @generated
     */
    private EClass categoryEClass = null;
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   private EClass classifiedEClass = null;
 
    /**
     * <!-- begin-user-doc -->
@@ -838,28 +829,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getClassified()
-   {
-      return classifiedEClass;
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EAttribute getClassified_Classifier()
-   {
-      return (EAttribute) classifiedEClass.getEStructuralFeatures().get(0);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
    public EClass getIdentifiable()
    {
       return identifiableEClass;
@@ -1167,9 +1136,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEReference(categoryEClass, CATEGORY__FEATURE_REFERENCES);
       createEAttribute(categoryEClass, CATEGORY__NAME);
 
-      classifiedEClass = createEClass(CLASSIFIED);
-      createEAttribute(classifiedEClass, CLASSIFIED__CLASSIFIER);
-
       identifiableEClass = createEClass(IDENTIFIABLE);
       createEAttribute(identifiableEClass, IDENTIFIABLE__ID);
       createEAttribute(identifiableEClass, IDENTIFIABLE__VERSION);
@@ -1265,9 +1231,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       sitesFacetEClass.getEGenericSuperTypes().add(g1);
       pluginProjectEClass.getESuperTypes().add(this.getProject());
       featureProjectEClass.getESuperTypes().add(this.getProject());
-      featureProjectEClass.getESuperTypes().add(this.getClassified());
       siteProjectEClass.getESuperTypes().add(this.getProject());
-      siteProjectEClass.getESuperTypes().add(this.getClassified());
       projectEClass.getESuperTypes().add(this.getFileContainer());
       projectEClass.getESuperTypes().add(this.getDerivable());
       projectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
@@ -1476,11 +1440,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 1, 1, Category.class, !IS_TRANSIENT,
          !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-      initEClass(classifiedEClass, Classified.class, "Classified", IS_ABSTRACT, IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getClassified_Classifier(), ecorePackage.getEString(), "classifier", null, 0, 1, Classified.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);

@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
@@ -32,7 +31,6 @@ import org.sourcepit.b2.model.module.RuledReference;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getClassifier <em>Classifier</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedPlugins <em>Included Plugins
  * </em>}</li>
@@ -49,28 +47,6 @@ import org.sourcepit.b2.model.module.RuledReference;
  */
 public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
 {
-   /**
-    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @see #getClassifier()
-    * @generated
-    * @ordered
-    */
-   protected static final String CLASSIFIER_EDEFAULT = null;
-
-   /**
-    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @see #getClassifier()
-    * @generated
-    * @ordered
-    */
-   protected String classifier = CLASSIFIER_EDEFAULT;
-
    /**
     * The cached value of the '{@link #getIncludedPlugins() <em>Included Plugins</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -136,32 +112,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    protected EClass eStaticClass()
    {
       return ModuleModelPackage.Literals.FEATURE_PROJECT;
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public String getClassifier()
-   {
-      return classifier;
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public void setClassifier(String newClassifier)
-   {
-      String oldClassifier = classifier;
-      classifier = newClassifier;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER,
-            oldClassifier, classifier));
    }
 
    /**
@@ -367,8 +317,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-            return getClassifier();
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
             if (resolve)
                return getParent();
@@ -397,9 +345,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-            setClassifier((String) newValue);
-            return;
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
             setParent((FeaturesFacet) newValue);
             return;
@@ -434,9 +379,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-            setClassifier(CLASSIFIER_EDEFAULT);
-            return;
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
             setParent((FeaturesFacet) null);
             return;
@@ -467,8 +409,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-            return CLASSIFIER_EDEFAULT == null ? classifier != null : !CLASSIFIER_EDEFAULT.equals(classifier);
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
             return basicGetParent() != null;
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
@@ -481,69 +421,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return requiredPlugins != null && !requiredPlugins.isEmpty();
       }
       return super.eIsSet(featureID);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Classified.class)
-      {
-         switch (derivedFeatureID)
-         {
-            case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-               return ModuleModelPackage.CLASSIFIED__CLASSIFIER;
-            default :
-               return -1;
-         }
-      }
-      return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Classified.class)
-      {
-         switch (baseFeatureID)
-         {
-            case ModuleModelPackage.CLASSIFIED__CLASSIFIER :
-               return ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER;
-            default :
-               return -1;
-         }
-      }
-      return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public String toString()
-   {
-      if (eIsProxy())
-         return super.toString();
-
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (classifier: ");
-      result.append(classifier);
-      result.append(')');
-      return result.toString();
    }
 
 } // FeatureProjectImpl

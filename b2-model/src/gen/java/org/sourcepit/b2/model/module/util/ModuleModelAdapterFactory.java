@@ -17,7 +17,6 @@ import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
-import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -200,12 +199,6 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseCategory(Category object)
       {
          return createCategoryAdapter();
-      }
-
-      @Override
-      public Adapter caseClassified(Classified object)
-      {
-         return createClassifiedAdapter();
       }
 
       @Override
@@ -550,23 +543,6 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createCategoryAdapter()
-   {
-      return null;
-   }
-
-   /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}
-    * '.
-    * <!-- begin-user-doc -->
-    * This default implementation returns null so that we can easily ignore cases;
-    * it's useful to ignore a case when inheritance will catch all the cases anyway.
-    * <!-- end-user-doc -->
-    * 
-    * @return the new adapter.
-    * @see org.sourcepit.b2.model.module.Classified
-    * @generated
-    */
-   public Adapter createClassifiedAdapter()
    {
       return null;
    }
