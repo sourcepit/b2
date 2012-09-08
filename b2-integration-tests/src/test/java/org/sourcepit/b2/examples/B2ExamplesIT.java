@@ -7,6 +7,7 @@
 package org.sourcepit.b2.examples;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -27,6 +28,17 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
    public void testSimple_Module() throws Exception
    {
       execute();
+
+      final File projectDir = getExampleProjectDir();
+
+      final File b2Dir = new File(projectDir, ".b2");
+      assertTrue(b2Dir.exists());
+      
+      final File featuresDir = new File(b2Dir, "features");
+      assertTrue(featuresDir.exists());
+      
+      final File sitesDir = new File(b2Dir, "sites");
+      assertTrue(sitesDir.exists());
    }
 
    @Test

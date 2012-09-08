@@ -23,6 +23,7 @@ import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.BasicModule;
+import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.Identifiable;
@@ -465,10 +466,14 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**"); // should be
-                                                                                                       // default?
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -484,9 +489,14 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
+
       moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
       moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
       moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
 
       moduleProperties.put("b2.aggregator.mode", "unwrap");
       // moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**");
@@ -513,11 +523,15 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
-      moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**"); // should be
-                                                                                                       // default?
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies", "public, sdk, test");
+
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -533,9 +547,14 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
+
       moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
       moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
       moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
 
       moduleProperties.put("b2.aggregator.mode", "unwrap");
       // moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**");
@@ -562,11 +581,15 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
-      moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**"); // should be
-                                                                                                       // default?
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies", "public, sdk, test");
+
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -587,9 +610,9 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
 
       moduleProperties.put("b2.aggregator.mode", "aggregate");
-      // moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**");
-      // moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**,**.tests.**");
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -611,11 +634,15 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
-      moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**"); // should be
-                                                                                                       // default?
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies", "public, sdk, test");
+
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -631,14 +658,16 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
+
       moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
       moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
       moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.aggregator.mode", "aggregate");
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
       moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**,**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+
+      moduleProperties.put("b2.aggregator.mode", "aggregate");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -648,7 +677,191 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
 
    protected abstract void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource(BasicModule module);
 
-   protected void interpolate(BasicModule module, PropertiesMap moduleProperties)
+   @Test
+   public void testUC_8_AggregateContentOfCompositeModule_NoSource()
+   {
+      BasicModule coreModule = createBasicModule("core");
+      addPluginProject(coreModule, "plugins", "foo.core", coreModule.getVersion());
+      addPluginProject(coreModule, "tests", "foo.core.tests", coreModule.getVersion());
+
+      BasicModule uiModule = createBasicModule("ui");
+      addPluginProject(uiModule, "plugins", "foo.ui", coreModule.getVersion());
+      addPluginProject(uiModule, "tests", "foo.ui.tests", coreModule.getVersion());
+
+      CompositeModule module = createCompositeModule("foo");
+      module.getModules().add(coreModule);
+      module.getModules().add(uiModule);
+
+      module.setDirectory(new File(""));
+      coreModule.setDirectory(new File(module.getDirectory(), "core"));
+      uiModule.setDirectory(new File(module.getDirectory(), "ui"));
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("build.sources", "false"); // true is default
+      moduleProperties.put("b2.assemblies", "main, test");
+
+      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+
+      // moduleProperties.put("b2.aggregator.mode", "unwrap");
+
+      // interpolate
+      interpolate(coreModule, moduleProperties);
+      interpolate(uiModule, moduleProperties);
+
+      interpolate(module, moduleProperties);
+
+      assertUC_8_AggregateContentOfCompositeModule_NoSource(module);
+   }
+
+   protected abstract void assertUC_8_AggregateContentOfCompositeModule_NoSource(CompositeModule module);
+
+   @Test
+   public void testUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource()
+   {
+      BasicModule coreModule = createBasicModule("core");
+      addPluginProject(coreModule, "plugins", "foo.core", coreModule.getVersion());
+      addPluginProject(coreModule, "tests", "foo.core.tests", coreModule.getVersion());
+
+      BasicModule uiModule = createBasicModule("ui");
+      addPluginProject(uiModule, "plugins", "foo.ui", coreModule.getVersion());
+      addPluginProject(uiModule, "tests", "foo.ui.tests", coreModule.getVersion());
+
+      CompositeModule module = createCompositeModule("foo");
+      module.getModules().add(coreModule);
+      module.getModules().add(uiModule);
+
+      module.setDirectory(new File(""));
+      coreModule.setDirectory(new File(module.getDirectory(), "core"));
+      uiModule.setDirectory(new File(module.getDirectory(), "ui"));
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("build.sources", "false"); // true is default
+      moduleProperties.put("b2.assemblies", "main, test");
+
+      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+
+      moduleProperties.put("b2.aggregator.mode", "aggregate");
+
+      // interpolate
+      interpolate(coreModule, moduleProperties);
+      interpolate(uiModule, moduleProperties);
+
+      interpolate(module, moduleProperties);
+
+      assertUC_8_AggregateContentOfCompositeModule_NoSource(module);
+   }
+
+   protected abstract void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module);
+
+   @Test
+   public void testUC_8_AggregateContentOfCompositeModule_WithSource()
+   {
+      BasicModule coreModule = createBasicModule("core");
+      addPluginProject(coreModule, "plugins", "foo.core", coreModule.getVersion());
+      addPluginProject(coreModule, "tests", "foo.core.tests", coreModule.getVersion());
+
+      BasicModule uiModule = createBasicModule("ui");
+      addPluginProject(uiModule, "plugins", "foo.ui", coreModule.getVersion());
+      addPluginProject(uiModule, "tests", "foo.ui.tests", coreModule.getVersion());
+
+      CompositeModule module = createCompositeModule("foo");
+      module.getModules().add(coreModule);
+      module.getModules().add(uiModule);
+
+      module.setDirectory(new File(""));
+      coreModule.setDirectory(new File(module.getDirectory(), "core"));
+      uiModule.setDirectory(new File(module.getDirectory(), "ui"));
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      // moduleProperties.put("build.sources", "false"); // true is default
+      moduleProperties.put("b2.assemblies", "main, test");
+
+      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+
+      // moduleProperties.put("b2.aggregator.mode", "unwrap");
+
+      // interpolate
+      interpolate(coreModule, moduleProperties);
+      interpolate(uiModule, moduleProperties);
+
+      interpolate(module, moduleProperties);
+
+      assertUC_8_AggregateContentOfCompositeModule_WithSource(module);
+   }
+
+   protected abstract void assertUC_8_AggregateContentOfCompositeModule_WithSource(CompositeModule module);
+
+   @Test
+   public void testUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource()
+   {
+      BasicModule coreModule = createBasicModule("core");
+      addPluginProject(coreModule, "plugins", "foo.core", coreModule.getVersion());
+      addPluginProject(coreModule, "tests", "foo.core.tests", coreModule.getVersion());
+
+      BasicModule uiModule = createBasicModule("ui");
+      addPluginProject(uiModule, "plugins", "foo.ui", coreModule.getVersion());
+      addPluginProject(uiModule, "tests", "foo.ui.tests", coreModule.getVersion());
+
+      CompositeModule module = createCompositeModule("foo");
+      module.getModules().add(coreModule);
+      module.getModules().add(uiModule);
+
+      module.setDirectory(new File(""));
+      coreModule.setDirectory(new File(module.getDirectory(), "core"));
+      uiModule.setDirectory(new File(module.getDirectory(), "ui"));
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      // moduleProperties.put("build.sources", "false"); // true is default
+      moduleProperties.put("b2.assemblies", "main, test");
+
+      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+
+      moduleProperties.put("b2.aggregator.mode", "aggregate");
+
+      // interpolate
+      interpolate(coreModule, moduleProperties);
+      interpolate(uiModule, moduleProperties);
+
+      interpolate(module, moduleProperties);
+
+      assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource(module);
+   }
+
+   protected abstract void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource(CompositeModule module);
+
+   protected void interpolate(AbstractModule module, PropertiesMap moduleProperties)
    {
       ISourceService sourceService = gLookup(ISourceService.class);
       LayoutManager layoutManager = gLookup(LayoutManager.class);
@@ -658,7 +871,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {
          public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-            AbstractModule module, boolean isTest)
+            AbstractModule module)
          {
             final Collection<AbstractModule> modules = resolutionContext.get();
             for (AbstractModule abstractModule : modules)
@@ -668,10 +881,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
                {
                   for (FeatureProject featureProject : featuresFacet.getProjects())
                   {
-                     if (isTest || (!isTest && !B2MetadataUtils.isTestFeature(featureProject)))
-                     {
-                        assemblyNames.addAll(B2MetadataUtils.getAssemblyNames(featureProject));
-                     }
+                     assemblyNames.addAll(B2MetadataUtils.getAssemblyNames(featureProject));
                   }
                }
                if (!assemblyNames.isEmpty())
@@ -706,7 +916,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       return plugin;
    }
 
-   public static FeatureProject getFeatureProject(BasicModule module, String id, String version)
+   public static FeatureProject getFeatureProject(AbstractModule module, String id, String version)
    {
       StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
       ref.setId(id);
@@ -714,9 +924,19 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       return module.resolveReference(ref, FeaturesFacet.class);
    }
 
-   public static FeatureProject getFeatureProject(BasicModule module, String id)
+   public static FeatureProject getFeatureProject(AbstractModule module, String id)
    {
       return getFeatureProject(module, id, null);
+   }
+
+   public static CompositeModule createCompositeModule(String id)
+   {
+      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
+      final CompositeModule module = eFactory.createCompositeModule();
+      module.setId(id);
+      module.setVersion("1.0.0.qualifier");
+      module.setLayoutId("composite");
+      return module;
    }
 
    public static BasicModule createBasicModule(String id)

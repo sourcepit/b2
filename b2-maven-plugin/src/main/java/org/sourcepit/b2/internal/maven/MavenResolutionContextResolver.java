@@ -21,7 +21,7 @@ public class MavenResolutionContextResolver implements ResolutionContextResolver
    private LegacySupport buildContext;
 
    public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-      AbstractModule module, boolean isTest)
+      AbstractModule module)
    {
 
    }

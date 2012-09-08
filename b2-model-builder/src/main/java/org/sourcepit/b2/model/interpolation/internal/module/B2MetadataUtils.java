@@ -48,7 +48,7 @@ public final class B2MetadataUtils
    {
       setB2Metadata(annotatable, MODULE_VERSION, value);
    }
-   
+
    public static String getModuleVersion(Annotatable annotatable)
    {
       return annotatable.getAnnotationEntry(B2, MODULE_VERSION);
@@ -71,6 +71,25 @@ public final class B2MetadataUtils
       final Set<String> assemblyNames = getAssemblyNames(annotatable);
       assemblyNames.add(assemblyName);
       setAssemblyNames(annotatable, assemblyNames);
+   }
+
+   public static Set<String> getReplacedFeatureIds(Annotatable annotatable)
+   {
+      final Set<String> names = new LinkedHashSet<String>();
+      split(names, annotatable.getAnnotationEntry(B2, "replacedFeatureIds"));
+      return names;
+   }
+   
+   public static void setReplacedFeatureIds(Annotatable annotatable, Set<String> featureIds)
+   {
+      setB2Metadata(annotatable, "replacedFeatureIds", toString(featureIds));
+   }
+
+   public static void addReplacedFeatureId(Annotatable annotatable, String featureId)
+   {
+      final Set<String> featureIds = getReplacedFeatureIds(annotatable);
+      featureIds.add(featureId);
+      setReplacedFeatureIds(annotatable, featureIds);
    }
 
    public static String getFacetName(Annotatable annotatable)

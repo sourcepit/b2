@@ -22,9 +22,11 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.b2.model.builder.util.BasicConverter.AggregatorMode;
 import org.sourcepit.b2.model.builder.util.FeaturesConverter;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
+import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
+import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
@@ -93,64 +95,92 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       handler.addPluginRequirements(requiredPlugins);
    }
 
+   private static boolean isAssemblyFeatureIdMatch(PathMatcher matcher, Annotatable featureProjectOrInclude)
+   {
+      for (String featureIds : B2MetadataUtils.getReplacedFeatureIds(featureProjectOrInclude))
+      {
+         if (matcher.isMatch(featureIds))
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
    private void aggregateForeignFeatures(IncludesAndRequirementsHandler handler, PropertiesSource moduleProperties,
       AbstractModule module, FeatureProject assemblyFeature, String assemblyName)
    {
-      final AggregatorMode mode = converter.getAggregatorMode(moduleProperties, assemblyName);
-      if (mode != AggregatorMode.OFF)
+      final AggregatorMode mode = getAggregatorMode(moduleProperties, module, assemblyName);
+      if (mode == AggregatorMode.OFF)
       {
-         final boolean isTest = B2MetadataUtils.isTestFeature(assemblyFeature);
-         final Iterable<FeatureProject> resolutionContext = resolveIncludeResolutionContext(module, isTest);
-         if (mode == AggregatorMode.AGGREGATE)
+         return;
+      }
+
+      final boolean includeForeignModules = isIncludeForeignModules(moduleProperties, module, assemblyName);
+      final Iterable<FeatureProject> resolutionContext = resolveIncludeResolutionContext(module, includeForeignModules);
+
+      final PathMatcher matcher = converter.getAggregatorFeatureMatcherForAssembly(moduleProperties, assemblyName);
+
+      if (mode == AggregatorMode.AGGREGATE)
+      {
+         for (FeatureProject featureProject : resolutionContext)
          {
-            final PathMatcher matcher = converter
-               .getAggregatorFeatureMatcherForAssembly(moduleProperties, assemblyName);
-            for (FeatureProject featureProject : resolutionContext)
+            if (isAssemblyFeatureIdMatch(matcher, featureProject))
             {
-               if (matcher.isMatch(featureProject.getId()))
-               {
-                  handler.addFeatureInclude(toFeatureInclude(featureProject));
-               }
+               handler.addFeatureInclude(toFeatureInclude(featureProject));
             }
          }
-         else if (mode == AggregatorMode.UNWRAP)
+      }
+      else if (mode == AggregatorMode.UNWRAP)
+      {
+         for (FeatureProject featureProject : resolutionContext)
          {
-            final PathMatcher featureMatcher = converter.getFeatureMatcherForAssembly(moduleProperties, assemblyName);
-            final PathMatcher pluginMatcher = converter.getPluginMatcherForAssembly(moduleProperties, assemblyName);
-            for (FeatureProject featureProject : resolutionContext)
+            if (isAssemblyFeatureIdMatch(matcher, featureProject))
             {
                final boolean isFacetFeature = B2MetadataUtils.getFacetName(featureProject) != null;
                if (isFacetFeature)
                {
-                  if (featureMatcher.isMatch(featureProject.getId()))
-                  {
-                     handler.addFeatureInclude(toFeatureInclude(featureProject));
-                  }
+
+                  handler.addFeatureInclude(toFeatureInclude(featureProject));
                }
                else
                {
-
                   for (FeatureInclude featureInclude : featureProject.getIncludedFeatures())
                   {
-                     if (featureMatcher.isMatch(featureInclude.getId()))
-                     {
-                        handler.addFeatureInclude(EcoreUtil.copy(featureInclude));
-                     }
+                     handler.addFeatureInclude(EcoreUtil.copy(featureInclude));
                   }
 
                   for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
                   {
-                     if (pluginMatcher.isMatch(pluginInclude.getId()))
-                     {
-                        handler.addPluginInclude(pluginInclude);
-                     }
+                     handler.addPluginInclude(EcoreUtil.copy(pluginInclude));
                   }
                }
-
-               // TODO requirements?
             }
+
+            // TODO requirements?
          }
       }
+   }
+
+   private AggregatorMode getAggregatorMode(PropertiesSource moduleProperties, AbstractModule module,
+      String assemblyName)
+   {
+      AggregatorMode mode = converter.getAggregatorMode(moduleProperties, assemblyName);
+      if (mode == AggregatorMode.OFF && module instanceof CompositeModule)
+      {
+         mode = AggregatorMode.UNWRAP;
+      }
+      return mode;
+   }
+
+   private boolean isIncludeForeignModules(PropertiesSource moduleProperties, AbstractModule module, String assemblyName)
+   {
+      final AggregatorMode mode = converter.getAggregatorMode(moduleProperties, assemblyName);
+      if (mode == AggregatorMode.OFF && module instanceof CompositeModule)
+      {
+         return false;
+      }
+      return true;
    }
 
    private static FeatureInclude toFeatureInclude(FeatureProject featureProject)
@@ -189,12 +219,20 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       return featureInclude;
    }
 
-   private Iterable<FeatureProject> resolveIncludeResolutionContext(AbstractModule module, boolean isTest)
+   private Iterable<FeatureProject> resolveIncludeResolutionContext(AbstractModule module, boolean includeForeignModules)
    {
       final MultiValueMap<AbstractModule, String> moduleToAssemblies = new LinkedMultiValuHashMap<AbstractModule, String>(
          LinkedHashSet.class);
 
-      resolver.determineForeignResolutionContext(moduleToAssemblies, module, isTest);
+      if (module instanceof CompositeModule)
+      {
+         determineCompositeResolutionContext((CompositeModule) module, moduleToAssemblies);
+      }
+
+      if (includeForeignModules)
+      {
+         resolver.determineForeignResolutionContext(moduleToAssemblies, module);
+      }
 
       final Collection<FeatureProject> result = new LinkedHashSet<FeatureProject>();
       for (Entry<AbstractModule, Collection<String>> entry : moduleToAssemblies.entrySet())
@@ -217,6 +255,26 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
          }
       }
       return result;
+   }
+
+   private void determineCompositeResolutionContext(CompositeModule module,
+      MultiValueMap<AbstractModule, String> moduleToAssemblies)
+   {
+      for (AbstractModule abstractModule : module.getModules())
+      {
+         LinkedHashSet<String> assemblyNames = new LinkedHashSet<String>();
+         for (FeaturesFacet featuresFacet : abstractModule.getFacets(FeaturesFacet.class))
+         {
+            for (FeatureProject featureProject : featuresFacet.getProjects())
+            {
+               assemblyNames.addAll(B2MetadataUtils.getAssemblyNames(featureProject));
+            }
+         }
+         if (!assemblyNames.isEmpty())
+         {
+            moduleToAssemblies.get(abstractModule, true).addAll(assemblyNames);
+         }
+      }
    }
 
    // TODO move to util and test it
@@ -289,14 +347,13 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
 
    private Iterable<PluginsFacet> resolveRequirementResolutionContext(AbstractModule module, PluginsFacet sourcePlugins)
    {
-      final boolean isTest = isTest(sourcePlugins);
-
       Collection<PluginsFacet> result = new LinkedHashSet<PluginsFacet>();
       result.addAll(sourcePlugins.getParent().getFacets(PluginsFacet.class));
 
       MultiValueMap<AbstractModule, String> moduleToAssemblies = new LinkedMultiValuHashMap<AbstractModule, String>(
          LinkedHashSet.class);
-      resolver.determineForeignResolutionContext(moduleToAssemblies, sourcePlugins.getParent(), isTest);
+      
+      resolver.determineForeignResolutionContext(moduleToAssemblies, sourcePlugins.getParent());
 
       final Collection<AbstractModule> collection = moduleToAssemblies.keySet();
       // TODO composit iterator
@@ -311,18 +368,6 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       }
 
       return new FilteredIterable<PluginsFacet>(result, sourcePlugins);
-   }
-
-   private boolean isTest(PluginsFacet sourcePlugins)
-   {
-      for (PluginProject pluginProject : sourcePlugins.getProjects())
-      {
-         if (pluginProject.isTestPlugin())
-         {
-            return true;
-         }
-      }
-      return false;
    }
 
    private static List<PluginsFacet> determineRequiredPluginFacets(PluginsFacet sourcePlugins,
@@ -505,12 +550,12 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
    private static class IncludesAndRequirementsHandler
    {
       private final FeatureProject featureProject;
-   
+
       public IncludesAndRequirementsHandler(FeatureProject featureProject)
       {
          this.featureProject = featureProject;
       }
-   
+
       public void addFeatureIncludes(Collection<FeatureInclude> includes)
       {
          for (FeatureInclude include : includes)
@@ -518,7 +563,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             addFeatureInclude(include);
          }
       }
-   
+
       public void addFeatureInclude(FeatureInclude include)
       {
          if (addUnique(featureProject.getIncludedFeatures(), include))
@@ -527,7 +572,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             removeAllWithId(featureProject.getRequiredFeatures(), include.getId());
          }
       }
-   
+
       public void addPluginIncludes(Collection<PluginInclude> includes)
       {
          for (PluginInclude include : includes)
@@ -535,7 +580,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             addPluginInclude(include);
          }
       }
-   
+
       public void addPluginInclude(PluginInclude include)
       {
          if (addUnique(featureProject.getIncludedPlugins(), include))
@@ -544,7 +589,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             removeAllWithId(featureProject.getRequiredPlugins(), include.getId());
          }
       }
-   
+
       public void addFeatureRequirements(Collection<RuledReference> requirements)
       {
          for (RuledReference requirement : requirements)
@@ -552,7 +597,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             addFeatureRequirement(requirement);
          }
       }
-   
+
       public void addFeatureRequirement(RuledReference requirement)
       {
          if (findRefById(featureProject.getIncludedFeatures(), requirement.getId()) == null)
@@ -563,7 +608,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             }
          }
       }
-   
+
       private void processB2Metadata(AbstractReference ref)
       {
          if (B2MetadataUtils.isTestFeature(ref))
@@ -579,7 +624,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             B2MetadataUtils.setSourceFeature(featureProject, true);
          }
       }
-   
+
       public void addPluginRequirements(Collection<RuledReference> requirements)
       {
          for (RuledReference requirement : requirements)
@@ -587,7 +632,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             addPluginRequirement(requirement);
          }
       }
-   
+
       public void addPluginRequirement(RuledReference requirement)
       {
          if (findRefById(featureProject.getIncludedPlugins(), requirement.getId()) == null)
@@ -598,7 +643,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             }
          }
       }
-   
+
       private static <R extends AbstractReference> boolean addUnique(Collection<R> refs, R ref)
       {
          if (findRefById(refs, ref.getId()) == null)
@@ -607,11 +652,11 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
          }
          return false;
       }
-   
+
       private static <R extends AbstractReference> void removeAllWithId(Collection<R> refs, String id)
       {
          final List<R> obsolete = new ArrayList<R>();
-   
+
          for (R ref : refs)
          {
             if (id.equals(ref.getId()))
@@ -619,13 +664,13 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
                obsolete.add(ref);
             }
          }
-   
+
          if (!obsolete.isEmpty())
          {
             refs.removeAll(obsolete);
          }
       }
-   
+
       private static <R extends AbstractReference> R findRefById(Collection<R> refs, String id)
       {
          for (R ref : refs)

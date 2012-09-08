@@ -12,5 +12,5 @@ import org.sourcepit.common.utils.collections.MultiValueMap;
 public interface ResolutionContextResolver
 {
    void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-      AbstractModule module, boolean isTest);
+      AbstractModule module);
 }

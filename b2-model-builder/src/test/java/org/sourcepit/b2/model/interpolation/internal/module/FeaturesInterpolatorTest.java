@@ -17,6 +17,7 @@ import java.io.File;
 import org.eclipse.emf.common.util.EList;
 import org.junit.Test;
 import org.sourcepit.b2.model.module.BasicModule;
+import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
@@ -1043,6 +1044,243 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertReference("bar.test.feature", "1.0.0.qualifier", featureInclude);
       assertEquals("test", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureInclude.getAnnotationEntry("b2", "facetName"));
+   }
+
+   @Override
+   protected void assertUC_8_AggregateContentOfCompositeModule_NoSource(CompositeModule module)
+   {
+      EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
+      assertEquals(1, featuresFacets.size());
+
+      FeaturesFacet featuresFacet = featuresFacets.get(0);
+      assertTrue(featuresFacet.isDerived());
+      assertEquals(2, featuresFacet.getProjects().size());
+
+      FeatureProject featureProject;
+      featureProject = featuresFacet.getProjects().get(0);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(2, featureProject.getIncludedFeatures().size());
+      assertEquals(0, featureProject.getIncludedPlugins().size());
+
+      FeatureInclude featureInclude;
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("core.plugins.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("ui.plugins.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureProject = featuresFacet.getProjects().get(1);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(2, featureProject.getIncludedFeatures().size());
+      assertEquals(0, featureProject.getIncludedPlugins().size());
+
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("core.tests.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("ui.tests.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
+   }
+   
+   @Override
+   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module)
+   {
+      assertUC_8_AggregateContentOfCompositeModule_NoSource(module);
+   }
+
+   @Override
+   protected void assertUC_8_AggregateContentOfCompositeModule_WithSource(CompositeModule module)
+   {
+      EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
+      assertEquals(1, featuresFacets.size());
+
+      FeaturesFacet featuresFacet = featuresFacets.get(0);
+      assertTrue(featuresFacet.isDerived());
+      assertEquals(2, featuresFacet.getProjects().size());
+
+      FeatureProject featureProject;
+      featureProject = featuresFacet.getProjects().get(0);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(4, featureProject.getIncludedFeatures().size());
+      assertEquals(0, featureProject.getIncludedPlugins().size());
+
+      FeatureInclude featureInclude;
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("core.plugins.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("core.plugins.sources.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
+      assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+      
+      featureInclude = featureProject.getIncludedFeatures().get(2);
+      assertReference("ui.plugins.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(3);
+      assertReference("ui.plugins.sources.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
+      assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureProject = featuresFacet.getProjects().get(1);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(4, featureProject.getIncludedFeatures().size());
+      assertEquals(0, featureProject.getIncludedPlugins().size());
+
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("core.tests.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("core.tests.sources.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
+      assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
+      
+      featureInclude = featureProject.getIncludedFeatures().get(2);
+      assertReference("ui.tests.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(3);
+      assertReference("ui.tests.sources.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
+      assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
+   }
+
+   @Override
+   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource(CompositeModule module)
+   {
+      EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
+      assertEquals(1, featuresFacets.size());
+
+      FeaturesFacet featuresFacet = featuresFacets.get(0);
+      assertTrue(featuresFacet.isDerived());
+      assertEquals(2, featuresFacet.getProjects().size());
+
+      FeatureProject featureProject;
+      featureProject = featuresFacet.getProjects().get(0);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(2, featureProject.getIncludedFeatures().size());
+      assertEquals(0, featureProject.getIncludedPlugins().size());
+
+      FeatureInclude featureInclude;
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("core.main.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertNull(B2MetadataUtils.getFacetName(featureInclude));
+      assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("ui.main.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertNull(B2MetadataUtils.getFacetName(featureInclude));
+      assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureProject = featuresFacet.getProjects().get(1);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(2, featureProject.getIncludedFeatures().size());
+      assertEquals(0, featureProject.getIncludedPlugins().size());
+
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("core.test.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertNull(B2MetadataUtils.getFacetName(featureInclude));
+      assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("ui.test.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertNull(B2MetadataUtils.getFacetName(featureInclude));
+      assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
    }
 
    @Test
