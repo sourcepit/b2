@@ -68,6 +68,7 @@ public class FeaturesInterpolator
                .findFeatureProjectForPluginsFacet(pluginsFacet, false);
             includesAndRequirements.appendIncludesAndRequirements(moduleProperties, pluginsFacet.getParent(),
                pluginsFacet, mainFeature);
+            removeIfEmpty(featuresFacet, mainFeature);
 
             final FeatureProject sourceFeature = DefaultIncludesAndRequirementsResolver
                .findFeatureProjectForPluginsFacet(pluginsFacet, true);
@@ -75,6 +76,7 @@ public class FeaturesInterpolator
             {
                includesAndRequirements.appendIncludesAndRequirements(moduleProperties, pluginsFacet.getParent(),
                   pluginsFacet, sourceFeature);
+               removeIfEmpty(featuresFacet, sourceFeature);
             }
          }
       }
@@ -85,6 +87,27 @@ public class FeaturesInterpolator
       {
          module.getFacets().add(featuresFacet);
       }
+   }
+
+   private static void removeIfEmpty(final FeaturesFacet featuresFacet, final FeatureProject featureProject)
+   {
+      if (isEmpty(featureProject))
+      {
+         featuresFacet.getProjects().remove(featureProject);
+      }
+   }
+
+   private static boolean isEmpty(FeatureProject sourceFeature)
+   {
+      if (!sourceFeature.getIncludedFeatures().isEmpty())
+      {
+         return false;
+      }
+      if (!sourceFeature.getIncludedPlugins().isEmpty())
+      {
+         return false;
+      }
+      return true;
    }
 
    private void interpolateAssemblyFeatures(AbstractModule module, FeaturesFacet featuresFacet,

@@ -16,12 +16,14 @@ import java.io.File;
 
 import org.eclipse.emf.common.util.EList;
 import org.junit.Test;
+import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
@@ -1110,7 +1112,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
       assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
    }
-   
+
    @Override
    protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module)
    {
@@ -1154,7 +1156,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
       assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
       assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
-      
+
       featureInclude = featureProject.getIncludedFeatures().get(2);
       assertReference("ui.plugins.feature", "1.0.0.qualifier", featureInclude);
       assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
@@ -1198,7 +1200,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
       assertTrue(B2MetadataUtils.isSourceFeature(featureInclude));
       assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
-      
+
       featureInclude = featureProject.getIncludedFeatures().get(2);
       assertReference("ui.tests.feature", "1.0.0.qualifier", featureInclude);
       assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
@@ -1321,6 +1323,43 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
    }
 
+   // see structured-module IT
+   @Test
+   public void testRemovalOfEmptyFeature()
+   {
+      BasicModule module = createBasicModule("foo");
+      module.setDirectory(new File(""));
+      
+      addPluginProject(module, "plugins", "foo.plugin", module.getVersion());
+      PluginProject docPlugin = addPluginProject(module, "doc", "foo.doc", module.getVersion());
+      Annotation javaMetdata = docPlugin.getAnnotation("java");
+      assertNotNull(javaMetdata);
+      docPlugin.getAnnotations().remove(javaMetdata);
+   
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      // moduleProperties.put("build.sources", "false"); // true is default
+      moduleProperties.put("b2.assemblies", "main, test");
+   
+      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+   
+      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      
+      interpolate(module, moduleProperties);
+      
+      EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
+      assertEquals(1, featuresFacets.size());
+   
+      FeaturesFacet featuresFacet = featuresFacets.get(0);
+      assertTrue(featuresFacet.isDerived());
+      assertEquals(4, featuresFacet.getProjects().size());
+   }
+
    @Test
    public void testReplaceAssemblyFeatureWithSingleFacetFeature() throws Exception
    {
@@ -1352,65 +1391,6 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Test
-   public void testOverall()
-   {
-      // setup
-      BasicModule module = createBasicModule("foo");
-      module.setDirectory(new File(""));
-
-      addPluginProject(module, "main", "foo.plugin", "1.0.0.qualifier");
-
-      PluginsFacet pluginsFacet = createPluginsFacet("tests");
-      module.getFacets().add(pluginsFacet);
-
-      PropertiesMap moduleProperties = new LinkedPropertiesMap();
-      moduleProperties.put("b2.facets[\"tests\"].requiredPlugins", "org.junit:4.10");
-
-
-      // interpolate
-      interpolate(module, moduleProperties);
-
-
-      // assert
-      EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
-      assertEquals(1, featuresFacets.size());
-
-      FeaturesFacet featuresFacet = featuresFacets.get(0);
-      assertEquals("features", featuresFacet.getName());
-      assertEquals(4, featuresFacet.getProjects().size());
-
-      FeatureProject mainFeature = featuresFacet.getProjects().get(0);
-      assertEquals("foo.main.feature", mainFeature.getId());
-      assertEquals(new File(".b2/features/foo.main.feature"), mainFeature.getDirectory());
-      assertEquals(0, mainFeature.getIncludedFeatures().size());
-      assertEquals(1, mainFeature.getIncludedPlugins().size());
-      assertEquals(0, mainFeature.getRequiredFeatures().size());
-      assertEquals(0, mainFeature.getRequiredPlugins().size());
-
-      PluginInclude mainPluginInclude = mainFeature.getIncludedPlugins().get(0);
-      assertEquals("foo.plugin", mainPluginInclude.getId());
-      assertEquals("1.0.0.qualifier", mainPluginInclude.getVersion());
-
-      FeatureProject srcMainFeature = featuresFacet.getProjects().get(1);
-      assertEquals("foo.main.sources.feature", srcMainFeature.getId());
-      assertEquals(new File(".b2/features/foo.main.sources.feature"), srcMainFeature.getDirectory());
-      assertEquals(0, srcMainFeature.getIncludedFeatures().size());
-      assertEquals(1, srcMainFeature.getIncludedPlugins().size());
-
-      PluginInclude srcMainPluginInclude = srcMainFeature.getIncludedPlugins().get(0);
-      assertEquals("foo.plugin.source", srcMainPluginInclude.getId());
-      assertEquals("1.0.0.qualifier", srcMainPluginInclude.getVersion());
-
-      FeatureProject testFeature = featuresFacet.getProjects().get(2);
-      assertEquals("foo.tests.feature", testFeature.getId());
-      assertEquals(new File(".b2/features/foo.tests.feature"), testFeature.getDirectory());
-      assertEquals(0, testFeature.getIncludedFeatures().size());
-      assertEquals(0, testFeature.getIncludedPlugins().size());
-      assertEquals(0, testFeature.getRequiredFeatures().size());
-      assertEquals(1, testFeature.getRequiredPlugins().size());
-   }
-
-   @Test
    public void testIncludedFeatures() throws Exception
    {
       // setup
@@ -1431,12 +1411,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       // interpolate
       interpolate(module, moduleProperties);
 
-      FeatureProject mainFeature = getFeatureProject(module, "foo.main.feature");
-      assertNotNull(mainFeature);
-      assertEquals(0, mainFeature.getIncludedFeatures().size());
-      assertEquals(0, mainFeature.getIncludedPlugins().size());
-      assertEquals(0, mainFeature.getRequiredFeatures().size());
-      assertEquals(0, mainFeature.getRequiredPlugins().size());
+      assertNull(getFeatureProject(module, "foo.main.feature"));
 
       FeatureProject srcMainFeature = getFeatureProject(module, "foo.main.sources.feature");
       assertNotNull(srcMainFeature);
@@ -1484,12 +1459,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       // interpolate
       interpolate(module, moduleProperties);
 
-      FeatureProject mainFeature = getFeatureProject(module, "foo.main.feature");
-      assertNotNull(mainFeature);
-      assertEquals(0, mainFeature.getIncludedFeatures().size());
-      assertEquals(0, mainFeature.getIncludedPlugins().size());
-      assertEquals(0, mainFeature.getRequiredFeatures().size());
-      assertEquals(0, mainFeature.getRequiredPlugins().size());
+      assertNull(getFeatureProject(module, "foo.main.feature"));
 
       FeatureProject srcMainFeature = getFeatureProject(module, "foo.main.sources.feature");
       assertNotNull(srcMainFeature);

@@ -871,7 +871,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {
          public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-            AbstractModule module)
+            AbstractModule module, FeatureProject resolutionTarget)
          {
             final Collection<AbstractModule> modules = resolutionContext.get();
             for (AbstractModule abstractModule : modules)
@@ -893,7 +893,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       };
 
       DefaultIncludesAndRequirementsResolver includesAndRequirements = new DefaultIncludesAndRequirementsResolver(
-         converter, unpackStrategy, contextResolver);
+         converter, unpackStrategy, sourceService, contextResolver);
 
       FeaturesInterpolator interpolator;
       interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter, includesAndRequirements);
@@ -963,6 +963,9 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       manifest.setBundleVersion(version);
 
       plugin.setBundleManifest(manifest);
+
+      // fake source
+      plugin.putAnnotationEntry("java", "source.paths", "src");
 
       return plugin;
    }
