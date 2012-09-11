@@ -14,6 +14,8 @@ import javax.inject.Inject;
 
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.plugin.internal.DefaultLegacySupport;
+import org.apache.maven.project.DefaultProjectDependenciesResolver;
+import org.apache.maven.project.ProjectDependenciesResolver;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils;
@@ -58,6 +60,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
    {
       super.configure(binder);
       binder.bind(LegacySupport.class).toInstance(new DefaultLegacySupport());
+      binder.bind(ProjectDependenciesResolver.class).toInstance(new DefaultProjectDependenciesResolver());
    }
    
    

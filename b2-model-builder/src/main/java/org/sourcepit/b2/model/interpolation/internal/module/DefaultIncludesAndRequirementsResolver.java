@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.b2.model.builder.util.BasicConverter.AggregatorMode;
 import org.sourcepit.b2.model.builder.util.FeaturesConverter;
+import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
@@ -55,14 +56,17 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
 
    private final UnpackStrategy unpackStrategy;
 
+   private final ISourceService sourceService;
+
    private final ResolutionContextResolver resolver;
 
    @Inject
    public DefaultIncludesAndRequirementsResolver(FeaturesConverter converter, UnpackStrategy unpackStrategy,
-      ResolutionContextResolver resolver)
+      ISourceService sourceService, ResolutionContextResolver resolver)
    {
       this.converter = converter;
       this.unpackStrategy = unpackStrategy;
+      this.sourceService = sourceService;
       this.resolver = resolver;
    }
 
@@ -117,7 +121,8 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       }
 
       final boolean includeForeignModules = isIncludeForeignModules(moduleProperties, module, assemblyName);
-      final Iterable<FeatureProject> resolutionContext = resolveIncludeResolutionContext(module, includeForeignModules);
+      final Iterable<FeatureProject> resolutionContext = resolveIncludeResolutionContext(module, assemblyFeature,
+         includeForeignModules);
 
       final PathMatcher matcher = converter.getAggregatorFeatureMatcherForAssembly(moduleProperties, assemblyName);
 
@@ -219,7 +224,8 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       return featureInclude;
    }
 
-   private Iterable<FeatureProject> resolveIncludeResolutionContext(AbstractModule module, boolean includeForeignModules)
+   private Iterable<FeatureProject> resolveIncludeResolutionContext(AbstractModule module,
+      FeatureProject assemblyFeature, boolean includeForeignModules)
    {
       final MultiValueMap<AbstractModule, String> moduleToAssemblies = new LinkedMultiValuHashMap<AbstractModule, String>(
          LinkedHashSet.class);
@@ -231,7 +237,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
 
       if (includeForeignModules)
       {
-         resolver.determineForeignResolutionContext(moduleToAssemblies, module);
+         resolver.determineForeignResolutionContext(moduleToAssemblies, module, assemblyFeature);
       }
 
       final Collection<FeatureProject> result = new LinkedHashSet<FeatureProject>();
@@ -246,12 +252,12 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
 
          for (String visibleAssembly : entry.getValue())
          {
-            final FeatureProject assemblyFeature = findFeatureProjectForAssembly(foreignModule, visibleAssembly);
-            if (assemblyFeature == null)
+            final FeatureProject foreignAssembly = findFeatureProjectForAssembly(foreignModule, visibleAssembly);
+            if (foreignAssembly == null)
             {
                throw new IllegalStateException("Cannot find feature project for assembly " + visibleAssembly);
             }
-            result.add(assemblyFeature);
+            result.add(foreignAssembly);
          }
       }
       return result;
@@ -308,7 +314,8 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       includesAppender = createIncludesAppenderForFacet(moduleProperties, isSource, handler, facetName);
       includesAppender.walk(pluginsFacet.getProjects());
 
-      final Iterable<PluginsFacet> resolutionContext = resolveRequirementResolutionContext(module, sourcePlugins);
+      final Iterable<PluginsFacet> resolutionContext = resolveRequirementResolutionContext(module, facetFeatrue,
+         sourcePlugins);
 
       for (PluginsFacet requiredPluginsFacet : determineRequiredPluginFacets(sourcePlugins, resolutionContext))
       {
@@ -345,15 +352,16 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
    }
 
 
-   private Iterable<PluginsFacet> resolveRequirementResolutionContext(AbstractModule module, PluginsFacet sourcePlugins)
+   private Iterable<PluginsFacet> resolveRequirementResolutionContext(AbstractModule module,
+      FeatureProject facetFeature, PluginsFacet sourcePlugins)
    {
       Collection<PluginsFacet> result = new LinkedHashSet<PluginsFacet>();
       result.addAll(sourcePlugins.getParent().getFacets(PluginsFacet.class));
 
       MultiValueMap<AbstractModule, String> moduleToAssemblies = new LinkedMultiValuHashMap<AbstractModule, String>(
          LinkedHashSet.class);
-      
-      resolver.determineForeignResolutionContext(moduleToAssemblies, sourcePlugins.getParent());
+
+      resolver.determineForeignResolutionContext(moduleToAssemblies, sourcePlugins.getParent(), facetFeature);
 
       final Collection<AbstractModule> collection = moduleToAssemblies.keySet();
       // TODO composit iterator
@@ -529,7 +537,11 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
          @Override
          protected String getSourcePluginId(PluginProject pp)
          {
-            return converter.getSourcePluginId(moduleProperties, pp.getId());
+            if (sourceService.isSourceBuildEnabled(pp, moduleProperties))
+            {
+               return converter.getSourcePluginId(moduleProperties, pp.getId());
+            }
+            return null;
          }
 
          @Override
@@ -731,7 +743,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       private void process(PluginProject pp)
       {
          final String pluginId = isSource ? getSourcePluginId(pp) : pp.getId();
-         if (pluginMatcher.isMatch(pluginId))
+         if (pluginId != null && pluginMatcher.isMatch(pluginId))
          {
             final PluginInclude inc = DefaultIncludesAndRequirementsResolver.toPluginInclude(pp);
             inc.setId(pluginId);

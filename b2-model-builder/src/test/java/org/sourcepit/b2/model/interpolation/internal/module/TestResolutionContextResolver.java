@@ -9,13 +9,14 @@ package org.sourcepit.b2.model.interpolation.internal.module;
 import javax.inject.Named;
 
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.common.utils.collections.MultiValueMap;
 
 @Named
 public class TestResolutionContextResolver implements ResolutionContextResolver
 {
    public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-      AbstractModule module)
+      AbstractModule module, FeatureProject resolutionTarget)
    {
    }
 

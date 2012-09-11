@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: ui.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: ui;bundle-version="[1.0.0,1.1.0)",
+ core.tests;bundle-version="[1.0.0,1.1.0)",
+ org.junit;bundle-version="[4.0.0,5.0.0)"
