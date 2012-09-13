@@ -71,9 +71,13 @@ public class B2SessionInitializer
    @Inject
    private B2SessionService sessionService;
 
+   @Inject
+   private B2ProjectAdapterFactory adapterFactory;
+
    public B2Session initialize(MavenSession bootSession, Properties properties)
    {
       intEMF();
+      adapterFactory.adapt(bootSession, bootSession.getCurrentProject());
       return initB2Session(bootSession, properties);
    }
 
