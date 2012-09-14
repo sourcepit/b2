@@ -10,10 +10,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
@@ -37,12 +34,13 @@ import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sonatype.aether.util.filter.AndDependencyFilter;
 import org.sonatype.aether.util.filter.ScopeDependencyFilter;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
-import org.sourcepit.common.utils.collections.LinkedMultiValuHashMap;
-import org.sourcepit.common.utils.collections.MultiValueMap;
 import org.sourcepit.common.utils.lang.Exceptions;
 
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.SetMultimap;
+
 @Named
-public class B2ProjectAdapterFactory
+public class ModuleModelContextAdapterFactory
 {
    @Inject
    private LayoutManager layoutManager;
@@ -50,43 +48,43 @@ public class B2ProjectAdapterFactory
    @Inject
    private ProjectDependenciesResolver dependenciesResolver;
 
-   public B2Project adapt(MavenSession session, MavenProject project)
+   public ModuleModelContext adapt(MavenSession session, MavenProject project)
    {
       synchronized (project)
       {
-         B2Project b2Project = (B2Project) project.getContextValue(B2Project.class.getName());
-         if (b2Project == null)
+         ModuleModelContext context = (ModuleModelContext) project.getContextValue(ModuleModelContext.class.getName());
+         if (context == null)
          {
-            b2Project = createB2Project(session, project);
-            project.setContextValue(B2Project.class.getName(), b2Project);
+            context = createModuleModelContext(session, project);
+            project.setContextValue(ModuleModelContext.class.getName(), context);
          }
-         return b2Project;
+         return context;
       }
    }
 
-   public static B2Project getB2Project(MavenProject project)
+   public static ModuleModelContext get(MavenProject project)
    {
       synchronized (project)
       {
-         return (B2Project) project.getContextValue(B2Project.class.getName());
+         return (ModuleModelContext) project.getContextValue(ModuleModelContext.class.getName());
       }
    }
 
-   private B2Project createB2Project(MavenSession session, MavenProject project)
+   private ModuleModelContext createModuleModelContext(MavenSession session, MavenProject project)
    {
       final ResourceSet resourceSet = createResourceSet();
 
-      final Map<URI, Collection<String>> scopeTest = new LinkedHashMap<URI, Collection<String>>();
+      final SetMultimap<URI, String> scopeTest = LinkedHashMultimap.create();
       initURIMapping(scopeTest, session, project, resourceSet, "test");
 
-      final Map<URI, Collection<String>> scopeCompile = new LinkedHashMap<URI, Collection<String>>();
+      final SetMultimap<URI, String> scopeCompile = LinkedHashMultimap.create();
       initURIMapping(scopeCompile, session, project, resourceSet, "compile");
 
       final URI artifactURI = toArtifactURI(project, "module", null);
       final URI fileURI = URI.createFileURI(pathOfMetaDataFile(project.getBasedir(), "b2.module"));
       resourceSet.getURIConverter().getURIMap().put(artifactURI, fileURI);
 
-      return new B2Project(artifactURI, project.getBasedir(), resourceSet, scopeCompile, scopeTest);
+      return new ModuleModelContext(resourceSet, artifactURI, scopeCompile, scopeTest);
    }
 
    private static String pathOfMetaDataFile(File directory, String name)
@@ -111,21 +109,20 @@ public class B2ProjectAdapterFactory
       return resourceSet;
    }
 
-   private void initURIMapping(Map<URI, Collection<String>> artifactURIs, MavenSession session, MavenProject project,
+   private void initURIMapping(SetMultimap<URI, String> artifactURIs, MavenSession session, MavenProject project,
       ResourceSet resourceSet, String scope)
    {
       // resolve module artifacts
-      final MultiValueMap<DependencyNode, String> moduleNodeToClassifiers;
-      moduleNodeToClassifiers = new LinkedMultiValuHashMap<DependencyNode, String>(LinkedHashSet.class);
+      final SetMultimap<DependencyNode, String> moduleNodeToClassifiers = LinkedHashMultimap.create();
       resolveModuleDependencies(moduleNodeToClassifiers, session, project, scope);
 
       // create artifact to file uri mapping
-      for (Entry<DependencyNode, Collection<String>> entry : moduleNodeToClassifiers.entrySet())
+      for (Entry<DependencyNode, Collection<String>> entry : moduleNodeToClassifiers.asMap().entrySet())
       {
          final Artifact artifact = entry.getKey().getDependency().getArtifact();
          final URI artifactURI = toArtifactURI(artifact, null);
          final URI fileURI = URI.createFileURI(artifact.getFile().getAbsolutePath());
-         artifactURIs.put(artifactURI, entry.getValue());
+         artifactURIs.get(artifactURI).addAll(entry.getValue());
          resourceSet.getURIConverter().getURIMap().put(artifactURI, fileURI);
       }
    }
@@ -167,7 +164,7 @@ public class B2ProjectAdapterFactory
    }
 
    private DependencyResolutionResult resolveModuleDependencies(
-      final MultiValueMap<DependencyNode, String> moduleNodeToClassifiers, MavenSession session, MavenProject project,
+      final SetMultimap<DependencyNode, String> moduleNodeToClassifiers, MavenSession session, MavenProject project,
       String scope)
    {
       DependencyFilter collectionFilter = new ScopeDependencyFilter(null, negate(Collections.singleton(scope)));
@@ -187,7 +184,7 @@ public class B2ProjectAdapterFactory
                   moduleArtifact.getFile());
                node.setArtifact(newArtifact);
 
-               moduleNodeToClassifiers.get(node, true).add(classifier.length() > 0 ? classifier : null);
+               moduleNodeToClassifiers.get(node).add(classifier.length() > 0 ? classifier : null);
             }
             return true;
          }

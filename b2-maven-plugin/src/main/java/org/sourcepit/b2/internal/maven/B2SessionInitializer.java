@@ -72,7 +72,7 @@ public class B2SessionInitializer
    private B2SessionService sessionService;
 
    @Inject
-   private B2ProjectAdapterFactory adapterFactory;
+   private ModuleModelContextAdapterFactory adapterFactory;
 
    public B2Session initialize(MavenSession bootSession, Properties properties)
    {

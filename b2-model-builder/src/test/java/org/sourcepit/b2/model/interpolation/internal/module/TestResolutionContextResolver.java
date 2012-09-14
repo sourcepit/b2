@@ -10,14 +10,17 @@ import javax.inject.Named;
 
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
-import org.sourcepit.common.utils.collections.MultiValueMap;
+
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.SetMultimap;
 
 @Named
 public class TestResolutionContextResolver implements ResolutionContextResolver
 {
-   public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-      AbstractModule module, FeatureProject resolutionTarget)
+   public SetMultimap<AbstractModule, String> resolveResolutionContext(AbstractModule module,
+      FeatureProject resolutionTarget)
    {
+      return LinkedHashMultimap.create();
    }
 
 }

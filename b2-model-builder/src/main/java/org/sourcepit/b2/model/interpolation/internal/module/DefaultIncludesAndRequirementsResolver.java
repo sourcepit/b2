@@ -44,10 +44,11 @@ import org.sourcepit.common.manifest.osgi.PackageImport;
 import org.sourcepit.common.manifest.osgi.Version;
 import org.sourcepit.common.manifest.osgi.VersionRange;
 import org.sourcepit.common.utils.collections.FilteredIterable;
-import org.sourcepit.common.utils.collections.LinkedMultiValuHashMap;
-import org.sourcepit.common.utils.collections.MultiValueMap;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
+
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.SetMultimap;
 
 @Named
 public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequirementsResolver
@@ -227,8 +228,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
    private Iterable<FeatureProject> resolveIncludeResolutionContext(AbstractModule module,
       FeatureProject assemblyFeature, boolean includeForeignModules)
    {
-      final MultiValueMap<AbstractModule, String> moduleToAssemblies = new LinkedMultiValuHashMap<AbstractModule, String>(
-         LinkedHashSet.class);
+      final SetMultimap<AbstractModule, String> moduleToAssemblies = LinkedHashMultimap.create();
 
       if (module instanceof CompositeModule)
       {
@@ -237,11 +237,11 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
 
       if (includeForeignModules)
       {
-         resolver.determineForeignResolutionContext(moduleToAssemblies, module, assemblyFeature);
+         moduleToAssemblies.putAll(resolver.resolveResolutionContext(module, assemblyFeature));
       }
 
       final Collection<FeatureProject> result = new LinkedHashSet<FeatureProject>();
-      for (Entry<AbstractModule, Collection<String>> entry : moduleToAssemblies.entrySet())
+      for (Entry<AbstractModule, Collection<String>> entry : moduleToAssemblies.asMap().entrySet())
       {
          AbstractModule foreignModule = entry.getKey();
 
@@ -264,7 +264,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
    }
 
    private void determineCompositeResolutionContext(CompositeModule module,
-      MultiValueMap<AbstractModule, String> moduleToAssemblies)
+      SetMultimap<AbstractModule, String> moduleToAssemblies)
    {
       for (AbstractModule abstractModule : module.getModules())
       {
@@ -278,7 +278,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
          }
          if (!assemblyNames.isEmpty())
          {
-            moduleToAssemblies.get(abstractModule, true).addAll(assemblyNames);
+            moduleToAssemblies.get(abstractModule).addAll(assemblyNames);
          }
       }
    }
@@ -358,10 +358,8 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       Collection<PluginsFacet> result = new LinkedHashSet<PluginsFacet>();
       result.addAll(sourcePlugins.getParent().getFacets(PluginsFacet.class));
 
-      MultiValueMap<AbstractModule, String> moduleToAssemblies = new LinkedMultiValuHashMap<AbstractModule, String>(
-         LinkedHashSet.class);
-
-      resolver.determineForeignResolutionContext(moduleToAssemblies, sourcePlugins.getParent(), facetFeature);
+      final SetMultimap<AbstractModule, String> moduleToAssemblies;
+      moduleToAssemblies = resolver.resolveResolutionContext(sourcePlugins.getParent(), facetFeature);
 
       final Collection<AbstractModule> collection = moduleToAssemblies.keySet();
       // TODO composit iterator

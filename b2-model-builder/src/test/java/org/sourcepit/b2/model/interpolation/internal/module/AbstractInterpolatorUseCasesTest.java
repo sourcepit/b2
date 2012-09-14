@@ -35,10 +35,12 @@ import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 import org.sourcepit.common.manifest.osgi.PackageExport;
 import org.sourcepit.common.manifest.osgi.PackageImport;
-import org.sourcepit.common.utils.collections.MultiValueMap;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.guplex.test.GuplexTest;
+
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.SetMultimap;
 
 // TODO UC #1: Module with pure plugin
 // TODO UC #2: Module with plugins + tests
@@ -870,9 +872,10 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
 
       ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {
-         public void determineForeignResolutionContext(MultiValueMap<AbstractModule, String> moduleToAssemblies,
-            AbstractModule module, FeatureProject resolutionTarget)
+         public SetMultimap<AbstractModule, String> resolveResolutionContext(AbstractModule module,
+            FeatureProject resolutionTarget)
          {
+            final SetMultimap<AbstractModule, String> moduleToAssemblies = LinkedHashMultimap.create();
             final Collection<AbstractModule> modules = resolutionContext.get();
             for (AbstractModule abstractModule : modules)
             {
@@ -886,9 +889,10 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
                }
                if (!assemblyNames.isEmpty())
                {
-                  moduleToAssemblies.get(abstractModule, true).addAll(assemblyNames);
+                  moduleToAssemblies.get(abstractModule).addAll(assemblyNames);
                }
             }
+            return moduleToAssemblies;
          }
       };
 
