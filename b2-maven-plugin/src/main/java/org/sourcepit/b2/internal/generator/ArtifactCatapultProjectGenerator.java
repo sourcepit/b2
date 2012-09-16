@@ -323,39 +323,13 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
       final ModuleArtifact sessionModel = new ModuleArtifact();
       sessionModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.session")));
-      // sessionModel.classifier = "b2";
       sessionModel.setType("session");
       artifacts.add(sessionModel);
-
-      int artifactCount = artifacts.size();
-
-      for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
-      {
-         for (SiteProject siteProject : sitesFacet.getProjects())
-         {
-            final String cl = SiteProjectGenerator.getClassifier(basicConverter, properties, siteProject);
-
-            final String clString = cl == null || cl.length() == 0 ? "" : ("-" + cl);
-
-            final File modelFile = new File(layout.pathOfMetaDataFile(module, "b2" + clString + ".module"));
-
-            final ModuleArtifact classifiedModel = new ModuleArtifact();
-            classifiedModel.setFile(modelFile);
-            classifiedModel.setClassifier("".equals(cl) ? null : cl);
-            classifiedModel.setType("module");
-            artifacts.add(classifiedModel);
-         }
-      }
-
-      // add default model if no site classifiers are specified
-      if (artifactCount == artifacts.size())
-      {
-         final ModuleArtifact moduleModel = new ModuleArtifact();
-         moduleModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.module")));
-         // moduleModel.classifier = "b2";
-         moduleModel.setType("module");
-         artifacts.add(moduleModel);
-      }
+      
+      final ModuleArtifact moduleModel = new ModuleArtifact();
+      moduleModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.module")));
+      moduleModel.setType("module");
+      artifacts.add(moduleModel);
 
       gatherSiteArtifacts(module, mavenVersion, artifacts, properties);
 
