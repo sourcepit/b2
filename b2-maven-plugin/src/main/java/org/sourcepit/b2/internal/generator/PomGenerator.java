@@ -23,6 +23,7 @@ import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.eclipse.emf.ecore.EObject;
@@ -62,7 +63,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Inject
    private IB2SessionService b2SessionService;
-   
+
    @Inject
    private BasicConverter basicConverter;
 
@@ -259,6 +260,16 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       {
          moduleModel = readMavenModel(new File(targetDir, "module.xml"));
       }
+
+      final List<Dependency> moduleDependencies = new ArrayList<Dependency>();
+      for (Dependency dependency : moduleModel.getDependencies())
+      {
+         if ("module".equals(dependency.getType()))
+         {
+            moduleDependencies.add(dependency);
+         }
+      }
+      moduleModel.getDependencies().removeAll(moduleDependencies);
 
       mergeIntoPomFile(pomFile, defaultModel);
       mergeIntoPomFile(pomFile, moduleModel, true);

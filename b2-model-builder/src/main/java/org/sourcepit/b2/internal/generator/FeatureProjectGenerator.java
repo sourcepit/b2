@@ -99,12 +99,12 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       }
       else
       {
-         Set<String> assemblyNames = B2MetadataUtils.getAssemblyNames(feature);
+         List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(feature);
          if (assemblyNames.size() != 1)
          {
             throw new IllegalStateException();
          }
-         return this.converter.getAssemblyClassifier(converter.getProperties(), assemblyNames.iterator().next());
+         return this.converter.getAssemblyClassifier(converter.getProperties(), assemblyNames.get(0));
       }
    }
 

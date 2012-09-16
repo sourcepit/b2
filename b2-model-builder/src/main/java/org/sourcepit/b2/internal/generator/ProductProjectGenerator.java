@@ -25,7 +25,6 @@ import org.sourcepit.b2.generator.AbstractGenerator;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.IConverter;
-import org.sourcepit.b2.model.interpolation.internal.module.IAggregationService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
@@ -43,8 +42,8 @@ import org.w3c.dom.Node;
 @Named
 public class ProductProjectGenerator extends AbstractGenerator implements IB2GenerationParticipant
 {
-   @Inject
-   private IAggregationService aggregationService;
+   // @Inject
+   // private IAggregationService aggregationService;
 
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
@@ -101,7 +100,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          collectIncludedFeatures(featureIncludes, PathMatcher.parsePackagePatterns(pattern), module);
       }
 
-      featureIncludes.addAll(aggregationService.resolveProductIncludes(module, classifier, converter));
+      // featureIncludes.addAll(aggregationService.resolveProductIncludes(module, classifier, converter));
       if (!featureIncludes.isEmpty())
       {
          Element features = getFeaturesNode(productDoc);

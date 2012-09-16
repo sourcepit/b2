@@ -17,7 +17,7 @@ import com.google.common.collect.SetMultimap;
 @Named
 public class TestResolutionContextResolver implements ResolutionContextResolver
 {
-   public SetMultimap<AbstractModule, String> resolveResolutionContext(AbstractModule module,
+   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
       FeatureProject resolutionTarget)
    {
       return LinkedHashMultimap.create();

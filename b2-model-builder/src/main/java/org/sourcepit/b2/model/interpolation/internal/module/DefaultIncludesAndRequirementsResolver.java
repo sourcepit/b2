@@ -19,6 +19,8 @@ import javax.inject.Named;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.model.builder.util.BasicConverter.AggregatorMode;
 import org.sourcepit.b2.model.builder.util.FeaturesConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
@@ -53,6 +55,8 @@ import com.google.common.collect.SetMultimap;
 @Named
 public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequirementsResolver
 {
+   private final Logger log = LoggerFactory.getLogger(getClass());
+
    private final FeaturesConverter converter;
 
    private final UnpackStrategy unpackStrategy;
@@ -122,43 +126,69 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       }
 
       final boolean includeForeignModules = isIncludeForeignModules(moduleProperties, module, assemblyName);
-      final Iterable<FeatureProject> resolutionContext = resolveIncludeResolutionContext(module, assemblyFeature,
+
+      final Set<FeatureProject> assemblyFeatures = new LinkedHashSet<FeatureProject>();
+      final Set<FeatureProject> visibleAssemblyFeatures = new LinkedHashSet<FeatureProject>();
+      resolveIncludeResolutionContext(assemblyFeatures, visibleAssemblyFeatures, module, assemblyFeature,
          includeForeignModules);
 
       final PathMatcher matcher = converter.getAggregatorFeatureMatcherForAssembly(moduleProperties, assemblyName);
 
       if (mode == AggregatorMode.AGGREGATE)
       {
-         for (FeatureProject featureProject : resolutionContext)
+         for (FeatureProject featureProject : assemblyFeatures)
          {
             if (isAssemblyFeatureIdMatch(matcher, featureProject))
             {
-               handler.addFeatureInclude(toFeatureInclude(featureProject));
+               if (visibleAssemblyFeatures.contains(featureProject))
+               {
+                  handler.addFeatureInclude(toFeatureInclude(featureProject));
+               }
+               else
+               {
+                  log.warn("Cannot include feature " + featureProject.getId() + " into " + assemblyFeature.getId()
+                     + " because it is out of scope");
+               }
             }
          }
       }
       else if (mode == AggregatorMode.UNWRAP)
       {
-         for (FeatureProject featureProject : resolutionContext)
+         for (FeatureProject featureProject : assemblyFeatures)
          {
             if (isAssemblyFeatureIdMatch(matcher, featureProject))
             {
                final boolean isFacetFeature = B2MetadataUtils.getFacetName(featureProject) != null;
-               if (isFacetFeature)
+               if (isFacetFeature && visibleAssemblyFeatures.contains(featureProject))
                {
-
                   handler.addFeatureInclude(toFeatureInclude(featureProject));
                }
                else
                {
                   for (FeatureInclude featureInclude : featureProject.getIncludedFeatures())
                   {
-                     handler.addFeatureInclude(EcoreUtil.copy(featureInclude));
+                     if (isIn(visibleAssemblyFeatures, featureInclude))
+                     {
+                        handler.addFeatureInclude(EcoreUtil.copy(featureInclude));
+                     }
+                     else
+                     {
+                        log.warn("Cannot include feature " + featureInclude.getId() + " into "
+                           + assemblyFeature.getId() + " because it is out of scope");
+                     }
                   }
 
                   for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
                   {
-                     handler.addPluginInclude(EcoreUtil.copy(pluginInclude));
+                     if (isIn(visibleAssemblyFeatures, pluginInclude))
+                     {
+                        handler.addPluginInclude(EcoreUtil.copy(pluginInclude));
+                     }
+                     else
+                     {
+                        log.warn("Cannot include plugin " + pluginInclude.getId() + " into " + assemblyFeature.getId()
+                           + " because it is out of scope");
+                     }
                   }
                }
             }
@@ -166,6 +196,41 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             // TODO requirements?
          }
       }
+   }
+
+   private static boolean isIn(Collection<FeatureProject> featureProjects, FeatureInclude featureInclude)
+   {
+      for (FeatureProject featureProject : featureProjects)
+      {
+         if (featureInclude.isSatisfiableBy(featureProject))
+         {
+            return true;
+         }
+
+         for (FeatureInclude featureInclude2 : featureProject.getIncludedFeatures())
+         {
+            if (featureInclude.getId().equals(featureInclude2.getId()))
+            {
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+
+   private static boolean isIn(Collection<FeatureProject> featureProjects, PluginInclude pluginInclude)
+   {
+      for (FeatureProject featureProject : featureProjects)
+      {
+         for (PluginInclude pluginInclude2 : featureProject.getIncludedPlugins())
+         {
+            if (pluginInclude.getId().equals(pluginInclude2.getId()))
+            {
+               return true;
+            }
+         }
+      }
+      return false;
    }
 
    private AggregatorMode getAggregatorMode(PropertiesSource moduleProperties, AbstractModule module,
@@ -225,10 +290,11 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       return featureInclude;
    }
 
-   private Iterable<FeatureProject> resolveIncludeResolutionContext(AbstractModule module,
-      FeatureProject assemblyFeature, boolean includeForeignModules)
+   private void resolveIncludeResolutionContext(Set<FeatureProject> assemblyFeatures,
+      Set<FeatureProject> visibleAssemblyFeatures, AbstractModule module, FeatureProject assemblyFeature,
+      boolean includeForeignModules)
    {
-      final SetMultimap<AbstractModule, String> moduleToAssemblies = LinkedHashMultimap.create();
+      final SetMultimap<AbstractModule, FeatureProject> moduleToAssemblies = LinkedHashMultimap.create();
 
       if (module instanceof CompositeModule)
       {
@@ -240,8 +306,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
          moduleToAssemblies.putAll(resolver.resolveResolutionContext(module, assemblyFeature));
       }
 
-      final Collection<FeatureProject> result = new LinkedHashSet<FeatureProject>();
-      for (Entry<AbstractModule, Collection<String>> entry : moduleToAssemblies.asMap().entrySet())
+      for (Entry<AbstractModule, Collection<FeatureProject>> entry : moduleToAssemblies.asMap().entrySet())
       {
          AbstractModule foreignModule = entry.getKey();
 
@@ -250,35 +315,35 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
             throw new IllegalStateException();
          }
 
-         for (String visibleAssembly : entry.getValue())
+         for (FeaturesFacet featuresFacet : foreignModule.getFacets(FeaturesFacet.class))
          {
-            final FeatureProject foreignAssembly = findFeatureProjectForAssembly(foreignModule, visibleAssembly);
-            if (foreignAssembly == null)
+            for (FeatureProject featureProject : featuresFacet.getProjects())
             {
-               throw new IllegalStateException("Cannot find feature project for assembly " + visibleAssembly);
+               if (!B2MetadataUtils.getAssemblyNames(featureProject).isEmpty())
+               {
+                  assemblyFeatures.add(featureProject);
+               }
             }
-            result.add(foreignAssembly);
          }
+
+         visibleAssemblyFeatures.addAll(entry.getValue());
       }
-      return result;
    }
 
    private void determineCompositeResolutionContext(CompositeModule module,
-      SetMultimap<AbstractModule, String> moduleToAssemblies)
+      SetMultimap<AbstractModule, FeatureProject> moduleToAssemblies)
    {
       for (AbstractModule abstractModule : module.getModules())
       {
-         LinkedHashSet<String> assemblyNames = new LinkedHashSet<String>();
          for (FeaturesFacet featuresFacet : abstractModule.getFacets(FeaturesFacet.class))
          {
             for (FeatureProject featureProject : featuresFacet.getProjects())
             {
-               assemblyNames.addAll(B2MetadataUtils.getAssemblyNames(featureProject));
+               if (!B2MetadataUtils.getAssemblyNames(featureProject).isEmpty())
+               {
+                  moduleToAssemblies.get(abstractModule).add(featureProject);
+               }
             }
-         }
-         if (!assemblyNames.isEmpty())
-         {
-            moduleToAssemblies.get(abstractModule).addAll(assemblyNames);
          }
       }
    }
@@ -290,7 +355,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       {
          for (FeatureProject featureProject : featuresFacet.getProjects())
          {
-            final Set<String> assemblyNames = B2MetadataUtils.getAssemblyNames(featureProject);
+            final List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(featureProject);
             if (assemblyNames.contains(assemblyName))
             {
                return featureProject;
@@ -314,23 +379,26 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       includesAppender = createIncludesAppenderForFacet(moduleProperties, isSource, handler, facetName);
       includesAppender.walk(pluginsFacet.getProjects());
 
-      final Iterable<PluginsFacet> resolutionContext = resolveRequirementResolutionContext(module, facetFeatrue,
-         sourcePlugins);
-
-      for (PluginsFacet requiredPluginsFacet : determineRequiredPluginFacets(sourcePlugins, resolutionContext))
+      if (!isSource)
       {
-         final FeatureProject featureProject = findFeatureProjectForPluginsFacet(requiredPluginsFacet, isSource);
-         if (featureProject == null)
+         final Iterable<PluginsFacet> resolutionContext = resolveRequirementResolutionContext(module, facetFeatrue,
+            sourcePlugins);
+
+         for (PluginsFacet requiredPluginsFacet : determineRequiredPluginFacets(sourcePlugins, resolutionContext))
          {
-            throw new IllegalStateException("Cannot find feature project for plugin facet "
-               + requiredPluginsFacet.getName());
+            final FeatureProject featureProject = findFeatureProjectForPluginsFacet(requiredPluginsFacet, isSource);
+            if (featureProject == null)
+            {
+               throw new IllegalStateException("Cannot find feature project for plugin facet "
+                  + requiredPluginsFacet.getName());
+            }
+
+            final RuledReference featureRequirement = ModuleModelFactory.eINSTANCE.createRuledReference();
+            featureRequirement.setId(featureProject.getId());
+            featureRequirement.setVersion(featureProject.getVersion());
+
+            handler.addFeatureRequirement(featureRequirement);
          }
-
-         final RuledReference featureRequirement = ModuleModelFactory.eINSTANCE.createRuledReference();
-         featureRequirement.setId(featureProject.getId());
-         featureRequirement.setVersion(featureProject.getVersion());
-
-         handler.addFeatureRequirement(featureRequirement);
       }
 
       // custom includes and requirements
@@ -358,7 +426,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       Collection<PluginsFacet> result = new LinkedHashSet<PluginsFacet>();
       result.addAll(sourcePlugins.getParent().getFacets(PluginsFacet.class));
 
-      final SetMultimap<AbstractModule, String> moduleToAssemblies;
+      final SetMultimap<AbstractModule, FeatureProject> moduleToAssemblies;
       moduleToAssemblies = resolver.resolveResolutionContext(sourcePlugins.getParent(), facetFeature);
 
       final Collection<AbstractModule> collection = moduleToAssemblies.keySet();

@@ -135,6 +135,7 @@ public class FeaturesInterpolator
             B2MetadataUtils.setModuleId(featureProject, module.getId());
             B2MetadataUtils.setModuleVersion(featureProject, module.getVersion());
             B2MetadataUtils.addAssemblyName(featureProject, assemblyName);
+            B2MetadataUtils.addAssemblyClassifier(featureProject, converter.getAssemblyClassifier(moduleProperties, assemblyName));
             B2MetadataUtils.addReplacedFeatureId(featureProject, featureProject.getId());
 
             includesAndRequirements.appendIncludesAndRequirements(moduleProperties, module, featureProject,
@@ -152,6 +153,7 @@ public class FeaturesInterpolator
             else
             {
                B2MetadataUtils.addAssemblyName(singleIncludedFeature, assemblyName);
+               B2MetadataUtils.addAssemblyClassifier(singleIncludedFeature, converter.getAssemblyClassifier(moduleProperties, assemblyName));
                B2MetadataUtils.addReplacedFeatureId(singleIncludedFeature, featureProject.getId());
             }
          }

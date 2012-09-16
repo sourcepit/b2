@@ -105,6 +105,7 @@ public class SitesInterpolator
       siteProject.setDirectory(new File(layout.pathOfFacetMetaData(module, sitesFacet.getName(), siteProject.getId())));
       
       B2MetadataUtils.addAssemblyName(siteProject, assemblyName);
+      B2MetadataUtils.addAssemblyClassifier(siteProject, converter.getAssemblyClassifier(moduleProperties, assemblyName));
 
       return siteProject;
    }

@@ -626,11 +626,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       FeatureProject testsSrcFeature = getFeatureProject(module, "foo.tests.sources.feature");
       assertNotNull(testsSrcFeature);
-      assertEquals(1, testsSrcFeature.getRequiredFeatures().size());
+      assertEquals(0, testsSrcFeature.getRequiredFeatures().size());
       assertEquals(0, testsSrcFeature.getRequiredPlugins().size());
-
-      requiredFeature = testsSrcFeature.getRequiredFeatures().get(0);
-      assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", requiredFeature);
    }
 
    @Override

@@ -25,7 +25,7 @@ public class MavenResolutionContextResolver implements ResolutionContextResolver
    @Inject
    private LegacySupport buildContext;
 
-   public SetMultimap<AbstractModule, String> resolveResolutionContext(AbstractModule module,
+   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
       FeatureProject resolutionTarget)
    {
       final MavenSession session = buildContext.getSession();
@@ -33,14 +33,14 @@ public class MavenResolutionContextResolver implements ResolutionContextResolver
 
       assertIsModuleProject(project, module);
 
-      final ModuleModelContext modelContext = ModuleModelContextAdapterFactory.get(project);
+      final ModelContext modelContext = ModelContextAdapterFactory.get(project);
       if (B2MetadataUtils.isTestFeature(resolutionTarget))
       {
-         return modelContext.getResolvedTestScope();
+         return modelContext.getTestScope();
       }
       else
       {
-         return modelContext.getResolvedMainScope();
+         return modelContext.getMainScope();
       }
    }
 

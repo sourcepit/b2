@@ -5,7 +5,10 @@
 package org.sourcepit.b2.internal.maven;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
@@ -21,9 +24,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sonatype.aether.RepositorySystem;
 import org.sonatype.aether.resolution.ArtifactRequest;
@@ -38,8 +40,11 @@ import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.internal.generator.MavenConverter;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.common.util.GavResourceUtils;
+import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
+import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
+import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.Environment;
@@ -49,6 +54,9 @@ import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
+
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.SetMultimap;
 
 @Named
 public class B2SessionInitializer
@@ -72,12 +80,11 @@ public class B2SessionInitializer
    private B2SessionService sessionService;
 
    @Inject
-   private ModuleModelContextAdapterFactory adapterFactory;
+   private ModelContextAdapterFactory adapterFactory;
 
    public B2Session initialize(MavenSession bootSession, Properties properties)
    {
       intEMF();
-      adapterFactory.adapt(bootSession, bootSession.getCurrentProject());
       return initB2Session(bootSession, properties);
    }
 
@@ -89,28 +96,14 @@ public class B2SessionInitializer
 
    private B2Session initB2Session(MavenSession bootSession, Properties properties)
    {
-      B2Session b2Session = Adapters.getAdapter(bootSession, B2Session.class);
-      if (b2Session == null)
-      {
-         MavenURIResolver mavenURIResolver = new MavenURIResolver(bootSession.getProjects(),
-            bootSession.getCurrentProject());
-         mavenURIResolver.getProjectURIResolvers().add(new B2ModelResourceURIResolver(projectHelper));
+      ModelContext modelContext = adapterFactory.adapt(bootSession, bootSession.getCurrentProject());
+      sessionService.setCurrentResourceSet(modelContext.getResourceSet());
 
-         ResourceSet resourceSet = new ResourceSetImpl();
-         resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
-         GavResourceUtils.configureResourceSet(resourceSet, mavenURIResolver);
-         sessionService.setCurrentResourceSet(resourceSet);
+      B2Session b2Session = createB2Session(bootSession);
+      sessionService.setCurrentSession(b2Session);
 
-         b2Session = createB2Session(bootSession, resourceSet, properties);
-         sessionService.setCurrentSession(b2Session);
-
-         Adapters.addAdapter(bootSession, b2Session);
-      }
-      else
-      {
-         sessionService.setCurrentSession(b2Session);
-         sessionService.setCurrentResourceSet(b2Session.eResource().getResourceSet());
-      }
+      Adapters.removeAdapters(bootSession, B2Session.class);
+      Adapters.addAdapter(bootSession, b2Session);
 
       final int currentIdx = bootSession.getProjects().indexOf(bootSession.getCurrentProject());
       b2Session.setCurrentProject(b2Session.getProjects().get(currentIdx));
@@ -122,26 +115,9 @@ public class B2SessionInitializer
       return b2Session;
    }
 
-   private B2Session createB2Session(MavenSession bootSession, ResourceSet resourceSet, Properties properties)
+   private B2Session createB2Session(MavenSession bootSession)
    {
       final B2Session b2Session;
-
-      // final String uri = (String) session.getData(CACHE_KEY_SESSION);
-      // if (uri != null)
-      // {
-      // Resource resource = resourceSet.getResource(URI.createURI(uri), true);
-      // B2Session source = (B2Session) resource.getContents().get(0);
-      // b2Session = EcoreUtil.copy(source);
-      // for (ModuleProject moduleProject : b2Session.getProjects())
-      // {
-      // if (moduleProject.getDirectory().equals(bootSession.getCurrentProject().getBasedir()))
-      // {
-      // b2Session.setCurrentProject(moduleProject);
-      // }
-      // }
-      // }
-      // else
-      // {
       b2Session = SessionModelFactory.eINSTANCE.createB2Session();
 
       for (MavenProject project : bootSession.getProjects())
@@ -158,7 +134,6 @@ public class B2SessionInitializer
             b2Session.setCurrentProject(moduleProject);
          }
       }
-      // }
 
       return b2Session;
    }
@@ -287,34 +262,57 @@ public class B2SessionInitializer
    private void processDependencies(ResourceSet resourceSet, ModuleProject moduleProject,
       final MavenProject wrapperProject)
    {
-      for (Artifact artifact : wrapperProject.getArtifacts())
+      final ModelContext modelContext = ModelContextAdapterFactory.get(wrapperProject);
+
+      SetMultimap<AbstractModule, FeatureProject> foo = LinkedHashMultimap.create();
+      foo.putAll(modelContext.getMainScope());
+      foo.putAll(modelContext.getTestScope());
+
+      final B2Session session = moduleProject.getSession();
+
+      for (Entry<AbstractModule, Collection<FeatureProject>> entry : foo.asMap().entrySet())
       {
-         if ("module".equals(artifact.getType()))
+         ArtifactIdentifier id = toArtifactId(entry.getKey().eResource().getURI());
+
+         if (session.getProject(id.getGroupId(), id.getArtifactId(), id.getVersion()) == null)
          {
-            final B2Session session = moduleProject.getSession();
-            String groupId = artifact.getGroupId();
-            String artifactId = artifact.getArtifactId();
-            String version = artifact.getBaseVersion();
-
-            if (session.getProject(groupId, artifactId, version) == null)
+            // TODO move test sites to test projects
+            for (FeatureProject featureProject : entry.getValue())
             {
-               final Artifact siteArtifact = resolveSiteZip(wrapperProject, artifact);
-               final File zipFile = siteArtifact.getFile();
+               List<String> classifiers = B2MetadataUtils.getAssemblyClassifiers(featureProject);
+               for (String classifier : classifiers)
+               {
+                  final Artifact siteArtifact = resolveSiteZip(wrapperProject, id, classifier);
+                  final File zipFile = siteArtifact.getFile();
 
-               final String path = zipFile.getAbsolutePath().replace('\\', '/');
-               final String siteUrl = "jar:file:" + path + "!/";
-               moduleProject.putAnnotationEntry("b2.resolvedSites", artifact.getId().replace(':', '_'), siteUrl);
+                  final String path = zipFile.getAbsolutePath().replace('\\', '/');
+                  final String siteUrl = "jar:file:" + path + "!/";
 
-               logger.info("Using site " + siteUrl);
+                  final ArtifactIdentifier uniqueId = new ArtifactIdentifier(id.getGroupId(), id.getArtifactId(),
+                     id.getVersion(), classifier, id.getType());
+                  moduleProject.putAnnotationEntry("b2.resolvedSites", uniqueId.toString().replace(':', '_'), siteUrl);
+
+                  logger.info("Using site " + siteUrl);
+               }
             }
          }
       }
    }
 
-   private Artifact resolveSiteZip(final MavenProject wrapperProject, Artifact artifact)
+   private static ArtifactIdentifier toArtifactId(URI uri)
    {
-      final String classifier = artifact.getClassifier();
+      final String[] segments = uri.segments();
 
+      final boolean hasClassifier = segments.length == 5;
+
+      String version = hasClassifier ? segments[4] : segments[3];
+      String classifier = hasClassifier ? segments[3] : null;
+
+      return new ArtifactIdentifier(segments[0], segments[1], version, classifier, segments[2]);
+   }
+
+   private Artifact resolveSiteZip(final MavenProject wrapperProject, ArtifactIdentifier artifact, String classifier)
+   {
       final StringBuilder cl = new StringBuilder();
       cl.append("site");
       if (classifier != null && classifier.length() > 0)
@@ -324,7 +322,7 @@ public class B2SessionInitializer
       }
 
       final AbstractArtifact siteArtifact = new DefaultArtifact(artifact.getGroupId(), artifact.getArtifactId(),
-         cl.toString(), "zip", artifact.getBaseVersion());
+         cl.toString(), "zip", artifact.getVersion());
 
       ArtifactRequest request = new ArtifactRequest();
       request.setArtifact(siteArtifact);

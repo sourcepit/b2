@@ -92,5 +92,23 @@ public final class ArtifactIdentifier
       return true;
    } // CSON
 
+   @Override
+   public String toString()
+   {
+      final StringBuilder sb = new StringBuilder();
+      sb.append(getGroupId());
+      sb.append(":");
+      sb.append(getArtifactId());
+      sb.append(":");
+      sb.append(getType());
+      if (getClassifier() != null && getClassifier().length() > 0)
+      {
+         sb.append(":");
+         sb.append(getClassifier());
+      }
+      sb.append(":");
+      sb.append(getVersion());
+      return sb.toString();
+   }
 
 }

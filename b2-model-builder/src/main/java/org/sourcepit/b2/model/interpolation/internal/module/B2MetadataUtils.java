@@ -6,15 +6,16 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
 
 public final class B2MetadataUtils
 {
+   private static final String ASSEMBLY_CLASSIFIERS = "assemblyClassifiers";
    private static final String IS_TEST_PLUGIN = "isTestPlugin";
    private static final String MODULE_VERSION = "moduleVersion";
    private static final String MODULE_ID = "moduleId";
@@ -54,40 +55,59 @@ public final class B2MetadataUtils
       return annotatable.getAnnotationEntry(B2, MODULE_VERSION);
    }
 
-   public static Set<String> getAssemblyNames(Annotatable annotatable)
+   public static List<String> getAssemblyNames(Annotatable annotatable)
    {
-      final Set<String> names = new LinkedHashSet<String>();
+      final List<String> names = new ArrayList<String>();
       split(names, annotatable.getAnnotationEntry(B2, ASSEMBLY_NAMES));
       return names;
    }
 
-   public static void setAssemblyNames(Annotatable annotatable, Set<String> assemblyNames)
+   public static void setAssemblyNames(Annotatable annotatable, List<String> assemblyNames)
    {
       setB2Metadata(annotatable, ASSEMBLY_NAMES, toString(assemblyNames));
    }
 
    public static void addAssemblyName(Annotatable annotatable, String assemblyName)
    {
-      final Set<String> assemblyNames = getAssemblyNames(annotatable);
+      final List<String> assemblyNames = getAssemblyNames(annotatable);
       assemblyNames.add(assemblyName);
       setAssemblyNames(annotatable, assemblyNames);
    }
 
-   public static Set<String> getReplacedFeatureIds(Annotatable annotatable)
+   public static List<String> getAssemblyClassifiers(Annotatable annotatable)
    {
-      final Set<String> names = new LinkedHashSet<String>();
+      final List<String> classifiers = new ArrayList<String>();
+      split(classifiers, annotatable.getAnnotationEntry(B2, ASSEMBLY_CLASSIFIERS));
+      return classifiers;
+   }
+
+   public static void setAssemblyClassifiers(Annotatable annotatable, List<String> assemblyClassifiers)
+   {
+      setB2Metadata(annotatable, ASSEMBLY_CLASSIFIERS, toString(assemblyClassifiers));
+   }
+
+   public static void addAssemblyClassifier(Annotatable annotatable, String assemblyClassifier)
+   {
+      final List<String> assemblyClassifiers = getAssemblyClassifiers(annotatable);
+      assemblyClassifiers.add(assemblyClassifier);
+      setAssemblyClassifiers(annotatable, assemblyClassifiers);
+   }
+
+   public static List<String> getReplacedFeatureIds(Annotatable annotatable)
+   {
+      final List<String> names = new ArrayList<String>();
       split(names, annotatable.getAnnotationEntry(B2, "replacedFeatureIds"));
       return names;
    }
-   
-   public static void setReplacedFeatureIds(Annotatable annotatable, Set<String> featureIds)
+
+   public static void setReplacedFeatureIds(Annotatable annotatable, List<String> featureIds)
    {
       setB2Metadata(annotatable, "replacedFeatureIds", toString(featureIds));
    }
 
    public static void addReplacedFeatureId(Annotatable annotatable, String featureId)
    {
-      final Set<String> featureIds = getReplacedFeatureIds(annotatable);
+      final List<String> featureIds = getReplacedFeatureIds(annotatable);
       featureIds.add(featureId);
       setReplacedFeatureIds(annotatable, featureIds);
    }
@@ -157,10 +177,7 @@ public final class B2MetadataUtils
          for (String rawValue : rawValues.split(","))
          {
             String name = rawValue.trim();
-            if (name.length() > 0)
-            {
-               values.add(name);
-            }
+            values.add(name);
          }
       }
    }
@@ -187,7 +204,7 @@ public final class B2MetadataUtils
          sb.deleteCharAt(sb.length() - 1);
          sb.deleteCharAt(sb.length() - 1);
       }
-      return sb.length() > 0 ? sb.toString() : null;
+      return sb.toString();
    }
 
    private static String toString(boolean value)

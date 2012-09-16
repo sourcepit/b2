@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -76,8 +77,8 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
    // TODO legacy compatibility
    public static String getClassifier(BasicConverter converter, PropertiesSource properties, SiteProject site)
    {
-      Set<String> assemblyNames = B2MetadataUtils.getAssemblyNames(site);
-      String assemblyName = assemblyNames.isEmpty() ? null : assemblyNames.iterator().next();
+      List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(site);
+      String assemblyName = assemblyNames.isEmpty() ? null : assemblyNames.get(0);
       return assemblyName == null ? null : converter.getAssemblyClassifier(properties, assemblyName);
    }
 

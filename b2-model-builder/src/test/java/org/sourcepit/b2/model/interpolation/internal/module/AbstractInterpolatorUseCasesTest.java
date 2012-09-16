@@ -12,7 +12,6 @@ import static org.mockito.Mockito.mock;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -872,24 +871,22 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
 
       ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {
-         public SetMultimap<AbstractModule, String> resolveResolutionContext(AbstractModule module,
+         public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
             FeatureProject resolutionTarget)
          {
-            final SetMultimap<AbstractModule, String> moduleToAssemblies = LinkedHashMultimap.create();
+            final SetMultimap<AbstractModule, FeatureProject> moduleToAssemblies = LinkedHashMultimap.create();
             final Collection<AbstractModule> modules = resolutionContext.get();
             for (AbstractModule abstractModule : modules)
             {
-               LinkedHashSet<String> assemblyNames = new LinkedHashSet<String>();
                for (FeaturesFacet featuresFacet : abstractModule.getFacets(FeaturesFacet.class))
                {
                   for (FeatureProject featureProject : featuresFacet.getProjects())
                   {
-                     assemblyNames.addAll(B2MetadataUtils.getAssemblyNames(featureProject));
+                     if (!B2MetadataUtils.getAssemblyNames(featureProject).isEmpty())
+                     {
+                        moduleToAssemblies.get(abstractModule).add(featureProject);
+                     }
                   }
-               }
-               if (!assemblyNames.isEmpty())
-               {
-                  moduleToAssemblies.get(abstractModule).addAll(assemblyNames);
                }
             }
             return moduleToAssemblies;
@@ -918,6 +915,21 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PluginProject plugin = createPluginProject(pluginId, pluginVersion);
       pluginsFacet.getProjects().add(plugin);
       return plugin;
+   }
+
+   public static FeatureProject addFeatureProject(BasicModule module, String facetName, String featureId,
+      String featureVersion)
+   {
+      FeaturesFacet featuresFacet = module.getFacetByName(facetName);
+      if (featuresFacet == null)
+      {
+         featuresFacet = createFeaturesFacet(facetName);
+         module.getFacets().add(featuresFacet);
+      }
+
+      FeatureProject feature = createFeatureProject(featureId, featureVersion);
+      featuresFacet.getProjects().add(feature);
+      return feature;
    }
 
    public static FeatureProject getFeatureProject(AbstractModule module, String id, String version)
@@ -974,12 +986,29 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       return plugin;
    }
 
+   public static FeatureProject createFeatureProject(String id, String version)
+   {
+      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
+      final FeatureProject feature = eFactory.createFeatureProject();
+      feature.setId(id);
+      feature.setVersion(version);
+      return feature;
+   }
+
    public static PluginsFacet createPluginsFacet(String name)
    {
       final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
       final PluginsFacet pluginsFacet = eFactory.createPluginsFacet();
       pluginsFacet.setName(name);
       return pluginsFacet;
+   }
+
+   public static FeaturesFacet createFeaturesFacet(String name)
+   {
+      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
+      final FeaturesFacet featuresFacet = eFactory.createFeaturesFacet();
+      featuresFacet.setName(name);
+      return featuresFacet;
    }
 
    public static void assertReference(String expectedId, String expectedVersion, AbstractReference reference)

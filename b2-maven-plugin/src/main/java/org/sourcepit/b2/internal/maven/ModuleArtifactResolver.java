@@ -4,14 +4,15 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.sourcepit.b2.model.interpolation.internal.module;
+package org.sourcepit.b2.internal.maven;
 
-import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.module.FeatureProject;
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.project.MavenProject;
+import org.sourcepit.common.maven.model.MavenArtifact;
 
 import com.google.common.collect.SetMultimap;
 
-public interface ResolutionContextResolver
+public interface ModuleArtifactResolver
 {
-   SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, FeatureProject resolutionTarget);
+   SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope);
 }

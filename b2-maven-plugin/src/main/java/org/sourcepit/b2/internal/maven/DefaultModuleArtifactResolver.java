@@ -6,7 +6,6 @@
 
 package org.sourcepit.b2.internal.maven;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,10 +21,6 @@ import org.apache.maven.project.DependencyResolutionException;
 import org.apache.maven.project.DependencyResolutionResult;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectDependenciesResolver;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.sonatype.aether.artifact.Artifact;
 import org.sonatype.aether.graph.Dependency;
 import org.sonatype.aether.graph.DependencyFilter;
@@ -33,134 +28,34 @@ import org.sonatype.aether.graph.DependencyNode;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sonatype.aether.util.filter.AndDependencyFilter;
 import org.sonatype.aether.util.filter.ScopeDependencyFilter;
-import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
+import org.sourcepit.common.maven.model.MavenArtifact;
+import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.utils.lang.Exceptions;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
 @Named
-public class ModuleModelContextAdapterFactory
+public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
 {
-   @Inject
-   private LayoutManager layoutManager;
-
    @Inject
    private ProjectDependenciesResolver dependenciesResolver;
 
-   public ModuleModelContext adapt(MavenSession session, MavenProject project)
+   public SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope)
    {
-      synchronized (project)
-      {
-         ModuleModelContext context = (ModuleModelContext) project.getContextValue(ModuleModelContext.class.getName());
-         if (context == null)
-         {
-            context = createModuleModelContext(session, project);
-            project.setContextValue(ModuleModelContext.class.getName(), context);
-         }
-         return context;
-      }
-   }
-
-   public static ModuleModelContext get(MavenProject project)
-   {
-      synchronized (project)
-      {
-         return (ModuleModelContext) project.getContextValue(ModuleModelContext.class.getName());
-      }
-   }
-
-   private ModuleModelContext createModuleModelContext(MavenSession session, MavenProject project)
-   {
-      final ResourceSet resourceSet = createResourceSet();
-
-      final SetMultimap<URI, String> scopeTest = LinkedHashMultimap.create();
-      initURIMapping(scopeTest, session, project, resourceSet, "test");
-
-      final SetMultimap<URI, String> scopeCompile = LinkedHashMultimap.create();
-      initURIMapping(scopeCompile, session, project, resourceSet, "compile");
-
-      final URI artifactURI = toArtifactURI(project, "module", null);
-      final URI fileURI = URI.createFileURI(pathOfMetaDataFile(project.getBasedir(), "b2.module"));
-      resourceSet.getURIConverter().getURIMap().put(artifactURI, fileURI);
-
-      return new ModuleModelContext(resourceSet, artifactURI, scopeCompile, scopeTest);
-   }
-
-   private static String pathOfMetaDataFile(File directory, String name)
-   {
-      final StringBuilder sb = new StringBuilder();
-      final String modulePath = directory.getAbsolutePath();
-      if (modulePath.length() != 0)
-      {
-         sb.append(modulePath);
-         sb.append(File.separatorChar);
-      }
-      sb.append(".b2");
-      sb.append(File.separatorChar);
-      sb.append(name);
-      return sb.toString();
-   }
-
-   private static ResourceSet createResourceSet()
-   {
-      final ResourceSet resourceSet = new ResourceSetImpl();
-      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("gav", new XMIResourceFactoryImpl());
-      return resourceSet;
-   }
-
-   private void initURIMapping(SetMultimap<URI, String> artifactURIs, MavenSession session, MavenProject project,
-      ResourceSet resourceSet, String scope)
-   {
-      // resolve module artifacts
       final SetMultimap<DependencyNode, String> moduleNodeToClassifiers = LinkedHashMultimap.create();
       resolveModuleDependencies(moduleNodeToClassifiers, session, project, scope);
 
-      // create artifact to file uri mapping
+      final SetMultimap<MavenArtifact, String> moduleArtifactToClassifiers = LinkedHashMultimap.create();
       for (Entry<DependencyNode, Collection<String>> entry : moduleNodeToClassifiers.asMap().entrySet())
       {
-         final Artifact artifact = entry.getKey().getDependency().getArtifact();
-         final URI artifactURI = toArtifactURI(artifact, null);
-         final URI fileURI = URI.createFileURI(artifact.getFile().getAbsolutePath());
-         artifactURIs.get(artifactURI).addAll(entry.getValue());
-         resourceSet.getURIConverter().getURIMap().put(artifactURI, fileURI);
-      }
-   }
+         DependencyNode dependencyNode = entry.getKey();
+         Collection<String> classifiers = entry.getValue();
 
-   private static URI toArtifactURI(MavenProject project, String type, String classifier)
-   {
-      final StringBuilder sb = new StringBuilder();
-      sb.append(project.getGroupId());
-      sb.append("/");
-      sb.append(project.getArtifactId());
-      sb.append("/");
-      sb.append(type);
-      if (classifier != null && classifier.length() > 0)
-      {
-         sb.append("/");
-         sb.append(classifier);
+         final MavenArtifact artifact = MavenModelUtils.toMavenArtifact(dependencyNode.getDependency().getArtifact());
+         moduleArtifactToClassifiers.get(artifact).addAll(classifiers);
       }
-      sb.append("/");
-      sb.append(project.getVersion());
-      return URI.createURI("gav:/" + sb.toString());
-   }
-
-   private static URI toArtifactURI(Artifact artifact, String classifier)
-   {
-      final StringBuilder sb = new StringBuilder();
-      sb.append(artifact.getGroupId());
-      sb.append("/");
-      sb.append(artifact.getArtifactId());
-      sb.append("/");
-      sb.append(artifact.getExtension());
-      if (classifier != null && classifier.length() > 0)
-      {
-         sb.append("/");
-         sb.append(classifier);
-      }
-      sb.append("/");
-      sb.append(artifact.getBaseVersion());
-      return URI.createURI("gav:/" + sb.toString());
+      return moduleArtifactToClassifiers;
    }
 
    private DependencyResolutionResult resolveModuleDependencies(
@@ -184,7 +79,7 @@ public class ModuleModelContextAdapterFactory
                   moduleArtifact.getFile());
                node.setArtifact(newArtifact);
 
-               moduleNodeToClassifiers.get(node).add(classifier.length() > 0 ? classifier : null);
+               moduleNodeToClassifiers.get(node).add(classifier);
             }
             return true;
          }
