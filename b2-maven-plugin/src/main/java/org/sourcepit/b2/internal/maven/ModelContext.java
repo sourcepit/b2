@@ -17,15 +17,15 @@ import com.google.common.collect.SetMultimap;
 public class ModelContext
 {
    private final ResourceSet resourceSet;
-   private final URI uri;
+   private final URI moduleUri;
    private final SetMultimap<AbstractModule, FeatureProject> scopeMain;
    private final SetMultimap<AbstractModule, FeatureProject> scopeTest;
 
-   public ModelContext(ResourceSet resourceSet, URI uri, SetMultimap<AbstractModule, FeatureProject> scopeMain,
+   public ModelContext(ResourceSet resourceSet, URI moduleUri, SetMultimap<AbstractModule, FeatureProject> scopeMain,
       SetMultimap<AbstractModule, FeatureProject> scopeTest)
    {
       this.resourceSet = resourceSet;
-      this.uri = uri;
+      this.moduleUri = moduleUri;
       this.scopeMain = ImmutableSetMultimap.copyOf(scopeMain);
       this.scopeTest = ImmutableSetMultimap.copyOf(scopeTest);
    }
@@ -35,9 +35,9 @@ public class ModelContext
       return resourceSet;
    }
 
-   public URI getUri()
+   public URI getModuleUri()
    {
-      return uri;
+      return moduleUri;
    }
 
    // TODO its false to use every classifier attached at the feature project. we have to introduce a dedicated

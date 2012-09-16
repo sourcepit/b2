@@ -99,7 +99,7 @@ public class B2SessionInitializer
       ModelContext modelContext = adapterFactory.adapt(bootSession, bootSession.getCurrentProject());
       sessionService.setCurrentResourceSet(modelContext.getResourceSet());
 
-      B2Session b2Session = createB2Session(bootSession);
+      B2Session b2Session = createB2Session(modelContext.getResourceSet(), bootSession);
       sessionService.setCurrentSession(b2Session);
 
       Adapters.removeAdapters(bootSession, B2Session.class);
@@ -115,7 +115,7 @@ public class B2SessionInitializer
       return b2Session;
    }
 
-   private B2Session createB2Session(MavenSession bootSession)
+   private B2Session createB2Session(ResourceSet resourceSet, MavenSession bootSession)
    {
       final B2Session b2Session;
       b2Session = SessionModelFactory.eINSTANCE.createB2Session();
@@ -128,8 +128,20 @@ public class B2SessionInitializer
          moduleProject.setVersion(project.getVersion());
          moduleProject.setDirectory(project.getBasedir());
 
+         final MavenProject currentProject = bootSession.getCurrentProject();
+         if (!project.equals(currentProject))
+         {
+            final ModelContext modelContext = ModelContextAdapterFactory.get(project);
+            if (modelContext != null)
+            {
+               final URI moduleUri = modelContext.getModuleUri();
+               final AbstractModule module = (AbstractModule) resourceSet.getEObject(moduleUri, true);
+               moduleProject.setModuleModel(module);
+            }
+         }
+
          b2Session.getProjects().add(moduleProject);
-         if (project.equals(bootSession.getCurrentProject()))
+         if (project.equals(currentProject))
          {
             b2Session.setCurrentProject(moduleProject);
          }

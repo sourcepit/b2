@@ -9,11 +9,14 @@ package org.sourcepit.b2.internal.maven;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.sourcepit.b2.model.interpolation.internal.module.AbstractInterpolatorUseCasesTest.addFeatureProject;
 import static org.sourcepit.b2.model.interpolation.internal.module.AbstractInterpolatorUseCasesTest.createBasicModule;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.maven.artifact.Artifact;
@@ -64,6 +67,55 @@ public class ModelContextAdapterFactoryTest
    protected File getResourcesDir()
    {
       return getEnvironment().getResourcesDir();
+   }
+
+   @Test
+   public void testAdoptionReactorProjectURIMappings() throws IOException
+   {
+
+      final ModuleArtifactResolver artifactResolver = new ModuleArtifactResolver()
+      {
+         public SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope)
+         {
+            return LinkedHashMultimap.create();
+         }
+      };
+
+      List<MavenProject> projects = new ArrayList<MavenProject>();
+
+      Model pom = new Model();
+      pom.setGroupId("project1.groupId");
+      pom.setArtifactId("project1.artifactId");
+      pom.setVersion("project1.version");
+
+      MavenProject project = new MavenProject(pom);
+      project.setFile(new File("project1/pom.xml"));
+      projects.add(project);
+
+      pom = new Model();
+      pom.setGroupId("project2.groupId");
+      pom.setArtifactId("project2.artifactId");
+      pom.setVersion("project2.version");
+
+      project = new MavenProject(pom);
+      project.setFile(new File("project2/pom.xml"));
+      projects.add(project);
+
+      final MavenSession session = mock(MavenSession.class);
+      when(session.getProjects()).thenReturn(projects);
+
+      ModelContextAdapterFactory adapterFactory = new ModelContextAdapterFactory(artifactResolver);
+
+      // fake an uri mapping
+      final MavenProject project1 = projects.get(0);
+      final URI gavUri = URI.createURI("gav:/project1/project1/module/1.0");
+      final URI fileURI = URI.createFileURI(project1.getFile().getAbsolutePath());
+      adapterFactory.adapt(session, project1).getResourceSet().getURIConverter().getURIMap().put(gavUri, fileURI);
+
+      final MavenProject project2 = projects.get(1);
+      final ModelContext modelContext = adapterFactory.adapt(session, project2);
+      final URI mappedUri = modelContext.getResourceSet().getURIConverter().getURIMap().get(gavUri);
+      assertEquals(fileURI, mappedUri);
    }
 
    @Test
@@ -125,8 +177,9 @@ public class ModelContextAdapterFactoryTest
       ModelContext modelContext = adapterFactory.adapt(session, project);
       assertNotNull(modelContext);
       assertNotNull(modelContext.getResourceSet());
-      URI uri = URI.createURI("gav:/project.groupId/project.artifactId/module/project.version");
-      assertEquals(uri, modelContext.getUri());
+      URI uri = URI.createURI("gav:/project.groupId/project.artifactId/module/project.version#/");
+      assertEquals(uri, modelContext.getModuleUri());
+      assertNotNull(modelContext.getResourceSet().getURIConverter().getURIMap().get(uri.trimFragment()));
 
       SetMultimap<AbstractModule, FeatureProject> scope = modelContext.getMainScope();
       assertEquals(1, scope.size());

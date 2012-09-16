@@ -64,7 +64,7 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
          session.eResource().getContents().clear();
       }
 
-      Resource moduleResource = resourceSet.createResource(modelContext.getUri());
+      Resource moduleResource = resourceSet.createResource(modelContext.getModuleUri());
       moduleResource.getContents().add(module);
       try
       {

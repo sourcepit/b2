@@ -8,6 +8,8 @@ package org.sourcepit.b2.internal.maven;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
@@ -67,17 +69,41 @@ public class ModelContextAdapterFactory
       final ResourceSet resourceSet = createResourceSet();
 
       final SetMultimap<URI, String> scopeTest = LinkedHashMultimap.create();
-      initURIMapping(scopeTest, session, project, resourceSet, "test");
+      initURIMapping(resourceSet, scopeTest, session, project, "test");
 
       final SetMultimap<URI, String> scopeCompile = LinkedHashMultimap.create();
-      initURIMapping(scopeCompile, session, project, resourceSet, "compile");
+      initURIMapping(resourceSet, scopeCompile, session, project, "compile");
+
+      initURIMapping(resourceSet, session, project);
 
       final URI artifactURI = toArtifactURI(project, "module", null);
       final URI fileURI = URI.createFileURI(pathOfMetaDataFile(project.getBasedir(), "b2.module"));
       resourceSet.getURIConverter().getURIMap().put(artifactURI, fileURI);
 
-      return new ModelContext(resourceSet, artifactURI, resolve(resourceSet, scopeCompile), resolve(resourceSet,
-         scopeTest));
+      return new ModelContext(resourceSet, artifactURI.appendFragment("/"), resolve(resourceSet, scopeCompile),
+         resolve(resourceSet, scopeTest));
+   }
+
+   private void initURIMapping(ResourceSet resourceSet, MavenSession session, MavenProject currentProject)
+   {
+      final Map<URI, URI> uriMap = resourceSet.getURIConverter().getURIMap();
+
+      final List<MavenProject> projects = session.getProjects();
+      for (int i = 0; i < projects.indexOf(currentProject); i++)
+      {
+         final ModelContext foreignModelContext = ModelContextAdapterFactory.get(projects.get(i));
+         if (foreignModelContext != null)
+         {
+            final Map<URI, URI> foreignUriMap = foreignModelContext.getResourceSet().getURIConverter().getURIMap();
+            for (URI uri : foreignUriMap.keySet())
+            {
+               if (!uriMap.containsKey(uri))
+               {
+                  uriMap.put(uri, foreignUriMap.get(uri));
+               }
+            }
+         }
+      }
    }
 
    private static SetMultimap<AbstractModule, FeatureProject> resolve(ResourceSet resourceSet,
@@ -102,7 +128,8 @@ public class ModelContextAdapterFactory
       return resolved;
    }
 
-   private static Optional<FeatureProject> findAssemblyFeatureForClassifier(final AbstractModule module, String classifier)
+   private static Optional<FeatureProject> findAssemblyFeatureForClassifier(final AbstractModule module,
+      String classifier)
    {
       for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
       {
@@ -142,8 +169,8 @@ public class ModelContextAdapterFactory
       return resourceSet;
    }
 
-   private void initURIMapping(SetMultimap<URI, String> artifactURIs, MavenSession session, MavenProject project,
-      ResourceSet resourceSet, String scope)
+   private void initURIMapping(ResourceSet resourceSet, SetMultimap<URI, String> artifactURIs, MavenSession session,
+      MavenProject project, String scope)
    {
       // resolve module artifacts
       final SetMultimap<MavenArtifact, String> moduleArtifactToClassifiers = artifactResolver.resolve(session, project,
