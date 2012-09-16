@@ -96,6 +96,9 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
          throw new IllegalStateException(e);
       }
 
+      final URI fileURI = resourceSet.getURIConverter().normalize(modelContext.getModuleUri());
+      projectHelper.attachArtifact(bootProject, "module", null, new File(fileURI.toFileString()));
+
       projectHelper.attachArtifact(bootProject, "session", null, sessionFile);
 
       processAttachments(bootProject, pomFile);
