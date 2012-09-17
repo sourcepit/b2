@@ -16,8 +16,5 @@ public interface ISourceService
    
    boolean isSourceBuildEnabled(PluginProject pluginProject, PropertiesSource moduleProperties);
    
-   @Deprecated
-   boolean isSourceBuildEnabled(PluginProject pluginProject, IConverter converter);
-
    boolean hasSource(PluginProject pluginProject);
 }

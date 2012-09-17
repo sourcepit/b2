@@ -5,6 +5,7 @@
 package org.sourcepit.b2.internal.maven;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,9 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
+import org.apache.maven.settings.Settings;
+import org.codehaus.plexus.interpolation.AbstractValueSource;
+import org.codehaus.plexus.interpolation.ValueSource;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.common.util.URI;
@@ -38,8 +42,10 @@ import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
-import org.sourcepit.b2.internal.generator.MavenConverter;
+import org.sourcepit.b2.internal.generator.VersionUtils;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -53,7 +59,11 @@ import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.common.utils.adapt.Adapters;
+import org.sourcepit.common.utils.props.AbstractPropertiesSource;
+import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
+import org.sourcepit.tools.shared.resources.harness.ValueSourceUtils;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
@@ -81,6 +91,9 @@ public class B2SessionInitializer
 
    @Inject
    private ModelContextAdapterFactory adapterFactory;
+
+   @Inject
+   private BasicConverter converter;
 
    public B2Session initialize(MavenSession bootSession, Properties properties)
    {
@@ -233,12 +246,10 @@ public class B2SessionInitializer
 
    public B2Request newB2Request(MavenProject bootProject)
    {
-      final MavenConverter converter = new MavenConverter(legacySupport.getSession(), bootProject);
+      final PropertiesSource moduleProperties = createSource(legacySupport.getSession(), bootProject);
 
       final B2Session b2Session = sessionService.getCurrentSession();
       final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
-
-      sessionService.setCurrentProperties(converter.getProperties());
 
       processDependencies(resourceSet, b2Session.getCurrentProject(), bootProject);
 
@@ -251,7 +262,13 @@ public class B2SessionInitializer
          protected void addValueSources(SharedResourcesCopier copier, Properties properties)
          {
             super.addValueSources(copier, properties);
-            copier.getValueSources().addAll(converter.getValueSources());
+            copier.getValueSources().add(new AbstractValueSource(false)
+            {
+               public Object getValue(String expression)
+               {
+                  return moduleProperties.get(expression);
+               }
+            });
          }
       };
 
@@ -264,9 +281,9 @@ public class B2SessionInitializer
 
       final B2Request b2Request = new B2Request();
       b2Request.setModuleDirectory(moduleDir);
-      b2Request.setConverter(converter);
+      b2Request.setModuleProperties(moduleProperties);
       b2Request.setModuleFilter(fileFilter);
-      b2Request.setInterpolate(!converter.isSkipInterpolator());
+      b2Request.setInterpolate(!converter.isSkipInterpolator(moduleProperties));
       b2Request.setTemplates(templates);
       return b2Request;
    }
@@ -349,5 +366,51 @@ public class B2SessionInitializer
       {
          throw new IllegalStateException(e);
       }
+   }
+
+   public static PropertiesSource createSource(MavenSession mavenSession, MavenProject project)
+   {
+      final PropertiesMap propertiesMap = B2ModelBuildingRequest.newDefaultProperties();
+      propertiesMap.put("b2.moduleVersion", VersionUtils.toBundleVersion(project.getVersion()));
+      propertiesMap.put("b2.moduleNameSpace", project.getGroupId());
+      propertiesMap.putMap(project.getProperties());
+      propertiesMap.putMap(mavenSession.getSystemProperties());
+      propertiesMap.putMap(mavenSession.getUserProperties());
+
+      final List<ValueSource> valueSources = new ArrayList<ValueSource>();
+
+      final List<String> prefixes = new ArrayList<String>();
+      prefixes.add("pom");
+      prefixes.add("project");
+      valueSources.add(ValueSourceUtils.newPrefixedValueSource(prefixes, project));
+      valueSources.add(ValueSourceUtils.newPrefixedValueSource("session", mavenSession));
+
+      final Settings settings = mavenSession.getSettings();
+      if (settings != null)
+      {
+         valueSources.add(ValueSourceUtils.newPrefixedValueSource("settings", settings));
+         valueSources.add(ValueSourceUtils.newSingleValueSource("localRepository", settings.getLocalRepository()));
+      }
+
+      return new AbstractPropertiesSource()
+      {
+         public String get(String key)
+         {
+            final String value = propertiesMap.get(key);
+            if (value != null)
+            {
+               return value;
+            }
+            for (ValueSource valueSource : valueSources)
+            {
+               final Object oValue = valueSource.getValue(key);
+               if (oValue != null)
+               {
+                  return oValue.toString();
+               }
+            }
+            return null;
+         }
+      };
    }
 }

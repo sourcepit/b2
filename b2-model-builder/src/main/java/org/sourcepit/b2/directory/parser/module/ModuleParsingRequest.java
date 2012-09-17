@@ -8,22 +8,24 @@ package org.sourcepit.b2.directory.parser.module;
 
 import java.io.File;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class ModuleParsingRequest implements IModuleParsingRequest
 {
    private File moduleDirectory;
 
-   private IConverter converter;
-
    private IModuleFilter moduleFilter;
 
-   public static ModuleParsingRequest copy(IModuleParsingRequest request)
+   private PropertiesSource moduleProperties;
+
+   public PropertiesSource getModuleProperties()
    {
-      ModuleParsingRequest copy = new ModuleParsingRequest();
-      copy.setModuleDirectory(request.getModuleDirectory());
-      copy.setConverter(request.getConverter());
-      return copy;
+      return moduleProperties;
+   }
+
+   public void setModuleProperties(PropertiesSource moduleProperties)
+   {
+      this.moduleProperties = moduleProperties;
    }
 
    /**
@@ -37,19 +39,6 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    public void setModuleDirectory(File moduleDirectory)
    {
       this.moduleDirectory = moduleDirectory;
-   }
-
-   /**
-    * {@inheritDoc}
-    */
-   public IConverter getConverter()
-   {
-      return converter;
-   }
-
-   public void setConverter(IConverter converter)
-   {
-      this.converter = converter;
    }
 
    public IModuleFilter getModuleFilter()

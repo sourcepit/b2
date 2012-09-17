@@ -8,13 +8,13 @@ package org.sourcepit.b2.directory.parser.internal.project;
 
 import java.io.File;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.Project;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd
  */
 public abstract class AbstractProjectParserRule<P extends Project>
 {
-   public abstract P parse(File directory, IConverter converter);
+   public abstract P parse(File directory, PropertiesSource properties);
 }

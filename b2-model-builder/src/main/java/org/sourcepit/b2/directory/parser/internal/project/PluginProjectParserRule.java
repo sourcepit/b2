@@ -16,7 +16,6 @@ import java.io.InputStream;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.Manifest;
@@ -25,6 +24,7 @@ import org.sourcepit.common.manifest.osgi.FragmentHost;
 import org.sourcepit.common.manifest.osgi.VersionRange;
 import org.sourcepit.common.manifest.osgi.resource.GenericManifestResourceImpl;
 import org.sourcepit.common.utils.io.IOOperation;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd
@@ -33,7 +33,7 @@ import org.sourcepit.common.utils.io.IOOperation;
 public class PluginProjectParserRule extends AbstractProjectParserRule<PluginProject>
 {
    @Override
-   public PluginProject parse(File directory, IConverter converter)
+   public PluginProject parse(File directory, PropertiesSource properties)
    {
       final File manifestFile = new File(directory, "META-INF/MANIFEST.MF");
       if (!manifestFile.exists())

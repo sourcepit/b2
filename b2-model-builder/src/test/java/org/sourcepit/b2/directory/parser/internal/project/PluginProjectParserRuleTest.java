@@ -8,8 +8,8 @@ package org.sourcepit.b2.directory.parser.internal.project;
 
 import java.io.File;
 
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.module.PluginProject;
 
 /**
@@ -37,7 +37,7 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertTrue(moduleDir.exists());
 
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
-      assertNull(parserRule.parse(moduleDir, ConverterUtils.TEST_CONVERTER));
+      assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
    public void testParsePluginDirectory() throws Exception
@@ -49,7 +49,7 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertTrue(pluginDir.exists());
 
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
-      PluginProject project = parserRule.parse(pluginDir, ConverterUtils.TEST_CONVERTER);
+      PluginProject project = parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(project);
       assertEquals(pluginDir, project.getDirectory());
       assertEquals("example.core", project.getId());
@@ -66,7 +66,7 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertTrue(pluginDir.exists());
 
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
-      PluginProject project = parserRule.parse(pluginDir, ConverterUtils.TEST_CONVERTER);
+      PluginProject project = parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(project);
       assertEquals(pluginDir, project.getDirectory());
       assertEquals("example.core.tests", project.getId());
@@ -83,7 +83,7 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertTrue(pluginDir.exists());
 
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
-      PluginProject project = parserRule.parse(pluginDir, ConverterUtils.TEST_CONVERTER);
+      PluginProject project = parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(project);
       assertEquals(pluginDir, project.getDirectory());
       assertEquals("example.core.fragment", project.getId());

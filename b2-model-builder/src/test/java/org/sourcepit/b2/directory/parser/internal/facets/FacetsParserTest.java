@@ -9,8 +9,8 @@ package org.sourcepit.b2.directory.parser.internal.facets;
 import java.io.File;
 import java.util.List;
 
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -47,7 +47,7 @@ public class FacetsParserTest extends AbstractModuleParserTest
 
       try
       {
-         facetsParser.parse(null, ConverterUtils.TEST_CONVERTER);
+         facetsParser.parse(null, B2ModelBuildingRequest.newDefaultProperties());
          fail();
       }
       catch (IllegalArgumentException e)
@@ -61,7 +61,7 @@ public class FacetsParserTest extends AbstractModuleParserTest
       assertTrue(pluginDir.exists());
 
       FacetsParser facetsParser = lookup();
-      assertNull(facetsParser.parse(pluginDir, ConverterUtils.TEST_CONVERTER));
+      assertNull(facetsParser.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
    public void testSimpleLayout() throws Exception
@@ -71,7 +71,8 @@ public class FacetsParserTest extends AbstractModuleParserTest
 
       FacetsParser facetsParser = lookup();
 
-      FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(moduleDir, ConverterUtils.TEST_CONVERTER);
+      FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(moduleDir,
+         B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(result);
 
       assertEquals("simple", result.getLayout());
@@ -93,7 +94,8 @@ public class FacetsParserTest extends AbstractModuleParserTest
 
       FacetsParser facetsParser = lookup();
 
-      FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(moduleDir, ConverterUtils.TEST_CONVERTER);
+      FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(moduleDir,
+         B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(result);
 
       assertEquals("structured", result.getLayout());
@@ -115,7 +117,8 @@ public class FacetsParserTest extends AbstractModuleParserTest
 
       FacetsParser facetsParser = lookup();
 
-      FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(moduleDir, ConverterUtils.TEST_CONVERTER);
+      FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(moduleDir,
+         B2ModelBuildingRequest.newDefaultProperties());
       assertNull(result);
    }
 

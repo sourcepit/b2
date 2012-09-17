@@ -27,7 +27,7 @@ import org.junit.Test;
 import org.sonatype.guice.bean.containers.InjectedTest;
 import org.sourcepit.b2.execution.B2;
 import org.sourcepit.b2.execution.B2Request;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -92,7 +92,6 @@ public class ProductProjectGeneratorTest extends InjectedTest
       session.getProjects().add(moduleProject);
       session.setCurrentProject(moduleProject);
       sessionService.setCurrentSession(session);
-      sessionService.setCurrentProperties(ConverterUtils.TEST_CONVERTER.getProperties());
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       File productFile = new File(moduleDir, "bundle.a/bundle.a.product");
@@ -102,7 +101,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       B2Request request = new B2Request();
       request.setModuleDirectory(moduleDir);
       request.setInterpolate(true);
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setTemplates(new DefaultTemplateCopier());
 
       // build model and generate

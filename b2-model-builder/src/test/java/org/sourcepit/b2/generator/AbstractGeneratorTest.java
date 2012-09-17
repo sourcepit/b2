@@ -15,7 +15,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.internal.generator.ITemplates;
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class AbstractGeneratorTest extends TestCase
 {
@@ -35,7 +35,7 @@ public class AbstractGeneratorTest extends TestCase
          }
 
          @Override
-         public void generate(EObject inputElement, IConverter converter, ITemplates templates)
+         public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates)
          {
          }
       };
@@ -54,7 +54,7 @@ public class AbstractGeneratorTest extends TestCase
          }
 
          @Override
-         public void generate(EObject inputElement, IConverter converter, ITemplates templates)
+         public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates)
          {
          }
       };

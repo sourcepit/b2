@@ -24,7 +24,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
-import org.codehaus.plexus.interpolation.ValueSource;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 import org.eclipse.emf.common.util.EList;
@@ -32,7 +31,6 @@ import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -41,6 +39,7 @@ import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.common.manifest.osgi.Version;
 import org.sourcepit.common.utils.nls.NlsUtils;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesUtils;
 
 @Named
@@ -62,9 +61,8 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
    }
 
    @Override
-   protected void generate(Derivable inputElement, IConverter converter, ITemplates templates)
+   protected void generate(Derivable inputElement, PropertiesSource properties, ITemplates templates)
    {
-      final Collection<ValueSource> valueSources = converter.getValueSources();
       final FeatureProject feature = (FeatureProject) inputElement;
 
       final Properties featureProperties = new Properties();
@@ -74,28 +72,28 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       // TODO determine ${feature.plugin}
       featureProperties.setProperty("feature.plugin", "");
 
-      final String classifier = getClassifier(converter, feature);
+      final String classifier = getClassifier(properties, feature);
 
       featureProperties.setProperty("feature.classifier", classifier == null ? "" : classifier);
 
-      final Map<String, PropertiesQuery> queries = createNlsPropertyQueries(converter, classifier);
+      final Map<String, PropertiesQuery> queries = createNlsPropertyQueries(properties, classifier);
 
-      insertNlsProperties(queries, NlsUtils.DEFAULT_LOCALE, valueSources, featureProperties);
+      insertNlsProperties(queries, NlsUtils.DEFAULT_LOCALE, properties, featureProperties);
       insertIncludesProperty(feature, featureProperties);
       insertPluginsProperty(feature, featureProperties);
       insertRequiresProperty(feature, featureProperties);
       templates.copy("feature-project", feature.getDirectory(), featureProperties);
 
-      generateNlsPropertyFiles(feature, valueSources, templates, queries);
+      generateNlsPropertyFiles(feature, properties, templates, queries);
    }
 
    // TODO legacy compatibility
-   private String getClassifier(IConverter converter, final FeatureProject feature)
+   private String getClassifier(PropertiesSource properties, FeatureProject feature)
    {
       String facetName = B2MetadataUtils.getFacetName(feature);
       if (facetName != null)
       {
-         return this.converter.getFacetClassifier(converter.getProperties(), facetName);
+         return this.converter.getFacetClassifier(properties, facetName);
       }
       else
       {
@@ -104,12 +102,12 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          {
             throw new IllegalStateException();
          }
-         return this.converter.getAssemblyClassifier(converter.getProperties(), assemblyNames.get(0));
+         return this.converter.getAssemblyClassifier(properties, assemblyNames.get(0));
       }
    }
 
-   private void generateNlsPropertyFiles(FeatureProject feature, Collection<ValueSource> valueSources,
-      ITemplates templates, Map<String, PropertiesQuery> queries)
+   private void generateNlsPropertyFiles(FeatureProject feature, PropertiesSource properties, ITemplates templates,
+      Map<String, PropertiesQuery> queries)
    {
       try
       {
@@ -127,7 +125,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
             }
 
             final Properties nlsProperties = new Properties();
-            insertNlsProperties(queries, locale, valueSources, nlsProperties);
+            insertNlsProperties(queries, locale, properties, nlsProperties);
 
             templates.copy("feature-project/feature.properties", workDir, nlsProperties);
 
@@ -197,7 +195,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       PropertiesUtils.store(buildProperties, propertiesFile);
    }
 
-   private Map<String, PropertiesQuery> createNlsPropertyQueries(IConverter converter, final String classifier)
+   private Map<String, PropertiesQuery> createNlsPropertyQueries(PropertiesSource properties, final String classifier)
    {
       final PropertiesQuery labelQuery = createQuery(classifier, true, "label");
       labelQuery.addKey("module.name");
@@ -298,7 +296,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
    }
 
    private void insertNlsProperties(final Map<String, PropertiesQuery> queries, Locale locale,
-      final Collection<ValueSource> valueSources, final Properties featureProperties)
+      final PropertiesSource properties, final Properties featureProperties)
    {
       final String nlsPrefix = createNlsPrefix(locale);
 
@@ -314,8 +312,8 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
             final PropertiesQuery clsLabelQuery = queries.get("feature.classifier.label");
             clsLabelQuery.setPrefix(nlsPrefix);
 
-            String label = query.lookup(valueSources);
-            String clsLabel = clsLabelQuery.lookup(valueSources);
+            String label = query.lookup(properties);
+            String clsLabel = clsLabelQuery.lookup(properties);
 
             if (clsLabel.length() > 0)
             {
@@ -325,7 +323,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          }
          else
          {
-            featureProperties.setProperty(key, query.lookup(valueSources));
+            featureProperties.setProperty(key, query.lookup(properties));
          }
       }
    }

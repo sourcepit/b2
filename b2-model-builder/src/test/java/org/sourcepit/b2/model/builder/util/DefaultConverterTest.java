@@ -21,7 +21,7 @@ import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class DefaultConverter2Test
+public class DefaultConverterTest
 {
 
    @Test
@@ -42,7 +42,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      FeaturesConverter converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter();
 
       List<FeatureInclude> result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -67,7 +67,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      FeaturesConverter converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter();
 
       List<FeatureInclude> result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -76,7 +76,7 @@ public class DefaultConverter2Test
 
    private void testGetIncludedFeatures(String key, String facetName, boolean isSource)
    {
-      FeaturesConverter converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
 
@@ -161,7 +161,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      FeaturesConverter converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter();
 
       List<PluginInclude> result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -180,13 +180,13 @@ public class DefaultConverter2Test
 
       testGetIncludedPlugins(key1, facetName, isSource);
       testGetIncludedPlugins(key2, facetName, isSource);
-      
+
       // test key1 overrides key2
       PropertiesMap properties = new LinkedPropertiesMap();
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      FeaturesConverter converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter();
 
       List<PluginInclude> result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -195,7 +195,7 @@ public class DefaultConverter2Test
 
    private void testGetIncludedPlugins(String key, String facetName, boolean isSource)
    {
-      FeaturesConverter converter = new DefaultConverter2();
+      FeaturesConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
 
@@ -265,8 +265,8 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredFeaturesForFacet() throws Exception
    {
-      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredFeaturesForFacet", PropertiesSource.class,
-         String.class, boolean.class);
+      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredFeaturesForFacet",
+         PropertiesSource.class, String.class, boolean.class);
       final boolean isSource = false;
 
       final String facetName = "foo";
@@ -277,8 +277,8 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredSourceFeatures() throws Exception
    {
-      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredFeaturesForFacet", PropertiesSource.class,
-         String.class, boolean.class);
+      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredFeaturesForFacet",
+         PropertiesSource.class, String.class, boolean.class);
       final boolean isSource = true;
 
       final String facetName = "foo";
@@ -289,8 +289,8 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredPluginsForFacet() throws Exception
    {
-      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredPluginsForFacet", PropertiesSource.class,
-         String.class, boolean.class);
+      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredPluginsForFacet",
+         PropertiesSource.class, String.class, boolean.class);
       final boolean isSource = false;
 
       final String facetName = "foo";
@@ -301,8 +301,8 @@ public class DefaultConverter2Test
    @Test
    public void testGetRequiredSourcePluginsForFacet() throws Exception
    {
-      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredPluginsForFacet", PropertiesSource.class,
-         String.class, boolean.class);
+      final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredPluginsForFacet",
+         PropertiesSource.class, String.class, boolean.class);
       final boolean isSource = true;
 
       final String facetName = "foo";
@@ -324,7 +324,7 @@ public class DefaultConverter2Test
       properties.put(key1, "key1");
       properties.put(key2, "key2");
 
-      BasicConverter converter = new DefaultConverter2();
+      BasicConverter converter = new DefaultConverter();
 
       List<RuledReference> result = invoke(method, converter, properties, facetName, isSource);
       assertEquals(1, result.size());
@@ -334,7 +334,7 @@ public class DefaultConverter2Test
    private void testGetRequiredFeaturesOrPlugins(final Method method, final String key, String facetName,
       boolean isSource) throws Exception
    {
-      BasicConverter converter = new DefaultConverter2();
+      BasicConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
 
@@ -424,4 +424,87 @@ public class DefaultConverter2Test
       }
    }
 
+
+   @Test
+   public void testFacetNameToClassifier() throws Exception
+   {
+      BasicConverter converter = new DefaultConverter();
+      try
+      {
+         converter.getFacetClassifier(null, null);
+         fail();
+      }
+      catch (NullPointerException e)
+      {
+      }
+
+      PropertiesMap properties = new LinkedPropertiesMap();
+      try
+      {
+         converter.getFacetClassifier(properties, "");
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      assertEquals("features", converter.getFacetClassifier(properties, "features"));
+      assertEquals("features", converter.getFacetClassifier(properties, "Features"));
+
+      properties.put("b2.facets[\"plugins\"].classifier", "");
+
+      assertEquals("", converter.getFacetClassifier(properties, "plugins"));
+      assertEquals("plugins", converter.getFacetClassifier(properties, "Plugins"));
+
+      assertEquals("_3äng", converter.getFacetClassifier(properties, "3äng"));
+      assertEquals("hans_wurst", converter.getFacetClassifier(properties, "Hans Wurst"));
+   }
+
+   @Test
+   public void testToValidIdentifier() throws Exception
+   {
+      try
+      {
+         DefaultConverter.toValidId(null);
+         fail();
+      }
+      catch (NullPointerException e)
+      {
+      }
+
+      assertEquals("_", DefaultConverter.toValidId(""));
+      assertEquals("_", DefaultConverter.toValidId("_"));
+      assertEquals("_3er", DefaultConverter.toValidId("3er"));
+      assertEquals("hans_wurst", DefaultConverter.toValidId("hans wurst"));
+   }
+   
+   @Test
+   public void testSkipInterpolator() throws Exception
+   {
+      PropertiesMap properties = new LinkedPropertiesMap();
+
+      BasicConverter converter = new DefaultConverter();
+      assertFalse(converter.isSkipInterpolator(properties));
+      
+      properties.put("b2.skipInterpolator", "false");
+      assertFalse(converter.isSkipInterpolator(properties));
+
+      properties.put("b2.skipInterpolator", "true");
+      assertTrue(converter.isSkipInterpolator(properties));
+   }
+   
+   @Test
+   public void testSkipGenerator() throws Exception
+   {
+      PropertiesMap properties = new LinkedPropertiesMap();
+
+      BasicConverter converter = new DefaultConverter();
+      assertFalse(converter.isSkipGenerator(properties));
+      
+      properties.put("b2.skipGenerator", "false");
+      assertFalse(converter.isSkipGenerator(properties));
+
+      properties.put("b2.skipGenerator", "true");
+      assertTrue(converter.isSkipGenerator(properties));
+   }
 }

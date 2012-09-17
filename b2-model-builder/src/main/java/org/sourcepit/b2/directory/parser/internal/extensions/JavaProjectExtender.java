@@ -13,11 +13,11 @@ import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,7 +33,7 @@ public class JavaProjectExtender extends AbstractModuleParserExtender implements
    }
 
    @Override
-   protected void doExtend(Annotatable modelElement, IConverter converter)
+   protected void doExtend(Annotatable modelElement, PropertiesSource properties)
    {
       final PluginProject pluginProject = (PluginProject) modelElement;
       final File projectDir = pluginProject.getDirectory();

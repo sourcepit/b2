@@ -11,8 +11,6 @@ import javax.inject.Singleton;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.common.utils.props.PropertiesMap;
-import org.sourcepit.common.utils.props.PropertiesUtils;
 
 @Named
 @Singleton
@@ -22,8 +20,6 @@ public class B2SessionService implements IB2SessionService
 
    private ResourceSet resourceSet;
 
-   private PropertiesMap properties;
-
    public void setCurrentSession(B2Session currentSession)
    {
       this.currentSession = currentSession;
@@ -32,16 +28,6 @@ public class B2SessionService implements IB2SessionService
    public B2Session getCurrentSession()
    {
       return currentSession;
-   }
-
-   public void setCurrentProperties(PropertiesMap properties)
-   {
-      this.properties = properties;
-   }
-
-   public PropertiesMap getCurrentProperties()
-   {
-      return PropertiesUtils.unmodifiablePropertiesMap(properties);
    }
 
    public void setCurrentResourceSet(ResourceSet currentResourceSet)

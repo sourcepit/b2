@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public abstract class AbstractModuleParserExtender implements IModuleParserExtender
 {
@@ -41,13 +41,13 @@ public abstract class AbstractModuleParserExtender implements IModuleParserExten
 
    protected abstract void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes);
 
-   public void extend(Annotatable modelElement, IConverter converter)
+   public void extend(Annotatable modelElement, PropertiesSource properties)
    {
       if (isInputType(modelElement.getClass()))
       {
-         doExtend(modelElement, converter);
+         doExtend(modelElement, properties);
       }
    }
 
-   protected abstract void doExtend(Annotatable modelElement, IConverter converter);
+   protected abstract void doExtend(Annotatable modelElement, PropertiesSource properties);
 }

@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.model.builder.util;
 
+import java.io.File;
 import java.util.List;
 
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -19,11 +20,22 @@ public interface BasicConverter
    }
 
    AggregatorMode getAggregatorMode(PropertiesSource moduleProperties, String assemblyName);
-   
+
    List<String> getAssemblyNames(PropertiesSource moduleProperties);
 
    String getAssemblyClassifier(PropertiesSource moduleProperties, String assemblyName);
 
    String getFacetClassifier(PropertiesSource moduleProperties, String facetName);
 
+   boolean isSkipInterpolator(PropertiesSource moduleProperties);
+
+   boolean isSkipGenerator(PropertiesSource moduleProperties);
+
+   boolean isPotentialModuleDirectory(PropertiesSource moduleProperties, File baseDir, File file);
+   
+   String toClassifierLabel(String classifier);
+   
+   String getModuleVersion(PropertiesSource moduleProperties);
+
+   String getNameSpace(PropertiesSource moduleProperties);
 }

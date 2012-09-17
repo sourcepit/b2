@@ -6,16 +6,16 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class B2GenerationRequest implements IB2GenerationRequest
 {
    private AbstractModule module;
 
-   private IConverter converter;
-
    private ITemplates templates;
+   
+   private PropertiesSource moduleProperties;
 
    /**
     * {@inheritDoc}
@@ -29,18 +29,15 @@ public class B2GenerationRequest implements IB2GenerationRequest
    {
       this.module = module;
    }
-
-   /**
-    * {@inheritDoc}
-    */
-   public IConverter getConverter()
+   
+   public PropertiesSource getModuleProperties()
    {
-      return converter;
+      return moduleProperties;
    }
-
-   public void setConverter(IConverter converter)
+   
+   public void setModuleProperties(PropertiesSource moduleProperties)
    {
-      this.converter = converter;
+      this.moduleProperties = moduleProperties;
    }
 
    /**

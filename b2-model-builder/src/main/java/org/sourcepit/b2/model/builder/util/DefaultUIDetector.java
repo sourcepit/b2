@@ -14,6 +14,7 @@ import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleRequirement;
 import org.sourcepit.common.manifest.osgi.PackageImport;
 import org.sourcepit.common.utils.path.PathMatcher;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 @Singleton
@@ -27,10 +28,9 @@ public class DefaultUIDetector implements UIDetector
       this.manifestReader = manifestReader;
    }
 
-   public boolean requiresUI(PluginProject pluginProject, IConverter converter)
+   public boolean requiresUI(PluginProject pluginProject, PropertiesSource properties)
    {
-      final PathMatcher matcher = PathMatcher.parsePackagePatterns(converter.getProperties()
-         .get("b2.uiDetector.filter"));
+      final PathMatcher matcher = PathMatcher.parsePackagePatterns(properties.get("b2.uiDetector.filter"));
 
       final String id = pluginProject.getId();
       if (matcher.isMatch(id))

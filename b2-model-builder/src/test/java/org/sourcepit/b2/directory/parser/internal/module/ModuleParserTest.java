@@ -10,6 +10,8 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
@@ -17,8 +19,9 @@ import org.sourcepit.b2.directory.parser.internal.facets.StructuredLayoutFacetsP
 import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
@@ -29,6 +32,9 @@ import org.sourcepit.common.utils.nls.NlsUtils;
 
 public class ModuleParserTest extends AbstractModuleParserTest
 {
+   @Inject
+   private BasicConverter converter;
+
    public void testBasic() throws Exception
    {
       IModuleParser parser = lookup();
@@ -48,7 +54,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       }
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
 
       try
       {
@@ -60,7 +66,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       }
 
       request.setModuleDirectory(new File(""));
-      request.setConverter(null);
+      request.setModuleProperties(null);
 
       try
       {
@@ -83,8 +89,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
       initSession(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
       request.setModuleDirectory(moduleDir);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
 
       ModuleParser modelParser = lookup();
       BasicModule module = (BasicModule) modelParser.parse(request);
@@ -93,7 +99,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
       assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
-      assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
+      assertEquals(module.getVersion(), converter.getModuleVersion(request.getModuleProperties()));
 
       EList<Locale> locales = module.getLocales();
       assertEquals(1, locales.size());
@@ -108,8 +114,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
       initSession(moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
       request.setModuleDirectory(moduleDir);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
 
       ModuleParser modelParser = lookup();
       BasicModule module = (BasicModule) modelParser.parse(request);
@@ -118,7 +124,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
       assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
-      assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
+      assertEquals(module.getVersion(), converter.getModuleVersion(request.getModuleProperties()));
 
       EList<Locale> locales = module.getLocales();
       assertFalse(locales.isEmpty());
@@ -150,7 +156,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final B2Session session = initSession(simpleDir, structuredDir, moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
 
       ModuleParser modelParser = lookup();
 
@@ -171,7 +177,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
       assertEquals("org.sourcepit.b2.test.resources.composite.layout", module.getId());
-      assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
+      assertEquals(module.getVersion(), converter.getModuleVersion(request.getModuleProperties()));
 
       assertEquals(2, module.getModules().size());
 
@@ -191,11 +197,11 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final B2Session session = initSession(simpleDir, structuredDir, moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleFilter(new WhitelistModuleFilter(simpleDir));
 
       ModuleParser modelParser = lookup();
-      
+
       request.setModuleDirectory(simpleDir);
       session.getCurrentProject().setModuleModel(modelParser.parse(request));
 
@@ -213,7 +219,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       assertNotNull(module.getId());
       assertNotNull(module.getVersion());
       assertEquals("org.sourcepit.b2.test.resources.composite.layout", module.getId());
-      assertEquals(module.getVersion(), request.getConverter().getModuleVersion());
+      assertEquals(module.getVersion(), converter.getModuleVersion(request.getModuleProperties()));
 
       assertEquals(1, module.getModules().size());
 

@@ -31,7 +31,6 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
@@ -75,10 +74,11 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    }
 
    @Override
-   protected void generate(Annotatable inputElement, boolean skipFacets, IConverter converter, ITemplates templates)
+   protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
+      ITemplates templates)
    {
       // TODO ability to skip reactor projects
-      if (converter.isSkipInterpolator())
+      if (basicConverter.isSkipInterpolator(propertie))
       {
          return;
       }
@@ -113,7 +113,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
       final Model defaultModel = new Model();
       defaultModel.setModelVersion("4.0.0");
-      defaultModel.setGroupId(converter.getNameSpace());
+      defaultModel.setGroupId(basicConverter.getNameSpace(propertie));
       defaultModel.setArtifactId(projectDir.getName());
 
       final Model model = readMavenModel(pomFile);
@@ -122,7 +122,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
       if (!artifacts.isEmpty())
       {
-         artifacts.addAll(gatherArtifacts(module, mavenVersion, converter.getProperties()));
+         artifacts.addAll(gatherArtifacts(module, mavenVersion, propertie));
 
          Profile profile = new Profile();
          profile.setId("buildProducts");
@@ -138,7 +138,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          model.getProfiles().add(profile);
       }
 
-      artifacts = gatherArtifacts(module, mavenVersion, converter.getProperties());
+      artifacts = gatherArtifacts(module, mavenVersion, propertie);
       if (!artifacts.isEmpty())
       {
          final List<Plugin> plugins = model.getBuild().getPlugins();
@@ -325,7 +325,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       sessionModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.session")));
       sessionModel.setType("session");
       artifacts.add(sessionModel);
-      
+
       final ModuleArtifact moduleModel = new ModuleArtifact();
       moduleModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.module")));
       moduleModel.setType("module");

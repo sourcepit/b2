@@ -21,7 +21,6 @@ import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
-import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
@@ -48,7 +47,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
       logger.info("Validating " + module.getId() + ".");
       if (module != null && errors.isEmpty())
       {
-         final PropertiesMap properties = sessionService.getCurrentProperties();
+         final PropertiesSource properties = request.getModuleProperties();
 
          final Map<String, ModuleValidationConstraint> enabledConstraintsMap = getEnabledConstraints(properties);
 
@@ -71,7 +70,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
    }
 
    private void validate(final Map<String, ModuleValidationConstraint> enabledConstraintsMap, AbstractModule module,
-      final PropertiesMap properties)
+      final PropertiesSource properties)
    {
       final boolean quickFixesEnabled = properties.getBoolean("b2.validation.quickFixes.enabled", false);
       if (quickFixesEnabled)

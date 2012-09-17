@@ -18,7 +18,6 @@ import javax.inject.Named;
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
 import org.sourcepit.b2.directory.parser.internal.project.ProjectParser;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -29,6 +28,7 @@ import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("simple")
 public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>
@@ -39,7 +39,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
    private ProjectParser projectParser;
 
    @Override
-   public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, IConverter converter)
+   public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, PropertiesSource properties)
    {
       final List<ProjectFacet<? extends Project>> facets = new ArrayList<ProjectFacet<? extends Project>>();
       if (directory == null || !directory.exists())
@@ -53,7 +53,7 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
       {
          if (member.isDirectory())
          {
-            final Project project = projectParser.parse(member, converter);
+            final Project project = projectParser.parse(member, properties);
             if (project != null)
             {
                PluginProject pluginProject = null;

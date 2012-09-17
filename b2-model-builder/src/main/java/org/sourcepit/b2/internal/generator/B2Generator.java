@@ -82,7 +82,7 @@ public class B2Generator
             {
                if (generator.isGeneratorInput(eObject))
                {
-                  generator.generate(eObject, request.getConverter(), request.getTemplates());
+                  generator.generate(eObject, request.getModuleProperties(), request.getTemplates());
                }
                return true;
             }

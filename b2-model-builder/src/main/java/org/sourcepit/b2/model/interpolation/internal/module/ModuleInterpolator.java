@@ -12,13 +12,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.sourcepit.b2.execution.LifecyclePhase;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolationRequest;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolator;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
-import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 public class ModuleInterpolator implements IModuleInterpolator
@@ -77,17 +76,17 @@ public class ModuleInterpolator implements IModuleInterpolator
          throw new IllegalArgumentException("Module must not be null.");
       }
 
-      final IConverter converter = request.getConverter();
-      if (converter == null)
+      final PropertiesSource properties = request.getModuleProperties();
+      if (properties == null)
       {
-         throw new IllegalArgumentException("converter must not be null.");
+         throw new IllegalArgumentException("properties must not be null.");
       }
    }
 
    private void doInterpolate(IModuleInterpolationRequest request)
    {
       final AbstractModule module = request.getModule();
-      final PropertiesMap properties = request.getConverter().getProperties();
+      final PropertiesSource properties = request.getModuleProperties();
       featuresInterpolator.interpolate(module, properties);
       sitesInterpolator.interpolate(module, properties);
    }

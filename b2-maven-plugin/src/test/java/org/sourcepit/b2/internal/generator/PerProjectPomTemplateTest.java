@@ -83,7 +83,7 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
 
          final B2GenerationRequest request = new B2GenerationRequest();
          request.setModule(module);
-         request.setConverter(b2Request.getConverter());
+         request.setModuleProperties(b2Request.getModuleProperties());
          request.setTemplates(b2Request.getTemplates());
 
          final B2Generator generator = new B2Generator(Collections.singletonList(pomGenerator),

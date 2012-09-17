@@ -13,10 +13,11 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.ModuleIdDerivator;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.nls.NlsUtils;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public abstract class AbstractModuleParserRule<M extends AbstractModule>
    implements
@@ -24,6 +25,9 @@ public abstract class AbstractModuleParserRule<M extends AbstractModule>
 {
    @Inject
    private ModuleIdDerivator moduleIdDerivator;
+
+   @Inject
+   private BasicConverter converter;
 
    public final M parse(IModuleParsingRequest request)
    {
@@ -46,9 +50,9 @@ public abstract class AbstractModuleParserRule<M extends AbstractModule>
 
    protected abstract M doParse(IModuleParsingRequest request);
 
-   protected String getModuleVersion(IConverter converter)
+   protected String getModuleVersion(PropertiesSource properties)
    {
-      return converter.getModuleVersion();
+      return converter.getModuleVersion(properties);
    }
 
    protected String getModuleId(final File baseDir)
