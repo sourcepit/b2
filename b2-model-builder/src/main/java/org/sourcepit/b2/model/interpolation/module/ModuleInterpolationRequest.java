@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.model.interpolation.module;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd
@@ -15,8 +15,8 @@ import org.sourcepit.b2.model.module.AbstractModule;
 public class ModuleInterpolationRequest implements IModuleInterpolationRequest
 {
    private AbstractModule module;
-
-   private IConverter converter;
+   
+   private PropertiesSource moduleProperties;
 
    public AbstractModule getModule()
    {
@@ -27,14 +27,15 @@ public class ModuleInterpolationRequest implements IModuleInterpolationRequest
    {
       this.module = module;
    }
-
-   public IConverter getConverter()
+   
+   public PropertiesSource getModuleProperties()
    {
-      return converter;
+      return moduleProperties;
    }
-
-   public void setConverter(IConverter converter)
+   
+   public void setModuleProperties(PropertiesSource moduleProperties)
    {
-      this.converter = converter;
+      this.moduleProperties = moduleProperties;
    }
+   
 }

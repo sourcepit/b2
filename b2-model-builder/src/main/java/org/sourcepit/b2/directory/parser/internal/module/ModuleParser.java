@@ -19,11 +19,11 @@ import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.execution.LifecyclePhase;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 public class ModuleParser implements IModuleParser
@@ -80,13 +80,13 @@ public class ModuleParser implements IModuleParser
          final AbstractModule module = rule.parse(request);
          if (module != null)
          {
-            return enhance(module, request.getConverter());
+            return enhance(module, request.getModuleProperties());
          }
       }
       return null;
    }
 
-   protected AbstractModule enhance(AbstractModule module, final IConverter converter)
+   protected AbstractModule enhance(AbstractModule module, final PropertiesSource properties)
    {
       if (!extenders.isEmpty())
       {
@@ -99,7 +99,7 @@ public class ModuleParser implements IModuleParser
                {
                   for (IModuleParserExtender extender : extenders)
                   {
-                     extender.extend((Annotatable) eObject, converter);
+                     extender.extend((Annotatable) eObject, properties);
                   }
                }
                return true;
@@ -123,10 +123,10 @@ public class ModuleParser implements IModuleParser
          throw new IllegalArgumentException("Project must not be null.");
       }
 
-      final IConverter converter = request.getConverter();
-      if (converter == null)
+      final PropertiesSource properties = request.getModuleProperties();
+      if (properties == null)
       {
-         throw new IllegalArgumentException("converter must not be null.");
+         throw new IllegalArgumentException("properties must not be null.");
       }
    }
 }

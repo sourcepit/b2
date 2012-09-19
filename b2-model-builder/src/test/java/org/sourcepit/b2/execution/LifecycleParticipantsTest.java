@@ -20,17 +20,14 @@ import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant
 import org.sourcepit.b2.internal.cleaner.ModuleCleanerLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.B2GeneratorLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
-import org.sourcepit.common.utils.props.LinkedPropertiesMap;
-import org.sourcepit.common.utils.props.PropertiesMap;
 
 import com.google.inject.Binder;
 import com.google.inject.Key;
@@ -76,11 +73,9 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       {
          public B2Request newRequest(B2Session session)
          {
-            PropertiesMap properties = new LinkedPropertiesMap();
-            IConverter converter = ConverterUtils.newDefaultTestConverter(properties);
             B2Request request = new B2Request();
             request.setModuleDirectory(session.getCurrentProject().getDirectory());
-            request.setConverter(converter);
+            request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
             request.setInterpolate(true);
             request.setTemplates(new DefaultTemplateCopier());
             return request;

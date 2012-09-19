@@ -48,8 +48,12 @@ public class SimpleInterpolationLayout implements IInterpolationLayout
    public String pathOfMetaDataFile(AbstractModule module, String name)
    {
       final StringBuilder sb = new StringBuilder();
-      sb.append(module.getDirectory().getAbsolutePath());
-      sb.append(File.separatorChar);
+      final String modulePath = module.getDirectory().getPath();
+      if (modulePath.length() != 0)
+      {
+         sb.append(modulePath);
+         sb.append(File.separatorChar);
+      }
       sb.append(".b2");
       sb.append(File.separatorChar);
       sb.append(name);

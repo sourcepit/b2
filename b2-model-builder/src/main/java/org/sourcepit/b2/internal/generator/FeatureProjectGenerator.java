@@ -20,27 +20,34 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
-import org.codehaus.plexus.interpolation.ValueSource;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
+import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.Derivable;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginInclude;
-import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.common.manifest.osgi.Version;
 import org.sourcepit.common.utils.nls.NlsUtils;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesUtils;
 
 @Named
 public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant
 {
+   @Inject
+   private BasicConverter converter;
+
    @Override
    public GeneratorType getGeneratorType()
    {
@@ -54,30 +61,53 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
    }
 
    @Override
-   protected void generate(Derivable inputElement, IConverter converter, ITemplates templates)
+   protected void generate(Derivable inputElement, PropertiesSource properties, ITemplates templates)
    {
-      final Collection<ValueSource> valueSources = converter.getValueSources();
       final FeatureProject feature = (FeatureProject) inputElement;
-
-      final String classifier = feature.getClassifier();
 
       final Properties featureProperties = new Properties();
       featureProperties.setProperty("feature.id", feature.getId());
       featureProperties.setProperty("feature.version", feature.getVersion());
+
+      // TODO determine ${feature.plugin}
+      featureProperties.setProperty("feature.plugin", "");
+
+      final String classifier = getClassifier(properties, feature);
+
       featureProperties.setProperty("feature.classifier", classifier == null ? "" : classifier);
 
-      final Map<String, PropertiesQuery> queries = createNlsPropertyQueries(converter, classifier);
+      final Map<String, PropertiesQuery> queries = createNlsPropertyQueries(properties, classifier);
 
-      insertNlsProperties(queries, NlsUtils.DEFAULT_LOCALE, valueSources, featureProperties);
+      insertNlsProperties(queries, NlsUtils.DEFAULT_LOCALE, properties, featureProperties);
       insertIncludesProperty(feature, featureProperties);
       insertPluginsProperty(feature, featureProperties);
+      insertRequiresProperty(feature, featureProperties);
       templates.copy("feature-project", feature.getDirectory(), featureProperties);
 
-      generateNlsPropertyFiles(feature, valueSources, templates, queries);
+      generateNlsPropertyFiles(feature, properties, templates, queries);
    }
 
-   private void generateNlsPropertyFiles(FeatureProject feature, Collection<ValueSource> valueSources,
-      ITemplates templates, Map<String, PropertiesQuery> queries)
+   // TODO legacy compatibility
+   private String getClassifier(PropertiesSource properties, FeatureProject feature)
+   {
+      String facetName = B2MetadataUtils.getFacetName(feature);
+      if (facetName != null)
+      {
+         return this.converter.getFacetClassifier(properties, facetName);
+      }
+      else
+      {
+         List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(feature);
+         if (assemblyNames.size() != 1)
+         {
+            throw new IllegalStateException();
+         }
+         return this.converter.getAssemblyClassifier(properties, assemblyNames.get(0));
+      }
+   }
+
+   private void generateNlsPropertyFiles(FeatureProject feature, PropertiesSource properties, ITemplates templates,
+      Map<String, PropertiesQuery> queries)
    {
       try
       {
@@ -95,7 +125,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
             }
 
             final Properties nlsProperties = new Properties();
-            insertNlsProperties(queries, locale, valueSources, nlsProperties);
+            insertNlsProperties(queries, locale, properties, nlsProperties);
 
             templates.copy("feature-project/feature.properties", workDir, nlsProperties);
 
@@ -165,7 +195,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       PropertiesUtils.store(buildProperties, propertiesFile);
    }
 
-   private Map<String, PropertiesQuery> createNlsPropertyQueries(IConverter converter, final String classifier)
+   private Map<String, PropertiesQuery> createNlsPropertyQueries(PropertiesSource properties, final String classifier)
    {
       final PropertiesQuery labelQuery = createQuery(classifier, true, "label");
       labelQuery.addKey("module.name");
@@ -210,7 +240,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
    {
       final StringWriter includes = new StringWriter();
       XMLWriter xml = new PrettyPrintXMLWriter(includes);
-      for (StrictReference include : feature.getIncludedFeatures())
+      for (FeatureInclude include : feature.getIncludedFeatures())
       {
          xml.startElement("includes");
          xml.addAttribute("id", include.getId());
@@ -221,8 +251,52 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       featureProperties.setProperty("feature.includes", includes.toString());
    }
 
+   private void insertRequiresProperty(final FeatureProject feature, final Properties featureProperties)
+   {
+      final StringWriter requires = new StringWriter();
+      final EList<RuledReference> requiredFeatures = feature.getRequiredFeatures();
+      final EList<RuledReference> requiredPlugins = feature.getRequiredPlugins();
+
+      if (!requiredFeatures.isEmpty() || !requiredPlugins.isEmpty())
+      {
+         XMLWriter xml = new PrettyPrintXMLWriter(requires);
+         xml.startElement("requires");
+
+         for (RuledReference requirement : requiredFeatures)
+         {
+            xml.startElement("import");
+            xml.addAttribute("feature", requirement.getId());
+            if (requirement.getVersion() != null)
+            {
+               // TODO erase qualifier on reference creation
+               // TODO tycho improvement request: replace version or at least .qualifier (like done with includes)
+               Version v = Version.parse(requirement.getVersion());
+               xml.addAttribute("version", v.getMajor() + "." + v.getMinor() + "." + v.getMicro());
+               xml.addAttribute("match", requirement.getVersionMatchRule().getLiteral());
+            }
+            xml.endElement();
+         }
+         for (RuledReference requirement : requiredPlugins)
+         {
+            xml.startElement("import");
+            xml.addAttribute("plugin", requirement.getId());
+            if (requirement.getVersion() != null)
+            {
+               // TODO erase qualifier on reference creation
+               Version v = Version.parse(requirement.getVersion());
+               xml.addAttribute("version", v.getMajor() + "." + v.getMinor() + "." + v.getMicro());
+               xml.addAttribute("match", requirement.getVersionMatchRule().getLiteral());
+            }
+            xml.endElement();
+         }
+         xml.endElement();
+         requires.flush();
+      }
+      featureProperties.setProperty("feature.requires", requires.toString());
+   }
+
    private void insertNlsProperties(final Map<String, PropertiesQuery> queries, Locale locale,
-      final Collection<ValueSource> valueSources, final Properties featureProperties)
+      final PropertiesSource properties, final Properties featureProperties)
    {
       final String nlsPrefix = createNlsPrefix(locale);
 
@@ -238,8 +312,8 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
             final PropertiesQuery clsLabelQuery = queries.get("feature.classifier.label");
             clsLabelQuery.setPrefix(nlsPrefix);
 
-            String label = query.lookup(valueSources);
-            String clsLabel = clsLabelQuery.lookup(valueSources);
+            String label = query.lookup(properties);
+            String clsLabel = clsLabelQuery.lookup(properties);
 
             if (clsLabel.length() > 0)
             {
@@ -249,7 +323,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          }
          else
          {
-            featureProperties.setProperty(key, query.lookup(valueSources));
+            featureProperties.setProperty(key, query.lookup(properties));
          }
       }
    }

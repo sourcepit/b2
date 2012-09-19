@@ -15,8 +15,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<b2.aggregate.feature.sdk.filter>**.sdk.**</b2.aggregate.feature.sdk.filter>
-		<sites>sdk</sites>
+		<b2.assemblies>sdk</b2.assemblies>
+		<b2.aggregator.mode>unwrap</b2.aggregator.mode>
 	</properties>
 
 	<dependencies>
@@ -24,7 +24,7 @@
 			<groupId>org.sourcepit.b2.examples.reactor</groupId>
 			<artifactId>rcp.ui</artifactId>
 			<version>\${project.version}</version>
-			<classifier>internal</classifier>
+			<classifier>sdk</classifier>
 			<type>module</type>
 		</dependency>
 	</dependencies>

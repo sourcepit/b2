@@ -131,16 +131,23 @@
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="fragmentHostVersion"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="bundleManifest" lowerBound="1"
+          eType="ecore:EClass ../../../../common-manifest/src/main/emf/manifest.ecore#//osgi/BundleManifest"
+          containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FeatureProject" eSuperTypes="#//module/Project #//module/Classified">
+    <eClassifiers xsi:type="ecore:EClass" name="FeatureProject" eSuperTypes="#//module/Project">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/FeaturesFacet"
           eOpposite="#//module/FeaturesFacet/projects"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="includedPlugins" upperBound="-1"
           eType="#//module/PluginInclude" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="includedFeatures" upperBound="-1"
-          eType="#//module/StrictReference" containment="true"/>
+          eType="#//module/FeatureInclude" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="requiredFeatures" upperBound="-1"
+          eType="#//module/RuledReference" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="requiredPlugins" upperBound="-1"
+          eType="#//module/RuledReference" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="SiteProject" eSuperTypes="#//module/Project #//module/Classified">
+    <eClassifiers xsi:type="ecore:EClass" name="SiteProject" eSuperTypes="#//module/Project">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//module/SitesFacet"
           eOpposite="#//module/SitesFacet/projects"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
@@ -189,9 +196,6 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Classified" abstract="true" interface="true">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="classifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Identifiable" abstract="true" interface="true">
       <eOperations name="isIdentifyableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="identifier" eType="#//module/Identifier"/>
@@ -213,7 +217,8 @@
           eType="#//module/StrictReference" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EDataType" name="Identifier" instanceClassName="org.sourcepit.b2.model.module.util.Identifier"/>
-    <eClassifiers xsi:type="ecore:EClass" name="AbstractReference" abstract="true">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractReference" abstract="true"
+        eSuperTypes="#//common/Annotatable">
       <eOperations name="isSatisfiableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="identifier" eType="#//module/Identifiable"/>
       </eOperations>
@@ -233,6 +238,9 @@
     <eClassifiers xsi:type="ecore:EClass" name="AbstractStrictReference" abstract="true"
         eSuperTypes="#//module/AbstractReference"/>
     <eClassifiers xsi:type="ecore:EClass" name="StrictReference" eSuperTypes="#//module/AbstractStrictReference"/>
+    <eClassifiers xsi:type="ecore:EClass" name="FeatureInclude" eSuperTypes="#//module/AbstractStrictReference">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="optional" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="session" nsURI="http://www.sourcepit.org/b2/model/0.1/session"
       nsPrefix="session">

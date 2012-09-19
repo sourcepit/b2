@@ -7,9 +7,9 @@
 package org.sourcepit.b2.validation;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface ModuleValidationConstraint
 {
-   void validate(EObject eObject, PropertiesMap properties, boolean quickFixesEnabled);
+   void validate(EObject eObject, PropertiesSource properties, boolean quickFixesEnabled);
 }

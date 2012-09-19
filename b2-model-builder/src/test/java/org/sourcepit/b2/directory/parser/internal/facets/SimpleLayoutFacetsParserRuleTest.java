@@ -10,8 +10,8 @@ import java.io.File;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -34,7 +34,7 @@ public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
       assertTrue(pluginDir.exists());
 
       final SimpleLayoutFacetsParserRule parserRule = lookupSimpleLayoutFacetsParserRule();
-      assertNull(parserRule.parse(pluginDir, ConverterUtils.TEST_CONVERTER));
+      assertNull(parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
    public void testFacetDir() throws Exception
@@ -45,7 +45,7 @@ public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
       final SimpleLayoutFacetsParserRule parserRule = lookupSimpleLayoutFacetsParserRule();
 
       final FacetsParseResult<ProjectFacet<? extends Project>> result = parserRule.parse(facetDir,
-         ConverterUtils.TEST_CONVERTER);
+         B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(result);
 
       assertEquals("simple", result.getLayout());
@@ -88,7 +88,7 @@ public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
       assertTrue(moduleDir.exists());
 
       final SimpleLayoutFacetsParserRule parserRule = lookupSimpleLayoutFacetsParserRule();
-      assertNull(parserRule.parse(moduleDir, ConverterUtils.TEST_CONVERTER));
+      assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
    private SimpleLayoutFacetsParserRule lookupSimpleLayoutFacetsParserRule() throws Exception

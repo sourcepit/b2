@@ -16,9 +16,9 @@ import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
-import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.FileContainer;
@@ -235,8 +235,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseProject(featureProject);
             if (result == null)
-               result = caseClassified(featureProject);
-            if (result == null)
                result = caseFileContainer(featureProject);
             if (result == null)
                result = caseDerivable(featureProject);
@@ -254,8 +252,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
             T result = caseSiteProject(siteProject);
             if (result == null)
                result = caseProject(siteProject);
-            if (result == null)
-               result = caseClassified(siteProject);
             if (result == null)
                result = caseFileContainer(siteProject);
             if (result == null)
@@ -323,6 +319,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseAbstractReference(pluginInclude);
             if (result == null)
+               result = caseAnnotatable(pluginInclude);
+            if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
@@ -330,14 +328,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
          {
             Category category = (Category) theEObject;
             T result = caseCategory(category);
-            if (result == null)
-               result = defaultCase(theEObject);
-            return result;
-         }
-         case ModuleModelPackage.CLASSIFIED :
-         {
-            Classified classified = (Classified) theEObject;
-            T result = caseClassified(classified);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -381,6 +371,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             AbstractReference abstractReference = (AbstractReference) theEObject;
             T result = caseAbstractReference(abstractReference);
             if (result == null)
+               result = caseAnnotatable(abstractReference);
+            if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
@@ -391,6 +383,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseAbstractReference(ruledReference);
             if (result == null)
+               result = caseAnnotatable(ruledReference);
+            if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
@@ -400,6 +394,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             T result = caseAbstractStrictReference(abstractStrictReference);
             if (result == null)
                result = caseAbstractReference(abstractStrictReference);
+            if (result == null)
+               result = caseAnnotatable(abstractStrictReference);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -412,6 +408,22 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = caseAbstractStrictReference(strictReference);
             if (result == null)
                result = caseAbstractReference(strictReference);
+            if (result == null)
+               result = caseAnnotatable(strictReference);
+            if (result == null)
+               result = defaultCase(theEObject);
+            return result;
+         }
+         case ModuleModelPackage.FEATURE_INCLUDE :
+         {
+            FeatureInclude featureInclude = (FeatureInclude) theEObject;
+            T result = caseFeatureInclude(featureInclude);
+            if (result == null)
+               result = caseAbstractStrictReference(featureInclude);
+            if (result == null)
+               result = caseAbstractReference(featureInclude);
+            if (result == null)
+               result = caseAnnotatable(featureInclude);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -694,23 +706,6 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Classified</em>'.
-    * <!-- begin-user-doc -->
-    * This implementation returns null;
-    * returning a non-null result will terminate the switch.
-    * <!-- end-user-doc -->
-    * 
-    * @param object the target of the switch.
-    * @return the result of interpreting the object as an instance of '<em>Classified</em>'.
-    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-    * @generated
-    */
-   public T caseClassified(Classified object)
-   {
-      return null;
-   }
-
-   /**
     * Returns the result of interpreting the object as an instance of '<em>Identifiable</em>'.
     * <!-- begin-user-doc -->
     * This implementation returns null;
@@ -825,6 +820,23 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @generated
     */
    public T caseStrictReference(StrictReference object)
+   {
+      return null;
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Feature Include</em>'.
+    * <!-- begin-user-doc -->
+    * This implementation returns null;
+    * returning a non-null result will terminate the switch.
+    * <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Feature Include</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseFeatureInclude(FeatureInclude object)
    {
       return null;
    }

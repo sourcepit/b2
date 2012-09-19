@@ -9,7 +9,7 @@ package org.sourcepit.b2.internal.generator;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.codehaus.plexus.interpolation.ValueSource;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class PropertiesQuery
 {
@@ -41,12 +41,12 @@ public class PropertiesQuery
       this.defaultValue = defaultValue;
    }
 
-   public String lookup(Collection<ValueSource> valueSources)
+   public String lookup(PropertiesSource properties)
    {
       for (String rawKey : keys)
       {
          final String key = prefix == null ? rawKey : prefix + rawKey;
-         final String result = lookup(valueSources, key);
+         final String result = lookup(properties, key);
          if (result != null)
          {
             return result;
@@ -56,7 +56,7 @@ public class PropertiesQuery
       {
          for (String key : keys)
          {
-            final String result = lookup(valueSources, key);
+            final String result = lookup(properties, key);
             if (result != null)
             {
                return result;
@@ -66,16 +66,8 @@ public class PropertiesQuery
       return defaultValue;
    }
 
-   private String lookup(Collection<ValueSource> valueSources, String key)
+   private String lookup(PropertiesSource properties, String key)
    {
-      for (ValueSource valueSource : valueSources)
-      {
-         Object value = valueSource.getValue(key);
-         if (value != null)
-         {
-            return value.toString();
-         }
-      }
-      return null;
+      return properties.get(key);
    }
 }

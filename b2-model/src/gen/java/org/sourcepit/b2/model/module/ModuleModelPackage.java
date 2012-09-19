@@ -951,6 +951,16 @@ public interface ModuleModelPackage extends EPackage
    int PLUGIN_PROJECT__FRAGMENT_HOST_VERSION = PROJECT_FEATURE_COUNT + 4;
 
    /**
+    * The feature id for the '<em><b>Bundle Manifest</b></em>' containment reference.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int PLUGIN_PROJECT__BUNDLE_MANIFEST = PROJECT_FEATURE_COUNT + 5;
+
+   /**
     * The number of structural features of the '<em>Plugin Project</em>' class.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -958,7 +968,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PLUGIN_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 5;
+   int PLUGIN_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 6;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl
@@ -1023,16 +1033,6 @@ public interface ModuleModelPackage extends EPackage
    int FEATURE_PROJECT__VERSION = PROJECT__VERSION;
 
    /**
-    * The feature id for the '<em><b>Classifier</b></em>' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int FEATURE_PROJECT__CLASSIFIER = PROJECT_FEATURE_COUNT + 0;
-
-   /**
     * The feature id for the '<em><b>Parent</b></em>' container reference.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -1040,7 +1040,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int FEATURE_PROJECT__PARENT = PROJECT_FEATURE_COUNT + 1;
+   int FEATURE_PROJECT__PARENT = PROJECT_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Included Plugins</b></em>' containment reference list.
@@ -1050,7 +1050,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int FEATURE_PROJECT__INCLUDED_PLUGINS = PROJECT_FEATURE_COUNT + 2;
+   int FEATURE_PROJECT__INCLUDED_PLUGINS = PROJECT_FEATURE_COUNT + 1;
 
    /**
     * The feature id for the '<em><b>Included Features</b></em>' containment reference list.
@@ -1060,7 +1060,27 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int FEATURE_PROJECT__INCLUDED_FEATURES = PROJECT_FEATURE_COUNT + 3;
+   int FEATURE_PROJECT__INCLUDED_FEATURES = PROJECT_FEATURE_COUNT + 2;
+
+   /**
+    * The feature id for the '<em><b>Required Features</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_PROJECT__REQUIRED_FEATURES = PROJECT_FEATURE_COUNT + 3;
+
+   /**
+    * The feature id for the '<em><b>Required Plugins</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_PROJECT__REQUIRED_PLUGINS = PROJECT_FEATURE_COUNT + 4;
 
    /**
     * The number of structural features of the '<em>Feature Project</em>' class.
@@ -1070,7 +1090,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int FEATURE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 4;
+   int FEATURE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 5;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl
@@ -1135,16 +1155,6 @@ public interface ModuleModelPackage extends EPackage
    int SITE_PROJECT__VERSION = PROJECT__VERSION;
 
    /**
-    * The feature id for the '<em><b>Classifier</b></em>' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int SITE_PROJECT__CLASSIFIER = PROJECT_FEATURE_COUNT + 0;
-
-   /**
     * The feature id for the '<em><b>Parent</b></em>' container reference.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -1152,7 +1162,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SITE_PROJECT__PARENT = PROJECT_FEATURE_COUNT + 1;
+   int SITE_PROJECT__PARENT = PROJECT_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Categories</b></em>' containment reference list.
@@ -1162,7 +1172,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SITE_PROJECT__CATEGORIES = PROJECT_FEATURE_COUNT + 2;
+   int SITE_PROJECT__CATEGORIES = PROJECT_FEATURE_COUNT + 1;
 
    /**
     * The number of structural features of the '<em>Site Project</em>' class.
@@ -1172,7 +1182,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SITE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 3;
+   int SITE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 2;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl
@@ -1184,7 +1194,17 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractReference()
     * @generated
     */
-   int ABSTRACT_REFERENCE = 20;
+   int ABSTRACT_REFERENCE = 19;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ABSTRACT_REFERENCE__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1194,7 +1214,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE__ID = 0;
+   int ABSTRACT_REFERENCE__ID = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1204,7 +1224,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE__VERSION = 1;
+   int ABSTRACT_REFERENCE__VERSION = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 1;
 
    /**
     * The number of structural features of the '<em>Abstract Reference</em>' class.
@@ -1214,7 +1234,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE_FEATURE_COUNT = 2;
+   int ABSTRACT_REFERENCE_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 2;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractStrictReferenceImpl
@@ -1226,7 +1246,17 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractStrictReference()
     * @generated
     */
-   int ABSTRACT_STRICT_REFERENCE = 22;
+   int ABSTRACT_STRICT_REFERENCE = 21;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ABSTRACT_STRICT_REFERENCE__ANNOTATIONS = ABSTRACT_REFERENCE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1269,6 +1299,16 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     */
    int PLUGIN_INCLUDE = 14;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int PLUGIN_INCLUDE__ANNOTATIONS = ABSTRACT_STRICT_REFERENCE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1353,37 +1393,6 @@ public interface ModuleModelPackage extends EPackage
    int CATEGORY_FEATURE_COUNT = 2;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}' class.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @see org.sourcepit.b2.model.module.Classified
-    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getClassified()
-    * @generated
-    */
-   int CLASSIFIED = 16;
-
-   /**
-    * The feature id for the '<em><b>Classifier</b></em>' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int CLASSIFIED__CLASSIFIER = 0;
-
-   /**
-    * The number of structural features of the '<em>Classified</em>' class.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int CLASSIFIED_FEATURE_COUNT = 1;
-
-   /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}' class.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -1392,7 +1401,7 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifiable()
     * @generated
     */
-   int IDENTIFIABLE = 17;
+   int IDENTIFIABLE = 16;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1434,7 +1443,7 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getProductsFacet()
     * @generated
     */
-   int PRODUCTS_FACET = 18;
+   int PRODUCTS_FACET = 17;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute.
@@ -1506,7 +1515,7 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getProductDefinition()
     * @generated
     */
-   int PRODUCT_DEFINITION = 19;
+   int PRODUCT_DEFINITION = 18;
 
    /**
     * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
@@ -1578,7 +1587,17 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getRuledReference()
     * @generated
     */
-   int RULED_REFERENCE = 21;
+   int RULED_REFERENCE = 20;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int RULED_REFERENCE__ANNOTATIONS = ABSTRACT_REFERENCE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1630,7 +1649,17 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getStrictReference()
     * @generated
     */
-   int STRICT_REFERENCE = 23;
+   int STRICT_REFERENCE = 22;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int STRICT_REFERENCE__ANNOTATIONS = ABSTRACT_STRICT_REFERENCE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1661,6 +1690,68 @@ public interface ModuleModelPackage extends EPackage
     * @ordered
     */
    int STRICT_REFERENCE_FEATURE_COUNT = ABSTRACT_STRICT_REFERENCE_FEATURE_COUNT + 0;
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl
+    * <em>Feature Include</em>}' class.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureInclude()
+    * @generated
+    */
+   int FEATURE_INCLUDE = 23;
+
+   /**
+    * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE__ANNOTATIONS = ABSTRACT_STRICT_REFERENCE__ANNOTATIONS;
+
+   /**
+    * The feature id for the '<em><b>Id</b></em>' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE__ID = ABSTRACT_STRICT_REFERENCE__ID;
+
+   /**
+    * The feature id for the '<em><b>Version</b></em>' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE__VERSION = ABSTRACT_STRICT_REFERENCE__VERSION;
+
+   /**
+    * The feature id for the '<em><b>Optional</b></em>' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE__OPTIONAL = ABSTRACT_STRICT_REFERENCE_FEATURE_COUNT + 0;
+
+   /**
+    * The number of structural features of the '<em>Feature Include</em>' class.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int FEATURE_INCLUDE_FEATURE_COUNT = ABSTRACT_STRICT_REFERENCE_FEATURE_COUNT + 1;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.VersionMatchRule <em>Version Match Rule</em>}'
@@ -1959,6 +2050,19 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getPluginProject_FragmentHostVersion();
 
    /**
+    * Returns the meta object for the containment reference '
+    * {@link org.sourcepit.b2.model.module.PluginProject#getBundleManifest <em>Bundle Manifest</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference '<em>Bundle Manifest</em>'.
+    * @see org.sourcepit.b2.model.module.PluginProject#getBundleManifest()
+    * @see #getPluginProject()
+    * @generated
+    */
+   EReference getPluginProject_BundleManifest();
+
+   /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeatureProject <em>Feature Project</em>}'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -2007,6 +2111,32 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     */
    EReference getFeatureProject_IncludedFeatures();
+
+   /**
+    * Returns the meta object for the containment reference list '
+    * {@link org.sourcepit.b2.model.module.FeatureProject#getRequiredFeatures <em>Required Features</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference list '<em>Required Features</em>'.
+    * @see org.sourcepit.b2.model.module.FeatureProject#getRequiredFeatures()
+    * @see #getFeatureProject()
+    * @generated
+    */
+   EReference getFeatureProject_RequiredFeatures();
+
+   /**
+    * Returns the meta object for the containment reference list '
+    * {@link org.sourcepit.b2.model.module.FeatureProject#getRequiredPlugins <em>Required Plugins</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference list '<em>Required Plugins</em>'.
+    * @see org.sourcepit.b2.model.module.FeatureProject#getRequiredPlugins()
+    * @see #getFeatureProject()
+    * @generated
+    */
+   EReference getFeatureProject_RequiredPlugins();
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.SiteProject <em>Site Project</em>}'.
@@ -2174,30 +2304,6 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     */
    EAttribute getCategory_Name();
-
-   /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}'.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @return the meta object for class '<em>Classified</em>'.
-    * @see org.sourcepit.b2.model.module.Classified
-    * @generated
-    */
-   EClass getClassified();
-
-   /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Classified#getClassifier
-    * <em>Classifier</em>}'.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @return the meta object for the attribute '<em>Classifier</em>'.
-    * @see org.sourcepit.b2.model.module.Classified#getClassifier()
-    * @see #getClassified()
-    * @generated
-    */
-   EAttribute getClassified_Classifier();
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}'.
@@ -2395,6 +2501,30 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     */
    EClass getStrictReference();
+
+   /**
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.FeatureInclude <em>Feature Include</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for class '<em>Feature Include</em>'.
+    * @see org.sourcepit.b2.model.module.FeatureInclude
+    * @generated
+    */
+   EClass getFeatureInclude();
+
+   /**
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.FeatureInclude#isOptional
+    * <em>Optional</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the attribute '<em>Optional</em>'.
+    * @see org.sourcepit.b2.model.module.FeatureInclude#isOptional()
+    * @see #getFeatureInclude()
+    * @generated
+    */
+   EAttribute getFeatureInclude_Optional();
 
    /**
     * Returns the meta object for enum '{@link org.sourcepit.b2.model.module.VersionMatchRule
@@ -2668,6 +2798,15 @@ public interface ModuleModelPackage extends EPackage
       EAttribute PLUGIN_PROJECT__FRAGMENT_HOST_VERSION = eINSTANCE.getPluginProject_FragmentHostVersion();
 
       /**
+       * The meta object literal for the '<em><b>Bundle Manifest</b></em>' containment reference feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference PLUGIN_PROJECT__BUNDLE_MANIFEST = eINSTANCE.getPluginProject_BundleManifest();
+
+      /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl
        * <em>Feature Project</em>}' class.
        * <!-- begin-user-doc -->
@@ -2705,6 +2844,24 @@ public interface ModuleModelPackage extends EPackage
        * @generated
        */
       EReference FEATURE_PROJECT__INCLUDED_FEATURES = eINSTANCE.getFeatureProject_IncludedFeatures();
+
+      /**
+       * The meta object literal for the '<em><b>Required Features</b></em>' containment reference list feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference FEATURE_PROJECT__REQUIRED_FEATURES = eINSTANCE.getFeatureProject_RequiredFeatures();
+
+      /**
+       * The meta object literal for the '<em><b>Required Plugins</b></em>' containment reference list feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference FEATURE_PROJECT__REQUIRED_PLUGINS = eINSTANCE.getFeatureProject_RequiredPlugins();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl
@@ -2851,26 +3008,6 @@ public interface ModuleModelPackage extends EPackage
        * @generated
        */
       EAttribute CATEGORY__NAME = eINSTANCE.getCategory_Name();
-
-      /**
-       * The meta object literal for the '{@link org.sourcepit.b2.model.module.Classified <em>Classified</em>}' class.
-       * <!-- begin-user-doc -->
-       * <!-- end-user-doc -->
-       * 
-       * @see org.sourcepit.b2.model.module.Classified
-       * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getClassified()
-       * @generated
-       */
-      EClass CLASSIFIED = eINSTANCE.getClassified();
-
-      /**
-       * The meta object literal for the '<em><b>Classifier</b></em>' attribute feature.
-       * <!-- begin-user-doc -->
-       * <!-- end-user-doc -->
-       * 
-       * @generated
-       */
-      EAttribute CLASSIFIED__CLASSIFIER = eINSTANCE.getClassified_Classifier();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}'
@@ -3037,6 +3174,27 @@ public interface ModuleModelPackage extends EPackage
        * @generated
        */
       EClass STRICT_REFERENCE = eINSTANCE.getStrictReference();
+
+      /**
+       * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl
+       * <em>Feature Include</em>}' class.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @see org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl
+       * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getFeatureInclude()
+       * @generated
+       */
+      EClass FEATURE_INCLUDE = eINSTANCE.getFeatureInclude();
+
+      /**
+       * The meta object literal for the '<em><b>Optional</b></em>' attribute feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EAttribute FEATURE_INCLUDE__OPTIONAL = eINSTANCE.getFeatureInclude_Optional();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.VersionMatchRule

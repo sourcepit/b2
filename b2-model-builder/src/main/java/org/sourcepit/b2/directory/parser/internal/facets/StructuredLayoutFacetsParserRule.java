@@ -14,9 +14,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("structured")
 public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>
@@ -28,7 +28,7 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
    private AbstractFacetsParserRule<ProjectFacet<? extends Project>> simpleLayoutParserRule;
 
    @Override
-   public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, final IConverter converter)
+   public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, final PropertiesSource properties)
    {
       final List<ProjectFacet<? extends Project>> facets = new ArrayList<ProjectFacet<? extends Project>>();
       if (directory == null || !directory.exists())
@@ -44,7 +44,7 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
             {
                if (!new File(member, "module.xml").exists())
                {
-                  ProjectFacet<? extends Project> facet = parseFacetFolder(member, converter);
+                  ProjectFacet<? extends Project> facet = parseFacetFolder(member, properties);
                   if (facet != null)
                   {
                      facets.add(facet);
@@ -64,9 +64,10 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
    }
 
    @SuppressWarnings("unchecked")
-   private ProjectFacet<? extends Project> parseFacetFolder(File member, IConverter converter)
+   private ProjectFacet<? extends Project> parseFacetFolder(File member, PropertiesSource properties)
    {
-      final FacetsParseResult<ProjectFacet<? extends Project>> result = simpleLayoutParserRule.parse(member, converter);
+      final FacetsParseResult<ProjectFacet<? extends Project>> result = simpleLayoutParserRule
+         .parse(member, properties);
       if (result == null)
       {
          return null;
@@ -98,7 +99,7 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
             throw new IllegalStateException("Directory " + member.getName() + " contains projects of different kinds.");
          }
       }
-      f.setName(converter.getFacetName(member));
+      f.setName(member.getName());
       return f;
    }
 }

@@ -54,7 +54,7 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
       assertEquals(pomDepsSiteDir.toURL(), new URL(repository.getUrl()));
 
       File[] siteDirs = new File(moduleDir, ".b2/sites").listFiles();
-      assertEquals(3, siteDirs.length);
+      assertEquals(2, siteDirs.length);
       for (File siteDir : siteDirs)
       {
          List<String> bundleNames = Arrays.asList(new File(siteDir, "target/repository/plugins").list());

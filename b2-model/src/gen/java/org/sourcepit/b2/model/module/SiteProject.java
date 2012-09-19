@@ -25,7 +25,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SiteProject extends Project, Classified
+public interface SiteProject extends Project
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.

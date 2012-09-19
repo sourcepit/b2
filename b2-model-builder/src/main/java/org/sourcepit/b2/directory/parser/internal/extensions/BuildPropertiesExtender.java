@@ -14,11 +14,11 @@ import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 public class BuildPropertiesExtender extends AbstractModuleParserExtender implements IModuleParserExtender
@@ -30,7 +30,7 @@ public class BuildPropertiesExtender extends AbstractModuleParserExtender implem
    }
 
    @Override
-   protected void doExtend(Annotatable modelElement, IConverter converter)
+   protected void doExtend(Annotatable modelElement, PropertiesSource properties)
    {
       final Project project = (Project) modelElement;
       final File projectDir = project.getDirectory();

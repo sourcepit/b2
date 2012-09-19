@@ -24,8 +24,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.AbstractGenerator;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.model.builder.util.IConverter;
-import org.sourcepit.b2.model.interpolation.internal.module.IAggregationService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
@@ -35,6 +33,7 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.path.PathMatcher;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,8 +42,8 @@ import org.w3c.dom.Node;
 @Named
 public class ProductProjectGenerator extends AbstractGenerator implements IB2GenerationParticipant
 {
-   @Inject
-   private IAggregationService aggregationService;
+   // @Inject
+   // private IAggregationService aggregationService;
 
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
@@ -62,7 +61,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
    }
 
    @Override
-   public void generate(EObject inputElement, IConverter converter, ITemplates templates)
+   public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates)
    {
       final ProductDefinition product = (ProductDefinition) inputElement;
       final AbstractModule module = product.getParent().getParent();
@@ -95,13 +94,13 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       final List<FeatureProject> featureIncludes = new ArrayList<FeatureProject>();
 
       // TODO mode to "IIncludeService"?
-      final String pattern = converter.getProperties().get("b2.product." + classifier + ".filter");
+      final String pattern = properties.get("b2.product." + classifier + ".filter");
       if (pattern != null)
       {
          collectIncludedFeatures(featureIncludes, PathMatcher.parsePackagePatterns(pattern), module);
       }
 
-      featureIncludes.addAll(aggregationService.resolveProductIncludes(module, classifier, converter));
+      // featureIncludes.addAll(aggregationService.resolveProductIncludes(module, classifier, converter));
       if (!featureIncludes.isEmpty())
       {
          Element features = getFeaturesNode(productDoc);

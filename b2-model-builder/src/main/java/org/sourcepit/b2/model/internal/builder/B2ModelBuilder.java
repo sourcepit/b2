@@ -14,10 +14,10 @@ import javax.inject.Named;
 import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.IB2ModelBuildingRequest;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolator;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolationRequest;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd
@@ -44,7 +44,7 @@ public class B2ModelBuilder implements IB2ModelBuilder
       {
          final ModuleInterpolationRequest iRequest = new ModuleInterpolationRequest();
          iRequest.setModule(module);
-         iRequest.setConverter(request.getConverter());
+         iRequest.setModuleProperties(request.getModuleProperties());
          interpolator.interpolate(iRequest);
       }
 
@@ -64,10 +64,10 @@ public class B2ModelBuilder implements IB2ModelBuilder
          throw new IllegalArgumentException("directory must not be null.");
       }
 
-      final IConverter converter = request.getConverter();
-      if (converter == null)
+      final PropertiesSource properties = request.getModuleProperties();
+      if (properties == null)
       {
-         throw new IllegalArgumentException("converter must not be null.");
+         throw new IllegalArgumentException("properties must not be null.");
       }
    }
 }

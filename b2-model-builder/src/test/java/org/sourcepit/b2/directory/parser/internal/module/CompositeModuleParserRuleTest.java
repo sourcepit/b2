@@ -9,7 +9,6 @@ package org.sourcepit.b2.directory.parser.internal.module;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.when;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createB2Session;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createParsingRequest;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initModuleDir;
@@ -25,9 +24,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.session.B2Session;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
 {
@@ -59,16 +58,16 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
    public void testSimple() throws Exception
    {
       final File subModule1Dir = mkdir(moduleDir, "sub-module-1");
+      initModuleDir(subModule1Dir);
       initPluginDir(mkdir(subModule1Dir, "foo1"));
       final File subModule2Dir = mkdir(moduleDir, "sub-module-2");
+      initModuleDir(subModule2Dir);
       initPluginDir(mkdir(subModule2Dir, "foo2"));
 
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
 
-      // TODO the following code sucks.. shouldn't be necessary!
-      final IConverter converter = request.getConverter();
-      when(converter.isPotentialModuleDirectory(moduleDir, subModule1Dir)).thenReturn(Boolean.TRUE);
-      when(converter.isPotentialModuleDirectory(moduleDir, subModule2Dir)).thenReturn(Boolean.TRUE);
+      PropertiesMap properties = (PropertiesMap) request.getModuleProperties();
+
       prepareSession(subModule1Dir, subModule2Dir);
 
       final CompositeModuleParserRule rule = gLookup(CompositeModuleParserRule.class);
@@ -88,15 +87,13 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
    {
       final File subModule1Dir = mkdir(moduleDir, "sub-module-1");
       initPluginDir(mkdir(subModule1Dir, "foo1"));
+      initModuleDir(subModule1Dir);
       final File subModule2Dir = mkdir(moduleDir, "sub-module-2");
+      initModuleDir(subModule2Dir);
       initPluginDir(mkdir(subModule2Dir, "foo2"));
 
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
 
-      // TODO the following code sucks.. shouldn't be necessary!
-      final IConverter converter = request.getConverter();
-      when(converter.isPotentialModuleDirectory(moduleDir, subModule1Dir)).thenReturn(Boolean.TRUE);
-      when(converter.isPotentialModuleDirectory(moduleDir, subModule2Dir)).thenReturn(Boolean.TRUE);
       prepareSession();
 
       final CompositeModuleParserRule rule = gLookup(CompositeModuleParserRule.class);

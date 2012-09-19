@@ -10,11 +10,11 @@ import java.io.File;
 
 import javax.inject.Named;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
-import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,7 +24,7 @@ import org.w3c.dom.Node;
 public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureProject>
 {
    @Override
-   public FeatureProject parse(File directory, IConverter converter)
+   public FeatureProject parse(File directory, PropertiesSource properties)
    {
       final File featureXmlFile = new File(directory, "feature.xml");
 
@@ -55,7 +55,7 @@ public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureP
       for (Node node : XmlUtils.queryNodes(featureXml, "/feature/includes"))
       {
          final Element includeElem = (Element) node;
-         final StrictReference fi = ModuleModelFactory.eINSTANCE.createStrictReference();
+         final FeatureInclude fi = ModuleModelFactory.eINSTANCE.createFeatureInclude();
          final String id = includeElem.getAttribute("id");
          if (id == null || id.length() == 0)
          {

@@ -168,12 +168,12 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-manifest</artifactId>
-				<version>0.1.0-alpha-5</version>
+				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-maven</artifactId>
-				<version>0.1.0-alpha-4</version>
+				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
@@ -189,6 +189,11 @@
 				<groupId>org.sourcepit</groupId>
 				<artifactId>guice-plexus-bridge</artifactId>
 				<version>0.1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				 <version>11.0.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.tmatesoft.svnkit</groupId>

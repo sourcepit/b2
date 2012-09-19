@@ -29,8 +29,8 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.IB2SessionService;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
@@ -41,6 +41,7 @@ import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.session.Environment;
 import org.sourcepit.b2.model.session.ModuleProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd
@@ -57,6 +58,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    @Inject
    private LegacySupport legacySupport;
 
+   @Inject
+   private BasicConverter basicConverter;
+
    @Override
    public GeneratorType getGeneratorType()
    {
@@ -70,10 +74,11 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    }
 
    @Override
-   protected void generate(Annotatable inputElement, boolean skipFacets, IConverter converter, ITemplates templates)
+   protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
+      ITemplates templates)
    {
       // TODO ability to skip reactor projects
-      if (converter.isSkipInterpolator())
+      if (basicConverter.isSkipInterpolator(propertie))
       {
          return;
       }
@@ -108,7 +113,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
       final Model defaultModel = new Model();
       defaultModel.setModelVersion("4.0.0");
-      defaultModel.setGroupId(converter.getNameSpace());
+      defaultModel.setGroupId(basicConverter.getNameSpace(propertie));
       defaultModel.setArtifactId(projectDir.getName());
 
       final Model model = readMavenModel(pomFile);
@@ -117,7 +122,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
       if (!artifacts.isEmpty())
       {
-         artifacts.addAll(gatherArtifacts(module, mavenVersion));
+         artifacts.addAll(gatherArtifacts(module, mavenVersion, propertie));
 
          Profile profile = new Profile();
          profile.setId("buildProducts");
@@ -133,7 +138,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          model.getProfiles().add(profile);
       }
 
-      artifacts = gatherArtifacts(module, mavenVersion);
+      artifacts = gatherArtifacts(module, mavenVersion, propertie);
       if (!artifacts.isEmpty())
       {
          final List<Plugin> plugins = model.getBuild().getPlugins();
@@ -309,7 +314,8 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
    }
 
-   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, String mavenVersion)
+   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, String mavenVersion,
+      PropertiesSource properties)
    {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
@@ -317,47 +323,21 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
       final ModuleArtifact sessionModel = new ModuleArtifact();
       sessionModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.session")));
-      // sessionModel.classifier = "b2";
       sessionModel.setType("session");
       artifacts.add(sessionModel);
 
-      int artifactCount = artifacts.size();
+      final ModuleArtifact moduleModel = new ModuleArtifact();
+      moduleModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.module")));
+      moduleModel.setType("module");
+      artifacts.add(moduleModel);
 
-      for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
-      {
-         for (SiteProject siteProject : sitesFacet.getProjects())
-         {
-            final String cl = siteProject.getClassifier();
-
-            final String clString = cl == null || cl.length() == 0 ? "" : ("-" + cl);
-
-            final File modelFile = new File(layout.pathOfMetaDataFile(module, "b2" + clString + ".module"));
-
-            final ModuleArtifact classifiedModel = new ModuleArtifact();
-            classifiedModel.setFile(modelFile);
-            classifiedModel.setClassifier("".equals(cl) ? null : cl);
-            classifiedModel.setType("module");
-            artifacts.add(classifiedModel);
-         }
-      }
-
-      // add default model if no site classifiers are specified
-      if (artifactCount == artifacts.size())
-      {
-         final ModuleArtifact moduleModel = new ModuleArtifact();
-         moduleModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.module")));
-         // moduleModel.classifier = "b2";
-         moduleModel.setType("module");
-         artifacts.add(moduleModel);
-      }
-
-      gatherSiteArtifacts(module, mavenVersion, artifacts);
+      gatherSiteArtifacts(module, mavenVersion, artifacts, properties);
 
       return artifacts;
    }
 
    private void gatherSiteArtifacts(final AbstractModule module, String mavenVersion,
-      final List<ModuleArtifact> artifacts)
+      final List<ModuleArtifact> artifacts, PropertiesSource properties)
    {
       for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
       {
@@ -366,7 +346,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
             final ModuleArtifact siteArtifact = new ModuleArtifact();
             siteArtifact.setFile(new File(siteProject.getDirectory(), "target/" + siteProject.getId() + "-"
                + mavenVersion + ".zip"));
-            String cl = siteProject.getClassifier();
+            String cl = SiteProjectGenerator.getClassifier(basicConverter, properties, siteProject);
             siteArtifact.setClassifier(cl == null || cl.length() == 0 ? "site" : "site-" + cl);
             siteArtifact.setType("zip");
             artifacts.add(siteArtifact);

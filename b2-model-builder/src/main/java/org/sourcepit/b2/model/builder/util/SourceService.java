@@ -10,23 +10,22 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 @Singleton
 public class SourceService implements ISourceService
 {
-   /**
-    * {@inheritDoc}
-    */
-   public boolean isSourceBuildEnabled(PluginProject pluginProject, IConverter converter)
+   public boolean isSourceBuildEnabled(PluginProject pluginProject, PropertiesSource buildProperties)
    {
-      return Boolean.valueOf(converter.getProperties().get("build.sources", "true")).booleanValue()
-         && hasSource(pluginProject);
+      return isSourceBuildEnabled(buildProperties) && hasSource(pluginProject);
    }
 
-   /**
-    * {@inheritDoc}
-    */
+   public boolean isSourceBuildEnabled(PropertiesSource buildProperties)
+   {
+      return Boolean.valueOf(buildProperties.get("build.sources", "true")).booleanValue();
+   }
+
    public boolean hasSource(PluginProject pluginProject)
    {
       return pluginProject.getAnnotationEntry("java", "source.paths") != null;
