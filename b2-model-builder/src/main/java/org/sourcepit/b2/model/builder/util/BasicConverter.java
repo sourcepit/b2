@@ -33,8 +33,6 @@ public interface BasicConverter
 
    boolean isPotentialModuleDirectory(PropertiesSource moduleProperties, File baseDir, File file);
    
-   String toClassifierLabel(String classifier);
-   
    String getModuleVersion(PropertiesSource moduleProperties);
 
    String getNameSpace(PropertiesSource moduleProperties);

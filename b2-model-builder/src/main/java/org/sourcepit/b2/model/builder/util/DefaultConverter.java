@@ -456,29 +456,6 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return res.toString();
    }
 
-   public String toClassifierLabel(String classifier)
-   {
-      final StringBuilder sb = new StringBuilder();
-      boolean nextUp = true;
-
-      for (char c : classifier.toCharArray())
-      {
-         if (c == '.')
-         {
-            c = ' ';
-         }
-         sb.append(nextUp ? Character.toUpperCase(c) : c);
-         nextUp = Character.isWhitespace(c);
-      }
-
-      //
-      // if (classifier.length() > 1)
-      // {
-      // return classifier.substring(0, 1).toUpperCase() + classifier.substring(1).toLowerCase();
-      // }
-      return sb.toString();
-   }
-
    public String getModuleVersion(PropertiesSource moduleProperties)
    {
       return moduleProperties.get("b2.moduleVersion", "0.1.0.qualifier");

@@ -223,7 +223,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       labelQuery.addKey("project.artifactId");
 
       final PropertiesQuery clsQuery = createQuery(classifier, false, "classifier.label");
-      clsQuery.setDefault(classifier == null ? "" : converter.toClassifierLabel(classifier));
+      clsQuery.setDefaultValue(classifier == null ? "" : FeaturePropertiesQueryFactory.toClassifierLabel(classifier));
 
       final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
       queries.put("category.label", labelQuery);
@@ -249,7 +249,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       {
          query.addKey("category." + property);
       }
-      query.setDefault("");
+      query.setDefaultValue("");
       return query;
    }
 

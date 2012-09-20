@@ -7,6 +7,7 @@
 package org.sourcepit.b2.internal.generator;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -26,6 +27,11 @@ public class PropertiesQuery
       this.prefix = prefix;
    }
 
+   public String getPrefix()
+   {
+      return prefix;
+   }
+
    public void setRetryWithoutPrefix(boolean retryWithoutPrefix)
    {
       this.retryWithoutPrefix = retryWithoutPrefix;
@@ -36,9 +42,19 @@ public class PropertiesQuery
       keys.add(key);
    }
 
-   public void setDefault(String defaultValue)
+   public Collection<String> getKeys()
+   {
+      return Collections.unmodifiableCollection(keys);
+   }
+
+   public void setDefaultValue(String defaultValue)
    {
       this.defaultValue = defaultValue;
+   }
+
+   public String getDefaultValue()
+   {
+      return defaultValue;
    }
 
    public String lookup(PropertiesSource properties)

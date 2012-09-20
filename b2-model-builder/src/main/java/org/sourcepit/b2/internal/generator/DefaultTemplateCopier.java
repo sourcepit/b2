@@ -11,11 +11,27 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.codehaus.plexus.interpolation.AbstractValueSource;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
 import org.sourcepit.tools.shared.resources.harness.ValueSourceUtils;
 
+import com.google.common.base.Optional;
+
 public class DefaultTemplateCopier implements ITemplates
 {
+   private final PropertiesSource globalProperties;
+
+   public DefaultTemplateCopier()
+   {
+      this(null);
+   }
+
+   public DefaultTemplateCopier(Optional<? extends PropertiesSource> globalProperties)
+   {
+      this.globalProperties = globalProperties.orNull();
+   }
+
    /**
     * {@inheritDoc}
     */
@@ -60,6 +76,18 @@ public class DefaultTemplateCopier implements ITemplates
       copier.setClassLoader(getClass().getClassLoader());
       copier.setEscapeString("\\");
       addValueSources(copier, properties);
+
+      if (globalProperties != null)
+      {
+         copier.getValueSources().add(new AbstractValueSource(false)
+         {
+            public Object getValue(String expression)
+            {
+               return globalProperties.get(expression);
+            }
+         });
+      }
+
       copier.setFilter(!copier.getValueSources().isEmpty());
       return copier;
    }
