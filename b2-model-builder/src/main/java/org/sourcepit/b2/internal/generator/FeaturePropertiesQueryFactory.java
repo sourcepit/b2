@@ -7,32 +7,20 @@
 package org.sourcepit.b2.internal.generator;
 
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Map.Entry;
 
-import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.sourcepit.b2.model.builder.util.BasicConverter;
-import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 public class FeaturePropertiesQueryFactory
 {
-   private final BasicConverter converter;
-
-   @Inject
-   public FeaturePropertiesQueryFactory(BasicConverter converter)
-   {
-      this.converter = converter;
-   }
-
    public Map<String, PropertiesQuery> createPropertyQueries(boolean isAssemblyFeature, boolean isSourceFeature,
       String facetOrAssemblyName, String facetOrAssemblyClassifier)
    {
-      final PropertiesQuery labelQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "name");
+      final PropertiesQuery nameQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureName");
+      nameQuery.setDefaultValue("${feature.label} ${feature.classifierLabel} ${feature.classifierLabelAppendix}");
+
+      final PropertiesQuery labelQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureLabel");
       labelQuery.addKey("b2.module.name");
       labelQuery.addKey("project.name");
       labelQuery.addKey("project.artifactId");
@@ -41,18 +29,21 @@ public class FeaturePropertiesQueryFactory
       clsQuery.setDefaultValue(toClassifierLabel(facetOrAssemblyClassifier));
 
       final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
-      queries.put("feature.name", labelQuery);
+      queries.put("feature.name", nameQuery);
+      queries.put("feature.label", labelQuery);
       queries.put("feature.classifierLabel", clsQuery);
 
       if (isSourceFeature)
       {
-         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, false,
-            "sourceClassifierLabelAppendix");
+         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "sourceClassifierLabel");
          query.setDefaultValue("Sources");
          queries.put("feature.classifierLabelAppendix", query);
-
-         // query = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "sourceClassifierLabel");
-         // queries.put("feature.customClassifierLabel", query);
+      }
+      else
+      {
+         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "classifierLabelAppendix");
+         query.setDefaultValue("");
+         queries.put("feature.classifierLabelAppendix", query);
       }
 
       putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "providerName");
@@ -64,6 +55,7 @@ public class FeaturePropertiesQueryFactory
       putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "licenseURL");
       return queries;
    }
+
 
    public static String toClassifierLabel(String classifier)
    {
@@ -80,55 +72,7 @@ public class FeaturePropertiesQueryFactory
          nextUp = Character.isWhitespace(c);
       }
 
-      //
-      // if (classifier.length() > 1)
-      // {
-      // return classifier.substring(0, 1).toUpperCase() + classifier.substring(1).toLowerCase();
-      // }
       return sb.toString();
-   }
-
-   private void insertNlsProperties(final Map<String, PropertiesQuery> queries, Locale locale,
-      final PropertiesSource properties, boolean isSourceFeature)
-   {
-      final String nlsPrefix = createNlsPrefix(locale);
-
-      for (Entry<String, PropertiesQuery> entry : queries.entrySet())
-      {
-         final String key = entry.getKey();
-         final PropertiesQuery query = entry.getValue();
-
-         query.setPrefix(nlsPrefix);
-
-         if (key.equals("feature.name"))
-         {
-            final PropertiesQuery clsLabelQuery = queries.get("feature.classifierLabel");
-            clsLabelQuery.setPrefix(nlsPrefix);
-
-            String label = query.lookup(properties);
-            String clsLabel = clsLabelQuery.lookup(properties);
-
-            if (clsLabel.length() > 0)
-            {
-               label += " " + clsLabel;
-            }
-            // featureProperties.setProperty("feature.name", label);
-         }
-         else
-         {
-            // featureProperties.setProperty(key, query.lookup(properties));
-         }
-      }
-   }
-
-   private String createNlsPrefix(Locale locale)
-   {
-      String nlsPrefix = locale.toString();
-      if (nlsPrefix.length() > 0)
-      {
-         nlsPrefix = "nls_" + nlsPrefix + ".";
-      }
-      return nlsPrefix;
    }
 
    private PropertiesQuery putQuery(Map<String, PropertiesQuery> queries, boolean isAssemblyFeature,

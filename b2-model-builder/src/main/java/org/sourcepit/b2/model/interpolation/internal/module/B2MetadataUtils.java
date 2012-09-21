@@ -15,6 +15,7 @@ import org.sourcepit.b2.model.common.Annotation;
 
 public final class B2MetadataUtils
 {
+   private static final String FACET_CLASSIFIER = "facetClassifier";
    private static final String ASSEMBLY_CLASSIFIERS = "assemblyClassifiers";
    private static final String IS_TEST_PLUGIN = "isTestPlugin";
    private static final String MODULE_VERSION = "moduleVersion";
@@ -120,6 +121,16 @@ public final class B2MetadataUtils
    public static void setFacetName(Annotatable annotatable, String value)
    {
       setB2Metadata(annotatable, FACET_NAME, value);
+   }
+
+   public static String getFacetClassifier(Annotatable annotatable)
+   {
+      return annotatable.getAnnotationEntry(B2, FACET_CLASSIFIER);
+   }
+
+   public static void setFacetClassifier(Annotatable annotatable, String value)
+   {
+      setB2Metadata(annotatable, FACET_CLASSIFIER, value);
    }
 
    public static void setSourceFeature(Annotatable annotatable, boolean value)

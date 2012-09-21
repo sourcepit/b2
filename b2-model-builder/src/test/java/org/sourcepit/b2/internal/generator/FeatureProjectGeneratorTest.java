@@ -28,6 +28,11 @@ public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest
    public void test()
    {
       final PropertiesMap properties = new LinkedPropertiesMap();
+      properties.put("project.name", "Core");
+      properties.put("nls_de.project.name", "Kern");
+      properties.put("nls_de.b2.sourceClassifierLabel", "Quelldateien");
+
+      // properties.put("b2.assemblies[\"public\"].featureLabel", "Foo");
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
 
@@ -40,6 +45,7 @@ public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest
 
       B2MetadataUtils.addAssemblyName(featureProject, "public");
       B2MetadataUtils.addAssemblyClassifier(featureProject, "");
+      B2MetadataUtils.setSourceFeature(featureProject, true);
 
       FeatureProjectGenerator generator = gLookup(FeatureProjectGenerator.class);
       generator.generate(featureProject, properties, templates);
