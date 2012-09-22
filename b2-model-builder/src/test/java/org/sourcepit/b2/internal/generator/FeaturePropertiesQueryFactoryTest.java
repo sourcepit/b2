@@ -163,7 +163,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
 
       query = queries.get("feature.classifierLabelAppendix");
       assertNotNull(query);
-      assertEquals("Sources", query.getDefaultValue());
+      assertEquals("(Sources)", query.getDefaultValue());
       it = query.getKeys().iterator();
       assertEquals("b2.facets.plugins.sourceClassifierLabel", it.next());
       assertEquals("b2.facets.sourceClassifierLabel", it.next());
@@ -234,7 +234,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
 
       query = queries.get("feature.classifierLabelAppendix");
       assertNotNull(query);
-      assertEquals("Sources", query.getDefaultValue());
+      assertEquals("(Sources)", query.getDefaultValue());
    }
 
    @Test
@@ -369,7 +369,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
 
       query = queries.get("feature.classifierLabelAppendix");
       assertNotNull(query);
-      assertEquals("Sources", query.getDefaultValue());
+      assertEquals("(Sources)", query.getDefaultValue());
       it = query.getKeys().iterator();
       assertEquals("b2.assemblies.plugins.sourceClassifierLabel", it.next());
       assertEquals("b2.assemblies.sourceClassifierLabel", it.next());
@@ -446,6 +446,6 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
 
       query = queries.get("feature.classifierLabelAppendix");
       assertNotNull(query);
-      assertEquals("Sources", query.getDefaultValue());
+      assertEquals("(Sources)", query.getDefaultValue());
    }
 }

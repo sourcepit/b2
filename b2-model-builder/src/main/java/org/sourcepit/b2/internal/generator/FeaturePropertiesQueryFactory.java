@@ -36,7 +36,7 @@ public class FeaturePropertiesQueryFactory
       if (isSourceFeature)
       {
          PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "sourceClassifierLabel");
-         query.setDefaultValue("Sources");
+         query.setDefaultValue("(Sources)");
          queries.put("feature.classifierLabelAppendix", query);
       }
       else

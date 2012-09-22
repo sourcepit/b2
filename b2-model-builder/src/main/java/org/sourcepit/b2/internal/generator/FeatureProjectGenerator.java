@@ -99,7 +99,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          classifier = getFacetClassifier(feature);
       }
 
-      final boolean isSourceFeature = B2MetadataUtils.isSourceFeature(feature);
+      final boolean isSourceFeature = !isAssemblyFeature && B2MetadataUtils.isSourceFeature(feature);
 
       featureProperties.setProperty("feature.classifier", classifier);
 
