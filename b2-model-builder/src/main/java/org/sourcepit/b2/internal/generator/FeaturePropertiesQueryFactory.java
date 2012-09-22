@@ -102,7 +102,7 @@ public class FeaturePropertiesQueryFactory
 
    private String createPropertySpacer(String stringInTheMiddle)
    {
-      return stringInTheMiddle == null || stringInTheMiddle.length() == 0 ? "." : "[\"" + stringInTheMiddle + "\"].";
+      return stringInTheMiddle == null || stringInTheMiddle.length() == 0 ? "." : "." + stringInTheMiddle + ".";
    }
 
 }

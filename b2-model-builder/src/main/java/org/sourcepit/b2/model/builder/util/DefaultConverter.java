@@ -338,12 +338,12 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
    private static String assemblyKey(String assemblyName, String key)
    {
-      return b2Key("assemblies[\"" + assemblyName + "\"]." + key);
+      return b2Key("assemblies." + assemblyName + "." + key);
    }
 
    private static String facetKey(String facetName, String key)
    {
-      return b2Key("facets[\"" + facetName + "\"]." + key);
+      return b2Key("facets." + facetName + "." + key);
    }
 
    private static String b2Key(String key)

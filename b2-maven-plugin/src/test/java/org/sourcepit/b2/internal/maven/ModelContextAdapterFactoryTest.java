@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.sourcepit.b2.model.interpolation.internal.module.AbstractInterpolatorUseCasesTest.addFeatureProject;
-import static org.sourcepit.b2.model.interpolation.internal.module.AbstractInterpolatorUseCasesTest.createBasicModule;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.addFeatureProject;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createBasicModule;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.junit.Rule;
 import org.junit.Test;
+import org.sourcepit.b2.model.builder.harness.ModelBuilderHarness;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
@@ -131,12 +132,13 @@ public class ModelContextAdapterFactoryTest
       artifact.setFile(new File(ws.getRoot(), "b2.module"));
 
       BasicModule module = createBasicModule("groupId.artifactId");
-      FeatureProject featureProject = addFeatureProject(module, "features", module.getId() + ".feature",
-         module.getVersion());
+      FeatureProject featureProject = addFeatureProject(module, "features", module.getId()
+         + ".feature", module.getVersion());
       B2MetadataUtils.addAssemblyName(featureProject, "public");
       B2MetadataUtils.addAssemblyClassifier(featureProject, "");
 
-      featureProject = addFeatureProject(module, "features", module.getId() + ".test.feature", module.getVersion());
+      featureProject = addFeatureProject(module, "features", module.getId() + ".test.feature",
+         module.getVersion());
       B2MetadataUtils.setTestFeature(featureProject, true);
       B2MetadataUtils.addAssemblyName(featureProject, "test");
       B2MetadataUtils.addAssemblyClassifier(featureProject, "test");

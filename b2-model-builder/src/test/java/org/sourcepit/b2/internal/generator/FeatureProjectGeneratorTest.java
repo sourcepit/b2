@@ -32,7 +32,7 @@ public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest
       properties.put("nls_de.project.name", "Kern");
       properties.put("nls_de.b2.sourceClassifierLabel", "Quelldateien");
 
-      // properties.put("b2.assemblies[\"public\"].featureLabel", "Foo");
+      // properties.put("b2.assemblies.public.featureLabel", "Foo");
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
 

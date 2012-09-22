@@ -24,7 +24,7 @@ public class DefaultTemplateCopier implements ITemplates
 
    public DefaultTemplateCopier()
    {
-      this(null);
+      this(Optional.<PropertiesSource> absent());
    }
 
    public DefaultTemplateCopier(Optional<? extends PropertiesSource> globalProperties)
