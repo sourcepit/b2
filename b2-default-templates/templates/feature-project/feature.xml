@@ -18,4 +18,10 @@
       %license
    </license>
 
+   ${feature.includes}
+   
+   ${feature.plugins}
+   
+   ${feature.requires}
+   
 </feature>
