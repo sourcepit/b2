@@ -18,7 +18,7 @@ public class FeaturePropertiesQueryFactory
       String facetOrAssemblyName, String facetOrAssemblyClassifier)
    {
       final PropertiesQuery nameQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureName");
-      nameQuery.setDefaultValue("${feature.label} ${feature.classifierLabel} ${feature.classifierLabelAppendix}");
+      nameQuery.setDefaultValue("${feature.label} ${feature.classifierLabel} ${feature.labelAppendix}");
 
       final PropertiesQuery labelQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureLabel");
       labelQuery.addKey("b2.module.name");
@@ -37,13 +37,13 @@ public class FeaturePropertiesQueryFactory
       {
          PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "sourceClassifierLabel");
          query.setDefaultValue("(Sources)");
-         queries.put("feature.classifierLabelAppendix", query);
+         queries.put("feature.labelAppendix", query);
       }
       else
       {
-         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "classifierLabelAppendix");
+         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureLabelAppendix");
          query.setDefaultValue("");
-         queries.put("feature.classifierLabelAppendix", query);
+         queries.put("feature.labelAppendix", query);
       }
 
       putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "providerName");
