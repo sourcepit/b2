@@ -365,7 +365,14 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
 
          query.setPrefix(nlsPrefix);
 
-         String value = removeRedundantWS(s.interpolate(query.lookup(properties)));
+         String value = s.interpolate(query.lookup(properties));
+
+         // HACK
+         if (key.equals("feature.name"))
+         {
+            value = removeRedundantWS(value);
+         }
+
          featureProperties.setProperty(key, value);
       }
    }
