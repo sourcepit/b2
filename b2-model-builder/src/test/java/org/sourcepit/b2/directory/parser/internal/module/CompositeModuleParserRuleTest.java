@@ -26,7 +26,6 @@ import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
 {
@@ -65,8 +64,6 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
       initPluginDir(mkdir(subModule2Dir, "foo2"));
 
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
-
-      PropertiesMap properties = (PropertiesMap) request.getModuleProperties();
 
       prepareSession(subModule1Dir, subModule2Dir);
 

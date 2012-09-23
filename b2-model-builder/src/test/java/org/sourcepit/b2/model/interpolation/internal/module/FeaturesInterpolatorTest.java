@@ -11,6 +11,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.addPluginProject;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.assertIdentifiable;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.assertReference;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createBasicModule;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createPluginsFacet;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.getFeatureProject;
 
 import java.io.File;
 
@@ -1337,15 +1343,15 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test");
    
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
    
-      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.main.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
       
       interpolate(module, moduleProperties);
       
@@ -1401,8 +1407,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       module.getFacets().add(pluginsFacet);
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
-      moduleProperties.put("b2.facets[\"main\"].includedSourceFeatures", "org.eclipse.platform:3.8.0");
-      moduleProperties.put("b2.facets[\"tests\"].includedFeatures", "org.junit:4.10:optional");
+      moduleProperties.put("b2.facets.main.includedSourceFeatures", "org.eclipse.platform:3.8.0");
+      moduleProperties.put("b2.facets.tests.includedFeatures", "org.junit:4.10:optional");
 
 
       // interpolate
@@ -1449,8 +1455,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       module.getFacets().add(pluginsFacet);
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
-      moduleProperties.put("b2.facets[\"main\"].includedSourcePlugins", "org.eclipse.platform:3.8.0");
-      moduleProperties.put("b2.facets[\"tests\"].includedPlugins", "org.junit:4.10:unpack");
+      moduleProperties.put("b2.facets.main.includedSourcePlugins", "org.eclipse.platform:3.8.0");
+      moduleProperties.put("b2.facets.tests.includedPlugins", "org.junit:4.10:unpack");
 
 
       // interpolate

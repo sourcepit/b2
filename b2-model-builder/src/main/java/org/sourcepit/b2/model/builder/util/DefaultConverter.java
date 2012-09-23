@@ -338,12 +338,12 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
    private static String assemblyKey(String assemblyName, String key)
    {
-      return b2Key("assemblies[\"" + assemblyName + "\"]." + key);
+      return b2Key("assemblies." + assemblyName + "." + key);
    }
 
    private static String facetKey(String facetName, String key)
    {
-      return b2Key("facets[\"" + facetName + "\"]." + key);
+      return b2Key("facets." + facetName + "." + key);
    }
 
    private static String b2Key(String key)
@@ -454,29 +454,6 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
          res.append(Character.isJavaIdentifierPart(c) ? c : '_');
       }
       return res.toString();
-   }
-
-   public String toClassifierLabel(String classifier)
-   {
-      final StringBuilder sb = new StringBuilder();
-      boolean nextUp = true;
-
-      for (char c : classifier.toCharArray())
-      {
-         if (c == '.')
-         {
-            c = ' ';
-         }
-         sb.append(nextUp ? Character.toUpperCase(c) : c);
-         nextUp = Character.isWhitespace(c);
-      }
-
-      //
-      // if (classifier.length() > 1)
-      // {
-      // return classifier.substring(0, 1).toUpperCase() + classifier.substring(1).toLowerCase();
-      // }
-      return sb.toString();
    }
 
    public String getModuleVersion(PropertiesSource moduleProperties)

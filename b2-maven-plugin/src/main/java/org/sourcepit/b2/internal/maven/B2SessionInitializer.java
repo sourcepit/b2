@@ -24,7 +24,6 @@ import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.settings.Settings;
-import org.codehaus.plexus.interpolation.AbstractValueSource;
 import org.codehaus.plexus.interpolation.ValueSource;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -62,9 +61,9 @@ import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
 import org.sourcepit.tools.shared.resources.harness.ValueSourceUtils;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
@@ -256,21 +255,7 @@ public class B2SessionInitializer
       final File moduleDir = bootProject.getBasedir();
       logger.info("Building model for directory " + moduleDir.getName());
 
-      final ITemplates templates = new DefaultTemplateCopier()
-      {
-         @Override
-         protected void addValueSources(SharedResourcesCopier copier, Properties properties)
-         {
-            super.addValueSources(copier, properties);
-            copier.getValueSources().add(new AbstractValueSource(false)
-            {
-               public Object getValue(String expression)
-               {
-                  return moduleProperties.get(expression);
-               }
-            });
-         }
-      };
+      final ITemplates templates = new DefaultTemplateCopier(Optional.of(moduleProperties));
 
       final Set<File> whitelist = new HashSet<File>();
       for (ModuleProject project : b2Session.getProjects())

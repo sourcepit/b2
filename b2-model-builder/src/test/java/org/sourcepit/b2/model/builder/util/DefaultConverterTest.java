@@ -31,7 +31,7 @@ public class DefaultConverterTest
       String propertyName = "includedFeatures";
       boolean isSource = false;
 
-      String key1 = "b2.facets[\"" + facetName + "\"]." + propertyName;
+      String key1 = "b2.facets." + facetName + "." + propertyName;
       String key2 = "b2." + propertyName;
 
       testGetIncludedFeatures(key1, facetName, isSource);
@@ -56,7 +56,7 @@ public class DefaultConverterTest
       String propertyName = "includedSourceFeatures";
       boolean isSource = true;
 
-      String key1 = "b2.facets[\"" + facetName + "\"]." + propertyName;
+      String key1 = "b2.facets." + facetName + "." + propertyName;
       String key2 = "b2." + propertyName;
 
       testGetIncludedFeatures(key1, facetName, isSource);
@@ -150,7 +150,7 @@ public class DefaultConverterTest
       String propertyName = "includedPlugins";
       boolean isSource = false;
 
-      String key1 = "b2.facets[\"" + facetName + "\"]." + propertyName;
+      String key1 = "b2.facets." + facetName + "." + propertyName;
       String key2 = "b2." + propertyName;
 
       testGetIncludedPlugins(key1, facetName, isSource);
@@ -175,7 +175,7 @@ public class DefaultConverterTest
       String propertyName = "includedSourcePlugins";
       boolean isSource = true;
 
-      String key1 = "b2.facets[\"" + facetName + "\"]." + propertyName;
+      String key1 = "b2.facets." + facetName + "." + propertyName;
       String key2 = "b2." + propertyName;
 
       testGetIncludedPlugins(key1, facetName, isSource);
@@ -313,7 +313,7 @@ public class DefaultConverterTest
    private void testGetRequiredFeaturesOrPluginsAndKeyOrdering(final Method method, final String facetName,
       String propertyName, boolean isSource) throws Exception
    {
-      String key1 = "b2.facets[\"" + facetName + "\"]." + propertyName;
+      String key1 = "b2.facets." + facetName + "." + propertyName;
       testGetRequiredFeaturesOrPlugins(method, key1, facetName, isSource);
 
       String key2 = "b2." + propertyName;
@@ -451,7 +451,7 @@ public class DefaultConverterTest
       assertEquals("features", converter.getFacetClassifier(properties, "features"));
       assertEquals("features", converter.getFacetClassifier(properties, "Features"));
 
-      properties.put("b2.facets[\"plugins\"].classifier", "");
+      properties.put("b2.facets.plugins.classifier", "");
 
       assertEquals("", converter.getFacetClassifier(properties, "plugins"));
       assertEquals("plugins", converter.getFacetClassifier(properties, "Plugins"));

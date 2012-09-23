@@ -6,8 +6,10 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.addPluginProject;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createBasicModule;
+import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createCompositeModule;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,17 +22,11 @@ import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
-import org.sourcepit.b2.model.module.Identifiable;
-import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
-import org.sourcepit.b2.model.module.PluginsFacet;
-import org.sourcepit.b2.model.module.StrictReference;
-import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 import org.sourcepit.common.manifest.osgi.PackageExport;
 import org.sourcepit.common.manifest.osgi.PackageImport;
@@ -68,8 +64,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -91,8 +87,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -115,8 +111,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -139,8 +135,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -163,10 +159,10 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
-      moduleProperties.put("b2.facets[\"plugins\"].classifier", "");
+      moduleProperties.put("b2.facets.plugins.classifier", "");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -189,10 +185,10 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
-      moduleProperties.put("b2.facets[\"plugins\"].classifier", "");
+      moduleProperties.put("b2.facets.plugins.classifier", "");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -215,10 +211,10 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**"); // should be
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**"); // should be
                                                                                                        // default?
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -241,10 +237,10 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**"); // should be
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**"); // should be
                                                                                                        // default?
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -268,10 +264,10 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
-      moduleProperties.put("b2.assemblies[\"main\"].classifier", "");
+      moduleProperties.put("b2.assemblies.main.classifier", "");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -295,10 +291,10 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
-      moduleProperties.put("b2.assemblies[\"main\"].classifier", "");
+      moduleProperties.put("b2.assemblies.main.classifier", "");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -347,8 +343,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -383,8 +379,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -409,8 +405,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       // interpolate
       interpolate(fooModule, moduleProperties);
@@ -441,8 +437,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test"); // should be default?
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**"); // should be default?
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
       resolutionContext.get().add(fooModule);
 
@@ -468,13 +464,13 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
 
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -491,18 +487,18 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
 
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       moduleProperties.put("b2.aggregator.mode", "unwrap");
-      // moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**");
-      // moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      // moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      // moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**");
+      // moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      // moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -526,13 +522,13 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
 
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -549,18 +545,18 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
 
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       moduleProperties.put("b2.aggregator.mode", "unwrap");
-      // moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**");
-      // moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      // moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      // moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**");
+      // moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      // moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -584,13 +580,13 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
 
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -606,14 +602,14 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
       moduleProperties.put("b2.aggregator.mode", "aggregate");
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -637,13 +633,13 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
 
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // interpolate
       interpolate(module, moduleProperties);
@@ -660,13 +656,13 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test");
 
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       moduleProperties.put("b2.aggregator.mode", "aggregate");
 
@@ -701,15 +697,15 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test");
 
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.main.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // moduleProperties.put("b2.aggregator.mode", "unwrap");
 
@@ -747,15 +743,15 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test");
 
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.main.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       moduleProperties.put("b2.aggregator.mode", "aggregate");
 
@@ -793,15 +789,15 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test");
 
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.main.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       // moduleProperties.put("b2.aggregator.mode", "unwrap");
 
@@ -839,15 +835,15 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test");
 
-      moduleProperties.put("b2.assemblies[\"main\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"public\"].featuresFilter", "!**.sources.**,!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].featuresFilter", "!**.tests.**");
-      moduleProperties.put("b2.assemblies[\"test\"].featuresFilter", "**.tests.**");
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
 
-      moduleProperties.put("b2.assemblies[\"main\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"public\"].aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
-      moduleProperties.put("b2.assemblies[\"sdk\"].aggregator.featuresFilter", "**.sdk.**");
-      moduleProperties.put("b2.assemblies[\"test\"].aggregator.featuresFilter", "**.test.**");
+      moduleProperties.put("b2.assemblies.main.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
 
       moduleProperties.put("b2.aggregator.mode", "aggregate");
 
@@ -900,127 +896,6 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter, includesAndRequirements);
 
       interpolator.interpolate(module, moduleProperties);
-   }
-
-   public static PluginProject addPluginProject(BasicModule module, String facetName, String pluginId,
-      String pluginVersion)
-   {
-      PluginsFacet pluginsFacet = module.getFacetByName(facetName);
-      if (pluginsFacet == null)
-      {
-         pluginsFacet = createPluginsFacet(facetName);
-         module.getFacets().add(pluginsFacet);
-      }
-
-      PluginProject plugin = createPluginProject(pluginId, pluginVersion);
-      pluginsFacet.getProjects().add(plugin);
-      return plugin;
-   }
-
-   public static FeatureProject addFeatureProject(BasicModule module, String facetName, String featureId,
-      String featureVersion)
-   {
-      FeaturesFacet featuresFacet = module.getFacetByName(facetName);
-      if (featuresFacet == null)
-      {
-         featuresFacet = createFeaturesFacet(facetName);
-         module.getFacets().add(featuresFacet);
-      }
-
-      FeatureProject feature = createFeatureProject(featureId, featureVersion);
-      featuresFacet.getProjects().add(feature);
-      return feature;
-   }
-
-   public static FeatureProject getFeatureProject(AbstractModule module, String id, String version)
-   {
-      StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
-      ref.setId(id);
-      ref.setVersion(version);
-      return module.resolveReference(ref, FeaturesFacet.class);
-   }
-
-   public static FeatureProject getFeatureProject(AbstractModule module, String id)
-   {
-      return getFeatureProject(module, id, null);
-   }
-
-   public static CompositeModule createCompositeModule(String id)
-   {
-      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
-      final CompositeModule module = eFactory.createCompositeModule();
-      module.setId(id);
-      module.setVersion("1.0.0.qualifier");
-      module.setLayoutId("composite");
-      return module;
-   }
-
-   public static BasicModule createBasicModule(String id)
-   {
-      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
-      final BasicModule module = eFactory.createBasicModule();
-      module.setId(id);
-      module.setVersion("1.0.0.qualifier");
-      module.setLayoutId("structured");
-      return module;
-   }
-
-   public static PluginProject createPluginProject(String id, String version)
-   {
-      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
-      final PluginProject plugin = eFactory.createPluginProject();
-      plugin.setId(id);
-      plugin.setVersion(version);
-      plugin.setTestPlugin(id.endsWith(".tests"));
-
-      final BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
-
-      manifest.setBundleSymbolicName(id);
-      manifest.setBundleVersion(version);
-
-      plugin.setBundleManifest(manifest);
-
-      // fake source
-      plugin.putAnnotationEntry("java", "source.paths", "src");
-
-      return plugin;
-   }
-
-   public static FeatureProject createFeatureProject(String id, String version)
-   {
-      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
-      final FeatureProject feature = eFactory.createFeatureProject();
-      feature.setId(id);
-      feature.setVersion(version);
-      return feature;
-   }
-
-   public static PluginsFacet createPluginsFacet(String name)
-   {
-      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
-      final PluginsFacet pluginsFacet = eFactory.createPluginsFacet();
-      pluginsFacet.setName(name);
-      return pluginsFacet;
-   }
-
-   public static FeaturesFacet createFeaturesFacet(String name)
-   {
-      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
-      final FeaturesFacet featuresFacet = eFactory.createFeaturesFacet();
-      featuresFacet.setName(name);
-      return featuresFacet;
-   }
-
-   public static void assertReference(String expectedId, String expectedVersion, AbstractReference reference)
-   {
-      assertEquals(expectedId, reference.getId());
-      assertEquals(expectedVersion, reference.getVersion());
-   }
-
-   public static void assertIdentifiable(String expectedId, String expectedVersion, Identifiable identifiable)
-   {
-      assertEquals(expectedId, identifiable.getId());
-      assertEquals(expectedVersion, identifiable.getVersion());
    }
 
 }

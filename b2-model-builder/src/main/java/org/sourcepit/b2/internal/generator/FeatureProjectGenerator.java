@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -24,13 +23,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
+import org.codehaus.plexus.interpolation.AbstractValueSource;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -41,12 +40,18 @@ import org.sourcepit.common.manifest.osgi.Version;
 import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesUtils;
+import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 
 @Named
 public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant
 {
+   private final FeaturePropertiesQueryFactory propertiesQueryFactory;
+
    @Inject
-   private BasicConverter converter;
+   public FeatureProjectGenerator(FeaturePropertiesQueryFactory propertiesQueryFactory)
+   {
+      this.propertiesQueryFactory = propertiesQueryFactory;
+   }
 
    @Override
    public GeneratorType getGeneratorType()
@@ -72,11 +77,34 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       // TODO determine ${feature.plugin}
       featureProperties.setProperty("feature.plugin", "");
 
-      final String classifier = getClassifier(properties, feature);
+      final boolean isAssemblyFeature = isAssemblyFeature(feature);
 
-      featureProperties.setProperty("feature.classifier", classifier == null ? "" : classifier);
+      final String facetOrAssemblyName;
+      if (isAssemblyFeature)
+      {
+         facetOrAssemblyName = getAssemblyName(feature);
+      }
+      else
+      {
+         facetOrAssemblyName = getFacetName(feature);
+      }
 
-      final Map<String, PropertiesQuery> queries = createNlsPropertyQueries(properties, classifier);
+      final String classifier;
+      if (isAssemblyFeature)
+      {
+         classifier = getAssemblyClassifier(feature);
+      }
+      else
+      {
+         classifier = getFacetClassifier(feature);
+      }
+
+      final boolean isSourceFeature = !isAssemblyFeature && B2MetadataUtils.isSourceFeature(feature);
+
+      featureProperties.setProperty("feature.classifier", classifier);
+
+      final Map<String, PropertiesQuery> queries = propertiesQueryFactory.createPropertyQueries(isAssemblyFeature,
+         isSourceFeature, facetOrAssemblyName, classifier);
 
       insertNlsProperties(queries, NlsUtils.DEFAULT_LOCALE, properties, featureProperties);
       insertIncludesProperty(feature, featureProperties);
@@ -87,13 +115,12 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       generateNlsPropertyFiles(feature, properties, templates, queries);
    }
 
-   // TODO legacy compatibility
-   private String getClassifier(PropertiesSource properties, FeatureProject feature)
+   private static boolean isAssemblyFeature(FeatureProject feature)
    {
       String facetName = B2MetadataUtils.getFacetName(feature);
       if (facetName != null)
       {
-         return this.converter.getFacetClassifier(properties, facetName);
+         return false;
       }
       else
       {
@@ -102,8 +129,38 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          {
             throw new IllegalStateException();
          }
-         return this.converter.getAssemblyClassifier(properties, assemblyNames.get(0));
+         return true;
       }
+   }
+
+   private static String getFacetName(FeatureProject feature)
+   {
+      return B2MetadataUtils.getFacetName(feature);
+   }
+
+   private static String getFacetClassifier(FeatureProject feature)
+   {
+      return B2MetadataUtils.getFacetClassifier(feature);
+   }
+
+   private static String getAssemblyName(FeatureProject feature)
+   {
+      final List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(feature);
+      if (assemblyNames.size() != 1)
+      {
+         throw new IllegalStateException();
+      }
+      return assemblyNames.get(0);
+   }
+
+   private static String getAssemblyClassifier(FeatureProject feature)
+   {
+      final List<String> assemblyClassifiers = B2MetadataUtils.getAssemblyClassifiers(feature);
+      if (assemblyClassifiers.size() != 1)
+      {
+         throw new IllegalStateException();
+      }
+      return assemblyClassifiers.get(0);
    }
 
    private void generateNlsPropertyFiles(FeatureProject feature, PropertiesSource properties, ITemplates templates,
@@ -195,29 +252,6 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       PropertiesUtils.store(buildProperties, propertiesFile);
    }
 
-   private Map<String, PropertiesQuery> createNlsPropertyQueries(PropertiesSource properties, final String classifier)
-   {
-      final PropertiesQuery labelQuery = createQuery(classifier, true, "label");
-      labelQuery.addKey("module.name");
-      labelQuery.addKey("project.name");
-      labelQuery.addKey("project.artifactId");
-
-      final PropertiesQuery clsQuery = createQuery(classifier, false, "classifier.label");
-      clsQuery.setDefault(classifier == null ? "" : converter.toClassifierLabel(classifier));
-
-      final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
-      queries.put("feature.label", labelQuery);
-      queries.put("feature.classifier.label", clsQuery);
-      putQuery(queries, classifier, true, "providerName");
-      putQuery(queries, classifier, true, "copyright");
-      putQuery(queries, classifier, true, "copyrightURL");
-      putQuery(queries, classifier, true, "description");
-      putQuery(queries, classifier, true, "descriptionURL");
-      putQuery(queries, classifier, true, "license");
-      putQuery(queries, classifier, true, "licenseURL");
-      return queries;
-   }
-
    private void insertPluginsProperty(final FeatureProject feature, final Properties featureProperties)
    {
       final StringWriter plugins = new StringWriter();
@@ -300,6 +334,30 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
    {
       final String nlsPrefix = createNlsPrefix(locale);
 
+      StringInterpolator s = new StringInterpolator();
+      s.setEscapeString("\\");
+      s.getValueSources().add(new AbstractValueSource(false)
+      {
+         public Object getValue(String expression)
+         {
+            return properties.get(expression);
+         }
+      });
+      s.getValueSources().add(new AbstractValueSource(false)
+      {
+         public Object getValue(String expression)
+         {
+            PropertiesQuery query = queries.get(expression);
+            if (query != null)
+            {
+               query.setPrefix(nlsPrefix);
+               return query.lookup(properties);
+            }
+            return null;
+         }
+      });
+
+
       for (Entry<String, PropertiesQuery> entry : queries.entrySet())
       {
          final String key = entry.getKey();
@@ -307,51 +365,41 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
 
          query.setPrefix(nlsPrefix);
 
-         if (key.equals("feature.label"))
+         String value = s.interpolate(query.lookup(properties));
+
+         // HACK
+         if (key.equals("feature.name"))
          {
-            final PropertiesQuery clsLabelQuery = queries.get("feature.classifier.label");
-            clsLabelQuery.setPrefix(nlsPrefix);
+            value = removeRedundantWS(value);
+         }
 
-            String label = query.lookup(properties);
-            String clsLabel = clsLabelQuery.lookup(properties);
+         featureProperties.setProperty(key, value);
+      }
+   }
 
-            if (clsLabel.length() > 0)
+   private static String removeRedundantWS(String value)
+   {
+      final StringBuilder sb = new StringBuilder(value.length());
+      final char[] chars = value.toCharArray();
+      int ws = 0;
+      for (char c : chars)
+      {
+         boolean isWs = Character.isWhitespace(c);
+         if (isWs)
+         {
+            if (ws == 0)
             {
-               label += " " + clsLabel;
+               sb.append(c);
             }
-            featureProperties.setProperty("feature.label", label);
+            ws++;
          }
          else
          {
-            featureProperties.setProperty(key, query.lookup(properties));
+            ws = 0;
+            sb.append(c);
          }
       }
-   }
-
-   private PropertiesQuery putQuery(Map<String, PropertiesQuery> queries, String classifier, boolean addDefaultKey,
-      String property)
-   {
-      final PropertiesQuery query = createQuery(classifier, addDefaultKey, property);
-      queries.put("feature." + property, query);
-      return query;
-   }
-
-   private PropertiesQuery createQuery(String classifier, boolean addDefaultKey, String property)
-   {
-      final PropertiesQuery query = new PropertiesQuery();
-      query.setRetryWithoutPrefix(true);
-      query.addKey("feature" + createPropertySpacer(classifier) + property);
-      if (addDefaultKey)
-      {
-         query.addKey("feature." + property);
-      }
-      query.setDefault("");
-      return query;
-   }
-
-   private String createPropertySpacer(String stringInTheMiddle)
-   {
-      return stringInTheMiddle == null || stringInTheMiddle.length() == 0 ? "." : "." + stringInTheMiddle + ".";
+      return sb.toString().trim();
    }
 
    private String createNlsPrefix(Locale locale)
