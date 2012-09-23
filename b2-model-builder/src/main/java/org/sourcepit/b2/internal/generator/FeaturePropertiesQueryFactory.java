@@ -22,7 +22,10 @@ public class FeaturePropertiesQueryFactory
       final boolean hasClassifier = !Strings.isNullOrEmpty(facetOrAssemblyClassifier);
 
       final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
-      final PropertiesQuery nameQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureName");
+      final PropertiesQuery nameQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, isSourceFeature
+         ? "sourceFeatureName"
+         : "featureName");
+
       if (hasClassifier)
       {
          nameQuery.setDefaultValue("${feature.label} ${feature.classifierLabel} ${feature.labelAppendix}");
@@ -33,10 +36,19 @@ public class FeaturePropertiesQueryFactory
       }
       queries.put("feature.name", nameQuery);
 
-      final PropertiesQuery labelQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureLabel");
-      labelQuery.addKey("b2.module.name");
-      labelQuery.addKey("project.name");
-      labelQuery.addKey("project.artifactId");
+      final PropertiesQuery labelQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, isSourceFeature
+         ? "sourceFeatureLabel"
+         : "featureLabel");
+
+      if (isSourceFeature)
+      {
+         labelQuery.getKeys().add(
+            createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureLabel").getKeys().iterator().next());
+      }
+
+      labelQuery.getKeys().add("b2.module.name");
+      labelQuery.getKeys().add("project.name");
+      labelQuery.getKeys().add("project.artifactId");
       queries.put("feature.label", labelQuery);
 
       if (hasClassifier)
@@ -54,7 +66,7 @@ public class FeaturePropertiesQueryFactory
       }
       else
       {
-         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureLabelAppendix");
+         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "featureLabelAppendix");
          query.setDefaultValue("");
          queries.put("feature.labelAppendix", query);
       }
@@ -68,7 +80,6 @@ public class FeaturePropertiesQueryFactory
       putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "licenseURL");
       return queries;
    }
-
 
    public static String toClassifierLabel(String classifier)
    {
@@ -103,11 +114,11 @@ public class FeaturePropertiesQueryFactory
 
       final PropertiesQuery query = new PropertiesQuery();
       query.setRetryWithoutPrefix(true);
-      query.addKey(preamble + createPropertySpacer(facetOrAssemblyName) + property);
+      query.getKeys().add(preamble + createPropertySpacer(facetOrAssemblyName) + property);
       if (addDefaultKey)
       {
-         query.addKey(preamble + "." + property);
-         query.addKey("b2." + property);
+         query.getKeys().add(preamble + "." + property);
+         query.getKeys().add("b2." + property);
       }
       query.setDefaultValue("");
       return query;

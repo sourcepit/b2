@@ -114,8 +114,8 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
    {
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
-      final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, false, "plugins",
-         "plugins");
+      final Map<String, PropertiesQuery> queries = queryFactory
+         .createPropertyQueries(false, false, "plugins", "plugins");
       assertEquals(11, queries.size());
 
       PropertiesQuery query = queries.get("feature.classifierLabel");
@@ -139,11 +139,12 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertNotNull(query);
 
       Iterator<String> it = query.getKeys().iterator();
-      assertEquals("b2.facets.plugins.featureName", it.next());
+      assertEquals("b2.facets.plugins.sourceFeatureName", it.next());
 
       query = queries.get("feature.label");
       assertNotNull(query);
       it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.sourceFeatureLabel", it.next());
       assertEquals("b2.facets.plugins.featureLabel", it.next());
       assertEquals("b2.module.name", it.next());
       assertEquals("project.name", it.next());
@@ -332,12 +333,13 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertNotNull(query);
       assertEquals("${feature.label} ${feature.labelAppendix}", query.getDefaultValue());
       Iterator<String> it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.plugins.featureName", it.next());
+      assertEquals("b2.assemblies.plugins.sourceFeatureName", it.next());
 
       query = queries.get("feature.label");
       assertNotNull(query);
       assertEquals("", query.getDefaultValue());
       it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.sourceFeatureLabel", it.next());
       assertEquals("b2.assemblies.plugins.featureLabel", it.next());
       assertEquals("b2.module.name", it.next());
       assertEquals("project.name", it.next());
