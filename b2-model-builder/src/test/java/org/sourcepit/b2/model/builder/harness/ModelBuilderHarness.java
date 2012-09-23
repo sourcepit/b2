@@ -18,6 +18,8 @@ import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
@@ -57,6 +59,20 @@ public final class ModelBuilderHarness
       FeatureProject feature = createFeatureProject(featureId, featureVersion);
       featuresFacet.getProjects().add(feature);
       return feature;
+   }
+
+   public static SiteProject addSiteProject(BasicModule module, String facetName, String siteId)
+   {
+      SitesFacet sitesFacet = module.getFacetByName(facetName);
+      if (sitesFacet == null)
+      {
+         sitesFacet = createSitesFacet(facetName);
+         module.getFacets().add(sitesFacet);
+      }
+
+      SiteProject site = createSiteProject(siteId, module.getVersion());
+      sitesFacet.getProjects().add(site);
+      return site;
    }
 
    public static FeatureProject getFeatureProject(AbstractModule module, String id, String version)
@@ -122,6 +138,15 @@ public final class ModelBuilderHarness
       return feature;
    }
 
+   public static SiteProject createSiteProject(String id, String version)
+   {
+      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
+      final SiteProject site = eFactory.createSiteProject();
+      site.setId(id);
+      site.setVersion(version);
+      return site;
+   }
+
    public static PluginsFacet createPluginsFacet(String name)
    {
       final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
@@ -136,6 +161,14 @@ public final class ModelBuilderHarness
       final FeaturesFacet featuresFacet = eFactory.createFeaturesFacet();
       featuresFacet.setName(name);
       return featuresFacet;
+   }
+
+   public static SitesFacet createSitesFacet(String name)
+   {
+      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
+      final SitesFacet sitesFacet = eFactory.createSitesFacet();
+      sitesFacet.setName(name);
+      return sitesFacet;
    }
 
    public static void assertReference(String expectedId, String expectedVersion, AbstractReference reference)

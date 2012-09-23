@@ -29,11 +29,11 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, false, "plugins", "");
-      assertEquals(11, queries.size());
+      assertEquals(10, queries.size());
 
       PropertiesQuery query = queries.get("feature.name");
       assertNotNull(query);
-      assertEquals("${feature.label} ${feature.classifierLabel} ${feature.labelAppendix}", query.getDefaultValue());
+      assertEquals("${feature.label} ${feature.labelAppendix}", query.getDefaultValue());
       Iterator<String> it = query.getKeys().iterator();
       assertEquals("b2.facets.plugins.featureName", it.next());
 
@@ -45,12 +45,6 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertEquals("b2.module.name", it.next());
       assertEquals("project.name", it.next());
       assertEquals("project.artifactId", it.next());
-
-      query = queries.get("feature.classifierLabel");
-      assertNotNull(query);
-      assertEquals("", query.getDefaultValue());
-      it = query.getKeys().iterator();
-      assertEquals("b2.facets.plugins.classifierLabel", it.next());
 
       query = queries.get("feature.labelAppendix");
       assertNotNull(query);
@@ -139,7 +133,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, true, "plugins", "");
-      assertEquals(11, queries.size());
+      assertEquals(10, queries.size());
 
       PropertiesQuery query = queries.get("feature.name");
       assertNotNull(query);
@@ -155,18 +149,13 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertEquals("project.name", it.next());
       assertEquals("project.artifactId", it.next());
 
-      query = queries.get("feature.classifierLabel");
-      assertNotNull(query);
-      it = query.getKeys().iterator();
-      assertEquals("b2.facets.plugins.classifierLabel", it.next());
-
       query = queries.get("feature.labelAppendix");
       assertNotNull(query);
       assertEquals("(Sources)", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.facets.plugins.sourceClassifierLabel", it.next());
-      assertEquals("b2.facets.sourceClassifierLabel", it.next());
-      assertEquals("b2.sourceClassifierLabel", it.next());
+      assertEquals("b2.facets.plugins.sourceFeatureLabelAppendix", it.next());
+      assertEquals("b2.facets.sourceFeatureLabelAppendix", it.next());
+      assertEquals("b2.sourceFeatureLabelAppendix", it.next());
 
       query = queries.get("feature.providerName");
       assertNotNull(query);
@@ -242,7 +231,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, false, "plugins", "");
-      assertEquals(11, queries.size());
+      assertEquals(10, queries.size());
 
       PropertiesQuery query = queries.get("feature.name");
       assertNotNull(query);
@@ -257,11 +246,6 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertEquals("b2.module.name", it.next());
       assertEquals("project.name", it.next());
       assertEquals("project.artifactId", it.next());
-
-      query = queries.get("feature.classifierLabel");
-      assertNotNull(query);
-      it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.plugins.classifierLabel", it.next());
 
       query = queries.get("feature.labelAppendix");
       assertNotNull(query);
@@ -342,11 +326,11 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, true, "plugins", "");
-      assertEquals(11, queries.size());
+      assertEquals(10, queries.size());
 
       PropertiesQuery query = queries.get("feature.name");
       assertNotNull(query);
-      assertEquals("${feature.label} ${feature.classifierLabel} ${feature.labelAppendix}", query.getDefaultValue());
+      assertEquals("${feature.label} ${feature.labelAppendix}", query.getDefaultValue());
       Iterator<String> it = query.getKeys().iterator();
       assertEquals("b2.assemblies.plugins.featureName", it.next());
 
@@ -359,19 +343,13 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertEquals("project.name", it.next());
       assertEquals("project.artifactId", it.next());
 
-      query = queries.get("feature.classifierLabel");
-      assertNotNull(query);
-      assertEquals("", query.getDefaultValue());
-      it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.plugins.classifierLabel", it.next());
-
       query = queries.get("feature.labelAppendix");
       assertNotNull(query);
       assertEquals("(Sources)", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.plugins.sourceClassifierLabel", it.next());
-      assertEquals("b2.assemblies.sourceClassifierLabel", it.next());
-      assertEquals("b2.sourceClassifierLabel", it.next());
+      assertEquals("b2.assemblies.plugins.sourceFeatureLabelAppendix", it.next());
+      assertEquals("b2.assemblies.sourceFeatureLabelAppendix", it.next());
+      assertEquals("b2.sourceFeatureLabelAppendix", it.next());
 
       query = queries.get("feature.providerName");
       assertNotNull(query);

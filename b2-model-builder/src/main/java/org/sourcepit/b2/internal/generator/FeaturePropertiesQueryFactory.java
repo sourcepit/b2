@@ -11,31 +11,44 @@ import java.util.Map;
 
 import javax.inject.Named;
 
+import com.google.common.base.Strings;
+
 @Named
 public class FeaturePropertiesQueryFactory
 {
    public Map<String, PropertiesQuery> createPropertyQueries(boolean isAssemblyFeature, boolean isSourceFeature,
       String facetOrAssemblyName, String facetOrAssemblyClassifier)
    {
+      final boolean hasClassifier = !Strings.isNullOrEmpty(facetOrAssemblyClassifier);
+
+      final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
       final PropertiesQuery nameQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureName");
-      nameQuery.setDefaultValue("${feature.label} ${feature.classifierLabel} ${feature.labelAppendix}");
+      if (hasClassifier)
+      {
+         nameQuery.setDefaultValue("${feature.label} ${feature.classifierLabel} ${feature.labelAppendix}");
+      }
+      else
+      {
+         nameQuery.setDefaultValue("${feature.label} ${feature.labelAppendix}");
+      }
+      queries.put("feature.name", nameQuery);
 
       final PropertiesQuery labelQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureLabel");
       labelQuery.addKey("b2.module.name");
       labelQuery.addKey("project.name");
       labelQuery.addKey("project.artifactId");
-
-      final PropertiesQuery clsQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "classifierLabel");
-      clsQuery.setDefaultValue(toClassifierLabel(facetOrAssemblyClassifier));
-
-      final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
-      queries.put("feature.name", nameQuery);
       queries.put("feature.label", labelQuery);
-      queries.put("feature.classifierLabel", clsQuery);
+
+      if (hasClassifier)
+      {
+         final PropertiesQuery clsQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "classifierLabel");
+         clsQuery.setDefaultValue(toClassifierLabel(facetOrAssemblyClassifier));
+         queries.put("feature.classifierLabel", clsQuery);
+      }
 
       if (isSourceFeature)
       {
-         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "sourceClassifierLabel");
+         PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "sourceFeatureLabelAppendix");
          query.setDefaultValue("(Sources)");
          queries.put("feature.labelAppendix", query);
       }

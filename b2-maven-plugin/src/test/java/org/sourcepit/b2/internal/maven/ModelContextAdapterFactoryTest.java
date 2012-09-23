@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.model.builder.harness.ModelBuilderHarness;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;

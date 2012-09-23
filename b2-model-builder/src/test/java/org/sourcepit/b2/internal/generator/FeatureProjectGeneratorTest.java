@@ -37,7 +37,7 @@ public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
-      properties.put("nls_de.b2.sourceClassifierLabel", "(Quelldateien)");
+      properties.put("nls_de.b2.sourceFeatureLabelAppendix", "(Quelldateien)");
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
 

@@ -411,7 +411,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setArtifactId(project.getId());
       defaultModel.setVersion(VersionUtils.toMavenVersion(project.getVersion()));
       defaultModel.setPackaging("eclipse-repository");
-      final String classifier = SiteProjectGenerator.getClassifier(basicConverter, properties, project);
+      final String classifier = SiteProjectGenerator.getAssemblyClassifier(project);
       defaultModel.getProperties().setProperty("classifier", classifier == null ? "" : classifier);
 
       mergeIntoPomFile(pomFile, defaultModel);
