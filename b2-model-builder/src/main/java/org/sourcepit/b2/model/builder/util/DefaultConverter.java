@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import org.codehaus.plexus.interpolation.AbstractValueSource;
 import org.osgi.framework.Version;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -21,6 +22,7 @@ import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 
 @Named
 public class DefaultConverter implements SitesConverter, BasicConverter, FeaturesConverter
@@ -39,8 +41,8 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    {
       if (file.isDirectory() && file.exists() && new File(file, "module.xml").exists())
       {
-         final PathMatcher moduleDirMacher = PathMatcher.parseFilePatterns(baseDir,
-            moduleProperties.get("b2.modules.filter", "**"));
+         final String pattern = interpolate(moduleProperties, "b2.moduleDirFilter", "**");
+         final PathMatcher moduleDirMacher = PathMatcher.parseFilePatterns(baseDir, pattern);
          if (moduleDirMacher.isMatch(file.getAbsolutePath()))
          {
             return true;
@@ -362,6 +364,21 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
          }
       }
       return null;
+   }
+
+   private static String interpolate(final PropertiesSource moduleProperties, String key, String defaultValue)
+   {
+      StringInterpolator s = new StringInterpolator();
+      s.setEscapeString("\\");
+      s.getValueSources().add(new AbstractValueSource(false)
+      {
+         public Object getValue(String expression)
+         {
+            return moduleProperties.get(expression);
+         }
+      });
+      final String value = moduleProperties.get(key, defaultValue);
+      return value == null ? value : s.interpolate(value);
    }
 
    public String getFeatureId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
