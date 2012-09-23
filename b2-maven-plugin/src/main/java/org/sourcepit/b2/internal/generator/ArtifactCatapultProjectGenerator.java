@@ -43,6 +43,8 @@ import org.sourcepit.b2.model.session.Environment;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
+import com.google.common.base.Strings;
+
 /**
  * @author Bernd
  */
@@ -370,8 +372,8 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       {
          for (ProductDefinition product : productsFacet.getProductDefinitions())
          {
-            String classifierPrefix = ProductProjectGenerator.getClassifier(product.getFile().getName());
-            if (classifierPrefix == null)
+            String classifierPrefix = ProductProjectGenerator.getAssemblyClassifier(product.getFile().getName());
+            if (Strings.isNullOrEmpty(classifierPrefix))
             {
                classifierPrefix = "";
             }
