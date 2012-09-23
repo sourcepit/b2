@@ -8,7 +8,6 @@ package org.sourcepit.b2.internal.generator;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.AbstractGenerator;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
@@ -38,6 +38,8 @@ import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import com.google.common.base.Optional;
 
 @Named
 public class ProductProjectGenerator extends AbstractGenerator implements IB2GenerationParticipant
@@ -89,30 +91,22 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       final Document productDoc = XmlUtils.readXml(productFile);
       boolean modified = false;
 
-      final String classifier = getClassifier(productFile.getName());
+      final String classifier = getAssemblyClassifier(productFile.getName());
 
-      final List<FeatureProject> featureIncludes = new ArrayList<FeatureProject>();
-
-      // TODO mode to "IIncludeService"?
-      final String pattern = properties.get("b2.product." + classifier + ".filter");
-      if (pattern != null)
+      final Optional<FeatureProject> oAssemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
+      if (!oAssemblyFeature.isPresent())
       {
-         collectIncludedFeatures(featureIncludes, PathMatcher.parsePackagePatterns(pattern), module);
+         throw new IllegalStateException("Cannot determine assembly feature for classifier '" + classifier + "'");
       }
 
-      // featureIncludes.addAll(aggregationService.resolveProductIncludes(module, classifier, converter));
-      if (!featureIncludes.isEmpty())
-      {
-         Element features = getFeaturesNode(productDoc);
-         for (FeatureProject featureProject : featureIncludes)
-         {
-            Element element = productDoc.createElement("feature");
-            element.setAttribute("id", featureProject.getId());
-            features.appendChild(element);
+      final FeatureProject assemblyFeature = oAssemblyFeature.get();
 
-            modified = true;
-         }
-      }
+      Element features = getFeaturesNode(productDoc);
+      Element element = productDoc.createElement("feature");
+      element.setAttribute("id", assemblyFeature.getId());
+      features.appendChild(element);
+
+      modified = true;
 
       final PluginProject productPlugin = resolveProductPlugin(module, product);
       if (productPlugin != null)
@@ -135,7 +129,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
                {
                   for (Node node : XmlUtils.queryNodes(productDoc, "product/launcher/" + os + "/ico"))
                   {
-                     Element element = (Element) node;
+                     element = (Element) node;
                      element.setAttribute("path", iconFile.getAbsolutePath());
                      modified = true;
                   }
@@ -148,6 +142,23 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       {
          XmlUtils.writeXml(productDoc, productFile);
       }
+   }
+
+   private static Optional<FeatureProject> findAssemblyFeatureForClassifier(final AbstractModule module,
+      String classifier)
+   {
+      for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
+      {
+         for (FeatureProject featureProject : featuresFacet.getProjects())
+         {
+            final int idx = B2MetadataUtils.getAssemblyClassifiers(featureProject).indexOf(classifier);
+            if (idx > -1)
+            {
+               return Optional.of(featureProject);
+            }
+         }
+      }
+      return Optional.absent();
    }
 
    private Element getFeaturesNode(final Document productDoc)
@@ -177,7 +188,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       }
    }
 
-   public static String getClassifier(String productFileName)
+   public static String getAssemblyClassifier(String productFileName)
    {
       String classifier = productFileName;
       int idx = classifier.lastIndexOf('.');
@@ -192,10 +203,9 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       }
       else
       {
-         classifier = null;
+         classifier = "";
       }
-      // TODO create classifier mapping
-      return classifier == null || classifier.length() == 0 ? "public" : classifier;
+      return classifier;
    }
 
    private PluginProject resolveProductPlugin(final AbstractModule module, final ProductDefinition project)

@@ -63,11 +63,11 @@ public class ProductProjectGeneratorTest extends InjectedTest
    @Test
    public void testGetClassifier() throws Exception
    {
-      assertEquals("bar", ProductProjectGenerator.getClassifier("foo-bar.txt"));
-      assertEquals("public", ProductProjectGenerator.getClassifier("foo.txt"));
-      assertEquals("public", ProductProjectGenerator.getClassifier("foo-.txt"));
-      assertEquals("bar", ProductProjectGenerator.getClassifier("foo-bar"));
-      assertEquals("public", ProductProjectGenerator.getClassifier("foo"));
+      assertEquals("bar", ProductProjectGenerator.getAssemblyClassifier("foo-bar.txt"));
+      assertEquals("", ProductProjectGenerator.getAssemblyClassifier("foo.txt"));
+      assertEquals("", ProductProjectGenerator.getAssemblyClassifier("foo-.txt"));
+      assertEquals("bar", ProductProjectGenerator.getAssemblyClassifier("foo-bar"));
+      assertEquals("", ProductProjectGenerator.getAssemblyClassifier("foo"));
    }
 
    @Override
