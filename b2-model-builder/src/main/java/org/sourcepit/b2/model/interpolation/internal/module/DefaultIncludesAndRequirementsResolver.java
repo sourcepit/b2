@@ -8,6 +8,7 @@ package org.sourcepit.b2.model.interpolation.internal.module;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
@@ -146,8 +147,37 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
                }
                else
                {
-                  log.warn("Cannot include feature " + featureProject.getId() + " into " + assemblyFeature.getId()
-                     + " because it is out of scope");
+                  StringBuilder sb = new StringBuilder();
+
+                  sb.append("Cannot include feature '");
+                  sb.append(featureProject.getId());
+                  sb.append("' into assembly '");
+                  sb.append(assemblyFeature.getId());
+                  sb.append("' because it is out of scope. You have to require on of the following assemblies of module '");
+                  sb.append(featureProject.getParent().getParent().getId());
+                  sb.append("': ");
+                  Iterator<String> assemblyNames = B2MetadataUtils.getAssemblyNames(assemblyFeature).iterator();
+                  Iterator<String> assemblyClassifiers = B2MetadataUtils.getAssemblyClassifiers(assemblyFeature)
+                     .iterator();
+
+                  while (assemblyNames.hasNext())
+                  {
+                     String name = assemblyNames.next();
+                     String classifier = assemblyClassifiers.next();
+                     sb.append(name);
+                     if (!name.equals(classifier))
+                     {
+                        sb.append(" (classifier='");
+                        sb.append(classifier);
+                        sb.append("')");
+                     }
+                     sb.append(", ");
+                  }
+
+                  sb.deleteCharAt(sb.length() - 1);
+                  sb.deleteCharAt(sb.length() - 1);
+
+                  log.warn(sb.toString());
                }
             }
          }
