@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.CompositeModule;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -116,6 +117,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
             return createRuledReference();
          case ModuleModelPackage.STRICT_REFERENCE :
             return createStrictReference();
+         case ModuleModelPackage.FEATURE_INCLUDE :
+            return createFeatureInclude();
          default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
       }
@@ -327,6 +330,18 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    {
       StrictReferenceImpl strictReference = new StrictReferenceImpl();
       return strictReference;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public FeatureInclude createFeatureInclude()
+   {
+      FeatureIncludeImpl featureInclude = new FeatureIncludeImpl();
+      return featureInclude;
    }
 
    /**

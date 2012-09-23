@@ -12,6 +12,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.maven.plugin.LegacySupport;
+import org.apache.maven.plugin.internal.DefaultLegacySupport;
+import org.apache.maven.project.DefaultProjectDependenciesResolver;
+import org.apache.maven.project.ProjectDependenciesResolver;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils;
@@ -27,6 +31,8 @@ import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import com.google.inject.Binder;
 
 public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWorkspaceTest
 {
@@ -45,9 +51,18 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       assertNotNull(session);
 
       sessionService.setCurrentSession(session);
-      sessionService.setCurrentProperties(ConverterUtils.TEST_CONVERTER.getProperties());
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
    }
+   
+   @Override
+   public void configure(Binder binder)
+   {
+      super.configure(binder);
+      binder.bind(LegacySupport.class).toInstance(new DefaultLegacySupport());
+      binder.bind(ProjectDependenciesResolver.class).toInstance(new DefaultProjectDependenciesResolver());
+   }
+   
+   
 
    protected B2Session getCurrentSession()
    {

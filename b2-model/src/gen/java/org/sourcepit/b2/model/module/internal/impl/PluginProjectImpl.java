@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.common.manifest.osgi.BundleManifest;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +31,7 @@ import org.sourcepit.b2.model.module.PluginsFacet;
  * Host Symbolic Name</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostVersion <em>Fragment Host
  * Version</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getBundleManifest <em>Bundle Manifest</em>}</li>
  * </ul>
  * </p>
  * 
@@ -124,6 +126,17 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @ordered
     */
    protected String fragmentHostVersion = FRAGMENT_HOST_VERSION_EDEFAULT;
+
+   /**
+    * The cached value of the '{@link #getBundleManifest() <em>Bundle Manifest</em>}' containment reference.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see #getBundleManifest()
+    * @generated
+    * @ordered
+    */
+   protected BundleManifest bundleManifest;
 
    /**
     * <!-- begin-user-doc -->
@@ -325,6 +338,97 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
+   public BundleManifest getBundleManifest()
+   {
+      if (bundleManifest != null && bundleManifest.eIsProxy())
+      {
+         InternalEObject oldBundleManifest = (InternalEObject) bundleManifest;
+         bundleManifest = (BundleManifest) eResolveProxy(oldBundleManifest);
+         if (bundleManifest != oldBundleManifest)
+         {
+            InternalEObject newBundleManifest = (InternalEObject) bundleManifest;
+            NotificationChain msgs = oldBundleManifest.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+               - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, null);
+            if (newBundleManifest.eInternalContainer() == null)
+            {
+               msgs = newBundleManifest.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+                  - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
+            }
+            if (msgs != null)
+               msgs.dispatch();
+            if (eNotificationRequired())
+               eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+                  ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, oldBundleManifest, bundleManifest));
+         }
+      }
+      return bundleManifest;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public BundleManifest basicGetBundleManifest()
+   {
+      return bundleManifest;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public NotificationChain basicSetBundleManifest(BundleManifest newBundleManifest, NotificationChain msgs)
+   {
+      BundleManifest oldBundleManifest = bundleManifest;
+      bundleManifest = newBundleManifest;
+      if (eNotificationRequired())
+      {
+         ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+            ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, oldBundleManifest, newBundleManifest);
+         if (msgs == null)
+            msgs = notification;
+         else
+            msgs.add(notification);
+      }
+      return msgs;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public void setBundleManifest(BundleManifest newBundleManifest)
+   {
+      if (newBundleManifest != bundleManifest)
+      {
+         NotificationChain msgs = null;
+         if (bundleManifest != null)
+            msgs = ((InternalEObject) bundleManifest).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+               - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
+         if (newBundleManifest != null)
+            msgs = ((InternalEObject) newBundleManifest).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+               - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
+         msgs = basicSetBundleManifest(newBundleManifest, msgs);
+         if (msgs != null)
+            msgs.dispatch();
+      }
+      else if (eNotificationRequired())
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST,
+            newBundleManifest, newBundleManifest));
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public boolean isFragment()
    {
       // TODO: implement this method
@@ -364,6 +468,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
             return basicSetParent(null, msgs);
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
+            return basicSetBundleManifest(null, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -409,6 +515,10 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
             return getFragmentHostSymbolicName();
          case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION :
             return getFragmentHostVersion();
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
+            if (resolve)
+               return getBundleManifest();
+            return basicGetBundleManifest();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -438,6 +548,9 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
             return;
          case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION :
             setFragmentHostVersion((String) newValue);
+            return;
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
+            setBundleManifest((BundleManifest) newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -469,6 +582,9 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
          case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION :
             setFragmentHostVersion(FRAGMENT_HOST_VERSION_EDEFAULT);
             return;
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
+            setBundleManifest((BundleManifest) null);
+            return;
       }
       super.eUnset(featureID);
    }
@@ -499,6 +615,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
             return FRAGMENT_HOST_VERSION_EDEFAULT == null
                ? fragmentHostVersion != null
                : !FRAGMENT_HOST_VERSION_EDEFAULT.equals(fragmentHostVersion);
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
+            return bundleManifest != null;
       }
       return super.eIsSet(featureID);
    }

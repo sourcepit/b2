@@ -21,13 +21,12 @@ import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.IB2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
-import org.sourcepit.b2.model.builder.util.DefaultConverter;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.internal.util.EWalkerImpl;
 import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.inject.Binder;
 
@@ -69,9 +68,9 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
    protected static B2ModelBuildingRequest newModelBuildingRequest(File moduleDir)
    {
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
       request.setModuleDirectory(moduleDir);
       request.setInterpolate(false);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       return request;
    }
 
@@ -87,7 +86,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
 
    protected void generateAllPoms(EObject eObject, PropertiesMap properties)
    {
-      final DefaultConverter converter = ConverterUtils.newDefaultTestConverter(properties);
+      final PropertiesSource source = ConverterUtils.newDefaultTestConverter(properties);
       final DefaultTemplateCopier templateCopier = new DefaultTemplateCopier();
       new EWalkerImpl(pomGenerator.isReverse(), true)
       {
@@ -96,7 +95,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
          {
             if (pomGenerator.isGeneratorInput(eObject))
             {
-               pomGenerator.generate(eObject, converter, templateCopier);
+               pomGenerator.generate(eObject, source, templateCopier);
             }
             return true;
          }

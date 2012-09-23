@@ -169,6 +169,16 @@ public interface ModuleModelFactory extends EFactory
    StrictReference createStrictReference();
 
    /**
+    * Returns a new object of class '<em>Feature Include</em>'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return a new object of class '<em>Feature Include</em>'.
+    * @generated
+    */
+   FeatureInclude createFeatureInclude();
+
+   /**
     * Returns the package supported by this factory.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->

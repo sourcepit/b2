@@ -103,7 +103,7 @@ public abstract class AbstractB2ExamplesIT
       {
          command.addArguments(args);
       }
-      process.execute(getEnvironment().newEnvs(), getBaseDir(), createCmd());
+      process.execute(getEnvironment().newEnvs(), getBaseDir(), command);
    }
 
    protected void execute() throws ExecuteException, IOException

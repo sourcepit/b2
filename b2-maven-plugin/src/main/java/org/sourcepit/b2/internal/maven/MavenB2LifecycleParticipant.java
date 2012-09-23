@@ -6,7 +6,6 @@ package org.sourcepit.b2.internal.maven;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,22 +23,15 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.sourcepit.b2.execution.AbstractB2SessionLifecycleParticipant;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.FixedModelMerger;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.module.SiteProject;
-import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
@@ -58,35 +50,13 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
    @Inject
    private LegacySupport legacySupport;
 
-   @Inject
-   private B2SessionService b2SessionService;
-
    public void postPrepareProject(B2Session session, ModuleProject project, B2Request request, AbstractModule module,
       ThrowablePipe errors)
    {
-      final LinkedHashSet<String> classifiers = new LinkedHashSet<String>();
-      for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
-      {
-         for (SiteProject siteProject : sitesFacet.getProjects())
-         {
-            String cl = siteProject.getClassifier();
-            classifiers.add(cl == null || cl.length() == 0 ? null : cl);
-         }
-      }
-
-      // add default model if no site classifiers are specified
-      if (classifiers.isEmpty())
-      {
-         classifiers.add(null);
-      }
-
       final MavenProject bootProject = legacySupport.getSession().getCurrentProject();
 
-      // HACK
-      // final DecouplingModelCache modelCache = (DecouplingModelCache)
-      // request.getModelCache();DecouplingModelCache.class.getClassLoader()
-
-      final ResourceSet resourceSet = b2SessionService.getCurrentResourceSet();
+      final ModelContext modelContext = ModelContextAdapterFactory.get(bootProject);
+      final ResourceSet resourceSet = modelContext.getResourceSet();
 
       if (session.eResource() != null)
       {
@@ -94,25 +64,17 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
          session.eResource().getContents().clear();
       }
 
-      for (String classifier : classifiers)
+      Resource moduleResource = resourceSet.createResource(modelContext.getModuleUri());
+      moduleResource.getContents().add(module);
+      try
       {
-         final URI moduleUri = MavenURIResolver.toArtifactIdentifier(bootProject, classifier, "module").toUri();
-
-         Resource moduleResource = module.eResource();
-         if (moduleResource == null)
-         {
-            moduleResource = resourceSet.createResource(moduleUri);
-            moduleResource.getContents().add(module);
-            save(resourceSet, module);
-         }
-         else if (!moduleUri.equals(moduleResource.getURI()))
-         {
-            AbstractModule copy = EcoreUtil.copy(module);
-            moduleResource = resourceSet.createResource(moduleUri);
-            moduleResource.getContents().add(copy);
-            save(resourceSet, copy);
-         }
+         moduleResource.save(null);
       }
+      catch (IOException e)
+      {
+         throw new IllegalStateException(e);
+      }
+
 
       final File pomFile = new File(module.getAnnotationEntry(AbstractPomGenerator.SOURCE_MAVEN,
          AbstractPomGenerator.KEY_POM_FILE));
@@ -134,57 +96,13 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
          throw new IllegalStateException(e);
       }
 
+      final URI fileURI = resourceSet.getURIConverter().normalize(modelContext.getModuleUri());
+      projectHelper.attachArtifact(bootProject, "module", null, new File(fileURI.toFileString()));
+
       projectHelper.attachArtifact(bootProject, "session", null, sessionFile);
 
       processAttachments(bootProject, pomFile);
-
-      // bootSession.setData(CACHE_KEY_SESSION, uri.toString());
-      //
-      // storeModelCache(bootSession, modelCache);
    }
-
-   private void save(ResourceSet resourceSet, AbstractModule module)
-   {
-      Resource resource;
-
-      if (module.eResource() != null)
-      {
-         resource = module.eResource();
-      }
-      else
-      {
-         final String layoutId = module.getLayoutId();
-         final IInterpolationLayout layout = layoutManager.getLayout(layoutId);
-         final URI uri = URI.createFileURI(layout.pathOfMetaDataFile(module, "b2.module"));
-         resource = resourceSet.createResource(uri);
-         resource.getContents().add(module);
-      }
-
-      try
-      {
-         resource.save(null);
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException(e);
-      }
-   }
-
-   public static <T extends EObject> T copy(T eObject)
-   {
-      Copier copier = new Copier();
-      EObject result = copier.copy(eObject);
-      copier.copyReferences();
-
-      @SuppressWarnings("unchecked")
-      T t = (T) result;
-      return t;
-   }
-
-   // private void storeModelCache(BootstrapSession session, final DecouplingModelCache modelCache)
-   // {
-   // session.setData(CACHE_KEY, modelCache.getDirToUriMap());
-   // }
 
    private void processAttachments(MavenProject wrapperProject, File pomFile)
    {

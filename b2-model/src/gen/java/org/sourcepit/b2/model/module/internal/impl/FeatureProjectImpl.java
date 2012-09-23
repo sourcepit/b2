@@ -17,12 +17,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.b2.model.module.Classified;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginInclude;
-import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.b2.model.module.RuledReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,11 +31,14 @@ import org.sourcepit.b2.model.module.StrictReference;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getClassifier <em>Classifier</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedPlugins <em>Included Plugins
  * </em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedFeatures <em>Included Features
+ * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getRequiredFeatures <em>Required Features
+ * </em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getRequiredPlugins <em>Required Plugins
  * </em>}</li>
  * </ul>
  * </p>
@@ -44,28 +47,6 @@ import org.sourcepit.b2.model.module.StrictReference;
  */
 public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
 {
-   /**
-    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @see #getClassifier()
-    * @generated
-    * @ordered
-    */
-   protected static final String CLASSIFIER_EDEFAULT = null;
-
-   /**
-    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @see #getClassifier()
-    * @generated
-    * @ordered
-    */
-   protected String classifier = CLASSIFIER_EDEFAULT;
-
    /**
     * The cached value of the '{@link #getIncludedPlugins() <em>Included Plugins</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -86,7 +67,29 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * @generated
     * @ordered
     */
-   protected EList<StrictReference> includedFeatures;
+   protected EList<FeatureInclude> includedFeatures;
+
+   /**
+    * The cached value of the '{@link #getRequiredFeatures() <em>Required Features</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see #getRequiredFeatures()
+    * @generated
+    * @ordered
+    */
+   protected EList<RuledReference> requiredFeatures;
+
+   /**
+    * The cached value of the '{@link #getRequiredPlugins() <em>Required Plugins</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see #getRequiredPlugins()
+    * @generated
+    * @ordered
+    */
+   protected EList<RuledReference> requiredPlugins;
 
    /**
     * <!-- begin-user-doc -->
@@ -109,32 +112,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    protected EClass eStaticClass()
    {
       return ModuleModelPackage.Literals.FEATURE_PROJECT;
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public String getClassifier()
-   {
-      return classifier;
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public void setClassifier(String newClassifier)
-   {
-      String oldClassifier = classifier;
-      classifier = newClassifier;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER,
-            oldClassifier, classifier));
    }
 
    /**
@@ -225,14 +202,46 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * 
     * @generated
     */
-   public EList<StrictReference> getIncludedFeatures()
+   public EList<FeatureInclude> getIncludedFeatures()
    {
       if (includedFeatures == null)
       {
-         includedFeatures = new EObjectContainmentEList.Resolving<StrictReference>(StrictReference.class, this,
+         includedFeatures = new EObjectContainmentEList.Resolving<FeatureInclude>(FeatureInclude.class, this,
             ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES);
       }
       return includedFeatures;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EList<RuledReference> getRequiredFeatures()
+   {
+      if (requiredFeatures == null)
+      {
+         requiredFeatures = new EObjectContainmentEList.Resolving<RuledReference>(RuledReference.class, this,
+            ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES);
+      }
+      return requiredFeatures;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EList<RuledReference> getRequiredPlugins()
+   {
+      if (requiredPlugins == null)
+      {
+         requiredPlugins = new EObjectContainmentEList.Resolving<RuledReference>(RuledReference.class, this,
+            ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS);
+      }
+      return requiredPlugins;
    }
 
    /**
@@ -271,6 +280,10 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return ((InternalEList<?>) getIncludedPlugins()).basicRemove(otherEnd, msgs);
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return ((InternalEList<?>) getIncludedFeatures()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            return ((InternalEList<?>) getRequiredFeatures()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            return ((InternalEList<?>) getRequiredPlugins()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -304,8 +317,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-            return getClassifier();
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
             if (resolve)
                return getParent();
@@ -314,6 +325,10 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return getIncludedPlugins();
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return getIncludedFeatures();
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            return getRequiredFeatures();
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            return getRequiredPlugins();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -330,9 +345,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-            setClassifier((String) newValue);
-            return;
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
             setParent((FeaturesFacet) newValue);
             return;
@@ -342,7 +354,15 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return;
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             getIncludedFeatures().clear();
-            getIncludedFeatures().addAll((Collection<? extends StrictReference>) newValue);
+            getIncludedFeatures().addAll((Collection<? extends FeatureInclude>) newValue);
+            return;
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            getRequiredFeatures().clear();
+            getRequiredFeatures().addAll((Collection<? extends RuledReference>) newValue);
+            return;
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            getRequiredPlugins().clear();
+            getRequiredPlugins().addAll((Collection<? extends RuledReference>) newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -359,9 +379,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-            setClassifier(CLASSIFIER_EDEFAULT);
-            return;
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
             setParent((FeaturesFacet) null);
             return;
@@ -370,6 +387,12 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
             return;
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             getIncludedFeatures().clear();
+            return;
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            getRequiredFeatures().clear();
+            return;
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            getRequiredPlugins().clear();
             return;
       }
       super.eUnset(featureID);
@@ -386,79 +409,18 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-            return CLASSIFIER_EDEFAULT == null ? classifier != null : !CLASSIFIER_EDEFAULT.equals(classifier);
          case ModuleModelPackage.FEATURE_PROJECT__PARENT :
             return basicGetParent() != null;
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
             return includedPlugins != null && !includedPlugins.isEmpty();
          case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
             return includedFeatures != null && !includedFeatures.isEmpty();
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+            return requiredFeatures != null && !requiredFeatures.isEmpty();
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+            return requiredPlugins != null && !requiredPlugins.isEmpty();
       }
       return super.eIsSet(featureID);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Classified.class)
-      {
-         switch (derivedFeatureID)
-         {
-            case ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER :
-               return ModuleModelPackage.CLASSIFIED__CLASSIFIER;
-            default :
-               return -1;
-         }
-      }
-      return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Classified.class)
-      {
-         switch (baseFeatureID)
-         {
-            case ModuleModelPackage.CLASSIFIED__CLASSIFIER :
-               return ModuleModelPackage.FEATURE_PROJECT__CLASSIFIER;
-            default :
-               return -1;
-         }
-      }
-      return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public String toString()
-   {
-      if (eIsProxy())
-         return super.toString();
-
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (classifier: ");
-      result.append(classifier);
-      result.append(')');
-      return result.toString();
    }
 
 } // FeatureProjectImpl

@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.b2.model.module.Category;
-import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
@@ -30,7 +29,6 @@ import org.sourcepit.b2.model.module.SitesFacet;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl#getClassifier <em>Classifier</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl#getCategories <em>Categories</em>}</li>
  * </ul>
@@ -40,28 +38,6 @@ import org.sourcepit.b2.model.module.SitesFacet;
  */
 public class SiteProjectImpl extends ProjectImpl implements SiteProject
 {
-   /**
-    * The default value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @see #getClassifier()
-    * @generated
-    * @ordered
-    */
-   protected static final String CLASSIFIER_EDEFAULT = null;
-
-   /**
-    * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @see #getClassifier()
-    * @generated
-    * @ordered
-    */
-   protected String classifier = CLASSIFIER_EDEFAULT;
-
    /**
     * The cached value of the '{@link #getCategories() <em>Categories</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -94,32 +70,6 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    protected EClass eStaticClass()
    {
       return ModuleModelPackage.Literals.SITE_PROJECT;
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public String getClassifier()
-   {
-      return classifier;
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public void setClassifier(String newClassifier)
-   {
-      String oldClassifier = classifier;
-      classifier = newClassifier;
-      if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.SITE_PROJECT__CLASSIFIER,
-            oldClassifier, classifier));
    }
 
    /**
@@ -271,8 +221,6 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
-            return getClassifier();
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             if (resolve)
                return getParent();
@@ -295,9 +243,6 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
-            setClassifier((String) newValue);
-            return;
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             setParent((SitesFacet) newValue);
             return;
@@ -320,9 +265,6 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
-            setClassifier(CLASSIFIER_EDEFAULT);
-            return;
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             setParent((SitesFacet) null);
             return;
@@ -344,77 +286,12 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
-            return CLASSIFIER_EDEFAULT == null ? classifier != null : !CLASSIFIER_EDEFAULT.equals(classifier);
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             return basicGetParent() != null;
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return categories != null && !categories.isEmpty();
       }
       return super.eIsSet(featureID);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Classified.class)
-      {
-         switch (derivedFeatureID)
-         {
-            case ModuleModelPackage.SITE_PROJECT__CLASSIFIER :
-               return ModuleModelPackage.CLASSIFIED__CLASSIFIER;
-            default :
-               return -1;
-         }
-      }
-      return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Classified.class)
-      {
-         switch (baseFeatureID)
-         {
-            case ModuleModelPackage.CLASSIFIED__CLASSIFIER :
-               return ModuleModelPackage.SITE_PROJECT__CLASSIFIER;
-            default :
-               return -1;
-         }
-      }
-      return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   @Override
-   public String toString()
-   {
-      if (eIsProxy())
-         return super.toString();
-
-      StringBuffer result = new StringBuffer(super.toString());
-      result.append(" (classifier: ");
-      result.append(classifier);
-      result.append(')');
-      return result.toString();
    }
 
 } // SiteProjectImpl

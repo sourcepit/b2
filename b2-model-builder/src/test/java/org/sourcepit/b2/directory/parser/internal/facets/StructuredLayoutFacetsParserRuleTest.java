@@ -10,8 +10,8 @@ import java.io.File;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -34,7 +34,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       assertTrue(pluginDir.exists());
 
       final StructuredLayoutFacetsParserRule parserRule = lookupParserRule();
-      assertNull(parserRule.parse(pluginDir, ConverterUtils.TEST_CONVERTER));
+      assertNull(parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
    public void testCompositeComponentDir() throws Exception
@@ -43,7 +43,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       assertTrue(moduleDir.exists());
 
       final StructuredLayoutFacetsParserRule parserRule = lookupParserRule();
-      assertNull(parserRule.parse(moduleDir, ConverterUtils.TEST_CONVERTER));
+      assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
    public void testFacetDir() throws Exception
@@ -54,7 +54,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       final StructuredLayoutFacetsParserRule parserRule = lookupParserRule();
 
       FacetsParseResult<ProjectFacet<? extends Project>> result = parserRule.parse(facetDir,
-         ConverterUtils.TEST_CONVERTER);
+         B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(result);
 
       assertEquals("structured", result.getLayout());
@@ -76,7 +76,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
 
       final StructuredLayoutFacetsParserRule parserRule = lookupParserRule();
       final FacetsParseResult<ProjectFacet<? extends Project>> result = parserRule.parse(moduleDir,
-         ConverterUtils.TEST_CONVERTER);
+         B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(result);
 
       final List<ProjectFacet<? extends Project>> facets = result.getFacets();

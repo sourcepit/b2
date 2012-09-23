@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 
@@ -48,7 +47,7 @@ public class ModuleDependenciesTest extends AbstractB2SessionWorkspaceTest
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
       request.setModuleDirectory(rcpProject.getDirectory());
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setInterpolate(true);
       modelBuilder.build(request);
    }

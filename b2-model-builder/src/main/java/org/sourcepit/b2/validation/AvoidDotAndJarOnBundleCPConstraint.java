@@ -17,7 +17,7 @@ import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.ClassPathEntry;
-import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("avoidDotAndJarOnBundleCP")
 public class AvoidDotAndJarOnBundleCPConstraint implements ModuleValidationConstraint
@@ -36,7 +36,7 @@ public class AvoidDotAndJarOnBundleCPConstraint implements ModuleValidationConst
       this.logger = logger;
    }
    
-   public void validate(EObject eObject, PropertiesMap properties, boolean quickFixesEnabled)
+   public void validate(EObject eObject, PropertiesSource properties, boolean quickFixesEnabled)
    {
       if (eObject instanceof PluginProject)
       {

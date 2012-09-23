@@ -9,6 +9,7 @@ package org.sourcepit.b2.internal.generator;
 import java.io.File;
 
 import org.apache.maven.model.Model;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.PluginsFacet;
@@ -22,21 +23,21 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
    {
       return "composed-component/simple-layout";
    }
-   
+
    public void testArtifactId() throws Exception
    {
       BasicModule module = buildModel(getCurrentModuleDir());
       assertNotNull(module);
       assertNoPomFiles(module.getDirectory());
-      
+
       // Improvement #56
       assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
-      
-      generatePom(module, null);
-      
+
+      generatePom(module, B2ModelBuildingRequest.newDefaultProperties());
+
       File pomFile = new File(module.getDirectory(), "pom.xml");
       assertTrue(pomFile.exists());
-      
+
       Model pom = readMavenModel(pomFile);
       assertEquals("simple-layout", pom.getArtifactId());
    }
@@ -51,7 +52,7 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
       assertNotNull(facet);
 
       assertIsGeneratorInput(facet);
-      generatePom(facet, null);
+      generatePom(facet, B2ModelBuildingRequest.newDefaultProperties());
 
       IInterpolationLayout layout = getLayout(module);
       File facetPom = new File(layout.pathOfFacetMetaData(module, facet.getName(), "pom.xml"));

@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.model.module;
 
-import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.b2.model.common.Annotatable;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractReference extends EObject
+public interface AbstractReference extends Annotatable
 {
    /**
     * Returns the value of the '<em><b>Id</b></em>' attribute.

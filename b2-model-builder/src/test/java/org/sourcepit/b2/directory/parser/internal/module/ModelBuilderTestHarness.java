@@ -7,7 +7,6 @@
 package org.sourcepit.b2.directory.parser.internal.module;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.io.IOException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
@@ -60,9 +59,7 @@ public final class ModelBuilderTestHarness
    {
       final ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleDirectory(moduleDir);
-      // TODO we should get rid of this
-      final IConverter converter = mock(IConverter.class);
-      request.setConverter(converter);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       return request;
    }
 

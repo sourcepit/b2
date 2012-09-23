@@ -21,7 +21,7 @@ import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
-import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd Vogt <bernd.vogt@sourcepit.org>
@@ -47,7 +47,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
       logger.info("Validating " + module.getId() + ".");
       if (module != null && errors.isEmpty())
       {
-         final PropertiesMap properties = sessionService.getCurrentProperties();
+         final PropertiesSource properties = request.getModuleProperties();
 
          final Map<String, ModuleValidationConstraint> enabledConstraintsMap = getEnabledConstraints(properties);
 
@@ -55,7 +55,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
       }
    }
 
-   private Map<String, ModuleValidationConstraint> getEnabledConstraints(final PropertiesMap properties)
+   private Map<String, ModuleValidationConstraint> getEnabledConstraints(final PropertiesSource properties)
    {
       final Map<String, ModuleValidationConstraint> enabledConstraintsMap = new LinkedHashMap<String, ModuleValidationConstraint>();
       for (Entry<String, ModuleValidationConstraint> entry : constraintMap.entrySet())
@@ -70,7 +70,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
    }
 
    private void validate(final Map<String, ModuleValidationConstraint> enabledConstraintsMap, AbstractModule module,
-      final PropertiesMap properties)
+      final PropertiesSource properties)
    {
       final boolean quickFixesEnabled = properties.getBoolean("b2.validation.quickFixes.enabled", false);
       if (quickFixesEnabled)
@@ -101,12 +101,12 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
       walker.walk(module);
    }
 
-   private boolean isConstraintEnabled(PropertiesMap properties, String constraintId)
+   private boolean isConstraintEnabled(PropertiesSource properties, String constraintId)
    {
       return properties.getBoolean("b2.validation.constraints." + constraintId + ".enabled", true);
    }
 
-   private boolean isQuickFixesEnabled(PropertiesMap properties, String constraintId)
+   private boolean isQuickFixesEnabled(PropertiesSource properties, String constraintId)
    {
       return properties.getBoolean("b2.validation.quickFixes." + constraintId + ".enabled", true);
    }

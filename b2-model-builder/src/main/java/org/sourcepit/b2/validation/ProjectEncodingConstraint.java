@@ -22,6 +22,7 @@ import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("projectEncoding")
 public class ProjectEncodingConstraint implements ModuleValidationConstraint
@@ -34,7 +35,7 @@ public class ProjectEncodingConstraint implements ModuleValidationConstraint
       this.logger = logger;
    }
 
-   public void validate(EObject eObject, PropertiesMap properties, boolean quickFixesEnabled)
+   public void validate(EObject eObject, PropertiesSource properties, boolean quickFixesEnabled)
    {
       if (eObject instanceof Project)
       {

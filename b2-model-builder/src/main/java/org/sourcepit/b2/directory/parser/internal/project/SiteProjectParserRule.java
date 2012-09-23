@@ -8,18 +8,23 @@ package org.sourcepit.b2.directory.parser.internal.project;
 
 import java.io.File;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 
 @Named("site")
 public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject>
 {
+   @Inject
+   private BasicConverter converter;
+
    @Override
-   public SiteProject parse(File directory, IConverter converter)
+   public SiteProject parse(File directory, PropertiesSource properties)
    {
       try
       {
@@ -28,7 +33,7 @@ public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject
          final SiteProject siteProject = ModuleModelFactory.eINSTANCE.createSiteProject();
          siteProject.setDirectory(directory);
          siteProject.setId(directory.getName());
-         siteProject.setVersion(converter.getModuleVersion());
+         siteProject.setVersion(this.converter.getModuleVersion(properties));
          return siteProject;
       }
       catch (IllegalArgumentException e)

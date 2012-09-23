@@ -23,6 +23,7 @@ import org.sourcepit.b2.model.session.ModuleDependency;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.b2.model.session.SessionModelPackage;
+import org.sourcepit.common.manifest.ManifestPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -116,6 +117,9 @@ public class SessionModelPackageImpl extends EPackageImpl implements SessionMode
          : new SessionModelPackageImpl());
 
       isInited = true;
+
+      // Initialize simple dependencies
+      ManifestPackage.eINSTANCE.eClass();
 
       // Obtain or create and register interdependencies
       CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE

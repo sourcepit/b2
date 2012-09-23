@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.internal.builder.B2ModelBuilder;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -48,7 +47,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       final B2ModelBuilder builder = lookup();
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(simpleFile);
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
@@ -57,7 +56,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
 
       request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(structuredFile);
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
@@ -66,7 +65,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
 
       request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
@@ -97,7 +96,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       final B2ModelBuilder builder = lookup();
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(simpleFile);
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
@@ -106,7 +105,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
 
       request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(structuredFile);
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
@@ -115,7 +114,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
 
       request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
@@ -162,7 +161,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       final B2ModelBuilder builder = lookup();
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(simpleFile);
       request.setInterpolate(true);
 
@@ -172,7 +171,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
 
       request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(structuredFile);
       request.setInterpolate(false);
 
@@ -182,7 +181,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
 
       request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
       request.setInterpolate(true);
 
@@ -193,8 +192,8 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       assertEquals(2, modules.size());
 
       // folder ordering differs between win and linux, we can't rely on the index
-      
-      
+
+
       // AbstractModule _simpleModule = modelCache.get(simpleModule.getDirectory());
       // AbstractModule _structuredModule = modelCache.get(structuredModule.getDirectory());
       // int idxSimple = modules.indexOf(_simpleModule);

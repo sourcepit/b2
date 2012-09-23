@@ -12,7 +12,6 @@ import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.builder.internal.tests.harness.EcoreUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
@@ -55,7 +54,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       }
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
 
       try
       {
@@ -67,7 +66,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       }
 
       request.setModuleDirectory(new File(""));
-      request.setConverter(null);
+      request.setModuleProperties(null);
 
       try
       {
@@ -85,7 +84,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       assertTrue(coreResources.canRead());
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(coreResources);
 
       B2ModelBuilder modelBuilder = lookup();
@@ -122,16 +121,17 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       final B2ModelBuilder builder = lookup();
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(simpleFile);
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
+      assertNotNull(simpleModule);
       
       getCurrentSession().getCurrentProject().setModuleModel(simpleModule);
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
 
       request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(structuredFile);
       BasicModule structuredModule = (BasicModule) builder.build(request);
       
@@ -139,7 +139,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
 
       request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
@@ -162,7 +162,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       assertTrue(coreResources.canRead());
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setConverter(ConverterUtils.TEST_CONVERTER);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(coreResources);
       request.setInterpolate(true);
 

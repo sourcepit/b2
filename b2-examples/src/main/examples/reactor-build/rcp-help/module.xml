@@ -14,10 +14,4 @@
 	<artifactId>rcp.help</artifactId>
 	<packaging>pom</packaging>
 
-	<properties>
-		<!-- override default sites, we just need the internal site as internal 
-			build target for the rcp module containing the product definition -->
-		<sites>internal</sites>
-	</properties>
-
 </project>

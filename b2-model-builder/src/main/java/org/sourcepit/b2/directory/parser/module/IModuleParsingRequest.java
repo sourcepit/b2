@@ -8,13 +8,13 @@ package org.sourcepit.b2.directory.parser.module;
 
 import java.io.File;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface IModuleParsingRequest
 {
    File getModuleDirectory();
-
-   IConverter getConverter();
+   
+   PropertiesSource getModuleProperties();
 
    IModuleFilter getModuleFilter();
 }

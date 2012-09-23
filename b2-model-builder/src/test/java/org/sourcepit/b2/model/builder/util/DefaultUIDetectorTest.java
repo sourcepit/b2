@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
@@ -24,6 +24,7 @@ import org.sourcepit.common.manifest.osgi.PackageImport;
 import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 
 public class DefaultUIDetectorTest
@@ -36,14 +37,14 @@ public class DefaultUIDetectorTest
    @Test
    public void testSymbolicName() throws IOException
    {
-      final IConverter converter = ConverterUtils.TEST_CONVERTER;
+      final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
       final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
 
       PluginProject pluginProject = newPluginProject("org.sourcepit.foo");
-      assertFalse(uiDetector.requiresUI(pluginProject, converter));
+      assertFalse(uiDetector.requiresUI(pluginProject, properties));
 
       pluginProject = newPluginProject("org.sourcepit.foo.ui");
-      assertTrue(uiDetector.requiresUI(pluginProject, converter));
+      assertTrue(uiDetector.requiresUI(pluginProject, properties));
    }
 
    @Test
@@ -53,18 +54,18 @@ public class DefaultUIDetectorTest
 
       final BundleManifest manifest = readManifest(pluginProject);
 
-      final IConverter converter = ConverterUtils.TEST_CONVERTER;
+      final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
       final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
 
-      assertFalse(uiDetector.requiresUI(pluginProject, converter));
+      assertFalse(uiDetector.requiresUI(pluginProject, properties));
 
       addRequiredBundle(manifest, "org.eclipse.core.runtime");
-      assertFalse(uiDetector.requiresUI(pluginProject, converter));
+      assertFalse(uiDetector.requiresUI(pluginProject, properties));
 
       addRequiredBundle(manifest, "org.eclipse.swt");
-      assertTrue(uiDetector.requiresUI(pluginProject, converter));
+      assertTrue(uiDetector.requiresUI(pluginProject, properties));
    }
-   
+
    @Test
    public void testImportPackage() throws IOException
    {
@@ -72,16 +73,16 @@ public class DefaultUIDetectorTest
 
       final BundleManifest manifest = readManifest(pluginProject);
 
-      final IConverter converter = ConverterUtils.TEST_CONVERTER;
+      final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
       final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
-      
-      assertFalse(uiDetector.requiresUI(pluginProject, converter));
+
+      assertFalse(uiDetector.requiresUI(pluginProject, properties));
 
       addImportPackage(manifest, "org.eclipse.core.runtime");
-      assertFalse(uiDetector.requiresUI(pluginProject, converter));
+      assertFalse(uiDetector.requiresUI(pluginProject, properties));
 
       addImportPackage(manifest, "org.eclipse.swt");
-      assertTrue(uiDetector.requiresUI(pluginProject, converter));
+      assertTrue(uiDetector.requiresUI(pluginProject, properties));
    }
 
    private PluginProject newPluginProject(String bundleName) throws IOException
@@ -89,7 +90,7 @@ public class DefaultUIDetectorTest
       final PluginProject pluginProject = ModuleModelFactory.eINSTANCE.createPluginProject();
       pluginProject.setDirectory(new File(getWs().getRoot(), bundleName));
       pluginProject.setId(bundleName);
-      
+
       final BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
       manifest.setBundleSymbolicName(pluginProject.getId());
       save(pluginProject.getDirectory(), manifest);
@@ -105,7 +106,7 @@ public class DefaultUIDetectorTest
 
       return (BundleManifest) resource.getContents().get(0);
    }
-   
+
    private void addRequiredBundle(final BundleManifest manifest, String bundleName) throws IOException
    {
       BundleRequirement requirement = BundleManifestFactory.eINSTANCE.createBundleRequirement();

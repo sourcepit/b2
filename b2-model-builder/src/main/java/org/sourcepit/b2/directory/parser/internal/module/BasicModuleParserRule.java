@@ -15,10 +15,10 @@ import javax.inject.Named;
 import org.sourcepit.b2.directory.parser.internal.facets.FacetsParseResult;
 import org.sourcepit.b2.directory.parser.internal.facets.FacetsParser;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("module")
 public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>
@@ -30,19 +30,19 @@ public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>
    protected BasicModule doParse(IModuleParsingRequest request)
    {
       final File baseDir = request.getModuleDirectory();
+      final PropertiesSource properties = request.getModuleProperties();
 
-      final FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(baseDir, request.getConverter());
+      final FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(baseDir, properties);
       if (result == null)
       {
          return null;
       }
 
-      final IConverter converter = request.getConverter();
       final List<? extends AbstractFacet> facets = result.getFacets();
 
       final BasicModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
       module.setId(getModuleId(baseDir));
-      module.setVersion(getModuleVersion(converter));
+      module.setVersion(getModuleVersion(properties));
       module.setDirectory(baseDir);
       module.getFacets().addAll(facets);
       module.setLayoutId(result.getLayout());

@@ -69,16 +69,8 @@ public class B2BootstrapParticipant implements BootstrapParticipant
 
    private static void mapSessions(MavenSession actualSession, B2Session b2Session)
    {
-      final B2Session currentB2Session = Adapters.getAdapter(actualSession, B2Session.class);
-      if (currentB2Session != null && !currentB2Session.equals(b2Session))
-      {
-         throw new IllegalStateException("Another b2 session is already mapped with the current maven session.");
-      }
-
-      if (currentB2Session == null)
-      {
-         Adapters.addAdapter(actualSession, b2Session);
-      }
+      Adapters.removeAdapters(actualSession, B2Session.class);
+      Adapters.addAdapter(actualSession, b2Session);
    }
 
    public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)

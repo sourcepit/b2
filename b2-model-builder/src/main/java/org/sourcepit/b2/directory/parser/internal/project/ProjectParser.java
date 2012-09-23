@@ -12,8 +12,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.Project;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 
 /**
@@ -25,11 +25,11 @@ public class ProjectParser
    @Inject
    private List<AbstractProjectParserRule<? extends Project>> rules;
 
-   public Project parse(File directory, IConverter converter)
+   public Project parse(File directory, PropertiesSource properties)
    {
       for (AbstractProjectParserRule<? extends Project> rule : rules)
       {
-         final Project project = rule.parse(directory, converter);
+         final Project project = rule.parse(directory, properties);
          if (project != null)
          {
             return project;

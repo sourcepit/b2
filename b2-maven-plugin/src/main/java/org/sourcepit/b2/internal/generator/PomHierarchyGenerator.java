@@ -18,13 +18,13 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.ProjectFacet;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
@@ -43,7 +43,8 @@ public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2Ge
    }
 
    @Override
-   protected void generate(Annotatable inputElement, boolean skipFacets, IConverter converter, ITemplates templates)
+   protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
+      ITemplates templates)
    {
       if (skipFacets && inputElement instanceof AbstractFacet)
       {

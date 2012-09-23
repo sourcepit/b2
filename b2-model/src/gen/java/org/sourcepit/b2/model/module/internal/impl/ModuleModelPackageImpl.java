@@ -24,9 +24,9 @@ import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
-import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.FileContainer;
@@ -48,6 +48,8 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.b2.model.module.util.Identifier;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl;
+import org.sourcepit.common.manifest.ManifestPackage;
+import org.sourcepit.common.manifest.osgi.BundleManifestPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -192,14 +194,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   private EClass classifiedEClass = null;
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
    private EClass identifiableEClass = null;
 
    /**
@@ -249,6 +243,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * @generated
     */
    private EClass strictReferenceEClass = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass featureIncludeEClass = null;
 
    /**
     * <!-- begin-user-doc -->
@@ -317,6 +319,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
          : new ModuleModelPackageImpl());
 
       isInited = true;
+
+      // Initialize simple dependencies
+      ManifestPackage.eINSTANCE.eClass();
 
       // Obtain or create and register interdependencies
       CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE
@@ -593,6 +598,17 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
+   public EReference getPluginProject_BundleManifest()
+   {
+      return (EReference) pluginProjectEClass.getEStructuralFeatures().get(5);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EClass getFeatureProject()
    {
       return featureProjectEClass;
@@ -629,6 +645,28 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    public EReference getFeatureProject_IncludedFeatures()
    {
       return (EReference) featureProjectEClass.getEStructuralFeatures().get(2);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getFeatureProject_RequiredFeatures()
+   {
+      return (EReference) featureProjectEClass.getEStructuralFeatures().get(3);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getFeatureProject_RequiredPlugins()
+   {
+      return (EReference) featureProjectEClass.getEStructuralFeatures().get(4);
    }
 
    /**
@@ -783,28 +821,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    public EAttribute getCategory_Name()
    {
       return (EAttribute) categoryEClass.getEStructuralFeatures().get(1);
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EClass getClassified()
-   {
-      return classifiedEClass;
-   }
-
-   /**
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EAttribute getClassified_Classifier()
-   {
-      return (EAttribute) classifiedEClass.getEStructuralFeatures().get(0);
    }
 
    /**
@@ -989,6 +1005,28 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
+   public EClass getFeatureInclude()
+   {
+      return featureIncludeEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getFeatureInclude_Optional()
+   {
+      return (EAttribute) featureIncludeEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EEnum getVersionMatchRule()
    {
       return versionMatchRuleEEnum;
@@ -1068,11 +1106,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__TEST_PLUGIN);
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME);
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__FRAGMENT_HOST_VERSION);
+      createEReference(pluginProjectEClass, PLUGIN_PROJECT__BUNDLE_MANIFEST);
 
       featureProjectEClass = createEClass(FEATURE_PROJECT);
       createEReference(featureProjectEClass, FEATURE_PROJECT__PARENT);
       createEReference(featureProjectEClass, FEATURE_PROJECT__INCLUDED_PLUGINS);
       createEReference(featureProjectEClass, FEATURE_PROJECT__INCLUDED_FEATURES);
+      createEReference(featureProjectEClass, FEATURE_PROJECT__REQUIRED_FEATURES);
+      createEReference(featureProjectEClass, FEATURE_PROJECT__REQUIRED_PLUGINS);
 
       siteProjectEClass = createEClass(SITE_PROJECT);
       createEReference(siteProjectEClass, SITE_PROJECT__PARENT);
@@ -1094,9 +1135,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       categoryEClass = createEClass(CATEGORY);
       createEReference(categoryEClass, CATEGORY__FEATURE_REFERENCES);
       createEAttribute(categoryEClass, CATEGORY__NAME);
-
-      classifiedEClass = createEClass(CLASSIFIED);
-      createEAttribute(classifiedEClass, CLASSIFIED__CLASSIFIER);
 
       identifiableEClass = createEClass(IDENTIFIABLE);
       createEAttribute(identifiableEClass, IDENTIFIABLE__ID);
@@ -1120,6 +1158,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       abstractStrictReferenceEClass = createEClass(ABSTRACT_STRICT_REFERENCE);
 
       strictReferenceEClass = createEClass(STRICT_REFERENCE);
+
+      featureIncludeEClass = createEClass(FEATURE_INCLUDE);
+      createEAttribute(featureIncludeEClass, FEATURE_INCLUDE__OPTIONAL);
 
       // Create enums
       versionMatchRuleEEnum = createEEnum(VERSION_MATCH_RULE);
@@ -1158,6 +1199,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       // Obtain other dependent packages
       CommonModelPackage theCommonModelPackage = (CommonModelPackage) EPackage.Registry.INSTANCE
          .getEPackage(CommonModelPackage.eNS_URI);
+      BundleManifestPackage theBundleManifestPackage = (BundleManifestPackage) EPackage.Registry.INSTANCE
+         .getEPackage(BundleManifestPackage.eNS_URI);
 
       // Create type parameters
       ETypeParameter projectFacetEClass_P = addETypeParameter(projectFacetEClass, "P");
@@ -1188,9 +1231,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       sitesFacetEClass.getEGenericSuperTypes().add(g1);
       pluginProjectEClass.getESuperTypes().add(this.getProject());
       featureProjectEClass.getESuperTypes().add(this.getProject());
-      featureProjectEClass.getESuperTypes().add(this.getClassified());
       siteProjectEClass.getESuperTypes().add(this.getProject());
-      siteProjectEClass.getESuperTypes().add(this.getClassified());
       projectEClass.getESuperTypes().add(this.getFileContainer());
       projectEClass.getESuperTypes().add(this.getDerivable());
       projectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
@@ -1200,9 +1241,11 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       productsFacetEClass.getESuperTypes().add(this.getAbstractFacet());
       productDefinitionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       productDefinitionEClass.getESuperTypes().add(this.getDerivable());
+      abstractReferenceEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       ruledReferenceEClass.getESuperTypes().add(this.getAbstractReference());
       abstractStrictReferenceEClass.getESuperTypes().add(this.getAbstractReference());
       strictReferenceEClass.getESuperTypes().add(this.getAbstractStrictReference());
+      featureIncludeEClass.getESuperTypes().add(this.getAbstractStrictReference());
 
       // Initialize classes and features; add operations and parameters
       initEClass(abstractModuleEClass, AbstractModule.class, "AbstractModule", IS_ABSTRACT, !IS_INTERFACE,
@@ -1313,6 +1356,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getPluginProject_FragmentHostVersion(), ecorePackage.getEString(), "fragmentHostVersion", null, 0,
          1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
+      initEReference(getPluginProject_BundleManifest(), theBundleManifestPackage.getBundleManifest(), null,
+         "bundleManifest", null, 1, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       addEOperation(pluginProjectEClass, ecorePackage.getEBoolean(), "isFragment", 1, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -1324,8 +1370,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEReference(getFeatureProject_IncludedPlugins(), this.getPluginInclude(), null, "includedPlugins", null, 0,
          -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getFeatureProject_IncludedFeatures(), this.getStrictReference(), null, "includedFeatures", null,
-         0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+      initEReference(getFeatureProject_IncludedFeatures(), this.getFeatureInclude(), null, "includedFeatures", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_RequiredFeatures(), this.getRuledReference(), null, "requiredFeatures", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_RequiredPlugins(), this.getRuledReference(), null, "requiredPlugins", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(siteProjectEClass, SiteProject.class, "SiteProject", !IS_ABSTRACT, !IS_INTERFACE,
@@ -1389,11 +1441,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 1, 1, Category.class, !IS_TRANSIENT,
          !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(classifiedEClass, Classified.class, "Classified", IS_ABSTRACT, IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getClassified_Classifier(), ecorePackage.getEString(), "classifier", null, 0, 1, Classified.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
       initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
       initEAttribute(getIdentifiable_Id(), ecorePackage.getEString(), "id", null, 0, 1, Identifiable.class,
@@ -1450,6 +1497,12 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       initEClass(strictReferenceEClass, StrictReference.class, "StrictReference", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
+
+      initEClass(featureIncludeEClass, FeatureInclude.class, "FeatureInclude", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getFeatureInclude_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1,
+         FeatureInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
 
       // Initialize enums and add enum literals
       initEEnum(versionMatchRuleEEnum, VersionMatchRule.class, "VersionMatchRule");
