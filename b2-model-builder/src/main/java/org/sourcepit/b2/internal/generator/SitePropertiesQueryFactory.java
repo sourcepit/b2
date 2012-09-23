@@ -27,7 +27,7 @@ public class SitePropertiesQueryFactory
       final String categoryName)
    {
       final boolean hasAssemblyClassifier = !Strings.isNullOrEmpty(assemblyClassifier);
-      
+
       StringBuilder sb = new StringBuilder();
       sb.append("${categories");
       sb.append(createPropertySpacer(categoryName));
@@ -48,9 +48,9 @@ public class SitePropertiesQueryFactory
 
       query = createQuery(assemblyName, categoryName, false, "categoryLabel");
       queries.put("categories" + createPropertySpacer(categoryName) + "label", query);
-      query.addKey("b2.module.name");
-      query.addKey("project.name");
-      query.addKey("project.artifactId");
+      query.getKeys().add("b2.module.name");
+      query.getKeys().add("project.name");
+      query.getKeys().add("project.artifactId");
 
       if (hasAssemblyClassifier)
       {
@@ -74,11 +74,11 @@ public class SitePropertiesQueryFactory
       query.setRetryWithoutPrefix(true);
 
       String p = categoryName == null ? property : categoryName + firstToUpper(property);
-      query.addKey(preamble + createPropertySpacer(assemblyName) + p);
+      query.getKeys().add(preamble + createPropertySpacer(assemblyName) + p);
       if (addDefaultKey)
       {
-         query.addKey(preamble + "." + p);
-         query.addKey("b2." + p);
+         query.getKeys().add(preamble + "." + p);
+         query.getKeys().add("b2." + p);
       }
       query.setDefaultValue("");
       return query;

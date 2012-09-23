@@ -37,14 +37,9 @@ public class PropertiesQuery
       this.retryWithoutPrefix = retryWithoutPrefix;
    }
 
-   public void addKey(String key)
-   {
-      keys.add(key);
-   }
-
    public Collection<String> getKeys()
    {
-      return Collections.unmodifiableCollection(keys);
+      return keys;
    }
 
    public void setDefaultValue(String defaultValue)
