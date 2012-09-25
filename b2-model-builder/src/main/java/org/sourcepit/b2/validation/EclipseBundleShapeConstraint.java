@@ -13,7 +13,6 @@ import javax.inject.Named;
 
 import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.model.builder.util.BundleManifestReader;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
@@ -25,16 +24,12 @@ public class EclipseBundleShapeConstraint implements ModuleValidationConstraint
 {
    private final UnpackStrategy unpackStrategy;
 
-   private final BundleManifestReader manifestReader;
-
    private final Logger logger;
 
    @Inject
-   public EclipseBundleShapeConstraint(UnpackStrategy unpackStrategy, BundleManifestReader manifestReader,
-      Logger logger)
+   public EclipseBundleShapeConstraint(UnpackStrategy unpackStrategy, Logger logger)
    {
       this.unpackStrategy = unpackStrategy;
-      this.manifestReader = manifestReader;
       this.logger = logger;
    }
 
@@ -55,7 +50,7 @@ public class EclipseBundleShapeConstraint implements ModuleValidationConstraint
       final boolean unpack = unpackStrategy.isUnpack(pluginProject);
       if (unpack)
       {
-         final BundleManifest manifest = manifestReader.readManifest(pluginProject);
+         final BundleManifest manifest = pluginProject.getBundleManifest();
 
          final String id = pluginProject.getId();
 

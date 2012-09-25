@@ -45,7 +45,7 @@ public class ModuleInterpolator implements IModuleInterpolator
          @Override
          protected void pre(ModuleInterpolatorLifecycleParticipant participant, IModuleInterpolationRequest input)
          {
-            participant.preInterpolation(input.getModule());
+            participant.preInterpolation(input.getModule(), input.getModuleProperties());
          }
 
          @Override
@@ -59,7 +59,7 @@ public class ModuleInterpolator implements IModuleInterpolator
          protected void post(ModuleInterpolatorLifecycleParticipant participant, IModuleInterpolationRequest input,
             Void result, ThrowablePipe errors)
          {
-            participant.postInterpolation(input.getModule(), errors);
+            participant.postInterpolation(input.getModule(), input.getModuleProperties(), errors);
          }
       };
    }

@@ -12,7 +12,6 @@ import javax.inject.Named;
 import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.model.builder.util.BundleManifestReader;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
@@ -24,18 +23,15 @@ public class AvoidDotAndJarOnBundleCPConstraint implements ModuleValidationConst
 {
    private final UnpackStrategy unpackStrategy;
 
-   private final BundleManifestReader manifestReader;
-
    private final Logger logger;
 
    @Inject
-   public AvoidDotAndJarOnBundleCPConstraint(UnpackStrategy unpackStrategy, BundleManifestReader manifestReader, Logger logger)
+   public AvoidDotAndJarOnBundleCPConstraint(UnpackStrategy unpackStrategy, Logger logger)
    {
       this.unpackStrategy = unpackStrategy;
-      this.manifestReader = manifestReader;
       this.logger = logger;
    }
-   
+
    public void validate(EObject eObject, PropertiesSource properties, boolean quickFixesEnabled)
    {
       if (eObject instanceof PluginProject)
@@ -53,7 +49,7 @@ public class AvoidDotAndJarOnBundleCPConstraint implements ModuleValidationConst
       final boolean unpack = unpackStrategy.isUnpack(pluginProject);
       if (unpack)
       {
-         final BundleManifest manifest = manifestReader.readManifest(pluginProject);
+         final BundleManifest manifest = pluginProject.getBundleManifest();
          if (hasDotOnBundleCP(manifest))
          {
             final StringBuilder msg = new StringBuilder();
@@ -69,7 +65,7 @@ public class AvoidDotAndJarOnBundleCPConstraint implements ModuleValidationConst
          }
       }
    }
-   
+
    private boolean hasDotOnBundleCP(BundleManifest manifest)
    {
       return getDotBundleCPEntry(manifest) != null;
