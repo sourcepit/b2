@@ -468,7 +468,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       while (idx < aString.length())
       {
          c = aString.charAt(idx++);
-         res.append(Character.isJavaIdentifierPart(c) ? c : '_');
+         res.append(Character.isJavaIdentifierPart(c) || c == '.' ? c : '_');
       }
       return res.toString();
    }

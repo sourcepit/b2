@@ -17,8 +17,6 @@ import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.model.builder.util.BundleManifestReader;
-import org.sourcepit.b2.model.builder.util.DefaultBundleManifestReader;
 import org.sourcepit.b2.model.builder.util.DefaultUnpackStrategy;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -43,15 +41,12 @@ public class AvoidDotAndJarOnBundleCPConstraintTest
 
    private RecordingLogger logger;
 
-   private BundleManifestReader manifestReader;
-
    @Before
    public void setUp()
    {
-      manifestReader = new DefaultBundleManifestReader();
-      final UnpackStrategy unpackStrategy = new DefaultUnpackStrategy(manifestReader);
+      final UnpackStrategy unpackStrategy = new DefaultUnpackStrategy();
       logger = new RecordingLogger();
-      constraint = new AvoidDotAndJarOnBundleCPConstraint(unpackStrategy, manifestReader, logger);
+      constraint = new AvoidDotAndJarOnBundleCPConstraint(unpackStrategy, logger);
    }
 
    @Test
@@ -98,6 +93,7 @@ public class AvoidDotAndJarOnBundleCPConstraintTest
       pluginProject.setId(manifest.getBundleSymbolicName().getSymbolicName());
       pluginProject.setBundleVersion(manifest.getBundleVersion().toString());
       pluginProject.setDirectory(bundleDir);
+      pluginProject.setBundleManifest(manifest);
       return pluginProject;
    }
 

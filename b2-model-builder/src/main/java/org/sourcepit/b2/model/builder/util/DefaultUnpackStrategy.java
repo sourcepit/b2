@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
@@ -22,17 +21,9 @@ import org.sourcepit.common.manifest.osgi.ClassPathEntry;
 @Named
 public class DefaultUnpackStrategy implements UnpackStrategy
 {
-   private final BundleManifestReader manifestReader;
-
-   @Inject
-   public DefaultUnpackStrategy(BundleManifestReader manifestReader)
-   {
-      this.manifestReader = manifestReader;
-   }
-
    public boolean isUnpack(PluginProject pluginProject)
    {
-      final BundleManifest manifest = manifestReader.readManifest(pluginProject);
+      final BundleManifest manifest = pluginProject.getBundleManifest();
       return hasDirBundleShape(manifest) || hasJarOnBundleCP(manifest) || hasJarBinIncludes(pluginProject);
    }
 

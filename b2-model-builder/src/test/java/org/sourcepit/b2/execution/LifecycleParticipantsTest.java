@@ -28,6 +28,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.inject.Binder;
 import com.google.inject.Key;
@@ -321,13 +322,13 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          recordMethodCall(moduleDir.getName(), module.getId(), errors.isEmpty() ? null : errors);
       }
 
-      public void preInterpolation(AbstractModule module)
+      public void preInterpolation(AbstractModule module, PropertiesSource moduleProperties)
       {
          assertNotNull(module);
          recordMethodCall(module.getId());
       }
 
-      public void postInterpolation(AbstractModule module, ThrowablePipe errors)
+      public void postInterpolation(AbstractModule module, PropertiesSource moduleProperties, ThrowablePipe errors)
       {
          assertNotNull(module);
          assertNotNull(errors);

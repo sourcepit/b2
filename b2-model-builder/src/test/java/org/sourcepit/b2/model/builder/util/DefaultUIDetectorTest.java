@@ -38,12 +38,14 @@ public class DefaultUIDetectorTest
    public void testSymbolicName() throws IOException
    {
       final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
-      final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
+      final DefaultUIDetector uiDetector = new DefaultUIDetector();
 
       PluginProject pluginProject = newPluginProject("org.sourcepit.foo");
+      pluginProject.setBundleManifest(BundleManifestFactory.eINSTANCE.createBundleManifest());
       assertFalse(uiDetector.requiresUI(pluginProject, properties));
 
       pluginProject = newPluginProject("org.sourcepit.foo.ui");
+      pluginProject.setBundleManifest(BundleManifestFactory.eINSTANCE.createBundleManifest());
       assertTrue(uiDetector.requiresUI(pluginProject, properties));
    }
 
@@ -53,9 +55,10 @@ public class DefaultUIDetectorTest
       final PluginProject pluginProject = newPluginProject("org.sourcepit.foo");
 
       final BundleManifest manifest = readManifest(pluginProject);
+      pluginProject.setBundleManifest(manifest);
 
       final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
-      final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
+      final DefaultUIDetector uiDetector = new DefaultUIDetector();
 
       assertFalse(uiDetector.requiresUI(pluginProject, properties));
 
@@ -72,9 +75,10 @@ public class DefaultUIDetectorTest
       final PluginProject pluginProject = newPluginProject("org.sourcepit.foo");
 
       final BundleManifest manifest = readManifest(pluginProject);
+      pluginProject.setBundleManifest(manifest);
 
       final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
-      final DefaultUIDetector uiDetector = new DefaultUIDetector(new DefaultBundleManifestReader());
+      final DefaultUIDetector uiDetector = new DefaultUIDetector();
 
       assertFalse(uiDetector.requiresUI(pluginProject, properties));
 
