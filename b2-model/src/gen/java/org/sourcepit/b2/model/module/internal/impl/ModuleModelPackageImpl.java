@@ -9,6 +9,7 @@ package org.sourcepit.b2.model.module.internal.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
@@ -19,9 +20,10 @@ import org.sourcepit.b2.model.common.CommonModelPackage;
 import org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractReference;
+import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
-import org.sourcepit.b2.model.module.Classified;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -38,176 +40,229 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
-import org.sourcepit.b2.model.module.Reference;
+import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
+import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.b2.model.module.util.Identifier;
 import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl;
+import org.sourcepit.common.manifest.ManifestPackage;
+import org.sourcepit.common.manifest.osgi.BundleManifestPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
  * 
  * @generated
  */
 public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelPackage
 {
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass abstractModuleEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass basicModuleEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass abstractFacetEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass compositeModuleEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass pluginsFacetEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass featuresFacetEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass sitesFacetEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass pluginProjectEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass featureProjectEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass siteProjectEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass projectEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass projectFacetEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass fileContainerEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass derivableEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass pluginIncludeEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass categoryEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   private EClass featureIncludeEClass = null;
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   private EClass classifiedEClass = null;
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass identifiableEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass productsFacetEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass productDefinitionEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   private EClass referenceEClass = null;
+   private EClass abstractReferenceEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass ruledReferenceEClass = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass abstractStrictReferenceEClass = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass strictReferenceEClass = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass featureIncludeEClass = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EEnum versionMatchRuleEEnum = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -215,7 +270,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
    /**
     * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
-    * EPackage.Registry} by the package package URI value.
+    * EPackage.Registry} by the package
+    * package URI value.
     * <p>
     * Note: the correct way to create the package is via the static factory method {@link #init init()}, which also
     * performs initialization of the package, or returns the registered package, if one already exists. <!--
@@ -232,7 +288,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -263,6 +320,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       isInited = true;
 
+      // Initialize simple dependencies
+      ManifestPackage.eINSTANCE.eClass();
+
       // Obtain or create and register interdependencies
       CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE
          .getEPackage(CommonModelPackage.eNS_URI) instanceof CommonModelPackageImpl ? EPackage.Registry.INSTANCE
@@ -291,7 +351,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -301,7 +362,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -311,7 +373,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -321,7 +384,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -331,7 +395,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -341,7 +406,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -351,7 +417,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -361,7 +428,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -371,7 +439,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -381,7 +450,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -391,7 +461,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -401,7 +472,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -411,7 +483,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -421,7 +494,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -431,7 +505,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -441,7 +516,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -451,7 +527,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -461,7 +538,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -471,7 +549,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -481,7 +560,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -491,7 +571,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -501,7 +582,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -511,7 +593,19 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getPluginProject_BundleManifest()
+   {
+      return (EReference) pluginProjectEClass.getEStructuralFeatures().get(5);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -521,7 +615,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -531,7 +626,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -541,7 +637,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -551,7 +648,30 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getFeatureProject_RequiredFeatures()
+   {
+      return (EReference) featureProjectEClass.getEStructuralFeatures().get(3);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EReference getFeatureProject_RequiredPlugins()
+   {
+      return (EReference) featureProjectEClass.getEStructuralFeatures().get(4);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -561,7 +681,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -571,7 +692,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -581,7 +703,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -591,7 +714,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -601,7 +725,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -611,7 +736,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -621,7 +747,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -631,7 +758,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -641,7 +769,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -651,7 +780,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -661,17 +791,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EReference getPluginInclude_Parent()
-   {
-      return (EReference) pluginIncludeEClass.getEStructuralFeatures().get(1);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -681,7 +802,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -691,7 +813,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -701,47 +824,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EClass getFeatureInclude()
-   {
-      return featureIncludeEClass;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EReference getFeatureInclude_Parent()
-   {
-      return (EReference) featureIncludeEClass.getEStructuralFeatures().get(0);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EClass getClassified()
-   {
-      return classifiedEClass;
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
-    * 
-    * @generated
-    */
-   public EAttribute getClassified_Classifier()
-   {
-      return (EAttribute) classifiedEClass.getEStructuralFeatures().get(0);
-   }
-
-   /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -751,7 +835,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -761,7 +846,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -771,7 +857,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -781,7 +868,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -791,7 +879,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -801,7 +890,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -811,7 +901,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -821,7 +912,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -831,37 +923,118 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public EClass getReference()
+   public EClass getAbstractReference()
    {
-      return referenceEClass;
+      return abstractReferenceEClass;
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public EAttribute getReference_Id()
+   public EAttribute getAbstractReference_Id()
    {
-      return (EAttribute) referenceEClass.getEStructuralFeatures().get(0);
+      return (EAttribute) abstractReferenceEClass.getEStructuralFeatures().get(0);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public EAttribute getReference_VersionRange()
+   public EAttribute getAbstractReference_Version()
    {
-      return (EAttribute) referenceEClass.getEStructuralFeatures().get(1);
+      return (EAttribute) abstractReferenceEClass.getEStructuralFeatures().get(1);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EClass getRuledReference()
+   {
+      return ruledReferenceEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getRuledReference_VersionMatchRule()
+   {
+      return (EAttribute) ruledReferenceEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EClass getAbstractStrictReference()
+   {
+      return abstractStrictReferenceEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EClass getStrictReference()
+   {
+      return strictReferenceEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EClass getFeatureInclude()
+   {
+      return featureIncludeEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EAttribute getFeatureInclude_Optional()
+   {
+      return (EAttribute) featureIncludeEClass.getEStructuralFeatures().get(0);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public EEnum getVersionMatchRule()
+   {
+      return versionMatchRuleEEnum;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -871,7 +1044,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -881,7 +1055,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -890,7 +1065,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * Creates the meta-model objects for the package. This method is
     * guarded to have no affect on any invocation but its first.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -930,11 +1106,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__TEST_PLUGIN);
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME);
       createEAttribute(pluginProjectEClass, PLUGIN_PROJECT__FRAGMENT_HOST_VERSION);
+      createEReference(pluginProjectEClass, PLUGIN_PROJECT__BUNDLE_MANIFEST);
 
       featureProjectEClass = createEClass(FEATURE_PROJECT);
       createEReference(featureProjectEClass, FEATURE_PROJECT__PARENT);
       createEReference(featureProjectEClass, FEATURE_PROJECT__INCLUDED_PLUGINS);
       createEReference(featureProjectEClass, FEATURE_PROJECT__INCLUDED_FEATURES);
+      createEReference(featureProjectEClass, FEATURE_PROJECT__REQUIRED_FEATURES);
+      createEReference(featureProjectEClass, FEATURE_PROJECT__REQUIRED_PLUGINS);
 
       siteProjectEClass = createEClass(SITE_PROJECT);
       createEReference(siteProjectEClass, SITE_PROJECT__PARENT);
@@ -952,17 +1131,10 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       pluginIncludeEClass = createEClass(PLUGIN_INCLUDE);
       createEAttribute(pluginIncludeEClass, PLUGIN_INCLUDE__UNPACK);
-      createEReference(pluginIncludeEClass, PLUGIN_INCLUDE__PARENT);
 
       categoryEClass = createEClass(CATEGORY);
       createEReference(categoryEClass, CATEGORY__FEATURE_REFERENCES);
       createEAttribute(categoryEClass, CATEGORY__NAME);
-
-      featureIncludeEClass = createEClass(FEATURE_INCLUDE);
-      createEReference(featureIncludeEClass, FEATURE_INCLUDE__PARENT);
-
-      classifiedEClass = createEClass(CLASSIFIED);
-      createEAttribute(classifiedEClass, CLASSIFIED__CLASSIFIER);
 
       identifiableEClass = createEClass(IDENTIFIABLE);
       createEAttribute(identifiableEClass, IDENTIFIABLE__ID);
@@ -976,16 +1148,30 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEAttribute(productDefinitionEClass, PRODUCT_DEFINITION__FILE);
       createEReference(productDefinitionEClass, PRODUCT_DEFINITION__PRODUCT_PLUGIN);
 
-      referenceEClass = createEClass(REFERENCE);
-      createEAttribute(referenceEClass, REFERENCE__ID);
-      createEAttribute(referenceEClass, REFERENCE__VERSION_RANGE);
+      abstractReferenceEClass = createEClass(ABSTRACT_REFERENCE);
+      createEAttribute(abstractReferenceEClass, ABSTRACT_REFERENCE__ID);
+      createEAttribute(abstractReferenceEClass, ABSTRACT_REFERENCE__VERSION);
+
+      ruledReferenceEClass = createEClass(RULED_REFERENCE);
+      createEAttribute(ruledReferenceEClass, RULED_REFERENCE__VERSION_MATCH_RULE);
+
+      abstractStrictReferenceEClass = createEClass(ABSTRACT_STRICT_REFERENCE);
+
+      strictReferenceEClass = createEClass(STRICT_REFERENCE);
+
+      featureIncludeEClass = createEClass(FEATURE_INCLUDE);
+      createEAttribute(featureIncludeEClass, FEATURE_INCLUDE__OPTIONAL);
+
+      // Create enums
+      versionMatchRuleEEnum = createEEnum(VERSION_MATCH_RULE);
 
       // Create data types
       identifierEDataType = createEDataType(IDENTIFIER);
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -994,7 +1180,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * Complete the initialization of the package and its meta-model. This
     * method is guarded to have no affect on any invocation but its first.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -1012,6 +1199,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       // Obtain other dependent packages
       CommonModelPackage theCommonModelPackage = (CommonModelPackage) EPackage.Registry.INSTANCE
          .getEPackage(CommonModelPackage.eNS_URI);
+      BundleManifestPackage theBundleManifestPackage = (BundleManifestPackage) EPackage.Registry.INSTANCE
+         .getEPackage(BundleManifestPackage.eNS_URI);
 
       // Create type parameters
       ETypeParameter projectFacetEClass_P = addETypeParameter(projectFacetEClass, "P");
@@ -1042,19 +1231,21 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       sitesFacetEClass.getEGenericSuperTypes().add(g1);
       pluginProjectEClass.getESuperTypes().add(this.getProject());
       featureProjectEClass.getESuperTypes().add(this.getProject());
-      featureProjectEClass.getESuperTypes().add(this.getClassified());
       siteProjectEClass.getESuperTypes().add(this.getProject());
-      siteProjectEClass.getESuperTypes().add(this.getClassified());
       projectEClass.getESuperTypes().add(this.getFileContainer());
       projectEClass.getESuperTypes().add(this.getDerivable());
       projectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       projectEClass.getESuperTypes().add(this.getIdentifiable());
       projectFacetEClass.getESuperTypes().add(this.getAbstractFacet());
-      pluginIncludeEClass.getESuperTypes().add(this.getReference());
-      featureIncludeEClass.getESuperTypes().add(this.getReference());
+      pluginIncludeEClass.getESuperTypes().add(this.getAbstractStrictReference());
       productsFacetEClass.getESuperTypes().add(this.getAbstractFacet());
       productDefinitionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
       productDefinitionEClass.getESuperTypes().add(this.getDerivable());
+      abstractReferenceEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
+      ruledReferenceEClass.getESuperTypes().add(this.getAbstractReference());
+      abstractStrictReferenceEClass.getESuperTypes().add(this.getAbstractReference());
+      strictReferenceEClass.getESuperTypes().add(this.getAbstractStrictReference());
+      featureIncludeEClass.getESuperTypes().add(this.getAbstractStrictReference());
 
       // Initialize classes and features; add operations and parameters
       initEClass(abstractModuleEClass, AbstractModule.class, "AbstractModule", IS_ABSTRACT, !IS_INTERFACE,
@@ -1105,7 +1296,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       g2 = createEGenericType(t1);
       g1.getETypeArguments().add(g2);
       t2.getEBounds().add(g1);
-      addEParameter(op, this.getReference(), "reference", 1, 1, IS_UNIQUE, IS_ORDERED);
+      addEParameter(op, this.getAbstractReference(), "reference", 1, 1, IS_UNIQUE, IS_ORDERED);
       g1 = createEGenericType(ecorePackage.getEJavaClass());
       g2 = createEGenericType(t2);
       g1.getETypeArguments().add(g2);
@@ -1165,6 +1356,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getPluginProject_FragmentHostVersion(), ecorePackage.getEString(), "fragmentHostVersion", null, 0,
          1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
+      initEReference(getPluginProject_BundleManifest(), theBundleManifestPackage.getBundleManifest(), null,
+         "bundleManifest", null, 1, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       addEOperation(pluginProjectEClass, ecorePackage.getEBoolean(), "isFragment", 1, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -1173,12 +1367,18 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEReference(getFeatureProject_Parent(), this.getFeaturesFacet(), this.getFeaturesFacet_Projects(), "parent",
          null, 0, 1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
          IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getFeatureProject_IncludedPlugins(), this.getPluginInclude(), this.getPluginInclude_Parent(),
-         "includedPlugins", null, 0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-         IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getFeatureProject_IncludedFeatures(), this.getFeatureInclude(), this.getFeatureInclude_Parent(),
-         "includedFeatures", null, 0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-         IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_IncludedPlugins(), this.getPluginInclude(), null, "includedPlugins", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_IncludedFeatures(), this.getFeatureInclude(), null, "includedFeatures", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_RequiredFeatures(), this.getRuledReference(), null, "requiredFeatures", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_RequiredPlugins(), this.getRuledReference(), null, "requiredPlugins", null, 0,
+         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(siteProjectEClass, SiteProject.class, "SiteProject", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
@@ -1214,7 +1414,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEOperation(op, g1);
 
       op = addEOperation(projectFacetEClass, null, "resolveReference", 0, 1, IS_UNIQUE, IS_ORDERED);
-      addEParameter(op, this.getReference(), "reference", 1, 1, IS_UNIQUE, IS_ORDERED);
+      addEParameter(op, this.getAbstractReference(), "reference", 1, 1, IS_UNIQUE, IS_ORDERED);
       g1 = createEGenericType(projectFacetEClass_P);
       initEOperation(op, g1);
 
@@ -1233,27 +1433,13 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getPluginInclude_Unpack(), ecorePackage.getEBoolean(), "unpack", "true", 0, 1,
          PluginInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
-      initEReference(getPluginInclude_Parent(), this.getFeatureProject(), this.getFeatureProject_IncludedPlugins(),
-         "parent", null, 1, 1, PluginInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getCategory_FeatureReferences(), this.getReference(), null, "featureReferences", null, 0, -1,
-         Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
-         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getCategory_FeatureReferences(), this.getStrictReference(), null, "featureReferences", null, 0,
+         -1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 1, 1, Category.class, !IS_TRANSIENT,
          !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-      initEClass(featureIncludeEClass, FeatureInclude.class, "FeatureInclude", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getFeatureInclude_Parent(), this.getFeatureProject(), this.getFeatureProject_IncludedFeatures(),
-         "parent", null, 1, 1, FeatureInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-      initEClass(classifiedEClass, Classified.class, "Classified", IS_ABSTRACT, IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getClassified_Classifier(), ecorePackage.getEString(), "classifier", null, 0, 1, Classified.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
@@ -1284,23 +1470,46 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getProductDefinition_File(), theCommonModelPackage.getEJavaFile(), "file", null, 1, 1,
          ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
-      initEReference(getProductDefinition_ProductPlugin(), this.getReference(), null, "productPlugin", null, 1, 1,
-         ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+      initEReference(getProductDefinition_ProductPlugin(), this.getStrictReference(), null, "productPlugin", null, 1,
+         1, ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(referenceEClass, Reference.class, "Reference", !IS_ABSTRACT, !IS_INTERFACE,
+      initEClass(abstractReferenceEClass, AbstractReference.class, "AbstractReference", IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getReference_Id(), ecorePackage.getEString(), "id", null, 1, 1, Reference.class, !IS_TRANSIENT,
-         !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getReference_VersionRange(), ecorePackage.getEString(), "versionRange", "0.0.0", 0, 1,
-         Reference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+      initEAttribute(getAbstractReference_Id(), ecorePackage.getEString(), "id", null, 1, 1, AbstractReference.class,
+         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getAbstractReference_Version(), ecorePackage.getEString(), "version", null, 0, 1,
+         AbstractReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+
+      op = addEOperation(abstractReferenceEClass, ecorePackage.getEBoolean(), "isSatisfiableBy", 1, 1, IS_UNIQUE,
          IS_ORDERED);
+      addEParameter(op, this.getIdentifiable(), "identifier", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-      op = addEOperation(referenceEClass, ecorePackage.getEBoolean(), "isSatisfiableBy", 1, 1, IS_UNIQUE, IS_ORDERED);
-      addEParameter(op, this.getIdentifier(), "identifier", 0, 1, IS_UNIQUE, IS_ORDERED);
+      initEClass(ruledReferenceEClass, RuledReference.class, "RuledReference", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getRuledReference_VersionMatchRule(), this.getVersionMatchRule(), "versionMatchRule",
+         "compatible", 0, 1, RuledReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      op = addEOperation(referenceEClass, null, "setStrictVersion", 0, 1, IS_UNIQUE, IS_ORDERED);
-      addEParameter(op, ecorePackage.getEString(), "version", 0, 1, IS_UNIQUE, IS_ORDERED);
+      initEClass(abstractStrictReferenceEClass, AbstractStrictReference.class, "AbstractStrictReference", IS_ABSTRACT,
+         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+      initEClass(strictReferenceEClass, StrictReference.class, "StrictReference", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+
+      initEClass(featureIncludeEClass, FeatureInclude.class, "FeatureInclude", !IS_ABSTRACT, !IS_INTERFACE,
+         IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getFeatureInclude_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1,
+         FeatureInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+
+      // Initialize enums and add enum literals
+      initEEnum(versionMatchRuleEEnum, VersionMatchRule.class, "VersionMatchRule");
+      addEEnumLiteral(versionMatchRuleEEnum, VersionMatchRule.COMPATIBLE);
+      addEEnumLiteral(versionMatchRuleEEnum, VersionMatchRule.PERFECT);
+      addEEnumLiteral(versionMatchRuleEEnum, VersionMatchRule.EQUIVALENT);
+      addEEnumLiteral(versionMatchRuleEEnum, VersionMatchRule.GREATER_OR_EQUAL);
 
       // Initialize data types
       initEDataType(identifierEDataType, Identifier.class, "Identifier", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

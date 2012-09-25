@@ -23,12 +23,12 @@
 			<artifactId>common-manifest</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.sourcepit.b2</groupId>
-			<artifactId>b2-model</artifactId>
+			<groupId>org.sourcepit.common</groupId>
+			<artifactId>common-constraints</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
-			<artifactId>b2-common</artifactId>
+			<artifactId>b2-model</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.tools</groupId>
@@ -61,6 +61,11 @@
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-default-templates</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.b2</groupId>
+			<artifactId>b2-bootstrapper</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

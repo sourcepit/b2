@@ -9,7 +9,9 @@ package org.sourcepit.b2.model.module;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Derivable</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Derivable</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -42,8 +44,9 @@ public interface Derivable extends EObject
    boolean isDerived();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.Derivable#isDerived <em>Derived</em>}' attribute. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.Derivable#isDerived <em>Derived</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Derived</em>' attribute.
     * @see #isDerived()

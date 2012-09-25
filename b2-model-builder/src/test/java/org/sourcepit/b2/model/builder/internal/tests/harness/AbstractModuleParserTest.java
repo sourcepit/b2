@@ -71,7 +71,6 @@ public abstract class AbstractModuleParserTest extends AbstractInjectedWorkspace
       }
 
       sessionService.setCurrentSession(session);
-      sessionService.setCurrentProperties(ConverterUtils.TEST_CONVERTER.getProperties());
       
       return session;
    }

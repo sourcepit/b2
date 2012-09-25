@@ -6,21 +6,15 @@
 
 package org.sourcepit.b2.model.module.internal;
 
-import org.sourcepit.b2.model.module.Reference;
+import org.sourcepit.b2.model.module.AbstractReference;
+import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
-import org.sourcepit.b2.model.module.util.Identifier;
 
 public aspect ReferenceAspect
 {
-   pointcut isSatisfiableBy(Reference ref, Identifier identifier) : target(ref) && args(identifier) && execution(boolean isSatisfiableBy(Identifier));
+   pointcut isSatisfiableBy(AbstractReference ref, Identifiable identifiable) : target(ref) && args(identifiable) && execution(boolean isSatisfiableBy(Identifiable));
 
-   pointcut setStrictVersion(Reference ref, String version) : target(ref) && args(version) && execution(void setStrictVersion(String));
-
-   boolean around(Reference ref, Identifier identifier) : isSatisfiableBy(ref, identifier) {
-      return ReferenceUtils.isSatisfiableBy(ref, identifier);
-   }
-
-   void around(Reference ref, String version) : setStrictVersion(ref, version) {
-      ReferenceUtils.setStrictVersion(ref, version);
+   boolean around(AbstractReference ref, Identifiable identifiable) : isSatisfiableBy(ref, identifiable) {
+      return ReferenceUtils.isSatisfiableBy(ref, identifiable);
    }
 }

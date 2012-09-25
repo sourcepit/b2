@@ -10,7 +10,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.util.Identifier;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Identifiable</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Identifiable</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -43,8 +45,9 @@ public interface Identifiable extends EObject
    String getId();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.Identifiable#getId <em>Id</em>}' attribute. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.Identifiable#getId <em>Id</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Id</em>' attribute.
     * @see #getId()
@@ -71,7 +74,8 @@ public interface Identifiable extends EObject
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.Identifiable#getVersion <em>Version</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Version</em>' attribute.
     * @see #getVersion()
@@ -80,7 +84,8 @@ public interface Identifiable extends EObject
    void setVersion(String value);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model required="true" identifierDataType="org.sourcepit.b2.model.module.Identifier"
     * @generated
@@ -88,7 +93,8 @@ public interface Identifiable extends EObject
    boolean isIdentifyableBy(Identifier identifier);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model dataType="org.sourcepit.b2.model.module.Identifier" required="true"
     * @generated

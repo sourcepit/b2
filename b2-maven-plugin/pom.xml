@@ -15,14 +15,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-maven-core</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>org.eclipse.osgi</artifactId>
-					<groupId>org.eclipse.osgi</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.tmatesoft.svnkit</groupId>
@@ -40,10 +38,6 @@
 		<dependency>
 			<groupId>org.sourcepit.tools</groupId>
 			<artifactId>maven-bootstrap-participation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.sourcepit.b2</groupId>
-			<artifactId>b2-common</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
@@ -76,12 +70,21 @@
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.common</groupId>
+			<artifactId>common-maven</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.common</groupId>
 			<artifactId>common-constraints</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.b2</groupId>
 			<artifactId>b2-test-resources</artifactId>
 			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.sourcepit.b2</groupId>
+			<artifactId>b2-bootstrapper</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -93,11 +96,6 @@
 		<dependency>
 			<groupId>org.sourcepit.common</groupId>
 			<artifactId>common-testing</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.sourcepit.common</groupId>
-			<artifactId>common-maven</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

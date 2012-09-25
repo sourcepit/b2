@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="${feature.id}"
-      label="%featureLabel"
+      label="%featureName"
       version="${feature.version}"
       provider-name="%providerName"
       plugin="${feature.plugin}">
@@ -17,9 +17,11 @@
    <license url="%licenseURL">
       %license
    </license>
-   
+
    ${feature.includes}
    
    ${feature.plugins}
+   
+   ${feature.requires}
    
 </feature>

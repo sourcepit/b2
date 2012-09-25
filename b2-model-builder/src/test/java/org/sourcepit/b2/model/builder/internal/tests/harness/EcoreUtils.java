@@ -57,7 +57,7 @@ public final class EcoreUtils
          }
          else
          {
-            Assert.assertEquals(expectedValue, actual);
+            Assert.assertEquals(expectedValue, actualValue);
          }
       }
    }

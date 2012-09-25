@@ -30,7 +30,6 @@
 		<module>b2-maven-plugin</module>
 		<module>b2-bootstrapper</module>
 		<module>b2-test-resources</module>
-		<module>b2-common</module>
 		<module>b2-examples</module>
 		<module>b2-default-templates</module>
 		<module>b2-maven-core</module>
@@ -110,11 +109,6 @@
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.b2</groupId>
-				<artifactId>b2-common</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.sourcepit.b2</groupId>
 				<artifactId>b2-model</artifactId>
 				<version>${project.version}</version>
 			</dependency>
@@ -174,12 +168,12 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-manifest</artifactId>
-				<version>0.1.0-alpha-5</version>
+				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-maven</artifactId>
-				<version>0.1.0-alpha-4</version>
+				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
@@ -189,12 +183,17 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-constraints</artifactId>
-				<version>0.1.0-alpha-1</version>
+				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit</groupId>
 				<artifactId>guice-plexus-bridge</artifactId>
 				<version>0.1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				 <version>11.0.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.tmatesoft.svnkit</groupId>
@@ -291,6 +290,20 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>2.5</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+					<configuration>
+						<compilerId>jdt</compilerId>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.eclipse.tycho</groupId>
+							<artifactId>tycho-compiler-jdt</artifactId>
+							<version>${tycho.version}</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>

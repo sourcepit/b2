@@ -12,7 +12,7 @@ import java.io.File;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
-import org.sourcepit.b2.common.internal.utils.XmlUtils;
+import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Element;
 
 public class UIHarnessIT extends AbstractB2IT

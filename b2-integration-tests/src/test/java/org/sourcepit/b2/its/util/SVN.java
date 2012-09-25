@@ -44,7 +44,7 @@ public class SVN
    public SVNCommitInfo doImport(File localPath, SVNURL dstURL, String commitMessage, boolean recursive)
       throws SVNException
    {
-      return clientManager.getCommitClient().doImport(localPath, dstURL, commitMessage, null, true, true,
+      return clientManager.getCommitClient().doImport(localPath, dstURL, commitMessage, null, false, false,
          SVNDepth.fromRecurse(recursive));
    }
 

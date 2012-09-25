@@ -6,9 +6,12 @@
 
 package org.sourcepit.b2.model.module;
 
+import org.sourcepit.common.manifest.osgi.BundleManifest;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Plugin Project</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Plugin Project</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -19,6 +22,7 @@ package org.sourcepit.b2.model.module;
  * <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName <em>Fragment Host Symbolic Name
  * </em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion <em>Fragment Host Version</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.PluginProject#getBundleManifest <em>Bundle Manifest</em>}</li>
  * </ul>
  * </p>
  * 
@@ -51,7 +55,8 @@ public interface PluginProject extends Project
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}' container
     * reference.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -79,7 +84,8 @@ public interface PluginProject extends Project
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion
     * <em>Bundle Version</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Bundle Version</em>' attribute.
     * @see #getBundleVersion()
@@ -107,7 +113,8 @@ public interface PluginProject extends Project
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#isTestPlugin <em>Test Plugin</em>}'
     * attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Test Plugin</em>' attribute.
     * @see #isTestPlugin()
@@ -135,7 +142,8 @@ public interface PluginProject extends Project
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName
     * <em>Fragment Host Symbolic Name</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Fragment Host Symbolic Name</em>' attribute.
     * @see #getFragmentHostSymbolicName()
@@ -163,7 +171,8 @@ public interface PluginProject extends Project
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion
     * <em>Fragment Host Version</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Fragment Host Version</em>' attribute.
     * @see #getFragmentHostVersion()
@@ -172,7 +181,37 @@ public interface PluginProject extends Project
    void setFragmentHostVersion(String value);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Returns the value of the '<em><b>Bundle Manifest</b></em>' containment reference.
+    * <!-- begin-user-doc -->
+    * <p>
+    * If the meaning of the '<em>Bundle Manifest</em>' containment reference isn't clear, there really should be more of
+    * a description here...
+    * </p>
+    * <!-- end-user-doc -->
+    * 
+    * @return the value of the '<em>Bundle Manifest</em>' containment reference.
+    * @see #setBundleManifest(BundleManifest)
+    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginProject_BundleManifest()
+    * @model containment="true" resolveProxies="true" required="true"
+    * @generated
+    */
+   BundleManifest getBundleManifest();
+
+   /**
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getBundleManifest
+    * <em>Bundle Manifest</em>}' containment reference.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @param value the new value of the '<em>Bundle Manifest</em>' containment reference.
+    * @see #getBundleManifest()
+    * @generated
+    */
+   void setBundleManifest(BundleManifest value);
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model kind="operation" required="true"
     * @generated

@@ -12,7 +12,9 @@ import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.common.Annotatable;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Abstract Module</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Abstract Module</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -49,7 +51,8 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractModule#getLayoutId <em>Layout Id</em>}'
     * attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Layout Id</em>' attribute.
     * @see #getLayoutId()
@@ -95,7 +98,8 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
    EList<AbstractFacet> getFacets();
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model required="true" facetTypeRequired="true"
     * @generated
@@ -103,7 +107,8 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
    <T extends AbstractFacet> EList<T> getFacets(Class<T> facetType);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model required="true"
     * @generated
@@ -111,7 +116,8 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
    boolean hasFacets(Class<? extends AbstractFacet> facetType);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model
     * @generated
@@ -119,11 +125,12 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
    <F extends AbstractFacet> F getFacetByName(String type);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model referenceRequired="true" facetTypeRequired="true"
     * @generated
     */
-   <P extends Project, F extends ProjectFacet<P>> P resolveReference(Reference reference, Class<F> facetType);
+   <P extends Project, F extends ProjectFacet<P>> P resolveReference(AbstractReference reference, Class<F> facetType);
 
 } // AbstractModule

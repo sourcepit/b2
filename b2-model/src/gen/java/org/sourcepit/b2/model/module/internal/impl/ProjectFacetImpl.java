@@ -8,13 +8,15 @@ package org.sourcepit.b2.model.module.internal.impl;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
-import org.sourcepit.b2.model.module.Reference;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Project Facet</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Project Facet</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * </p>
  * 
@@ -23,7 +25,8 @@ import org.sourcepit.b2.model.module.Reference;
 public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetImpl implements ProjectFacet<P>
 {
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -33,7 +36,8 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -44,7 +48,8 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -56,7 +61,8 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -68,11 +74,12 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public P resolveReference(Reference reference)
+   public P resolveReference(AbstractReference reference)
    {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT

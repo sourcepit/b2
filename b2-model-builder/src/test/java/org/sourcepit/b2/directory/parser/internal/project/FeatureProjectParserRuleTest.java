@@ -9,8 +9,8 @@ package org.sourcepit.b2.directory.parser.internal.project;
 import java.io.File;
 
 import org.eclipse.emf.common.util.EList;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginInclude;
@@ -35,7 +35,7 @@ public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
       assertTrue(moduleDir.exists());
 
       final FeatureProjectParserRule parserRule = lookupFeatureProjectParserRule();
-      assertNull(parserRule.parse(moduleDir, ConverterUtils.TEST_CONVERTER));
+      assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
    public void testParseFeatureDirectory() throws Exception
@@ -44,7 +44,7 @@ public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
       assertTrue(featureDir.exists());
 
       final FeatureProjectParserRule parserRule = lookupFeatureProjectParserRule();
-      FeatureProject project = parserRule.parse(featureDir, ConverterUtils.TEST_CONVERTER);
+      FeatureProject project = parserRule.parse(featureDir, B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(project);
       assertEquals(featureDir, project.getDirectory());
       assertEquals("example.feature", project.getId());

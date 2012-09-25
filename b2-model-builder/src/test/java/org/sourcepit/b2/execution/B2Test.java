@@ -11,18 +11,20 @@ import java.io.File;
 import javax.inject.Inject;
 
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
+import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
-import org.sourcepit.b2.model.builder.internal.tests.harness.ConverterUtils;
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.test.internal.harness.B2ModelHarness;
-import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class B2Test extends AbstractB2SessionWorkspaceTest
 {
    @Inject
    private B2 b2;
+
+   @Inject
+   private BasicConverter converter;
 
    @Override
    protected String setUpModulePath()
@@ -35,17 +37,16 @@ public class B2Test extends AbstractB2SessionWorkspaceTest
       File moduleDir = getCurrentModuleDir();
       assertTrue(moduleDir.canRead());
 
-      PropertiesMap properties = new LinkedPropertiesMap();
+      PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
       properties.put("b2.skipInterpolator", "true");
       properties.put("b2.skipGenerator", "true");
 
-      IConverter converter = ConverterUtils.newDefaultTestConverter(properties);
-      assertTrue(converter.isSkipInterpolator());
-      assertTrue(converter.isSkipGenerator());
-      
+      assertTrue(converter.isSkipInterpolator(properties));
+      assertTrue(converter.isSkipGenerator(properties));
+
       B2Request request = new B2Request();
       request.setModuleDirectory(moduleDir);
-      request.setConverter(converter);
+      request.setModuleProperties(properties);
       request.setTemplates(new DefaultTemplateCopier());
 
       AbstractModule module = b2.generate(request);

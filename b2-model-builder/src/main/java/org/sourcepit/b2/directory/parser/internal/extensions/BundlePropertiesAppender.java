@@ -11,10 +11,10 @@ import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.builder.util.UIDetector;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 public class BundlePropertiesAppender extends AbstractModuleParserExtender implements IModuleParserExtender
@@ -29,11 +29,11 @@ public class BundlePropertiesAppender extends AbstractModuleParserExtender imple
    }
 
    @Override
-   protected void doExtend(Annotatable modelElement, IConverter converter)
+   protected void doExtend(Annotatable modelElement, PropertiesSource properties)
    {
       final PluginProject pluginProject = (PluginProject) modelElement;
       modelElement.putAnnotationEntry("project.properties", "bundle.symbolicName", pluginProject.getId());
       modelElement.putAnnotationEntry("project.properties", "bundle.requiresUI",
-         Boolean.toString(uiDetector.requiresUI(pluginProject, converter)));
+         Boolean.toString(uiDetector.requiresUI(pluginProject, properties)));
    }
 }

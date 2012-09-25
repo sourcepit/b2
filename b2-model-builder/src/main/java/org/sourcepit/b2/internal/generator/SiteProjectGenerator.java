@@ -11,33 +11,44 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.codehaus.plexus.interpolation.ValueSource;
+import org.codehaus.plexus.interpolation.AbstractValueSource;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
 import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Derivable;
-import org.sourcepit.b2.model.module.Reference;
 import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesUtils;
+import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 
 @Named
 public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant
 {
+   private final SitePropertiesQueryFactory queryFactory;
+
+   @Inject
+   public SiteProjectGenerator(SitePropertiesQueryFactory queryFactory)
+   {
+      this.queryFactory = queryFactory;
+   }
+
    @Override
    public GeneratorType getGeneratorType()
    {
@@ -51,31 +62,50 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
    }
 
    @Override
-   protected void generate(Derivable inputElement, IConverter converter, ITemplates templates)
+   protected void generate(Derivable inputElement, PropertiesSource source, ITemplates templates)
    {
       final SiteProject siteProject = (SiteProject) inputElement;
+
+      final String assemblyName = getAssemblyName(siteProject);
+
+      final String assemblyClassifier = getAssemblyClassifier(siteProject);
+
       final Properties properties = new Properties();
       properties.setProperty("site.id", siteProject.getId());
       properties.setProperty("site.version", siteProject.getVersion());
-      properties.setProperty("site.classifier", siteProject.getClassifier() == null ? "" : siteProject.getClassifier());
+      properties.setProperty("site.classifier", assemblyClassifier == null ? "" : assemblyClassifier);
       insertCategoriesProperty(siteProject, properties);
       templates.copy("site-project", siteProject.getDirectory(), properties);
-      generateProperties(converter, siteProject);
+      generateProperties(source, siteProject, assemblyName, assemblyClassifier);
+   }
+
+   private static String getAssemblyName(SiteProject site)
+   {
+      List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(site);
+      String assemblyName = assemblyNames.isEmpty() ? null : assemblyNames.get(0);
+      return assemblyName == null ? null : assemblyName;
+   }
+
+   public static String getAssemblyClassifier(SiteProject site)
+   {
+      List<String> assemblyClassifiers = B2MetadataUtils.getAssemblyClassifiers(site);
+      String assemblyClassifier = assemblyClassifiers.isEmpty() ? null : assemblyClassifiers.get(0);
+      return assemblyClassifier == null ? null : assemblyClassifier;
    }
 
    private void insertCategoriesProperty(final SiteProject siteProject, final Properties properties)
    {
       final Map<String, Set<String>> fullFeatureIdToCategoriesMap = new HashMap<String, Set<String>>();
-      final Map<String, Reference> fullFeatureIdToRefMap = new HashMap<String, Reference>();
+      final Map<String, AbstractReference> fullFeatureIdToRefMap = new HashMap<String, AbstractReference>();
 
       for (Category category : siteProject.getCategories())
       {
          final String categoryName = category.getName();
 
-         for (Reference featureRef : category.getFeatureReferences())
+         for (AbstractReference featureRef : category.getFeatureReferences())
          {
             final String featureId = featureRef.getId();
-            final String version = featureRef.getVersionRange();
+            final String version = featureRef.getVersion();
 
             final String fully = featureId + "_" + version;
             Set<String> set = fullFeatureIdToCategoriesMap.get(fully);
@@ -93,11 +123,11 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       XMLWriter xml = new PrettyPrintXMLWriter(includes);
       for (Entry<String, Set<String>> entry : fullFeatureIdToCategoriesMap.entrySet())
       {
-         final Reference featureRef = fullFeatureIdToRefMap.get(entry.getKey());
+         final AbstractReference featureRef = fullFeatureIdToRefMap.get(entry.getKey());
          xml.startElement("feature");
          xml.addAttribute("url", "features/" + entry.getKey() + ".jar");
          xml.addAttribute("id", featureRef.getId());
-         xml.addAttribute("version", featureRef.getVersionRange());
+         xml.addAttribute("version", featureRef.getVersion());
          for (String categoryName : entry.getValue())
          {
             xml.startElement("category");
@@ -113,9 +143,9 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
          String propertySpacer = createPropertySpacer(category.getName());
          xml.startElement("category-def");
          xml.addAttribute("name", categoryName);
-         xml.addAttribute("label", "%category" + propertySpacer + "label");
+         xml.addAttribute("label", "%categories" + propertySpacer + "name");
          xml.startElement("description");
-         xml.writeText("%category" + propertySpacer + "description");
+         xml.writeText("%categories" + propertySpacer + "description");
          xml.endElement();
          xml.endElement();
       }
@@ -124,15 +154,17 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       properties.setProperty("site.categories", includes.toString());
    }
 
-   private void generateProperties(IConverter converter, final SiteProject siteProject)
+   private void generateProperties(PropertiesSource properties, final SiteProject siteProject, String assemblyName,
+      String assemblyClassifier)
    {
       final AbstractModule module = siteProject.getParent().getParent();
       final File projectDir = siteProject.getDirectory();
       for (Category category : siteProject.getCategories())
       {
-         final String categoryId = category.getName();
+         final String categoryName = category.getName();
 
-         final Map<String, PropertiesQuery> propertyQueries = createNlsPropertyQueries(converter, categoryId);
+         final Map<String, PropertiesQuery> propertyQueries = queryFactory.createPropertyQueries(properties,
+            assemblyName, assemblyClassifier, categoryName);
 
          for (Locale locale : module.getLocales())
          {
@@ -151,24 +183,48 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
             {
                throw new IllegalStateException(e);
             }
-
-            final Properties tmp = new Properties();
-            insertNlsProperties(propertyQueries, locale, converter.getValueSources(), tmp);
-
+            Properties tmp = new Properties();
+            insertNlsProperties(propertyQueries, locale, properties, tmp);
             final Properties siteProperties = PropertiesUtils.load(propertiesFile);
-            siteProperties.setProperty("category" + createPropertySpacer(categoryId) + "label",
-               tmp.getProperty("category.label", ""));
-            siteProperties.setProperty("category" + createPropertySpacer(categoryId) + "description",
-               tmp.getProperty("category.description", ""));
+
+            String keyLabel = "categories" + createPropertySpacer(categoryName) + "name";
+            siteProperties.setProperty(keyLabel, tmp.getProperty(keyLabel, ""));
+
+            String keyDescription = "categories" + createPropertySpacer(categoryName) + "description";
+            siteProperties.setProperty(keyDescription, tmp.getProperty(keyDescription, ""));
             PropertiesUtils.store(siteProperties, propertiesFile);
          }
       }
    }
 
    private void insertNlsProperties(final Map<String, PropertiesQuery> queries, Locale locale,
-      final Collection<ValueSource> valueSources, final Properties properties)
+      final PropertiesSource properties, final Properties siteProperties)
    {
       final String nlsPrefix = createNlsPrefix(locale);
+
+      StringInterpolator s = new StringInterpolator();
+      s.setEscapeString("\\");
+      s.getValueSources().add(new AbstractValueSource(false)
+      {
+         public Object getValue(String expression)
+         {
+            return properties.get(expression);
+         }
+      });
+      s.getValueSources().add(new AbstractValueSource(false)
+      {
+         public Object getValue(String expression)
+         {
+            PropertiesQuery query = queries.get(expression);
+            if (query != null)
+            {
+               query.setPrefix(nlsPrefix);
+               return query.lookup(properties);
+            }
+            return null;
+         }
+      });
+
 
       for (Entry<String, PropertiesQuery> entry : queries.entrySet())
       {
@@ -177,63 +233,41 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
          query.setPrefix(nlsPrefix);
 
-         if (key.equals("category.label"))
+         String value = s.interpolate(query.lookup(properties));
+
+         // HACK
+         if (key.startsWith("categories.") && key.endsWith(".name"))
          {
-            final PropertiesQuery clsLabelQuery = queries.get("category.classifier.label");
-            clsLabelQuery.setPrefix(nlsPrefix);
+            value = removeRedundantWS(value);
+         }
 
-            String label = query.lookup(valueSources);
-            String clsLabel = clsLabelQuery.lookup(valueSources);
+         siteProperties.setProperty(key, value);
+      }
+   }
 
-            if (clsLabel.length() > 0)
+   private static String removeRedundantWS(String value)
+   {
+      final StringBuilder sb = new StringBuilder(value.length());
+      final char[] chars = value.toCharArray();
+      int ws = 0;
+      for (char c : chars)
+      {
+         boolean isWs = Character.isWhitespace(c);
+         if (isWs)
+         {
+            if (ws == 0)
             {
-               label += " " + clsLabel;
+               sb.append(c);
             }
-            properties.setProperty("category.label", label);
+            ws++;
          }
          else
          {
-            properties.setProperty(key, query.lookup(valueSources));
+            ws = 0;
+            sb.append(c);
          }
       }
-   }
-
-   private Map<String, PropertiesQuery> createNlsPropertyQueries(IConverter converter, final String classifier)
-   {
-      final PropertiesQuery labelQuery = createQuery(classifier, true, "label");
-      labelQuery.addKey("module.name");
-      labelQuery.addKey("project.name");
-      labelQuery.addKey("project.artifactId");
-
-      final PropertiesQuery clsQuery = createQuery(classifier, false, "classifier.label");
-      clsQuery.setDefault(classifier == null ? "" : converter.toClassifierLabel(classifier));
-
-      final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
-      queries.put("category.label", labelQuery);
-      queries.put("category.classifier.label", clsQuery);
-      putQuery(queries, classifier, true, "description");
-      return queries;
-   }
-
-   private PropertiesQuery putQuery(Map<String, PropertiesQuery> queries, String classifier, boolean addDefaultKey,
-      String property)
-   {
-      final PropertiesQuery query = createQuery(classifier, addDefaultKey, property);
-      queries.put("category" + createPropertySpacer(classifier) + property, query);
-      return query;
-   }
-
-   private PropertiesQuery createQuery(String classifier, boolean addDefaultKey, String property)
-   {
-      final PropertiesQuery query = new PropertiesQuery();
-      query.setRetryWithoutPrefix(true);
-      query.addKey("category" + createPropertySpacer(classifier) + property);
-      if (addDefaultKey)
-      {
-         query.addKey("category." + property);
-      }
-      query.setDefault("");
-      return query;
+      return sb.toString().trim();
    }
 
    private String createPropertySpacer(String stringInTheMiddle)

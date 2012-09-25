@@ -9,7 +9,9 @@ package org.sourcepit.b2.model.module;
 import org.sourcepit.b2.model.common.Annotatable;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Project</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * 
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProject()
@@ -19,7 +21,8 @@ import org.sourcepit.b2.model.common.Annotatable;
 public interface Project extends FileContainer, Derivable, Annotatable, Identifiable
 {
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model kind="operation"
     * @generated

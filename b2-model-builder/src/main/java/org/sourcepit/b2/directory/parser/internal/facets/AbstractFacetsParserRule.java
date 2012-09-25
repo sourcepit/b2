@@ -8,13 +8,13 @@ package org.sourcepit.b2.directory.parser.internal.facets;
 
 import java.io.File;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.AbstractFacet;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd
  */
 public abstract class AbstractFacetsParserRule<F extends AbstractFacet>
 {
-   public abstract FacetsParseResult<F> parse(File directory, IConverter converter);
+   public abstract FacetsParseResult<F> parse(File directory, PropertiesSource properties);
 }

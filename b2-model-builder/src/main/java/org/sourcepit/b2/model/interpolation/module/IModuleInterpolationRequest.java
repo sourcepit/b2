@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.model.interpolation.module;
 
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 
 /**
@@ -16,6 +16,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 public interface IModuleInterpolationRequest
 {
    AbstractModule getModule();
+   
+   PropertiesSource getModuleProperties();
 
-   IConverter getConverter();
 }

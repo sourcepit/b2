@@ -11,7 +11,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map.Entry;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -29,15 +28,14 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.ITemplates;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
-import org.sourcepit.common.utils.props.LinkedPropertiesMap;
-import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.props.AbstractPropertiesSource;
+import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.sourcepit.osgify.core.model.context.BundleCandidate;
 import org.sourcepit.osgify.core.model.context.OsgifyContext;
@@ -70,7 +68,8 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator impleme
    }
 
    @Override
-   protected void generate(Annotatable inputElement, boolean skipFacets, IConverter converter, ITemplates templates)
+   protected void generate(Annotatable inputElement, boolean skipFacets, final PropertiesSource properties,
+      ITemplates templates)
    {
       final MavenSession session = legacySupport.getSession();
       final MavenProject project = session.getCurrentProject();
@@ -94,17 +93,13 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator impleme
          final List<ArtifactRepository> remoteRepositories = project.getRemoteArtifactRepositories();
          final ArtifactRepository localRepository = session.getLocalRepository();
 
-         final PropertiesMap properties = converter.getProperties();
-
-         final PropertiesMap options = new LinkedPropertiesMap();
-         for (Entry<String, String> entry : properties.entrySet())
+         final PropertiesSource options = new AbstractPropertiesSource()
          {
-            String key = entry.getKey();
-            if (key.startsWith("b2.osgify."))
+            public String get(String key)
             {
-               options.put(key.substring("b2.osgify.".length()), entry.getValue());
+               return properties.get("b2.osgify." + key);
             }
-         }
+         };
 
          final OsgifyContext osgifyContext = updateSiteGenerator.generateUpdateSite(siteDir, dependencies,
             remoteRepositories, localRepository, repositoryName, options);

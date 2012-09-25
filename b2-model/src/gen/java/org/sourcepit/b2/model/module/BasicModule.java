@@ -8,7 +8,9 @@ package org.sourcepit.b2.model.module;
 
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Basic Module</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Basic Module</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * 
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getBasicModule()

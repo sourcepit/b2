@@ -12,8 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.internal.project.AbstractProjectParserRule;
-import org.sourcepit.b2.model.builder.util.IConverter;
 import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
  * @author Bernd
@@ -24,7 +24,7 @@ public class TestProjectParserRule extends AbstractProjectParserRule<PluginProje
    private AtomicInteger calls = new AtomicInteger();
 
    @Override
-   public PluginProject parse(File directory, IConverter converter)
+   public PluginProject parse(File directory, PropertiesSource properties)
    {
       calls.incrementAndGet();
       return null;

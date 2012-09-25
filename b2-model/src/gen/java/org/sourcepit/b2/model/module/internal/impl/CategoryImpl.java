@@ -19,10 +19,12 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.module.Reference;
+import org.sourcepit.b2.model.module.StrictReference;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Category</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Category</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -38,17 +40,19 @@ public class CategoryImpl extends EObjectImpl implements Category
 {
    /**
     * The cached value of the '{@link #getFeatureReferences() <em>Feature References</em>}' containment reference list.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getFeatureReferences()
     * @generated
     * @ordered
     */
-   protected EList<Reference> featureReferences;
+   protected EList<StrictReference> featureReferences;
 
    /**
-    * The default value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
+    * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getName()
     * @generated
@@ -57,8 +61,9 @@ public class CategoryImpl extends EObjectImpl implements Category
    protected static final String NAME_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getName() <em>Name</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
+    * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getName()
     * @generated
@@ -67,7 +72,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    protected String name = NAME_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -77,7 +83,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -88,22 +95,24 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
-   public EList<Reference> getFeatureReferences()
+   public EList<StrictReference> getFeatureReferences()
    {
       if (featureReferences == null)
       {
-         featureReferences = new EObjectContainmentEList.Resolving<Reference>(Reference.class, this,
+         featureReferences = new EObjectContainmentEList.Resolving<StrictReference>(StrictReference.class, this,
             ModuleModelPackage.CATEGORY__FEATURE_REFERENCES);
       }
       return featureReferences;
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -113,7 +122,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -126,7 +136,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -142,7 +153,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -160,7 +172,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -172,7 +185,7 @@ public class CategoryImpl extends EObjectImpl implements Category
       {
          case ModuleModelPackage.CATEGORY__FEATURE_REFERENCES :
             getFeatureReferences().clear();
-            getFeatureReferences().addAll((Collection<? extends Reference>) newValue);
+            getFeatureReferences().addAll((Collection<? extends StrictReference>) newValue);
             return;
          case ModuleModelPackage.CATEGORY__NAME :
             setName((String) newValue);
@@ -182,7 +195,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -202,7 +216,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -220,7 +235,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

@@ -11,8 +11,9 @@ import java.io.File;
 import org.sourcepit.b2.model.common.Annotatable;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Product Definition</b></em>'. <!-- end-user-doc
- * -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Product Definition</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -30,9 +31,10 @@ import org.sourcepit.b2.model.common.Annotatable;
 public interface ProductDefinition extends Annotatable, Derivable
 {
    /**
-    * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.ProductsFacet#getProductDefinitions <em>Product Definitions</em>}'. <!--
-    * begin-user-doc -->
+    * Returns the value of the '<em><b>Parent</b></em>' container reference.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.ProductsFacet#getProductDefinitions
+    * <em>Product Definitions</em>}'.
+    * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
@@ -51,7 +53,8 @@ public interface ProductDefinition extends Annotatable, Derivable
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}'
     * container reference.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -77,7 +80,8 @@ public interface ProductDefinition extends Annotatable, Derivable
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getFile <em>File</em>}' attribute.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>File</em>' attribute.
     * @see #getFile()
@@ -95,22 +99,23 @@ public interface ProductDefinition extends Annotatable, Derivable
     * <!-- end-user-doc -->
     * 
     * @return the value of the '<em>Product Plugin</em>' containment reference.
-    * @see #setProductPlugin(Reference)
+    * @see #setProductPlugin(StrictReference)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProductDefinition_ProductPlugin()
     * @model containment="true" resolveProxies="true" required="true"
     * @generated
     */
-   Reference getProductPlugin();
+   StrictReference getProductPlugin();
 
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getProductPlugin
     * <em>Product Plugin</em>}' containment reference.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Product Plugin</em>' containment reference.
     * @see #getProductPlugin()
     * @generated
     */
-   void setProductPlugin(Reference value);
+   void setProductPlugin(StrictReference value);
 
 } // ProductDefinition

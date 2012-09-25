@@ -8,12 +8,14 @@ package org.sourcepit.b2.model.module;
 
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Feature Include</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Feature Include</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.FeatureInclude#getParent <em>Parent</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.FeatureInclude#isOptional <em>Optional</em>}</li>
  * </ul>
  * </p>
  * 
@@ -21,36 +23,35 @@ package org.sourcepit.b2.model.module;
  * @model
  * @generated
  */
-public interface FeatureInclude extends Reference
+public interface FeatureInclude extends AbstractStrictReference
 {
    /**
-    * Returns the value of the '<em><b>Parent</b></em>' container reference. It is bidirectional and its opposite is '
-    * {@link org.sourcepit.b2.model.module.FeatureProject#getIncludedFeatures <em>Included Features</em>}'. <!--
-    * begin-user-doc -->
+    * Returns the value of the '<em><b>Optional</b></em>' attribute.
+    * <!-- begin-user-doc -->
     * <p>
-    * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
-    * description here...
+    * If the meaning of the '<em>Optional</em>' attribute isn't clear, there really should be more of a description
+    * here...
     * </p>
     * <!-- end-user-doc -->
     * 
-    * @return the value of the '<em>Parent</em>' container reference.
-    * @see #setParent(FeatureProject)
-    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getFeatureInclude_Parent()
-    * @see org.sourcepit.b2.model.module.FeatureProject#getIncludedFeatures
-    * @model opposite="includedFeatures" required="true" transient="false"
+    * @return the value of the '<em>Optional</em>' attribute.
+    * @see #setOptional(boolean)
+    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getFeatureInclude_Optional()
+    * @model
     * @generated
     */
-   FeatureProject getParent();
+   boolean isOptional();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.FeatureInclude#getParent <em>Parent</em>}' container
-    * reference.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.FeatureInclude#isOptional <em>Optional</em>}'
+    * attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
-    * @param value the new value of the '<em>Parent</em>' container reference.
-    * @see #getParent()
+    * @param value the new value of the '<em>Optional</em>' attribute.
+    * @see #isOptional()
     * @generated
     */
-   void setParent(FeatureProject value);
+   void setOptional(boolean value);
 
 } // FeatureInclude

@@ -7,11 +7,14 @@
 package org.sourcepit.b2.model.builder.util;
 
 import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 
 public interface ISourceService
 {
-   boolean isSourceBuildEnabled(PluginProject pluginProject, IConverter converter);
-
+   boolean isSourceBuildEnabled(PropertiesSource moduleProperties);
+   
+   boolean isSourceBuildEnabled(PluginProject pluginProject, PropertiesSource moduleProperties);
+   
    boolean hasSource(PluginProject pluginProject);
 }

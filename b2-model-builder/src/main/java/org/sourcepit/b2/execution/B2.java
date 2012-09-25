@@ -15,7 +15,7 @@ import org.sourcepit.b2.internal.cleaner.IFileService;
 import org.sourcepit.b2.internal.generator.B2GenerationRequest;
 import org.sourcepit.b2.internal.generator.B2Generator;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
-import org.sourcepit.b2.model.builder.util.IConverter;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
 
 @Named
@@ -32,15 +32,17 @@ public class B2
 
    @Inject
    private List<IB2Listener> listeners;
-   
+
+   @Inject
+   private BasicConverter converter;
+
    public AbstractModule generate(B2Request request)
    {
       fileService.clean(request.getModuleDirectory());
 
       final AbstractModule module = modelBuilder.build(request);
 
-      final IConverter converter = request.getConverter();
-      if (!converter.isSkipGenerator())
+      if (!converter.isSkipGenerator(request.getModuleProperties()))
       {
          for (IB2Listener listener : listeners)
          {
@@ -49,7 +51,7 @@ public class B2
 
          final B2GenerationRequest genRequest = new B2GenerationRequest();
          genRequest.setModule(module);
-         genRequest.setConverter(converter);
+         genRequest.setModuleProperties(request.getModuleProperties());
          genRequest.setTemplates(request.getTemplates());
 
          generator.generate(genRequest);

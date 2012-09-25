@@ -9,7 +9,9 @@ package org.sourcepit.b2.model.module;
 import org.eclipse.emf.common.util.EList;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Project Facet</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Project Facet</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * 
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProjectFacet()
@@ -19,7 +21,8 @@ import org.eclipse.emf.common.util.EList;
 public interface ProjectFacet<P extends Project> extends AbstractFacet
 {
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model kind="operation" required="true" many="false"
     * @generated
@@ -27,7 +30,8 @@ public interface ProjectFacet<P extends Project> extends AbstractFacet
    EList<P> getProjects();
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model
     * @generated
@@ -35,11 +39,12 @@ public interface ProjectFacet<P extends Project> extends AbstractFacet
    P getProjectById(String name);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model referenceRequired="true"
     * @generated
     */
-   P resolveReference(Reference reference);
+   P resolveReference(AbstractReference reference);
 
 } // ProjectFacet

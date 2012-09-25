@@ -29,9 +29,9 @@ import org.apache.maven.repository.RepositorySystem;
 import org.apache.maven.repository.internal.MavenRepositorySystemSession;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils.AbstractDescriptorResolutionStrategy;
-import org.sourcepit.b2.common.internal.utils.DescriptorUtils.IDescriptorResolutionStrategy;
+import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils;
+import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescriptorResolutionStrategy;
+import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractPlexusWorkspaceTest;
 
 public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWorkspaceTest

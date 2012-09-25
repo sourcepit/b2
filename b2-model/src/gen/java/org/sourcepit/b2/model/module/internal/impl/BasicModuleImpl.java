@@ -11,7 +11,9 @@ import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Basic Module</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Basic Module</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * </p>
  * 
@@ -20,7 +22,8 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
 public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
 {
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -30,7 +33,8 @@ public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

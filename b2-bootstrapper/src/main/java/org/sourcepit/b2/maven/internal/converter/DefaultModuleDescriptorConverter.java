@@ -19,8 +19,8 @@ import org.apache.maven.model.io.ModelParseException;
 import org.apache.maven.model.io.ModelReader;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
-import org.sourcepit.b2.common.internal.utils.NlsUtils;
-import org.sourcepit.b2.common.internal.utils.PathUtils;
+import org.sourcepit.common.utils.nls.NlsUtils;
+import org.sourcepit.common.utils.path.PathUtils;
 
 @Component(role = IModuleDescriptorConverter.class, hint = "module.xml")
 public class DefaultModuleDescriptorConverter implements IModuleDescriptorConverter
