@@ -13,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,23 +36,34 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
       int err = build(moduleDir, "-e", "-B", "clean", "package", "-P", "!p2-repo");
       assertThat(err, is(0));
 
-      final File pomDepsSiteDir = new File(moduleDir, ".b2/pom-dependencies");
+      final File pomDepsSiteDir = new File(moduleDir, ".b2/maven-dependencies");
       assertTrue(pomDepsSiteDir.exists());
 
       final File[] bundles = new File(pomDepsSiteDir, "plugins").listFiles();
-      assertEquals(2, bundles.length);
-      assertEquals("javax.activation_1.1.0.jar", bundles[0].getName());
-      assertEquals("javax.mail.mail_1.4.2.jar", bundles[1].getName());
+      assertEquals(4, bundles.length);
+
+      final List<String> bundleFileNames = new ArrayList<String>();
+      for (File bundle : bundles)
+      {
+         bundleFileNames.add(bundle.getName());
+      }
+      assertTrue(bundleFileNames.contains("javax.activation_1.1.0.jar"));
+      assertTrue(bundleFileNames.contains("javax.activation.source_1.1.0.jar"));
+      assertTrue(bundleFileNames.contains("javax.mail.mail_1.4.2.jar"));
+      assertTrue(bundleFileNames.contains("javax.mail.mail.source_1.4.2.jar"));
 
       final Model pom = loadMavenModel(moduleDir);
       final List<Repository> repositories = pom.getRepositories();
       assertEquals(1, repositories.size());
-      
+
       assertEquals(0, pom.getDependencies().size());
 
       final Repository repository = repositories.get(0);
       assertEquals("p2", repository.getLayout());
       assertEquals(pomDepsSiteDir.toURL(), new URL(repository.getUrl()));
+
+      List<File> featureDirs = Arrays.asList(new File(moduleDir, ".b2/features").listFiles());
+      assertEquals(5, featureDirs.size());
 
       File[] siteDirs = new File(moduleDir, ".b2/sites").listFiles();
       assertEquals(2, siteDirs.length);
@@ -60,6 +72,12 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
          List<String> bundleNames = Arrays.asList(new File(siteDir, "target/repository/plugins").list());
          assertTrue(bundleNames.contains("javax.activation_1.1.0.jar"));
          assertTrue(bundleNames.contains("javax.mail.mail_1.4.2.jar"));
+
+         if (siteDir.getName().contains(".sdk."))
+         {
+            assertTrue(bundleNames.contains("javax.activation.source_1.1.0.jar"));
+            assertTrue(bundleNames.contains("javax.mail.mail.source_1.4.2.jar"));
+         }
       }
    }
 }

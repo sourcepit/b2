@@ -4,7 +4,6 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -20,14 +19,6 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 @Singleton
 public class DefaultUIDetector implements UIDetector
 {
-   private final BundleManifestReader manifestReader;
-
-   @Inject
-   public DefaultUIDetector(BundleManifestReader manifestReader)
-   {
-      this.manifestReader = manifestReader;
-   }
-
    public boolean requiresUI(PluginProject pluginProject, PropertiesSource properties)
    {
       final PathMatcher matcher = PathMatcher.parsePackagePatterns(properties.get("b2.uiDetector.filter"));
@@ -38,7 +29,7 @@ public class DefaultUIDetector implements UIDetector
          return true;
       }
 
-      final BundleManifest manifest = manifestReader.readManifest(pluginProject);
+      final BundleManifest manifest = pluginProject.getBundleManifest();
 
       final EList<BundleRequirement> bundleRequirements = manifest.getRequireBundle();
       if (bundleRequirements != null)

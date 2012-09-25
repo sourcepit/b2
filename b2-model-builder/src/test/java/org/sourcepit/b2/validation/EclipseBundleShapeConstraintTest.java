@@ -18,8 +18,6 @@ import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.model.builder.util.BundleManifestReader;
-import org.sourcepit.b2.model.builder.util.DefaultBundleManifestReader;
 import org.sourcepit.b2.model.builder.util.DefaultUnpackStrategy;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -44,15 +42,13 @@ public class EclipseBundleShapeConstraintTest
 
    private RecordingLogger logger;
 
-   private BundleManifestReader manifestReader;
 
    @Before
    public void setUp()
    {
-      manifestReader = new DefaultBundleManifestReader();
-      final UnpackStrategy unpackStrategy = new DefaultUnpackStrategy(manifestReader);
+      final UnpackStrategy unpackStrategy = new DefaultUnpackStrategy();
       logger = new RecordingLogger();
-      constraint = new EclipseBundleShapeConstraint(unpackStrategy, manifestReader, logger);
+      constraint = new EclipseBundleShapeConstraint(unpackStrategy, logger);
    }
 
    @Test
@@ -92,7 +88,7 @@ public class EclipseBundleShapeConstraintTest
       assertThat(logger.getMessages().size(), is(1));
       assertEquals("WARN bundle: Missing manifest entry: 'Eclipse-BundleShape: dir'. (quick fix available)", logger
          .getMessages().get(0));
-      manifest = manifestReader.readManifest(pluginProject);
+      manifest = pluginProject.getBundleManifest();
       assertNull(manifest.getHeaderValue("Eclipse-BundleShape"));
 
       logger.getMessages().clear();
@@ -101,7 +97,7 @@ public class EclipseBundleShapeConstraintTest
       assertEquals("WARN bundle: Missing manifest entry: 'Eclipse-BundleShape: dir'. (applied quick fix)", logger
          .getMessages().get(0));
 
-      manifest = manifestReader.readManifest(pluginProject);
+      manifest = pluginProject.getBundleManifest();
       assertEquals("dir", manifest.getHeaderValue("Eclipse-BundleShape"));
    }
 
@@ -111,6 +107,7 @@ public class EclipseBundleShapeConstraintTest
       pluginProject.setId(manifest.getBundleSymbolicName().getSymbolicName());
       pluginProject.setBundleVersion(manifest.getBundleVersion().toString());
       pluginProject.setDirectory(bundleDir);
+      pluginProject.setBundleManifest(manifest);
       return pluginProject;
    }
 
