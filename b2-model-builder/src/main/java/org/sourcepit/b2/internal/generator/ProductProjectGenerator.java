@@ -9,7 +9,6 @@ package org.sourcepit.b2.internal.generator;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -17,7 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.AbstractGenerator;
@@ -32,7 +30,6 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.StrictReference;
-import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -44,9 +41,6 @@ import com.google.common.base.Optional;
 @Named
 public class ProductProjectGenerator extends AbstractGenerator implements IB2GenerationParticipant
 {
-   // @Inject
-   // private IAggregationService aggregationService;
-
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
 
@@ -171,21 +165,6 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          product.appendChild(features);
       }
       return features;
-   }
-
-   private void collectIncludedFeatures(List<FeatureProject> includes, PathMatcher matcher, AbstractModule module)
-   {
-      for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
-      {
-         EList<FeatureProject> projects = featuresFacet.getProjects();
-         for (FeatureProject featureProject : projects)
-         {
-            if (matcher.isMatch(featureProject.getId()))
-            {
-               includes.add(featureProject);
-            }
-         }
-      }
    }
 
    public static String getAssemblyClassifier(String productFileName)
