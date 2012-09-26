@@ -43,6 +43,7 @@
 					<useUIHarness>${bundle.requiresUI}</useUIHarness>
 					<testSuite>${bundle.symbolicName}</testSuite>
 					<testClass>${bundle.symbolicName}.All${testType}Tests</testClass>
+					${bundle.testDependenciesXML}
 				</configuration>
 			</plugin>
 		</plugins>

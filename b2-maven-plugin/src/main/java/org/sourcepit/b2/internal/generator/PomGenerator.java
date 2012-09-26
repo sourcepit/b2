@@ -26,6 +26,7 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
@@ -35,6 +36,7 @@ import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
+import org.sourcepit.b2.model.interpolation.internal.module.DefaultIncludesAndRequirementsResolver;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -43,7 +45,9 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.Project;
+import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
 import org.sourcepit.common.utils.io.IOOperation;
 import org.sourcepit.common.utils.nls.NlsUtils;
@@ -445,6 +449,41 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       Properties p = new Properties();
       p.put("generate.sources", String.valueOf(sourceManager.isSourceBuildEnabled(project, properties)));
 
+      if (project.isTestPlugin())
+      {
+         final List<Dependency> dependencies = new ArrayList<Dependency>();
+         final FeatureProject testFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
+            project.getParent(), false);
+         if (testFeature != null)
+         {
+            for (RuledReference featureReference : testFeature.getRequiredFeatures())
+            {
+               Dependency dependency = toDependency(featureReference);
+               dependency.setType("eclipse-feature");
+               dependencies.add(dependency);
+            }
+
+            for (RuledReference ruledReference : testFeature.getRequiredPlugins())
+            {
+               Dependency dependency = toDependency(ruledReference);
+               dependency.setType("eclipse-plugin");
+               dependencies.add(dependency);
+            }
+         }
+
+         StringBuilder sb = new StringBuilder();
+         if (!dependencies.isEmpty())
+         {
+            sb.append("<dependencies>\n");
+            for (Dependency dependency : dependencies)
+            {
+               appendDependencyNode(sb, dependency);
+            }
+            sb.append("</dependencies>");
+         }
+         p.setProperty("bundle.testDependenciesXML", sb.toString());
+      }
+
       final File pomFile = new File(targetDir, project.isTestPlugin() ? "test-plugin-pom.xml" : "plugin-pom.xml");
       copyPomTemplate(templates, pomFile, p);
 
@@ -486,6 +525,30 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       mergeIntoPomFile(pomFile, defaultModel);
 
       return pomFile;
+   }
+
+   private static void appendDependencyNode(StringBuilder sb, Dependency dependency)
+   {
+      sb.append("<dependency>\n");
+      sb.append("   <artifactId>");
+      sb.append(dependency.getArtifactId());
+      sb.append("</artifactId>\n");
+      sb.append("   <version>");
+      sb.append(dependency.getVersion());
+      sb.append("</version>\n");
+      sb.append("   <type>");
+      sb.append(dependency.getType());
+      sb.append("</type>\n");
+      sb.append("</dependency>");
+   }
+
+   private static Dependency toDependency(RuledReference featureReference)
+   {
+      Dependency dependency = new Dependency();
+      dependency.setArtifactId(featureReference.getId());
+      dependency.setVersion(ReferenceUtils.toVersionRange(featureReference.getVersion(),
+         featureReference.getVersionMatchRule()).toString());
+      return dependency;
    }
 
    private void copyPomTemplate(ITemplates templates, File pomFile)
