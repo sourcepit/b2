@@ -26,7 +26,6 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
-import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
@@ -41,6 +40,7 @@ import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
+import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
@@ -445,51 +445,12 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    protected File generatePluginProject(PluginProject project, PropertiesSource properties, ITemplates templates)
    {
       final File targetDir = project.getDirectory();
-
-      Properties p = new Properties();
-      p.put("generate.sources", String.valueOf(sourceManager.isSourceBuildEnabled(project, properties)));
-
-      if (project.isTestPlugin())
-      {
-         final List<Dependency> dependencies = new ArrayList<Dependency>();
-         final FeatureProject testFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
-            project.getParent(), false);
-         if (testFeature != null)
-         {
-            for (RuledReference featureReference : testFeature.getRequiredFeatures())
-            {
-               Dependency dependency = toDependency(featureReference);
-               dependency.setType("eclipse-feature");
-               dependencies.add(dependency);
-            }
-
-            for (RuledReference ruledReference : testFeature.getRequiredPlugins())
-            {
-               Dependency dependency = toDependency(ruledReference);
-               dependency.setType("eclipse-plugin");
-               dependencies.add(dependency);
-            }
-         }
-
-         StringBuilder sb = new StringBuilder();
-         if (!dependencies.isEmpty())
-         {
-            sb.append("<dependencies>\n");
-            for (Dependency dependency : dependencies)
-            {
-               appendDependencyNode(sb, dependency);
-            }
-            sb.append("</dependencies>");
-         }
-         p.setProperty("bundle.testDependenciesXML", sb.toString());
-      }
-
-      final File pomFile = new File(targetDir, project.isTestPlugin() ? "test-plugin-pom.xml" : "plugin-pom.xml");
-      copyPomTemplate(templates, pomFile, p);
+      
+      final String groupId = basicConverter.getNameSpace(properties);
 
       final Model defaultModel = new Model();
       defaultModel.setModelVersion("4.0.0");
-      defaultModel.setGroupId(basicConverter.getNameSpace(properties));
+      defaultModel.setGroupId(groupId);
       defaultModel.setArtifactId(project.getId());
       defaultModel.setVersion(VersionUtils.toMavenVersion(project.getVersion()));
       if (project.isTestPlugin())
@@ -522,9 +483,81 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          }
       }
 
+      Properties p = new Properties();
+      p.put("generate.sources", String.valueOf(sourceManager.isSourceBuildEnabled(project, properties)));
+
+      if (project.isTestPlugin())
+      {
+         final List<Dependency> pomDependencies = new ArrayList<Dependency>();
+         final List<Dependency> surfireDependencies = new ArrayList<Dependency>();
+         determineTestDependencies(project, groupId, pomDependencies, surfireDependencies);
+
+         final StringBuilder sb = new StringBuilder();
+         if (!surfireDependencies.isEmpty())
+         {
+            for (Dependency dependency : surfireDependencies)
+            {
+               appendDependencyNode(sb, dependency);
+            }
+         }
+
+         p.setProperty("bundle.testDependenciesXML", sb.toString());
+         defaultModel.setDependencies(pomDependencies);
+      }
+
+      final File pomFile = new File(targetDir, project.isTestPlugin() ? "test-plugin-pom.xml" : "plugin-pom.xml");
+      copyPomTemplate(templates, pomFile, p);
+
       mergeIntoPomFile(pomFile, defaultModel);
 
       return pomFile;
+   }
+
+   private static void determineTestDependencies(PluginProject project, final String groupId,
+      final List<Dependency> pomDependencies, final List<Dependency> surfireDependencies)
+   {
+      final FeatureProject testFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
+         project.getParent(), false);
+
+      final AbstractModule module = project.getParent().getParent();
+      if (testFeature != null)
+      {
+         for (RuledReference requiredFeature : testFeature.getRequiredFeatures())
+         {
+            Dependency dependency = toDependency(requiredFeature);
+            dependency.setType("eclipse-feature");
+            surfireDependencies.add(dependency);
+
+            FeatureProject feature = module.resolveReference(requiredFeature, FeaturesFacet.class);
+            if (feature != null)
+            {
+               Dependency d = dependency.clone();
+               d.setVersion(VersionUtils.toMavenVersion(feature.getVersion()));
+               d.setGroupId(groupId);
+               pomDependencies.add(d);
+            }
+         }
+
+         for (RuledReference requiredPlugin : testFeature.getRequiredPlugins())
+         {
+            Dependency dependency = toDependency(requiredPlugin);
+            dependency.setType("eclipse-plugin");
+            surfireDependencies.add(dependency);
+
+            PluginProject plugin = module.resolveReference(requiredPlugin, PluginsFacet.class);
+            if (plugin != null)
+            {
+               Dependency d = dependency.clone();
+               d.setVersion(VersionUtils.toMavenVersion(plugin.getVersion()));
+               d.setGroupId(groupId);
+               if (plugin.isTestPlugin())
+               {
+                  d.setType("eclipse-test-plugin");
+               }
+               pomDependencies.add(d);
+            }
+         }
+      }
    }
 
    private static void appendDependencyNode(StringBuilder sb, Dependency dependency)
