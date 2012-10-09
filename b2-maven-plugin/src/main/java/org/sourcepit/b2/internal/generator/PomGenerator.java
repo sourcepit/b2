@@ -35,19 +35,15 @@ import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
-import org.sourcepit.b2.model.interpolation.internal.module.DefaultIncludesAndRequirementsResolver;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
-import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.Project;
-import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
-import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
 import org.sourcepit.common.utils.io.IOOperation;
 import org.sourcepit.common.utils.nls.NlsUtils;
@@ -445,7 +441,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    protected File generatePluginProject(PluginProject project, PropertiesSource properties, ITemplates templates)
    {
       final File targetDir = project.getDirectory();
-      
+
       final String groupId = basicConverter.getNameSpace(properties);
 
       final Model defaultModel = new Model();
@@ -486,102 +482,12 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       Properties p = new Properties();
       p.put("generate.sources", String.valueOf(sourceManager.isSourceBuildEnabled(project, properties)));
 
-      if (project.isTestPlugin())
-      {
-         final List<Dependency> pomDependencies = new ArrayList<Dependency>();
-         final List<Dependency> surfireDependencies = new ArrayList<Dependency>();
-         determineTestDependencies(project, groupId, pomDependencies, surfireDependencies);
-
-         final StringBuilder sb = new StringBuilder();
-         if (!surfireDependencies.isEmpty())
-         {
-            for (Dependency dependency : surfireDependencies)
-            {
-               appendDependencyNode(sb, dependency);
-            }
-         }
-
-         p.setProperty("bundle.testDependenciesXML", sb.toString());
-         defaultModel.setDependencies(pomDependencies);
-      }
-
       final File pomFile = new File(targetDir, project.isTestPlugin() ? "test-plugin-pom.xml" : "plugin-pom.xml");
       copyPomTemplate(templates, pomFile, p);
 
       mergeIntoPomFile(pomFile, defaultModel);
 
       return pomFile;
-   }
-
-   private static void determineTestDependencies(PluginProject project, final String groupId,
-      final List<Dependency> pomDependencies, final List<Dependency> surfireDependencies)
-   {
-      final FeatureProject testFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
-         project.getParent(), false);
-
-      final AbstractModule module = project.getParent().getParent();
-      if (testFeature != null)
-      {
-         for (RuledReference requiredFeature : testFeature.getRequiredFeatures())
-         {
-            Dependency dependency = toDependency(requiredFeature);
-            dependency.setType("eclipse-feature");
-            surfireDependencies.add(dependency);
-
-            FeatureProject feature = module.resolveReference(requiredFeature, FeaturesFacet.class);
-            if (feature != null)
-            {
-               Dependency d = dependency.clone();
-               d.setVersion(VersionUtils.toMavenVersion(feature.getVersion()));
-               d.setGroupId(groupId);
-               pomDependencies.add(d);
-            }
-         }
-
-         for (RuledReference requiredPlugin : testFeature.getRequiredPlugins())
-         {
-            Dependency dependency = toDependency(requiredPlugin);
-            dependency.setType("eclipse-plugin");
-            surfireDependencies.add(dependency);
-
-            PluginProject plugin = module.resolveReference(requiredPlugin, PluginsFacet.class);
-            if (plugin != null)
-            {
-               Dependency d = dependency.clone();
-               d.setVersion(VersionUtils.toMavenVersion(plugin.getVersion()));
-               d.setGroupId(groupId);
-               if (plugin.isTestPlugin())
-               {
-                  d.setType("eclipse-test-plugin");
-               }
-               pomDependencies.add(d);
-            }
-         }
-      }
-   }
-
-   private static void appendDependencyNode(StringBuilder sb, Dependency dependency)
-   {
-      sb.append("<dependency>\n");
-      sb.append("   <artifactId>");
-      sb.append(dependency.getArtifactId());
-      sb.append("</artifactId>\n");
-      sb.append("   <version>");
-      sb.append(dependency.getVersion());
-      sb.append("</version>\n");
-      sb.append("   <type>");
-      sb.append(dependency.getType());
-      sb.append("</type>\n");
-      sb.append("</dependency>");
-   }
-
-   private static Dependency toDependency(RuledReference featureReference)
-   {
-      Dependency dependency = new Dependency();
-      dependency.setArtifactId(featureReference.getId());
-      dependency.setVersion(ReferenceUtils.toVersionRange(featureReference.getVersion(),
-         featureReference.getVersionMatchRule()).toString());
-      return dependency;
    }
 
    private void copyPomTemplate(ITemplates templates, File pomFile)
