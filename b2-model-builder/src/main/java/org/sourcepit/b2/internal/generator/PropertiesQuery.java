@@ -7,7 +7,6 @@
 package org.sourcepit.b2.internal.generator;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import org.sourcepit.common.utils.props.PropertiesSource;
