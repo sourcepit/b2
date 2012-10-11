@@ -6,14 +6,15 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.sourcepit.b2.internal.generator.MavenModelUtils.addAllUnique;
-import static org.sourcepit.b2.internal.generator.MavenModelUtils.clearChildren;
-import static org.sourcepit.b2.internal.generator.MavenModelUtils.newDependencyNode;
+import static org.sourcepit.common.maven.util.Xpp3Utils.clearChildren;
+import static org.sourcepit.common.maven.util.Xpp3Utils.toDependencyNode;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -113,7 +114,7 @@ public class TestPluginDependenciesGenerator extends AbstractPomGenerator implem
 
             for (Dependency dependency : dependencyList)
             {
-               dependencies.addChild(newDependencyNode(dependency));
+               dependencies.addChild(toDependencyNode(dependency));
             }
          }
       }
@@ -217,5 +218,21 @@ public class TestPluginDependenciesGenerator extends AbstractPomGenerator implem
       dependency.setVersion(ReferenceUtils.toVersionRange(featureReference.getVersion(),
          featureReference.getVersionMatchRule()).toString());
       return dependency;
+   }
+
+   public static void addAllUnique(List<Dependency> dest, List<Dependency> src)
+   {
+      final Set<String> managementKeys = new HashSet<String>();
+      for (Dependency dependency : dest)
+      {
+         managementKeys.add(dependency.getManagementKey());
+      }
+      for (Dependency dependency : src)
+      {
+         if (managementKeys.add(dependency.getManagementKey()))
+         {
+            dest.add(dependency);
+         }
+      }
    }
 }
