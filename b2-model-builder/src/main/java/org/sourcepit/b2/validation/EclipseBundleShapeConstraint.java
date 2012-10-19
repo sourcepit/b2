@@ -84,7 +84,7 @@ public class EclipseBundleShapeConstraint implements ModuleValidationConstraint
       }
    }
 
-   private void save(File pluginDir, final BundleManifest manifest)
+   static void save(File pluginDir, final BundleManifest manifest)
    {
       Resource eResource = manifest.eResource();
       if (eResource == null)
