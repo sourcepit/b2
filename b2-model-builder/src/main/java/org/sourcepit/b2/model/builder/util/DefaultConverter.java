@@ -24,6 +24,8 @@ import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 
+import com.google.common.base.Strings;
+
 @Named
 public class DefaultConverter implements SitesConverter, BasicConverter, FeaturesConverter
 {
@@ -107,28 +109,32 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    public List<FeatureInclude> getIncludedFeaturesForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
       final String key = "includedFeatures";
-      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), b2Key(key));
+      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), assemblyKey(null, key),
+         b2Key(key));
       return toFeatureIncludeList(rawIncludes);
    }
 
    public List<PluginInclude> getIncludedPluginsForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
       final String key = "includedPlugins";
-      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), b2Key(key));
+      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), assemblyKey(null, key),
+         b2Key(key));
       return toPluginIncludeList(rawIncludes);
    }
 
    public List<RuledReference> getRequiredFeaturesForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
       final String key = "requiredFeatures";
-      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), b2Key(key));
+      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), assemblyKey(null, key),
+         b2Key(key));
       return toRuledReferenceList(rawIncludes);
    }
 
    public List<RuledReference> getRequiredPluginsForAssembly(PropertiesSource moduleProperties, String assemblyName)
    {
       final String key = "requiredPlugins";
-      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), b2Key(key));
+      final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), assemblyKey(null, key),
+         b2Key(key));
       return toRuledReferenceList(rawIncludes);
    }
 
@@ -152,7 +158,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       boolean isSource)
    {
       final String key = isSource ? "includedSourceFeatures" : "includedFeatures";
-      final String rawIncludes = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+      final String rawIncludes = get(moduleProperties, facetKey(facetName, key), facetKey(null, key), b2Key(key));
       return toFeatureIncludeList(rawIncludes);
    }
 
@@ -179,7 +185,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       boolean isSource)
    {
       final String key = isSource ? "includedSourcePlugins" : "includedPlugins";
-      final String rawIncludes = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+      final String rawIncludes = get(moduleProperties, facetKey(facetName, key), facetKey(null, key), b2Key(key));
       return toPluginIncludeList(rawIncludes);
    }
 
@@ -206,7 +212,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       boolean isSource)
    {
       final String key = isSource ? "requiredSourceFeatures" : "requiredFeatures";
-      final String requirements = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+      final String requirements = get(moduleProperties, facetKey(facetName, key), facetKey(null, key), b2Key(key));
       return toRuledReferenceList(requirements);
    }
 
@@ -214,7 +220,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       boolean isSource)
    {
       final String key = isSource ? "requiredSourcePlugins" : "requiredPlugins";
-      final String requirements = get(moduleProperties, facetKey(facetName, key), b2Key(key));
+      final String requirements = get(moduleProperties, facetKey(facetName, key), facetKey(null, key), b2Key(key));
       return toRuledReferenceList(requirements);
    }
 
@@ -340,11 +346,19 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
    private static String assemblyKey(String assemblyName, String key)
    {
+      if (Strings.isNullOrEmpty(assemblyName))
+      {
+         return b2Key("assemblies." + key);
+      }
       return b2Key("assemblies." + assemblyName + "." + key);
    }
 
    private static String facetKey(String facetName, String key)
    {
+      if (Strings.isNullOrEmpty(facetName))
+      {
+         return b2Key("facets." + key);
+      }
       return b2Key("facets." + facetName + "." + key);
    }
 

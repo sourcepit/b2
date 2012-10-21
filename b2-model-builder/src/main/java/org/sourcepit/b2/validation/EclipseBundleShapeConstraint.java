@@ -6,16 +6,20 @@
 
 package org.sourcepit.b2.validation;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
+import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -60,14 +64,7 @@ public class EclipseBundleShapeConstraint implements ModuleValidationConstraint
             if (quickFixesEnabled)
             {
                manifest.setHeader("Eclipse-BundleShape", "dir");
-               try
-               {
-                  manifest.eResource().save(null);
-               }
-               catch (IOException e)
-               {
-                  throw Exceptions.pipe(e);
-               }
+               save(pluginProject.getDirectory(), manifest);
             }
 
             final StringBuilder msg = new StringBuilder();
@@ -83,6 +80,40 @@ public class EclipseBundleShapeConstraint implements ModuleValidationConstraint
             }
 
             logger.warn(msg.toString());
+         }
+      }
+   }
+
+   static void save(File pluginDir, final BundleManifest manifest)
+   {
+      Resource eResource = manifest.eResource();
+      if (eResource == null)
+      {
+         final URI uri = URI.createFileURI(new File(pluginDir, "META-INF/MANIFEST.MF").getAbsolutePath());
+         eResource = new BundleManifestResourceImpl(uri);
+         eResource.getContents().add(manifest);
+         try
+         {
+            eResource.save(null);
+         }
+         catch (IOException e)
+         {
+            throw Exceptions.pipe(e);
+         }
+         finally
+         {
+            eResource.getContents().clear();
+         }
+      }
+      else
+      {
+         try
+         {
+            eResource.save(null);
+         }
+         catch (IOException e)
+         {
+            throw Exceptions.pipe(e);
          }
       }
    }
