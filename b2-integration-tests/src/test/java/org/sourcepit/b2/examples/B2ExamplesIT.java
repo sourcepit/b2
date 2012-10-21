@@ -21,7 +21,7 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
    @Override
    protected boolean isDebug(String testName)
    {
-      return true;
+      return false;
    }
 
    @Test
