@@ -33,6 +33,7 @@ import org.sourcepit.b2.internal.maven.ModelContext;
 import org.sourcepit.b2.internal.maven.ModelContextAdapterFactory;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.common.Annotatable;
+import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.internal.module.DefaultIncludesAndRequirementsResolver;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
@@ -171,9 +172,20 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
    private void addPluginRequirements(final List<Dependency> requirements, final PluginProject pluginProject,
       PropertiesSource properties)
    {
-      addModuleRequirements(requirements, pluginProject.isTestPlugin());
-      final String groupId = basicConverter.getNameSpace(properties);
-      determineRequirements(pluginProject, groupId, requirements);
+      final FeatureProject featureProject = findIncludingFeature(pluginProject);
+
+      boolean isTestScope = pluginProject.isTestPlugin();
+      if (!isTestScope && featureProject != null)
+      {
+         isTestScope = B2MetadataUtils.isTestFeature(featureProject);
+      }
+
+      addModuleRequirements(requirements, isTestScope);
+
+      if (featureProject != null)
+      {
+         addFeatureRequirements(requirements, featureProject);
+      }
    }
 
    private void addModuleRequirements(final List<Dependency> requirements, boolean isTestScope)
@@ -235,28 +247,26 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
       }
    }
 
-   private static void determineRequirements(PluginProject project, final String groupId,
-      final List<Dependency> requirements)
+   private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject)
    {
-      final FeatureProject featureProject = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
-         project.getParent(), false);
-
-      if (featureProject != null)
+      for (RuledReference requiredFeature : featureProject.getRequiredFeatures())
       {
-         for (RuledReference requiredFeature : featureProject.getRequiredFeatures())
-         {
-            Dependency requirement = toRequirement(requiredFeature);
-            requirement.setType("eclipse-feature");
-            requirements.add(requirement);
-         }
-
-         for (RuledReference requiredPlugin : featureProject.getRequiredPlugins())
-         {
-            final Dependency requirement = toRequirement(requiredPlugin);
-            requirement.setType("eclipse-plugin");
-            requirements.add(requirement);
-         }
+         Dependency requirement = toRequirement(requiredFeature);
+         requirement.setType("eclipse-feature");
+         requirements.add(requirement);
       }
+
+      for (RuledReference requiredPlugin : featureProject.getRequiredPlugins())
+      {
+         final Dependency requirement = toRequirement(requiredPlugin);
+         requirement.setType("eclipse-plugin");
+         requirements.add(requirement);
+      }
+   }
+
+   private static FeatureProject findIncludingFeature(PluginProject project)
+   {
+      return DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(project.getParent(), false);
    }
 
    private static Dependency toRequirement(RuledReference featureReference)
