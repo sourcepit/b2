@@ -6,9 +6,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.sourcepit.b2.internal.generator.TychoXpp3Utils.readRequirements;
-import static org.sourcepit.b2.internal.generator.TychoXpp3Utils.toRequirementNode;
-import static org.sourcepit.common.maven.util.Xpp3Utils.clearChildren;
+import static org.sourcepit.b2.internal.maven.util.TychoXpp3Utils.addExtraRequirements;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,17 +22,13 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
-import org.apache.maven.plugin.LegacySupport;
-import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.internal.maven.ModelContext;
-import org.sourcepit.b2.internal.maven.ModelContextAdapterFactory;
-import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.internal.module.DefaultIncludesAndRequirementsResolver;
+import org.sourcepit.b2.model.interpolation.internal.module.ResolutionContextResolver;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginProject;
@@ -48,14 +42,22 @@ import com.google.common.collect.SetMultimap;
 @Named
 public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
 {
-   private static final String TARGET_PLATFORM_PLUGIN_KEY = Plugin.constructKey("org.eclipse.tycho",
-      "target-platform-configuration");
+   private static final String TYCHO_VERSION = "${tycho.version}";
+
+   private static final String TARGET_PLATFORM_PLUGIN_ARTIFACT_ID = "target-platform-configuration";
+
+   private static final String TYCHO_GROUP_ID = "org.eclipse.tycho";
+
+   private static final String TARGET_PLATFORM_PLUGIN_KEY = Plugin.constructKey(TYCHO_GROUP_ID,
+      TARGET_PLATFORM_PLUGIN_ARTIFACT_ID);
+
+   private final ResolutionContextResolver contextResolver;
 
    @Inject
-   private BasicConverter basicConverter;
-
-   @Inject
-   private LegacySupport buildContext;
+   public TargetPlatformConfigurationGenerator(ResolutionContextResolver contextResolver)
+   {
+      this.contextResolver = contextResolver;
+   }
 
    @Override
    public GeneratorType getGeneratorType()
@@ -87,69 +89,95 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
          module = pluginProject.getParent().getParent();
       }
 
+      generate(module, pluginProject, properties);
+   }
+
+   private void generate(AbstractModule module, PluginProject pluginProject, PropertiesSource properties)
+   {
+      final List<Dependency> requirements = determineRequirements(module, pluginProject, properties);
+
+      if (!requirements.isEmpty())
+      {
+         final List<Model> hierarchy = new ArrayList<Model>();
+         if (pluginProject != null)
+         {
+            hierarchy.add(readMavenModel(resolvePomFile(pluginProject)));
+         }
+         hierarchy.add(readMavenModel(resolvePomFile(module)));
+
+         final File pomFile = resolvePomFile(pluginProject == null ? module : pluginProject);
+         final Model model = hierarchy.get(0);
+
+         final Plugin targetConfigPlugin = adoptTargetConfigurationPlugin(hierarchy, model);
+
+         addExtraRequirements(targetConfigPlugin, requirements);
+         
+         writeMavenModel(pomFile, model);
+      }
+   }
+
+   static Plugin adoptTargetConfigurationPlugin(List<Model> hierarchy, Model target)
+   {
+      Plugin plugin = null;
+
+      for (Model model : hierarchy)
+      {
+         plugin = getTargetConfigurationPlugin(model);
+         if (plugin != null)
+         {
+            if (!model.equals(target))
+            {
+               plugin = plugin.clone();
+            }
+            break;
+         }
+      }
+
+      if (plugin == null)
+      {
+         plugin = new Plugin();
+         plugin.setGroupId(TYCHO_GROUP_ID);
+         plugin.setArtifactId(TARGET_PLATFORM_PLUGIN_ARTIFACT_ID);
+         plugin.setVersion(TYCHO_VERSION);
+      }
+
+      Build build = target.getBuild();
+      if (build == null)
+      {
+         build = new Build();
+         target.setBuild(build);
+      }
+
+      final List<Plugin> plugins = build.getPlugins();
+      if (!plugins.contains(plugin))
+      {
+         plugins.add(plugin);
+         target.getBuild().flushPluginMap();
+      }
+
+      return plugin;
+   }
+
+   private List<Dependency> determineRequirements(AbstractModule module, PluginProject pluginProject,
+      PropertiesSource properties)
+   {
       final List<Dependency> requirements = new ArrayList<Dependency>();
       if (pluginProject == null)
       {
-         addModuleRequirements(requirements, false);
+         addModuleRequirements(requirements, module, false);
       }
       else
       {
-         addPluginRequirements(requirements, pluginProject, properties);
+         addPluginRequirements(requirements, module, pluginProject, properties);
 
          final List<Dependency> defaultRequirements = new ArrayList<Dependency>();
-         addModuleRequirements(defaultRequirements, false);
+         addModuleRequirements(defaultRequirements, module, false);
          if (isEqual(requirements, defaultRequirements))
          {
             requirements.clear();
          }
       }
-
-      if (!requirements.isEmpty())
-      {
-         final File pomFile = resolvePomFile(inputElement);
-         final Model model = readMavenModel(pomFile);
-
-         final Model moduleModel = readMavenModel(resolvePomFile(module));
-
-         Plugin targetConfigPlugin = getTargetConfigurationPlugin(model);
-         if (targetConfigPlugin == null)
-         {
-            final Plugin superPlugin = getTargetConfigurationPlugin(moduleModel);
-            if (superPlugin != null)
-            {
-               targetConfigPlugin = superPlugin.clone();
-
-               Build build = model.getBuild();
-               if (build == null)
-               {
-                  build = new Build();
-                  model.setBuild(build);
-               }
-               build.getPlugins().add(targetConfigPlugin);
-            }
-         }
-
-         if (targetConfigPlugin == null)
-         {
-            targetConfigPlugin = new Plugin();
-            targetConfigPlugin.setGroupId("org.eclipse.tycho");
-            targetConfigPlugin.setArtifactId("target-platform-configuration");
-            targetConfigPlugin.setVersion("${tycho.version}");
-
-            Build build = model.getBuild();
-            if (build == null)
-            {
-               build = new Build();
-               model.setBuild(build);
-            }
-            build.getPlugins().add(targetConfigPlugin);
-         }
-
-         model.getBuild().flushPluginMap();
-
-         addExtraRequirements(targetConfigPlugin, requirements);
-         writeMavenModel(pomFile, model);
-      }
+      return requirements;
    }
 
    private boolean isEqual(final List<Dependency> requirements, final List<Dependency> defaultRequirements)
@@ -169,8 +197,8 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
       return keys1.equals(keys2);
    }
 
-   private void addPluginRequirements(final List<Dependency> requirements, final PluginProject pluginProject,
-      PropertiesSource properties)
+   private void addPluginRequirements(final List<Dependency> requirements, AbstractModule module,
+      PluginProject pluginProject, PropertiesSource properties)
    {
       final FeatureProject featureProject = findIncludingFeature(pluginProject);
 
@@ -180,7 +208,7 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
          isTestScope = B2MetadataUtils.isTestFeature(featureProject);
       }
 
-      addModuleRequirements(requirements, isTestScope);
+      addModuleRequirements(requirements, module, isTestScope);
 
       if (featureProject != null)
       {
@@ -188,12 +216,10 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
       }
    }
 
-   private void addModuleRequirements(final List<Dependency> requirements, boolean isTestScope)
+   private void addModuleRequirements(final List<Dependency> requirements, AbstractModule module, boolean isTestScope)
    {
-      final ModelContext modelContext = ModelContextAdapterFactory.get(buildContext.getSession().getCurrentProject());
-      final SetMultimap<AbstractModule, FeatureProject> scope = isTestScope
-         ? modelContext.getTestScope()
-         : modelContext.getMainScope();
+      final SetMultimap<AbstractModule, FeatureProject> scope = contextResolver.resolveResolutionContext(module,
+         isTestScope);
 
       for (FeatureProject featureProject : scope.values())
       {
@@ -207,44 +233,10 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
       }
    }
 
-   private Plugin getTargetConfigurationPlugin(Model model)
+   private static Plugin getTargetConfigurationPlugin(Model model)
    {
       final Build build = model.getBuild();
       return build == null ? null : build.getPluginsAsMap().get(TARGET_PLATFORM_PLUGIN_KEY);
-   }
-
-   private void addExtraRequirements(Plugin plugin, List<Dependency> requirements)
-   {
-      Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
-      if (configuration == null)
-      {
-         configuration = new Xpp3Dom("configuration");
-         plugin.setConfiguration(configuration);
-      }
-
-      Xpp3Dom dependencyResolution = configuration.getChild("dependency-resolution");
-      if (dependencyResolution == null)
-      {
-         dependencyResolution = new Xpp3Dom("dependency-resolution");
-         configuration.addChild(dependencyResolution);
-      }
-
-      Xpp3Dom extraRequirements = dependencyResolution.getChild("extraRequirements");
-      if (extraRequirements == null)
-      {
-         extraRequirements = new Xpp3Dom("extraRequirements");
-         dependencyResolution.addChild(extraRequirements);
-      }
-
-      final List<Dependency> dependencyList = readRequirements(extraRequirements);
-      addAllUnique(dependencyList, requirements);
-
-      clearChildren(extraRequirements);
-
-      for (Dependency dependency : dependencyList)
-      {
-         extraRequirements.addChild(toRequirementNode(dependency));
-      }
    }
 
    private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject)
@@ -278,19 +270,5 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
       return dependency;
    }
 
-   private static void addAllUnique(List<Dependency> dest, List<Dependency> src)
-   {
-      final Set<String> managementKeys = new HashSet<String>();
-      for (Dependency dependency : dest)
-      {
-         managementKeys.add(dependency.getManagementKey());
-      }
-      for (Dependency dependency : src)
-      {
-         if (managementKeys.add(dependency.getManagementKey()))
-         {
-            dest.add(dependency);
-         }
-      }
-   }
+
 }

@@ -13,5 +13,5 @@ import com.google.common.collect.SetMultimap;
 
 public interface ResolutionContextResolver
 {
-   SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, FeatureProject resolutionTarget);
+   SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest);
 }

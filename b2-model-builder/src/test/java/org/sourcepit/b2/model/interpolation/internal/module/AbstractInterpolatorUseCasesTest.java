@@ -212,7 +212,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
       moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**"); // should be
-                                                                                                       // default?
+                                                                                                  // default?
       moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**"); // should be default?
       moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
@@ -238,7 +238,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
       moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**"); // should be
-                                                                                                       // default?
+                                                                                                  // default?
       moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**"); // should be default?
       moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
@@ -868,7 +868,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {
          public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
-            FeatureProject resolutionTarget)
+            boolean scopeTest)
          {
             final SetMultimap<AbstractModule, FeatureProject> moduleToAssemblies = LinkedHashMultimap.create();
             final Collection<AbstractModule> modules = resolutionContext.get();
