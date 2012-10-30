@@ -12,6 +12,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initModuleDir;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,13 +22,11 @@ import java.util.List;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
-import org.apache.maven.model.io.DefaultModelWriter;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Rule;
 import org.junit.Test;
 import org.sourcepit.b2.model.interpolation.internal.module.EmptyResolutionContextResolver;
 import org.sourcepit.b2.model.module.BasicModule;
-import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
@@ -68,35 +67,15 @@ public class TargetPlatformConfigurationGeneratorTest
       final File moduleDir = ws.getRoot();
       final String testName = moduleDir.getName();
       String artifactId = testName;
-      final BasicModule module = createBasicModule(moduleDir, "org.sourcepit", artifactId, "1.0.0-SNAPSHOT");
+      
+      final BasicModule module = initModuleDir(moduleDir, "org.sourcepit", artifactId, "1.0.0-SNAPSHOT");
 
       TargetPlatformConfigurationGenerator generator = new TargetPlatformConfigurationGenerator(
          new EmptyResolutionContextResolver());
 
       generator.generate(module, new LinkedPropertiesMap(), null);
-      
+
       assertFalse(new File(moduleDir, "pom.xml").exists());
-   }
-
-   private BasicModule createBasicModule(final File moduleDir, String groupId, String artifactId, String version)
-      throws IOException
-   {
-      Model model = new Model();
-      model.setVersion("4.0.0");
-      model.setGroupId(groupId);
-      model.setArtifactId(artifactId);
-      model.setVersion(version);
-
-      new DefaultModelWriter().write(new File(moduleDir, "module.xml"), null, model);
-
-      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
-      final BasicModule module = eFactory.createBasicModule();
-      module.setId(artifactId);
-      module.setVersion(VersionUtils.toBundleVersion(version));
-      module.setLayoutId("structured");
-      module.setDirectory(moduleDir);
-
-      return module;
    }
 
    @Test
@@ -118,7 +97,7 @@ public class TargetPlatformConfigurationGeneratorTest
       assertEquals("${tycho.version}", plugin.getVersion());
       assertNull(plugin.getConfiguration());
    }
-   
+
    @Test
    public void testAdoptTargetConfigurationPlugin_UseExisting() throws Exception
    {
@@ -131,7 +110,7 @@ public class TargetPlatformConfigurationGeneratorTest
       origin.setConfiguration(new Xpp3Dom("configuration"));
       hierarchy.get(0).setBuild(new Build());
       hierarchy.get(0).getBuild().getPlugins().add(origin);
-      
+
       final Model target = hierarchy.get(0);
 
       Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy, target);
@@ -160,7 +139,7 @@ public class TargetPlatformConfigurationGeneratorTest
       origin.setConfiguration(new Xpp3Dom("configuration"));
       hierarchy.get(1).setBuild(new Build());
       hierarchy.get(1).getBuild().getPlugins().add(origin);
-      
+
       final Model target = hierarchy.get(0);
 
       Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy, target);

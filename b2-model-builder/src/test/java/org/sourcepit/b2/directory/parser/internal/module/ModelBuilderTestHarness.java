@@ -11,10 +11,14 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.DefaultModelWriter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
+import org.sourcepit.b2.model.module.BasicModule;
+import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
@@ -76,12 +80,39 @@ public final class ModelBuilderTestHarness
    {
       new File(moduleDir, "module.xml").createNewFile();
    }
+   
+   public static BasicModule initModuleDir(final File moduleDir, String groupId, String artifactId, String mavenVersion)
+      throws IOException
+   {
+      Model model = new Model();
+      model.setVersion("4.0.0");
+      model.setGroupId(groupId);
+      model.setArtifactId(artifactId);
+      model.setVersion(mavenVersion);
+
+      new DefaultModelWriter().write(new File(moduleDir, "module.xml"), null, model);
+
+      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
+      final BasicModule module = eFactory.createBasicModule();
+      module.setId(artifactId);
+      module.setVersion(mavenVersion.replaceAll("-SNAPSHOT", ".qualifier"));
+      module.setLayoutId("structured");
+      module.setDirectory(moduleDir);
+
+      return module;
+   }
 
    public static void initPluginDir(File pluginDir) throws IOException
    {
+      final String bundleVersion = "1.0.0.qualifier";
+      initPluginDir(pluginDir, bundleVersion);
+   }
+
+   public static void initPluginDir(File pluginDir, final String bundleVersion) throws IOException
+   {
       final BundleManifest mf = BundleManifestFactory.eINSTANCE.createBundleManifest();
       mf.setBundleSymbolicName(pluginDir.getName());
-      mf.setBundleVersion("1.0.0.qualifier");
+      mf.setBundleVersion(bundleVersion);
 
       final URI uri = URI.createFileURI(new File(pluginDir, "META-INF/MANIFEST.MF").getAbsolutePath());
       final Resource resource = new BundleManifestResourceImpl(uri);
