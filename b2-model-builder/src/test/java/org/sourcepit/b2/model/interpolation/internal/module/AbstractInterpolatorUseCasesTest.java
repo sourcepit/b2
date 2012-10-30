@@ -7,9 +7,9 @@
 package org.sourcepit.b2.model.interpolation.internal.module;
 
 import static org.mockito.Mockito.mock;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.addPluginProject;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createBasicModule;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createCompositeModule;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.addPluginProject;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createCompositeModule;
 
 import java.io.File;
 import java.util.ArrayList;
