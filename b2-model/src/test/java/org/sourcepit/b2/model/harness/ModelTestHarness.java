@@ -4,7 +4,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.sourcepit.b2.model.builder.harness;
+package org.sourcepit.b2.model.harness;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,9 +24,9 @@ import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 
-public final class ModelBuilderHarness
+public final class ModelTestHarness
 {
-   private ModelBuilderHarness()
+   private ModelTestHarness()
    {
       super();
    }

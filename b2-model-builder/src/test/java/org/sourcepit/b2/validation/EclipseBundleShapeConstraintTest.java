@@ -117,5 +117,7 @@ public class EclipseBundleShapeConstraintTest
       final ManifestResource manifestResource = new BundleManifestResourceImpl(manifestUri);
       manifestResource.getContents().add(manifest);
       manifestResource.save(null);
+      // dont rely on that manifest is connected to any resource
+      manifestResource.getContents().clear();
    }
 }

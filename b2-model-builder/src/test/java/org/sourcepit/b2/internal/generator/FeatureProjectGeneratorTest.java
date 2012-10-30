@@ -8,8 +8,8 @@ package org.sourcepit.b2.internal.generator;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.addFeatureProject;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createBasicModule;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.addFeatureProject;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyClassifier;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyName;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.setFacetClassifier;
