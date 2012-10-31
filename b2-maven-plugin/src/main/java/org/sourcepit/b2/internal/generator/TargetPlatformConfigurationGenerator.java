@@ -106,18 +106,20 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
          hierarchy.add(readMavenModel(resolvePomFile(module)));
 
          final File pomFile = resolvePomFile(pluginProject == null ? module : pluginProject);
-         final Model model = hierarchy.get(0);
 
-         final Plugin targetConfigPlugin = adoptTargetConfigurationPlugin(hierarchy, model);
+         final Plugin targetConfigPlugin = adoptTargetConfigurationPlugin(hierarchy);
 
          addExtraRequirements(targetConfigPlugin, requirements);
          
+         final Model model = hierarchy.get(0);
          writeMavenModel(pomFile, model);
       }
    }
 
-   static Plugin adoptTargetConfigurationPlugin(List<Model> hierarchy, Model target)
+   static Plugin adoptTargetConfigurationPlugin(List<Model> hierarchy)
    {
+      final Model target = hierarchy.get(0);
+      
       Plugin plugin = null;
 
       for (Model model : hierarchy)

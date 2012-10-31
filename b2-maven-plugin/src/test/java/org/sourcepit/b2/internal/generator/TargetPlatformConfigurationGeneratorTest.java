@@ -67,7 +67,7 @@ public class TargetPlatformConfigurationGeneratorTest
       final File moduleDir = ws.getRoot();
       final String testName = moduleDir.getName();
       String artifactId = testName;
-      
+
       final BasicModule module = initModuleDir(moduleDir, "org.sourcepit", artifactId, "1.0.0-SNAPSHOT");
 
       TargetPlatformConfigurationGenerator generator = new TargetPlatformConfigurationGenerator(
@@ -86,7 +86,7 @@ public class TargetPlatformConfigurationGeneratorTest
 
       final Model target = hierarchy.get(0);
 
-      Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy, target);
+      Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy);
       assertNotNull(plugin);
 
       assertEquals(1, target.getBuild().getPlugins().size());
@@ -113,7 +113,7 @@ public class TargetPlatformConfigurationGeneratorTest
 
       final Model target = hierarchy.get(0);
 
-      Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy, target);
+      Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy);
       assertNotNull(plugin);
 
       assertEquals(1, target.getBuild().getPlugins().size());
@@ -131,27 +131,27 @@ public class TargetPlatformConfigurationGeneratorTest
    public void testAdoptTargetConfigurationPlugin_ReuseFromParent() throws Exception
    {
       final List<Model> hierarchy = new ArrayList<Model>();
-      hierarchy.add(new Model());
-      hierarchy.add(new Model());
+      hierarchy.add(new Model()); // plug-ins model
+      hierarchy.add(new Model()); // modules model
 
-      Plugin origin = MavenModelUtils.createPlugin("org.eclipse.tycho", "target-platform-configuration",
+      Plugin moduleTPC = MavenModelUtils.createPlugin("org.eclipse.tycho", "target-platform-configuration",
          "${tycho.version}");
-      origin.setConfiguration(new Xpp3Dom("configuration"));
+      moduleTPC.setConfiguration(new Xpp3Dom("configuration"));
       hierarchy.get(1).setBuild(new Build());
-      hierarchy.get(1).getBuild().getPlugins().add(origin);
+      hierarchy.get(1).getBuild().getPlugins().add(moduleTPC);
 
-      final Model target = hierarchy.get(0);
+      final Model pluginModel = hierarchy.get(0);
 
-      Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy, target);
-      assertNotNull(plugin);
+      Plugin pluginTPC = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy);
+      assertNotNull(pluginTPC);
 
-      assertEquals(1, target.getBuild().getPlugins().size());
-      assertEquals(plugin, target.getBuild().getPlugins().get(0));
+      assertEquals(1, pluginModel.getBuild().getPlugins().size());
+      assertEquals(pluginTPC, pluginModel.getBuild().getPlugins().get(0));
 
-      assertEquals("org.eclipse.tycho", plugin.getGroupId());
-      assertEquals("target-platform-configuration", plugin.getArtifactId());
-      assertEquals("${tycho.version}", plugin.getVersion());
-      assertNotNull(plugin.getConfiguration());
-      assertNotSame(origin, plugin);
+      assertEquals("org.eclipse.tycho", pluginTPC.getGroupId());
+      assertEquals("target-platform-configuration", pluginTPC.getArtifactId());
+      assertEquals("${tycho.version}", pluginTPC.getVersion());
+      assertNotNull(pluginTPC.getConfiguration());
+      assertNotSame(moduleTPC, pluginTPC);
    }
 }

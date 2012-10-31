@@ -23,12 +23,15 @@ import org.apache.maven.project.DependencyResolutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectDependenciesResolver;
 import org.sonatype.aether.artifact.Artifact;
+import org.sonatype.aether.collection.DependencyCollectionContext;
 import org.sonatype.aether.collection.DependencySelector;
 import org.sonatype.aether.graph.Dependency;
 import org.sonatype.aether.graph.DependencyFilter;
 import org.sonatype.aether.graph.DependencyNode;
 import org.sonatype.aether.util.FilterRepositorySystemSession;
+import org.sonatype.aether.util.artifact.ArtifactProperties;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
+import org.sonatype.aether.util.graph.selector.AndDependencySelector;
 import org.sonatype.aether.util.graph.selector.ScopeDependencySelector;
 import org.sourcepit.common.maven.model.MavenArtifact;
 import org.sourcepit.common.maven.model.util.MavenModelUtils;
@@ -101,6 +104,7 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
          }
       };
 
+      final DependencySelector dependencySelector = createDependencySelector(scope);
 
       final FilterRepositorySystemSession systemSession = new FilterRepositorySystemSession(
          session.getRepositorySession())
@@ -108,7 +112,7 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
          @Override
          public DependencySelector getDependencySelector()
          {
-            return new ScopeDependencySelector(null, negate(Collections.singleton(scope)));
+            return dependencySelector;
          }
       };
 
@@ -134,7 +138,30 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
       return artifactToClassifiers;
    }
 
-   private Collection<String> negate(Collection<String> scopes)
+   private static DependencySelector createDependencySelector(final String scope)
+   {
+      final DependencySelector moduleDependencySelector = new DependencySelector()
+      {
+         public boolean selectDependency(Dependency dependency)
+         {
+            final Artifact artifact = dependency.getArtifact();
+            final String type = artifact.getProperty(ArtifactProperties.TYPE, artifact.getExtension());
+            return "module".equals(type);
+         }
+
+         public DependencySelector deriveChildSelector(DependencyCollectionContext context)
+         {
+            return this;
+         }
+      };
+
+      final ScopeDependencySelector scopeDependencySelector = new ScopeDependencySelector(null,
+         negate(Collections.singleton(scope)));
+
+      return AndDependencySelector.newInstance(moduleDependencySelector, scopeDependencySelector);
+   }
+
+   private static Collection<String> negate(Collection<String> scopes)
    {
       Collection<String> result = new HashSet<String>();
       Collections.addAll(result, "system", "compile", "provided", "runtime", "test");
