@@ -6,32 +6,32 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.sourcepit.b2.internal.generator.TychoConstants.TYCHO_GROUP_ID;
 import static org.sourcepit.b2.internal.generator.TychoConstants.TYCHO_TPC_PLUGIN_ARTIFACT_ID;
+import static org.sourcepit.b2.internal.maven.util.TychoXpp3Utils.readRequirements;
+import static org.sourcepit.b2.internal.maven.util.TychoXpp3Utils.toRequirementNode;
 import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPlugin;
-import static org.sourcepit.common.maven.util.Xpp3Utils.addValueNode;
 import static org.sourcepit.common.maven.util.Xpp3Utils.clearChildren;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
-import com.google.common.base.Strings;
-
 @Named
 public class TargetPlatformRequirementsAppender
 {
    public void append(Model model, List<Dependency> requirements)
    {
+      checkNotNull(model);
+
       if (requirements.isEmpty())
       {
          return;
@@ -84,70 +84,5 @@ public class TargetPlatformRequirementsAppender
             dest.add(dependency);
          }
       }
-   }
-
-   public static List<Dependency> readRequirements(Xpp3Dom requirements)
-   {
-      final List<Dependency> dependencyList = new ArrayList<Dependency>();
-      for (Xpp3Dom requirement : requirements.getChildren("requirement"))
-      {
-         dependencyList.add(toRequirement(requirement));
-      }
-      return dependencyList;
-   }
-
-   public static Dependency toRequirement(Xpp3Dom requirement)
-   {
-      final Dependency result = new Dependency();
-      result.setArtifactId(extractNonEmptyValue(requirement.getChild("id")));
-      result.setVersion(extractNonEmptyValue(requirement.getChild("versionRange")));
-      final String type = extractNonEmptyValue(requirement.getChild("type"));
-      if (type != null)
-      {
-         result.setType(type);
-      }
-      return result;
-   }
-
-   public static Xpp3Dom toRequirementNode(@NotNull Dependency dependency)
-   {
-      final Xpp3Dom requirementNode = new Xpp3Dom("requirement");
-      addRequirementValues(requirementNode, dependency);
-      return requirementNode;
-   }
-
-   public static void addRequirementValues(@NotNull final Xpp3Dom dependencyNode, @NotNull Dependency dependency)
-   {
-      String value = dependency.getArtifactId();
-      if (!Strings.isNullOrEmpty(value))
-      {
-         addValueNode(dependencyNode, "id", value);
-      }
-
-      value = dependency.getVersion();
-      if (!Strings.isNullOrEmpty(value))
-      {
-         addValueNode(dependencyNode, "versionRange", value);
-      }
-
-      value = dependency.getType();
-      if (!Strings.isNullOrEmpty(value) && !"jar".equals(value))
-      {
-         addValueNode(dependencyNode, "type", value);
-      }
-   }
-
-   private static String extractNonEmptyValue(Xpp3Dom node)
-   {
-      String value = node == null ? null : node.getValue();
-      if (value != null)
-      {
-         value.trim();
-         if (value.length() == 0)
-         {
-            value = null;
-         }
-      }
-      return value;
    }
 }

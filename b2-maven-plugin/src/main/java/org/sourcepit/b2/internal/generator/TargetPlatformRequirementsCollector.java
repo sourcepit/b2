@@ -10,9 +10,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,7 +31,6 @@ import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
 import org.sourcepit.common.manifest.osgi.Version;
 
 import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.SetMultimap;
 
 @Named
@@ -79,7 +76,7 @@ public class TargetPlatformRequirementsCollector
          dependency.setVersion(version);
          dependency.setType("eclipse-feature");
 
-         addIfNotContained(requirements, dependency);
+         addUnique(requirements, dependency);
       }
    }
 
@@ -106,7 +103,7 @@ public class TargetPlatformRequirementsCollector
       {
          Dependency requirement = toRequirement(includedFeature);
          requirement.setType("eclipse-feature");
-         addIfNotContained(requirements, requirement);
+         addUnique(requirements, requirement);
       }
 
       for (PluginInclude includedPlugin : featureProject.getIncludedPlugins())
@@ -115,7 +112,7 @@ public class TargetPlatformRequirementsCollector
          {
             Dependency requirement = toRequirement(includedPlugin);
             requirement.setType("eclipse-plugin");
-            addIfNotContained(requirements, requirement);
+            addUnique(requirements, requirement);
          }
       }
 
@@ -123,27 +120,27 @@ public class TargetPlatformRequirementsCollector
       {
          Dependency requirement = toRequirement(requiredFeature);
          requirement.setType("eclipse-feature");
-         addIfNotContained(requirements, requirement);
+         addUnique(requirements, requirement);
       }
 
       for (RuledReference requiredPlugin : featureProject.getRequiredPlugins())
       {
          final Dependency requirement = toRequirement(requiredPlugin);
          requirement.setType("eclipse-plugin");
-         addIfNotContained(requirements, requirement);
+         addUnique(requirements, requirement);
       }
    }
 
-   private static void addIfNotContained(final List<Dependency> requirements, Dependency requirement)
+   private static void addUnique(final List<Dependency> requirements, Dependency requirement)
    {
-      for (Dependency dependency : requirements)
+      for (Dependency dependency : requirements.toArray(new Dependency[requirements.size()]))
       {
          if (Objects.equal(dependency.getArtifactId(), requirement.getArtifactId()))
          {
             if (Objects.equal(dependency.getType(), requirement.getType()))
             {
-               return;
-            }   
+               requirements.remove(dependency);
+            }
          }
       }
       requirements.add(requirement);
@@ -169,22 +166,5 @@ public class TargetPlatformRequirementsCollector
       dependency.setArtifactId(strictReference.getId());
       dependency.setVersion(strictReference.getVersion());
       return dependency;
-   }
-
-   private boolean isEqual(final List<Dependency> requirements, final List<Dependency> defaultRequirements)
-   {
-      final Set<String> keys1 = new HashSet<String>();
-      for (Dependency dependency : requirements)
-      {
-         keys1.add(dependency.getManagementKey());
-      }
-
-      final Set<String> keys2 = new HashSet<String>();
-      for (Dependency dependency : defaultRequirements)
-      {
-         keys2.add(dependency.getManagementKey());
-      }
-
-      return keys1.equals(keys2);
    }
 }

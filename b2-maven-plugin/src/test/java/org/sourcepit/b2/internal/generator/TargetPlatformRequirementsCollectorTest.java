@@ -18,60 +18,22 @@ import static org.sourcepit.b2.model.harness.ModelTestHarness.addPluginRequireme
 import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.setFacetName;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.model.Dependency;
 import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.model.harness.ModelTestHarness;
-import org.sourcepit.b2.model.interpolation.internal.module.ResolutionContextResolver;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginProject;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.SetMultimap;
 
 public class TargetPlatformRequirementsCollectorTest
 {
    private TestResolutionContextResolver resolutionContext;
    private TargetPlatformRequirementsCollector collector;
-
-   private static final class TestResolutionContextResolver implements ResolutionContextResolver
-   {
-      private final List<FeatureProject> requiredFeatures = new ArrayList<FeatureProject>();
-      private final List<FeatureProject> requiredTestFeatures = new ArrayList<FeatureProject>();
-
-      public List<FeatureProject> getRequiredFeatures()
-      {
-         return requiredFeatures;
-      }
-
-      public List<FeatureProject> getRequiredTestFeatures()
-      {
-         return requiredTestFeatures;
-      }
-
-      public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
-         boolean scopeTest)
-      {
-         final SetMultimap<AbstractModule, FeatureProject> result = LinkedHashMultimap.create();
-         for (FeatureProject featureProject : requiredFeatures)
-         {
-            result.get(featureProject.getParent().getParent()).add(featureProject);
-         }
-         if (scopeTest)
-         {
-            for (FeatureProject featureProject : requiredTestFeatures)
-            {
-               result.get(featureProject.getParent().getParent()).add(featureProject);
-            }
-         }
-         return result;
-      }
-   }
 
    @Before
    public void setUp()
@@ -216,7 +178,7 @@ public class TargetPlatformRequirementsCollectorTest
 
       dependency = requirements.get(0);
       assertRequirement("org.eclipse.sdk", "3.6.0", "eclipse-feature", dependency);
-      
+
       dependency = requirements.get(1);
       assertRequirement("org.eclipse.swt", "3.2.0", "eclipse-plugin", dependency);
 
@@ -225,27 +187,28 @@ public class TargetPlatformRequirementsCollectorTest
 
       dependency = requirements.get(3);
       assertRequirement("org.eclipse.core.runtime", "[3.4.0,4.0.0)", "eclipse-plugin", dependency);
-      
-      // test don't override module requirements
+
+      // test dominate module requirements
       BasicModule module2 = createBasicModule("module-2");
-      resolutionContext.getRequiredFeatures().add(addFeatureProject(module2, "features", "org.eclipse.platform", "3.0.0"));
+      resolutionContext.getRequiredFeatures().add(
+         addFeatureProject(module2, "features", "org.eclipse.platform", "3.0.0"));
       requirements = collector.collectRequirements(pluginProject);
       assertEquals(4, requirements.size());
-      
+
       dependency = requirements.get(0);
-      assertRequirement("org.eclipse.platform", "3.0.0", "eclipse-feature", dependency);
+      assertRequirement("org.eclipse.sdk", "3.6.0", "eclipse-feature", dependency);
 
       dependency = requirements.get(1);
-      assertRequirement("org.eclipse.sdk", "3.6.0", "eclipse-feature", dependency);
+      assertRequirement("org.eclipse.swt", "3.2.0", "eclipse-plugin", dependency);
       
       dependency = requirements.get(2);
-      assertRequirement("org.eclipse.swt", "3.2.0", "eclipse-plugin", dependency);
+      assertRequirement("org.eclipse.platform", "[4.2.0,5.0.0)", "eclipse-feature", dependency);
 
       dependency = requirements.get(3);
       assertRequirement("org.eclipse.core.runtime", "[3.4.0,4.0.0)", "eclipse-plugin", dependency);
    }
 
-   private static void assertRequirement(String id, String versionRange, String type, Dependency dependency)
+   static void assertRequirement(String id, String versionRange, String type, Dependency dependency)
    {
       assertEquals(null, dependency.getGroupId());
       assertEquals(id, dependency.getArtifactId());

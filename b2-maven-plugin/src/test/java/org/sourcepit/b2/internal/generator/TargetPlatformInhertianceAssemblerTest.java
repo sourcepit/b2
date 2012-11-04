@@ -30,14 +30,14 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TargetPlatformConfigurationInhertianceAssemblerTest
+public class TargetPlatformInhertianceAssemblerTest
 {
-   private TargetPlatformConfigurationInhertianceAssembler tpcAssembler;
+   private TargetPlatformInhertianceAssembler tpcAssembler;
 
    @Before
    public void setUp()
    {
-      tpcAssembler = new TargetPlatformConfigurationInhertianceAssembler(new DefaultInheritanceAssembler());
+      tpcAssembler = new TargetPlatformInhertianceAssembler(new DefaultInheritanceAssembler());
    }
 
    @Test

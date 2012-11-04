@@ -7,27 +7,33 @@
 package org.sourcepit.b2.internal.generator;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initModuleDir;
+import static org.sourcepit.b2.internal.generator.TychoConstants.TYCHO_GROUP_ID;
+import static org.sourcepit.b2.internal.generator.TychoConstants.TYCHO_TPC_PLUGIN_ARTIFACT_ID;
+import static org.sourcepit.b2.internal.maven.util.TychoXpp3Utils.readRequirements;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.addFeatureProject;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getConfiguration;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.maven.model.Build;
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
+import org.apache.maven.model.inheritance.DefaultInheritanceAssembler;
+import org.apache.maven.model.io.DefaultModelReader;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.model.interpolation.internal.module.EmptyResolutionContextResolver;
 import org.sourcepit.b2.model.module.BasicModule;
-import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
@@ -38,6 +44,14 @@ public class TargetPlatformConfigurationGeneratorTest
 
    @Rule
    public Workspace ws = newWorkspace();
+
+   private BasicModule module;
+
+   private TargetPlatformConfigurationGenerator generator;
+
+   private TestResolutionContextResolver resolutionContext;
+
+   private File pomFile;
 
    protected Workspace newWorkspace()
    {
@@ -61,97 +75,58 @@ public class TargetPlatformConfigurationGeneratorTest
       return getEnvironment().getResourcesDir();
    }
 
-   @Test
-   public void testEmptyModule() throws Exception
+   @Before
+   public void setUp() throws Exception
    {
       final File moduleDir = ws.getRoot();
       final String testName = moduleDir.getName();
       String artifactId = testName;
 
-      final BasicModule module = initModuleDir(moduleDir, "org.sourcepit", artifactId, "1.0.0-SNAPSHOT");
+      module = initModuleDir(moduleDir, "org.sourcepit", artifactId, "1.0.0-SNAPSHOT");
 
-      TargetPlatformConfigurationGenerator generator = new TargetPlatformConfigurationGenerator(
-         new EmptyResolutionContextResolver());
+      File moduleFile = new File(moduleDir, "module.xml");
+      assertTrue(moduleFile.exists());
+
+      pomFile = new File(moduleDir, "pom.xml");
+      FileUtils.copyFile(moduleFile, pomFile);
+      assertTrue(pomFile.exists());
+
+      module.putAnnotationEntry("maven", "pomFile", pomFile.getAbsolutePath());
+
+      resolutionContext = new TestResolutionContextResolver();
+
+      generator = new TargetPlatformConfigurationGenerator(new TargetPlatformAppender(
+         new TargetPlatformInhertianceAssembler(new DefaultInheritanceAssembler()),
+         new TargetPlatformRequirementsCollector(resolutionContext), new TargetPlatformRequirementsAppender()));
+   }
+
+   @Test
+   public void testEmptyRequirement() throws Exception
+   {
+      generator.generate(module, new LinkedPropertiesMap(), null);
+
+      Model model = new DefaultModelReader().read(pomFile, null);
+      Plugin plugin = getPlugin(model, TYCHO_GROUP_ID, TYCHO_TPC_PLUGIN_ARTIFACT_ID, false);
+      assertNull(plugin);
+   }
+
+   @Test
+   public void testModuleRequirement() throws Exception
+   {
+      BasicModule module2 = createBasicModule("module-2");
+      resolutionContext.getRequiredFeatures().add(addFeatureProject(module2, "features", "feature2", "1.0.0"));
 
       generator.generate(module, new LinkedPropertiesMap(), null);
 
-      assertFalse(new File(moduleDir, "pom.xml").exists());
-   }
-
-   @Test
-   public void testAdoptTargetConfigurationPlugin() throws Exception
-   {
-      final List<Model> hierarchy = new ArrayList<Model>();
-      hierarchy.add(new Model());
-
-      final Model target = hierarchy.get(0);
-
-      Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy);
+      Model model = new DefaultModelReader().read(pomFile, null);
+      Plugin plugin = getPlugin(model, TYCHO_GROUP_ID, TYCHO_TPC_PLUGIN_ARTIFACT_ID, false);
       assertNotNull(plugin);
 
-      assertEquals(1, target.getBuild().getPlugins().size());
-      assertEquals(plugin, target.getBuild().getPlugins().get(0));
+      Xpp3Dom configurationNode = getConfiguration(plugin, false);
 
-      assertEquals("org.eclipse.tycho", plugin.getGroupId());
-      assertEquals("target-platform-configuration", plugin.getArtifactId());
-      assertEquals("${tycho.version}", plugin.getVersion());
-      assertNull(plugin.getConfiguration());
-   }
+      Xpp3Dom requirementsNode = configurationNode.getChild("dependency-resolution").getChild("extraRequirements");
 
-   @Test
-   public void testAdoptTargetConfigurationPlugin_UseExisting() throws Exception
-   {
-      final List<Model> hierarchy = new ArrayList<Model>();
-      hierarchy.add(new Model());
-      hierarchy.add(new Model());
-
-      Plugin origin = MavenModelUtils.createPlugin("org.eclipse.tycho", "target-platform-configuration",
-         "${tycho.version}");
-      origin.setConfiguration(new Xpp3Dom("configuration"));
-      hierarchy.get(0).setBuild(new Build());
-      hierarchy.get(0).getBuild().getPlugins().add(origin);
-
-      final Model target = hierarchy.get(0);
-
-      Plugin plugin = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy);
-      assertNotNull(plugin);
-
-      assertEquals(1, target.getBuild().getPlugins().size());
-      assertEquals(plugin, target.getBuild().getPlugins().get(0));
-
-      assertEquals("org.eclipse.tycho", plugin.getGroupId());
-      assertEquals("target-platform-configuration", plugin.getArtifactId());
-      assertEquals("${tycho.version}", plugin.getVersion());
-      assertNotNull(plugin.getConfiguration());
-      assertNotNull(plugin.getConfiguration());
-      assertSame(origin, plugin);
-   }
-
-   @Test
-   public void testAdoptTargetConfigurationPlugin_ReuseFromParent() throws Exception
-   {
-      final List<Model> hierarchy = new ArrayList<Model>();
-      hierarchy.add(new Model()); // plug-ins model
-      hierarchy.add(new Model()); // modules model
-
-      Plugin moduleTPC = MavenModelUtils.createPlugin("org.eclipse.tycho", "target-platform-configuration",
-         "${tycho.version}");
-      moduleTPC.setConfiguration(new Xpp3Dom("configuration"));
-      hierarchy.get(1).setBuild(new Build());
-      hierarchy.get(1).getBuild().getPlugins().add(moduleTPC);
-
-      final Model pluginModel = hierarchy.get(0);
-
-      Plugin pluginTPC = TargetPlatformConfigurationGenerator.adoptTargetConfigurationPlugin(hierarchy);
-      assertNotNull(pluginTPC);
-
-      assertEquals(1, pluginModel.getBuild().getPlugins().size());
-      assertEquals(pluginTPC, pluginModel.getBuild().getPlugins().get(0));
-
-      assertEquals("org.eclipse.tycho", pluginTPC.getGroupId());
-      assertEquals("target-platform-configuration", pluginTPC.getArtifactId());
-      assertEquals("${tycho.version}", pluginTPC.getVersion());
-      assertNotNull(pluginTPC.getConfiguration());
-      assertNotSame(moduleTPC, pluginTPC);
+      List<Dependency> actualRequirements = readRequirements(requirementsNode);
+      assertEquals(1, actualRequirements.size());
    }
 }

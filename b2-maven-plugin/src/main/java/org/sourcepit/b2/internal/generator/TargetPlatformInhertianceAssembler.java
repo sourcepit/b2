@@ -22,12 +22,12 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.inheritance.InheritanceAssembler;
 
 @Named
-public class TargetPlatformConfigurationInhertianceAssembler
+public class TargetPlatformInhertianceAssembler
 {
    private final InheritanceAssembler modelMerger;
 
    @Inject
-   public TargetPlatformConfigurationInhertianceAssembler(InheritanceAssembler modelMerger)
+   public TargetPlatformInhertianceAssembler(InheritanceAssembler modelMerger)
    {
       this.modelMerger = modelMerger;
    }
