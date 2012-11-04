@@ -8,6 +8,7 @@ package org.sourcepit.b2.internal.generator;
 
 import static org.sourcepit.b2.internal.generator.TychoConstants.TYCHO_GROUP_ID;
 import static org.sourcepit.b2.internal.generator.TychoConstants.TYCHO_TPC_PLUGIN_ARTIFACT_ID;
+import static org.sourcepit.b2.internal.generator.TychoConstants.TYCHO_VERSION_PROPERTY;
 import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPlugin;
 
 import java.io.File;
@@ -110,9 +111,9 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
    private void adjustTychoVersion(final Model model)
    {
       final Plugin tpcPlugin = getPlugin(model, TYCHO_GROUP_ID, TYCHO_TPC_PLUGIN_ARTIFACT_ID, false);
-      if (tpcPlugin != null)
+      if (tpcPlugin != null && tpcPlugin.getVersion() == null)
       {
-         tpcPlugin.setVersion(TychoConstants.TYCHO_VERSION_PROPERTY);
+         tpcPlugin.setVersion(TYCHO_VERSION_PROPERTY);
       }
    }
 
