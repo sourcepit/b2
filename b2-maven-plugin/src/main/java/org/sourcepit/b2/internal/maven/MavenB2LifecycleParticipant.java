@@ -7,6 +7,7 @@ package org.sourcepit.b2.internal.maven;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -35,6 +36,8 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 @Named
 public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParticipant
@@ -95,6 +98,13 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       {
          throw new IllegalStateException(e);
       }
+
+      PropertiesMap uriMap = new LinkedPropertiesMap();
+      for (Entry<URI, URI> entry : resourceSet.getURIConverter().getURIMap().entrySet())
+      {
+         uriMap.put(entry.getKey().toString(), entry.getValue().toString());
+      }
+      uriMap.store(new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, "uriMap.properties")));
 
       final URI fileURI = resourceSet.getURIConverter().normalize(modelContext.getModuleUri());
       projectHelper.attachArtifact(bootProject, "module", null, new File(fileURI.toFileString()));

@@ -48,11 +48,18 @@ public abstract class AbstractB2IT
    {
       return "env-it.properties";
    }
-   
+
    protected int build(final File moduleDir, String... args) throws IOException
    {
       final Map<String, String> envs = environment.newEnvs();
-      final CommandLine cmd = newMavenCmd(args);
+      final CommandLine cmd = newMavenCmd(environment.getMavenHome(), args);
+      return process.execute(envs, moduleDir, cmd);
+   }
+
+   protected int build(File mavenHome, final File moduleDir, String... args) throws IOException
+   {
+      final Map<String, String> envs = environment.newEnvs();
+      final CommandLine cmd = newMavenCmd(mavenHome, args);
       return process.execute(envs, moduleDir, cmd);
    }
 
@@ -75,11 +82,11 @@ public abstract class AbstractB2IT
       return cmd;
    }
 
-   protected CommandLine newMavenCmd(String... arguments)
+   protected CommandLine newMavenCmd(File mavenHome, String... arguments)
    {
       final String sh = environment.isDebugAllowed() && isDebug() ? "mvnDebug" : "mvn";
       final String bat = sh + ".bat";
-      final File binDir = new File(environment.getMavenHome(), "/bin");
+      final File binDir = new File(mavenHome, "/bin");
       return newCmd(binDir, bat, sh, arguments);
    }
 
@@ -104,7 +111,7 @@ public abstract class AbstractB2IT
 
       return (AbstractModule) loadModel(modelFile);
    }
-   
+
    protected B2Session loadSession(final File moduleDir) throws IOException
    {
       ModuleModelPackage.eINSTANCE.getClass();
@@ -137,8 +144,7 @@ public abstract class AbstractB2IT
       return loadMavenModel(module.getDirectory());
    }
 
-   protected Model loadMavenModel(File moduleDir) throws FileNotFoundException, IOException,
-      XmlPullParserException
+   protected Model loadMavenModel(File moduleDir) throws FileNotFoundException, IOException, XmlPullParserException
    {
       final File pomFile = new File(moduleDir, "pom.xml");
       assertTrue(pomFile.exists());
