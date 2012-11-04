@@ -15,10 +15,9 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
 @Named
-public class TestResolutionContextResolver implements ResolutionContextResolver
+public class EmptyResolutionContextResolver implements ResolutionContextResolver
 {
-   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
-      FeatureProject resolutionTarget)
+   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest)
    {
       return LinkedHashMultimap.create();
    }

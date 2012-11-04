@@ -4,7 +4,7 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.sourcepit.b2.model.builder.harness;
+package org.sourcepit.b2.model.harness;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,21 +12,24 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 
-public final class ModelBuilderHarness
+public final class ModelTestHarness
 {
-   private ModelBuilderHarness()
+   private ModelTestHarness()
    {
       super();
    }
@@ -182,4 +185,65 @@ public final class ModelBuilderHarness
       assertEquals(expectedId, identifiable.getId());
       assertEquals(expectedVersion, identifiable.getVersion());
    }
+
+   public static PluginInclude addPluginInclude(FeatureProject featureProject, PluginProject pluginProject)
+   {
+      final PluginInclude pluginInclude = createPluginInclude(pluginProject.getId(), pluginProject.getVersion(), false);
+      featureProject.getIncludedPlugins().add(pluginInclude);
+      return pluginInclude;
+   }
+
+   private static PluginInclude createPluginInclude(String id, String version, boolean unpack)
+   {
+      final PluginInclude pluginInclude = ModuleModelFactory.eINSTANCE.createPluginInclude();
+      pluginInclude.setId(id);
+      pluginInclude.setVersion(version);
+      pluginInclude.setUnpack(unpack);
+      return pluginInclude;
+   }
+
+   public static RuledReference addPluginRequirement(FeatureProject featureProject, String id, String version)
+   {
+      final RuledReference requiredPlugin = createRuledReference(id, version);
+      featureProject.getRequiredPlugins().add(requiredPlugin);
+      return requiredPlugin;
+   }
+
+   public static RuledReference addFeatureRequirement(FeatureProject featureProject, String id, String version)
+   {
+      final RuledReference requiredFeature = createRuledReference(id, version);
+      featureProject.getRequiredFeatures().add(requiredFeature);
+      return requiredFeature;
+   }
+
+   private static RuledReference createRuledReference(String id, String version)
+   {
+      final RuledReference ruledReference = ModuleModelFactory.eINSTANCE.createRuledReference();
+      ruledReference.setId(id);
+      ruledReference.setVersion(version);
+      return ruledReference;
+   }
+
+   public static PluginInclude addPluginInclude(FeatureProject featureProject, String id, String version)
+   {
+      final PluginInclude pluginInclude = createPluginInclude(id, version, false);
+      featureProject.getIncludedPlugins().add(pluginInclude);
+      return pluginInclude;
+   }
+
+   public static FeatureInclude addFeatureInclude(FeatureProject featureProject, String id, String version)
+   {
+      final FeatureInclude featureInclude = createFeatureInclude(id, version);
+      featureProject.getIncludedFeatures().add(featureInclude);
+      return featureInclude;      
+   }
+
+   private static FeatureInclude createFeatureInclude(String id, String version)
+   {
+      final FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
+      featureInclude.setId(id);
+      featureInclude.setVersion(version);
+      return featureInclude;
+   }
+
 }

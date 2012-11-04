@@ -333,7 +333,8 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
 
       if (includeForeignModules)
       {
-         moduleToAssemblies.putAll(resolver.resolveResolutionContext(module, assemblyFeature));
+         final boolean scopeTest = B2MetadataUtils.isTestFeature(assemblyFeature);
+         moduleToAssemblies.putAll(resolver.resolveResolutionContext(module, scopeTest));
       }
 
       for (Entry<AbstractModule, Collection<FeatureProject>> entry : moduleToAssemblies.asMap().entrySet())
@@ -349,10 +350,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
          {
             for (FeatureProject featureProject : featuresFacet.getProjects())
             {
-               if (!B2MetadataUtils.getAssemblyNames(featureProject).isEmpty())
-               {
-                  assemblyFeatures.add(featureProject);
-               }
+               assemblyFeatures.add(featureProject);
             }
          }
 
@@ -456,8 +454,10 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       Collection<PluginsFacet> result = new LinkedHashSet<PluginsFacet>();
       result.addAll(sourcePlugins.getParent().getFacets(PluginsFacet.class));
 
+      final boolean scopeTest = B2MetadataUtils.isTestFeature(facetFeature);
+
       final SetMultimap<AbstractModule, FeatureProject> moduleToAssemblies;
-      moduleToAssemblies = resolver.resolveResolutionContext(sourcePlugins.getParent(), facetFeature);
+      moduleToAssemblies = resolver.resolveResolutionContext(sourcePlugins.getParent(), scopeTest);
 
       final Collection<AbstractModule> collection = moduleToAssemblies.keySet();
       // TODO composit iterator

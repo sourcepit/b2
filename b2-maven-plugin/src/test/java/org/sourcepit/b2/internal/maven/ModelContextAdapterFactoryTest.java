@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.addFeatureProject;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createBasicModule;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.addFeatureProject;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
 
 import java.io.File;
 import java.io.IOException;

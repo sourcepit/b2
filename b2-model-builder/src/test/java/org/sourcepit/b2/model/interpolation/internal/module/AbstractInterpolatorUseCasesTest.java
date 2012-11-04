@@ -7,9 +7,9 @@
 package org.sourcepit.b2.model.interpolation.internal.module;
 
 import static org.mockito.Mockito.mock;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.addPluginProject;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createBasicModule;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createCompositeModule;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.addPluginProject;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createCompositeModule;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -212,7 +212,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
       moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**"); // should be
-                                                                                                       // default?
+                                                                                                  // default?
       moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**"); // should be default?
       moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
@@ -238,7 +238,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "public, sdk, test"); // should be default?
       moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**"); // should be
-                                                                                                       // default?
+                                                                                                  // default?
       moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**"); // should be default?
       moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
 
@@ -868,7 +868,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {
          public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
-            FeatureProject resolutionTarget)
+            boolean scopeTest)
          {
             final SetMultimap<AbstractModule, FeatureProject> moduleToAssemblies = LinkedHashMultimap.create();
             final Collection<AbstractModule> modules = resolutionContext.get();

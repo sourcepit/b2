@@ -4,16 +4,20 @@
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
-package org.sourcepit.b2.internal.generator;
+package org.sourcepit.b2.internal.maven.util;
 
 import static org.sourcepit.common.maven.util.Xpp3Utils.addValueNode;
+import static org.sourcepit.common.maven.util.Xpp3Utils.clearChildren;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Plugin;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 import com.google.common.base.Strings;
@@ -25,17 +29,71 @@ public final class TychoXpp3Utils
       super();
    }
 
+   public static void addExtraRequirements(Plugin plugin, List<Dependency> requirements)
+   {
+      if (requirements.isEmpty())
+      {
+         return;
+      }
+      Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
+      if (configuration == null)
+      {
+         configuration = new Xpp3Dom("configuration");
+         plugin.setConfiguration(configuration);
+      }
+
+      Xpp3Dom dependencyResolution = configuration.getChild("dependency-resolution");
+      if (dependencyResolution == null)
+      {
+         dependencyResolution = new Xpp3Dom("dependency-resolution");
+         configuration.addChild(dependencyResolution);
+      }
+
+      Xpp3Dom extraRequirements = dependencyResolution.getChild("extraRequirements");
+      if (extraRequirements == null)
+      {
+         extraRequirements = new Xpp3Dom("extraRequirements");
+         dependencyResolution.addChild(extraRequirements);
+      }
+
+      final List<Dependency> dependencyList = readRequirements(extraRequirements);
+      addAllUnique(dependencyList, requirements);
+
+      clearChildren(extraRequirements);
+
+      for (Dependency dependency : dependencyList)
+      {
+         extraRequirements.addChild(toRequirementNode(dependency));
+      }
+   }
+
+   private static void addAllUnique(List<Dependency> dest, List<Dependency> src)
+   {
+      final Set<String> managementKeys = new HashSet<String>();
+      for (Dependency dependency : dest)
+      {
+         managementKeys.add(dependency.getManagementKey());
+      }
+      for (Dependency dependency : src)
+      {
+         if (managementKeys.add(dependency.getManagementKey()))
+         {
+            dest.add(dependency);
+         }
+      }
+   }
+
    public static List<Dependency> readRequirements(Xpp3Dom requirements)
    {
       final List<Dependency> dependencyList = new ArrayList<Dependency>();
       for (Xpp3Dom requirement : requirements.getChildren("requirement"))
       {
-         dependencyList.add(newRequirement(requirement));
+         dependencyList.add(toRequirement(requirement));
       }
       return dependencyList;
    }
 
-   public static Dependency newRequirement(Xpp3Dom requirement)
+   public static Dependency toRequirement(Xpp3Dom requirement)
    {
       final Dependency result = new Dependency();
       result.setArtifactId(extractNonEmptyValue(requirement.getChild("id")));
@@ -75,7 +133,7 @@ public final class TychoXpp3Utils
          addValueNode(dependencyNode, "type", value);
       }
    }
-   
+
    private static String extractNonEmptyValue(Xpp3Dom node)
    {
       String value = node == null ? null : node.getValue();

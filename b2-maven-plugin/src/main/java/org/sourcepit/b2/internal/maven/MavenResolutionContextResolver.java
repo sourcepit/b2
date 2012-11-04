@@ -12,7 +12,6 @@ import javax.inject.Named;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
-import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.internal.module.ResolutionContextResolver;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
@@ -25,8 +24,7 @@ public class MavenResolutionContextResolver implements ResolutionContextResolver
    @Inject
    private LegacySupport buildContext;
 
-   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
-      FeatureProject resolutionTarget)
+   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest)
    {
       final MavenSession session = buildContext.getSession();
       final MavenProject project = session.getCurrentProject();
@@ -34,7 +32,7 @@ public class MavenResolutionContextResolver implements ResolutionContextResolver
       assertIsModuleProject(project, module);
 
       final ModelContext modelContext = ModelContextAdapterFactory.get(project);
-      if (B2MetadataUtils.isTestFeature(resolutionTarget))
+      if (scopeTest)
       {
          return modelContext.getTestScope();
       }

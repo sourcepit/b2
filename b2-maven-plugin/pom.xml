@@ -94,6 +94,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.sourcepit.b2</groupId>
+			<artifactId>b2-model</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.sourcepit.common</groupId>
 			<artifactId>common-testing</artifactId>
 			<scope>test</scope>

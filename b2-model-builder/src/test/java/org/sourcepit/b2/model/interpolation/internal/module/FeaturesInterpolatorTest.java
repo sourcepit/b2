@@ -11,12 +11,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.addPluginProject;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.assertIdentifiable;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.assertReference;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createBasicModule;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.createPluginsFacet;
-import static org.sourcepit.b2.model.builder.harness.ModelBuilderHarness.getFeatureProject;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.addPluginProject;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.assertIdentifiable;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.assertReference;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.createPluginsFacet;
+import static org.sourcepit.b2.model.harness.ModelTestHarness.getFeatureProject;
 
 import java.io.File;
 
