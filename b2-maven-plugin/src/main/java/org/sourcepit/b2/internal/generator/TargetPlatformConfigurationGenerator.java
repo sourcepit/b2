@@ -23,6 +23,7 @@ import org.apache.maven.model.Plugin;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.PluginProject;
@@ -33,10 +34,13 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
 {
    private final TargetPlatformAppender targetPlatformAppender;
 
+   private final BasicConverter converter;
+
    @Inject
-   public TargetPlatformConfigurationGenerator(TargetPlatformAppender targetPlatformAppender)
+   public TargetPlatformConfigurationGenerator(TargetPlatformAppender targetPlatformAppender, BasicConverter converter)
    {
       this.targetPlatformAppender = targetPlatformAppender;
+      this.converter = converter;
    }
 
    @Override
@@ -56,6 +60,11 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
       ITemplates templates)
    {
+      if (converter.isSkipInterpolator(properties))
+      {
+         return;
+      }
+
       final AbstractModule module;
       final PluginProject pluginProject;
       if (inputElement instanceof AbstractModule)
