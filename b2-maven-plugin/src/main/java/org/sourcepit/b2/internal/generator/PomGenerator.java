@@ -442,15 +442,11 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    {
       final File targetDir = project.getDirectory();
 
-      Properties p = new Properties();
-      p.put("generate.sources", String.valueOf(sourceManager.isSourceBuildEnabled(project, properties)));
-
-      final File pomFile = new File(targetDir, project.isTestPlugin() ? "test-plugin-pom.xml" : "plugin-pom.xml");
-      copyPomTemplate(templates, pomFile, p);
+      final String groupId = basicConverter.getNameSpace(properties);
 
       final Model defaultModel = new Model();
       defaultModel.setModelVersion("4.0.0");
-      defaultModel.setGroupId(basicConverter.getNameSpace(properties));
+      defaultModel.setGroupId(groupId);
       defaultModel.setArtifactId(project.getId());
       defaultModel.setVersion(VersionUtils.toMavenVersion(project.getVersion()));
       if (project.isTestPlugin())
@@ -482,6 +478,12 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
             defaultModel.getBuild().setOutputDirectory("${project.build.directory}/" + jarRelativePath + "-classes");
          }
       }
+
+      Properties p = new Properties();
+      p.put("generate.sources", String.valueOf(sourceManager.isSourceBuildEnabled(project, properties)));
+
+      final File pomFile = new File(targetDir, project.isTestPlugin() ? "test-plugin-pom.xml" : "plugin-pom.xml");
+      copyPomTemplate(templates, pomFile, p);
 
       mergeIntoPomFile(pomFile, defaultModel);
 

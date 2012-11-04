@@ -34,7 +34,7 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
       generate((Annotatable) inputElement, skipFacets, propertie, templates);
    }
 
-   protected abstract void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
+   protected abstract void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
       ITemplates templates);
 
    protected File getPomFile(Annotatable annotateable)
