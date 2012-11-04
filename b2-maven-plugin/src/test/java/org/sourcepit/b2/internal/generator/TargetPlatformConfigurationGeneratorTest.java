@@ -33,6 +33,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.sourcepit.b2.model.builder.util.DefaultConverter;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
@@ -97,7 +98,8 @@ public class TargetPlatformConfigurationGeneratorTest
 
       generator = new TargetPlatformConfigurationGenerator(new TargetPlatformAppender(
          new TargetPlatformInhertianceAssembler(new DefaultInheritanceAssembler()),
-         new TargetPlatformRequirementsCollector(resolutionContext), new TargetPlatformRequirementsAppender()));
+         new TargetPlatformRequirementsCollector(resolutionContext), new TargetPlatformRequirementsAppender()),
+         new DefaultConverter());
    }
 
    @Test
