@@ -26,7 +26,7 @@ import org.sourcepit.common.utils.adapt.Adapters;
 @Component(role = B2MavenBridge.class)
 public class B2MavenBridge
 {
-   private static final String CTX_KEY_ADAPTER_LIST = B2MavenBridge.class.getCanonicalName() + "#adapterList";
+   static final String CTX_KEY_ADAPTER_LIST = B2MavenBridge.class.getCanonicalName() + "#adapterList";
 
    public void connect(MavenSession mavenSession, final B2Session b2Session)
    {
