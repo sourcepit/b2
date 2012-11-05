@@ -49,7 +49,7 @@ public class MixedTestsFacetIT extends AbstractB2IT
    {
       final File moduleDir = getResource(getClass().getSimpleName());
       final Map<String, String> envs = environment.newEnvs();
-      final CommandLine cmd = newMavenCmd("-e", "-B", "-Dtycho.mode=maven",
+      final CommandLine cmd = newMavenCmd(environment.getMavenHome(), "-e", "-B", "-Dtycho.mode=maven",
          "-Db2.skipInterpolator=" + String.valueOf(!interpolate), "clean");
       process.execute(envs, moduleDir, cmd);
       return loadModule(moduleDir);

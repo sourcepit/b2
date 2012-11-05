@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Scm;
@@ -54,7 +55,7 @@ public class ReleaseIT extends AbstractB2IT
       final File rootModuleDir = getResource(getClass().getSimpleName());
       final File repoDir = workspace.newDir("repo");
       SCM scm = new SvnSCM(repoDir, rootModuleDir);
-      test(rootModuleDir, scm);
+      test(rootModuleDir, scm, false);
    }
 
    @Test
@@ -62,10 +63,19 @@ public class ReleaseIT extends AbstractB2IT
    {
       final File rootModuleDir = getResource(getClass().getSimpleName());
       final SCM scm = new GitSCM(rootModuleDir);
-      test(rootModuleDir, scm);
+      test(rootModuleDir, scm, false);
+   }
+   
+   @Test
+   public void testTwoStepRelease() throws Exception
+   {
+      final File rootModuleDir = getResource(getClass().getSimpleName());
+      final File repoDir = workspace.newDir("repo");
+      SCM scm = new SvnSCM(repoDir, rootModuleDir);
+      test(rootModuleDir, scm, true);
    }
 
-   private void test(final File rootModuleDir, SCM scm) throws FileNotFoundException, IOException,
+   private void test(final File rootModuleDir, SCM scm, boolean isTwoStep) throws FileNotFoundException, IOException,
       XmlPullParserException
    {
       final File moduleADir = new File(rootModuleDir, "module-a");
@@ -84,18 +94,7 @@ public class ReleaseIT extends AbstractB2IT
       final String releaseVersion = "2.0.0";
       final String developmentVersion = "3.0.0-SNAPSHOT";
 
-      final List<String> args = new ArrayList<String>();
-      args.add("-e");
-      args.add("-B");
-      args.add("clean");
-      args.add("release:prepare");
-      args.add("release:perform");
-      args.add("-DreleaseVersion=" + releaseVersion);
-      args.add("-DdevelopmentVersion=" + developmentVersion);
-      args.add("-Dresume=false");
-      args.add("-DignoreSnapshots=true");
-
-      build(rootModuleDir, args.toArray(new String[args.size()]));
+      execRelease(rootModuleDir, releaseVersion, developmentVersion, isTwoStep);
 
       scm.switchVersion(releaseVersion);
 
@@ -115,6 +114,55 @@ public class ReleaseIT extends AbstractB2IT
       bundleManifest = readBundleManifest(new File(moduleBDir, "bundle.b"));
       assertThat(bundleManifest.getBundleVersion().toString(),
          IsEqual.equalTo(developmentVersion.replaceAll("-SNAPSHOT", ".qualifier")));
+   }
+
+   private void execRelease(final File rootModuleDir, final String releaseVersion, final String developmentVersion,
+      boolean isTwoStep) throws IOException
+   {
+      if (isTwoStep)
+      {
+         File b2Dir = environment.getMavenHome();
+
+         File mavenDir = new File(environment.getBuildDir(), "maven-without-b2");
+         FileUtils.copyDirectory(b2Dir, mavenDir);
+         FileUtils.forceDelete(new File(mavenDir, "lib/ext"));
+
+         List<String> args = new ArrayList<String>();
+         args.add("-e");
+         args.add("-B");
+         args.add("clean");
+         args.add("-Dtycho.mode=maven");
+
+         build(b2Dir, rootModuleDir, args.toArray(new String[args.size()]));
+
+         args = new ArrayList<String>();
+         args.add("-e");
+         args.add("-B");
+         args.add("clean");
+         args.add("release:prepare");
+         args.add("release:perform");
+         args.add("-DreleaseVersion=" + releaseVersion);
+         args.add("-DdevelopmentVersion=" + developmentVersion);
+         args.add("-Dresume=false");
+         args.add("-DignoreSnapshots=true");
+
+         build(mavenDir, rootModuleDir, args.toArray(new String[args.size()]));
+      }
+      else
+      {
+         final List<String> args = new ArrayList<String>();
+         args.add("-e");
+         args.add("-B");
+         args.add("clean");
+         args.add("release:prepare");
+         args.add("release:perform");
+         args.add("-DreleaseVersion=" + releaseVersion);
+         args.add("-DdevelopmentVersion=" + developmentVersion);
+         args.add("-Dresume=false");
+         args.add("-DignoreSnapshots=true");
+
+         build(rootModuleDir, args.toArray(new String[args.size()]));
+      }
    }
 
    private static BundleManifest readBundleManifest(final File projectDir)
