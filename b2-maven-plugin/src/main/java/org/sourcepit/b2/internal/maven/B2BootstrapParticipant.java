@@ -22,7 +22,6 @@ import org.sourcepit.b2.internal.scm.svn.SCM;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
 
 @Named
@@ -54,7 +53,6 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       properties.putAll(mavenSession.getUserProperties());
 
       final B2Session b2Session = b2SessionInitializer.initialize(bootSession, properties);
-      mapSessions(actualSession, b2Session);
 
       final B2RequestFactory b2RequestFactory = new B2RequestFactory()
       {
@@ -65,12 +63,6 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       };
 
       sessionRunner.prepareNext(b2Session, b2RequestFactory);
-   }
-
-   private static void mapSessions(MavenSession actualSession, B2Session b2Session)
-   {
-      Adapters.removeAdapters(actualSession, B2Session.class);
-      Adapters.addAdapter(actualSession, b2Session);
    }
 
    public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)

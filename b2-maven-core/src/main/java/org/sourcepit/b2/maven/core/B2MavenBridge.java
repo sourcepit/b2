@@ -26,7 +26,7 @@ import org.sourcepit.common.utils.adapt.Adapters;
 @Component(role = B2MavenBridge.class)
 public class B2MavenBridge
 {
-   private static final String CTX_KEY_ADAPTER_LIST = B2MavenBridge.class.getCanonicalName() + "#adapterList";
+   static final String CTX_KEY_ADAPTER_LIST = B2MavenBridge.class.getCanonicalName() + "#adapterList";
 
    public void connect(MavenSession mavenSession, final B2Session b2Session)
    {
@@ -39,11 +39,14 @@ public class B2MavenBridge
       for (ModuleProject moduleProject : b2Session.getProjects())
       {
          final AbstractModule module = moduleProject.getModuleModel();
-         for (ProjectFacet<Project> projectFacet : module.getFacets(ProjectFacet.class))
+         if (module != null)
          {
-            for (Project project : projectFacet.getProjects())
+            for (ProjectFacet<Project> projectFacet : module.getFacets(ProjectFacet.class))
             {
-               dirToProjectMap.put(project.getDirectory(), project);
+               for (Project project : projectFacet.getProjects())
+               {
+                  dirToProjectMap.put(project.getDirectory(), project);
+               }
             }
          }
       }
@@ -55,23 +58,56 @@ public class B2MavenBridge
          final File basedir = mavenProject.getBasedir();
          for (ModuleProject moduleProject : b2Session.getProjects())
          {
-            if (basedir.equals(moduleProject.getDirectory()))
+            final AbstractModule module = moduleProject.getModuleModel();
+            if (module != null)
             {
-               addAdapterUnique(adapterList, ModuleProject.class, moduleProject);
-               addAdapterUnique(adapterList, AbstractModule.class, moduleProject.getModuleModel());
-               Adapters.addAdapter(moduleProject, mavenProject);
-               Adapters.addAdapter(moduleProject.getModuleModel(), mavenProject);
-               break;
-            }
+               if (basedir.equals(moduleProject.getDirectory()))
+               {
+                  addAdapterUnique(adapterList, ModuleProject.class, moduleProject);
+                  addAdapterUnique(adapterList, AbstractModule.class, module);
+                  Adapters.addAdapter(moduleProject, mavenProject);
+                  Adapters.addAdapter(module, mavenProject);
+                  break;
+               }
 
-            final Project p = dirToProjectMap.get(basedir);
-            if (p != null)
-            {
-               addAdapterUnique(adapterList, Project.class, p);
-               Adapters.addAdapter(p, mavenProject);
-               break;
+               final Project p = dirToProjectMap.get(basedir);
+               if (p != null)
+               {
+                  addAdapterUnique(adapterList, Project.class, p);
+                  Adapters.addAdapter(p, mavenProject);
+                  break;
+               }
             }
          }
+      }
+   }
+
+   public void disconnect(MavenSession mavenSession, final B2Session b2Session)
+   {
+      Adapters.removeAdapters(mavenSession, B2Session.class);
+      Adapters.removeAdapters(b2Session, MavenSession.class);
+
+      for (ModuleProject moduleProject : b2Session.getProjects())
+      {
+         Adapters.removeAdapters(moduleProject, MavenProject.class);
+
+         final AbstractModule module = moduleProject.getModuleModel();
+         if (module != null)
+         {
+            Adapters.removeAdapters(module, MavenProject.class);
+            for (ProjectFacet<Project> projectFacet : module.getFacets(ProjectFacet.class))
+            {
+               for (Project project : projectFacet.getProjects())
+               {
+                  Adapters.removeAdapters(project, MavenProject.class);
+               }
+            }
+         }
+      }
+
+      for (MavenProject mavenProject : mavenSession.getProjects())
+      {
+         mavenProject.setContextValue(CTX_KEY_ADAPTER_LIST, null);
       }
    }
 
