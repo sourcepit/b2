@@ -15,7 +15,7 @@
 	<packaging>pom</packaging>
 
 	<scm>
-		<connection>scm:git:http://github.com/sourcepit/b2.git</connection>
+		<connection>scm:git:git@github.com:sourcepit/b2.git</connection>
 	</scm>
 
 	<properties>
