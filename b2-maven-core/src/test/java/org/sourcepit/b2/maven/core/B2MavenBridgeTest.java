@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.maven.core;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -171,6 +172,11 @@ public class B2MavenBridgeTest extends PlexusTest
       mavenSession.getProjects().add(mavenProjectBFeature);
 
       b2Bridge.connect(mavenSession, b2Session);
+      
+      for (MavenProject mavenProject : mavenSession.getProjects())
+      {
+         assertNotNull(mavenProject.getContextValue(B2MavenBridge.CTX_KEY_ADAPTER_LIST));
+      }
 
       assertThat(b2Bridge.getB2Session(mavenSession), Is.is(b2Session));
       assertThat(b2Bridge.getMavenSession(b2Session), Is.is(mavenSession));
@@ -211,6 +217,27 @@ public class B2MavenBridgeTest extends PlexusTest
       assertThat(b2Bridge.getMavenProject(testB), Is.is(mavenProjectBTest));
       assertThat(b2Bridge.getMavenProject(featureB), Is.is(mavenProjectBFeature));
 
+      b2Bridge.disconnect(mavenSession, b2Session);
+
+      assertNull(b2Bridge.getB2Session(mavenSession));
+      assertNull(b2Bridge.getMavenSession(b2Session));
+
+      assertNull(b2Bridge.getModuleProject(mavenProjectR));
+      assertNull(b2Bridge.getModuleProject(mavenProjectA));
+      assertNull(b2Bridge.getModuleProject(mavenProjectB));
+      assertNull(b2Bridge.getMavenProject(moduleProjectR));
+      assertNull(b2Bridge.getMavenProject(moduleProjectA));
+      assertNull(b2Bridge.getMavenProject(moduleProjectB));
+
+      assertNull(b2Bridge.getModule(mavenProjectR));
+      assertNull(b2Bridge.getModule(mavenProjectA));
+      assertNull(b2Bridge.getModule(mavenProjectB));
+      assertNull(b2Bridge.getMavenProject(moduleR));
+
+      for (MavenProject mavenProject : mavenSession.getProjects())
+      {
+         assertNull(mavenProject.getContextValue(B2MavenBridge.CTX_KEY_ADAPTER_LIST));
+      }
    }
 
    private static PluginProject createPluginProject(File projectDir)
