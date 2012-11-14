@@ -138,7 +138,6 @@ public class ReleaseIT extends AbstractB2IT
          args = new ArrayList<String>();
          args.add("-e");
          args.add("-B");
-         args.add("clean");
          args.add("release:prepare");
          args.add("release:perform");
          args.add("-DreleaseVersion=" + releaseVersion);
