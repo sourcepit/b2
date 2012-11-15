@@ -1,20 +1,27 @@
 /**
- * Copyright (c) 2011 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
+ * Copyright (c) 2012 Sourcepit.org contributors and others. All rights reserved. This program and the accompanying
  * materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution,
  * and is available at http://www.eclipse.org/legal/epl-v10.html
  */
 
 package org.sourcepit.b2.internal.generator;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-/**
- * VersionsUtilTest
- * 
- * @author Bernd
- */
-public class VersionUtilTest extends TestCase
+import org.junit.Test;
+
+public class VersionUtilsTest
 {
+   @Test
+   public void testToMavenVersion()
+   {
+      assertEquals("1.2", VersionUtils.toMavenVersion("1.2"));
+      assertEquals("1.2.3", VersionUtils.toMavenVersion("1.2.3"));
+      assertEquals("1.2.3-SNAPSHOT", VersionUtils.toMavenVersion("1.2.3.qualifier"));
+      assertEquals("1.2.3.rc1", VersionUtils.toMavenVersion("1.2.3.rc1"));
+   }
+   
+   @Test
    public void testToBundleVersion() throws Exception
    {
       assertEquals("1.0.0.RC1", VersionUtils.toBundleVersion("1.0.0-RC1"));
