@@ -72,7 +72,7 @@ public class ReleaseIT extends AbstractB2IT
       final File rootModuleDir = getResource(getClass().getSimpleName());
       final File repoDir = workspace.newDir("repo");
       SCM scm = new SvnSCM(repoDir, rootModuleDir);
-      
+
       final String releaseVersion = "2.0.0-rc1";
       final String developmentVersion = "3.0.0-SNAPSHOT";
       test(rootModuleDir, scm, false, releaseVersion, developmentVersion);
@@ -121,7 +121,7 @@ public class ReleaseIT extends AbstractB2IT
       assertMavenModel(scm, moduleBDir, releaseVersion);
 
       BundleManifest bundleManifest = readBundleManifest(new File(moduleBDir, "bundle.b"));
-      assertThat(bundleManifest.getBundleVersion().toString(), IsEqual.equalTo(releaseVersion));
+      assertThat(bundleManifest.getBundleVersion().toString(), IsEqual.equalTo(releaseVersion.replace('-', '.')));
 
       scm.switchVersion(null);
 
