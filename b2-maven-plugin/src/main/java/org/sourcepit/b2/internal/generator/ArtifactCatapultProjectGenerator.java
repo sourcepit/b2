@@ -89,7 +89,6 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       final File modulePom = resolvePomFile(module);
 
       final Model moduleModel = readMavenModel(modulePom);
-      final String mavenVersion = moduleModel.getVersion();
 
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
 
@@ -124,7 +123,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
       if (!artifacts.isEmpty())
       {
-         artifacts.addAll(gatherArtifacts(module, mavenVersion, propertie));
+         artifacts.addAll(gatherArtifacts(module, propertie));
 
          Profile profile = new Profile();
          profile.setId("buildProducts");
@@ -140,7 +139,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          model.getProfiles().add(profile);
       }
 
-      artifacts = gatherArtifacts(module, mavenVersion, propertie);
+      artifacts = gatherArtifacts(module, propertie);
       if (!artifacts.isEmpty())
       {
          final List<Plugin> plugins = model.getBuild().getPlugins();
@@ -316,8 +315,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
    }
 
-   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, String mavenVersion,
-      PropertiesSource properties)
+   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, PropertiesSource properties)
    {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
@@ -333,18 +331,22 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       moduleModel.setType("module");
       artifacts.add(moduleModel);
 
-      gatherSiteArtifacts(module, mavenVersion, artifacts, properties);
+      gatherSiteArtifacts(module, artifacts, properties);
 
       return artifacts;
    }
 
-   private void gatherSiteArtifacts(final AbstractModule module, String mavenVersion,
-      final List<ModuleArtifact> artifacts, PropertiesSource properties)
+   private void gatherSiteArtifacts(final AbstractModule module, final List<ModuleArtifact> artifacts,
+      PropertiesSource properties)
    {
       for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
       {
          for (SiteProject siteProject : sitesFacet.getProjects())
          {
+            String version = siteProject.getVersion();
+
+            String mavenVersion = VersionUtils.toMavenVersion(version);
+
             final ModuleArtifact siteArtifact = new ModuleArtifact();
             siteArtifact.setFile(new File(siteProject.getDirectory(), "target/" + siteProject.getId() + "-"
                + mavenVersion + ".zip"));

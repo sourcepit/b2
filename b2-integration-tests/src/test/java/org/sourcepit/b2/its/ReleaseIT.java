@@ -65,7 +65,19 @@ public class ReleaseIT extends AbstractB2IT
       final SCM scm = new GitSCM(rootModuleDir);
       test(rootModuleDir, scm, false);
    }
-   
+
+   @Test
+   public void testQualifiedReleaseVersion() throws Exception
+   {
+      final File rootModuleDir = getResource(getClass().getSimpleName());
+      final File repoDir = workspace.newDir("repo");
+      SCM scm = new SvnSCM(repoDir, rootModuleDir);
+      
+      final String releaseVersion = "2.0.0-rc1";
+      final String developmentVersion = "3.0.0-SNAPSHOT";
+      test(rootModuleDir, scm, false, releaseVersion, developmentVersion);
+   }
+
    @Test
    public void testTwoStepRelease() throws Exception
    {
@@ -77,6 +89,14 @@ public class ReleaseIT extends AbstractB2IT
 
    private void test(final File rootModuleDir, SCM scm, boolean isTwoStep) throws FileNotFoundException, IOException,
       XmlPullParserException
+   {
+      final String releaseVersion = "2.0.0";
+      final String developmentVersion = "3.0.0-SNAPSHOT";
+      test(rootModuleDir, scm, isTwoStep, releaseVersion, developmentVersion);
+   }
+
+   private void test(final File rootModuleDir, SCM scm, boolean isTwoStep, final String releaseVersion,
+      final String developmentVersion) throws FileNotFoundException, IOException, XmlPullParserException
    {
       final File moduleADir = new File(rootModuleDir, "module-a");
       assertTrue(moduleADir.exists());
@@ -91,8 +111,6 @@ public class ReleaseIT extends AbstractB2IT
 
       scm.create();
 
-      final String releaseVersion = "2.0.0";
-      final String developmentVersion = "3.0.0-SNAPSHOT";
 
       execRelease(rootModuleDir, releaseVersion, developmentVersion, isTwoStep);
 
@@ -138,7 +156,6 @@ public class ReleaseIT extends AbstractB2IT
          args = new ArrayList<String>();
          args.add("-e");
          args.add("-B");
-         args.add("clean");
          args.add("release:prepare");
          args.add("release:perform");
          args.add("-DreleaseVersion=" + releaseVersion);

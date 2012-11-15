@@ -53,6 +53,20 @@ public final class VersionUtils
          return version.substring(0, version.length() - SUFFIX_QUALIFIER.length()) + SUFFIX_SNAPSHOT;
       }
 
+      // final Version v = Version.parse(version);
+      // if (!Strings.isNullOrEmpty(v.getQualifier()))
+      // {
+      // StringBuilder sb = new StringBuilder();
+      // sb.append(v.getMajor());
+      // sb.append('.');
+      // sb.append(v.getMinor());
+      // sb.append('.');
+      // sb.append(v.getMicro());
+      // sb.append('-');
+      // sb.append(v.getQualifier());
+      // return sb.toString();
+      // }
+
       return version;
    }
 

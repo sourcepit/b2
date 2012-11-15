@@ -59,6 +59,8 @@ public abstract class AbstractB2IT
    protected int build(File mavenHome, final File moduleDir, String... args) throws IOException
    {
       final Map<String, String> envs = environment.newEnvs();
+      envs.put("M2_HOME", mavenHome.getAbsolutePath());
+
       final CommandLine cmd = newMavenCmd(mavenHome, args);
       return process.execute(envs, moduleDir, cmd);
    }
