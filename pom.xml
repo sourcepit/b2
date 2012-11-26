@@ -18,7 +18,7 @@
 	</scm>
 
 	<properties>
-		<tycho.version>0.15.0</tycho.version>
+		<tycho.version>0.16.0</tycho.version>
 		<maven-bootstrap.version>0.1.0-alpha-4</maven-bootstrap.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
