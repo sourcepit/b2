@@ -499,7 +499,11 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
    public PathMatcher getResourceMatcherForProduct(PropertiesSource moduleProperties, String productId)
    {
-      final String patterns = get(moduleProperties, productKey(productId, "resources"), productKey(null, "resources"));
+      String patterns = get(moduleProperties, productKey(productId, "resources"), productKey(null, "resources"));
+      if (patterns == null)
+      {
+         patterns = "!**";
+      }
       return PathMatcher.parse(patterns, "/", ",");
    }
 
