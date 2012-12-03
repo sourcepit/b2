@@ -27,7 +27,7 @@ import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 import com.google.common.base.Strings;
 
 @Named
-public class DefaultConverter implements SitesConverter, BasicConverter, FeaturesConverter
+public class DefaultConverter implements SitesConverter, BasicConverter, FeaturesConverter, ProductsConverter
 {
    public boolean isSkipInterpolator(PropertiesSource moduleProperties)
    {
@@ -495,5 +495,20 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    public String getNameSpace(PropertiesSource moduleProperties)
    {
       return moduleProperties.get("b2.moduleNameSpace", "b2.module");
+   }
+
+   public PathMatcher getResourceMatcherForProduct(PropertiesSource moduleProperties, String productId)
+   {
+      final String patterns = get(moduleProperties, productKey(productId, "resources"), productKey(null, "resources"));
+      return PathMatcher.parse(patterns, "/", ",");
+   }
+
+   private static String productKey(String productId, String key)
+   {
+      if (Strings.isNullOrEmpty(productId))
+      {
+         return b2Key("products." + key);
+      }
+      return b2Key("products." + productId + "." + key);
    }
 }

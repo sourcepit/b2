@@ -39,6 +39,7 @@ import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
+import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Node;
 
@@ -126,6 +127,56 @@ public class ProductProjectGeneratorTest extends InjectedTest
       productFile = new File(projectDir, "bundle.a.product");
       features = XmlUtils.queryNode(XmlUtils.readXml(productFile), "/product/features");
       assertNotNull(features);
+   }
+
+   @Test
+   public void testCopyProductResources_Feature86() throws Exception
+   {
+      final File moduleDir = getResource("ProductTest");
+
+      // TODO automate init of b2 session in an abstract test class
+      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
+      moduleProject.setDirectory(moduleDir);
+      moduleProject.setGroupId("org.sourcepit.b2.its");
+      moduleProject.setArtifactId("ProductTest");
+      moduleProject.setVersion("1.0.0-SNAPSHOT");
+      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
+      session.getProjects().add(moduleProject);
+      session.setCurrentProject(moduleProject);
+      sessionService.setCurrentSession(session);
+      sessionService.setCurrentResourceSet(new ResourceSetImpl());
+
+      PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
+      props.put("b2.products.resources", "p2.inf,legal/**");
+
+      B2Request request = new B2Request();
+      request.setModuleDirectory(moduleDir);
+      request.setInterpolate(true);
+      request.setModuleProperties(props);
+      request.setTemplates(new DefaultTemplateCopier());
+
+      // build model and generate
+      final AbstractModule module = b2.generate(request);
+      assertNotNull(module);
+
+      EList<ProductsFacet> productsFacets = module.getFacets(ProductsFacet.class);
+      assertThat(productsFacets.size(), Is.is(1));
+
+      ProductsFacet productsFacet = productsFacets.get(0);
+      EList<ProductDefinition> productDefinitions = productsFacet.getProductDefinitions();
+      assertThat(productDefinitions.size(), Is.is(1));
+
+      ProductDefinition productDefinition = productDefinitions.get(0);
+      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      assertNotNull(uid);
+
+      final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
+      final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
+      assertTrue(projectDir.exists());
+
+      assertTrue(new File(projectDir, "p2.inf").exists());
+      assertTrue(new File(projectDir, "legal/license.txt").exists());
+      assertTrue(new File(projectDir, "legal/about.txt").exists());
    }
 
    protected File getResource(String path) throws IOException
