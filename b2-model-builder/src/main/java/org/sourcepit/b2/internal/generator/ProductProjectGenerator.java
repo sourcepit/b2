@@ -90,9 +90,10 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          throw new IllegalStateException(e);
       }
 
-      final Document productDoc = XmlUtils.readXml(productFile);
       boolean modified = false;
 
+      final Document productDoc = XmlUtils.readXml(productFile);
+      
       final String classifier = getAssemblyClassifier(productFile.getName());
 
       final Optional<FeatureProject> oAssemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
@@ -103,10 +104,14 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
 
       final FeatureProject assemblyFeature = oAssemblyFeature.get();
 
+      
       Element features = getFeaturesNode(productDoc);
       Element element = productDoc.createElement("feature");
       element.setAttribute("id", assemblyFeature.getId());
       features.appendChild(element);
+      
+      converter.getIncludedFeaturesForProduct(properties, uid);
+      converter.getIncludedPluginsForProduct(properties, uid);
 
       modified = true;
 

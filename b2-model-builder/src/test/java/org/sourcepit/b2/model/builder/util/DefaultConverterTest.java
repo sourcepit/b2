@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
@@ -310,6 +311,167 @@ public class DefaultConverterTest
       testGetRequiredFeaturesOrPluginsAndKeyOrdering(method, facetName, propertyName, isSource);
    }
 
+   @Test
+   public void testGetIncludedPluginsForProduct() throws Exception
+   {
+      String productId = "foo";
+      String propertyName = "plugins";
+
+      String key1 = "b2.products." + productId + "." + propertyName;
+      String key2 = "b2.products." + propertyName;
+
+      testGetIncludedPluginsForProduct(key1, productId);
+      testGetIncludedPluginsForProduct(key2, productId);
+   }
+
+   private void testGetIncludedPluginsForProduct(String key, String productId)
+   {
+      ProductsConverter converter = new DefaultConverter();
+
+      PropertiesMap properties = new LinkedPropertiesMap();
+
+      List<StrictReference> result;
+
+      // empty
+      result = converter.getIncludedPluginsForProduct(properties, productId);
+      assertEquals(0, result.size());
+
+      properties.put(key, " ,, ");
+      result = converter.getIncludedPluginsForProduct(properties, productId);
+      assertEquals(0, result.size());
+
+      // invalid
+      properties.put(key, "foo.feature:!.0.0");
+      try
+      {
+         result = converter.getIncludedPluginsForProduct(properties, productId);
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      properties.put(key, "foo.feature:1.0.0:murks");
+      try
+      {
+         result = converter.getIncludedPluginsForProduct(properties, productId);
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      properties.put(key, "foo.feature:1.0.0:unpack:murks");
+      try
+      {
+         result = converter.getIncludedPluginsForProduct(properties, productId);
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      // valid
+      properties.put(key, "foo.feature, foo.feature:1.0.0");
+      result = converter.getIncludedPluginsForProduct(properties, productId);
+      assertEquals(2, result.size());
+
+      StrictReference include;
+      include = result.get(0);
+      assertEquals("foo.feature", include.getId());
+      assertNull(include.getVersion());
+
+      include = result.get(1);
+      assertEquals("foo.feature", include.getId());
+      assertEquals("1.0.0", include.getVersion());
+   }
+
+   @Test
+   public void testGetIncludedSourceFeaturesForProduct() throws Exception
+   {
+      String productId = "foo";
+      String propertyName = "features";
+
+      String key1 = "b2.products." + productId + "." + propertyName;
+      String key2 = "b2.products." + propertyName;
+
+      testGetIncludedFeaturesForProduct(key1, productId);
+      testGetIncludedFeaturesForProduct(key2, productId);
+
+      // test key1 overrides key2
+      PropertiesMap properties = new LinkedPropertiesMap();
+      properties.put(key1, "key1");
+      properties.put(key2, "key2");
+
+      ProductsConverter converter = new DefaultConverter();
+
+      List<StrictReference> result = converter.getIncludedFeaturesForProduct(properties, productId);
+      assertEquals(1, result.size());
+      assertEquals("key1", result.get(0).getId());
+   }
+
+   private void testGetIncludedFeaturesForProduct(String key, String facetName)
+   {
+      ProductsConverter converter = new DefaultConverter();
+
+      PropertiesMap properties = new LinkedPropertiesMap();
+
+      List<StrictReference> result;
+
+      // empty
+      result = converter.getIncludedFeaturesForProduct(properties, facetName);
+      assertEquals(0, result.size());
+
+      properties.put(key, " ,, ");
+      result = converter.getIncludedFeaturesForProduct(properties, facetName);
+      assertEquals(0, result.size());
+
+      // invalid
+      properties.put(key, "foo.feature:!.0.0");
+      try
+      {
+         result = converter.getIncludedFeaturesForProduct(properties, facetName);
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      properties.put(key, "foo.feature:1.0.0:murks");
+      try
+      {
+         result = converter.getIncludedFeaturesForProduct(properties, facetName);
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      properties.put(key, "foo.feature:1.0.0:optional:murks");
+      try
+      {
+         result = converter.getIncludedFeaturesForProduct(properties, facetName);
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      // valid
+      properties.put(key, "foo.feature, foo.feature:1.0.0");
+      result = converter.getIncludedFeaturesForProduct(properties, facetName);
+      assertEquals(2, result.size());
+
+      StrictReference requirement;
+      requirement = result.get(0);
+      assertEquals("foo.feature", requirement.getId());
+      assertNull(requirement.getVersion());
+
+      requirement = result.get(1);
+      assertEquals("foo.feature", requirement.getId());
+      assertEquals("1.0.0", requirement.getVersion());
+   }
+
    private void testGetRequiredFeaturesOrPluginsAndKeyOrdering(final Method method, final String facetName,
       String propertyName, boolean isSource) throws Exception
    {
@@ -477,7 +639,7 @@ public class DefaultConverterTest
       assertEquals("_3er", DefaultConverter.toValidId("3er"));
       assertEquals("hans_wurst", DefaultConverter.toValidId("hans wurst"));
    }
-   
+
    @Test
    public void testSkipInterpolator() throws Exception
    {
@@ -485,14 +647,14 @@ public class DefaultConverterTest
 
       BasicConverter converter = new DefaultConverter();
       assertFalse(converter.isSkipInterpolator(properties));
-      
+
       properties.put("b2.skipInterpolator", "false");
       assertFalse(converter.isSkipInterpolator(properties));
 
       properties.put("b2.skipInterpolator", "true");
       assertTrue(converter.isSkipInterpolator(properties));
    }
-   
+
    @Test
    public void testSkipGenerator() throws Exception
    {
@@ -500,7 +662,7 @@ public class DefaultConverterTest
 
       BasicConverter converter = new DefaultConverter();
       assertFalse(converter.isSkipGenerator(properties));
-      
+
       properties.put("b2.skipGenerator", "false");
       assertFalse(converter.isSkipGenerator(properties));
 
