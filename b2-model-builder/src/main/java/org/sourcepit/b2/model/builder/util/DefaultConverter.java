@@ -19,6 +19,7 @@ import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -27,7 +28,7 @@ import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 import com.google.common.base.Strings;
 
 @Named
-public class DefaultConverter implements SitesConverter, BasicConverter, FeaturesConverter
+public class DefaultConverter implements SitesConverter, BasicConverter, FeaturesConverter, ProductsConverter
 {
    public boolean isSkipInterpolator(PropertiesSource moduleProperties)
    {
@@ -207,6 +208,25 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
       return result;
    }
+   
+   private List<StrictReference> toStrictReferenceList(final String rawIncludes)
+   {
+      final List<StrictReference> result = new ArrayList<StrictReference>();
+
+      if (rawIncludes != null)
+      {
+         for (String rawInclude : rawIncludes.split(","))
+         {
+            final String include = rawInclude.trim();
+            if (include.length() > 0)
+            {
+               result.add(toStrictReference(include));
+            }
+         }
+      }
+
+      return result;
+   }
 
    public List<RuledReference> getRequiredFeaturesForFacet(PropertiesSource moduleProperties, String facetName,
       boolean isSource)
@@ -342,6 +362,21 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       }
 
       return inc;
+   }
+   
+   private static StrictReference toStrictReference(String include)
+   {
+      // foo:1.0.0
+      final StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
+      final String[] segments = include.split(":");
+      if (segments.length < 1 || segments.length > 2)
+      {
+         throw new IllegalArgumentException(include + " is not a valid reference specification");
+      }
+
+      parseAndSetIdAndVersion(include, ref, segments);
+
+      return ref;
    }
 
    private static String assemblyKey(String assemblyName, String key)
@@ -495,5 +530,38 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    public String getNameSpace(PropertiesSource moduleProperties)
    {
       return moduleProperties.get("b2.moduleNameSpace", "b2.module");
+   }
+
+   public PathMatcher getResourceMatcherForProduct(PropertiesSource moduleProperties, String productId)
+   {
+      String patterns = get(moduleProperties, productKey(productId, "resources"), productKey(null, "resources"));
+      if (patterns == null)
+      {
+         patterns = "!**";
+      }
+      return PathMatcher.parse(patterns, "/", ",");
+   }
+
+   public List<StrictReference> getIncludedFeaturesForProduct(PropertiesSource moduleProperties, String productId)
+   {
+      final String key = "features";
+      final String rawIncludes = get(moduleProperties, productKey(productId, key), productKey(null, key));
+      return toStrictReferenceList(rawIncludes);
+   }
+
+   public List<StrictReference> getIncludedPluginsForProduct(PropertiesSource moduleProperties, String productId)
+   {
+      final String key = "plugins";
+      final String rawIncludes = get(moduleProperties, productKey(productId, key), productKey(null, key));
+      return toStrictReferenceList(rawIncludes);
+   }
+
+   private static String productKey(String productId, String key)
+   {
+      if (Strings.isNullOrEmpty(productId))
+      {
+         return b2Key("products." + key);
+      }
+      return b2Key("products." + productId + "." + key);
    }
 }

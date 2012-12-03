@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.AbstractGenerator;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.model.builder.util.ProductsConverter;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -30,6 +31,10 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.common.utils.file.FileVisitor;
+import org.sourcepit.common.utils.lang.Exceptions;
+import org.sourcepit.common.utils.path.PathMatcher;
+import org.sourcepit.common.utils.path.PathUtils;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -43,6 +48,9 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
 {
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
+
+   @Inject
+   private ProductsConverter converter;
 
    @Override
    protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
@@ -82,9 +90,10 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          throw new IllegalStateException(e);
       }
 
-      final Document productDoc = XmlUtils.readXml(productFile);
       boolean modified = false;
 
+      final Document productDoc = XmlUtils.readXml(productFile);
+      
       final String classifier = getAssemblyClassifier(productFile.getName());
 
       final Optional<FeatureProject> oAssemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
@@ -95,16 +104,22 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
 
       final FeatureProject assemblyFeature = oAssemblyFeature.get();
 
+      
       Element features = getFeaturesNode(productDoc);
       Element element = productDoc.createElement("feature");
       element.setAttribute("id", assemblyFeature.getId());
       features.appendChild(element);
+      
+      converter.getIncludedFeaturesForProduct(properties, uid);
+      converter.getIncludedPluginsForProduct(properties, uid);
 
       modified = true;
 
       final PluginProject productPlugin = resolveProductPlugin(module, product);
       if (productPlugin != null)
       {
+         copyProductResources(productPlugin.getDirectory(), projectDir, properties, uid);
+
          // tycho icon bug fix
          for (Entry<String, String> entry : data)
          {
@@ -136,6 +151,53 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       {
          XmlUtils.writeXml(productDoc, productFile);
       }
+   }
+
+   private void copyProductResources(final File srcDir, final File destDir, PropertiesSource properties,
+      String productId)
+   {
+      final PathMatcher matcher = converter.getResourceMatcherForProduct(properties, productId);
+
+      org.sourcepit.common.utils.file.FileUtils.accept(srcDir, new FileVisitor()
+      {
+         public boolean visit(File srcFile)
+         {
+            if (srcFile.equals(srcDir))
+            {
+               return true;
+            }
+            
+            final boolean isDir = srcFile.isDirectory();
+            
+            String path = PathUtils.getRelativePath(srcFile, srcDir, "/");
+            if (isDir)
+            {
+               path += "/";
+            }
+            if (matcher.isMatch(path))
+            {
+               try
+               {
+                  final File destFile = new File(destDir, path);
+                  if (isDir)
+                  {
+                     FileUtils.copyDirectory(srcFile, destFile);
+                  }
+                  else
+                  {
+                     FileUtils.copyFile(srcFile, destFile);
+                  }
+               }
+               catch (IOException e)
+               {
+                  throw Exceptions.pipe(e);
+               }
+
+               return false;
+            }
+            return true;
+         }
+      });
    }
 
    private static Optional<FeatureProject> findAssemblyFeatureForClassifier(final AbstractModule module,
