@@ -9,6 +9,7 @@ package org.sourcepit.b2.internal.generator;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -42,6 +43,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Strings;
 
 @Named
 public class ProductProjectGenerator extends AbstractGenerator implements IB2GenerationParticipant
@@ -93,7 +95,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       boolean modified = false;
 
       final Document productDoc = XmlUtils.readXml(productFile);
-      
+
       final String classifier = getAssemblyClassifier(productFile.getName());
 
       final Optional<FeatureProject> oAssemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
@@ -104,14 +106,40 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
 
       final FeatureProject assemblyFeature = oAssemblyFeature.get();
 
-      
+
       Element features = getFeaturesNode(productDoc);
       Element element = productDoc.createElement("feature");
       element.setAttribute("id", assemblyFeature.getId());
       features.appendChild(element);
-      
-      converter.getIncludedFeaturesForProduct(properties, uid);
-      converter.getIncludedPluginsForProduct(properties, uid);
+
+      for (StrictReference feature : converter.getIncludedFeaturesForProduct(properties, uid))
+      {
+         element = productDoc.createElement("feature");
+         element.setAttribute("id", feature.getId());
+         final String version = feature.getVersion();
+         if (!Strings.isNullOrEmpty(version))
+         {
+            element.setAttribute("version", version);
+         }
+         features.appendChild(element);
+      }
+
+      final List<StrictReference> additionalPlugins = converter.getIncludedPluginsForProduct(properties, uid);
+      if (!additionalPlugins.isEmpty())
+      {
+         final Element plugins = getPluginsNode(productDoc);
+         for (StrictReference plugin : additionalPlugins)
+         {
+            element = productDoc.createElement("plugin");
+            element.setAttribute("id", plugin.getId());
+            final String version = plugin.getVersion();
+            if (!Strings.isNullOrEmpty(version))
+            {
+               element.setAttribute("version", version);
+            }
+            plugins.appendChild(element);
+         }
+      }
 
       modified = true;
 
@@ -166,9 +194,9 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
             {
                return true;
             }
-            
+
             final boolean isDir = srcFile.isDirectory();
-            
+
             String path = PathUtils.getRelativePath(srcFile, srcDir, "/");
             if (isDir)
             {
@@ -227,6 +255,18 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          product.appendChild(features);
       }
       return features;
+   }
+
+   private Element getPluginsNode(final Document productDoc)
+   {
+      Element plugins = (Element) XmlUtils.queryNode(productDoc, "/product/plugins");
+      if (plugins == null)
+      {
+         plugins = productDoc.createElement("plugins");
+         Element product = (Element) productDoc.getElementsByTagName("product").item(0);
+         product.appendChild(plugins);
+      }
+      return plugins;
    }
 
    public static String getAssemblyClassifier(String productFileName)

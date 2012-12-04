@@ -14,6 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.inject.Inject;
 
@@ -41,6 +42,7 @@ import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.xml.XmlUtils;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.google.inject.Binder;
@@ -177,6 +179,125 @@ public class ProductProjectGeneratorTest extends InjectedTest
       assertTrue(new File(projectDir, "p2.inf").exists());
       assertTrue(new File(projectDir, "legal/license.txt").exists());
       assertTrue(new File(projectDir, "legal/about.txt").exists());
+   }
+
+   @Test
+   public void testFeature87_AdditionalFeatureIncludes() throws Exception
+   {
+      final File moduleDir = getResource("ProductTest");
+
+      // TODO automate init of b2 session in an abstract test class
+      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
+      moduleProject.setDirectory(moduleDir);
+      moduleProject.setGroupId("org.sourcepit.b2.its");
+      moduleProject.setArtifactId("ProductTest");
+      moduleProject.setVersion("1.0.0-SNAPSHOT");
+      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
+      session.getProjects().add(moduleProject);
+      session.setCurrentProject(moduleProject);
+      sessionService.setCurrentSession(session);
+      sessionService.setCurrentResourceSet(new ResourceSetImpl());
+
+      PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
+      props.put("b2.products.features", "foo:1.0.0,bar");
+
+      B2Request request = new B2Request();
+      request.setModuleDirectory(moduleDir);
+      request.setInterpolate(true);
+      request.setModuleProperties(props);
+      request.setTemplates(new DefaultTemplateCopier());
+
+      // build model and generate
+      final AbstractModule module = b2.generate(request);
+      assertNotNull(module);
+
+      EList<ProductsFacet> productsFacets = module.getFacets(ProductsFacet.class);
+      assertThat(productsFacets.size(), Is.is(1));
+
+      ProductsFacet productsFacet = productsFacets.get(0);
+      EList<ProductDefinition> productDefinitions = productsFacet.getProductDefinitions();
+      assertThat(productDefinitions.size(), Is.is(1));
+
+      ProductDefinition productDefinition = productDefinitions.get(0);
+      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      assertNotNull(uid);
+
+      final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
+      final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
+      assertTrue(projectDir.exists());
+
+      File productFile = new File(projectDir, "bundle.a.product");
+      @SuppressWarnings({ "unchecked", "rawtypes" })
+      Iterator<Element> features = (Iterator) XmlUtils.queryNodes(XmlUtils.readXml(productFile),
+         "/product/features/feature").iterator();
+
+      Element feature = features.next();
+      assertEquals("org.sourcepit.b2.its.ProductTest.plugins.feature", feature.getAttribute("id"));
+      assertEquals("", feature.getAttribute("version"));
+      feature = features.next();
+      assertEquals("foo", feature.getAttribute("id"));
+      assertEquals("1.0.0", feature.getAttribute("version"));
+      feature = features.next();
+      assertEquals("bar", feature.getAttribute("id"));
+      assertEquals("", feature.getAttribute("version"));
+   }
+   
+   @Test
+   public void testFeature87_AdditionalPluginIncludes() throws Exception
+   {
+      final File moduleDir = getResource("ProductTest");
+
+      // TODO automate init of b2 session in an abstract test class
+      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
+      moduleProject.setDirectory(moduleDir);
+      moduleProject.setGroupId("org.sourcepit.b2.its");
+      moduleProject.setArtifactId("ProductTest");
+      moduleProject.setVersion("1.0.0-SNAPSHOT");
+      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
+      session.getProjects().add(moduleProject);
+      session.setCurrentProject(moduleProject);
+      sessionService.setCurrentSession(session);
+      sessionService.setCurrentResourceSet(new ResourceSetImpl());
+
+      PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
+      props.put("b2.products.plugins", "foo:1.0.0,bar");
+
+      B2Request request = new B2Request();
+      request.setModuleDirectory(moduleDir);
+      request.setInterpolate(true);
+      request.setModuleProperties(props);
+      request.setTemplates(new DefaultTemplateCopier());
+
+      // build model and generate
+      final AbstractModule module = b2.generate(request);
+      assertNotNull(module);
+
+      EList<ProductsFacet> productsFacets = module.getFacets(ProductsFacet.class);
+      assertThat(productsFacets.size(), Is.is(1));
+
+      ProductsFacet productsFacet = productsFacets.get(0);
+      EList<ProductDefinition> productDefinitions = productsFacet.getProductDefinitions();
+      assertThat(productDefinitions.size(), Is.is(1));
+
+      ProductDefinition productDefinition = productDefinitions.get(0);
+      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      assertNotNull(uid);
+
+      final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
+      final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
+      assertTrue(projectDir.exists());
+
+      File productFile = new File(projectDir, "bundle.a.product");
+      @SuppressWarnings({ "unchecked", "rawtypes" })
+      Iterator<Element> features = (Iterator) XmlUtils.queryNodes(XmlUtils.readXml(productFile),
+         "/product/plugins/plugin").iterator();
+
+      Element plugins = features.next();
+      assertEquals("foo", plugins.getAttribute("id"));
+      assertEquals("1.0.0", plugins.getAttribute("version"));
+      plugins = features.next();
+      assertEquals("bar", plugins.getAttribute("id"));
+      assertEquals("", plugins.getAttribute("version"));
    }
 
    protected File getResource(String path) throws IOException
