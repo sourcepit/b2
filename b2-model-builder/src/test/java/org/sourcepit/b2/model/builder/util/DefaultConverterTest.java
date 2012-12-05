@@ -669,4 +669,27 @@ public class DefaultConverterTest
       properties.put("b2.skipGenerator", "true");
       assertTrue(converter.isSkipGenerator(properties));
    }
+
+   @Test
+   public void testGetUpdateSitesForProduct() throws Exception
+   {
+      ProductsConverter converter = new DefaultConverter();
+
+      PropertiesMap properties = new LinkedPropertiesMap();
+
+      List<String> sites = converter.getUpdateSitesForProduct(properties, "foo");
+      assertEquals(0, sites.size());
+
+      properties.put("b2.products.sites", "http://localhost/p2, http://eclipse.org,,,");
+      sites = converter.getUpdateSitesForProduct(properties, "foo");
+      assertEquals(2, sites.size());
+      assertEquals("http://localhost/p2", sites.get(0));
+      assertEquals("http://eclipse.org", sites.get(1));
+      
+      properties.put("b2.products.foo.sites", "http://bar");
+      sites = converter.getUpdateSitesForProduct(properties, "foo");
+      assertEquals(1, sites.size());
+      assertEquals("http://bar", sites.get(0));
+   }
+
 }
