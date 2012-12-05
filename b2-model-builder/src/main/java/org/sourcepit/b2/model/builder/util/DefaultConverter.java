@@ -555,6 +555,28 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       final String rawIncludes = get(moduleProperties, productKey(productId, key), productKey(null, key));
       return toStrictReferenceList(rawIncludes);
    }
+   
+   public List<String> getUpdateSitesForProduct(PropertiesSource moduleProperties, String productId)
+   {
+      final String key = "sites";
+      final String rawSites = get(moduleProperties, productKey(productId, key), productKey(null, key));
+      
+      final List<String> sites = new ArrayList<String>();
+
+      if (rawSites != null)
+      {
+         for (String rawInclude : rawSites.split(","))
+         {
+            final String site = rawInclude.trim();
+            if (site.length() > 0)
+            {
+               sites.add(site);
+            }
+         }
+      }
+
+      return sites;
+   }
 
    private static String productKey(String productId, String key)
    {
