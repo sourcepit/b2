@@ -13,15 +13,15 @@ import java.util.List;
 
 public class Instruction
 {
-   public static Instruction parse(String instructionKey, String actions)
+   public static Instruction parse(String header, String body)
    {
-      final String phase = extractPhase(instructionKey);
-      checkArgument(phase != null, "Invalid instruction key '%s'", instructionKey);
+      final String phase = extractPhase(header);
+      checkArgument(phase != null, "Invalid instruction header '%s'", header);
 
       final Instruction instruction = new Instruction();
       instruction.setPhase(phase);
 
-      for (String string : actions.split(";"))
+      for (String string : body.split(";"))
       {
          final Action action = Action.parse(string.trim());
          instruction.getActions().add(action);
@@ -63,14 +63,14 @@ public class Instruction
       return actions;
    }
 
-   public String toKey()
+   public String getHeader()
    {
       final StringBuilder sb = new StringBuilder();
       appendKey(sb);
       return sb.toString();
    }
 
-   public String toValue()
+   public String getBody()
    {
       final StringBuilder sb = new StringBuilder();
       appendValue(sb);
