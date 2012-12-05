@@ -350,7 +350,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
       assertTrue(projectDir.exists());
 
-      File productFile = new File(projectDir, "p2.inf");
+      File productFile = new File(projectDir, "bundle.a.p2.inf");
       assertTrue(productFile.exists());
 
       PropertiesMap p2Inf = new LinkedPropertiesMap();
