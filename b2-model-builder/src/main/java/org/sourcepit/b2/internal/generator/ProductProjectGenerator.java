@@ -36,6 +36,7 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.file.FileVisitor;
 import org.sourcepit.common.utils.lang.Exceptions;
+import org.sourcepit.common.utils.path.Path;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.path.PathUtils;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
@@ -184,10 +185,10 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          XmlUtils.writeXml(productDoc, productFile);
       }
 
-      generateP2Inf(properties, uid, projectDir);
+      generateP2Inf(properties, uid, projectDir, getProductName(productFile.getName()));
    }
 
-   private void generateP2Inf(PropertiesSource properties, final String uid, final File projectDir)
+   private void generateP2Inf(PropertiesSource properties, String uid, File projectDir, String productName)
    {
       final List<String> sites = converter.getUpdateSitesForProduct(properties, uid);
       if (!sites.isEmpty())
@@ -202,7 +203,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
 
          final PropertiesMap instructions = new LinkedPropertiesMap();
          instructions.put(instruction.getHeader(), instruction.getBody());
-         instructions.store(new File(projectDir, "p2.inf"));
+         instructions.store(new File(projectDir, productName + ".p2.inf"));
       }
    }
 
@@ -303,6 +304,11 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          product.appendChild(plugins);
       }
       return plugins;
+   }
+
+   public static String getProductName(String productFileName)
+   {
+      return new Path(productFileName).getFileName();
    }
 
    public static String getAssemblyClassifier(String productFileName)
