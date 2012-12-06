@@ -128,16 +128,15 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
 
       final boolean includeForeignModules = isIncludeForeignModules(moduleProperties, module, assemblyName);
 
-      final Set<FeatureProject> assemblyFeatures = new LinkedHashSet<FeatureProject>();
+      final Set<FeatureProject> allFeatures = new LinkedHashSet<FeatureProject>();
       final Set<FeatureProject> visibleAssemblyFeatures = new LinkedHashSet<FeatureProject>();
-      resolveIncludeResolutionContext(assemblyFeatures, visibleAssemblyFeatures, module, assemblyFeature,
+      resolveIncludeResolutionContext(allFeatures, visibleAssemblyFeatures, module, assemblyFeature,
          includeForeignModules);
-
-      final PathMatcher matcher = converter.getAggregatorFeatureMatcherForAssembly(moduleProperties, assemblyName);
 
       if (mode == AggregatorMode.AGGREGATE)
       {
-         for (FeatureProject featureProject : assemblyFeatures)
+         final PathMatcher matcher = converter.getAggregatorFeatureMatcherForAssembly(moduleProperties, assemblyName);
+         for (FeatureProject featureProject : allFeatures)
          {
             if (isAssemblyFeatureIdMatch(matcher, featureProject))
             {
@@ -184,83 +183,39 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       }
       else if (mode == AggregatorMode.UNWRAP)
       {
-         for (FeatureProject featureProject : assemblyFeatures)
+         final PathMatcher featureMatcher = converter.getFeatureMatcherForAssembly(moduleProperties, assemblyName);
+         final PathMatcher pluginMatcher = converter.getPluginMatcherForAssembly(moduleProperties, assemblyName);
+         for (FeatureProject featureProject : visibleAssemblyFeatures)
          {
-            if (isAssemblyFeatureIdMatch(matcher, featureProject))
+            final boolean isFacetFeature = B2MetadataUtils.getFacetName(featureProject) != null;
+            if (isFacetFeature)
             {
-               final boolean isFacetFeature = B2MetadataUtils.getFacetName(featureProject) != null;
-               if (isFacetFeature && visibleAssemblyFeatures.contains(featureProject))
+               if (featureMatcher.isMatch(featureProject.getId()))
                {
                   handler.addFeatureInclude(toFeatureInclude(featureProject));
                }
-               else
+            }
+            else
+            {
+               for (FeatureInclude featureInclude : featureProject.getIncludedFeatures())
                {
-                  for (FeatureInclude featureInclude : featureProject.getIncludedFeatures())
+                  if (featureMatcher.isMatch(featureInclude.getId()))
                   {
-                     if (isIn(visibleAssemblyFeatures, featureInclude))
-                     {
-                        handler.addFeatureInclude(EcoreUtil.copy(featureInclude));
-                     }
-                     else
-                     {
-                        log.warn("Cannot include feature " + featureInclude.getId() + " into "
-                           + assemblyFeature.getId() + " because it is out of scope");
-                     }
+                     handler.addFeatureInclude(EcoreUtil.copy(featureInclude));
                   }
+               }
 
-                  for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
+               for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
+               {
+                  if (pluginMatcher.isMatch(pluginInclude.getId()))
                   {
-                     if (isIn(visibleAssemblyFeatures, pluginInclude))
-                     {
-                        handler.addPluginInclude(EcoreUtil.copy(pluginInclude));
-                     }
-                     else
-                     {
-                        log.warn("Cannot include plugin " + pluginInclude.getId() + " into " + assemblyFeature.getId()
-                           + " because it is out of scope");
-                     }
+                     handler.addPluginInclude(EcoreUtil.copy(pluginInclude));
                   }
                }
             }
-
             // TODO requirements?
          }
       }
-   }
-
-   private static boolean isIn(Collection<FeatureProject> featureProjects, FeatureInclude featureInclude)
-   {
-      for (FeatureProject featureProject : featureProjects)
-      {
-         if (featureInclude.isSatisfiableBy(featureProject))
-         {
-            return true;
-         }
-
-         for (FeatureInclude featureInclude2 : featureProject.getIncludedFeatures())
-         {
-            if (featureInclude.getId().equals(featureInclude2.getId()))
-            {
-               return true;
-            }
-         }
-      }
-      return false;
-   }
-
-   private static boolean isIn(Collection<FeatureProject> featureProjects, PluginInclude pluginInclude)
-   {
-      for (FeatureProject featureProject : featureProjects)
-      {
-         for (PluginInclude pluginInclude2 : featureProject.getIncludedPlugins())
-         {
-            if (pluginInclude.getId().equals(pluginInclude2.getId()))
-            {
-               return true;
-            }
-         }
-      }
-      return false;
    }
 
    private AggregatorMode getAggregatorMode(PropertiesSource moduleProperties, AbstractModule module,

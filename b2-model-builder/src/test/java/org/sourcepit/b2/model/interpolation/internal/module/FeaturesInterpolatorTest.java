@@ -860,6 +860,97 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk(BasicModule module)
+   {
+      EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
+      assertEquals(1, featuresFacets.size());
+
+      FeaturesFacet featuresFacet = featuresFacets.get(0);
+      assertTrue(featuresFacet.isDerived());
+      assertEquals(6, featuresFacet.getProjects().size());
+
+      FeatureProject featureProject;
+      featureProject = featuresFacet.getProjects().get(0);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
+      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(0, featureProject.getIncludedFeatures().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
+
+      featureProject = featuresFacet.getProjects().get(1);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.plugins.sources.feature", "1.0.0.qualifier", featureProject);
+      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(0, featureProject.getIncludedFeatures().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
+
+      featureProject = featuresFacet.getProjects().get(2);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
+      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(0, featureProject.getIncludedFeatures().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
+
+      featureProject = featuresFacet.getProjects().get(3);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.tests.sources.feature", "1.0.0.qualifier", featureProject);
+      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(0, featureProject.getIncludedFeatures().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
+      
+      featureProject = featuresFacet.getProjects().get(4);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.public.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(2, featureProject.getIncludedFeatures().size());
+      assertEquals(0, featureProject.getIncludedPlugins().size());
+      
+      FeatureInclude featureInclude;
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
+      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
+      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+
+      featureProject = featuresFacet.getProjects().get(5);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(4, featureProject.getIncludedFeatures().size());
+      assertEquals(0, featureProject.getIncludedPlugins().size());
+
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
+      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("foo.tests.sources.feature", "1.0.0.qualifier", featureInclude);
+      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+
+      featureInclude = featureProject.getIncludedFeatures().get(2);
+      assertReference("bar.tests.feature", "1.0.0.qualifier", featureInclude);
+      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+
+      featureInclude = featureProject.getIncludedFeatures().get(3);
+      assertReference("bar.tests.sources.feature", "1.0.0.qualifier", featureInclude);
+      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+   }
+
+   @Override
    protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource(BasicModule module)
    {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
@@ -1332,32 +1423,32 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    {
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
-      
+
       addPluginProject(module, "plugins", "foo.plugin", module.getVersion());
       PluginProject docPlugin = addPluginProject(module, "doc", "foo.doc", module.getVersion());
       Annotation javaMetdata = docPlugin.getAnnotation("java");
       assertNotNull(javaMetdata);
       docPlugin.getAnnotations().remove(javaMetdata);
-   
+
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       // moduleProperties.put("build.sources", "false"); // true is default
       moduleProperties.put("b2.assemblies", "main, test");
-   
+
       moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**");
       moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
       moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
       moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
-   
+
       moduleProperties.put("b2.assemblies.main.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
       moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
       moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
       moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
-      
+
       interpolate(module, moduleProperties);
-      
+
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
-   
+
       FeaturesFacet featuresFacet = featuresFacets.get(0);
       assertTrue(featuresFacet.isDerived());
       assertEquals(4, featuresFacet.getProjects().size());
