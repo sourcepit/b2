@@ -9,9 +9,9 @@ package org.sourcepit.b2.model.module.internal;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
-import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.internal.util.FacetUtils;
 
 public aspect AbstractModuleAspect
