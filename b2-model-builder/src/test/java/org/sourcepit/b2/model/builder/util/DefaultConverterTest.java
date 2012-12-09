@@ -553,14 +553,14 @@ public class DefaultConverterTest
 
       requirement = result.get(0);
       assertEquals("foo.feature", requirement.getId());
-      assertFalse(requirement.isSetVersion());
+      assertTrue(requirement.isSetVersion());
       assertEquals("0.0.0", requirement.getVersion());
-      assertSame(VersionMatchRule.COMPATIBLE, requirement.getVersionMatchRule());
+      assertSame(VersionMatchRule.GREATER_OR_EQUAL, requirement.getVersionMatchRule());
 
       requirement = result.get(1);
       assertEquals("foo.feature", requirement.getId());
       assertEquals("1.0.0", requirement.getVersion());
-      assertSame(VersionMatchRule.COMPATIBLE, requirement.getVersionMatchRule());
+      assertSame(VersionMatchRule.GREATER_OR_EQUAL, requirement.getVersionMatchRule());
 
       requirement = result.get(2);
       assertEquals("foo.feature", requirement.getId());

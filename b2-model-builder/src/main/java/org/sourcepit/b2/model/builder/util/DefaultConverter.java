@@ -208,7 +208,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
       return result;
    }
-   
+
    private List<StrictReference> toStrictReferenceList(final String rawIncludes)
    {
       final List<StrictReference> result = new ArrayList<StrictReference>();
@@ -285,6 +285,14 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
                + " is not a valid version matching rule");
          }
          ref.setVersionMatchRule(rule);
+      }
+      else
+      {
+         if (!ref.isSetVersion()) // force set
+         {
+            ref.setVersion("0.0.0");
+         }
+         ref.setVersionMatchRule(VersionMatchRule.GREATER_OR_EQUAL);
       }
 
       return ref;
@@ -363,7 +371,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
       return inc;
    }
-   
+
    private static StrictReference toStrictReference(String include)
    {
       // foo:1.0.0
@@ -555,12 +563,12 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       final String rawIncludes = get(moduleProperties, productKey(productId, key), productKey(null, key));
       return toStrictReferenceList(rawIncludes);
    }
-   
+
    public List<String> getUpdateSitesForProduct(PropertiesSource moduleProperties, String productId)
    {
       final String key = "sites";
       final String rawSites = get(moduleProperties, productKey(productId, key), productKey(null, key));
-      
+
       final List<String> sites = new ArrayList<String>();
 
       if (rawSites != null)
