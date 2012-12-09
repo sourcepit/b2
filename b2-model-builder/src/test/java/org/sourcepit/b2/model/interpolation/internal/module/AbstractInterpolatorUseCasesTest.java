@@ -567,6 +567,60 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
    protected abstract void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource(BasicModule module);
 
    @Test
+   public void testUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk() throws Exception
+   {
+      // setup
+      BasicModule module = createBasicModule("bar");
+      module.setDirectory(new File(""));
+
+      addPluginProject(module, "plugins", "bar.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "bar.plugin.tests", "1.0.0.qualifier");
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      // moduleProperties.put("build.sources", "false"); // true is default
+      moduleProperties.put("b2.assemblies", "sdk, test");
+
+      moduleProperties.put("b2.assemblies.sdk.featuresFilter", "!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
+
+      // interpolate
+      interpolate(module, moduleProperties);
+
+      resolutionContext.get().add(module);
+
+      module = createBasicModule("foo");
+      module.setDirectory(new File(""));
+
+      addPluginProject(module, "plugins", "foo.plugin", "1.0.0.qualifier");
+      addPluginProject(module, "tests", "foo.plugin.tests", "1.0.0.qualifier");
+
+      moduleProperties = new LinkedPropertiesMap();
+      // moduleProperties.put("build.sources", "false"); // true is default
+      moduleProperties.put("b2.assemblies", "public, test");
+
+      moduleProperties.put("b2.assemblies.public.featuresFilter", "!**.sources.**,!**.tests.**");
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**");
+
+      moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**,!**.test.**");
+      moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
+
+      moduleProperties.put("b2.aggregator.mode", "unwrap");
+      // moduleProperties.put("b2.assemblies.public.aggregator.featuresFilter", "!**.sdk.**");
+      // moduleProperties.put("b2.assemblies.sdk.aggregator.featuresFilter", "**.sdk.**");
+      // moduleProperties.put("b2.assemblies.test.aggregator.featuresFilter", "**.test.**");
+
+      // interpolate
+      interpolate(module, moduleProperties);
+
+      assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk(module);
+   }
+
+   protected abstract void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk(BasicModule module);
+
+   @Test
    public void testUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource() throws Exception
    {
       // setup

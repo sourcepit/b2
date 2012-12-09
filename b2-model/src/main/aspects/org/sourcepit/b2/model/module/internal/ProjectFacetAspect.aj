@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.model.module.internal;
 
-import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.AbstractReference;
+import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.internal.util.FacetUtils;
 import org.sourcepit.b2.model.module.internal.util.ProjectUtils;
 

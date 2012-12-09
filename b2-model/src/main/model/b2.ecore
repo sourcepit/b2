@@ -223,7 +223,8 @@
         <eParameters name="identifier" eType="#//module/Identifiable"/>
       </eOperations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+          defaultValueLiteral="0.0.0" unsettable="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="VersionMatchRule">
       <eLiterals name="compatible"/>
@@ -233,7 +234,7 @@
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="RuledReference" eSuperTypes="#//module/AbstractReference">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionMatchRule" eType="#//module/VersionMatchRule"
-          defaultValueLiteral="compatible"/>
+          defaultValueLiteral="compatible" unsettable="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AbstractStrictReference" abstract="true"
         eSuperTypes="#//module/AbstractReference"/>

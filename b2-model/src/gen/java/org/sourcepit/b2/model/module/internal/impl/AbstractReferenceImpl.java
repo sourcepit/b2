@@ -82,7 +82,7 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * @generated
     * @ordered
     */
-   protected static final String VERSION_EDEFAULT = null;
+   protected static final String VERSION_EDEFAULT = "0.0.0";
 
    /**
     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -94,6 +94,16 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * @ordered
     */
    protected String version = VERSION_EDEFAULT;
+
+   /**
+    * This is true if the Version attribute has been set.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   protected boolean versionESet;
 
    /**
     * <!-- begin-user-doc -->
@@ -180,9 +190,39 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       String oldVersion = version;
       version = newVersion;
+      boolean oldVersionESet = versionESet;
+      versionESet = true;
       if (eNotificationRequired())
          eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_REFERENCE__VERSION,
-            oldVersion, version));
+            oldVersion, version, !oldVersionESet));
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public void unsetVersion()
+   {
+      String oldVersion = version;
+      boolean oldVersionESet = versionESet;
+      version = VERSION_EDEFAULT;
+      versionESet = false;
+      if (eNotificationRequired())
+         eNotify(new ENotificationImpl(this, Notification.UNSET, ModuleModelPackage.ABSTRACT_REFERENCE__VERSION,
+            oldVersion, VERSION_EDEFAULT, oldVersionESet));
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public boolean isSetVersion()
+   {
+      return versionESet;
    }
 
    /**
@@ -337,7 +377,7 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
             setId(ID_EDEFAULT);
             return;
          case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
-            setVersion(VERSION_EDEFAULT);
+            unsetVersion();
             return;
       }
       super.eUnset(featureID);
@@ -359,7 +399,7 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
          case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
          case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
-            return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+            return isSetVersion();
       }
       return super.eIsSet(featureID);
    }
@@ -380,7 +420,10 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
       result.append(" (id: ");
       result.append(id);
       result.append(", version: ");
-      result.append(version);
+      if (versionESet)
+         result.append(version);
+      else
+         result.append("<unset>");
       result.append(')');
       return result.toString();
    }

@@ -19,5 +19,7 @@ public interface ProductsConverter extends BasicConverter
    List<StrictReference> getIncludedFeaturesForProduct(PropertiesSource moduleProperties, String productId);
 
    List<StrictReference> getIncludedPluginsForProduct(PropertiesSource moduleProperties, String productId);
+   
+   List<String> getUpdateSitesForProduct(PropertiesSource moduleProperties, String productId);
 
 }

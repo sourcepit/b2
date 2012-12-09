@@ -22,20 +22,26 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.AbstractGenerator;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.internal.generator.p2.Action;
+import org.sourcepit.b2.internal.generator.p2.Instruction;
 import org.sourcepit.b2.model.builder.util.ProductsConverter;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
+import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.file.FileVisitor;
 import org.sourcepit.common.utils.lang.Exceptions;
+import org.sourcepit.common.utils.path.Path;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.path.PathUtils;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -117,7 +123,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          element = productDoc.createElement("feature");
          element.setAttribute("id", feature.getId());
          final String version = feature.getVersion();
-         if (!Strings.isNullOrEmpty(version))
+         if (!Strings.isNullOrEmpty(version) && feature.isSetVersion())
          {
             element.setAttribute("version", version);
          }
@@ -133,7 +139,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
             element = productDoc.createElement("plugin");
             element.setAttribute("id", plugin.getId());
             final String version = plugin.getVersion();
-            if (!Strings.isNullOrEmpty(version))
+            if (!Strings.isNullOrEmpty(version) && plugin.isSetVersion())
             {
                element.setAttribute("version", version);
             }
@@ -179,6 +185,38 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       {
          XmlUtils.writeXml(productDoc, productFile);
       }
+
+      generateP2Inf(properties, uid, projectDir, getProductName(productFile.getName()));
+   }
+
+   private void generateP2Inf(PropertiesSource properties, String uid, File projectDir, String productName)
+   {
+      final List<String> sites = converter.getUpdateSitesForProduct(properties, uid);
+      if (!sites.isEmpty())
+      {
+         final Instruction instruction = new Instruction();
+         instruction.setPhase("configure");
+         for (String site : sites)
+         {
+            instruction.getActions().add(createAddRepoAction("0", site));
+            instruction.getActions().add(createAddRepoAction("1", site));
+         }
+
+         final PropertiesMap instructions = new LinkedPropertiesMap();
+         instructions.put(instruction.getHeader(), instruction.getBody());
+         instructions.store(new File(projectDir, productName + ".p2.inf"));
+      }
+   }
+
+   private static Action createAddRepoAction(String type, String url)
+   {
+      final Action action = new Action();
+      action.setName("addRepository");
+      final PropertiesMap params = action.getParameters();
+      params.put("type", type);
+      params.put("location", url);
+      params.put("enabled", "true");
+      return action;
    }
 
    private void copyProductResources(final File srcDir, final File destDir, PropertiesSource properties,
@@ -267,6 +305,11 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          product.appendChild(plugins);
       }
       return plugins;
+   }
+
+   public static String getProductName(String productFileName)
+   {
+      return new Path(productFileName).getFileName();
    }
 
    public static String getAssemblyClassifier(String productFileName)

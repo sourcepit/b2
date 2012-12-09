@@ -15,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,6 +29,8 @@ import org.junit.Test;
 import org.sonatype.guice.bean.containers.InjectedTest;
 import org.sourcepit.b2.execution.B2;
 import org.sourcepit.b2.execution.B2Request;
+import org.sourcepit.b2.internal.generator.p2.Action;
+import org.sourcepit.b2.internal.generator.p2.Instruction;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
@@ -40,6 +43,7 @@ import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Element;
@@ -241,7 +245,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       assertEquals("bar", feature.getAttribute("id"));
       assertEquals("", feature.getAttribute("version"));
    }
-   
+
    @Test
    public void testFeature87_AdditionalPluginIncludes() throws Exception
    {
@@ -298,6 +302,83 @@ public class ProductProjectGeneratorTest extends InjectedTest
       plugins = features.next();
       assertEquals("bar", plugins.getAttribute("id"));
       assertEquals("", plugins.getAttribute("version"));
+   }
+
+   @Test
+   public void testFeature89_ProductSites() throws Exception
+   {
+      final File moduleDir = getResource("ProductTest");
+
+      // TODO automate init of b2 session in an abstract test class
+      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
+      moduleProject.setDirectory(moduleDir);
+      moduleProject.setGroupId("org.sourcepit.b2.its");
+      moduleProject.setArtifactId("ProductTest");
+      moduleProject.setVersion("1.0.0-SNAPSHOT");
+      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
+      session.getProjects().add(moduleProject);
+      session.setCurrentProject(moduleProject);
+      sessionService.setCurrentSession(session);
+      sessionService.setCurrentResourceSet(new ResourceSetImpl());
+
+      PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
+      props.put("b2.products.sites",
+         "http://download.eclipse.org/eclipse/updates/4.2,http://download.eclipse.org/releases/juno/");
+
+      B2Request request = new B2Request();
+      request.setModuleDirectory(moduleDir);
+      request.setInterpolate(true);
+      request.setModuleProperties(props);
+      request.setTemplates(new DefaultTemplateCopier());
+
+      // build model and generate
+      final AbstractModule module = b2.generate(request);
+      assertNotNull(module);
+
+      EList<ProductsFacet> productsFacets = module.getFacets(ProductsFacet.class);
+      assertThat(productsFacets.size(), Is.is(1));
+
+      ProductsFacet productsFacet = productsFacets.get(0);
+      EList<ProductDefinition> productDefinitions = productsFacet.getProductDefinitions();
+      assertThat(productDefinitions.size(), Is.is(1));
+
+      ProductDefinition productDefinition = productDefinitions.get(0);
+      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      assertNotNull(uid);
+
+      final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
+      final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
+      assertTrue(projectDir.exists());
+
+      File productFile = new File(projectDir, "bundle.a.p2.inf");
+      assertTrue(productFile.exists());
+
+      PropertiesMap p2Inf = new LinkedPropertiesMap();
+      p2Inf.load(productFile);
+
+      Instruction instruction = Instruction.parse("instructions.configure", p2Inf.get("instructions.configure"));
+      List<Action> actions = instruction.getActions();
+      assertEquals(4, actions.size());
+
+      Action action = actions.get(0);
+      assertEquals(0, action.getParameters().getInt("type", -1));
+      assertEquals("http://download.eclipse.org/eclipse/updates/4.2", action.getParameters().get("location"));
+      assertEquals(true, action.getParameters().getBoolean("enabled", false));
+
+      action = actions.get(1);
+      assertEquals(1, action.getParameters().getInt("type", -1));
+      assertEquals("http://download.eclipse.org/eclipse/updates/4.2", action.getParameters().get("location"));
+      assertEquals(true, action.getParameters().getBoolean("enabled", false));
+
+      action = actions.get(2);
+      assertEquals(0, action.getParameters().getInt("type", -1));
+      assertEquals("http://download.eclipse.org/releases/juno/", action.getParameters().get("location"));
+      assertEquals(true, action.getParameters().getBoolean("enabled", false));
+
+      action = actions.get(3);
+      assertEquals(1, action.getParameters().getInt("type", -1));
+      assertEquals("http://download.eclipse.org/releases/juno/", action.getParameters().get("location"));
+      assertEquals(true, action.getParameters().getBoolean("enabled", false));
    }
 
    protected File getResource(String path) throws IOException
