@@ -38,9 +38,11 @@ public interface RuledReference extends AbstractReference
     * 
     * @return the value of the '<em>Version Match Rule</em>' attribute.
     * @see org.sourcepit.b2.model.module.VersionMatchRule
+    * @see #isSetVersionMatchRule()
+    * @see #unsetVersionMatchRule()
     * @see #setVersionMatchRule(VersionMatchRule)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getRuledReference_VersionMatchRule()
-    * @model default="compatible"
+    * @model default="compatible" unsettable="true"
     * @generated
     */
    VersionMatchRule getVersionMatchRule();
@@ -53,9 +55,38 @@ public interface RuledReference extends AbstractReference
     * 
     * @param value the new value of the '<em>Version Match Rule</em>' attribute.
     * @see org.sourcepit.b2.model.module.VersionMatchRule
+    * @see #isSetVersionMatchRule()
+    * @see #unsetVersionMatchRule()
     * @see #getVersionMatchRule()
     * @generated
     */
    void setVersionMatchRule(VersionMatchRule value);
+
+   /**
+    * Unsets the value of the '{@link org.sourcepit.b2.model.module.RuledReference#getVersionMatchRule
+    * <em>Version Match Rule</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see #isSetVersionMatchRule()
+    * @see #getVersionMatchRule()
+    * @see #setVersionMatchRule(VersionMatchRule)
+    * @generated
+    */
+   void unsetVersionMatchRule();
+
+   /**
+    * Returns whether the value of the '{@link org.sourcepit.b2.model.module.RuledReference#getVersionMatchRule
+    * <em>Version Match Rule</em>}' attribute is set.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return whether the value of the '<em>Version Match Rule</em>' attribute is set.
+    * @see #unsetVersionMatchRule()
+    * @see #getVersionMatchRule()
+    * @see #setVersionMatchRule(VersionMatchRule)
+    * @generated
+    */
+   boolean isSetVersionMatchRule();
 
 } // RuledReference

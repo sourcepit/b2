@@ -68,7 +68,7 @@ public final class ReferenceUtils
       {
          return isRuledVersionMatch(rule, reference.getVersion(), identifiable.getVersion());
       }
-      
+
       throw new IllegalStateException();
    }
 

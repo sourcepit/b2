@@ -57,7 +57,7 @@ public class ReferenceUtilsTest extends TestCase
       assertEquals("1.1.1", versionRange.toString());
       versionRange = ReferenceUtils.toVersionRange("1.1.1.qualifier", VersionMatchRule.GREATER_OR_EQUAL);
       assertEquals("1.1.1", versionRange.toString());
-      
+
       // PERFECT
       versionRange = ReferenceUtils.toVersionRange("0.0.0", VersionMatchRule.PERFECT);
       assertEquals("[0.0.0,0.0.0]", versionRange.toString());
@@ -70,38 +70,40 @@ public class ReferenceUtilsTest extends TestCase
       versionRange = ReferenceUtils.toVersionRange("1.1.1.qualifier", VersionMatchRule.PERFECT);
       assertEquals("[1.1.1.qualifier,1.1.1.qualifier]", versionRange.toString());
    }
-   
+
    public void testFeatureRequirement() throws Exception
    {
       ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
-      
+
       RuledReference fr = eFactory.createRuledReference();
       fr.setId("foo.feature");
-      
+
       FeatureProject fp = eFactory.createFeatureProject();
       fp.setId("foo.feature");
-      fp.setVersion("1.0.0.qualifer");
-      
+      fp.setVersion("0.9.0.qualifer");
       assertTrue(fr.isSatisfiableBy(fp));
-      
+
+      fp.setVersion("1.0.0.qualifer");
+      assertFalse(fr.isSatisfiableBy(fp));
+
       fr.setVersion("1.0.0");
       assertTrue(fr.isSatisfiableBy(fp));
-      
+
       fr.setVersionMatchRule(VersionMatchRule.PERFECT);
       assertFalse(fr.isSatisfiableBy(fp));
-      
+
       fr.setVersionMatchRule(VersionMatchRule.EQUIVALENT);
       assertTrue(fr.isSatisfiableBy(fp));
-      
+
       fr.setVersionMatchRule(VersionMatchRule.COMPATIBLE);
       assertTrue(fr.isSatisfiableBy(fp));
-      
+
       fr.setVersionMatchRule(VersionMatchRule.GREATER_OR_EQUAL);
       assertTrue(fr.isSatisfiableBy(fp));
-      
+
       fp.setId("fooooo");
       assertFalse(fr.isSatisfiableBy(fp));
-      
+
       // reference can't distinguish between different project types
       PluginProject pp = eFactory.createPluginProject();
       pp.setId("foo.feature");

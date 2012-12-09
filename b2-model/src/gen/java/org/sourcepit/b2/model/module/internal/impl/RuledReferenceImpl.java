@@ -52,6 +52,16 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
    protected VersionMatchRule versionMatchRule = VERSION_MATCH_RULE_EDEFAULT;
 
    /**
+    * This is true if the Version Match Rule attribute has been set.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   protected boolean versionMatchRuleESet;
+
+   /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
@@ -95,9 +105,40 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
    {
       VersionMatchRule oldVersionMatchRule = versionMatchRule;
       versionMatchRule = newVersionMatchRule == null ? VERSION_MATCH_RULE_EDEFAULT : newVersionMatchRule;
+      boolean oldVersionMatchRuleESet = versionMatchRuleESet;
+      versionMatchRuleESet = true;
       if (eNotificationRequired())
          eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE,
-            oldVersionMatchRule, versionMatchRule));
+            oldVersionMatchRule, versionMatchRule, !oldVersionMatchRuleESet));
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public void unsetVersionMatchRule()
+   {
+      VersionMatchRule oldVersionMatchRule = versionMatchRule;
+      boolean oldVersionMatchRuleESet = versionMatchRuleESet;
+      versionMatchRule = VERSION_MATCH_RULE_EDEFAULT;
+      versionMatchRuleESet = false;
+      if (eNotificationRequired())
+         eNotify(new ENotificationImpl(this, Notification.UNSET,
+            ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE, oldVersionMatchRule, VERSION_MATCH_RULE_EDEFAULT,
+            oldVersionMatchRuleESet));
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public boolean isSetVersionMatchRule()
+   {
+      return versionMatchRuleESet;
    }
 
    /**
@@ -147,7 +188,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
       switch (featureID)
       {
          case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
-            setVersionMatchRule(VERSION_MATCH_RULE_EDEFAULT);
+            unsetVersionMatchRule();
             return;
       }
       super.eUnset(featureID);
@@ -165,7 +206,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
       switch (featureID)
       {
          case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
-            return versionMatchRule != VERSION_MATCH_RULE_EDEFAULT;
+            return isSetVersionMatchRule();
       }
       return super.eIsSet(featureID);
    }
@@ -184,7 +225,10 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
 
       StringBuffer result = new StringBuffer(super.toString());
       result.append(" (versionMatchRule: ");
-      result.append(versionMatchRule);
+      if (versionMatchRuleESet)
+         result.append(versionMatchRule);
+      else
+         result.append("<unset>");
       result.append(')');
       return result.toString();
    }

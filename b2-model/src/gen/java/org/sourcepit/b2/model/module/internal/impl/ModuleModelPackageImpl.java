@@ -1478,8 +1478,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
          IS_GENERATED_INSTANCE_CLASS);
       initEAttribute(getAbstractReference_Id(), ecorePackage.getEString(), "id", null, 1, 1, AbstractReference.class,
          !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getAbstractReference_Version(), ecorePackage.getEString(), "version", null, 0, 1,
-         AbstractReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+      initEAttribute(getAbstractReference_Version(), ecorePackage.getEString(), "version", "0.0.0", 0, 1,
+         AbstractReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
 
       op = addEOperation(abstractReferenceEClass, ecorePackage.getEBoolean(), "isSatisfiableBy", 1, 1, IS_UNIQUE,
@@ -1489,7 +1489,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEClass(ruledReferenceEClass, RuledReference.class, "RuledReference", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
       initEAttribute(getRuledReference_VersionMatchRule(), this.getVersionMatchRule(), "versionMatchRule",
-         "compatible", 0, 1, RuledReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+         "compatible", 0, 1, RuledReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
          IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(abstractStrictReferenceEClass, AbstractStrictReference.class, "AbstractStrictReference", IS_ABSTRACT,

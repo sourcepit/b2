@@ -30,6 +30,7 @@ import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
+import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
@@ -122,7 +123,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          element = productDoc.createElement("feature");
          element.setAttribute("id", feature.getId());
          final String version = feature.getVersion();
-         if (!Strings.isNullOrEmpty(version))
+         if (!Strings.isNullOrEmpty(version) && feature.isSetVersion())
          {
             element.setAttribute("version", version);
          }
@@ -138,7 +139,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
             element = productDoc.createElement("plugin");
             element.setAttribute("id", plugin.getId());
             final String version = plugin.getVersion();
-            if (!Strings.isNullOrEmpty(version))
+            if (!Strings.isNullOrEmpty(version) && plugin.isSetVersion())
             {
                element.setAttribute("version", version);
             }

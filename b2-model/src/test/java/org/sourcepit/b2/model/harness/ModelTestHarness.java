@@ -235,7 +235,7 @@ public final class ModelTestHarness
    {
       final FeatureInclude featureInclude = createFeatureInclude(id, version);
       featureProject.getIncludedFeatures().add(featureInclude);
-      return featureInclude;      
+      return featureInclude;
    }
 
    private static FeatureInclude createFeatureInclude(String id, String version)

@@ -130,7 +130,8 @@ public class DefaultConverterTest
       FeatureInclude requirement;
       requirement = result.get(0);
       assertEquals("foo.feature", requirement.getId());
-      assertNull(requirement.getVersion());
+      assertFalse(requirement.isSetVersion());
+      assertEquals("0.0.0", requirement.getVersion());
       assertFalse(requirement.isOptional());
 
       requirement = result.get(1);
@@ -249,7 +250,8 @@ public class DefaultConverterTest
       PluginInclude include;
       include = result.get(0);
       assertEquals("foo.feature", include.getId());
-      assertNull(include.getVersion());
+      assertFalse(include.isSetVersion());
+      assertEquals("0.0.0", include.getVersion());
       assertFalse(include.isUnpack());
 
       include = result.get(1);
@@ -379,7 +381,8 @@ public class DefaultConverterTest
       StrictReference include;
       include = result.get(0);
       assertEquals("foo.feature", include.getId());
-      assertNull(include.getVersion());
+      assertFalse(include.isSetVersion());
+      assertEquals("0.0.0", include.getVersion());
 
       include = result.get(1);
       assertEquals("foo.feature", include.getId());
@@ -465,7 +468,8 @@ public class DefaultConverterTest
       StrictReference requirement;
       requirement = result.get(0);
       assertEquals("foo.feature", requirement.getId());
-      assertNull(requirement.getVersion());
+      assertFalse(requirement.isSetVersion());
+      assertEquals("0.0.0", requirement.getVersion());
 
       requirement = result.get(1);
       assertEquals("foo.feature", requirement.getId());
@@ -549,13 +553,14 @@ public class DefaultConverterTest
 
       requirement = result.get(0);
       assertEquals("foo.feature", requirement.getId());
-      assertNull(requirement.getVersion());
-      assertSame(VersionMatchRule.COMPATIBLE, requirement.getVersionMatchRule());
+      assertTrue(requirement.isSetVersion());
+      assertEquals("0.0.0", requirement.getVersion());
+      assertSame(VersionMatchRule.GREATER_OR_EQUAL, requirement.getVersionMatchRule());
 
       requirement = result.get(1);
       assertEquals("foo.feature", requirement.getId());
       assertEquals("1.0.0", requirement.getVersion());
-      assertSame(VersionMatchRule.COMPATIBLE, requirement.getVersionMatchRule());
+      assertSame(VersionMatchRule.GREATER_OR_EQUAL, requirement.getVersionMatchRule());
 
       requirement = result.get(2);
       assertEquals("foo.feature", requirement.getId());
@@ -685,7 +690,7 @@ public class DefaultConverterTest
       assertEquals(2, sites.size());
       assertEquals("http://localhost/p2", sites.get(0));
       assertEquals("http://eclipse.org", sites.get(1));
-      
+
       properties.put("b2.products.foo.sites", "http://bar");
       sites = converter.getUpdateSitesForProduct(properties, "foo");
       assertEquals(1, sites.size());
