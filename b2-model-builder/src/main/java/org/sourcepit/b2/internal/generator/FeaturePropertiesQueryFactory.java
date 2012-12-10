@@ -78,6 +78,10 @@ public class FeaturePropertiesQueryFactory
       putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "descriptionURL");
       putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "license");
       putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "licenseURL");
+      
+      final PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "brandingPlugin");
+      queries.put("feature.plugin", query);
+      
       return queries;
    }
 

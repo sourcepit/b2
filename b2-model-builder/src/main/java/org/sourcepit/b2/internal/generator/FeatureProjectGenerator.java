@@ -74,9 +74,6 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       featureProperties.setProperty("feature.id", feature.getId());
       featureProperties.setProperty("feature.version", feature.getVersion());
 
-      // TODO determine ${feature.plugin}
-      featureProperties.setProperty("feature.plugin", "");
-
       final boolean isAssemblyFeature = isAssemblyFeature(feature);
 
       final String facetOrAssemblyName;
