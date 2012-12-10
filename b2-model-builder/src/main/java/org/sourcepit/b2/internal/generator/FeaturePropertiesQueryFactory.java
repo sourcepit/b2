@@ -118,7 +118,7 @@ public class FeaturePropertiesQueryFactory
       if (addDefaultKey)
       {
          query.getKeys().add(preamble + "." + property);
-         query.getKeys().add("b2." + property);
+         query.getKeys().add("b2.module." + property);
       }
       query.setDefaultValue("");
       return query;
