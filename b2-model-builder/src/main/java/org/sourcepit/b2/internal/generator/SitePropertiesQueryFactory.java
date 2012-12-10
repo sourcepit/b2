@@ -78,7 +78,7 @@ public class SitePropertiesQueryFactory
       if (addDefaultKey)
       {
          query.getKeys().add(preamble + "." + p);
-         query.getKeys().add("b2." + p);
+         query.getKeys().add("b2.module." + p);
       }
       query.setDefaultValue("");
       return query;
