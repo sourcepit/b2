@@ -61,7 +61,7 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
       it = query.getKeys().iterator();
       assertEquals("b2.assemblies.sdk.includesCategoryLabelAppendix", it.next());
       assertEquals("b2.assemblies.includesCategoryLabelAppendix", it.next());
-      assertEquals("b2.includesCategoryLabelAppendix", it.next());
+      assertEquals("b2.module.includesCategoryLabelAppendix", it.next());
 
       query = queries.get("categories.includes.description");
       assertNotNull(query);
@@ -69,7 +69,7 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
       it = query.getKeys().iterator();
       assertEquals("b2.assemblies.sdk.description", it.next());
       assertEquals("b2.assemblies.description", it.next());
-      assertEquals("b2.description", it.next());
+      assertEquals("b2.module.description", it.next());
    }
 
    @Test
@@ -116,7 +116,7 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
       it = query.getKeys().iterator();
       assertEquals("b2.assemblies.sdk.assemblyCategoryLabelAppendix", it.next());
       assertEquals("b2.assemblies.assemblyCategoryLabelAppendix", it.next());
-      assertEquals("b2.assemblyCategoryLabelAppendix", it.next());
+      assertEquals("b2.module.assemblyCategoryLabelAppendix", it.next());
 
       query = queries.get("categories.assembly.description");
       assertNotNull(query);
@@ -124,6 +124,6 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
       it = query.getKeys().iterator();
       assertEquals("b2.assemblies.sdk.description", it.next());
       assertEquals("b2.assemblies.description", it.next());
-      assertEquals("b2.description", it.next());
+      assertEquals("b2.module.description", it.next());
    }
 }
