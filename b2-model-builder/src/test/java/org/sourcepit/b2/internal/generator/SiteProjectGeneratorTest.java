@@ -37,8 +37,8 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
-      properties.put("b2.includesCategoryLabelAppendix", "(included Features)");
-      properties.put("nls_de.b2.includesCategoryLabelAppendix", "(enthaltene Features)");
+      properties.put("b2.module.includesCategoryLabelAppendix", "(included Features)");
+      properties.put("nls_de.b2.module.includesCategoryLabelAppendix", "(enthaltene Features)");
       properties.put("b2.assemblies.sdk.classifierLabel", "SDK");
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
@@ -84,8 +84,8 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
-      properties.put("b2.includesCategoryLabelAppendix", "(included Features)");
-      properties.put("nls_de.b2.includesCategoryLabelAppendix", "(enthaltene Features)");
+      properties.put("b2.module.includesCategoryLabelAppendix", "(included Features)");
+      properties.put("nls_de.b2.module.includesCategoryLabelAppendix", "(enthaltene Features)");
       properties.put("b2.assemblies.sdk.classifierLabel", "SDK");
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
