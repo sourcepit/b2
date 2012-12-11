@@ -4,6 +4,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -93,6 +94,52 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       final Xpp3Dom generatedConf = (Xpp3Dom) generatedPlugin.getConfiguration();
       assertNotNull(generatedConf);
       assertNotNull(generatedConf.getChild("foo"));
+   }
+   
+   @Test
+   public void testConfigureReleasePreparationGoals() throws Exception
+   {
+      final File projectDir = getWs().getRoot();
+
+      // create test project
+      new DefaultTemplateCopier().copy("module-pom.xml", projectDir, getEnvironment().newProperties());
+
+      final File moduleFile = new File(projectDir, "module.xml");
+      new File(projectDir, "module-pom.xml").renameTo(moduleFile);
+
+      assertTrue(moduleFile.exists());
+
+      Model modulePom = readPom(moduleFile);
+      modulePom.setGroupId("org.sourcepit.b2");
+      modulePom.setArtifactId(projectDir.getName());
+      modulePom.setVersion("1-SNAPSHOT");
+      
+      final String defaultGoals = modulePom.getProperties().getProperty("b2.release.preparationGoals");
+      assertEquals("clean verify", defaultGoals);
+      
+      modulePom.getProperties().setProperty("b2.release.preparationGoals", "");
+      
+      writePom(modulePom, moduleFile);
+
+      // generate maven pom
+      generatePom(projectDir);
+
+      final Model generatedPom = readPom(new File(projectDir, "pom.xml"));
+      
+      final String generatedGoals = generatedPom.getProperties().getProperty("b2.release.preparationGoals");
+      assertEquals("", generatedGoals);
+
+      // get generated tycho-surefire-plugin configuration
+      final Plugin generatedPlugin = generatedPom.getBuild().getPluginManagement().getPluginsAsMap()
+         .get("org.apache.maven.plugins:maven-release-plugin");
+      assertNotNull(generatedPlugin);
+
+      // assert that plugin configuration from module.xml overrides the configuration from the default template
+      final Xpp3Dom generatedConf = (Xpp3Dom) generatedPlugin.getConfiguration();
+      assertNotNull(generatedConf);
+      Xpp3Dom child = generatedConf.getChild("preparationGoals");
+      assertNotNull(child);
+      assertEquals("${b2.release.preparationGoals}", child.getValue());
    }
 
    private void generatePom(final File projectDir) throws Exception
