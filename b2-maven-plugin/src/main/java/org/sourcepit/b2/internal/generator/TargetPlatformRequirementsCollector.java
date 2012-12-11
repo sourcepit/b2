@@ -96,12 +96,24 @@ public class TargetPlatformRequirementsCollector
       }
 
       addModuleRequirements(requirements, module, isTestScope);
-      addFeatureRequirements(requirements, featureProject, pluginProject.getParent());
+      addFeatureRequirements(requirements, featureProject);
    }
 
-   private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject,
-      PluginsFacet pluginsFacet)
+   private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject)
    {
+      final PluginsFacet pluginsFacet;
+
+      final String facetName = B2MetadataUtils.getFacetName(featureProject);
+      if (facetName != null)
+      {
+         pluginsFacet = featureProject.getParent().getParent().getFacetByName(facetName);
+      }
+      else
+      {
+         pluginsFacet = null;
+      }
+
+
       for (FeatureInclude includedFeature : featureProject.getIncludedFeatures())
       {
          Dependency requirement = toRequirement(includedFeature);
@@ -111,7 +123,7 @@ public class TargetPlatformRequirementsCollector
 
       for (PluginInclude includedPlugin : featureProject.getIncludedPlugins())
       {
-         if (pluginsFacet.resolveReference(includedPlugin) == null)
+         if (pluginsFacet != null && pluginsFacet.resolveReference(includedPlugin) == null)
          {
             Dependency requirement = toRequirement(includedPlugin);
             requirement.setType("eclipse-plugin");
