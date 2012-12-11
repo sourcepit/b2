@@ -23,10 +23,13 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
+import org.sourcepit.b2.model.module.FeaturesFacet;
+import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
 import org.sourcepit.common.manifest.osgi.Version;
 
@@ -146,9 +149,40 @@ public class TargetPlatformRequirementsCollector
       requirements.add(requirement);
    }
 
-   private static FeatureProject findIncludingFeature(PluginProject project)
+   private static FeatureProject findIncludingFeature(PluginProject pluginProject)
    {
-      return DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(project.getParent(), false);
+      FeatureProject featureProject = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
+         pluginProject.getParent(), false);
+      if (featureProject == null)
+      {
+         final String featureId = B2MetadataUtils.getBrandedFeature(pluginProject);
+         if (featureId != null)
+         {
+            final StrictReference reference = ModuleModelFactory.eINSTANCE.createStrictReference();
+            reference.setId(featureId);
+
+            final FeatureProject brandedFeature = pluginProject.getParent().getParent()
+               .resolveReference(reference, FeaturesFacet.class);
+
+            if (brandedFeature != null && isIncluded(brandedFeature, pluginProject))
+            {
+               featureProject = brandedFeature;
+            }
+         }
+      }
+      return featureProject;
+   }
+
+   private static boolean isIncluded(final FeatureProject featureProject, PluginProject pluginProject)
+   {
+      for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
+      {
+         if (pluginInclude.isSatisfiableBy(pluginProject))
+         {
+            return true;
+         }
+      }
+      return false;
    }
 
    private static Dependency toRequirement(RuledReference featureReference)
