@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
+import org.sourcepit.b2.model.module.FeatureProject;
 
 public final class B2MetadataUtils
 {
@@ -54,6 +55,46 @@ public final class B2MetadataUtils
    public static String getModuleVersion(Annotatable annotatable)
    {
       return annotatable.getAnnotationEntry(B2, MODULE_VERSION);
+   }
+
+   public static String getClassifier(FeatureProject featureProject)
+   {
+      if (isAssemblyFeature(featureProject))
+      {
+         final List<String> assemblyClassifiers = B2MetadataUtils.getAssemblyClassifiers(featureProject);
+         if (assemblyClassifiers.size() != 1)
+         {
+            throw new IllegalStateException();
+         }
+         return assemblyClassifiers.get(0);
+      }
+      else
+      {
+         return getFacetClassifier(featureProject);
+      }
+   }
+
+   public static boolean isAssemblyFeature(FeatureProject featureProject)
+   {
+      final String facetName = B2MetadataUtils.getFacetName(featureProject);
+      if (facetName != null)
+      {
+         return false;
+      }
+      else
+      {
+         final List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(featureProject);
+         if (assemblyNames.size() != 1)
+         {
+            throw new IllegalStateException();
+         }
+         return true;
+      }
+   }
+
+   public static boolean isFacetSourceFeature(FeatureProject featureProject)
+   {
+      return !isAssemblyFeature(featureProject) && B2MetadataUtils.isSourceFeature(featureProject);
    }
 
    public static List<String> getAssemblyNames(Annotatable annotatable)

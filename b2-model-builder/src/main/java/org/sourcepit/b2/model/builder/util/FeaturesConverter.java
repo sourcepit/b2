@@ -45,7 +45,10 @@ public interface FeaturesConverter extends BasicConverter
 
    String getFeatureId(PropertiesSource moduleProperties, String moduleId, String classifier, boolean isSource);
    
+   boolean isSkipBrandingPlugins(PropertiesSource moduleProperties);
+   
    String getBrandingPluginId(PropertiesSource moduleProperties, String moduleId, String classifier, boolean isSource);
 
    String getSourcePluginId(PropertiesSource moduleProperties, String pluginId);
+
 }

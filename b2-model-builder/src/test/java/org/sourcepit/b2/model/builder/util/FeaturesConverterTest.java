@@ -23,22 +23,38 @@ public class FeaturesConverterTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
 
       String brandingPluginId;
-     
+
       brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", "", false);
       assertEquals("foo.branding", brandingPluginId);
-      
+
       brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", null, false);
       assertEquals("foo.branding", brandingPluginId);
-      
+
       brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", "plugins", false);
       assertEquals("foo.plugins.branding", brandingPluginId);
-      
+
       brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", "plugins", true);
       assertEquals("foo.plugins.sources.branding", brandingPluginId);
-      
+
       moduleProperties.put("b2.featuresSourceClassifier", "murks");
       brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", "plugins", true);
       assertEquals("foo.plugins.murks.branding", brandingPluginId);
+   }
+
+   @Test
+   public void testIsSkipBrandingPlugins()
+   {
+      FeaturesConverter converter = new DefaultConverter();
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+
+      assertFalse(converter.isSkipBrandingPlugins(moduleProperties));
+      
+      moduleProperties.put("b2.skipBrandingPlugins", "true");
+      assertTrue(converter.isSkipBrandingPlugins(moduleProperties));
+      
+      moduleProperties.put("b2.skipBrandingPlugins", "false");
+      assertFalse(converter.isSkipBrandingPlugins(moduleProperties));
    }
 
 }

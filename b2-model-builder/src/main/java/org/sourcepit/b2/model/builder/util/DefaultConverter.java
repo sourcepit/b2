@@ -457,6 +457,11 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return idOfProject(moduleId, sb.toString(), "feature");
    }
    
+   public boolean isSkipBrandingPlugins(PropertiesSource properties)
+   {
+      return properties.getBoolean("b2.skipBrandingPlugins", false);
+   }
+   
    public String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier,
       boolean isSource)
    {

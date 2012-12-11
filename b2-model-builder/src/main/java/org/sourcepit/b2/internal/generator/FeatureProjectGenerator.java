@@ -74,7 +74,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       featureProperties.setProperty("feature.id", feature.getId());
       featureProperties.setProperty("feature.version", feature.getVersion());
 
-      final boolean isAssemblyFeature = isAssemblyFeature(feature);
+      final boolean isAssemblyFeature = B2MetadataUtils.isAssemblyFeature(feature);
 
       final String facetOrAssemblyName;
       if (isAssemblyFeature)
@@ -86,17 +86,9 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          facetOrAssemblyName = getFacetName(feature);
       }
 
-      final String classifier;
-      if (isAssemblyFeature)
-      {
-         classifier = getAssemblyClassifier(feature);
-      }
-      else
-      {
-         classifier = getFacetClassifier(feature);
-      }
+      final String classifier = B2MetadataUtils.getClassifier(feature);
 
-      final boolean isSourceFeature = !isAssemblyFeature && B2MetadataUtils.isSourceFeature(feature);
+      final boolean isSourceFeature = B2MetadataUtils.isFacetSourceFeature(feature);
 
       featureProperties.setProperty("feature.classifier", classifier);
 
@@ -112,32 +104,9 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       generateNlsPropertyFiles(feature, properties, templates, queries);
    }
 
-   private static boolean isAssemblyFeature(FeatureProject feature)
-   {
-      String facetName = B2MetadataUtils.getFacetName(feature);
-      if (facetName != null)
-      {
-         return false;
-      }
-      else
-      {
-         List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(feature);
-         if (assemblyNames.size() != 1)
-         {
-            throw new IllegalStateException();
-         }
-         return true;
-      }
-   }
-
    private static String getFacetName(FeatureProject feature)
    {
       return B2MetadataUtils.getFacetName(feature);
-   }
-
-   private static String getFacetClassifier(FeatureProject feature)
-   {
-      return B2MetadataUtils.getFacetClassifier(feature);
    }
 
    private static String getAssemblyName(FeatureProject feature)
@@ -148,16 +117,6 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          throw new IllegalStateException();
       }
       return assemblyNames.get(0);
-   }
-
-   private static String getAssemblyClassifier(FeatureProject feature)
-   {
-      final List<String> assemblyClassifiers = B2MetadataUtils.getAssemblyClassifiers(feature);
-      if (assemblyClassifiers.size() != 1)
-      {
-         throw new IllegalStateException();
-      }
-      return assemblyClassifiers.get(0);
    }
 
    private void generateNlsPropertyFiles(FeatureProject feature, PropertiesSource properties, ITemplates templates,
