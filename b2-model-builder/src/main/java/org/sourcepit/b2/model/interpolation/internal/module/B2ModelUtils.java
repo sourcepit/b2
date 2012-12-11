@@ -6,6 +6,14 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
+import static org.sourcepit.common.utils.io.IOResources.buffIn;
+import static org.sourcepit.common.utils.io.IOResources.fileIn;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -15,6 +23,9 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.common.manifest.Manifest;
+import org.sourcepit.common.manifest.osgi.resource.GenericManifestResourceImpl;
+import org.sourcepit.common.utils.io.IOOperation;
 
 public final class B2ModelUtils
 {
@@ -64,5 +75,22 @@ public final class B2ModelUtils
       B2MetadataUtils.setFacetName(featureInclude, facet.getName());
       
       return featureInclude;
+   }
+   
+   public static Manifest readManifest(File file)
+   {
+      final Resource eResource = new GenericManifestResourceImpl();
+      new IOOperation<InputStream>(buffIn(fileIn(file)))
+      {
+         @Override
+         protected void run(InputStream openResource) throws IOException
+         {
+            eResource.load(openResource, null);
+         }
+      }.run();
+
+      final Manifest bundleManifest = (Manifest) eResource.getContents().get(0);
+      eResource.getContents().clear(); // disconnect from resource
+      return bundleManifest;
    }
 }

@@ -31,11 +31,17 @@ import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
+import org.sourcepit.b2.model.interpolation.internal.module.B2ModelUtils;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
+import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.Version;
 import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -69,10 +75,16 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
    protected void generate(Derivable inputElement, PropertiesSource properties, ITemplates templates)
    {
       final FeatureProject feature = (FeatureProject) inputElement;
+      generateFeature(feature, properties, templates);
+   }
 
+   private void generateFeature(final FeatureProject feature, PropertiesSource properties, ITemplates templates)
+   {
       final Properties featureProperties = new Properties();
       featureProperties.setProperty("feature.id", feature.getId());
       featureProperties.setProperty("feature.version", feature.getVersion());
+
+      final PluginProject brandingPlugin = determineBrandingPlugin(feature);
 
       final boolean isAssemblyFeature = B2MetadataUtils.isAssemblyFeature(feature);
 
@@ -95,13 +107,71 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       final Map<String, PropertiesQuery> queries = propertiesQueryFactory.createPropertyQueries(isAssemblyFeature,
          isSourceFeature, facetOrAssemblyName, classifier);
 
+      if (brandingPlugin != null)
+      {
+         queries.get("feature.plugin").setDefaultValue(brandingPlugin.getId());
+      }
+
       insertNlsProperties(queries, NlsUtils.DEFAULT_LOCALE, properties, featureProperties);
       insertIncludesProperty(feature, featureProperties);
       insertPluginsProperty(feature, featureProperties);
       insertRequiresProperty(feature, featureProperties);
       templates.copy("feature-project", feature.getDirectory(), featureProperties);
 
-      generateNlsPropertyFiles(feature, properties, templates, queries);
+      final EList<Locale> locales = feature.getParent().getParent().getLocales();
+      generateNlsPropertyFiles(locales, "feature", templates, "feature-project", feature.getDirectory(), properties,
+         queries);
+
+      if (brandingPlugin != null && brandingPlugin.isDerived())
+      {
+         final File pluginDir = brandingPlugin.getDirectory();
+         templates.copy("branding-plugin-project", pluginDir, featureProperties);
+
+         queries.get("feature.featureImage").setDefaultValue(determineDefaultFeatureIconName(pluginDir));
+
+         generateNlsPropertyFiles(locales, "plugin", templates, "branding-plugin-project", pluginDir, properties,
+            queries);
+         generateNlsPropertyFiles(locales, "about", templates, "branding-plugin-project", pluginDir, properties,
+            queries);
+
+         brandingPlugin.setBundleManifest((BundleManifest) B2ModelUtils.readManifest(new File(pluginDir,
+            "META-INF/MANIFEST.MF")));
+      }
+   }
+
+   private static String determineDefaultFeatureIconName(final File pluginDir)
+   {
+      final List<String> featureFileNames = new ArrayList<String>();
+      featureFileNames.add("feature32.png");
+      featureFileNames.add("feature.png");
+      featureFileNames.add("eclipse32.png");
+      featureFileNames.add("eclipse.png");
+      featureFileNames.add("feature32.gif");
+      featureFileNames.add("feature.gif");
+      featureFileNames.add("eclipse32.gif");
+      featureFileNames.add("eclipse.gif");
+
+      for (String featureIconName : featureFileNames)
+      {
+         if (new File(pluginDir, featureIconName).exists())
+         {
+            return featureIconName;
+         }
+      }
+      return "";
+   }
+
+   private PluginProject determineBrandingPlugin(FeatureProject feature)
+   {
+      final String pluginId = B2MetadataUtils.getBrandingPlugin(feature);
+      if (pluginId != null)
+      {
+         final StrictReference reference = ModuleModelFactory.eINSTANCE.createStrictReference();
+         reference.setId(pluginId);
+
+         return feature.getParent().getParent().resolveReference(reference, PluginsFacet.class);
+      }
+      return null;
    }
 
    private static String getFacetName(FeatureProject feature)
@@ -119,17 +189,17 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       return assemblyNames.get(0);
    }
 
-   private void generateNlsPropertyFiles(FeatureProject feature, PropertiesSource properties, ITemplates templates,
-      Map<String, PropertiesQuery> queries)
+   private void generateNlsPropertyFiles(final EList<Locale> locales, final String fileName, ITemplates templates,
+      String templateProject, final File projectDir, PropertiesSource properties, Map<String, PropertiesQuery> queries)
    {
+      final String extension = ".properties";
+      final String templatePath = templateProject + "/" + fileName + extension;
       try
       {
-         File projectDir = feature.getDirectory();
          final File workDir = new File(projectDir, ".b2");
          workDir.mkdirs();
 
          final List<File> nlsPropertyFiles = new ArrayList<File>();
-         final EList<Locale> locales = feature.getParent().getParent().getLocales();
          for (Locale locale : locales)
          {
             if (locale.equals(NlsUtils.DEFAULT_LOCALE))
@@ -140,7 +210,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
             final Properties nlsProperties = new Properties();
             insertNlsProperties(queries, locale, properties, nlsProperties);
 
-            templates.copy("feature-project/feature.properties", workDir, nlsProperties);
+            templates.copy(templatePath, workDir, nlsProperties);
 
             String nlsSuffix = locale.toString();
             if (nlsSuffix.length() > 0)
@@ -148,8 +218,8 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
                nlsSuffix = "_" + nlsSuffix;
             }
 
-            final File destFile = new File(projectDir, "feature" + nlsSuffix + ".properties");
-            final File srcFile = new File(workDir, "feature.properties");
+            final File destFile = new File(projectDir, fileName + nlsSuffix + extension);
+            final File srcFile = new File(workDir, fileName + extension);
             FileUtils.copyFile(srcFile, destFile);
             FileUtils.forceDelete(srcFile);
 

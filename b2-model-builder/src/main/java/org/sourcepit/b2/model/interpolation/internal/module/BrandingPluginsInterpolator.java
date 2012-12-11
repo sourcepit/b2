@@ -45,7 +45,7 @@ public class BrandingPluginsInterpolator
       {
          final PluginsFacet pluginsFacet = ModuleModelFactory.eINSTANCE.createPluginsFacet();
          pluginsFacet.setDerived(true);
-         pluginsFacet.setName(featuresFacet.getName() + "-branding");
+         pluginsFacet.setName(featuresFacet.getName() + "-branding-plugins");
 
          for (FeatureProject featureProject : featuresFacet.getProjects())
          {
@@ -54,6 +54,9 @@ public class BrandingPluginsInterpolator
 
             pluginsFacet.getProjects().add(pluginProject);
 
+            B2MetadataUtils.setBrandedFeature(pluginProject, featureProject.getId());
+            B2MetadataUtils.setBrandingPlugin(featureProject, pluginProject.getId());
+            
             final PluginInclude pluginInclude = toPluginInclude(module, pluginProject);
             pluginInclude.setUnpack(false);
 
