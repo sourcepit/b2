@@ -459,6 +459,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       }
 
       defaultModel.getProperties().setProperty("bundle.symbolicName", project.getId());
+      defaultModel.getProperties().setProperty("bundle.version", project.getVersion());
 
       final String requiresUI = project.getAnnotationEntry("UI", "required");
       defaultModel.getProperties().setProperty("bundle.requiresUI", requiresUI == null ? "false" : requiresUI);
