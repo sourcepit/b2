@@ -125,9 +125,13 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       if (brandingPlugin != null && brandingPlugin.isDerived())
       {
          final File pluginDir = brandingPlugin.getDirectory();
-         templates.copy("branding-plugin-project", pluginDir, featureProperties);
 
-         queries.get("feature.featureImage").setDefaultValue(determineDefaultFeatureIconName(pluginDir));
+         final String defaultIcon = determineDefaultFeatureIconName(pluginDir, templates, featureProperties);
+         PropertiesQuery query = queries.get("feature.featureImage");
+         query.setDefaultValue(defaultIcon);
+         featureProperties.put("feature.featureImage", query.lookup(properties));
+
+         templates.copy("branding-plugin-project", pluginDir, featureProperties);
 
          generateNlsPropertyFiles(locales, "plugin", templates, "branding-plugin-project", pluginDir, properties,
             queries);
@@ -139,11 +143,12 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       }
    }
 
-   private static String determineDefaultFeatureIconName(final File pluginDir)
+   private static String determineDefaultFeatureIconName(final File pluginDir, ITemplates templates,
+      Properties featureProperties)
    {
       final List<String> featureFileNames = new ArrayList<String>();
-      featureFileNames.add("feature32.png");
       featureFileNames.add("feature.png");
+      featureFileNames.add("feature32.png");
       featureFileNames.add("eclipse32.png");
       featureFileNames.add("eclipse.png");
       featureFileNames.add("feature32.gif");
@@ -153,11 +158,17 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
 
       for (String featureIconName : featureFileNames)
       {
-         if (new File(pluginDir, featureIconName).exists())
+         try
          {
-            return featureIconName;
+            templates.copy("branding-plugin-project/" + featureIconName, pluginDir, featureProperties);
          }
+         catch (RuntimeException e)
+         {
+            continue;
+         }
+         return featureIconName;
       }
+
       return "";
    }
 
