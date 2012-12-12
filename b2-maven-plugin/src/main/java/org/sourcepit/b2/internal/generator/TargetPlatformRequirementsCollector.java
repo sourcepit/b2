@@ -101,19 +101,6 @@ public class TargetPlatformRequirementsCollector
 
    private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject)
    {
-      final PluginsFacet pluginsFacet;
-
-      final String facetName = B2MetadataUtils.getFacetName(featureProject);
-      if (facetName != null)
-      {
-         pluginsFacet = featureProject.getParent().getParent().getFacetByName(facetName);
-      }
-      else
-      {
-         pluginsFacet = null;
-      }
-
-
       for (FeatureInclude includedFeature : featureProject.getIncludedFeatures())
       {
          Dependency requirement = toRequirement(includedFeature);
@@ -121,9 +108,11 @@ public class TargetPlatformRequirementsCollector
          addUnique(requirements, requirement);
       }
 
+      final AbstractModule module = featureProject.getParent().getParent();
+
       for (PluginInclude includedPlugin : featureProject.getIncludedPlugins())
       {
-         if (pluginsFacet != null && pluginsFacet.resolveReference(includedPlugin) == null)
+         if (module.resolveReference(includedPlugin, PluginsFacet.class) == null)
          {
             Dependency requirement = toRequirement(includedPlugin);
             requirement.setType("eclipse-plugin");
