@@ -12,15 +12,19 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.codehaus.plexus.interpolation.AbstractValueSource;
+import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.tools.shared.resources.harness.SharedResourcesCopier;
 import org.sourcepit.tools.shared.resources.harness.ValueSourceUtils;
+import org.sourcepit.tools.shared.resources.internal.harness.IFilterStrategy;
 
 import com.google.common.base.Optional;
 
 public class DefaultTemplateCopier implements ITemplates
 {
    private final PropertiesSource globalProperties;
+
+   final PathMatcher filterStrategy;
 
    public DefaultTemplateCopier()
    {
@@ -30,14 +34,9 @@ public class DefaultTemplateCopier implements ITemplates
    public DefaultTemplateCopier(Optional<? extends PropertiesSource> globalProperties)
    {
       this.globalProperties = globalProperties.orNull();
-   }
-
-   /**
-    * {@inheritDoc}
-    */
-   public void copy(String resourcePath, File targetDir) throws IllegalArgumentException, IllegalStateException
-   {
-      copy(resourcePath, targetDir, null);
+      final String pattern = this.globalProperties == null ? "**" : this.globalProperties.get(
+         "b2.templates.filteredResources", "**");
+      filterStrategy = PathMatcher.parse(pattern, "/", ",");
    }
 
    /**
@@ -104,6 +103,15 @@ public class DefaultTemplateCopier implements ITemplates
       }
 
       copier.setFilter(!copier.getValueSources().isEmpty());
+
+      copier.setFilterStrategy(new IFilterStrategy()
+      {
+         public boolean filter(String fileName)
+         {
+            return filterStrategy.isMatch(fileName);
+         }
+      });
+
       return copier;
    }
 
