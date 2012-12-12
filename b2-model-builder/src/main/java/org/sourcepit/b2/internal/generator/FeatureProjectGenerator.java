@@ -160,7 +160,22 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       {
          try
          {
-            templates.copy("branding-plugin-project/" + featureIconName, pluginDir, featureProperties);
+            templates.copy("branding-plugin-project/" + featureIconName, pluginDir, featureProperties, false);
+            FileUtils.deleteQuietly(new File(pluginDir, featureIconName));
+         }
+         catch (RuntimeException e)
+         {
+            continue;
+         }
+         return featureIconName;
+      }
+
+      for (String featureIconName : featureFileNames)
+      {
+         try
+         {
+            templates.copy("branding-plugin-project/" + featureIconName, pluginDir, featureProperties, true);
+            FileUtils.deleteQuietly(new File(pluginDir, featureIconName));
          }
          catch (RuntimeException e)
          {

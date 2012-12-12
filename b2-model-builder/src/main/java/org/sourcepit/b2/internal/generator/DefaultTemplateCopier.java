@@ -46,6 +46,14 @@ public class DefaultTemplateCopier implements ITemplates
    public void copy(String resourcePath, File targetDir, Properties properties) throws IllegalArgumentException,
       IllegalStateException
    {
+      copy(resourcePath, targetDir, properties, true);
+   }
+
+   /**
+    * {@inheritDoc}
+    */
+   public void copy(String resourcePath, File targetDir, Properties properties, boolean includeDefaults)
+   {
       final SharedResourcesCopier copier = createCopier(properties);
       try
       {
@@ -54,18 +62,25 @@ public class DefaultTemplateCopier implements ITemplates
       }
       catch (IOException ex)
       {
-         try
+         if (includeDefaults)
          {
-            copier.setManifestHeader("B2-Default-Templates");
-            copier.copy(resourcePath, targetDir);
+            try
+            {
+               copier.setManifestHeader("B2-Default-Templates");
+               copier.copy(resourcePath, targetDir);
+            }
+            catch (FileNotFoundException e)
+            {
+               throw new IllegalArgumentException(e);
+            }
+            catch (IOException e)
+            {
+               throw new IllegalStateException(e);
+            }
          }
-         catch (FileNotFoundException e)
+         else
          {
-            throw new IllegalArgumentException(e);
-         }
-         catch (IOException e)
-         {
-            throw new IllegalStateException(e);
+            throw new IllegalStateException(ex);
          }
       }
    }

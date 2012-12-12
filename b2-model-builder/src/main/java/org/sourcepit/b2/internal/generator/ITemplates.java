@@ -14,4 +14,6 @@ public interface ITemplates
    void copy(String resourcePath, File targetDir);
 
    void copy(String resourcePath, File targetDir, Properties properties);
+   
+   void copy(String resourcePath, File targetDir, Properties properties, boolean includeDefaults);
 }
