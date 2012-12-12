@@ -131,6 +131,9 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          query.setDefaultValue(defaultIcon);
          featureProperties.put("feature.featureImage", query.lookup(properties));
 
+         // must be set for branding plugins
+         queries.get("feature.providerName").setDefaultValue("<empty>");
+
          templates.copy("branding-plugin-project", pluginDir, featureProperties);
 
          generateNlsPropertyFiles(locales, "plugin", templates, "branding-plugin-project", pluginDir, properties,
@@ -244,11 +247,9 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
                nlsSuffix = "_" + nlsSuffix;
             }
 
-            final File destFile = new File(projectDir, fileName + nlsSuffix + extension);
-            final File srcFile = new File(workDir, fileName + extension);
-            FileUtils.copyFile(srcFile, destFile);
-            FileUtils.forceDelete(srcFile);
 
+            final File srcFile = new File(workDir, fileName + extension);
+            File destFile = saveNlsProperty(srcFile, locale, projectDir, fileName, extension);
             nlsPropertyFiles.add(destFile);
          }
          FileUtils.deleteDirectory(workDir);
@@ -259,6 +260,36 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       {
          throw new IllegalStateException(e);
       }
+   }
+
+   private File saveNlsProperty(File srcFile, Locale locale, File projectDir, String fileName, String extension)
+      throws IOException
+   {
+      final File destFile;
+      if ("about".equals(fileName))
+      {
+         String nl = locale.toString();
+         if (nl.length() > 0)
+         {
+            destFile = new File(projectDir, "nl/" + nl + "/" + fileName + extension);
+         }
+         else
+         {
+            destFile = new File(projectDir, fileName + extension);
+         }
+      }
+      else
+      {
+         String nlsSuffix = locale.toString();
+         if (nlsSuffix.length() > 0)
+         {
+            nlsSuffix = "_" + nlsSuffix;
+         }
+         destFile = new File(projectDir, fileName + nlsSuffix + extension);
+      }
+      FileUtils.copyFile(srcFile, destFile);
+      FileUtils.forceDelete(srcFile);
+      return destFile;
    }
 
    public static void addToBinIncludes(File projectDir, final List<File> nlsPropertyFiles)
