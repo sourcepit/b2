@@ -195,11 +195,16 @@ public class TargetPlatformRequirementsCollector
       return dependency;
    }
 
-   private static Dependency toRequirement(AbstractStrictReference strictReference)
+   static Dependency toRequirement(AbstractStrictReference strictReference)
    {
       final Dependency dependency = new Dependency();
       dependency.setArtifactId(strictReference.getId());
-      dependency.setVersion(strictReference.getVersion());
+      String version = strictReference.getVersion();
+      if (version != null && version.endsWith(".qualifier"))
+      {
+         version = version.substring(0, version.length() - ".qualifier".length());
+      }
+      dependency.setVersion(version);
       return dependency;
    }
 }
