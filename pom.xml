@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.sourcepit</groupId>
 		<artifactId>srcpit-parent</artifactId>
-		<version>8-SNAPSHOT</version>
+		<version>8</version>
 	</parent>
 
 	<groupId>org.sourcepit.b2</groupId>
@@ -19,7 +19,7 @@
 
 	<properties>
 		<tycho.version>0.16.0</tycho.version>
-		<maven-bootstrap.version>0.1.0-alpha-4</maven-bootstrap.version>
+		<maven-bootstrap.version>0.1.0-alpha-5</maven-bootstrap.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 
@@ -53,26 +53,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>srcpit.org.eclipse.emf</groupId>
-				<artifactId>org.eclipse.emf.ecore</artifactId>
-				<version>2.8.1-v20120911-0500</version>
-			</dependency>
-			<dependency>
-				<groupId>srcpit.org.eclipse.emf</groupId>
-				<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
-				<version>2.8.0-v20120911-0500</version>
-			</dependency>
-			<dependency>
-				<groupId>srcpit.org.eclipse.emf</groupId>
-				<artifactId>org.eclipse.emf.common</artifactId>
-				<version>2.8.0-v20120911-0500</version>
-			</dependency>
-			<dependency>
-				<groupId>srcpit.org.eclipse.osgi</groupId>
-				<artifactId>org.eclipse.osgi</artifactId>
-				<version>3.8.1-v20120830-144521</version>
-			</dependency>
 			<dependency>
 				<groupId>com.springsource.util</groupId>
 				<artifactId>com.springsource.util.osgi</artifactId>
@@ -145,17 +125,17 @@
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>osgify-maven-plugin</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>shared-resources-harness</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>shared-resources-harness</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-3</version>
 				<type>test-jar</type>
 			</dependency>
 			<dependency>
@@ -166,12 +146,12 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-manifest</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-8</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-maven</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
@@ -272,12 +252,12 @@
 				<plugin>
 					<groupId>org.sourcepit.tools</groupId>
 					<artifactId>shared-resources-maven-plugin</artifactId>
-					<version>0.1.0-alpha-1</version>
+					<version>0.1.0-alpha-3</version>
 				</plugin>
 				<plugin>
 					<groupId>org.sourcepit.tools</groupId>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>0.1.0-alpha-2</version>
+					<version>0.1.0-alpha-3</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.plexus</groupId>
