@@ -12,9 +12,12 @@ import java.util.List;
 
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.Annotation;
+import org.sourcepit.b2.model.module.FeatureProject;
 
 public final class B2MetadataUtils
 {
+   private static final String BRANDING_PLUGIN = "brandingPlugin";
+   private static final String BRANDED_FEATURE = "brandedFeature";
    private static final String FACET_CLASSIFIER = "facetClassifier";
    private static final String ASSEMBLY_CLASSIFIERS = "assemblyClassifiers";
    private static final String IS_TEST_PLUGIN = "isTestPlugin";
@@ -54,6 +57,46 @@ public final class B2MetadataUtils
    public static String getModuleVersion(Annotatable annotatable)
    {
       return annotatable.getAnnotationEntry(B2, MODULE_VERSION);
+   }
+
+   public static String getClassifier(FeatureProject featureProject)
+   {
+      if (isAssemblyFeature(featureProject))
+      {
+         final List<String> assemblyClassifiers = B2MetadataUtils.getAssemblyClassifiers(featureProject);
+         if (assemblyClassifiers.size() != 1)
+         {
+            throw new IllegalStateException();
+         }
+         return assemblyClassifiers.get(0);
+      }
+      else
+      {
+         return getFacetClassifier(featureProject);
+      }
+   }
+
+   public static boolean isAssemblyFeature(FeatureProject featureProject)
+   {
+      final String facetName = B2MetadataUtils.getFacetName(featureProject);
+      if (facetName != null)
+      {
+         return false;
+      }
+      else
+      {
+         final List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(featureProject);
+         if (assemblyNames.size() != 1)
+         {
+            throw new IllegalStateException();
+         }
+         return true;
+      }
+   }
+
+   public static boolean isFacetSourceFeature(FeatureProject featureProject)
+   {
+      return !isAssemblyFeature(featureProject) && B2MetadataUtils.isSourceFeature(featureProject);
    }
 
    public static List<String> getAssemblyNames(Annotatable annotatable)
@@ -221,5 +264,25 @@ public final class B2MetadataUtils
    private static String toString(boolean value)
    {
       return value ? Boolean.toString(value) : null;
+   }
+
+   public static void setBrandedFeature(Annotatable annotatable, String featureId)
+   {
+      setB2Metadata(annotatable, BRANDED_FEATURE, featureId);
+   }
+
+   public static String getBrandedFeature(Annotatable annotatable)
+   {
+      return annotatable.getAnnotationEntry(B2, BRANDED_FEATURE);
+   }
+
+   public static void setBrandingPlugin(Annotatable annotatable, String pluginId)
+   {
+      setB2Metadata(annotatable, BRANDING_PLUGIN, pluginId);
+   }
+   
+   public static String getBrandingPlugin(Annotatable annotatable)
+   {
+      return annotatable.getAnnotationEntry(B2, BRANDING_PLUGIN);
    }
 }

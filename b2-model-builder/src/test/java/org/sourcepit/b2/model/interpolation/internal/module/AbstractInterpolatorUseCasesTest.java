@@ -815,7 +815,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
 
       interpolate(module, moduleProperties);
 
-      assertUC_8_AggregateContentOfCompositeModule_NoSource(module);
+      assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(module);
    }
 
    protected abstract void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module);
@@ -918,6 +918,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
       LayoutManager layoutManager = gLookup(LayoutManager.class);
       UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
       FeaturesConverter converter = gLookup(FeaturesConverter.class);
+      BrandingPluginsInterpolator brandingInterpolator = gLookup(BrandingPluginsInterpolator.class);
 
       ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {
@@ -947,7 +948,8 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
          converter, unpackStrategy, sourceService, contextResolver);
 
       FeaturesInterpolator interpolator;
-      interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter, includesAndRequirements);
+      interpolator = new FeaturesInterpolator(sourceService, layoutManager, converter, includesAndRequirements,
+         brandingInterpolator);
 
       interpolator.interpolate(module, moduleProperties);
    }

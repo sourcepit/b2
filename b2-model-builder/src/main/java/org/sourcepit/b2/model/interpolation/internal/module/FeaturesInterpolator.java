@@ -37,14 +37,18 @@ public class FeaturesInterpolator
 
    private final IncludesAndRequirementsResolver includesAndRequirements;
 
+   private final BrandingPluginsInterpolator brandingInterpolator;
+
    @Inject
    public FeaturesInterpolator(@NotNull ISourceService sourceService, @NotNull LayoutManager layoutManager,
-      FeaturesConverter converter, IncludesAndRequirementsResolver includesAndRequirements)
+      FeaturesConverter converter, IncludesAndRequirementsResolver includesAndRequirements,
+      @NotNull BrandingPluginsInterpolator brandingInterpolator)
    {
       this.sourceService = sourceService;
       this.layoutManager = layoutManager;
       this.converter = converter;
       this.includesAndRequirements = includesAndRequirements;
+      this.brandingInterpolator = brandingInterpolator;
    }
 
    public void interpolate(AbstractModule module, PropertiesSource moduleProperties)
@@ -83,9 +87,21 @@ public class FeaturesInterpolator
 
       interpolateAssemblyFeatures(module, featuresFacet, moduleProperties);
 
+      interpolateBrandingPlugins(module, featuresFacet, moduleProperties);
+
       if (size == 0 && !featuresFacet.getProjects().isEmpty())
       {
+
          module.getFacets().add(featuresFacet);
+      }
+   }
+
+   private void interpolateBrandingPlugins(AbstractModule module, FeaturesFacet featuresFacet,
+      PropertiesSource moduleProperties)
+   {
+      if (!featuresFacet.getProjects().isEmpty())
+      {
+         brandingInterpolator.interpolate(module, featuresFacet, moduleProperties);
       }
    }
 

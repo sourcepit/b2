@@ -82,6 +82,13 @@ public class FeaturePropertiesQueryFactory
       final PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "brandingPlugin");
       queries.put("feature.plugin", query);
       
+      putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "aboutText");
+      putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "windowImage");
+      putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "featureImage");
+      putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "appName");
+      putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "welcomePerspective");
+      putQuery(queries, isAssemblyFeature, facetOrAssemblyName, true, "tipsAndTricksHref");
+      
       return queries;
    }
 

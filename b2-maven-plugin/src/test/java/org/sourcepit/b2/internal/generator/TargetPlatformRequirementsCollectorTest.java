@@ -27,7 +27,9 @@ import org.sourcepit.b2.model.harness.ModelTestHarness;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.FeatureProject;
+import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.b2.model.module.StrictReference;
 
 
 public class TargetPlatformRequirementsCollectorTest
@@ -200,12 +202,38 @@ public class TargetPlatformRequirementsCollectorTest
 
       dependency = requirements.get(1);
       assertRequirement("org.eclipse.swt", "3.2.0", "eclipse-plugin", dependency);
-      
+
       dependency = requirements.get(2);
       assertRequirement("org.eclipse.platform", "[4.2.0,5.0.0)", "eclipse-feature", dependency);
 
       dependency = requirements.get(3);
       assertRequirement("org.eclipse.core.runtime", "[3.4.0,4.0.0)", "eclipse-plugin", dependency);
+   }
+   
+   @Test
+   public void testToRequirement() throws Exception
+   {
+      StrictReference reference = ModuleModelFactory.eINSTANCE.createStrictReference();
+      reference.setId("foo");
+      
+      Dependency requirement = TargetPlatformRequirementsCollector.toRequirement(reference);
+      assertEquals("foo", requirement.getArtifactId());
+      assertEquals("0.0.0", requirement.getVersion());
+      
+      reference.setVersion("1.0.0");
+      requirement = TargetPlatformRequirementsCollector.toRequirement(reference);
+      assertEquals("foo", requirement.getArtifactId());
+      assertEquals("1.0.0", requirement.getVersion());
+
+      reference.setVersion("1.0.0.v392840289");
+      requirement = TargetPlatformRequirementsCollector.toRequirement(reference);
+      assertEquals("foo", requirement.getArtifactId());
+      assertEquals("1.0.0.v392840289", requirement.getVersion());
+      
+      reference.setVersion("1.0.0.qualifier");
+      requirement = TargetPlatformRequirementsCollector.toRequirement(reference);
+      assertEquals("foo", requirement.getArtifactId());
+      assertEquals("1.0.0", requirement.getVersion());
    }
 
    static void assertRequirement(String id, String versionRange, String type, Dependency dependency)

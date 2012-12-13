@@ -6,8 +6,11 @@
 
 package org.sourcepit.b2.release.phase;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.release.ReleaseExecutionException;
@@ -39,9 +42,14 @@ public class ScmCheckModificationsPhase extends org.apache.maven.shared.release.
 
    private static void addB2ModificationExcludes(ReleaseDescriptor releaseDescriptor)
    {
-      final List<String> modificationExcludes = new ArrayList<String>(releaseDescriptor.getCheckModificationExcludes());
-      modificationExcludes.add("**/.b2");
-      modificationExcludes.add("**/pom.xml");
-      releaseDescriptor.setCheckModificationExcludes(modificationExcludes);
+      final Set<String> modificationExcludes = new LinkedHashSet<String>(releaseDescriptor.getCheckModificationExcludes());
+      modificationExcludes.add("**" + File.separator + ".b2");
+      modificationExcludes.add("**" + File.separator + "pom.xml");
+      modificationExcludes.add("**" + File.separator + "module.xml.backup");
+      modificationExcludes.add("**" + File.separator + "module.xml.tag");
+      modificationExcludes.add("**" + File.separator + "module.xml.next");
+      modificationExcludes.add("**" + File.separator + "module.xml.branch");
+      modificationExcludes.add("**" + File.separator + "module.xml.releaseBackup");
+      releaseDescriptor.setCheckModificationExcludes(new ArrayList<String>(modificationExcludes));
    }
 }
