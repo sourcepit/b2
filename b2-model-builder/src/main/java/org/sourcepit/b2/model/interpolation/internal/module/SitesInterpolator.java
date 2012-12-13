@@ -50,19 +50,25 @@ public class SitesInterpolator
          sitesFacet.setDerived(true);
          sitesFacet.setName("sites");
 
-         for (String assemblyName : assemblyNames)
-         {
-            final FeatureProject assemblyFeature = DefaultIncludesAndRequirementsResolver
-               .findFeatureProjectForAssembly(module, assemblyName);
-            if (assemblyFeature != null)
-            {
-               interpolate(module, moduleProperties, sitesFacet, assemblyName, assemblyFeature);
-            }
-         }
+         interpolate(module, sitesFacet, assemblyNames, moduleProperties);
 
          if (!sitesFacet.getProjects().isEmpty())
          {
             module.getFacets().add(sitesFacet);
+         }
+      }
+   }
+
+   private void interpolate(AbstractModule module, final SitesFacet sitesFacet, final List<String> assemblyNames,
+      PropertiesSource moduleProperties)
+   {
+      for (String assemblyName : assemblyNames)
+      {
+         final FeatureProject assemblyFeature = DefaultIncludesAndRequirementsResolver
+            .findFeatureProjectForAssembly(module, assemblyName);
+         if (assemblyFeature != null)
+         {
+            interpolate(module, moduleProperties, sitesFacet, assemblyName, assemblyFeature);
          }
       }
    }
