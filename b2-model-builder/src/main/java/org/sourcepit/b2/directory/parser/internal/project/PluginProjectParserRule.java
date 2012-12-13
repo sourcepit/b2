@@ -6,24 +6,17 @@
 
 package org.sourcepit.b2.directory.parser.internal.project;
 
-import static org.sourcepit.common.utils.io.IOResources.buffIn;
-import static org.sourcepit.common.utils.io.IOResources.fileIn;
-
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.resource.Resource;
+import org.sourcepit.b2.model.interpolation.internal.module.B2ModelUtils;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.Manifest;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.FragmentHost;
 import org.sourcepit.common.manifest.osgi.VersionRange;
-import org.sourcepit.common.manifest.osgi.resource.GenericManifestResourceImpl;
-import org.sourcepit.common.utils.io.IOOperation;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 /**
@@ -41,7 +34,7 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
          return null;
       }
 
-      final Manifest manifest = readManifest(manifestFile);
+      final Manifest manifest = B2ModelUtils.readManifest(manifestFile);
       if (manifest instanceof BundleManifest)
       {
          final BundleManifest bundleManifest = (BundleManifest) manifest;
@@ -51,7 +44,7 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
          project.setVersion(bundleManifest.getBundleVersion().toString());
          project.setBundleManifest(bundleManifest);
          project.setDirectory(directory);
-         
+
          // TODO replace with configurable filter pattern
          project.setTestPlugin(project.getId().endsWith(".tests"));
 
@@ -68,22 +61,5 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
          return project;
       }
       return null;
-   }
-
-   private Manifest readManifest(File file)
-   {
-      final Resource eResource = new GenericManifestResourceImpl();
-      new IOOperation<InputStream>(buffIn(fileIn(file)))
-      {
-         @Override
-         protected void run(InputStream openResource) throws IOException
-         {
-            eResource.load(openResource, null);
-         }
-      }.run();
-
-      final Manifest bundleManifest = (Manifest) eResource.getContents().get(0);
-      eResource.getContents().clear(); // disconnect from resource
-      return bundleManifest;
    }
 }

@@ -60,7 +60,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
    }
 
    @Override
@@ -80,7 +80,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -88,7 +88,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -96,7 +96,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -125,7 +125,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -133,7 +133,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
    }
 
    @Override
@@ -153,7 +153,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -161,7 +161,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -169,7 +169,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
@@ -177,7 +177,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
@@ -185,7 +185,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
@@ -193,7 +193,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
    }
 
    @Override
@@ -212,7 +212,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -220,7 +220,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
    }
 
    @Override
@@ -240,7 +240,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -248,7 +248,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -256,7 +256,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
@@ -264,7 +264,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
@@ -272,7 +272,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -291,7 +291,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -321,7 +321,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("public, sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -329,7 +329,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
    }
 
    @Override
@@ -349,7 +349,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -357,7 +357,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -365,7 +365,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
@@ -373,7 +373,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
@@ -381,7 +381,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -400,7 +400,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -430,7 +430,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("doc", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -438,7 +438,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -446,7 +446,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
@@ -454,7 +454,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -485,7 +485,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("doc", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -493,7 +493,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("doc", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -501,7 +501,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
@@ -509,7 +509,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
@@ -517,7 +517,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
@@ -525,7 +525,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(6);
       assertTrue(featureProject.isDerived());
@@ -533,7 +533,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -562,7 +562,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -674,7 +674,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -682,7 +682,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -690,7 +690,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -709,7 +709,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
@@ -727,7 +727,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -757,7 +757,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -765,7 +765,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -773,7 +773,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
@@ -781,7 +781,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
@@ -789,7 +789,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -808,7 +808,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
@@ -836,7 +836,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -876,7 +876,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -884,7 +884,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -892,7 +892,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
@@ -900,16 +900,16 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
-      
+      assertEquals(2, featureProject.getIncludedPlugins().size());
+
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.public.feature", "1.0.0.qualifier", featureProject);
       assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
-      
+      assertEquals(1, featureProject.getIncludedPlugins().size());
+
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
@@ -927,7 +927,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -967,7 +967,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -975,7 +975,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -983,7 +983,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -1002,7 +1002,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
@@ -1020,7 +1020,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -1050,7 +1050,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
@@ -1058,7 +1058,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
@@ -1066,7 +1066,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
@@ -1074,7 +1074,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
-      assertEquals(1, featureProject.getIncludedPlugins().size());
+      assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
@@ -1082,7 +1082,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -1101,7 +1101,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(3, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
@@ -1124,7 +1124,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(3, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -1159,7 +1159,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -1186,7 +1186,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("core.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -1210,7 +1210,66 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    @Override
    protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module)
    {
-      assertUC_8_AggregateContentOfCompositeModule_NoSource(module);
+      EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
+      assertEquals(1, featuresFacets.size());
+
+      FeaturesFacet featuresFacet = featuresFacets.get(0);
+      assertTrue(featuresFacet.isDerived());
+      assertEquals(2, featuresFacet.getProjects().size());
+
+      FeatureProject featureProject;
+      featureProject = featuresFacet.getProjects().get(0);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(2, featureProject.getIncludedFeatures().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
+
+      FeatureInclude featureInclude;
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("core.plugins.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("ui.plugins.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[main]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("plugins", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertFalse(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureProject = featuresFacet.getProjects().get(1);
+      assertTrue(featureProject.isDerived());
+      assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
+      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals(2, featureProject.getIncludedFeatures().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
+
+      featureInclude = featureProject.getIncludedFeatures().get(0);
+      assertReference("core.tests.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("core", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
+
+      featureInclude = featureProject.getIncludedFeatures().get(1);
+      assertReference("ui.tests.feature", "1.0.0.qualifier", featureInclude);
+      assertEquals("ui", B2MetadataUtils.getModuleId(featureInclude));
+      assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(featureInclude));
+      assertEquals("[test]", B2MetadataUtils.getAssemblyNames(featureInclude).toString());
+      assertEquals("tests", B2MetadataUtils.getFacetName(featureInclude));
+      assertFalse(B2MetadataUtils.isSourceFeature(featureInclude));
+      assertTrue(B2MetadataUtils.isTestFeature(featureInclude));
    }
 
    @Override
@@ -1230,7 +1289,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -1275,7 +1334,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("core.tests.feature", "1.0.0.qualifier", featureInclude);
@@ -1331,7 +1390,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
@@ -1358,7 +1417,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
       assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
-      assertEquals(0, featureProject.getIncludedPlugins().size());
+      assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("core.test.feature", "1.0.0.qualifier", featureInclude);
@@ -1510,9 +1569,13 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       FeatureProject srcMainFeature = getFeatureProject(module, "foo.main.sources.feature");
       assertNotNull(srcMainFeature);
       assertEquals(1, srcMainFeature.getIncludedFeatures().size());
-      assertEquals(0, srcMainFeature.getIncludedPlugins().size());
+      assertEquals(1, srcMainFeature.getIncludedPlugins().size());
       assertEquals(0, srcMainFeature.getRequiredFeatures().size());
       assertEquals(0, srcMainFeature.getRequiredPlugins().size());
+
+      PluginInclude pluginInclude;
+      pluginInclude = srcMainFeature.getIncludedPlugins().get(0);
+      assertIsBrandingPlugin(srcMainFeature, pluginInclude);
 
       FeatureInclude featureInclude = srcMainFeature.getIncludedFeatures().get(0);
       assertEquals("org.eclipse.platform", featureInclude.getId());
@@ -1522,14 +1585,24 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       FeatureProject testFeature = getFeatureProject(module, "foo.tests.feature");
       assertNotNull(testFeature);
       assertEquals(1, testFeature.getIncludedFeatures().size());
-      assertEquals(0, testFeature.getIncludedPlugins().size());
+      assertEquals(1, testFeature.getIncludedPlugins().size());
       assertEquals(0, testFeature.getRequiredFeatures().size());
       assertEquals(0, testFeature.getRequiredPlugins().size());
+
+      pluginInclude = testFeature.getIncludedPlugins().get(0);
+      assertIsBrandingPlugin(testFeature, pluginInclude);
 
       featureInclude = testFeature.getIncludedFeatures().get(0);
       assertEquals("org.junit", featureInclude.getId());
       assertEquals("4.10", featureInclude.getVersion());
       assertTrue(featureInclude.isOptional());
+   }
+
+   private static void assertIsBrandingPlugin(FeatureProject feature, PluginInclude pluginInclude)
+   {
+      assertEquals(feature.getId().replace(".feature", ".branding"), pluginInclude.getId());
+      assertEquals(feature.getVersion(), pluginInclude.getVersion());
+      assertFalse(pluginInclude.isUnpack());
    }
 
    @Test
@@ -1558,25 +1631,32 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       FeatureProject srcMainFeature = getFeatureProject(module, "foo.main.sources.feature");
       assertNotNull(srcMainFeature);
       assertEquals(0, srcMainFeature.getIncludedFeatures().size());
-      assertEquals(1, srcMainFeature.getIncludedPlugins().size());
+      assertEquals(2, srcMainFeature.getIncludedPlugins().size());
       assertEquals(0, srcMainFeature.getRequiredFeatures().size());
       assertEquals(0, srcMainFeature.getRequiredPlugins().size());
 
-      PluginInclude featureInclude = srcMainFeature.getIncludedPlugins().get(0);
-      assertEquals("org.eclipse.platform", featureInclude.getId());
-      assertEquals("3.8.0", featureInclude.getVersion());
-      assertFalse(featureInclude.isUnpack());
+      PluginInclude pluginInclude;
+      pluginInclude = srcMainFeature.getIncludedPlugins().get(0);
+      assertIsBrandingPlugin(srcMainFeature, pluginInclude);
+
+      pluginInclude = srcMainFeature.getIncludedPlugins().get(1);
+      assertEquals("org.eclipse.platform", pluginInclude.getId());
+      assertEquals("3.8.0", pluginInclude.getVersion());
+      assertFalse(pluginInclude.isUnpack());
 
       FeatureProject testFeature = getFeatureProject(module, "foo.tests.feature");
       assertNotNull(testFeature);
       assertEquals(0, testFeature.getIncludedFeatures().size());
-      assertEquals(1, testFeature.getIncludedPlugins().size());
+      assertEquals(2, testFeature.getIncludedPlugins().size());
       assertEquals(0, testFeature.getRequiredFeatures().size());
       assertEquals(0, testFeature.getRequiredPlugins().size());
 
-      featureInclude = testFeature.getIncludedPlugins().get(0);
-      assertEquals("org.junit", featureInclude.getId());
-      assertEquals("4.10", featureInclude.getVersion());
-      assertTrue(featureInclude.isUnpack());
+      pluginInclude = testFeature.getIncludedPlugins().get(0);
+      assertIsBrandingPlugin(testFeature, pluginInclude);
+
+      pluginInclude = testFeature.getIncludedPlugins().get(1);
+      assertEquals("org.junit", pluginInclude.getId());
+      assertEquals("4.10", pluginInclude.getVersion());
+      assertTrue(pluginInclude.isUnpack());
    }
 }

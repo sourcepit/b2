@@ -456,6 +456,30 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
       return idOfProject(moduleId, sb.toString(), "feature");
    }
+   
+   public boolean isSkipBrandingPlugins(PropertiesSource properties)
+   {
+      return properties.getBoolean("b2.skipBrandingPlugins", false);
+   }
+   
+   public String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier,
+      boolean isSource)
+   {
+      final StringBuilder sb = new StringBuilder();
+      if (classifier != null)
+      {
+         sb.append(classifier);
+      }
+      if (isSource)
+      {
+         if (sb.length() > 0)
+         {
+            sb.append('.');
+         }
+         sb.append(properties.get("b2.featuresSourceClassifier", "sources"));
+      }
+      return idOfProject(moduleId, sb.toString(), "branding");
+   }
 
    public String getSourcePluginId(PropertiesSource moduleProperties, String pluginId)
    {

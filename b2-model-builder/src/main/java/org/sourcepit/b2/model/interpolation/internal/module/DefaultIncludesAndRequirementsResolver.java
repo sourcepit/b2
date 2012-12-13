@@ -6,6 +6,9 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
+import static org.sourcepit.b2.model.interpolation.internal.module.B2ModelUtils.toFeatureInclude;
+import static org.sourcepit.b2.model.interpolation.internal.module.B2ModelUtils.toPluginInclude;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -27,7 +30,6 @@ import org.sourcepit.b2.model.builder.util.FeaturesConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.common.Annotatable;
-import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.CompositeModule;
@@ -239,42 +241,6 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       return true;
    }
 
-   private static FeatureInclude toFeatureInclude(FeatureProject featureProject)
-   {
-      FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
-      featureInclude.setId(featureProject.getId());
-      featureInclude.setVersion(featureProject.getVersion());
-
-      Annotation b2Metadata = B2MetadataUtils.getB2Metadata(featureProject);
-      if (b2Metadata != null)
-      {
-         featureInclude.getAnnotations().add(EcoreUtil.copy(b2Metadata));
-      }
-
-      return featureInclude;
-   }
-
-   private static PluginInclude toPluginInclude(PluginProject pluginProject)
-   {
-      PluginInclude featureInclude = ModuleModelFactory.eINSTANCE.createPluginInclude();
-      featureInclude.setId(pluginProject.getId());
-      featureInclude.setVersion(pluginProject.getVersion());
-
-      Annotation b2Metadata = B2MetadataUtils.getB2Metadata(pluginProject);
-      if (b2Metadata != null)
-      {
-         featureInclude.getAnnotations().add(EcoreUtil.copy(b2Metadata));
-      }
-
-      PluginsFacet facet = pluginProject.getParent();
-      AbstractModule module = facet.getParent();
-      B2MetadataUtils.setModuleId(featureInclude, module.getId());
-      B2MetadataUtils.setModuleVersion(featureInclude, module.getVersion());
-      B2MetadataUtils.setFacetName(featureInclude, facet.getName());
-      B2MetadataUtils.setTestPlugin(featureInclude, pluginProject.isTestPlugin());
-      return featureInclude;
-   }
-
    private void resolveIncludeResolutionContext(Set<FeatureProject> assemblyFeatures,
       Set<FeatureProject> visibleAssemblyFeatures, AbstractModule module, FeatureProject assemblyFeature,
       boolean includeForeignModules)
@@ -452,7 +418,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       {
          final BundleManifest sourceManifest = sourcePlugin.getBundleManifest();
          final BundleManifest targetManifest = targetPlugin.getBundleManifest();
-         if (isRequiresBundle(sourceManifest, targetManifest))
+         if (sourceManifest != null && targetManifest != null && isRequiresBundle(sourceManifest, targetManifest))
          {
             return true;
          }
@@ -786,7 +752,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
       {
          if (featureMatcher.isMatch(fp.getId()))
          {
-            final FeatureInclude inc = DefaultIncludesAndRequirementsResolver.toFeatureInclude(fp);
+            final FeatureInclude inc = toFeatureInclude(fp);
             targetProject.addFeatureInclude(inc);
          }
       }
@@ -796,7 +762,7 @@ public class DefaultIncludesAndRequirementsResolver implements IncludesAndRequir
          final String pluginId = isSource ? getSourcePluginId(pp) : pp.getId();
          if (pluginId != null && pluginMatcher.isMatch(pluginId))
          {
-            final PluginInclude inc = DefaultIncludesAndRequirementsResolver.toPluginInclude(pp);
+            final PluginInclude inc = toPluginInclude(pp);
             inc.setId(pluginId);
             if (isSource)
             {

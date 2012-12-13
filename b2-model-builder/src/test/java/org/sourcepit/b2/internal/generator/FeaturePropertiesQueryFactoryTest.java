@@ -29,7 +29,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, false, "plugins", "");
-      assertEquals(11, queries.size());
+      assertEquals(17, queries.size());
 
       PropertiesQuery query = queries.get("feature.name");
       assertNotNull(query);
@@ -115,6 +115,54 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertEquals("b2.facets.plugins.brandingPlugin", it.next());
       assertEquals("b2.facets.brandingPlugin", it.next());
       assertEquals("b2.module.brandingPlugin", it.next());
+      
+      query = queries.get("feature.aboutText");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.aboutText", it.next());
+      assertEquals("b2.facets.aboutText", it.next());
+      assertEquals("b2.module.aboutText", it.next());
+      
+      query = queries.get("feature.featureImage");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.featureImage", it.next());
+      assertEquals("b2.facets.featureImage", it.next());
+      assertEquals("b2.module.featureImage", it.next());
+      
+      query = queries.get("feature.tipsAndTricksHref");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.tipsAndTricksHref", it.next());
+      assertEquals("b2.facets.tipsAndTricksHref", it.next());
+      assertEquals("b2.module.tipsAndTricksHref", it.next());
+      
+      query = queries.get("feature.windowImage");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.windowImage", it.next());
+      assertEquals("b2.facets.windowImage", it.next());
+      assertEquals("b2.module.windowImage", it.next());
+      
+      query = queries.get("feature.appName");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.appName", it.next());
+      assertEquals("b2.facets.appName", it.next());
+      assertEquals("b2.module.appName", it.next());
+      
+      query = queries.get("feature.welcomePerspective");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.welcomePerspective", it.next());
+      assertEquals("b2.facets.welcomePerspective", it.next());
+      assertEquals("b2.module.welcomePerspective", it.next());
    }
 
    @Test
@@ -124,7 +172,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
 
       final Map<String, PropertiesQuery> queries = queryFactory
          .createPropertyQueries(false, false, "plugins", "plugins");
-      assertEquals(12, queries.size());
+      assertEquals(18, queries.size());
 
       PropertiesQuery query = queries.get("feature.classifierLabel");
       assertNotNull(query);
@@ -141,7 +189,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, true, "plugins", "");
-      assertEquals(11, queries.size());
+      assertEquals(17, queries.size());
 
       PropertiesQuery query = queries.get("feature.name");
       assertNotNull(query);
@@ -221,6 +269,54 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertEquals("b2.facets.plugins.brandingPlugin", it.next());
       assertEquals("b2.facets.brandingPlugin", it.next());
       assertEquals("b2.module.brandingPlugin", it.next());
+      
+      query = queries.get("feature.aboutText");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.aboutText", it.next());
+      assertEquals("b2.facets.aboutText", it.next());
+      assertEquals("b2.module.aboutText", it.next());
+      
+      query = queries.get("feature.featureImage");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.featureImage", it.next());
+      assertEquals("b2.facets.featureImage", it.next());
+      assertEquals("b2.module.featureImage", it.next());
+      
+      query = queries.get("feature.tipsAndTricksHref");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.tipsAndTricksHref", it.next());
+      assertEquals("b2.facets.tipsAndTricksHref", it.next());
+      assertEquals("b2.module.tipsAndTricksHref", it.next());
+      
+      query = queries.get("feature.windowImage");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.windowImage", it.next());
+      assertEquals("b2.facets.windowImage", it.next());
+      assertEquals("b2.module.windowImage", it.next());
+      
+      query = queries.get("feature.appName");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.appName", it.next());
+      assertEquals("b2.facets.appName", it.next());
+      assertEquals("b2.module.appName", it.next());
+      
+      query = queries.get("feature.welcomePerspective");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.facets.plugins.welcomePerspective", it.next());
+      assertEquals("b2.facets.welcomePerspective", it.next());
+      assertEquals("b2.module.welcomePerspective", it.next());
    }
 
    @Test
@@ -230,7 +326,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
 
       final Map<String, PropertiesQuery> queries = queryFactory
          .createPropertyQueries(false, true, "plugins", "plugins");
-      assertEquals(12, queries.size());
+      assertEquals(18, queries.size());
 
       PropertiesQuery query = queries.get("feature.classifierLabel");
       assertNotNull(query);
@@ -247,7 +343,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, false, "plugins", "");
-      assertEquals(11, queries.size());
+      assertEquals(17, queries.size());
 
       PropertiesQuery query = queries.get("feature.name");
       assertNotNull(query);
@@ -323,6 +419,54 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertEquals("b2.assemblies.plugins.brandingPlugin", it.next());
       assertEquals("b2.assemblies.brandingPlugin", it.next());
       assertEquals("b2.module.brandingPlugin", it.next());
+      
+      query = queries.get("feature.aboutText");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.aboutText", it.next());
+      assertEquals("b2.assemblies.aboutText", it.next());
+      assertEquals("b2.module.aboutText", it.next());
+      
+      query = queries.get("feature.featureImage");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.featureImage", it.next());
+      assertEquals("b2.assemblies.featureImage", it.next());
+      assertEquals("b2.module.featureImage", it.next());
+      
+      query = queries.get("feature.tipsAndTricksHref");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.tipsAndTricksHref", it.next());
+      assertEquals("b2.assemblies.tipsAndTricksHref", it.next());
+      assertEquals("b2.module.tipsAndTricksHref", it.next());
+      
+      query = queries.get("feature.windowImage");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.windowImage", it.next());
+      assertEquals("b2.assemblies.windowImage", it.next());
+      assertEquals("b2.module.windowImage", it.next());
+      
+      query = queries.get("feature.appName");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.appName", it.next());
+      assertEquals("b2.assemblies.appName", it.next());
+      assertEquals("b2.module.appName", it.next());
+      
+      query = queries.get("feature.welcomePerspective");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.welcomePerspective", it.next());
+      assertEquals("b2.assemblies.welcomePerspective", it.next());
+      assertEquals("b2.module.welcomePerspective", it.next());
    }
 
    @Test
@@ -332,7 +476,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
 
       final Map<String, PropertiesQuery> queries = queryFactory
          .createPropertyQueries(true, false, "plugins", "plugins");
-      assertEquals(12, queries.size());
+      assertEquals(18, queries.size());
 
       PropertiesQuery query = queries.get("feature.classifierLabel");
       assertNotNull(query);
@@ -349,7 +493,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, true, "plugins", "");
-      assertEquals(11, queries.size());
+      assertEquals(17, queries.size());
 
       PropertiesQuery query = queries.get("feature.name");
       assertNotNull(query);
@@ -438,6 +582,54 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       assertEquals("b2.assemblies.plugins.brandingPlugin", it.next());
       assertEquals("b2.assemblies.brandingPlugin", it.next());
       assertEquals("b2.module.brandingPlugin", it.next());
+      
+      query = queries.get("feature.aboutText");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.aboutText", it.next());
+      assertEquals("b2.assemblies.aboutText", it.next());
+      assertEquals("b2.module.aboutText", it.next());
+      
+      query = queries.get("feature.featureImage");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.featureImage", it.next());
+      assertEquals("b2.assemblies.featureImage", it.next());
+      assertEquals("b2.module.featureImage", it.next());
+      
+      query = queries.get("feature.tipsAndTricksHref");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.tipsAndTricksHref", it.next());
+      assertEquals("b2.assemblies.tipsAndTricksHref", it.next());
+      assertEquals("b2.module.tipsAndTricksHref", it.next());
+      
+      query = queries.get("feature.windowImage");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.windowImage", it.next());
+      assertEquals("b2.assemblies.windowImage", it.next());
+      assertEquals("b2.module.windowImage", it.next());
+      
+      query = queries.get("feature.appName");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.appName", it.next());
+      assertEquals("b2.assemblies.appName", it.next());
+      assertEquals("b2.module.appName", it.next());
+      
+      query = queries.get("feature.welcomePerspective");
+      assertNotNull(query);
+      assertEquals("", query.getDefaultValue());
+      it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.plugins.welcomePerspective", it.next());
+      assertEquals("b2.assemblies.welcomePerspective", it.next());
+      assertEquals("b2.module.welcomePerspective", it.next());
    }
 
    @Test
@@ -446,7 +638,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
       final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, true, "plugins", "plugins");
-      assertEquals(12, queries.size());
+      assertEquals(18, queries.size());
 
       PropertiesQuery query = queries.get("feature.classifierLabel");
       assertNotNull(query);

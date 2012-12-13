@@ -44,6 +44,11 @@ public interface FeaturesConverter extends BasicConverter
    List<RuledReference> getRequiredPluginsForFacet(PropertiesSource moduleProperties, String facetName, boolean isSource);
 
    String getFeatureId(PropertiesSource moduleProperties, String moduleId, String classifier, boolean isSource);
+   
+   boolean isSkipBrandingPlugins(PropertiesSource moduleProperties);
+   
+   String getBrandingPluginId(PropertiesSource moduleProperties, String moduleId, String classifier, boolean isSource);
 
    String getSourcePluginId(PropertiesSource moduleProperties, String pluginId);
+
 }

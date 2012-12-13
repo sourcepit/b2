@@ -23,10 +23,13 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
+import org.sourcepit.b2.model.module.FeaturesFacet;
+import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
 import org.sourcepit.common.manifest.osgi.Version;
 
@@ -93,11 +96,10 @@ public class TargetPlatformRequirementsCollector
       }
 
       addModuleRequirements(requirements, module, isTestScope);
-      addFeatureRequirements(requirements, featureProject, pluginProject.getParent());
+      addFeatureRequirements(requirements, featureProject);
    }
 
-   private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject,
-      PluginsFacet pluginsFacet)
+   private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject)
    {
       for (FeatureInclude includedFeature : featureProject.getIncludedFeatures())
       {
@@ -106,9 +108,11 @@ public class TargetPlatformRequirementsCollector
          addUnique(requirements, requirement);
       }
 
+      final AbstractModule module = featureProject.getParent().getParent();
+
       for (PluginInclude includedPlugin : featureProject.getIncludedPlugins())
       {
-         if (pluginsFacet.resolveReference(includedPlugin) == null)
+         if (module.resolveReference(includedPlugin, PluginsFacet.class) == null)
          {
             Dependency requirement = toRequirement(includedPlugin);
             requirement.setType("eclipse-plugin");
@@ -146,9 +150,40 @@ public class TargetPlatformRequirementsCollector
       requirements.add(requirement);
    }
 
-   private static FeatureProject findIncludingFeature(PluginProject project)
+   private static FeatureProject findIncludingFeature(PluginProject pluginProject)
    {
-      return DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(project.getParent(), false);
+      FeatureProject featureProject = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
+         pluginProject.getParent(), false);
+      if (featureProject == null)
+      {
+         final String featureId = B2MetadataUtils.getBrandedFeature(pluginProject);
+         if (featureId != null)
+         {
+            final StrictReference reference = ModuleModelFactory.eINSTANCE.createStrictReference();
+            reference.setId(featureId);
+
+            final FeatureProject brandedFeature = pluginProject.getParent().getParent()
+               .resolveReference(reference, FeaturesFacet.class);
+
+            if (brandedFeature != null && isIncluded(brandedFeature, pluginProject))
+            {
+               featureProject = brandedFeature;
+            }
+         }
+      }
+      return featureProject;
+   }
+
+   private static boolean isIncluded(final FeatureProject featureProject, PluginProject pluginProject)
+   {
+      for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
+      {
+         if (pluginInclude.isSatisfiableBy(pluginProject))
+         {
+            return true;
+         }
+      }
+      return false;
    }
 
    private static Dependency toRequirement(RuledReference featureReference)
@@ -160,11 +195,16 @@ public class TargetPlatformRequirementsCollector
       return dependency;
    }
 
-   private static Dependency toRequirement(AbstractStrictReference strictReference)
+   static Dependency toRequirement(AbstractStrictReference strictReference)
    {
       final Dependency dependency = new Dependency();
       dependency.setArtifactId(strictReference.getId());
-      dependency.setVersion(strictReference.getVersion());
+      String version = strictReference.getVersion();
+      if (version != null && version.endsWith(".qualifier"))
+      {
+         version = version.substring(0, version.length() - ".qualifier".length());
+      }
+      dependency.setVersion(version);
       return dependency;
    }
 }
