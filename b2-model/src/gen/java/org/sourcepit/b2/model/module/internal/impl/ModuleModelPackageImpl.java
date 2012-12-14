@@ -708,6 +708,17 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
+   public EReference getSiteProject_FeatureReferences()
+   {
+      return (EReference) siteProjectEClass.getEStructuralFeatures().get(2);
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EClass getProject()
    {
       return projectEClass;
@@ -1118,6 +1129,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       siteProjectEClass = createEClass(SITE_PROJECT);
       createEReference(siteProjectEClass, SITE_PROJECT__PARENT);
       createEReference(siteProjectEClass, SITE_PROJECT__CATEGORIES);
+      createEReference(siteProjectEClass, SITE_PROJECT__FEATURE_REFERENCES);
 
       projectEClass = createEClass(PROJECT);
 
@@ -1387,6 +1399,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
       initEReference(getSiteProject_Categories(), this.getCategory(), null, "categories", null, 0, -1,
          SiteProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
+         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getSiteProject_FeatureReferences(), this.getStrictReference(), null, "featureReferences", null, 0,
+         -1, SiteProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
          !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(projectEClass, Project.class, "Project", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -1175,6 +1175,16 @@ public interface ModuleModelPackage extends EPackage
    int SITE_PROJECT__CATEGORIES = PROJECT_FEATURE_COUNT + 1;
 
    /**
+    * The feature id for the '<em><b>Feature References</b></em>' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int SITE_PROJECT__FEATURE_REFERENCES = PROJECT_FEATURE_COUNT + 2;
+
+   /**
     * The number of structural features of the '<em>Site Project</em>' class.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -1182,7 +1192,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int SITE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 2;
+   int SITE_PROJECT_FEATURE_COUNT = PROJECT_FEATURE_COUNT + 3;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl
@@ -2176,6 +2186,19 @@ public interface ModuleModelPackage extends EPackage
    EReference getSiteProject_Categories();
 
    /**
+    * Returns the meta object for the containment reference list '
+    * {@link org.sourcepit.b2.model.module.SiteProject#getFeatureReferences <em>Feature References</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for the containment reference list '<em>Feature References</em>'.
+    * @see org.sourcepit.b2.model.module.SiteProject#getFeatureReferences()
+    * @see #getSiteProject()
+    * @generated
+    */
+   EReference getSiteProject_FeatureReferences();
+
+   /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.Project <em>Project</em>}'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -2892,6 +2915,15 @@ public interface ModuleModelPackage extends EPackage
        * @generated
        */
       EReference SITE_PROJECT__CATEGORIES = eINSTANCE.getSiteProject_Categories();
+
+      /**
+       * The meta object literal for the '<em><b>Feature References</b></em>' containment reference list feature.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @generated
+       */
+      EReference SITE_PROJECT__FEATURE_REFERENCES = eINSTANCE.getSiteProject_FeatureReferences();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl

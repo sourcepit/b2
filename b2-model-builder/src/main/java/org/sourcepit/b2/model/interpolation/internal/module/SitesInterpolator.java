@@ -80,6 +80,8 @@ public class SitesInterpolator
             {
                allFeatures.add(featureInclude);
             }
+            
+            final Set<FeatureInclude> categorizedFeatures = new LinkedHashSet<FeatureInclude>();
 
             for (String categoryName : converter.getAssemblyCategories(moduleProperties, assemblyName))
             {
@@ -98,6 +100,7 @@ public class SitesInterpolator
                   if (isMatch(matcher, featureIds))
                   {
                      category.getFeatureReferences().add(toStrictReference(featureInclude));
+                     categorizedFeatures.add(featureInclude);
                   }
                }
 
@@ -106,6 +109,14 @@ public class SitesInterpolator
                   siteProject.getCategories().add(category);
                }
             }
+            
+            allFeatures.removeAll(categorizedFeatures);
+            
+            for (FeatureInclude notCategorizedFeature : allFeatures)
+            {
+               siteProject.getFeatureReferences().add(toStrictReference(notCategorizedFeature));
+            }
+            
          }
       }
    }

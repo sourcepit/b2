@@ -404,6 +404,20 @@
 										<ignore />
 									</action>
 								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.sourcepit.tools</groupId>
+										<artifactId>shared-resources-maven-plugin</artifactId>
+										<versionRange>[0.1.0-alpha-1,)</versionRange>
+										<goals>
+											<goal>share-resources</goal>
+											<goal>share-test-resources</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>

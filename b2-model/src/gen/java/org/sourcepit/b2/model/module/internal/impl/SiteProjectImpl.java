@@ -21,6 +21,7 @@ import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
+import org.sourcepit.b2.model.module.StrictReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +32,8 @@ import org.sourcepit.b2.model.module.SitesFacet;
  * <ul>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl#getCategories <em>Categories</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.SiteProjectImpl#getFeatureReferences <em>Feature References
+ * </em>}</li>
  * </ul>
  * </p>
  * 
@@ -48,6 +51,17 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @ordered
     */
    protected EList<Category> categories;
+
+   /**
+    * The cached value of the '{@link #getFeatureReferences() <em>Feature References</em>}' containment reference list.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see #getFeatureReferences()
+    * @generated
+    * @ordered
+    */
+   protected EList<StrictReference> featureReferences;
 
    /**
     * <!-- begin-user-doc -->
@@ -160,6 +174,22 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
+   public EList<StrictReference> getFeatureReferences()
+   {
+      if (featureReferences == null)
+      {
+         featureReferences = new EObjectContainmentEList.Resolving<StrictReference>(StrictReference.class, this,
+            ModuleModelPackage.SITE_PROJECT__FEATURE_REFERENCES);
+      }
+      return featureReferences;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    @Override
    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
    {
@@ -188,6 +218,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
             return basicSetParent(null, msgs);
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return ((InternalEList<?>) getCategories()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.SITE_PROJECT__FEATURE_REFERENCES :
+            return ((InternalEList<?>) getFeatureReferences()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -227,6 +259,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
             return basicGetParent();
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return getCategories();
+         case ModuleModelPackage.SITE_PROJECT__FEATURE_REFERENCES :
+            return getFeatureReferences();
       }
       return super.eGet(featureID, resolve, coreType);
    }
@@ -250,6 +284,10 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
             getCategories().clear();
             getCategories().addAll((Collection<? extends Category>) newValue);
             return;
+         case ModuleModelPackage.SITE_PROJECT__FEATURE_REFERENCES :
+            getFeatureReferences().clear();
+            getFeatureReferences().addAll((Collection<? extends StrictReference>) newValue);
+            return;
       }
       super.eSet(featureID, newValue);
    }
@@ -271,6 +309,9 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             getCategories().clear();
             return;
+         case ModuleModelPackage.SITE_PROJECT__FEATURE_REFERENCES :
+            getFeatureReferences().clear();
+            return;
       }
       super.eUnset(featureID);
    }
@@ -290,6 +331,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
             return basicGetParent() != null;
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
             return categories != null && !categories.isEmpty();
+         case ModuleModelPackage.SITE_PROJECT__FEATURE_REFERENCES :
+            return featureReferences != null && !featureReferences.isEmpty();
       }
       return super.eIsSet(featureID);
    }

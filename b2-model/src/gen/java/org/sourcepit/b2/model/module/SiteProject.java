@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  * <li>{@link org.sourcepit.b2.model.module.SiteProject#getParent <em>Parent</em>}</li>
  * <li>{@link org.sourcepit.b2.model.module.SiteProject#getCategories <em>Categories</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.SiteProject#getFeatureReferences <em>Feature References</em>}</li>
  * </ul>
  * </p>
  * 
@@ -75,5 +76,22 @@ public interface SiteProject extends Project
     * @generated
     */
    EList<Category> getCategories();
+
+   /**
+    * Returns the value of the '<em><b>Feature References</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.StrictReference}.
+    * <!-- begin-user-doc -->
+    * <p>
+    * If the meaning of the '<em>Feature References</em>' containment reference list isn't clear, there really should be
+    * more of a description here...
+    * </p>
+    * <!-- end-user-doc -->
+    * 
+    * @return the value of the '<em>Feature References</em>' containment reference list.
+    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getSiteProject_FeatureReferences()
+    * @model containment="true" resolveProxies="true"
+    * @generated
+    */
+   EList<StrictReference> getFeatureReferences();
 
 } // SiteProject
