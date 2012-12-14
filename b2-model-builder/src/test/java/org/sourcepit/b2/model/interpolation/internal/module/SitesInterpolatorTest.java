@@ -57,7 +57,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
 
       assertEquals(1, category.getFeatureReferences().size());
 
@@ -91,7 +91,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
 
       assertEquals(1, category.getFeatureReferences().size());
 
@@ -106,7 +106,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
 
       assertEquals(2, category.getFeatureReferences().size());
 
@@ -148,7 +148,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -169,7 +169,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(1, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -200,7 +200,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -214,7 +214,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -243,7 +243,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -256,7 +256,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -297,7 +297,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
 
       assertEquals(1, category.getFeatureReferences().size());
 
@@ -320,7 +320,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(1, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
 
       assertEquals(1, category.getFeatureReferences().size());
 
@@ -353,7 +353,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -367,7 +367,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -397,7 +397,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -410,7 +410,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -451,7 +451,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -472,7 +472,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(1, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -492,7 +492,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(1, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
 
       assertEquals(1, category.getFeatureReferences().size());
 
@@ -526,7 +526,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -547,7 +547,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -560,7 +560,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -589,7 +589,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -602,7 +602,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -643,7 +643,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -657,7 +657,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -686,7 +686,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(1, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -718,7 +718,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -732,7 +732,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(4, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -779,7 +779,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -792,7 +792,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -833,7 +833,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -847,7 +847,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -876,7 +876,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(1, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -907,7 +907,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -921,7 +921,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(4, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -968,7 +968,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -981,7 +981,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1023,7 +1023,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -1044,7 +1044,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(1, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1076,7 +1076,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -1090,7 +1090,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1119,7 +1119,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1132,7 +1132,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1161,7 +1161,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1174,7 +1174,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1215,7 +1215,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -1229,7 +1229,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1258,7 +1258,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1271,7 +1271,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(4, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1318,7 +1318,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1331,7 +1331,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(4, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1390,7 +1390,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -1404,7 +1404,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1433,7 +1433,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1446,7 +1446,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(4, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1504,7 +1504,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -1518,7 +1518,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1547,7 +1547,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1560,7 +1560,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1589,7 +1589,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1602,7 +1602,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1643,7 +1643,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -1657,7 +1657,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1686,7 +1686,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1699,7 +1699,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(3, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1737,7 +1737,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1750,7 +1750,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(3, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1800,7 +1800,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -1814,7 +1814,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1842,7 +1842,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1855,7 +1855,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1901,7 +1901,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -1915,7 +1915,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(4, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1961,7 +1961,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -1974,7 +1974,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(4, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -2032,7 +2032,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       Category category;
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       StrictReference reference;
@@ -2046,7 +2046,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -2074,7 +2074,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertEquals(2, siteProject.getCategories().size());
 
       category = siteProject.getCategories().get(0);
-      assertEquals("assembly", category.getName());
+      assertEquals("assembled", category.getName());
       assertEquals(1, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);
@@ -2087,7 +2087,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
       category = siteProject.getCategories().get(1);
-      assertEquals("includes", category.getName());
+      assertEquals("included", category.getName());
       assertEquals(2, category.getFeatureReferences().size());
 
       reference = category.getFeatureReferences().get(0);

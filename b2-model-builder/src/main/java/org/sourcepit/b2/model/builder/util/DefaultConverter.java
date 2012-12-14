@@ -456,14 +456,13 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
       return idOfProject(moduleId, sb.toString(), "feature");
    }
-   
+
    public boolean isSkipBrandingPlugins(PropertiesSource properties)
    {
       return properties.getBoolean("b2.skipBrandingPlugins", false);
    }
-   
-   public String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier,
-      boolean isSource)
+
+   public String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
    {
       final StringBuilder sb = new StringBuilder();
       if (classifier != null)
@@ -491,6 +490,60 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
          sb.append(moduleProperties.get("b2.pluginsSourceClassifier", "source"));
       }
       return sb.toString();
+   }
+
+   public List<String> getAssemblyCategories(PropertiesSource moduleProperties, String assemblyName)
+   {
+      final String rawCategories = getRawAssemblyCategories(moduleProperties, assemblyName);
+      final List<String> categories = new ArrayList<String>();
+      if (rawCategories != null)
+      {
+         for (String rawAssembly : rawCategories.split(","))
+         {
+            final String assembly = rawAssembly.trim();
+            if (assembly.length() > 0 && !categories.contains(assembly))
+            {
+               categories.add(assembly);
+            }
+         }
+      }
+      return categories;
+   }
+
+   private String getRawAssemblyCategories(PropertiesSource moduleProperties, String assemblyName)
+   {
+      String rawCategories = get(moduleProperties, assemblyKey(assemblyName, "categories"),
+         assemblyKey(null, "categories"));
+      if (rawCategories == null)
+      {
+         rawCategories = "assembled, included";
+      }
+      return rawCategories;
+   }
+
+   public PathMatcher getAssemblyCategoryFeatureMatcher(PropertiesSource moduleProperties, String moduleId,
+      String assemblyName, String category)
+   {
+      String defaultFilter;
+      if ("included".equals(category))
+      {
+         final String assemblyClassifier = getAssemblyClassifier(moduleProperties, assemblyName);
+         defaultFilter = "!" + getFeatureId(moduleProperties, moduleId, assemblyClassifier, false);
+      }
+      else if ("assembled".equals(category))
+      {
+         final String assemblyClassifier = getAssemblyClassifier(moduleProperties, assemblyName);
+         defaultFilter = getFeatureId(moduleProperties, moduleId, assemblyClassifier, false);
+      }
+      else
+      {
+         defaultFilter = "**";
+      }
+
+      final String filter = moduleProperties.get(assemblyKey(assemblyName, "categories." + category + ".filter"),
+         defaultFilter);
+
+      return PathMatcher.parsePackagePatterns(filter);
    }
 
    public String getSiteId(PropertiesSource moduleProperties, String moduleId, String classifier)
