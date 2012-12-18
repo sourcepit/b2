@@ -34,9 +34,12 @@ import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesUtils;
 import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
+
+import com.google.common.base.Strings;
 
 @Named
 public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant
@@ -104,19 +107,13 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
          for (AbstractReference featureRef : category.getFeatureReferences())
          {
-            final String featureId = featureRef.getId();
-            final String version = featureRef.getVersion();
-
-            final String fully = featureId + "_" + version;
-            Set<String> set = fullFeatureIdToCategoriesMap.get(fully);
-            if (set == null)
-            {
-               set = new LinkedHashSet<String>();
-               fullFeatureIdToCategoriesMap.put(fully, set);
-            }
-            set.add(categoryName);
-            fullFeatureIdToRefMap.put(fully, featureRef);
+            put(fullFeatureIdToCategoriesMap, fullFeatureIdToRefMap, featureRef, categoryName);
          }
+      }
+
+      for (StrictReference featureRef : siteProject.getFeatureReferences())
+      {
+         put(fullFeatureIdToCategoriesMap, fullFeatureIdToRefMap, featureRef, "");
       }
 
       final StringWriter includes = new StringWriter();
@@ -130,9 +127,12 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
          xml.addAttribute("version", featureRef.getVersion());
          for (String categoryName : entry.getValue())
          {
-            xml.startElement("category");
-            xml.addAttribute("name", categoryName);
-            xml.endElement();
+            if (!Strings.isNullOrEmpty(categoryName))
+            {
+               xml.startElement("category");
+               xml.addAttribute("name", categoryName);
+               xml.endElement();
+            }
          }
          xml.endElement();
       }
@@ -152,6 +152,24 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
       includes.flush();
       properties.setProperty("site.categories", includes.toString());
+   }
+
+   private void put(final Map<String, Set<String>> fullFeatureIdToCategoriesMap,
+      final Map<String, AbstractReference> fullFeatureIdToRefMap, AbstractReference featureRef,
+      final String categoryName)
+   {
+      final String featureId = featureRef.getId();
+      final String version = featureRef.getVersion();
+
+      final String fully = featureId + "_" + version;
+      Set<String> set = fullFeatureIdToCategoriesMap.get(fully);
+      if (set == null)
+      {
+         set = new LinkedHashSet<String>();
+         fullFeatureIdToCategoriesMap.put(fully, set);
+      }
+      set.add(categoryName);
+      fullFeatureIdToRefMap.put(fully, featureRef);
    }
 
    private void generateProperties(PropertiesSource properties, final SiteProject siteProject, String assemblyName,
