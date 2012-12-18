@@ -25,6 +25,7 @@ package org.sourcepit.b2.model.module;
  */
 public interface FeatureInclude extends AbstractStrictReference
 {
+
    /**
     * Returns the value of the '<em><b>Optional</b></em>' attribute.
     * <!-- begin-user-doc -->

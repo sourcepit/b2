@@ -7,10 +7,18 @@
 package org.sourcepit.b2.model.builder.util;
 
 
+import java.util.List;
+
+import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 
 public interface SitesConverter extends BasicConverter
 {
+   List<String> getAssemblyCategories(PropertiesSource moduleProperties, String assemblyName);
+
+   PathMatcher getAssemblyCategoryFeatureMatcher(PropertiesSource moduleProperties, String moduleId,
+      String assemblyName, String category);
+
    String getSiteId(PropertiesSource moduleProperties, String moduleId, String classifier);
 }
