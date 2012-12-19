@@ -37,8 +37,8 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
-      properties.put("b2.module.includesCategoryLabelAppendix", "(included Features)");
-      properties.put("nls_de.b2.module.includesCategoryLabelAppendix", "(enthaltene Features)");
+      properties.put("b2.module.categories.included.labelAppendix", "(included Features)");
+      properties.put("nls_de.b2.module.categories.included.labelAppendix", "(enthaltene Features)");
       properties.put("b2.assemblies.sdk.classifierLabel", "SDK");
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
@@ -50,9 +50,9 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       SiteProject siteProject = addSiteProject(module, "sites", "foo.site");
       siteProject.setDirectory(ws.getRoot());
 
-      addFeatureReference(siteProject, "assembly", "foo.sdk.feature");
-      addFeatureReference(siteProject, "includes", "foo.plugins.feature");
-      addFeatureReference(siteProject, "includes", "foo.plugins.sources.feature");
+      addFeatureReference(siteProject, "assembled", "foo.sdk.feature");
+      addFeatureReference(siteProject, "included", "foo.plugins.feature");
+      addFeatureReference(siteProject, "included", "foo.plugins.sources.feature");
 
       addAssemblyName(siteProject, "sdk");
       addAssemblyClassifier(siteProject, "");
@@ -68,14 +68,14 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       // default locale
       featureProperties = new LinkedPropertiesMap();
       featureProperties.load(new File(siteDir, "site.properties"));
-      assertEquals("Core Plug-ins", featureProperties.get("categories.assembly.name"));
-      assertEquals("Core Plug-ins (included Features)", featureProperties.get("categories.includes.name"));
+      assertEquals("Core Plug-ins", featureProperties.get("categories.assembled.name"));
+      assertEquals("Core Plug-ins (included Features)", featureProperties.get("categories.included.name"));
 
       // de
       featureProperties = new LinkedPropertiesMap();
       featureProperties.load(new File(siteDir, "site_de.properties"));
-      assertEquals("Kern Plug-ins", featureProperties.get("categories.assembly.name"));
-      assertEquals("Kern Plug-ins (enthaltene Features)", featureProperties.get("categories.includes.name"));
+      assertEquals("Kern Plug-ins", featureProperties.get("categories.assembled.name"));
+      assertEquals("Kern Plug-ins (enthaltene Features)", featureProperties.get("categories.included.name"));
    }
 
    @Test
@@ -84,8 +84,8 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
-      properties.put("b2.module.includesCategoryLabelAppendix", "(included Features)");
-      properties.put("nls_de.b2.module.includesCategoryLabelAppendix", "(enthaltene Features)");
+      properties.put("b2.module.categories.included.labelAppendix", "(included Features)");
+      properties.put("nls_de.b2.module.categories.included.labelAppendix", "(enthaltene Features)");
       properties.put("b2.assemblies.sdk.classifierLabel", "SDK");
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
@@ -97,9 +97,9 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       SiteProject siteProject = addSiteProject(module, "sites", "foo.site");
       siteProject.setDirectory(ws.getRoot());
 
-      addFeatureReference(siteProject, "assembly", "foo.sdk.feature");
-      addFeatureReference(siteProject, "includes", "foo.plugins.feature");
-      addFeatureReference(siteProject, "includes", "foo.plugins.sources.feature");
+      addFeatureReference(siteProject, "assembled", "foo.sdk.feature");
+      addFeatureReference(siteProject, "included", "foo.plugins.feature");
+      addFeatureReference(siteProject, "included", "foo.plugins.sources.feature");
 
       addAssemblyName(siteProject, "sdk");
       addAssemblyClassifier(siteProject, "sdk");
@@ -115,14 +115,14 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       // default locale
       featureProperties = new LinkedPropertiesMap();
       featureProperties.load(new File(siteDir, "site.properties"));
-      assertEquals("Core Plug-ins SDK", featureProperties.get("categories.assembly.name"));
-      assertEquals("Core Plug-ins SDK (included Features)", featureProperties.get("categories.includes.name"));
+      assertEquals("Core Plug-ins SDK", featureProperties.get("categories.assembled.name"));
+      assertEquals("Core Plug-ins SDK (included Features)", featureProperties.get("categories.included.name"));
 
       // de
       featureProperties = new LinkedPropertiesMap();
       featureProperties.load(new File(siteDir, "site_de.properties"));
-      assertEquals("Kern Plug-ins SDK", featureProperties.get("categories.assembly.name"));
-      assertEquals("Kern Plug-ins SDK (enthaltene Features)", featureProperties.get("categories.includes.name"));
+      assertEquals("Kern Plug-ins SDK", featureProperties.get("categories.assembled.name"));
+      assertEquals("Kern Plug-ins SDK (enthaltene Features)", featureProperties.get("categories.included.name"));
    }
 
    private StrictReference addFeatureReference(SiteProject siteProject, String categoryName, String featureId)

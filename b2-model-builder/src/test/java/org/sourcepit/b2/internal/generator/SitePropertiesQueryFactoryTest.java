@@ -22,7 +22,7 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
    @Override
    protected boolean isUseIndex()
    {
-      return false;
+      return true;
    }
 
    @Test
@@ -35,41 +35,41 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
 
 
       final SitePropertiesQueryFactory queryFactory = gLookup(SitePropertiesQueryFactory.class);
-      Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(properties, "sdk", "", "includes");
+      Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(properties, "sdk", "", "included");
 
       PropertiesQuery query;
       Iterator<String> it;
 
-      query = queries.get("categories.includes.name");
+      query = queries.get("categories.included.name");
       assertNotNull(query);
-      assertEquals("${categories.includes.label} ${categories.includes.labelAppendix}", query.getDefaultValue());
+      assertEquals("${categories.included.label} ${categories.included.labelAppendix}", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.sdk.includesCategoryName", it.next());
+      assertEquals("b2.assemblies.sdk.categories.included.name", it.next());
 
-      query = queries.get("categories.includes.label");
+      query = queries.get("categories.included.label");
       assertNotNull(query);
       assertEquals("", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.sdk.includesCategoryLabel", it.next());
+      assertEquals("b2.assemblies.sdk.categories.included.label", it.next());
       assertEquals("b2.module.name", it.next());
       assertEquals("project.name", it.next());
       assertEquals("project.artifactId", it.next());
 
-      query = queries.get("categories.includes.labelAppendix");
+      query = queries.get("categories.included.labelAppendix");
       assertNotNull(query);
       assertEquals("", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.sdk.includesCategoryLabelAppendix", it.next());
-      assertEquals("b2.assemblies.includesCategoryLabelAppendix", it.next());
-      assertEquals("b2.module.includesCategoryLabelAppendix", it.next());
+      assertEquals("b2.assemblies.sdk.categories.included.labelAppendix", it.next());
+      assertEquals("b2.assemblies.categories.included.labelAppendix", it.next());
+      assertEquals("b2.module.categories.included.labelAppendix", it.next());
 
-      query = queries.get("categories.includes.description");
+      query = queries.get("categories.included.description");
       assertNotNull(query);
       assertEquals("", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.sdk.description", it.next());
-      assertEquals("b2.assemblies.description", it.next());
+      assertEquals("b2.assemblies.sdk.categories.included.description", it.next());
       assertEquals("b2.module.description", it.next());
+      assertEquals("project.description", it.next());
    }
 
    @Test
@@ -82,48 +82,49 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
 
 
       final SitePropertiesQueryFactory queryFactory = gLookup(SitePropertiesQueryFactory.class);
-      Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(properties, "sdk", "sdk", "assembly");
+      Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(properties, "sdk", "sdk", "assembled");
 
       PropertiesQuery query;
       Iterator<String> it;
 
-      query = queries.get("categories.assembly.name");
+      query = queries.get("categories.assembled.name");
       assertNotNull(query);
       assertEquals(
-         "${categories.assembly.label} ${categories.assembly.classifierLabel} ${categories.assembly.labelAppendix}",
+         "${categories.assembled.label} ${categories.assembled.classifierLabel} ${categories.assembled.labelAppendix}",
          query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.sdk.assemblyCategoryName", it.next());
+      assertEquals("b2.assemblies.sdk.categories.assembled.name", it.next());
 
-      query = queries.get("categories.assembly.label");
+      query = queries.get("categories.assembled.label");
       assertNotNull(query);
       assertEquals("", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.sdk.assemblyCategoryLabel", it.next());
+      assertEquals("b2.assemblies.sdk.categories.assembled.label", it.next());
       assertEquals("b2.module.name", it.next());
       assertEquals("project.name", it.next());
       assertEquals("project.artifactId", it.next());
 
-      query = queries.get("categories.assembly.classifierLabel");
+      query = queries.get("categories.assembled.classifierLabel");
       assertNotNull(query);
       assertEquals("Sdk", query.getDefaultValue());
       it = query.getKeys().iterator();
+      assertEquals("b2.assemblies.sdk.categories.classifierLabel", it.next());
       assertEquals("b2.assemblies.sdk.classifierLabel", it.next());
 
-      query = queries.get("categories.assembly.labelAppendix");
+      query = queries.get("categories.assembled.labelAppendix");
       assertNotNull(query);
       assertEquals("", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.sdk.assemblyCategoryLabelAppendix", it.next());
-      assertEquals("b2.assemblies.assemblyCategoryLabelAppendix", it.next());
-      assertEquals("b2.module.assemblyCategoryLabelAppendix", it.next());
+      assertEquals("b2.assemblies.sdk.categories.assembled.labelAppendix", it.next());
+      assertEquals("b2.assemblies.categories.assembled.labelAppendix", it.next());
+      assertEquals("b2.module.categories.assembled.labelAppendix", it.next());
 
-      query = queries.get("categories.assembly.description");
+      query = queries.get("categories.assembled.description");
       assertNotNull(query);
       assertEquals("", query.getDefaultValue());
       it = query.getKeys().iterator();
-      assertEquals("b2.assemblies.sdk.description", it.next());
-      assertEquals("b2.assemblies.description", it.next());
+      assertEquals("b2.assemblies.sdk.categories.assembled.description", it.next());
       assertEquals("b2.module.description", it.next());
+      assertEquals("project.description", it.next());
    }
 }

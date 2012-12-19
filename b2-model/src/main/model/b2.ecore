@@ -152,6 +152,8 @@
           eOpposite="#//module/SitesFacet/projects"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
           eType="#//module/Category" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="featureReferences" upperBound="-1"
+          eType="#//module/StrictReference" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//module/FileContainer #//module/Derivable #//common/Annotatable #//module/Identifiable">
       <eOperations name="getParent">

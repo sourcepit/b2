@@ -42,11 +42,11 @@ public class SitePropertiesQueryFactory
       sb.append(createPropertySpacer(categoryName));
       sb.append("labelAppendix}");
 
-      PropertiesQuery query = createQuery(assemblyName, categoryName, false, "categoryName");
+      PropertiesQuery query = createQuery(assemblyName, categoryName, false, "name");
       query.setDefaultValue(sb.toString());
       queries.put("categories" + createPropertySpacer(categoryName) + "name", query);
 
-      query = createQuery(assemblyName, categoryName, false, "categoryLabel");
+      query = createQuery(assemblyName, categoryName, false, "label");
       queries.put("categories" + createPropertySpacer(categoryName) + "label", query);
       query.getKeys().add("b2.module.name");
       query.getKeys().add("project.name");
@@ -56,13 +56,16 @@ public class SitePropertiesQueryFactory
       {
          query = createQuery(assemblyName, null, false, "classifierLabel");
          query.setDefaultValue(FeaturePropertiesQueryFactory.toClassifierLabel(assemblyClassifier));
+         query.getKeys().add("b2.assemblies" + createPropertySpacer(assemblyClassifier) + "classifierLabel");
          queries.put("categories" + createPropertySpacer(categoryName) + "classifierLabel", query);
       }
 
-      query = createQuery(assemblyName, categoryName, true, "categoryLabelAppendix");
+      query = createQuery(assemblyName, categoryName, true, "labelAppendix");
       queries.put("categories" + createPropertySpacer(categoryName) + "labelAppendix", query);
 
-      query = createQuery(assemblyName, null, true, "description");
+      query = createQuery(assemblyName, categoryName, false, "description");
+      query.getKeys().add("b2.module.description");
+      query.getKeys().add("project.description");
       queries.put("categories" + createPropertySpacer(categoryName) + "description", query);
    }
 
@@ -73,7 +76,7 @@ public class SitePropertiesQueryFactory
       final PropertiesQuery query = new PropertiesQuery();
       query.setRetryWithoutPrefix(true);
 
-      String p = categoryName == null ? property : categoryName + firstToUpper(property);
+      String p = "categories." + (categoryName == null ? property : categoryName + "." + property);
       query.getKeys().add(preamble + createPropertySpacer(assemblyName) + p);
       if (addDefaultKey)
       {
@@ -82,13 +85,6 @@ public class SitePropertiesQueryFactory
       }
       query.setDefaultValue("");
       return query;
-   }
-
-   private static String firstToUpper(String string)
-   {
-      char[] stringArray = string.toCharArray();
-      stringArray[0] = Character.toUpperCase(stringArray[0]);
-      return new String(stringArray);
    }
 
    private String createPropertySpacer(String stringInTheMiddle)
