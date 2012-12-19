@@ -41,25 +41,57 @@ public class SitesConverterTest
    }
 
    @Test
+   public void testGetAssemblySiteFeatureMatcher()
+   {
+      SitesConverter converter = new DefaultConverter();
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+
+      PathMatcher matcher;
+
+      matcher = converter.getAssemblySiteFeatureMatcher(moduleProperties, "sdk");
+      assertNotNull(matcher);
+      assertEquals(0, matcher.getExcludes().size());
+      assertEquals(1, matcher.getIncludes().size());
+      assertEquals(".*", matcher.getIncludes().iterator().next());
+
+      moduleProperties.put("b2.assemblies.siteFeaturesFilter", "!**.sdk.**,**.tests.**");
+
+      matcher = converter.getAssemblySiteFeatureMatcher(moduleProperties, "sdk");
+      assertNotNull(matcher);
+      assertEquals(1, matcher.getExcludes().size());
+      assertEquals(1, matcher.getIncludes().size());
+      assertEquals(".*\\.sdk\\..*", matcher.getExcludes().iterator().next());
+      assertEquals(".*\\.tests\\..*", matcher.getIncludes().iterator().next());
+
+      moduleProperties.put("b2.assemblies.sdk.siteFeaturesFilter", "!**");
+
+      matcher = converter.getAssemblySiteFeatureMatcher(moduleProperties, "sdk");
+      assertNotNull(matcher);
+      assertEquals(1, matcher.getExcludes().size());
+      assertEquals(0, matcher.getIncludes().size());
+      assertEquals(".*", matcher.getExcludes().iterator().next());
+   }
+
+   @Test
    public void testGetAssemblyCategoryFeatureMatcher()
    {
       SitesConverter converter = new DefaultConverter();
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
 
       PathMatcher matcher;
-      
+
       matcher = converter.getAssemblyCategoryFeatureMatcher(moduleProperties, "moduleId", "sdk", "foo");
       assertNotNull(matcher);
       assertEquals(0, matcher.getExcludes().size());
       assertEquals(1, matcher.getIncludes().size());
       assertEquals(".*", matcher.getIncludes().iterator().next());
-      
+
       matcher = converter.getAssemblyCategoryFeatureMatcher(moduleProperties, "moduleId", "sdk", "assembled");
       assertNotNull(matcher);
       assertEquals(0, matcher.getExcludes().size());
       assertEquals(1, matcher.getIncludes().size());
       assertEquals("moduleId\\.sdk\\.feature", matcher.getIncludes().iterator().next());
-      
+
       matcher = converter.getAssemblyCategoryFeatureMatcher(moduleProperties, "moduleId", "sdk", "included");
       assertNotNull(matcher);
       assertEquals(0, matcher.getIncludes().size());
