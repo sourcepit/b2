@@ -74,13 +74,8 @@ public class SitesInterpolator
             final SiteProject siteProject = createSiteProject(module, moduleProperties, sitesFacet, assemblyName);
             sitesFacet.getProjects().add(siteProject);
 
-            final Set<FeatureInclude> allFeatures = new LinkedHashSet<FeatureInclude>();
-            allFeatures.add(B2ModelUtils.toFeatureInclude(assemblyFeature));
-            for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures())
-            {
-               allFeatures.add(featureInclude);
-            }
-            
+            final Set<FeatureInclude> allFeatures = getAllFeatures(assemblyName, assemblyFeature, moduleProperties);
+
             final Set<FeatureInclude> categorizedFeatures = new LinkedHashSet<FeatureInclude>();
 
             for (String categoryName : converter.getAssemblyCategories(moduleProperties, assemblyName))
@@ -109,16 +104,38 @@ public class SitesInterpolator
                   siteProject.getCategories().add(category);
                }
             }
-            
+
             allFeatures.removeAll(categorizedFeatures);
-            
+
             for (FeatureInclude notCategorizedFeature : allFeatures)
             {
                siteProject.getFeatureReferences().add(toStrictReference(notCategorizedFeature));
             }
-            
+
          }
       }
+   }
+
+   private Set<FeatureInclude> getAllFeatures(String assemblyName, FeatureProject assemblyFeature,
+      PropertiesSource moduleProperties)
+   {
+      final PathMatcher featureFilter = converter.getAssemblySiteFeatureMatcher(moduleProperties, assemblyName);
+
+      final Set<FeatureInclude> allFeatures = new LinkedHashSet<FeatureInclude>();
+      if (featureFilter.isMatch(assemblyFeature.getId()))
+      {
+         allFeatures.add(B2ModelUtils.toFeatureInclude(assemblyFeature));
+      }
+      
+      for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures())
+      {
+         if (featureFilter.isMatch(featureInclude.getId()))
+         {
+            allFeatures.add(featureInclude);
+         }
+      }
+
+      return allFeatures;
    }
 
    private boolean isMatch(final PathMatcher matcher, final Set<String> featureIds)
@@ -141,7 +158,7 @@ public class SitesInterpolator
             return true;
          }
       }
-      
+
       return false;
    }
 

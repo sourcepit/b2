@@ -521,6 +521,17 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return rawCategories;
    }
 
+   public PathMatcher getAssemblySiteFeatureMatcher(PropertiesSource moduleProperties, String assemblyName)
+   {
+      String filterPatterns = get(moduleProperties, assemblyKey(assemblyName, "siteFeaturesFilter"),
+         assemblyKey(null, "siteFeaturesFilter"));
+      if (Strings.isNullOrEmpty(filterPatterns))
+      {
+         filterPatterns = "**";
+      }
+      return PathMatcher.parsePackagePatterns(filterPatterns);
+   }
+
    public PathMatcher getAssemblyCategoryFeatureMatcher(PropertiesSource moduleProperties, String moduleId,
       String assemblyName, String category)
    {
