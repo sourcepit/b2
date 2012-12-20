@@ -8,6 +8,7 @@ package org.sourcepit.b2.internal.generator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -24,15 +25,18 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.internal.generator.p2.Action;
 import org.sourcepit.b2.internal.generator.p2.Instruction;
+import org.sourcepit.b2.model.builder.util.BasicConverter.AggregatorMode;
 import org.sourcepit.b2.model.builder.util.ProductsConverter;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.ProductDefinition;
+import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.file.FileVisitor;
 import org.sourcepit.common.utils.lang.Exceptions;
@@ -46,6 +50,7 @@ import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
@@ -97,10 +102,6 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          throw new IllegalStateException(e);
       }
 
-      boolean modified = false;
-
-      final Document productDoc = XmlUtils.readXml(productFile);
-
       final String classifier = getAssemblyClassifier(productFile.getName());
 
       final Optional<FeatureProject> oAssemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
@@ -111,12 +112,42 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
 
       final FeatureProject assemblyFeature = oAssemblyFeature.get();
 
+      final Optional<String> oAssemblyName = getAssemblyNameByClassifier(properties, classifier,
+         B2MetadataUtils.getAssemblyNames(assemblyFeature));
+      if (!oAssemblyName.isPresent())
+      {
+         throw new IllegalStateException("Cannot determine assembly name for classifier '" + classifier + "'");
+      }
 
-      Element features = getFeaturesNode(productDoc);
-      Element element = productDoc.createElement("feature");
-      element.setAttribute("id", assemblyFeature.getId());
-      features.appendChild(element);
+      final Document productDoc = XmlUtils.readXml(productFile);
+      final Element features = getFeaturesNode(productDoc);
 
+      final List<Node> featuresFromProductFile = getChildNodes(features);
+      for (Node node : featuresFromProductFile)
+      {
+         features.removeChild(node);
+      }
+
+      final AggregatorMode mode = converter.getAggregatorMode(properties, oAssemblyName.get());
+      switch (mode)
+      {
+         case UNWRAP :
+            appendUnwrapped(productDoc, features, assemblyFeature);
+            break;
+         case OFF :
+         case AGGREGATE :
+            appendAggregated(productDoc, features, assemblyFeature);
+            break;
+         default :
+            throw new IllegalStateException("Unknown aggregator mode: " + mode);
+      }
+
+      for (Node node : featuresFromProductFile)
+      {
+         features.appendChild(node);
+      }
+
+      Element element;
       for (StrictReference feature : converter.getIncludedFeaturesForProduct(properties, uid))
       {
          element = productDoc.createElement("feature");
@@ -146,8 +177,6 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          }
       }
 
-      modified = true;
-
       final PluginProject productPlugin = resolveProductPlugin(module, product);
       if (productPlugin != null)
       {
@@ -173,19 +202,51 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
                   {
                      element = (Element) node;
                      element.setAttribute("path", iconFile.getAbsolutePath());
-                     modified = true;
                   }
                }
             }
          }
       }
 
-      if (modified)
-      {
-         XmlUtils.writeXml(productDoc, productFile);
-      }
+      XmlUtils.writeXml(productDoc, productFile);
 
       generateP2Inf(properties, uid, projectDir, getProductName(productFile.getName()));
+   }
+
+   private static List<Node> getChildNodes(final Element node)
+   {
+      final List<Node> childNodes = new ArrayList<Node>();
+      final NodeList nodeList = node.getChildNodes();
+      for (int i = 0; i < nodeList.getLength(); i++)
+      {
+         childNodes.add(nodeList.item(i));
+      }
+      return childNodes;
+   }
+
+   private void appendAggregated(Document doc, Element features, FeatureProject assemblyFeature)
+   {
+      appendFeature(doc, features, assemblyFeature.getId());
+   }
+
+   private void appendFeature(Document doc, Element features, String featureId)
+   {
+      Element element = doc.createElement("feature");
+      element.setAttribute("id", featureId);
+      features.appendChild(element);
+   }
+
+   private void appendUnwrapped(Document doc, Element features, FeatureProject assemblyFeature)
+   {
+      for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures())
+      {
+         appendFeature(doc, features, featureInclude.getId());
+      }
+
+      for (RuledReference ruledReference : assemblyFeature.getRequiredFeatures())
+      {
+         appendFeature(doc, features, ruledReference.getId());
+      }
    }
 
    private void generateP2Inf(PropertiesSource properties, String uid, File projectDir, String productName)
@@ -329,6 +390,19 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          classifier = "";
       }
       return classifier;
+   }
+
+   private Optional<String> getAssemblyNameByClassifier(PropertiesSource properties, final String classifier,
+      List<String> assemblyNames)
+   {
+      for (String assemblyName : assemblyNames)
+      {
+         if (classifier.equals(converter.getAssemblyClassifier(properties, assemblyName)))
+         {
+            return Optional.of(assemblyName);
+         }
+      }
+      return Optional.absent();
    }
 
    private PluginProject resolveProductPlugin(final AbstractModule module, final ProductDefinition project)
