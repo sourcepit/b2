@@ -11,24 +11,16 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.sourcepit.common.utils.io.IOResources.osgiIn;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Scm;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
@@ -258,34 +250,6 @@ public class ReleaseIT extends AbstractB2IT
          {
             moduleXmls.add(new File(file, "module.xml"));
          }
-      }
-   }
-
-   private static Model readMavenModel(File modelFile) throws FileNotFoundException, IOException,
-      XmlPullParserException
-   {
-      final InputStream inputStream = new FileInputStream(modelFile);
-      try
-      {
-         return new MavenXpp3Reader().read(new BufferedInputStream(inputStream));
-      }
-      finally
-      {
-         IOUtils.closeQuietly(inputStream);
-      }
-   }
-
-   private static void writeMavenModel(File modelFile, Model model) throws FileNotFoundException, IOException,
-      XmlPullParserException
-   {
-      final OutputStream outputStream = new FileOutputStream(modelFile);
-      try
-      {
-         new MavenXpp3Writer().write(new BufferedOutputStream(outputStream), model);
-      }
-      finally
-      {
-         IOUtils.closeQuietly(outputStream);
       }
    }
 
