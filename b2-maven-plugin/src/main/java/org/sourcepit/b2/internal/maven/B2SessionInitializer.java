@@ -34,7 +34,6 @@ import org.sonatype.aether.RepositorySystem;
 import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
 import org.sonatype.aether.resolution.ArtifactResult;
-import org.sonatype.aether.util.artifact.AbstractArtifact;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sourcepit.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
@@ -335,8 +334,21 @@ public class B2SessionInitializer
          cl.append(classifier);
       }
 
-      final AbstractArtifact siteArtifact = new DefaultArtifact(artifact.getGroupId(), artifact.getArtifactId(),
-         cl.toString(), "zip", artifact.getVersion());
+      String groupId = artifact.getGroupId();
+      String artifactId = artifact.getArtifactId();
+      String extension = "zip";
+      String version = artifact.getVersion();
+
+      String classi = cl.toString();
+
+      return resolveArtifact(wrapperProject, groupId, artifactId, extension, version, classi);
+   }
+
+   private Artifact resolveArtifact(final MavenProject wrapperProject, String groupId, String artifactId,
+      String extension, String version, String classifier)
+   {
+      final org.sonatype.aether.artifact.Artifact siteArtifact = new DefaultArtifact(groupId, artifactId, classifier,
+         extension, version);
 
       ArtifactRequest request = new ArtifactRequest();
       request.setArtifact(siteArtifact);

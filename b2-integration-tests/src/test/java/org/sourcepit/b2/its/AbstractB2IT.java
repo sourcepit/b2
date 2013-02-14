@@ -7,11 +7,14 @@ package org.sourcepit.b2.its;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Map;
 
 import junit.framework.AssertionFailedError;
@@ -21,6 +24,7 @@ import org.apache.commons.exec.OS;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -149,6 +153,12 @@ public abstract class AbstractB2IT
    protected Model loadMavenModel(File moduleDir) throws FileNotFoundException, IOException, XmlPullParserException
    {
       final File pomFile = new File(moduleDir, "pom.xml");
+      return readMavenModel(pomFile);
+   }
+
+   protected static Model readMavenModel(final File pomFile) throws FileNotFoundException, IOException,
+      XmlPullParserException
+   {
       assertTrue(pomFile.exists());
 
       final InputStream inputStream = new FileInputStream(pomFile);
@@ -159,6 +169,21 @@ public abstract class AbstractB2IT
       finally
       {
          IOUtils.closeQuietly(inputStream);
+      }
+   }
+
+   protected static void writeMavenModel(final File pomFile, Model pom) throws FileNotFoundException, IOException
+   {
+      assertTrue(pomFile.exists());
+
+      final OutputStream outputStream = new FileOutputStream(pomFile);
+      try
+      {
+         new MavenXpp3Writer().write(new BufferedOutputStream(outputStream), pom);
+      }
+      finally
+      {
+         IOUtils.closeQuietly(outputStream);
       }
    }
 }

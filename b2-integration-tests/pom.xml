@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sourcepit.b2</groupId>
@@ -76,6 +77,16 @@
 			<testResource>
 				<directory>${basedir}/src/test/resources</directory>
 				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.zip</exclude>
+				</excludes>
+			</testResource>
+			<testResource>
+				<directory>${basedir}/src/test/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.zip</include>
+				</includes>
 			</testResource>
 			<testResource>
 				<directory>${basedir}/src/test/m2</directory>
@@ -222,7 +233,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<!-- Due to a bug of the dependemcy mojo (MDEP-109: Dependency plugin 
+			<!-- Due to a bug of the dependemcy mojo (MDEP-109: Dependency plugin
 				looses file permissions) we have to set these manually -->
 			<id>exec-chmod</id>
 			<activation>
