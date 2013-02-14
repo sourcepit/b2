@@ -19,6 +19,8 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.ModelBase;
+import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
@@ -112,9 +114,10 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
       return dependencies;
    }
 
-   private static void filterDependencies(final Model mavenModel, final List<Dependency> blackList)
+   private static void filterDependencies(final ModelBase mavenModel, final List<Dependency> blackList)
    {
       final List<Dependency> filteredDependencies = new ArrayList<Dependency>();
+      
       for (Dependency dependency : mavenModel.getDependencies())
       {
          if (!containsDependency(blackList, dependency))
@@ -122,7 +125,16 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
             filteredDependencies.add(dependency);
          }
       }
+      
       mavenModel.setDependencies(filteredDependencies);
+      
+      if (mavenModel instanceof Model)
+      {
+         for (Profile profile : ((Model)mavenModel).getProfiles())
+         {
+            filterDependencies(profile, blackList);
+         }
+      }
    }
 
    private static boolean containsDependency(final List<Dependency> dependencies, Dependency dependency)
