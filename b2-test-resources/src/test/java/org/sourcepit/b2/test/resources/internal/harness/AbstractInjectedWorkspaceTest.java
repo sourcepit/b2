@@ -6,8 +6,6 @@
 
 package org.sourcepit.b2.test.resources.internal.harness;
 
-import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.sonatype.guice.bean.containers.InjectedTestCase;
 import org.sourcepit.tools.shared.resources.internal.harness.MavenTestWorkspace;
 
@@ -21,7 +19,7 @@ public abstract class AbstractInjectedWorkspaceTest extends InjectedTestCase
    public void configure(Binder binder)
    {
       super.configure(binder);
-      binder.bind(Logger.class).toInstance(new ConsoleLogger());
+      // binder.bind(Logger.class).toInstance(new ConsoleLogger());
    }
 
    @Override

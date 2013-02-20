@@ -13,8 +13,8 @@ import java.util.Map.Entry;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.ecore.EObject;
+import org.slf4j.Logger;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.model.builder.util.B2SessionService;

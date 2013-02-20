@@ -16,8 +16,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.IOUtils;
-import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.ecore.EObject;
+import org.slf4j.Logger;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
