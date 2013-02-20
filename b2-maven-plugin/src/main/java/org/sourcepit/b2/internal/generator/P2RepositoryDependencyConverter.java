@@ -24,8 +24,8 @@ import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.ecore.EObject;
+import org.slf4j.Logger;
 import org.sonatype.aether.RepositorySystem;
 import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
@@ -117,7 +117,7 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
    private static void filterDependencies(final ModelBase mavenModel, final List<Dependency> blackList)
    {
       final List<Dependency> filteredDependencies = new ArrayList<Dependency>();
-      
+
       for (Dependency dependency : mavenModel.getDependencies())
       {
          if (!containsDependency(blackList, dependency))
@@ -125,12 +125,12 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
             filteredDependencies.add(dependency);
          }
       }
-      
+
       mavenModel.setDependencies(filteredDependencies);
-      
+
       if (mavenModel instanceof Model)
       {
-         for (Profile profile : ((Model)mavenModel).getProfiles())
+         for (Profile profile : ((Model) mavenModel).getProfiles())
          {
             filterDependencies(profile, blackList);
          }

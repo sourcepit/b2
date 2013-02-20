@@ -9,9 +9,9 @@ package org.sourcepit.b2.validation;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.codehaus.plexus.logging.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.slf4j.Logger;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
