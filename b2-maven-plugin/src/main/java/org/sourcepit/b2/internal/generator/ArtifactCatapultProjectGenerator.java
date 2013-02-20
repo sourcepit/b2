@@ -118,7 +118,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       defaultModel.setArtifactId(projectDir.getName());
 
       final Model model = readMavenModel(pomFile);
-      new FixedModelMerger().merge(model, defaultModel, false, null);
+      new ModelTemplateMerger().merge(model, defaultModel, false, null);
 
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
       if (!artifacts.isEmpty())
