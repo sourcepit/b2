@@ -23,47 +23,52 @@ import org.sourcepit.b2.model.common.CommonModelFactory;
 import org.sourcepit.b2.model.common.CommonModelPackage;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl;
-import org.sourcepit.b2.model.session.SessionModelPackage;
-import org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl;
 import org.sourcepit.common.manifest.ManifestPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
  * 
  * @generated
  */
 public class CommonModelPackageImpl extends EPackageImpl implements CommonModelPackage
 {
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass annotatableEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass annotationEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EClass eStringMapEntryEClass = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    private EDataType eJavaFileEDataType = null;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -71,7 +76,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
 
    /**
     * Creates an instance of the model <b>Package</b>, registered with {@link org.eclipse.emf.ecore.EPackage.Registry
-    * EPackage.Registry} by the package package URI value.
+    * EPackage.Registry} by the package
+    * package URI value.
     * <p>
     * Note: the correct way to create the package is via the static factory method {@link #init init()}, which also
     * performs initialization of the package, or returns the registered package, if one already exists. <!--
@@ -88,7 +94,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -126,19 +133,14 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
       ModuleModelPackageImpl theModuleModelPackage = (ModuleModelPackageImpl) (EPackage.Registry.INSTANCE
          .getEPackage(ModuleModelPackage.eNS_URI) instanceof ModuleModelPackageImpl ? EPackage.Registry.INSTANCE
          .getEPackage(ModuleModelPackage.eNS_URI) : ModuleModelPackage.eINSTANCE);
-      SessionModelPackageImpl theSessionModelPackage = (SessionModelPackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(SessionModelPackage.eNS_URI) instanceof SessionModelPackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(SessionModelPackage.eNS_URI) : SessionModelPackage.eINSTANCE);
 
       // Create package meta-data objects
       theCommonModelPackage.createPackageContents();
       theModuleModelPackage.createPackageContents();
-      theSessionModelPackage.createPackageContents();
 
       // Initialize created meta-data
       theCommonModelPackage.initializePackageContents();
       theModuleModelPackage.initializePackageContents();
-      theSessionModelPackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
       theCommonModelPackage.freeze();
@@ -150,7 +152,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -160,7 +163,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -170,7 +174,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -180,7 +185,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -190,7 +196,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -200,7 +207,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -210,7 +218,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -220,7 +229,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -230,7 +240,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -240,7 +251,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -250,7 +262,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -260,7 +273,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -270,7 +284,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -279,7 +294,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    /**
     * Creates the meta-model objects for the package. This method is
     * guarded to have no affect on any invocation but its first.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -308,7 +324,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -317,7 +334,8 @@ public class CommonModelPackageImpl extends EPackageImpl implements CommonModelP
    /**
     * Complete the initialization of the package and its meta-model. This
     * method is guarded to have no affect on any invocation but its first.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

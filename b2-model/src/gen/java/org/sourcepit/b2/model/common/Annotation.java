@@ -10,7 +10,9 @@ import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Annotation</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Annotation</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -50,7 +52,8 @@ public interface Annotation extends EObject
    /**
     * Sets the value of the '{@link org.sourcepit.b2.model.common.Annotation#getParent <em>Parent</em>}' container
     * reference.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
@@ -76,8 +79,9 @@ public interface Annotation extends EObject
    String getSource();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.common.Annotation#getSource <em>Source</em>}' attribute. <!--
-    * begin-user-doc --> <!-- end-user-doc -->
+    * Sets the value of the '{@link org.sourcepit.b2.model.common.Annotation#getSource <em>Source</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param value the new value of the '<em>Source</em>' attribute.
     * @see #getSource()
