@@ -30,7 +30,7 @@ import org.sourcepit.b2.execution.AbstractB2SessionLifecycleParticipant;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
-import org.sourcepit.b2.internal.generator.FixedModelMerger;
+import org.sourcepit.b2.internal.generator.ModelTemplateMerger;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.session.B2Session;
@@ -177,7 +177,7 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
          throw new IllegalStateException(e);
       }
 
-      new FixedModelMerger().merge(moduleModel, model, false, null);
+      new ModelTemplateMerger().merge(moduleModel, model, false, null);
       try
       {
          new DefaultModelWriter().write(pomFile, null, moduleModel);

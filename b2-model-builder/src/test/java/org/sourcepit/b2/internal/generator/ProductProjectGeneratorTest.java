@@ -19,8 +19,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.hamcrest.core.Is;
@@ -81,7 +79,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
    public void configure(Binder binder)
    {
       super.configure(binder);
-      binder.bind(Logger.class).toInstance(new ConsoleLogger());
+      // binder.bind(Logger.class).toInstance(new ConsoleLogger());
    }
 
    @Test

@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.IOUtils;
-import org.codehaus.plexus.logging.Logger;
+import org.slf4j.Logger;
 import org.sourcepit.b2.execution.IB2Listener;
 import org.sourcepit.b2.internal.cleaner.AbstractFileVisitor;
 import org.sourcepit.b2.internal.cleaner.IFileService;
