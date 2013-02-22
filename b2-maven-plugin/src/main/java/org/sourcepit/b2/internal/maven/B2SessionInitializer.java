@@ -111,7 +111,7 @@ public class B2SessionInitializer
       sessionService.setCurrentResourceSet(modelContext.getResourceSet());
 
       B2Session b2Session = createB2Session(modelContext.getResourceSet(), bootSession);
-      sessionService.setCurrentSession(b2Session);
+      sessionService.setCurrentProjectDirs(b2Session);
 
       Adapters.removeAdapters(bootSession, B2Session.class);
       Adapters.addAdapter(bootSession, b2Session);
@@ -246,7 +246,7 @@ public class B2SessionInitializer
    {
       final PropertiesSource moduleProperties = createSource(legacySupport.getSession(), bootProject);
 
-      final B2Session b2Session = sessionService.getCurrentSession();
+      final B2Session b2Session = sessionService.getCurrentProjectDirs();
       final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
 
       processDependencies(resourceSet, b2Session.getCurrentProject(), bootProject);

@@ -362,7 +362,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
-      ModuleProject project = sessionService.getCurrentSession().getCurrentProject();
+      ModuleProject project = sessionService.getCurrentProjectDirs().getCurrentProject();
 
       final List<String> envAppendixes = new ArrayList<String>();
       for (Environment environment : project.getEnvironements())

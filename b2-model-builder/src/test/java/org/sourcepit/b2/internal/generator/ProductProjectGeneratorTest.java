@@ -14,6 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,9 +39,6 @@ import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
@@ -89,16 +87,10 @@ public class ProductProjectGeneratorTest extends InjectedTest
    {
       final File moduleDir = getResource("ProductTest");
 
-      // TODO automate init of b2 session in an abstract test class
-      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-      moduleProject.setDirectory(moduleDir);
-      moduleProject.setGroupId("org.sourcepit.b2.its");
-      moduleProject.setArtifactId("ProductTest");
-      moduleProject.setVersion("1.0.0-SNAPSHOT");
-      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
-      session.getProjects().add(moduleProject);
-      session.setCurrentProject(moduleProject);
-      sessionService.setCurrentSession(session);
+      final List<File> projectDirs = new ArrayList<File>();
+      projectDirs.add(moduleDir);
+
+      sessionService.setCurrentProjectDirs(projectDirs);
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       File productFile = new File(moduleDir, "bundle.a/bundle.a.product");
@@ -139,17 +131,11 @@ public class ProductProjectGeneratorTest extends InjectedTest
    public void testCopyProductResources_Feature86() throws Exception
    {
       final File moduleDir = getResource("ProductTest");
+      
+      final List<File> projectDirs = new ArrayList<File>();
+      projectDirs.add(moduleDir);
 
-      // TODO automate init of b2 session in an abstract test class
-      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-      moduleProject.setDirectory(moduleDir);
-      moduleProject.setGroupId("org.sourcepit.b2.its");
-      moduleProject.setArtifactId("ProductTest");
-      moduleProject.setVersion("1.0.0-SNAPSHOT");
-      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
-      session.getProjects().add(moduleProject);
-      session.setCurrentProject(moduleProject);
-      sessionService.setCurrentSession(session);
+      sessionService.setCurrentProjectDirs(projectDirs);
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
@@ -190,16 +176,10 @@ public class ProductProjectGeneratorTest extends InjectedTest
    {
       final File moduleDir = getResource("ProductTest");
 
-      // TODO automate init of b2 session in an abstract test class
-      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-      moduleProject.setDirectory(moduleDir);
-      moduleProject.setGroupId("org.sourcepit.b2.its");
-      moduleProject.setArtifactId("ProductTest");
-      moduleProject.setVersion("1.0.0-SNAPSHOT");
-      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
-      session.getProjects().add(moduleProject);
-      session.setCurrentProject(moduleProject);
-      sessionService.setCurrentSession(session);
+      final List<File> projectDirs = new ArrayList<File>();
+      projectDirs.add(moduleDir);
+
+      sessionService.setCurrentProjectDirs(projectDirs);
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
@@ -251,16 +231,10 @@ public class ProductProjectGeneratorTest extends InjectedTest
    {
       final File moduleDir = getResource("ProductTest");
 
-      // TODO automate init of b2 session in an abstract test class
-      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-      moduleProject.setDirectory(moduleDir);
-      moduleProject.setGroupId("org.sourcepit.b2.its");
-      moduleProject.setArtifactId("ProductTest");
-      moduleProject.setVersion("1.0.0-SNAPSHOT");
-      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
-      session.getProjects().add(moduleProject);
-      session.setCurrentProject(moduleProject);
-      sessionService.setCurrentSession(session);
+      final List<File> projectDirs = new ArrayList<File>();
+      projectDirs.add(moduleDir);
+
+      sessionService.setCurrentProjectDirs(projectDirs);
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
@@ -309,16 +283,10 @@ public class ProductProjectGeneratorTest extends InjectedTest
    {
       final File moduleDir = getResource("ProductTest");
 
-      // TODO automate init of b2 session in an abstract test class
-      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-      moduleProject.setDirectory(moduleDir);
-      moduleProject.setGroupId("org.sourcepit.b2.its");
-      moduleProject.setArtifactId("ProductTest");
-      moduleProject.setVersion("1.0.0-SNAPSHOT");
-      B2Session session = SessionModelFactory.eINSTANCE.createB2Session();
-      session.getProjects().add(moduleProject);
-      session.setCurrentProject(moduleProject);
-      sessionService.setCurrentSession(session);
+      final List<File> projectDirs = new ArrayList<File>();
+      projectDirs.add(moduleDir);
+
+      sessionService.setCurrentProjectDirs(projectDirs);
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();

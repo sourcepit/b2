@@ -14,7 +14,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
@@ -22,8 +21,6 @@ import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("compositeModule")
@@ -52,14 +49,21 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
             {
                if (moduleFilter == null || moduleFilter.accept(member))
                {
-                  B2Session session = sessionService.getCurrentSession();
-
-                  EList<ModuleProject> projects = session.getProjects();
-                  for (ModuleProject project : projects)
+                  // HACK
+                  for (File projectDir : sessionService.getCurrentProjectDirs())
                   {
-                     if (member.equals(project.getDirectory()))
+                     if (member.equals(projectDir))
                      {
-                        final AbstractModule nestedModule = project.getModuleModel();
+                        AbstractModule nestedModule = null;
+                        for (AbstractModule module : modules)
+                        {
+                           if (projectDir.equals(module.getDirectory()))
+                           {
+                              nestedModule = module;
+                              break;
+                           }
+                        }
+
                         if (nestedModule == null)
                         {
                            throw new IllegalStateException("Invalid build order");
@@ -74,7 +78,7 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
       });
 
       final CompositeModule compositeModule = ModuleModelFactory.eINSTANCE.createCompositeModule();
-      compositeModule.setId(getModuleId(baseDir));
+      compositeModule.setId(getModuleId(compositeModule, properties));
       compositeModule.setVersion(getModuleVersion(properties));
       compositeModule.setDirectory(baseDir);
       compositeModule.setLayoutId("composite");

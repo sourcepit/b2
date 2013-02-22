@@ -6,9 +6,10 @@
 
 package org.sourcepit.b2.execution;
 
-import org.sourcepit.b2.model.session.B2Session;
+import java.io.File;
+import java.util.List;
 
 public interface B2RequestFactory
 {
-   B2Request newRequest(B2Session session);
+   B2Request newRequest(List<File> projectDirs);
 }

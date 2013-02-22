@@ -67,7 +67,7 @@ public class B2BootstrapParticipant implements BootstrapParticipant
 
    public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)
    {
-      final B2Session b2Session = sessionService.getCurrentSession();
+      final B2Session b2Session = sessionService.getCurrentProjectDirs();
       for (ModuleProject project : b2Session.getProjects())
       {
          if (bootProject.getBasedir().equals(project.getDirectory()))

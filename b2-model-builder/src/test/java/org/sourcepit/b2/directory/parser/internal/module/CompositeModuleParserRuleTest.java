@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.CompositeModule;
-import org.sourcepit.b2.model.session.B2Session;
 
 public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
 {
@@ -45,7 +44,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
    public void testEmptyModule() throws Exception
    {
       final B2SessionService sessionService = gLookup(B2SessionService.class);
-      sessionService.setCurrentSession(createB2Session(moduleDir));
+      sessionService.setCurrentProjectDirs(createB2Session(moduleDir));
 
       final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
       // TODO I think we should expect a simple module here because the module dir contains a module.xml file?
@@ -116,18 +115,17 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
       }
       moduleDirs.add(moduleDir);
 
-      final B2Session session = createB2Session(moduleDirs.toArray(new File[moduleDirs.size()]));
+      final List<File> session = createB2Session(moduleDirs.toArray(new File[moduleDirs.size()]));
 
       final B2SessionService sessionService = gLookup(B2SessionService.class);
-      sessionService.setCurrentSession(session);
+      sessionService.setCurrentProjectDirs(session);
 
       if (subModuleDirs != null)
       {
          BasicModuleParserRule basicRule = gLookup(BasicModuleParserRule.class);
          for (int i = 0; i < subModuleDirs.length; i++)
          {
-            session.getProjects().get(i).setModuleModel(basicRule.doParse(createParsingRequest(subModuleDirs[i])));
-            session.setCurrentProject(session.getProjects().get(i + 1));
+            sessionService.getCurrentModules().add(basicRule.doParse(createParsingRequest(subModuleDirs[i])));
          }
       }
    }

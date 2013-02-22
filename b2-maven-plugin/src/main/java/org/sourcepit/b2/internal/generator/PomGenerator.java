@@ -230,7 +230,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setVersion(VersionUtils.toMavenVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
-      final Annotation annotation = b2SessionService.getCurrentSession().getCurrentProject()
+      final Annotation annotation = b2SessionService.getCurrentProjectDirs().getCurrentProject()
          .getAnnotation("b2.resolvedSites");
 
       if (annotation != null)
@@ -336,7 +336,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    private String getArtifactIdForModule(AbstractModule module, PropertiesSource propertie)
    {
-      return b2SessionService.getCurrentSession().getCurrentProject().getArtifactId();
+      return b2SessionService.getCurrentProjectDirs().getCurrentProject().getArtifactId();
    }
 
    private void moveFile(final File srcFile, final File destFile)

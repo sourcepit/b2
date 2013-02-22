@@ -27,7 +27,6 @@ import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
-import org.sourcepit.b2.model.session.B2Session;
 import org.sourcepit.common.utils.nls.NlsUtils;
 
 public class ModuleParserTest extends AbstractModuleParserTest
@@ -153,7 +152,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final File simpleDir = new File(moduleDir, "simple-layout");
       final File structuredDir = new File(moduleDir, "structured-layout");
 
-      final B2Session session = initSession(simpleDir, structuredDir, moduleDir);
+      initSession(simpleDir, structuredDir, moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -161,14 +160,10 @@ public class ModuleParserTest extends AbstractModuleParserTest
       ModuleParser modelParser = lookup();
 
       request.setModuleDirectory(simpleDir);
-      session.getCurrentProject().setModuleModel(modelParser.parse(request));
-
-      session.setCurrentProject(session.getProjects().get(1));
+      sessionService.getCurrentModules().add(modelParser.parse(request));
 
       request.setModuleDirectory(structuredDir);
-      session.getCurrentProject().setModuleModel(modelParser.parse(request));
-
-      session.setCurrentProject(session.getProjects().get(2));
+      sessionService.getCurrentModules().add(modelParser.parse(request));
 
       request.setModuleDirectory(moduleDir);
       CompositeModule module = (CompositeModule) modelParser.parse(request);
@@ -194,7 +189,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       final File simpleDir = new File(moduleDir, "simple-layout");
       final File structuredDir = new File(moduleDir, "structured-layout");
 
-      final B2Session session = initSession(simpleDir, structuredDir, moduleDir);
+      initSession(simpleDir, structuredDir, moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -203,14 +198,10 @@ public class ModuleParserTest extends AbstractModuleParserTest
       ModuleParser modelParser = lookup();
 
       request.setModuleDirectory(simpleDir);
-      session.getCurrentProject().setModuleModel(modelParser.parse(request));
-
-      session.setCurrentProject(session.getProjects().get(1));
+      sessionService.getCurrentModules().add(modelParser.parse(request));
 
       request.setModuleDirectory(structuredDir);
-      session.getCurrentProject().setModuleModel(modelParser.parse(request));
-
-      session.setCurrentProject(session.getProjects().get(2));
+      sessionService.getCurrentModules().add(modelParser.parse(request));
 
       request.setModuleDirectory(moduleDir);
       CompositeModule module = (CompositeModule) modelParser.parse(request);

@@ -6,27 +6,27 @@
 
 package org.sourcepit.b2.execution;
 
+import java.io.File;
+import java.util.List;
+
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 public interface B2SessionLifecycleParticipant
 {
-   void prePrepareProjects(B2Session session);
+   void prePrepareProjects(List<File> projectDirs);
 
-   void prePrepareProject(B2Session session, ModuleProject project, B2Request request);
+   void prePrepareProject(File projectDir, B2Request request);
 
-   void postPrepareProject(B2Session session, ModuleProject project, B2Request request, AbstractModule module,
-      ThrowablePipe errors);
+   void postPrepareProject(File projectDir, B2Request request, AbstractModule module, ThrowablePipe errors);
 
-   void postPrepareProjects(B2Session session, ThrowablePipe errors);
+   void postPrepareProjects(List<File> projectDirs, ThrowablePipe errors);
 
-   void preFinalizeProjects(B2Session session);
+   void preFinalizeProjects(List<File> projectDirs);
 
-   void preFinalizeProject(B2Session session, ModuleProject project);
+   void preFinalizeProject(File projectDir);
 
-   void postFinalizeProject(B2Session session, ModuleProject project, ThrowablePipe errors);
+   void postFinalizeProject(File projectDir, ThrowablePipe errors);
 
-   void postFinalizeProjects(B2Session session, ThrowablePipe errors);
+   void postFinalizeProjects(List<File> projectDirs, ThrowablePipe errors);
 }

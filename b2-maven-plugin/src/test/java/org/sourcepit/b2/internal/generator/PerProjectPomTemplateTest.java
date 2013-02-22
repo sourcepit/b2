@@ -79,7 +79,7 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
 
          final AbstractModule module = modelBuilder.build(b2Request);
          
-         sessionService.getCurrentSession().getCurrentProject().setModuleModel(module);
+         sessionService.getCurrentProjectDirs().getCurrentProject().setModuleModel(module);
 
          final B2GenerationRequest request = new B2GenerationRequest();
          request.setModule(module);

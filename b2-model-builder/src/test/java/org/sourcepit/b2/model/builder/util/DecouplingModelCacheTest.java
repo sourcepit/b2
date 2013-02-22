@@ -37,7 +37,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
    public void testUndecoupled() throws Exception
    {
-      final File moduleDir = getModuleDirByArtifactId("composite-layout");
+      final File moduleDir = getModuleDirByName("composite-layout");
 
       // get dummy module files
       final File parentFile = moduleDir;
@@ -52,8 +52,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
-      getCurrentSession().getCurrentProject().setModuleModel(simpleModule);
-      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
+      sessionService.getCurrentModules().add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -61,8 +60,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
-      getCurrentSession().getCurrentProject().setModuleModel(structuredModule);
-      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
+      sessionService.getCurrentModules().add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -86,7 +84,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
    public void testDecoupled() throws Exception
    {
-      final File moduleDir = getModuleDirByArtifactId("composite-layout");
+      final File moduleDir = getModuleDirByName("composite-layout");
 
       // get dummy module files
       final File parentFile = moduleDir;
@@ -101,8 +99,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
-      getCurrentSession().getCurrentProject().setModuleModel(simpleModule);
-      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
+      sessionService.getCurrentModules().add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -110,8 +107,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
-      getCurrentSession().getCurrentProject().setModuleModel(structuredModule);
-      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
+      sessionService.getCurrentModules().add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -141,7 +137,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
    public void _testDecoupled_Interpolated() throws Exception
    {
-      final File moduleDir = getModuleDirByArtifactId("composite-layout");
+      final File moduleDir = getModuleDirByName("composite-layout");
 
       // get dummy module files
       final File parentFile = moduleDir;
@@ -167,8 +163,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
-      getCurrentSession().getCurrentProject().setModuleModel(simpleModule);
-      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
+      sessionService.getCurrentModules().add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -177,8 +172,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
-      getCurrentSession().getCurrentProject().setModuleModel(structuredModule);
-      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
+      sessionService.getCurrentModules().add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
