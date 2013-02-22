@@ -16,7 +16,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.session.SessionModelPackage;
 
 public class AnnotatableTest extends TestCase
 {
@@ -166,7 +165,6 @@ public class AnnotatableTest extends TestCase
       EList<EClassifier> classifiers = new BasicEList<EClassifier>();
       classifiers.addAll(CommonModelPackage.eINSTANCE.getEClassifiers());
       classifiers.addAll(ModuleModelPackage.eINSTANCE.getEClassifiers());
-      classifiers.addAll(SessionModelPackage.eINSTANCE.getEClassifiers());
       return classifiers;
    }
 }
