@@ -60,7 +60,7 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
 
       final Repository repository = repositories.get(0);
       assertEquals("p2", repository.getLayout());
-      assertEquals(pomDepsSiteDir.toURL(), new URL(repository.getUrl()));
+      assertEquals(pomDepsSiteDir.toURI().toURL(), new URL(repository.getUrl()));
 
       List<File> featureDirs = Arrays.asList(new File(moduleDir, ".b2/features").listFiles());
       assertEquals(5, featureDirs.size());

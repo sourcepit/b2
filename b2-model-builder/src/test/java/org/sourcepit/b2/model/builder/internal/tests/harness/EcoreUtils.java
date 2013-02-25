@@ -8,7 +8,7 @@ package org.sourcepit.b2.model.builder.internal.tests.harness;
 
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;

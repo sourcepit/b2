@@ -175,7 +175,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       module = (BasicModule) modelBuilder.build(request);
       request.setInterpolate(false);
       assertNotNull(module);
-      B2ModelHarness.assertHasDerivedElements(module);
+      B2ModelHarness.assertHasNoDerivedElements(module);
    }
 
    private B2ModelBuilder lookup() throws Exception

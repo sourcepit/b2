@@ -93,7 +93,8 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
 
          try
          {
-            module.putAnnotationEntry("b2.mavenDependencies", "repositoryURL", siteDir.toURL().toExternalForm());
+            module
+               .putAnnotationEntry("b2.mavenDependencies", "repositoryURL", siteDir.toURI().toURL().toExternalForm());
          }
          catch (MalformedURLException e)
          {
