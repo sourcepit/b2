@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.model.module.test.internal.harness;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 import junit.framework.AssertionFailedError;
 
 import org.eclipse.emf.common.util.TreeIterator;

@@ -9,51 +9,182 @@ package org.sourcepit.b2.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.plexus.logging.AbstractLogger;
-import org.codehaus.plexus.logging.Logger;
+import org.slf4j.helpers.FormattingTuple;
+import org.slf4j.helpers.MarkerIgnoringBase;
+import org.slf4j.helpers.MessageFormatter;
 
-public class RecordingLogger extends AbstractLogger
+public class RecordingLogger extends MarkerIgnoringBase
 {
-   private final List<String> messages = new ArrayList<String>();
+   private static final long serialVersionUID = 1L;
+   private static final String WARN = "WARN";
+   private static final String INFO = "INFO";
+   private static final String ERROR = "ERROR";
 
-   public RecordingLogger()
-   {
-      super(0, "foo");
-   }
+   private final List<String> messages = new ArrayList<String>();
 
    public List<String> getMessages()
    {
       return messages;
    }
 
-   public void debug(String message, Throwable throwable)
+   private void formatAndLog(String level, String format, Object... argArray)
    {
-      messages.add("DEBUG " + message);
+      FormattingTuple tuple = MessageFormatter.arrayFormat(format, argArray);
+      log(level, tuple.getMessage(), null);
    }
 
-   public void info(String message, Throwable throwable)
+   private void log(String level, String message, Throwable t)
    {
-      messages.add("INFO " + message);
+      messages.add(level + " " + message);
    }
 
-   public void warn(String message, Throwable throwable)
+   public boolean isTraceEnabled()
    {
-      messages.add("WARN " + message);
+      return false;
    }
 
-   public void error(String message, Throwable throwable)
+   public void trace(String msg)
    {
-      messages.add("ERROR " + message);
+      // NOP
    }
 
-   public void fatalError(String message, Throwable throwable)
+   public void trace(String format, Object arg)
    {
-      messages.add("FATAL " + message);
+      // NOP
    }
 
-   public Logger getChildLogger(String name)
+   public void trace(String format, Object arg1, Object arg2)
    {
-      return null;
+      // NOP
    }
 
+   public void trace(String format, Object... argArray)
+   {
+      // NOP
+   }
+
+   public void trace(String msg, Throwable t)
+   {
+      // NOP
+   }
+
+   public boolean isDebugEnabled()
+   {
+      return false;
+   }
+
+   public void debug(String msg)
+   {
+      // NOP
+   }
+
+   public void debug(String format, Object arg)
+   {
+      // NOP
+   }
+
+   public void debug(String format, Object arg1, Object arg2)
+   {
+      // NOP
+   }
+
+   public void debug(String format, Object... argArray)
+   {
+      // NOP
+   }
+
+   public void debug(String msg, Throwable t)
+   {
+      // NOP
+   }
+
+   public boolean isInfoEnabled()
+   {
+      return true;
+   }
+
+   public void info(String msg)
+   {
+      log(INFO, msg, null);
+   }
+
+   public void info(String format, Object arg)
+   {
+      formatAndLog(INFO, format, arg);
+   }
+
+   public void info(String format, Object arg1, Object arg2)
+   {
+      formatAndLog(INFO, format, arg1, arg2);
+   }
+
+   public void info(String format, Object... argArray)
+   {
+      formatAndLog(INFO, format, argArray);
+   }
+
+   public void info(String msg, Throwable t)
+   {
+      log(INFO, msg, t);
+   }
+
+   public boolean isWarnEnabled()
+   {
+      return true;
+   }
+
+   public void warn(String msg)
+   {
+      log(WARN, msg, null);
+   }
+
+   public void warn(String format, Object arg)
+   {
+      formatAndLog(WARN, format, arg);
+   }
+
+   public void warn(String format, Object... argArray)
+   {
+      formatAndLog(WARN, format, argArray);
+   }
+
+   public void warn(String format, Object arg1, Object arg2)
+   {
+      formatAndLog(WARN, format, arg1, arg2);
+   }
+
+   public void warn(String msg, Throwable t)
+   {
+      log(WARN, msg, t);
+   }
+
+   public boolean isErrorEnabled()
+   {
+      return true;
+   }
+
+   public void error(String msg)
+   {
+      log(ERROR, msg, null);
+   }
+
+   public void error(String format, Object arg)
+   {
+      formatAndLog(ERROR, format, arg);
+   }
+
+   public void error(String format, Object arg1, Object arg2)
+   {
+      formatAndLog(ERROR, format, arg1, arg2);
+   }
+
+   public void error(String format, Object... argArray)
+   {
+      formatAndLog(ERROR, format, argArray);
+   }
+
+   public void error(String msg, Throwable t)
+   {
+      log(ERROR, msg, t);
+   }
 }
