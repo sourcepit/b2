@@ -52,7 +52,7 @@ public class B2Test extends AbstractB2SessionWorkspaceTest
       AbstractModule module = b2.generate(request);
 
       assertNotNull(module);
-      B2ModelHarness.assertHasDerivedElements(module);
+      B2ModelHarness.assertHasNoDerivedElements(module);
    }
 
 }

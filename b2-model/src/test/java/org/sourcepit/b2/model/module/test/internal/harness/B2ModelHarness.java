@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.model.module.test.internal.harness;
 
-import junit.framework.Assert;
-import junit.framework.AssertionFailedError;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -20,19 +20,17 @@ public final class B2ModelHarness
       super();
    }
 
-   public static void assertHasDerivedElements(EObject container)
+   public static void assertHasNoDerivedElements(EObject container)
    {
-      try
-      {
-         assertHasNoDerivedElements(container);
-         Assert.fail();
-      }
-      catch (AssertionFailedError e)
-      {
-      }
+      assertFalse(hasDerivedElements(container));
    }
 
-   public static void assertHasNoDerivedElements(EObject container)
+   public static void assertHasDerivedElements(EObject container)
+   {
+      assertTrue(hasDerivedElements(container));
+   }
+
+   private static boolean hasDerivedElements(EObject container)
    {
       TreeIterator<EObject> it = container.eAllContents();
       while (it.hasNext())
@@ -40,8 +38,12 @@ public final class B2ModelHarness
          EObject eObject = (EObject) it.next();
          if (eObject instanceof Derivable)
          {
-            Assert.assertFalse(((Derivable) eObject).isDerived());
+            if (((Derivable) eObject).isDerived())
+            {
+               return true;
+            }
          }
       }
+      return false;
    }
 }

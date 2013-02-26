@@ -65,7 +65,6 @@
 		<dependency>
 			<groupId>org.sourcepit</groupId>
 			<artifactId>slf4j-plexus</artifactId>
-			<version>0.1.0-alpha-2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.common</groupId>
