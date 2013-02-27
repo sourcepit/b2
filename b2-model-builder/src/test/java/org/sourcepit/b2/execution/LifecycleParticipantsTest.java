@@ -15,12 +15,12 @@ import java.util.Stack;
 import javax.inject.Inject;
 
 import org.hamcrest.core.Is;
+import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.internal.cleaner.ModuleCleanerLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.B2GeneratorLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
-import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
@@ -70,11 +70,11 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
    {
       final B2RequestFactory requestFactory = new B2RequestFactory()
       {
-         public B2Request newRequest(List<File> projectDirs)
+         public B2Request newRequest(List<File> projectDirs, int currentIdx)
          {
             B2Request request = new B2Request();
-            request.setModuleDirectory(projectDirs.get(0));
-            request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
+            request.setModuleDirectory(projectDirs.get(currentIdx));
+            request.setModuleProperties(ModelBuilderTestHarness.newProperties(projectDirs.get(currentIdx)));
             request.setInterpolate(true);
             request.setTemplates(new DefaultTemplateCopier());
             return request;

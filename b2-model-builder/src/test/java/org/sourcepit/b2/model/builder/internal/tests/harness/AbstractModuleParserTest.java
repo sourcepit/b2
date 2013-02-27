@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.AbstractFacet;
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 
 
@@ -51,6 +52,7 @@ public abstract class AbstractModuleParserTest extends AbstractInjectedWorkspace
          Collections.addAll(result, moduleDirs);
       }
       sessionService.setCurrentProjectDirs(result);
+      sessionService.setCurrentModules(new ArrayList<AbstractModule>());
       return result;
    }
 }

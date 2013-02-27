@@ -7,6 +7,8 @@
 package org.sourcepit.b2.directory.parser.internal.module;
 
 import static org.junit.Assert.assertTrue;
+import static org.sourcepit.common.utils.xml.XmlUtils.queryText;
+import static org.sourcepit.common.utils.xml.XmlUtils.readXml;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +27,8 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
+import org.sourcepit.common.utils.props.PropertiesMap;
+import org.w3c.dom.Document;
 
 public final class ModelBuilderTestHarness
 {
@@ -103,5 +107,19 @@ public final class ModelBuilderTestHarness
       final Resource resource = new BundleManifestResourceImpl(uri);
       resource.getContents().add(mf);
       resource.save(null);
+   }
+   
+   public static PropertiesMap newProperties(File moduleDir)
+   {
+      final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
+      addProjectProperties(properties, moduleDir);
+      return properties;
+   }
+
+   private static void addProjectProperties(final PropertiesMap properties, File moduleDir)
+   {
+      final Document moduleXml = readXml(new File(moduleDir, "module.xml"));
+      properties.put("project.groupId", queryText(moduleXml, "project/groupId"));
+      properties.put("project.artifactId", queryText(moduleXml, "project/artifactId"));
    }
 }

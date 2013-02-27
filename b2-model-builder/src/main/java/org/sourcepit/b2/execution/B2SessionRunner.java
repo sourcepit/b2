@@ -92,7 +92,7 @@ public class B2SessionRunner
    @Inject
    private List<B2SessionLifecycleParticipant> lifecycleParticipants;
 
-   public boolean prepareNext(final List<File> projectDirs, int currentIdx, final B2RequestFactory requestFactory)
+   public boolean prepareNext(final List<File> projectDirs, final int currentIdx, final B2RequestFactory requestFactory)
    {
       final File projectDir = projectDirs.get(currentIdx);
 
@@ -108,7 +108,7 @@ public class B2SessionRunner
          @Override
          protected AbstractModule doExecutePhases(B2RequestFactory requestFactory, List<File> projectDirs)
          {
-            return newPrepareProjectPhase(projectDir).execute(requestFactory.newRequest(projectDirs));
+            return newPrepareProjectPhase(projectDir).execute(requestFactory.newRequest(projectDirs, currentIdx));
          }
 
          @Override

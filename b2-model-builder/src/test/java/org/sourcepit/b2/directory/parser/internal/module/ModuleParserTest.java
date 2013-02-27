@@ -6,6 +6,10 @@
 
 package org.sourcepit.b2.directory.parser.internal.module;
 
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.newProperties;
+import static org.sourcepit.common.utils.xml.XmlUtils.queryText;
+import static org.sourcepit.common.utils.xml.XmlUtils.readXml;
+
 import java.io.File;
 import java.util.Collection;
 import java.util.Locale;
@@ -28,6 +32,8 @@ import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.nls.NlsUtils;
+import org.sourcepit.common.utils.props.PropertiesMap;
+import org.w3c.dom.Document;
 
 public class ModuleParserTest extends AbstractModuleParserTest
 {
@@ -89,7 +95,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleDirectory(moduleDir);
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
+      request.setModuleProperties(newProperties(moduleDir));
 
       ModuleParser modelParser = lookup();
       BasicModule module = (BasicModule) modelParser.parse(request);
@@ -114,7 +120,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleDirectory(moduleDir);
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
+      request.setModuleProperties(newProperties(moduleDir));
 
       ModuleParser modelParser = lookup();
       BasicModule module = (BasicModule) modelParser.parse(request);
@@ -155,7 +161,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       initSession(simpleDir, structuredDir, moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
+      request.setModuleProperties(newProperties(moduleDir));
 
       ModuleParser modelParser = lookup();
 
@@ -192,7 +198,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       initSession(simpleDir, structuredDir, moduleDir);
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
+      request.setModuleProperties(newProperties(moduleDir));
       request.setModuleFilter(new WhitelistModuleFilter(simpleDir));
 
       ModuleParser modelParser = lookup();

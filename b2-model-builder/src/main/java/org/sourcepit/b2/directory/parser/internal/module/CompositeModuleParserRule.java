@@ -47,30 +47,24 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
          {
             if (converter.isPotentialModuleDirectory(request.getModuleProperties(), baseDir, member))
             {
-               if (moduleFilter == null || moduleFilter.accept(member))
+               if ((moduleFilter == null || moduleFilter.accept(member))
+                  && sessionService.getCurrentProjectDirs().contains(member))
                {
-                  // HACK
-                  for (File projectDir : sessionService.getCurrentProjectDirs())
+                  AbstractModule nestedModule = null;
+                  for (AbstractModule module : sessionService.getCurrentModules())
                   {
-                     if (member.equals(projectDir))
+                     if (member.equals(module.getDirectory()))
                      {
-                        AbstractModule nestedModule = null;
-                        for (AbstractModule module : modules)
-                        {
-                           if (projectDir.equals(module.getDirectory()))
-                           {
-                              nestedModule = module;
-                              break;
-                           }
-                        }
-
-                        if (nestedModule == null)
-                        {
-                           throw new IllegalStateException("Invalid build order");
-                        }
-                        modules.add(nestedModule);
+                        nestedModule = module;
+                        break;
                      }
                   }
+
+                  if (nestedModule == null)
+                  {
+                     throw new IllegalStateException("Invalid build order");
+                  }
+                  modules.add(nestedModule);
                }
             }
             return false;

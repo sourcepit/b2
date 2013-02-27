@@ -28,6 +28,7 @@ import org.hamcrest.core.Is;
 import org.junit.Rule;
 import org.junit.Test;
 import org.sonatype.guice.bean.containers.InjectedTest;
+import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
 import org.sourcepit.b2.execution.B2;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.internal.generator.p2.Action;
@@ -182,7 +183,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       sessionService.setCurrentProjectDirs(projectDirs);
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
-      PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
+      PropertiesMap props = ModelBuilderTestHarness.newProperties(moduleDir);
       props.put("b2.products.features", "foo:1.0.0,bar");
 
       B2Request request = new B2Request();

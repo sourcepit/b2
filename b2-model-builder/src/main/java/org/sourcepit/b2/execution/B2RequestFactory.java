@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface B2RequestFactory
 {
-   B2Request newRequest(List<File> projectDirs);
+   B2Request newRequest(List<File> projectDirs, int currentIdx);
 }

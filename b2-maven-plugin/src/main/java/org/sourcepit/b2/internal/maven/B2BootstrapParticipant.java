@@ -56,7 +56,7 @@ public class B2BootstrapParticipant implements BootstrapParticipant
 
       final B2RequestFactory b2RequestFactory = new B2RequestFactory()
       {
-         public B2Request newRequest(B2Session session)
+         public B2Request newRequest(B2Session session, int currentIdx)
          {
             return b2SessionInitializer.newB2Request(bootProject);
          }

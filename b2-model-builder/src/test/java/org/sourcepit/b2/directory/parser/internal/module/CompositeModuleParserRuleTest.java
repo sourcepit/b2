@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 
 public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
@@ -119,6 +120,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
 
       final B2SessionService sessionService = gLookup(B2SessionService.class);
       sessionService.setCurrentProjectDirs(session);
+      sessionService.setCurrentModules(new ArrayList<AbstractModule>());
 
       if (subModuleDirs != null)
       {

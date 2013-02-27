@@ -21,7 +21,10 @@ import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescriptorResolutionStrategy;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
+import org.sourcepit.common.utils.xml.XmlUtils;
+import org.w3c.dom.Document;
 
 import com.google.inject.Binder;
 
@@ -42,6 +45,7 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       assertNotNull(projectDirs);
 
       sessionService.setCurrentProjectDirs(projectDirs);
+      sessionService.setCurrentModules(new ArrayList<AbstractModule>());
       sessionService.setCurrentResourceSet(new ResourceSetImpl());
    }
 
@@ -63,7 +67,8 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
    {
       for (File projectDir : sessionService.getCurrentProjectDirs())
       {
-         if (name.equals(projectDir.getName()))
+         final Document doc = XmlUtils.readXml(new File(projectDir, "module.xml"));
+         if (name.equals(XmlUtils.queryText(doc, "/project/artifactId")))
          {
             return projectDir;
          }
