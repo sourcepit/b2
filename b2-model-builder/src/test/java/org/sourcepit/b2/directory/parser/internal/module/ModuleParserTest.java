@@ -7,8 +7,6 @@
 package org.sourcepit.b2.directory.parser.internal.module;
 
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.newProperties;
-import static org.sourcepit.common.utils.xml.XmlUtils.queryText;
-import static org.sourcepit.common.utils.xml.XmlUtils.readXml;
 
 import java.io.File;
 import java.util.Collection;
@@ -32,8 +30,6 @@ import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.nls.NlsUtils;
-import org.sourcepit.common.utils.props.PropertiesMap;
-import org.w3c.dom.Document;
 
 public class ModuleParserTest extends AbstractModuleParserTest
 {

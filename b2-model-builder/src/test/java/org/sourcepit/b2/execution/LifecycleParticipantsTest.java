@@ -151,7 +151,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
                   "org.sourcepit.b2.test.resources.simple.layout");
             }
             // project composite-layout
-            addFinalizeCalls(excpectedCalls, "composite-layout", "composite-layout",
+            addFinalizeCalls(excpectedCalls, "testAll", "composite-layout",
                "org.sourcepit.b2.test.resources.composite.layout");
 
             excpectedCalls.add("postFinalizeProjects ( session, null )");
@@ -176,13 +176,13 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
    private void addFinalizeCalls(List<String> excpectedCalls, String folderName, String artifactId, String moduleId)
    {
       // project composite-layout
-      excpectedCalls.add("preFinalizeProject ( session, " + artifactId + " )");
-      excpectedCalls.add("postFinalizeProject ( session, " + artifactId + ", null )");
+      excpectedCalls.add("preFinalizeProject ( session, " + folderName + " )");
+      excpectedCalls.add("postFinalizeProject ( session, " + folderName + ", null )");
    }
 
    private void addPrepareCalls(List<String> excpectedCalls, String folderName, String artifactId, String moduleId)
    {
-      excpectedCalls.add("prePrepareProject ( session, " + artifactId + ", request )");
+      excpectedCalls.add("prePrepareProject ( session, " + folderName + ", request )");
       excpectedCalls.add("preClean ( " + folderName + " )");
       excpectedCalls.add("postClean ( " + folderName + ", null )");
       excpectedCalls.add("preParse ( " + folderName + " )");
@@ -191,7 +191,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       excpectedCalls.add("postInterpolation ( " + moduleId + ", null )");
       excpectedCalls.add("preGenerate ( " + moduleId + " )");
       excpectedCalls.add("postGenerate ( " + moduleId + ", null )");
-      excpectedCalls.add("postPrepareProject ( session, " + artifactId + ", request, " + moduleId + ", null )");
+      excpectedCalls.add("postPrepareProject ( session, " + folderName + ", request, " + moduleId + ", null )");
    }
 
    private String toString(MethodCall call)
