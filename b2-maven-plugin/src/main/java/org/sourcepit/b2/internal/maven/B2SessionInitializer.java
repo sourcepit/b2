@@ -93,7 +93,7 @@ public class B2SessionInitializer
    @Inject
    private BasicConverter converter;
 
-   public B2Session initialize(MavenSession bootSession, Properties properties)
+   public List<File> initialize(MavenSession bootSession, Properties properties)
    {
       intEMF();
       return initB2Session(bootSession, properties);
@@ -102,87 +102,57 @@ public class B2SessionInitializer
    private void intEMF()
    {
       ModuleModelPackage.eINSTANCE.getClass();
-      SessionModelPackage.eINSTANCE.getClass();
    }
 
-   private B2Session initB2Session(MavenSession bootSession, Properties properties)
+   private List<File> initB2Session(MavenSession bootSession, Properties properties)
    {
       ModelContext modelContext = adapterFactory.adapt(bootSession, bootSession.getCurrentProject());
       sessionService.setCurrentResourceSet(modelContext.getResourceSet());
 
-      B2Session b2Session = createB2Session(modelContext.getResourceSet(), bootSession);
-      sessionService.setCurrentProjectDirs(b2Session);
+      createB2Session(modelContext.getResourceSet(), bootSession);
 
       Adapters.removeAdapters(bootSession, B2Session.class);
       Adapters.addAdapter(bootSession, b2Session);
 
-      final int currentIdx = bootSession.getProjects().indexOf(bootSession.getCurrentProject());
-      b2Session.setCurrentProject(b2Session.getProjects().get(currentIdx));
 
-      final ModuleProject currentProject = b2Session.getCurrentProject();
       final MavenProject project = bootSession.getCurrentProject();
       configureModuleProject(currentProject, project, properties);
 
       return b2Session;
    }
 
-   private B2Session createB2Session(ResourceSet resourceSet, MavenSession bootSession)
+   private void createB2Session(ResourceSet resourceSet, MavenSession bootSession)
    {
-      final B2Session b2Session;
-      b2Session = SessionModelFactory.eINSTANCE.createB2Session();
+      final List<File> projectDirs = new ArrayList<File>();
+      final List<AbstractModule> modules = new ArrayList<AbstractModule>();
+
+      final File currentProjectDir = bootSession.getCurrentProject().getBasedir();
 
       for (MavenProject project : bootSession.getProjects())
       {
-         final ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-         moduleProject.setGroupId(project.getGroupId());
-         moduleProject.setArtifactId(project.getArtifactId());
-         moduleProject.setVersion(project.getVersion());
-         moduleProject.setDirectory(project.getBasedir());
+         final File projectDir = project.getBasedir();
+         projectDirs.add(projectDir);
 
-         final MavenProject currentProject = bootSession.getCurrentProject();
-         if (!project.equals(currentProject))
+         if (!projectDir.equals(currentProjectDir))
          {
             final ModelContext modelContext = ModelContextAdapterFactory.get(project);
             if (modelContext != null)
             {
                final URI moduleUri = modelContext.getModuleUri();
                final AbstractModule module = (AbstractModule) resourceSet.getEObject(moduleUri, true);
-               moduleProject.setModuleModel(module);
+               modules.add(module);
             }
-         }
-
-         b2Session.getProjects().add(moduleProject);
-         if (project.equals(currentProject))
-         {
-            b2Session.setCurrentProject(moduleProject);
          }
       }
 
-      return b2Session;
+      sessionService.setCurrentProjectDirs(projectDirs);
+      sessionService.setCurrentModules(modules);
    }
 
    private void configureModuleProject(ModuleProject moduleProject, MavenProject bootProject, Properties properties)
    {
       configureModuleDependencies(moduleProject, bootProject);
       configureModuleTargetEnvironments(moduleProject, bootProject, properties);
-   }
-
-   private void configureModuleDependencies(ModuleProject moduleProject, MavenProject bootProject)
-   {
-      Set<Artifact> dependencies = bootProject.getArtifacts();
-      for (Artifact dependency : dependencies)
-      {
-         if ("module".equals(dependency.getType()))
-         {
-            ModuleDependency moduleDependency = SessionModelFactory.eINSTANCE.createModuleDependency();
-            moduleDependency.setGroupId(dependency.getGroupId());
-            moduleDependency.setArtifactId(dependency.getArtifactId());
-            moduleDependency.setClassifier(dependency.getClassifier());
-            moduleDependency.setVersionRange(dependency.getBaseVersion());
-
-            moduleProject.getDependencies().add(moduleDependency);
-         }
-      }
    }
 
    private void configureModuleTargetEnvironments(ModuleProject currentProject, MavenProject project,

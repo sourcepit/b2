@@ -52,7 +52,7 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       properties.putAll(mavenSession.getSystemProperties());
       properties.putAll(mavenSession.getUserProperties());
 
-      final B2Session b2Session = b2SessionInitializer.initialize(bootSession, properties);
+      b2SessionInitializer.initialize(bootSession, properties);
 
       final B2RequestFactory b2RequestFactory = new B2RequestFactory()
       {

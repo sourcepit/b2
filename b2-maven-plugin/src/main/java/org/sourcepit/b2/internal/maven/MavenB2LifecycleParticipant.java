@@ -33,8 +33,6 @@ import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.FixedModelMerger;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
@@ -53,19 +51,12 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
    @Inject
    private LegacySupport legacySupport;
 
-   public void postPrepareProject(B2Session session, ModuleProject project, B2Request request, AbstractModule module,
-      ThrowablePipe errors)
+   public void postPrepareProject(File project, B2Request request, AbstractModule module, ThrowablePipe errors)
    {
       final MavenProject bootProject = legacySupport.getSession().getCurrentProject();
 
       final ModelContext modelContext = ModelContextAdapterFactory.get(bootProject);
       final ResourceSet resourceSet = modelContext.getResourceSet();
-
-      if (session.eResource() != null)
-      {
-         resourceSet.getResources().remove(session.eResource());
-         session.eResource().getContents().clear();
-      }
 
       Resource moduleResource = resourceSet.createResource(modelContext.getModuleUri());
       moduleResource.getContents().add(module);
@@ -85,19 +76,6 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       bootProject.setContextValue("pom", pomFile);
 
       final String layoutId = module.getLayoutId();
-      final File sessionFile = new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, "b2.session"));
-      final URI uri = URI.createFileURI(sessionFile.getAbsolutePath());
-
-      final Resource resource = resourceSet.createResource(uri);
-      resource.getContents().add(session);
-      try
-      {
-         resource.save(null);
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException(e);
-      }
 
       PropertiesMap uriMap = new LinkedPropertiesMap();
       for (Entry<URI, URI> entry : resourceSet.getURIConverter().getURIMap().entrySet())
@@ -108,8 +86,6 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
 
       final URI fileURI = resourceSet.getURIConverter().normalize(modelContext.getModuleUri());
       projectHelper.attachArtifact(bootProject, "module", null, new File(fileURI.toFileString()));
-
-      projectHelper.attachArtifact(bootProject, "session", null, sessionFile);
 
       processAttachments(bootProject, pomFile);
    }
