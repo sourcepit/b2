@@ -19,17 +19,14 @@ import javax.inject.Named;
 import org.apache.maven.RepositoryUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.interpolation.ValueSource;
 import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sonatype.aether.RepositorySystem;
 import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
@@ -50,12 +47,6 @@ import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.Environment;
-import org.sourcepit.b2.model.session.ModuleDependency;
-import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.b2.model.session.SessionModelFactory;
-import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesMap;
@@ -114,11 +105,7 @@ public class B2SessionInitializer
       Adapters.removeAdapters(bootSession, B2Session.class);
       Adapters.addAdapter(bootSession, b2Session);
 
-
-      final MavenProject project = bootSession.getCurrentProject();
-      configureModuleProject(currentProject, project, properties);
-
-      return b2Session;
+      return sessionService.getCurrentProjectDirs();
    }
 
    private void createB2Session(ResourceSet resourceSet, MavenSession bootSession)
@@ -147,69 +134,6 @@ public class B2SessionInitializer
 
       sessionService.setCurrentProjectDirs(projectDirs);
       sessionService.setCurrentModules(modules);
-   }
-
-   private void configureModuleProject(ModuleProject moduleProject, MavenProject bootProject, Properties properties)
-   {
-      configureModuleDependencies(moduleProject, bootProject);
-      configureModuleTargetEnvironments(moduleProject, bootProject, properties);
-   }
-
-   private void configureModuleTargetEnvironments(ModuleProject currentProject, MavenProject project,
-      Properties properties)
-   {
-      for (Plugin plugin : project.getBuildPlugins())
-      {
-         if ("org.eclipse.tycho:target-platform-configuration".equals(plugin.getKey()))
-         {
-            Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
-            if (configuration != null)
-            {
-               Xpp3Dom envs = configuration.getChild("environments");
-               if (envs != null)
-               {
-                  for (Xpp3Dom envNode : envs.getChildren("environment"))
-                  {
-                     Environment env = SessionModelFactory.eINSTANCE.createEnvironment();
-
-                     Xpp3Dom node = envNode.getChild("os");
-                     if (node != null)
-                     {
-                        env.setOs(node.getValue());
-                     }
-
-                     node = envNode.getChild("ws");
-                     if (node != null)
-                     {
-                        env.setWs(node.getValue());
-                     }
-
-                     node = envNode.getChild("arch");
-                     if (node != null)
-                     {
-                        env.setArch(node.getValue());
-                     }
-
-                     currentProject.getEnvironements().add(env);
-                  }
-               }
-            }
-         }
-      }
-
-      if (currentProject.getEnvironements().isEmpty())
-      {
-         String os = PlatformPropertiesUtils.getOS(properties);
-         String ws = PlatformPropertiesUtils.getWS(properties);
-         String arch = PlatformPropertiesUtils.getArch(properties);
-
-         Environment env = SessionModelFactory.eINSTANCE.createEnvironment();
-         env.setOs(os);
-         env.setWs(ws);
-         env.setArch(arch);
-
-         currentProject.getEnvironements().add(env);
-      }
    }
 
    public B2Request newB2Request(MavenProject bootProject)
