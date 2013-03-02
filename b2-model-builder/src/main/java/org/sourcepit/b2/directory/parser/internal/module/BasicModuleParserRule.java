@@ -41,7 +41,7 @@ public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>
       final List<? extends AbstractFacet> facets = result.getFacets();
 
       final BasicModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
-      module.setId(getModuleId(baseDir));
+      module.setId(getModuleId(module, properties));
       module.setVersion(getModuleVersion(properties));
       module.setDirectory(baseDir);
       module.getFacets().addAll(facets);

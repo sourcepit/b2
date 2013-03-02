@@ -32,8 +32,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.junit.Rule;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.ExternalProcess;
 import org.sourcepit.common.testing.Workspace;
@@ -110,23 +108,11 @@ public abstract class AbstractB2IT
    protected AbstractModule loadModule(final File moduleDir) throws IOException
    {
       ModuleModelPackage.eINSTANCE.getClass();
-      SessionModelPackage.eINSTANCE.getClass();
 
       File modelFile = new File(moduleDir, ".b2/b2.module");
       assertTrue(modelFile.exists());
 
       return (AbstractModule) loadModel(modelFile);
-   }
-
-   protected B2Session loadSession(final File moduleDir) throws IOException
-   {
-      ModuleModelPackage.eINSTANCE.getClass();
-      SessionModelPackage.eINSTANCE.getClass();
-
-      File modelFile = new File(moduleDir, ".b2/b2.session");
-      assertTrue(modelFile.exists());
-
-      return (B2Session) loadModel(modelFile);
    }
 
    private EObject loadModel(File modelFile) throws FileNotFoundException, IOException

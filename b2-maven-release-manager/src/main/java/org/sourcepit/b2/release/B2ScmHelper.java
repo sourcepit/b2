@@ -32,7 +32,6 @@ import org.apache.maven.shared.release.scm.ScmRepositoryConfigurator;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.sourcepit.b2.maven.core.B2MavenBridge;
-import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.lang.Exceptions;
 
 @Component(role = B2ScmHelper.class)
@@ -97,17 +96,22 @@ public class B2ScmHelper
 
    public void markForCommit(MavenProject mavenProject, File file)
    {
-      final ModuleProject moduleProject = bridge.findContainingModuleProject(mavenProject);
-      if (moduleProject == null)
-      {
-         throw new IllegalStateException("Unable to determine module project for maven project " + mavenProject);
-      }
-      markForCommit(moduleProject, file);
+      final MavenProject moduleProject = determineModuleMavenProject(mavenProject);
+      getCommitProposals(moduleProject).add(file);
    }
-
-   private void markForCommit(ModuleProject moduleProject, File file)
+   
+   private MavenProject determineModuleMavenProject(MavenProject mavenProject)
    {
-      getCommitProposals(bridge.getMavenProject(moduleProject)).add(file);
+      MavenProject parentProject = mavenProject;
+      while (parentProject != null)
+      {
+         if (bridge.getModule(parentProject) != null)
+         {
+            return parentProject;
+         }
+         parentProject = parentProject.getParent();
+      }
+      throw new IllegalStateException("Unable to determine module project for maven project " + mavenProject);
    }
 
    private static Set<File> getCommitProposals(MavenProject mavenProject)

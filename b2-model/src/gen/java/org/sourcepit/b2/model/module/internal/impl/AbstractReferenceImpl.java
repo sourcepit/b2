@@ -61,6 +61,7 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * @ordered
     */
    protected static final String ID_EDEFAULT = null;
+
    /**
     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -71,6 +72,7 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * @ordered
     */
    protected String id = ID_EDEFAULT;
+
    /**
     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -81,6 +83,7 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * @ordered
     */
    protected static final String VERSION_EDEFAULT = "0.0.0";
+
    /**
     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -91,6 +94,7 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * @ordered
     */
    protected String version = VERSION_EDEFAULT;
+
    /**
     * This is true if the Version attribute has been set.
     * <!-- begin-user-doc -->

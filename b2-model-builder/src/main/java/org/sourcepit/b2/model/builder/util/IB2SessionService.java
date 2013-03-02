@@ -6,13 +6,18 @@
 
 package org.sourcepit.b2.model.builder.util;
 
+import java.io.File;
+import java.util.List;
+
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.sourcepit.b2.model.session.B2Session;
+import org.sourcepit.b2.model.module.AbstractModule;
 
 public interface IB2SessionService
 {
    ResourceSet getCurrentResourceSet();
 
-   B2Session getCurrentSession();
+   List<File> getCurrentProjectDirs();
+   
+   List<AbstractModule> getCurrentModules();
 
 }

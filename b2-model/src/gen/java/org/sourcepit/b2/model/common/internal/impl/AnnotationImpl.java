@@ -22,7 +22,9 @@ import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.common.CommonModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>Annotation</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Annotation</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -38,8 +40,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
 {
    /**
     * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getSource()
     * @generated
@@ -49,8 +51,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
 
    /**
     * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getSource()
     * @generated
@@ -59,8 +61,9 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    protected String source = SOURCE_EDEFAULT;
 
    /**
-    * The cached value of the '{@link #getEntries() <em>Entries</em>}' map. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
+    * The cached value of the '{@link #getEntries() <em>Entries</em>}' map.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getEntries()
     * @generated
@@ -69,7 +72,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    protected EMap<String, String> entries;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -79,7 +83,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -90,7 +95,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -102,7 +108,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -114,7 +121,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -125,7 +133,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -152,7 +161,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -162,7 +172,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -175,7 +186,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -190,7 +202,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -208,7 +221,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -226,7 +240,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -243,7 +258,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -268,7 +284,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -291,7 +308,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -314,7 +332,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -334,7 +353,8 @@ public class AnnotationImpl extends EObjectImpl implements Annotation
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

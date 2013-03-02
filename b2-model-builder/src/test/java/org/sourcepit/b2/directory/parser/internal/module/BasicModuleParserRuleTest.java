@@ -37,7 +37,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
       initModuleDir(moduleDir);
 
       final B2SessionService sessionService = gLookup(B2SessionService.class);
-      sessionService.setCurrentSession(createB2Session(moduleDir));
+      sessionService.setCurrentProjectDirs(createB2Session(moduleDir));
    }
 
    @Test

@@ -6,28 +6,44 @@
 
 package org.sourcepit.b2.model.builder.util;
 
+import java.io.File;
+import java.util.List;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.sourcepit.b2.model.session.B2Session;
+import org.sourcepit.b2.model.module.AbstractModule;
+
 
 @Named
 @Singleton
 public class B2SessionService implements IB2SessionService
 {
-   private B2Session currentSession;
+   private List<File> projectDirs;
+   
+   private List<AbstractModule> modules;
 
    private ResourceSet resourceSet;
 
-   public void setCurrentSession(B2Session currentSession)
+   public void setCurrentProjectDirs(List<File> currentSession)
    {
-      this.currentSession = currentSession;
+      this.projectDirs = currentSession;
    }
 
-   public B2Session getCurrentSession()
+   public List<File> getCurrentProjectDirs()
    {
-      return currentSession;
+      return projectDirs;
+   }
+   
+   public void setCurrentModules(List<AbstractModule> modules)
+   {
+      this.modules = modules;
+   }
+   
+   public List<AbstractModule> getCurrentModules()
+   {
+      return modules;
    }
 
    public void setCurrentResourceSet(ResourceSet currentResourceSet)

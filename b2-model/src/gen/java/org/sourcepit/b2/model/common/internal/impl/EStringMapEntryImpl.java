@@ -16,8 +16,9 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.sourcepit.b2.model.common.CommonModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model object '<em><b>EString Map Entry</b></em>'. <!-- end-user-doc
- * -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>EString Map Entry</b></em>'.
+ * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -32,8 +33,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
 {
    /**
     * The default value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getTypedKey()
     * @generated
@@ -42,8 +43,9 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    protected static final String KEY_EDEFAULT = null;
 
    /**
-    * The cached value of the '{@link #getTypedKey() <em>Key</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-    * -->
+    * The cached value of the '{@link #getTypedKey() <em>Key</em>}' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getTypedKey()
     * @generated
@@ -53,8 +55,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
 
    /**
     * The default value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getTypedValue()
     * @generated
@@ -64,8 +66,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
 
    /**
     * The cached value of the '{@link #getTypedValue() <em>Value</em>}' attribute.
-    * <!-- begin-user-doc --> <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @see #getTypedValue()
     * @generated
@@ -74,7 +76,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    protected String value = VALUE_EDEFAULT;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -84,7 +87,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -95,7 +99,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -105,7 +110,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -118,7 +124,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -128,7 +135,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -142,7 +150,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -160,7 +169,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -180,7 +190,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -200,7 +211,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -218,7 +230,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -238,14 +251,16 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
    protected int hash = -1;
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -260,7 +275,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -270,7 +286,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -280,7 +297,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -290,7 +308,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -300,7 +319,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -312,7 +332,8 @@ public class EStringMapEntryImpl extends EObjectImpl implements BasicEMap.Entry<
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */

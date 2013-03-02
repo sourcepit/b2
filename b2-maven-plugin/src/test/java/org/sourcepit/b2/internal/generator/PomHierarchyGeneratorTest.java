@@ -32,7 +32,7 @@ public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest
 
    public void testSkipFacets() throws Exception
    {
-      BasicModule module = buildModel(getCurrentModuleDir());
+      BasicModule module = buildModel(sessionService.getCurrentProjectDirs().get(0));
       assertNotNull(module);
       File moduleDir = module.getDirectory();
       assertNoPomFiles(moduleDir);

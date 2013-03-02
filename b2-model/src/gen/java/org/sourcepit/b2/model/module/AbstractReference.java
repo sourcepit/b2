@@ -27,7 +27,6 @@ import org.sourcepit.b2.model.common.Annotatable;
  */
 public interface AbstractReference extends Annotatable
 {
-
    /**
     * Returns the value of the '<em><b>Id</b></em>' attribute.
     * <!-- begin-user-doc -->

@@ -26,6 +26,7 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
+import org.apache.maven.plugin.LegacySupport;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
@@ -230,12 +231,13 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setVersion(VersionUtils.toMavenVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
-      final Annotation annotation = b2SessionService.getCurrentSession().getCurrentProject()
-         .getAnnotation("b2.resolvedSites");
+      @SuppressWarnings("unchecked")
+      final Map<String, String> sites = (Map<String, String>) buildContext.getSession().getCurrentProject()
+         .getContextValue("b2.resolvedSites");
 
-      if (annotation != null)
+      if (sites != null)
       {
-         for (Entry<String, String> idToUrlEntry : annotation.getEntries())
+         for (Entry<String, String> idToUrlEntry : sites.entrySet())
          {
             final Repository repository = new Repository();
             repository.setId(idToUrlEntry.getKey());
@@ -334,9 +336,12 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       // }
    }
 
+   @Inject
+   private LegacySupport buildContext;
+
    private String getArtifactIdForModule(AbstractModule module, PropertiesSource propertie)
    {
-      return b2SessionService.getCurrentSession().getCurrentProject().getArtifactId();
+      return buildContext.getSession().getCurrentProject().getArtifactId();
    }
 
    private void moveFile(final File srcFile, final File destFile)

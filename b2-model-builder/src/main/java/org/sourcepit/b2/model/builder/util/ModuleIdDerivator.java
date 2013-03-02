@@ -4,9 +4,10 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import java.io.File;
+import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface ModuleIdDerivator
 {
-   String deriveModuleId(File moduleDir);
+   String deriveModuleId(AbstractModule module, PropertiesSource properties);
 }

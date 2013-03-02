@@ -53,7 +53,7 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
 
    @Inject
    private B2SessionService sessionService;
-   
+
    @Test
    public void test() throws Exception
    {
@@ -75,11 +75,11 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
 
          b2SessionInitializer.initialize(mavenSession, properties);
 
-         final B2Request b2Request = b2SessionInitializer.newB2Request(project);
+         final B2Request b2Request = b2SessionInitializer.newB2Request(mavenSession, project);
 
          final AbstractModule module = modelBuilder.build(b2Request);
-         
-         sessionService.getCurrentSession().getCurrentProject().setModuleModel(module);
+
+         sessionService.getCurrentModules().add(module);
 
          final B2GenerationRequest request = new B2GenerationRequest();
          request.setModule(module);

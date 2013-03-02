@@ -37,6 +37,7 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
     * @ordered
     */
    protected static final boolean OPTIONAL_EDEFAULT = false;
+
    /**
     * The cached value of the '{@link #isOptional() <em>Optional</em>}' attribute.
     * <!-- begin-user-doc -->

@@ -6,7 +6,6 @@
 
 package org.sourcepit.b2.directory.parser.internal.module;
 
-import java.io.File;
 import java.util.Locale;
 import java.util.Set;
 
@@ -55,9 +54,9 @@ public abstract class AbstractModuleParserRule<M extends AbstractModule>
       return converter.getModuleVersion(properties);
    }
 
-   protected String getModuleId(final File baseDir)
+   protected String getModuleId(AbstractModule module, PropertiesSource properties)
    {
-      return moduleIdDerivator.deriveModuleId(baseDir);
+      return moduleIdDerivator.deriveModuleId(module, properties);
    }
 
 

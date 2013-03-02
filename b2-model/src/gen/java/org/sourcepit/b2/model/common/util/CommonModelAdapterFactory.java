@@ -17,8 +17,10 @@ import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.common.CommonModelPackage;
 
 /**
- * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
- * method for each class of the model. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * The <b>Adapter Factory</b> for the model.
+ * It provides an adapter <code>createXXX</code> method for each class of the model.
+ * <!-- end-user-doc -->
  * 
  * @see org.sourcepit.b2.model.common.CommonModelPackage
  * @generated
@@ -27,7 +29,8 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
 {
    /**
     * The cached model package.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -35,7 +38,8 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates an instance of the adapter factory.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -49,9 +53,10 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Returns whether this factory is applicable for the type of the object.
-    * <!-- begin-user-doc --> This implementation
-    * returns <code>true</code> if the object is either the model's package or is an instance object of the model. <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * This implementation returns <code>true</code> if the object is either the model's package or is an instance object
+    * of the model.
+    * <!-- end-user-doc -->
     * 
     * @return whether this factory is applicable for the type of the object.
     * @generated
@@ -72,7 +77,8 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * The switch that delegates to the <code>createXXX</code> methods.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -105,7 +111,8 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates an adapter for the <code>target</code>.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @param target the object to adapt.
     * @return the adapter for the <code>target</code>.
@@ -121,8 +128,10 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.common.Annotatable
     * <em>Annotatable</em>}'.
-    * <!-- begin-user-doc --> This default implementation returns null so that we can easily
-    * ignore cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * This default implementation returns null so that we can easily ignore cases;
+    * it's useful to ignore a case when inheritance will catch all the cases anyway.
+    * <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.b2.model.common.Annotatable
@@ -136,8 +145,10 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
    /**
     * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.common.Annotation <em>Annotation</em>}
     * '.
-    * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's
-    * useful to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * This default implementation returns null so that we can easily ignore cases;
+    * it's useful to ignore a case when inheritance will catch all the cases anyway.
+    * <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see org.sourcepit.b2.model.common.Annotation
@@ -149,9 +160,11 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>EString Map Entry</em>}'. <!--
-    * begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful to
-    * ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+    * Creates a new adapter for an object of class '{@link java.util.Map.Entry <em>EString Map Entry</em>}'.
+    * <!-- begin-user-doc -->
+    * This default implementation returns null so that we can easily ignore cases;
+    * it's useful to ignore a case when inheritance will catch all the cases anyway.
+    * <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @see java.util.Map.Entry
@@ -164,8 +177,9 @@ public class CommonModelAdapterFactory extends AdapterFactoryImpl
 
    /**
     * Creates a new adapter for the default case.
-    * <!-- begin-user-doc --> This default implementation returns null. <!--
-    * end-user-doc -->
+    * <!-- begin-user-doc -->
+    * This default implementation returns null.
+    * <!-- end-user-doc -->
     * 
     * @return the new adapter.
     * @generated

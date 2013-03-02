@@ -25,8 +25,10 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.Profile;
 import org.apache.maven.plugin.LegacySupport;
+import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
@@ -39,8 +41,6 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
-import org.sourcepit.b2.model.session.Environment;
-import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.common.base.Strings;
@@ -120,7 +120,10 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       final Model model = readMavenModel(pomFile);
       new ModelTemplateMerger().merge(model, defaultModel, false, null);
 
-      Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
+      final List<Environment> environments = configureModuleTargetEnvironments(legacySupport.getSession()
+         .getCurrentProject(), properties);
+
+      Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module, environments);
       if (!artifacts.isEmpty())
       {
          artifacts.addAll(gatherArtifacts(module, propertie));
@@ -358,14 +361,12 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
    }
 
-   private List<ModuleArtifact> gatherProductArtifacts(final AbstractModule module)
+   private List<ModuleArtifact> gatherProductArtifacts(final AbstractModule module, List<Environment> environments)
    {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
-      ModuleProject project = sessionService.getCurrentSession().getCurrentProject();
-
       final List<String> envAppendixes = new ArrayList<String>();
-      for (Environment environment : project.getEnvironements())
+      for (Environment environment : environments)
       {
          envAppendixes.add(toEnvAppendix(environment));
       }
@@ -404,6 +405,104 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
 
       return artifacts;
+   }
+
+   private static class Environment
+   {
+      private String os, ws, arch;
+
+      public String getOs()
+      {
+         return os;
+      }
+
+      public void setOs(String os)
+      {
+         this.os = os;
+      }
+
+      public String getWs()
+      {
+         return ws;
+      }
+
+      public void setWs(String ws)
+      {
+         this.ws = ws;
+      }
+
+      public String getArch()
+      {
+         return arch;
+      }
+
+      public void setArch(String arch)
+      {
+         this.arch = arch;
+      }
+
+
+   }
+
+   // HACK
+   private static List<Environment> configureModuleTargetEnvironments(MavenProject project, Properties properties)
+   {
+      final List<Environment> environments = new ArrayList<Environment>();
+
+      for (Plugin plugin : project.getBuildPlugins())
+      {
+         if ("org.eclipse.tycho:target-platform-configuration".equals(plugin.getKey()))
+         {
+            Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
+            if (configuration != null)
+            {
+               Xpp3Dom envs = configuration.getChild("environments");
+               if (envs != null)
+               {
+                  for (Xpp3Dom envNode : envs.getChildren("environment"))
+                  {
+                     Environment env = new Environment();
+
+                     Xpp3Dom node = envNode.getChild("os");
+                     if (node != null)
+                     {
+                        env.os = node.getValue();
+                     }
+
+                     node = envNode.getChild("ws");
+                     if (node != null)
+                     {
+                        env.ws = node.getValue();
+                     }
+
+                     node = envNode.getChild("arch");
+                     if (node != null)
+                     {
+                        env.arch = node.getValue();
+                     }
+
+                     environments.add(env);
+                  }
+               }
+            }
+         }
+      }
+
+      if (environments.isEmpty())
+      {
+         String os = PlatformPropertiesUtils.getOS(properties);
+         String ws = PlatformPropertiesUtils.getWS(properties);
+         String arch = PlatformPropertiesUtils.getArch(properties);
+
+         Environment env = new Environment();
+         env.setOs(os);
+         env.setWs(ws);
+         env.setArch(arch);
+
+         environments.add(env);
+      }
+
+      return environments;
    }
 
    /**
