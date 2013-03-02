@@ -69,7 +69,7 @@ public final class ModelBuilderTestHarness
    {
       new File(moduleDir, "module.xml").createNewFile();
    }
-   
+
    public static BasicModule initModuleDir(final File moduleDir, String groupId, String artifactId, String mavenVersion)
       throws IOException
    {
@@ -108,7 +108,7 @@ public final class ModelBuilderTestHarness
       resource.getContents().add(mf);
       resource.save(null);
    }
-   
+
    public static PropertiesMap newProperties(File moduleDir)
    {
       final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
@@ -121,5 +121,6 @@ public final class ModelBuilderTestHarness
       final Document moduleXml = readXml(new File(moduleDir, "module.xml"));
       properties.put("project.groupId", queryText(moduleXml, "project/groupId"));
       properties.put("project.artifactId", queryText(moduleXml, "project/artifactId"));
+      properties.put("project.version", queryText(moduleXml, "project/version"));
    }
 }

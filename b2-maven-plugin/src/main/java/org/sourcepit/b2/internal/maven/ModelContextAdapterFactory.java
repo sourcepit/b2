@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.sourcepit.b2.maven.core.B2MavenBridge;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
@@ -76,7 +77,7 @@ public class ModelContextAdapterFactory
 
       initURIMapping(resourceSet, session, project);
 
-      final URI artifactURI = toArtifactURI(project, "module", null);
+      final URI artifactURI = B2MavenBridge.toArtifactURI(project, "module", null);
       final URI fileURI = URI.createFileURI(pathOfMetaDataFile(project.getBasedir(), "b2.module"));
       resourceSet.getURIConverter().getURIMap().put(artifactURI, fileURI);
 
@@ -185,24 +186,6 @@ public class ModelContextAdapterFactory
          artifactURIs.get(artifactURI).addAll(entry.getValue());
          resourceSet.getURIConverter().getURIMap().put(artifactURI, fileURI);
       }
-   }
-
-   private static URI toArtifactURI(MavenProject project, String type, String classifier)
-   {
-      final StringBuilder sb = new StringBuilder();
-      sb.append(project.getGroupId());
-      sb.append("/");
-      sb.append(project.getArtifactId());
-      sb.append("/");
-      sb.append(type);
-      if (classifier != null && classifier.length() > 0)
-      {
-         sb.append("/");
-         sb.append(classifier);
-      }
-      sb.append("/");
-      sb.append(project.getVersion());
-      return URI.createURI("gav:/" + sb.toString());
    }
 
    private static URI toArtifactURI(MavenArtifact artifact, String classifier)

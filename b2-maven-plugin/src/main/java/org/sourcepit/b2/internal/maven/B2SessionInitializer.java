@@ -8,7 +8,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
@@ -47,7 +49,6 @@ import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -102,9 +103,6 @@ public class B2SessionInitializer
 
       createB2Session(modelContext.getResourceSet(), bootSession);
 
-      Adapters.removeAdapters(bootSession, B2Session.class);
-      Adapters.addAdapter(bootSession, b2Session);
-
       return sessionService.getCurrentProjectDirs();
    }
 
@@ -136,14 +134,14 @@ public class B2SessionInitializer
       sessionService.setCurrentModules(modules);
    }
 
-   public B2Request newB2Request(MavenProject bootProject)
+   public B2Request newB2Request(MavenSession bootSession, MavenProject bootProject)
    {
       final PropertiesSource moduleProperties = createSource(legacySupport.getSession(), bootProject);
 
-      final B2Session b2Session = sessionService.getCurrentProjectDirs();
+      final List<File> projectDirs = sessionService.getCurrentProjectDirs();
       final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
 
-      processDependencies(resourceSet, b2Session.getCurrentProject(), bootProject);
+      processDependencies(resourceSet, bootSession, bootProject);
 
       final File moduleDir = bootProject.getBasedir();
       logger.info("Building model for directory " + moduleDir.getName());
@@ -151,10 +149,8 @@ public class B2SessionInitializer
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(moduleProperties));
 
       final Set<File> whitelist = new HashSet<File>();
-      for (ModuleProject project : b2Session.getProjects())
-      {
-         whitelist.add(project.getDirectory());
-      }
+      whitelist.addAll(projectDirs);
+      
       final IModuleFilter fileFilter = new WhitelistModuleFilter(whitelist);
 
       final B2Request b2Request = new B2Request();
@@ -166,7 +162,7 @@ public class B2SessionInitializer
       return b2Request;
    }
 
-   private void processDependencies(ResourceSet resourceSet, ModuleProject moduleProject,
+   private void processDependencies(ResourceSet resourceSet, MavenSession mavenSession,
       final MavenProject wrapperProject)
    {
       final ModelContext modelContext = ModelContextAdapterFactory.get(wrapperProject);
@@ -175,13 +171,14 @@ public class B2SessionInitializer
       foo.putAll(modelContext.getMainScope());
       foo.putAll(modelContext.getTestScope());
 
-      final B2Session session = moduleProject.getSession();
+      final Map<String, String> sites = new LinkedHashMap<String, String>();
 
       for (Entry<AbstractModule, Collection<FeatureProject>> entry : foo.asMap().entrySet())
       {
          ArtifactIdentifier id = toArtifactId(entry.getKey().eResource().getURI());
 
-         if (session.getProject(id.getGroupId(), id.getArtifactId(), id.getVersion()) == null)
+         MavenProject mavenProject = findMavenProject(mavenSession, entry.getKey().getDirectory());
+         if (mavenProject == null)
          {
             // TODO move test sites to test projects
             for (FeatureProject featureProject : entry.getValue())
@@ -197,13 +194,28 @@ public class B2SessionInitializer
 
                   final ArtifactIdentifier uniqueId = new ArtifactIdentifier(id.getGroupId(), id.getArtifactId(),
                      id.getVersion(), classifier, id.getType());
-                  moduleProject.putAnnotationEntry("b2.resolvedSites", uniqueId.toString().replace(':', '_'), siteUrl);
+
+                  sites.put(uniqueId.toString().replace(':', '_'), siteUrl);
 
                   logger.info("Using site " + siteUrl);
                }
             }
          }
       }
+
+      wrapperProject.setContextValue("b2.resolvedSites", sites);
+   }
+
+   private static MavenProject findMavenProject(MavenSession mavenSession, File directory)
+   {
+      for (MavenProject mavenProject : mavenSession.getProjects())
+      {
+         if (mavenProject.getBasedir().equals(directory))
+         {
+            return mavenProject;
+         }
+      }
+      return null;
    }
 
    private static ArtifactIdentifier toArtifactId(URI uri)

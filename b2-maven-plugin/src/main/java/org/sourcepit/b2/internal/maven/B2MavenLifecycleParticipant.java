@@ -6,8 +6,6 @@
 
 package org.sourcepit.b2.internal.maven;
 
-import static com.google.common.base.Preconditions.checkState;
-
 import java.io.File;
 import java.util.Map.Entry;
 
@@ -24,9 +22,9 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.sourcepit.b2.maven.core.B2MavenBridge;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.SessionModelPackage;
 import org.sourcepit.common.maven.testing.ChainedExecutionListener;
+import org.sourcepit.common.utils.adapt.AbstractAdapterFactory;
+import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
@@ -52,52 +50,40 @@ public class B2MavenLifecycleParticipant extends AbstractMavenLifecycleParticipa
       mavenSession.getRequest().setExecutionListener(listener);
    }
 
-   private File currentModuleDir;
-
-   private B2Session currentSession;
-
    private void afterProjectStarted(MavenSession mavenSession, MavenProject mavenProject)
    {
-      final File moduleDir = getModuleDir(mavenSession, mavenProject);
-      if (!moduleDir.equals(currentModuleDir))
+      Adapters.adapt(new AbstractAdapterFactory()
       {
-         if (currentSession != null)
+         @Override
+         @SuppressWarnings("unchecked")
+         protected <A> A newAdapter(Object adaptable, Class<A> adapterType)
          {
-            b2Bridge.disconnect(mavenSession, currentSession);
+            return (A) adaptB2((MavenSession) adaptable);
          }
-
-         currentSession = loadB2Session(moduleDir);
-         currentModuleDir = moduleDir;
-
-         b2Bridge.connect(mavenSession, currentSession);
-      }
+      }, mavenSession, ResourceSet.class);
    }
 
-   private File getModuleDir(MavenSession mavenSession, MavenProject mavenProject)
+   private ResourceSet adaptB2(MavenSession mavenSession)
    {
-      final File moduleDir = findModuleDir(mavenProject.getBasedir());
-      checkState(moduleDir != null, "Project '" + mavenProject.toString() + "' is not contained in any module.");
-
-      MavenProject moduleProject = null;
-      for (MavenProject project : mavenSession.getProjects())
+      final ResourceSet resourceSet = createResourceSet();
+      for (MavenProject mavenProject : mavenSession.getProjects())
       {
-         if (moduleDir.equals(project.getBasedir()))
+         if (isModuleDir(mavenProject.getBasedir()))
          {
-            moduleProject = project;
-            break;
+            setUriMappings(mavenProject.getBasedir(), resourceSet);
          }
       }
-
-      checkState(moduleProject != null, "Project '" + mavenProject.toString() + "' is not contained in any module.");
-      return moduleDir;
+      b2Bridge.connect(mavenSession, resourceSet);
+      return resourceSet;
    }
 
-   private B2Session loadB2Session(final File moduleDir)
+   private static boolean isModuleDir(File basedir)
    {
-      ResourceSet resourceSet = createResourceSet();
-      resourceSet.getPackageRegistry().put(ModuleModelPackage.eNS_URI, ModuleModelPackage.eINSTANCE);
-      resourceSet.getPackageRegistry().put(SessionModelPackage.eNS_URI, SessionModelPackage.eINSTANCE);
+      return new File(basedir, "module.xml").exists();
+   }
 
+   private static void setUriMappings(final File moduleDir, ResourceSet resourceSet)
+   {
       PropertiesMap uriMap = new LinkedPropertiesMap();
       uriMap.load(new File(moduleDir, ".b2/uriMap.properties"));
 
@@ -107,10 +93,6 @@ public class B2MavenLifecycleParticipant extends AbstractMavenLifecycleParticipa
          URI value = URI.createURI(entry.getValue());
          resourceSet.getURIConverter().getURIMap().put(key, value);
       }
-
-      URI sessionUri = URI.createFileURI(new File(moduleDir, ".b2/b2.session").getAbsolutePath());
-
-      return (B2Session) resourceSet.getResource(sessionUri, true).getContents().get(0);
    }
 
    private static ResourceSet createResourceSet()
@@ -118,16 +100,7 @@ public class B2MavenLifecycleParticipant extends AbstractMavenLifecycleParticipa
       final ResourceSet resourceSet = new ResourceSetImpl();
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("gav", new XMIResourceFactoryImpl());
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
+      resourceSet.getPackageRegistry().put(ModuleModelPackage.eNS_URI, ModuleModelPackage.eINSTANCE);
       return resourceSet;
-   }
-
-   private static File findModuleDir(File dir)
-   {
-      if (new File(dir, "module.xml").exists())
-      {
-         return dir;
-      }
-      final File parentDir = dir.getParentFile();
-      return parentDir == null ? null : findModuleDir(parentDir);
    }
 }

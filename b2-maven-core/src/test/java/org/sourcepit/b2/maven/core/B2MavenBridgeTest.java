@@ -18,9 +18,11 @@ import java.util.ArrayList;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.hamcrest.core.Is;
-import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -29,14 +31,12 @@ import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.b2.model.session.SessionModelFactory;
 import org.sourcepit.guplex.test.PlexusTest;
 
 public class B2MavenBridgeTest extends PlexusTest
@@ -50,43 +50,8 @@ public class B2MavenBridgeTest extends PlexusTest
    }
 
    @Test
-   public void testConnectSessions()
-   {
-      MavenSession mavenSession = mock(MavenSession.class);
-      B2Session b2Session = mock(B2Session.class);
-      when(b2Session.getProjects()).thenReturn(new BasicEList<ModuleProject>());
-
-      b2Bridge.connect(mavenSession, b2Session);
-
-      assertThat(b2Bridge.getB2Session(mavenSession), IsEqual.equalTo(b2Session));
-
-      try
-      {
-         b2Bridge.connect(mavenSession, b2Session);
-         fail();
-      }
-      catch (IllegalStateException e)
-      {
-      }
-
-      try
-      {
-         b2Bridge.connect(mavenSession, mock(B2Session.class));
-         fail();
-      }
-      catch (IllegalStateException e)
-      {
-      }
-   }
-
-   @Test
    public void testConnectProjects()
    {
-      // : B2Session
-      // reactor : ModuleProject
-      // module-a : ModuleProject
-      // module-b : ModuleProject
-
       // reactor : CompositeModule
       // * module-a : BasicModule
       // * module-b : BasicModule
@@ -136,20 +101,6 @@ public class B2MavenBridgeTest extends PlexusTest
       moduleR.getModules().add(moduleA);
       moduleR.getModules().add(moduleB);
 
-      // b2 session
-      ModuleProject moduleProjectR = createModuleProject(reactorDir);
-      ModuleProject moduleProjectA = createModuleProject(projectADir);
-      ModuleProject moduleProjectB = createModuleProject(projectBDir);
-
-      moduleProjectR.setModuleModel(moduleR);
-      moduleProjectA.setModuleModel(moduleA);
-      moduleProjectB.setModuleModel(moduleB);
-
-      B2Session b2Session = SessionModelFactory.eINSTANCE.createB2Session();
-      b2Session.getProjects().add(moduleProjectR);
-      b2Session.getProjects().add(moduleProjectA);
-      b2Session.getProjects().add(moduleProjectB);
-
       // Maven session
       MavenProject mavenProjectR = createMavenProject(reactorDir);
       MavenProject mavenProjectA = createMavenProject(projectADir);
@@ -171,27 +122,45 @@ public class B2MavenBridgeTest extends PlexusTest
       mavenSession.getProjects().add(mavenProjectBTest);
       mavenSession.getProjects().add(mavenProjectBFeature);
 
-      b2Bridge.connect(mavenSession, b2Session);
+      final ResourceSet resourceSet = new ResourceSetImpl();
+      resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("gav", new ResourceFactoryImpl());
+      resourceSet.getPackageRegistry().put(ModuleModelPackage.eNS_URI, ModuleModelPackage.eINSTANCE);
+
+      Resource resourceR = resourceSet.createResource(B2MavenBridge.toArtifactURI(mavenProjectR, "module", null));
+      resourceR.getContents().add(moduleR);
+
+      Resource resourceA = resourceSet.createResource(B2MavenBridge.toArtifactURI(mavenProjectA, "module", null));
+      resourceA.getContents().add(moduleA);
+
+      Resource resourceB = resourceSet.createResource(B2MavenBridge.toArtifactURI(mavenProjectB, "module", null));
+      resourceB.getContents().add(moduleB);
+
+      resourceSet.getResources().add(resourceR);
+      resourceSet.getResources().add(resourceA);
+      resourceSet.getResources().add(resourceB);
+
+      b2Bridge.connect(mavenSession, resourceSet);
       
-      for (MavenProject mavenProject : mavenSession.getProjects())
+      try
       {
-         assertNotNull(mavenProject.getContextValue(B2MavenBridge.CTX_KEY_ADAPTER_LIST));
+         b2Bridge.connect(mavenSession, resourceSet);
+         fail();
+      }
+      catch (IllegalStateException e)
+      {
       }
 
-      assertThat(b2Bridge.getB2Session(mavenSession), Is.is(b2Session));
-      assertThat(b2Bridge.getMavenSession(b2Session), Is.is(mavenSession));
-
-      assertThat(b2Bridge.getModuleProject(mavenProjectR), Is.is(moduleProjectR));
-      assertThat(b2Bridge.getModuleProject(mavenProjectA), Is.is(moduleProjectA));
-      assertThat(b2Bridge.getModuleProject(mavenProjectB), Is.is(moduleProjectB));
-      assertNull(b2Bridge.getModuleProject(mavenProjectASite));
-      assertNull(b2Bridge.getModuleProject(mavenProjectAPlugin));
-      assertNull(b2Bridge.getModuleProject(mavenProjectBPlugin));
-      assertNull(b2Bridge.getModuleProject(mavenProjectBTest));
-      assertNull(b2Bridge.getModuleProject(mavenProjectBFeature));
-      assertThat(b2Bridge.getMavenProject(moduleProjectR), Is.is(mavenProjectR));
-      assertThat(b2Bridge.getMavenProject(moduleProjectA), Is.is(mavenProjectA));
-      assertThat(b2Bridge.getMavenProject(moduleProjectB), Is.is(mavenProjectB));
+      for (MavenProject mavenProject : mavenSession.getProjects())
+      {
+         if (B2MavenBridge.isModuleProject(resourceSet, mavenProject))
+         {
+            assertNotNull(mavenProject.getArtifactId(), mavenProject.getContextValue(AbstractModule.class.getName()));
+         }
+         else
+         {
+            assertNotNull(mavenProject.getArtifactId(), mavenProject.getContextValue(Project.class.getName()));
+         }
+      }
 
       assertThat(b2Bridge.getModule(mavenProjectR), Is.is((AbstractModule) moduleR));
       assertThat(b2Bridge.getModule(mavenProjectA), Is.is((AbstractModule) moduleA));
@@ -201,7 +170,6 @@ public class B2MavenBridgeTest extends PlexusTest
       assertNull(b2Bridge.getModule(mavenProjectBPlugin));
       assertNull(b2Bridge.getModule(mavenProjectBTest));
       assertNull(b2Bridge.getModule(mavenProjectBFeature));
-      assertThat(b2Bridge.getMavenProject(moduleR), Is.is(mavenProjectR));
 
       assertNull(b2Bridge.getEclipseProject(mavenProjectR));
       assertNull(b2Bridge.getEclipseProject(mavenProjectA));
@@ -211,32 +179,23 @@ public class B2MavenBridgeTest extends PlexusTest
       assertThat(b2Bridge.getEclipseProject(mavenProjectBPlugin), Is.is((Project) pluginB));
       assertThat(b2Bridge.getEclipseProject(mavenProjectBTest), Is.is((Project) testB));
       assertThat(b2Bridge.getEclipseProject(mavenProjectBFeature), Is.is((Project) featureB));
-      assertThat(b2Bridge.getMavenProject(siteA), Is.is(mavenProjectASite));
-      assertThat(b2Bridge.getMavenProject(pluginA), Is.is(mavenProjectAPlugin));
-      assertThat(b2Bridge.getMavenProject(pluginB), Is.is(mavenProjectBPlugin));
-      assertThat(b2Bridge.getMavenProject(testB), Is.is(mavenProjectBTest));
-      assertThat(b2Bridge.getMavenProject(featureB), Is.is(mavenProjectBFeature));
 
-      b2Bridge.disconnect(mavenSession, b2Session);
-
-      assertNull(b2Bridge.getB2Session(mavenSession));
-      assertNull(b2Bridge.getMavenSession(b2Session));
-
-      assertNull(b2Bridge.getModuleProject(mavenProjectR));
-      assertNull(b2Bridge.getModuleProject(mavenProjectA));
-      assertNull(b2Bridge.getModuleProject(mavenProjectB));
-      assertNull(b2Bridge.getMavenProject(moduleProjectR));
-      assertNull(b2Bridge.getMavenProject(moduleProjectA));
-      assertNull(b2Bridge.getMavenProject(moduleProjectB));
+      b2Bridge.disconnect(mavenSession);
 
       assertNull(b2Bridge.getModule(mavenProjectR));
       assertNull(b2Bridge.getModule(mavenProjectA));
       assertNull(b2Bridge.getModule(mavenProjectB));
-      assertNull(b2Bridge.getMavenProject(moduleR));
 
       for (MavenProject mavenProject : mavenSession.getProjects())
       {
-         assertNull(mavenProject.getContextValue(B2MavenBridge.CTX_KEY_ADAPTER_LIST));
+         if (B2MavenBridge.isModuleProject(resourceSet, mavenProject))
+         {
+            assertNull(mavenProject.getContextValue(AbstractModule.class.getName()));
+         }
+         else
+         {
+            assertNull(mavenProject.getContextValue(Project.class.getName()));
+         }
       }
    }
 
@@ -280,16 +239,6 @@ public class B2MavenBridgeTest extends PlexusTest
       module.setDirectory(moduleDir);
       module.setVersion("1");
       return module;
-   }
-
-   private static ModuleProject createModuleProject(File baseDir)
-   {
-      ModuleProject moduleProject = SessionModelFactory.eINSTANCE.createModuleProject();
-      moduleProject.setDirectory(baseDir);
-      moduleProject.setArtifactId(baseDir.getName());
-      moduleProject.setGroupId(moduleProject.getArtifactId());
-      moduleProject.setVersion("1");
-      return moduleProject;
    }
 
    private static MavenProject createMavenProject(File baseDir)

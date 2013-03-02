@@ -6,6 +6,10 @@
 
 package org.sourcepit.b2.internal.maven;
 
+import static com.google.common.base.Preconditions.checkState;
+
+import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
@@ -20,8 +24,7 @@ import org.sourcepit.b2.execution.B2RequestFactory;
 import org.sourcepit.b2.execution.B2SessionRunner;
 import org.sourcepit.b2.internal.scm.svn.SCM;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
 
 @Named
@@ -56,38 +59,47 @@ public class B2BootstrapParticipant implements BootstrapParticipant
 
       final B2RequestFactory b2RequestFactory = new B2RequestFactory()
       {
-         public B2Request newRequest(B2Session session, int currentIdx)
+         public B2Request newRequest(List<File> projectDirs, int currentIdx)
          {
-            return b2SessionInitializer.newB2Request(bootProject);
+            return b2SessionInitializer.newB2Request(mavenSession, bootProject);
          }
       };
 
-      sessionRunner.prepareNext(b2Session, b2RequestFactory);
+      final List<File> projectDirs = sessionService.getCurrentProjectDirs();
+
+      final int idx = projectDirs.indexOf(bootProject.getBasedir());
+      checkState(idx > -1);
+
+      sessionRunner.prepareNext(projectDirs, idx, b2RequestFactory);
    }
 
    public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)
    {
-      final B2Session b2Session = sessionService.getCurrentProjectDirs();
-      for (ModuleProject project : b2Session.getProjects())
-      {
-         if (bootProject.getBasedir().equals(project.getDirectory()))
-         {
-            b2Session.setCurrentProject(project);
-            break;
-         }
-      }
-
       final String setScmIgnoresProp = bootProject.getProperties().getProperty("b2.scm.setScmIgnores",
          System.getProperty("b2.scm.setScmIgnores", "false"));
 
       final boolean isSetScmIgnores = Boolean.valueOf(setScmIgnoresProp).booleanValue();
       if (isSetScmIgnores)
       {
-         ModuleProject project = b2Session.getCurrentProject();
-         if (project != null && project.getModuleModel() != null)
+         final File projectDir = bootProject.getBasedir();
+
+         final AbstractModule module = getCurrentModule(projectDir);
+         if (module != null)
          {
-            scm.doSetScmIgnores(project.getModuleModel());
+            scm.doSetScmIgnores(module);
          }
       }
+   }
+
+   private AbstractModule getCurrentModule(final File projectDir)
+   {
+      for (AbstractModule module : sessionService.getCurrentModules())
+      {
+         if (projectDir.equals(module.getDirectory()))
+         {
+            return module;
+         }
+      }
+      return null;
    }
 }
