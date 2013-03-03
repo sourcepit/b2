@@ -324,11 +324,6 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
 
-      final ModuleArtifact sessionModel = new ModuleArtifact();
-      sessionModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.session")));
-      sessionModel.setType("session");
-      artifacts.add(sessionModel);
-
       final ModuleArtifact moduleModel = new ModuleArtifact();
       moduleModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.module")));
       moduleModel.setType("module");
