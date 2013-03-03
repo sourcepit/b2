@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -169,35 +171,57 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
    private void configureDeployMojo(final Plugin deployMojo, final Collection<ModuleArtifact> artifacts)
    {
-      final StringBuilder files = new StringBuilder();
-      final StringBuilder classifiers = new StringBuilder();
-      final StringBuilder types = new StringBuilder();
-      for (ModuleArtifact artifact : artifacts)
+      final Xpp3Dom deployConfig = (Xpp3Dom) deployMojo.getExecutions().get(0).getConfiguration();
+      if (artifacts.size() == 1)
       {
-         files.append(artifact.getFile().getAbsolutePath());
-         files.append(',');
-         classifiers.append(artifact.getClassifier() == null ? "" : artifact.getClassifier());
-         classifiers.append(',');
-         types.append(artifact.getType());
-         types.append(',');
+         final ModuleArtifact artifact = artifacts.iterator().next();
+
+         final Xpp3Dom fileNode = deployConfig.getChild("file");
+         fileNode.setValue(artifact.getFile().getAbsolutePath());
+
+         final String cl = artifact.getClassifier();
+         if (!isNullOrEmpty(cl))
+         {
+            final Xpp3Dom classifierNode = new Xpp3Dom("classifier");
+            classifierNode.setValue(cl);
+            deployConfig.addChild(classifierNode);
+         }
+
+         final Xpp3Dom packagingNode = new Xpp3Dom("packaging");
+         packagingNode.setValue(artifact.getType());
+         deployConfig.addChild(packagingNode);
       }
-      files.deleteCharAt(files.length() - 1);
-      classifiers.deleteCharAt(classifiers.length() - 1);
-      types.deleteCharAt(types.length() - 1);
+      else
+      {
+         final StringBuilder files = new StringBuilder();
+         final StringBuilder classifiers = new StringBuilder();
+         final StringBuilder types = new StringBuilder();
+         for (ModuleArtifact artifact : artifacts)
+         {
+            files.append(artifact.getFile().getAbsolutePath());
+            files.append(',');
+            classifiers.append(artifact.getClassifier() == null ? "" : artifact.getClassifier());
+            classifiers.append(',');
+            types.append(artifact.getType());
+            types.append(',');
+         }
+         files.deleteCharAt(files.length() - 1);
+         classifiers.deleteCharAt(classifiers.length() - 1);
+         types.deleteCharAt(types.length() - 1);
 
-      Xpp3Dom filesNode = new Xpp3Dom("files");
-      filesNode.setValue(files.toString());
+         Xpp3Dom filesNode = new Xpp3Dom("files");
+         filesNode.setValue(files.toString());
 
-      Xpp3Dom classifiersNode = new Xpp3Dom("classifiers");
-      classifiersNode.setValue(classifiers.toString());
+         Xpp3Dom classifiersNode = new Xpp3Dom("classifiers");
+         classifiersNode.setValue(classifiers.toString());
 
-      Xpp3Dom typesNode = new Xpp3Dom("types");
-      typesNode.setValue(types.toString());
+         Xpp3Dom typesNode = new Xpp3Dom("types");
+         typesNode.setValue(types.toString());
 
-      Xpp3Dom deployConfig = (Xpp3Dom) deployMojo.getExecutions().get(0).getConfiguration();
-      deployConfig.addChild(filesNode);
-      deployConfig.addChild(classifiersNode);
-      deployConfig.addChild(typesNode);
+         deployConfig.addChild(filesNode);
+         deployConfig.addChild(classifiersNode);
+         deployConfig.addChild(typesNode);
+      }
    }
 
    private void configureInstallMojo(final Plugin installMojo, final Model moduleModel,
