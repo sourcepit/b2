@@ -14,6 +14,7 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.Project;
@@ -78,9 +79,19 @@ public class B2MavenBridge
       }
    }
 
-   public static boolean isModuleProject(ResourceSet resourceSet, MavenProject mavenProject)
+   static boolean isModuleProject(ResourceSet resourceSet, MavenProject mavenProject)
    {
-      return resourceSet.getResource(toArtifactURI(mavenProject, "module", null), false) != null;
+      Resource resource;
+      try
+      {
+         final URI uri = toArtifactURI(mavenProject, "module", null);
+         resource = resourceSet.getResource(uri, true);
+      }
+      catch (RuntimeException e)
+      {
+         resource = null;
+      }
+      return resource != null && !resource.getContents().isEmpty();
    }
 
    @SuppressWarnings("unchecked")
