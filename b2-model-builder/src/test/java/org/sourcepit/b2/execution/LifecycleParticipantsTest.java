@@ -9,7 +9,9 @@ import static org.junit.Assert.assertThat;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import javax.inject.Inject;
@@ -68,6 +70,8 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
    public void testAll() throws Exception
    {
+      final Map<File, AbstractModule> modules = new LinkedHashMap<File, AbstractModule>();
+
       final B2RequestFactory requestFactory = new B2RequestFactory()
       {
          public B2Request newRequest(List<File> projectDirs, int currentIdx)
@@ -77,18 +81,20 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
             request.setModuleProperties(ModelBuilderTestHarness.newProperties(projectDirs.get(currentIdx)));
             request.setInterpolate(true);
             request.setTemplates(new DefaultTemplateCopier());
+            request.getModulesCache().putAll(modules);
             return request;
          }
       };
 
-      final List<File> projectDirs = getCurrentSession();
+      final List<File> projectDirs = getModuleDirs();
 
-      int idx = 0;
-      while (sessionRunner.prepareNext(projectDirs, idx++, requestFactory))
-      { // noop
+      for (int i = 0; i < projectDirs.size(); i++)
+      {
+         final AbstractModule module = sessionRunner.prepareNext(projectDirs, i, requestFactory);
+         modules.put(module.getDirectory(), module);
       }
 
-      idx = 0;
+      int idx = 0;
       while (sessionRunner.finalizeNext(projectDirs, idx++))
       { // noop
       }

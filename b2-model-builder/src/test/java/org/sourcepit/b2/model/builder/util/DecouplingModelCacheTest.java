@@ -7,10 +7,11 @@
 package org.sourcepit.b2.model.builder.util;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
@@ -52,7 +53,8 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(simpleModule);
+      List<AbstractModule> currentModules = new ArrayList<AbstractModule>();
+      currentModules.add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -60,11 +62,16 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(structuredModule);
+      currentModules.add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
+
+      for (AbstractModule module : currentModules)
+      {
+         request.getModulesCache().put(module.getDirectory(), module);
+      }
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());
@@ -99,7 +106,8 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(simpleModule);
+      List<AbstractModule> currentModules = new ArrayList<AbstractModule>();
+      currentModules.add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -107,97 +115,22 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(structuredModule);
+      currentModules.add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
+
+      for (AbstractModule module : currentModules)
+      {
+         request.getModulesCache().put(module.getDirectory(), module);
+      }
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());
 
       final EList<AbstractModule> modules = compositeModule.getModules();
       assertEquals(2, modules.size());
-
-      // folder ordering differs between win and linux, we can't rely on the index
-
-
-      // AbstractModule _simpleModule = modelCache.get(simpleModule.getDirectory());
-      // AbstractModule _structuredModule = modelCache.get(structuredModule.getDirectory());
-      // int idxSimple = modules.indexOf(_simpleModule);
-      // int idxStructured = modules.indexOf(_structuredModule);
-      // assertEquals(_simpleModule.getId(), modules.get(idxSimple).getId());
-      // assertEquals(_structuredModule.getId(), modules.get(idxStructured).getId());
-      // assertEquals(simpleModule.getId(), modules.get(idxSimple).getId());
-      // assertEquals(structuredModule.getId(), modules.get(idxStructured).getId());
-      // EcoreUtils.assertEEquals(simpleModule, (BasicModule) modules.get(idxSimple));
-      // EcoreUtils.assertEEquals(structuredModule, (BasicModule) modules.get(idxStructured));
-   }
-
-
-   public void _testDecoupled_Interpolated() throws Exception
-   {
-      final File moduleDir = getModuleDirByName("composite-layout");
-
-      // get dummy module files
-      final File parentFile = moduleDir;
-      final File simpleFile = new File(moduleDir, "simple-layout");
-      final File structuredFile = new File(moduleDir, "structured-layout");
-
-      File simpleSite = new File(simpleFile, "example.site");
-      assertTrue(simpleSite.exists());
-      FileUtils.deleteDirectory(simpleSite);
-      assertFalse(simpleSite.exists());
-
-      File structuredSite = new File(structuredFile, "sites");
-      assertTrue(structuredSite.exists());
-      FileUtils.deleteDirectory(structuredSite);
-      assertFalse(structuredSite.exists());
-
-      final B2ModelBuilder builder = lookup();
-
-      B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleDirectory(simpleFile);
-      request.setInterpolate(true);
-
-      BasicModule simpleModule = (BasicModule) builder.build(request);
-
-      sessionService.getCurrentModules().add(simpleModule);
-
-      request = new B2ModelBuildingRequest();
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleDirectory(structuredFile);
-      request.setInterpolate(false);
-
-      BasicModule structuredModule = (BasicModule) builder.build(request);
-
-      sessionService.getCurrentModules().add(structuredModule);
-
-      request = new B2ModelBuildingRequest();
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleDirectory(parentFile);
-      request.setInterpolate(true);
-
-      CompositeModule compositeModule = (CompositeModule) builder.build(request);
-      assertEquals("composite", compositeModule.getLayoutId());
-
-      final EList<AbstractModule> modules = compositeModule.getModules();
-      assertEquals(2, modules.size());
-
-      // folder ordering differs between win and linux, we can't rely on the index
-
-
-      // AbstractModule _simpleModule = modelCache.get(simpleModule.getDirectory());
-      // AbstractModule _structuredModule = modelCache.get(structuredModule.getDirectory());
-      // int idxSimple = modules.indexOf(_simpleModule);
-      // int idxStructured = modules.indexOf(_structuredModule);
-      // assertEquals(_simpleModule.getId(), modules.get(idxSimple).getId());
-      // assertEquals(_structuredModule.getId(), modules.get(idxStructured).getId());
-      // assertEquals(simpleModule.getId(), modules.get(idxSimple).getId());
-      // assertEquals(structuredModule.getId(), modules.get(idxStructured).getId());
-      // EcoreUtils.assertEEquals(simpleModule, (BasicModule) modules.get(idxSimple));
-      // EcoreUtils.assertEEquals(structuredModule, (BasicModule) modules.get(idxStructured));
    }
 
    private B2ModelBuilder lookup() throws Exception

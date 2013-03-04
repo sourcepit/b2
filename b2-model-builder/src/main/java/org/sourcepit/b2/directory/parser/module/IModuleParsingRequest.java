@@ -7,7 +7,9 @@
 package org.sourcepit.b2.directory.parser.module;
 
 import java.io.File;
+import java.util.Map;
 
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface IModuleParsingRequest
@@ -17,4 +19,6 @@ public interface IModuleParsingRequest
    PropertiesSource getModuleProperties();
 
    IModuleFilter getModuleFilter();
+   
+   Map<File, AbstractModule> getModulesCache();
 }

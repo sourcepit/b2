@@ -156,8 +156,6 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
 
       mavenSession.setCurrentProject(project);
 
-      b2SessionInitializer.initialize(mavenSession, properties);
-
       final B2Request b2Request = b2SessionInitializer.newB2Request(mavenSession, project);
 
       final AbstractModule module = modelBuilder.build(b2Request);

@@ -9,6 +9,7 @@ package org.sourcepit.b2.internal.maven;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -23,7 +24,6 @@ import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
 import org.sourcepit.b2.execution.B2SessionRunner;
 import org.sourcepit.b2.internal.scm.svn.SCM;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
 
@@ -35,9 +35,6 @@ public class B2BootstrapParticipant implements BootstrapParticipant
 
    @Inject
    private RepositorySystem repositorySystem;
-
-   @Inject
-   private B2SessionService sessionService;
 
    @Inject
    private SCM scm;
@@ -55,8 +52,6 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       properties.putAll(mavenSession.getSystemProperties());
       properties.putAll(mavenSession.getUserProperties());
 
-      b2SessionInitializer.initialize(bootSession, properties);
-
       final B2RequestFactory b2RequestFactory = new B2RequestFactory()
       {
          public B2Request newRequest(List<File> projectDirs, int currentIdx)
@@ -65,12 +60,17 @@ public class B2BootstrapParticipant implements BootstrapParticipant
          }
       };
 
-      final List<File> projectDirs = sessionService.getCurrentProjectDirs();
+      final List<File> projectDirs = new ArrayList<File>();
+      for (MavenProject project : bootSession.getProjects())
+      {
+         projectDirs.add(project.getBasedir());
+      }
 
-      final int idx = projectDirs.indexOf(bootProject.getBasedir());
+      final int idx = bootSession.getProjects().indexOf(bootProject);
       checkState(idx > -1);
 
-      sessionRunner.prepareNext(projectDirs, idx, b2RequestFactory);
+      final AbstractModule module = sessionRunner.prepareNext(projectDirs, idx, b2RequestFactory);
+      bootProject.setContextValue(AbstractModule.class.getName(), module);
    }
 
    public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)
@@ -81,25 +81,11 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       final boolean isSetScmIgnores = Boolean.valueOf(setScmIgnoresProp).booleanValue();
       if (isSetScmIgnores)
       {
-         final File projectDir = bootProject.getBasedir();
-
-         final AbstractModule module = getCurrentModule(projectDir);
+         final AbstractModule module = (AbstractModule) bootProject.getContextValue(AbstractModule.class.getName());
          if (module != null)
          {
             scm.doSetScmIgnores(module);
          }
       }
-   }
-
-   private AbstractModule getCurrentModule(final File projectDir)
-   {
-      for (AbstractModule module : sessionService.getCurrentModules())
-      {
-         if (projectDir.equals(module.getDirectory()))
-         {
-            return module;
-         }
-      }
-      return null;
    }
 }

@@ -10,18 +10,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.plugin.internal.DefaultLegacySupport;
 import org.apache.maven.project.DefaultProjectDependenciesResolver;
 import org.apache.maven.project.ProjectDependenciesResolver;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescriptorResolutionStrategy;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractInjectedWorkspaceTest;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -30,8 +25,7 @@ import com.google.inject.Binder;
 
 public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWorkspaceTest
 {
-   @Inject
-   protected B2SessionService sessionService;
+   private List<File> projectDirs;
 
    @Override
    protected void setUp() throws Exception
@@ -41,12 +35,8 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       final File moduleDir = setUpModuleDir();
       assertTrue(moduleDir.canRead());
 
-      List<File> projectDirs = createSession(moduleDir.getAbsoluteFile());
+      projectDirs = createSession(moduleDir.getAbsoluteFile());
       assertNotNull(projectDirs);
-
-      sessionService.setCurrentProjectDirs(projectDirs);
-      sessionService.setCurrentModules(new ArrayList<AbstractModule>());
-      sessionService.setCurrentResourceSet(new ResourceSetImpl());
    }
 
    @Override
@@ -57,15 +47,15 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
       binder.bind(ProjectDependenciesResolver.class).toInstance(new DefaultProjectDependenciesResolver());
    }
 
-   protected List<File> getCurrentSession()
+   protected List<File> getModuleDirs()
    {
-      return sessionService.getCurrentProjectDirs();
+      return projectDirs;
    }
 
    // HACK
    protected File getModuleDirByName(String name)
    {
-      for (File projectDir : sessionService.getCurrentProjectDirs())
+      for (File projectDir : projectDirs)
       {
          final Document doc = XmlUtils.readXml(new File(projectDir, "module.xml"));
          if (name.equals(XmlUtils.queryText(doc, "/project/artifactId")))

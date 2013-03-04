@@ -34,7 +34,7 @@ public class B2Test extends AbstractB2SessionWorkspaceTest
 
    public void testSkipInterpolator() throws Exception
    {
-      File moduleDir = sessionService.getCurrentProjectDirs().get(0);
+      File moduleDir = getModuleDirs().get(0);
       assertTrue(moduleDir.canRead());
 
       PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();

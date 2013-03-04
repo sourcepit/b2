@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.slf4j.Logger;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
@@ -31,9 +30,6 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant
 {
    @Inject
    private Logger logger;
-
-   @Inject
-   private B2SessionService sessionService;
 
    @Inject
    private Map<String, ModuleValidationConstraint> constraintMap;
