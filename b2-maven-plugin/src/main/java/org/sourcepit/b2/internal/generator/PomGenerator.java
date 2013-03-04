@@ -30,7 +30,6 @@ import org.apache.maven.plugin.LegacySupport;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
@@ -61,9 +60,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Inject
    private UnpackStrategy unpackStrategy;
-
-   @Inject
-   private B2SessionService b2SessionService;
 
    @Inject
    private BasicConverter basicConverter;

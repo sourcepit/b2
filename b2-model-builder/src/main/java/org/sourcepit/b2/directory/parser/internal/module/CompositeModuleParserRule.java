@@ -10,13 +10,13 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.CompositeModule;
@@ -26,9 +26,6 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 @Named("compositeModule")
 public class CompositeModuleParserRule extends AbstractModuleParserRule<CompositeModule>
 {
-   @Inject
-   private B2SessionService sessionService;
-
    @Inject
    private BasicConverter converter;
 
@@ -47,23 +44,17 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
          {
             if (converter.isPotentialModuleDirectory(request.getModuleProperties(), baseDir, member))
             {
-               if ((moduleFilter == null || moduleFilter.accept(member))
-                  && sessionService.getCurrentProjectDirs().contains(member))
+               if (moduleFilter == null || moduleFilter.accept(member))
                {
-                  AbstractModule nestedModule = null;
-                  for (AbstractModule module : sessionService.getCurrentModules())
-                  {
-                     if (member.equals(module.getDirectory()))
-                     {
-                        nestedModule = module;
-                        break;
-                     }
-                  }
+                  final Map<File, AbstractModule> modulesCache = request.getModulesCache();
+
+                  final AbstractModule nestedModule = modulesCache.get(member);
 
                   if (nestedModule == null)
                   {
                      throw new IllegalStateException("Invalid build order");
                   }
+
                   modules.add(nestedModule);
                }
             }

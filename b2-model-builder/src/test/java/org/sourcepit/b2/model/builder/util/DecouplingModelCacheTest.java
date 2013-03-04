@@ -7,6 +7,7 @@
 package org.sourcepit.b2.model.builder.util;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -52,7 +53,8 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(simpleModule);
+      List<AbstractModule> currentModules = sessionService.getCurrentModules();
+      currentModules.add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -60,11 +62,16 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(structuredModule);
+      currentModules.add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
+
+      for (AbstractModule module : currentModules)
+      {
+         request.getModulesCache().put(module.getDirectory(), module);
+      }
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());
@@ -99,7 +106,8 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(simpleModule);
+      List<AbstractModule> currentModules = sessionService.getCurrentModules();
+      currentModules.add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
@@ -107,11 +115,16 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(structuredModule);
+      currentModules.add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
+
+      for (AbstractModule module : currentModules)
+      {
+         request.getModulesCache().put(module.getDirectory(), module);
+      }
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());

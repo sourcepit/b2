@@ -96,7 +96,7 @@ public class B2SessionRunner
    @Inject
    private B2SessionService sessionService;
 
-   public boolean prepareNext(final List<File> projectDirs, final int currentIdx, final B2RequestFactory requestFactory)
+   public AbstractModule prepareNext(final List<File> projectDirs, final int currentIdx, final B2RequestFactory requestFactory)
    {
       final File projectDir = projectDirs.get(currentIdx);
 
@@ -125,7 +125,7 @@ public class B2SessionRunner
       
       sessionService.getCurrentModules().add(module);
       
-      return projectDirs.size() > currentIdx + 1;
+      return module;
    }
 
    public boolean finalizeNext(final List<File> projectDirs, int currentIdx)

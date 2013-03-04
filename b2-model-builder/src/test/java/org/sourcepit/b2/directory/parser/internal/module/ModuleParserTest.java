@@ -10,6 +10,7 @@ import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTest
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -162,10 +163,16 @@ public class ModuleParserTest extends AbstractModuleParserTest
       ModuleParser modelParser = lookup();
 
       request.setModuleDirectory(simpleDir);
-      sessionService.getCurrentModules().add(modelParser.parse(request));
+      List<AbstractModule> currentModules = sessionService.getCurrentModules();
+      currentModules.add(modelParser.parse(request));
 
       request.setModuleDirectory(structuredDir);
-      sessionService.getCurrentModules().add(modelParser.parse(request));
+      currentModules.add(modelParser.parse(request));
+
+      for (AbstractModule module : currentModules)
+      {
+         request.getModulesCache().put(module.getDirectory(), module);
+      }
 
       request.setModuleDirectory(moduleDir);
       CompositeModule module = (CompositeModule) modelParser.parse(request);
@@ -200,10 +207,16 @@ public class ModuleParserTest extends AbstractModuleParserTest
       ModuleParser modelParser = lookup();
 
       request.setModuleDirectory(simpleDir);
-      sessionService.getCurrentModules().add(modelParser.parse(request));
+      List<AbstractModule> currentModules = sessionService.getCurrentModules();
+      currentModules.add(modelParser.parse(request));
 
       request.setModuleDirectory(structuredDir);
-      sessionService.getCurrentModules().add(modelParser.parse(request));
+      currentModules.add(modelParser.parse(request));
+      
+      for (AbstractModule module : currentModules)
+      {
+         request.getModulesCache().put(module.getDirectory(), module);
+      }
 
       request.setModuleDirectory(moduleDir);
       CompositeModule module = (CompositeModule) modelParser.parse(request);

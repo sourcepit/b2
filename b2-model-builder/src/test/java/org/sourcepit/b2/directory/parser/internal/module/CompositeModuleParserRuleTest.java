@@ -19,12 +19,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
+import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 
 public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
@@ -65,7 +68,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
 
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
 
-      prepareSession(subModule1Dir, subModule2Dir);
+      prepareSession(request.getModulesCache(), subModule1Dir, subModule2Dir);
 
       final CompositeModuleParserRule rule = gLookup(CompositeModuleParserRule.class);
       final CompositeModule module = rule.parse(request);
@@ -90,8 +93,9 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
       initPluginDir(mkdir(subModule2Dir, "foo2"));
 
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
-
-      prepareSession();
+      
+      request.setModuleFilter(new WhitelistModuleFilter());
+      prepareSession(request.getModulesCache());
 
       final CompositeModuleParserRule rule = gLookup(CompositeModuleParserRule.class);
       CompositeModule module = rule.parse(request);
@@ -99,7 +103,8 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
       assertEquals(moduleDir, module.getDirectory());
       assertEquals(0, module.getModules().size());
 
-      prepareSession(subModule1Dir);
+      request.setModuleFilter(new WhitelistModuleFilter(subModule1Dir));
+      prepareSession(request.getModulesCache(), subModule1Dir);
 
       module = rule.parse(request);
       assertNotNull(module);
@@ -107,7 +112,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
       assertEquals(1, module.getModules().size());
    }
 
-   private void prepareSession(File... subModuleDirs)
+   private void prepareSession(Map<File, AbstractModule> modules, File... subModuleDirs)
    {
       final List<File> moduleDirs = new ArrayList<File>();
       if (subModuleDirs != null)
@@ -127,7 +132,9 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
          BasicModuleParserRule basicRule = gLookup(BasicModuleParserRule.class);
          for (int i = 0; i < subModuleDirs.length; i++)
          {
-            sessionService.getCurrentModules().add(basicRule.doParse(createParsingRequest(subModuleDirs[i])));
+            BasicModule module = basicRule.doParse(createParsingRequest(subModuleDirs[i]));
+            sessionService.getCurrentModules().add(module);
+            modules.put(module.getDirectory(), module);
          }
       }
    }

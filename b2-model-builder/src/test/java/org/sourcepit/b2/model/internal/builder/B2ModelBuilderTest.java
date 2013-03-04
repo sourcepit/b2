@@ -7,6 +7,7 @@
 package org.sourcepit.b2.model.internal.builder;
 
 import java.io.File;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
@@ -119,7 +120,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       final File parentFile = moduleDir;
       final File simpleFile = new File(moduleDir, "simple-layout");
       final File structuredFile = new File(moduleDir, "structured-layout");
-      
+
       final B2ModelBuilder builder = lookup();
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
@@ -129,18 +130,24 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       BasicModule simpleModule = (BasicModule) builder.build(request);
       assertNotNull(simpleModule);
 
-      sessionService.getCurrentModules().add(simpleModule);
+      List<AbstractModule> currentModules = sessionService.getCurrentModules();
+      currentModules.add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(structuredFile);
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
-      sessionService.getCurrentModules().add(structuredModule);
+      currentModules.add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
+
+      for (AbstractModule module : currentModules)
+      {
+         request.getModulesCache().put(module.getDirectory(), module);
+      }
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());

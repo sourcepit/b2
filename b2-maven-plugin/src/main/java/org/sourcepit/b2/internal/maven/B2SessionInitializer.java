@@ -140,7 +140,6 @@ public class B2SessionInitializer
 
       final List<File> projectDirs = sessionService.getCurrentProjectDirs();
       final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
-
       processDependencies(resourceSet, bootSession, bootProject);
 
       final File moduleDir = bootProject.getBasedir();
@@ -150,7 +149,7 @@ public class B2SessionInitializer
 
       final Set<File> whitelist = new HashSet<File>();
       whitelist.addAll(projectDirs);
-      
+
       final IModuleFilter fileFilter = new WhitelistModuleFilter(whitelist);
 
       final B2Request b2Request = new B2Request();
@@ -159,6 +158,12 @@ public class B2SessionInitializer
       b2Request.setModuleFilter(fileFilter);
       b2Request.setInterpolate(!converter.isSkipInterpolator(moduleProperties));
       b2Request.setTemplates(templates);
+
+      for (AbstractModule module : sessionService.getCurrentModules())
+      {
+         b2Request.getModulesCache().put(module.getDirectory(), module);
+      }
+
       return b2Request;
    }
 
