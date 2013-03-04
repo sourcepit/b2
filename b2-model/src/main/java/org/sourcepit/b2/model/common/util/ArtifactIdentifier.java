@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.URI;
 
 public final class ArtifactIdentifier
 {
-   private final ArtifactReference ref;
+   private final String groupId, artifactId, version, classifier, type;
 
    public ArtifactIdentifier(String groupId, String artifactId, String version, String type)
    {
@@ -19,47 +19,55 @@ public final class ArtifactIdentifier
 
    public ArtifactIdentifier(String groupId, String artifactId, String version, String classifier, String type)
    {
-      ref = new ArtifactReference(groupId, artifactId, version, classifier, type);
+      this.groupId = groupId;
+      this.artifactId = artifactId;
+      this.version = version;
+      this.classifier = "".equals(classifier) ? null : classifier;
+      this.type = type;
    }
 
    public String getGroupId()
    {
-      return ref.getGroupId();
+      return groupId;
    }
 
    public String getArtifactId()
    {
-      return ref.getArtifactId();
+      return artifactId;
    }
 
    public String getVersion()
    {
-      return ref.getVersionRange();
+      return version;
    }
 
    public String getClassifier()
    {
-      return ref.getClassifier();
+      return classifier;
    }
 
    public String getType()
    {
-      return ref.getType();
-   }
-
-   public boolean isTargetOf(ArtifactReference ref)
-   {
-      return ref != null && ref.isAmingAt(this);
-   }
-
-   public ArtifactReference toArtifactReference()
-   {
-      return ref;
+      return type;
    }
 
    public URI toUri()
    {
-      return ref.toUri();
+      final StringBuilder sb = new StringBuilder();
+      sb.append("gav:/");
+      sb.append(getGroupId());
+      sb.append("/");
+      sb.append(getArtifactId());
+      sb.append("/");
+      sb.append(getVersion());
+      if (getClassifier() != null)
+      {
+         sb.append("/");
+         sb.append(getClassifier());
+      }
+      sb.append("/");
+      sb.append(getType());
+      return URI.createURI(sb.toString());
    }
 
    @Override
@@ -67,7 +75,11 @@ public final class ArtifactIdentifier
    {
       final int prime = 31;
       int result = 1;
-      result = prime * result + ((ref == null) ? 0 : ref.hashCode());
+      result = prime * result + ((artifactId == null) ? 0 : artifactId.hashCode());
+      result = prime * result + ((classifier == null) ? 0 : classifier.hashCode());
+      result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
+      result = prime * result + ((type == null) ? 0 : type.hashCode());
+      result = prime * result + ((version == null) ? 0 : version.hashCode());
       return result;
    }
 
@@ -82,15 +94,45 @@ public final class ArtifactIdentifier
       if (getClass() != obj.getClass())
          return false;
       ArtifactIdentifier other = (ArtifactIdentifier) obj;
-      if (ref == null)
+      if (artifactId == null)
       {
-         if (other.ref != null)
+         if (other.artifactId != null)
             return false;
       }
-      else if (!ref.equals(other.ref))
+      else if (!artifactId.equals(other.artifactId))
+         return false;
+      if (classifier == null)
+      {
+         if (other.classifier != null)
+            return false;
+      }
+      else if (!classifier.equals(other.classifier))
+         return false;
+      if (groupId == null)
+      {
+         if (other.groupId != null)
+            return false;
+      }
+      else if (!groupId.equals(other.groupId))
+         return false;
+      if (type == null)
+      {
+         if (other.type != null)
+            return false;
+      }
+      else if (!type.equals(other.type))
+         return false;
+      if (version == null)
+      {
+         if (other.version != null)
+            return false;
+      }
+      else if (!version.equals(other.version))
          return false;
       return true;
-   } // CSON
+   }
+
+   // CSON
 
    @Override
    public String toString()
