@@ -18,10 +18,10 @@ import org.sourcepit.b2.model.module.AbstractModule;
 
 @Named
 @Singleton
-public class B2SessionService implements IB2SessionService
+public class B2SessionService
 {
    private List<File> projectDirs;
-   
+
    private List<AbstractModule> modules;
 
    private ResourceSet resourceSet;
@@ -35,12 +35,12 @@ public class B2SessionService implements IB2SessionService
    {
       return projectDirs;
    }
-   
+
    public void setCurrentModules(List<AbstractModule> modules)
    {
       this.modules = modules;
    }
-   
+
    public List<AbstractModule> getCurrentModules()
    {
       return modules;

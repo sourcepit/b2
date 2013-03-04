@@ -33,8 +33,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
+import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
-import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
@@ -57,7 +57,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    private Map<String, IInterpolationLayout> layoutMap;
 
    @Inject
-   private IB2SessionService sessionService;
+   private B2SessionService sessionService;
 
    @Inject
    private LegacySupport legacySupport;
