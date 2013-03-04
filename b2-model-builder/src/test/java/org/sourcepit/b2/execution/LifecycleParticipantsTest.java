@@ -86,7 +86,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          }
       };
 
-      final List<File> projectDirs = getCurrentSession();
+      final List<File> projectDirs = getModuleDirs();
 
       for (int i = 0; i < projectDirs.size(); i++)
       {

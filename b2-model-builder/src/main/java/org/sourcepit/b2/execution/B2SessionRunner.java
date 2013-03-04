@@ -12,7 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
@@ -92,9 +91,6 @@ public class B2SessionRunner
 
    @Inject
    private List<B2SessionLifecycleParticipant> lifecycleParticipants;
-   
-   @Inject
-   private B2SessionService sessionService;
 
    public AbstractModule prepareNext(final List<File> projectDirs, final int currentIdx, final B2RequestFactory requestFactory)
    {
@@ -122,8 +118,6 @@ public class B2SessionRunner
             participant.postPrepareProjects(projectDirs, errors);
          }
       }.execute(projectDirs);
-      
-      sessionService.getCurrentModules().add(module);
       
       return module;
    }

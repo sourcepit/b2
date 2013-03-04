@@ -29,7 +29,6 @@ import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.internal.maven.B2SessionInitializer;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
@@ -51,9 +50,6 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
    @Inject
    private PomGenerator pomGenerator;
 
-   @Inject
-   private B2SessionService sessionService;
-
    @Test
    public void test() throws Exception
    {
@@ -73,13 +69,9 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
       {
          mavenSession.setCurrentProject(project);
 
-         b2SessionInitializer.initialize(mavenSession, properties);
-
          final B2Request b2Request = b2SessionInitializer.newB2Request(mavenSession, project);
 
          final AbstractModule module = modelBuilder.build(b2Request);
-
-         sessionService.getCurrentModules().add(module);
 
          final B2GenerationRequest request = new B2GenerationRequest();
          request.setModule(module);

@@ -7,6 +7,7 @@
 package org.sourcepit.b2.model.internal.builder;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
@@ -82,7 +83,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 
    public void testSimpleComponent() throws Exception
    {
-      File coreResources = getCurrentSession().get(0);
+      File coreResources = getModuleDirs().get(0);
       assertTrue(coreResources.canRead());
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
@@ -130,7 +131,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       BasicModule simpleModule = (BasicModule) builder.build(request);
       assertNotNull(simpleModule);
 
-      List<AbstractModule> currentModules = sessionService.getCurrentModules();
+      List<AbstractModule> currentModules = new ArrayList<AbstractModule>();
       currentModules.add(simpleModule);
 
       request = new B2ModelBuildingRequest();
@@ -163,7 +164,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 
    public void testSkipInterpolator() throws Exception
    {
-      File coreResources = sessionService.getCurrentProjectDirs().get(0);
+      File coreResources = getModuleDirs().get(0);
       assertTrue(coreResources.canRead());
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();

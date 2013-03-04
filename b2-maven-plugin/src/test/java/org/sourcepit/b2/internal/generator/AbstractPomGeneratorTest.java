@@ -61,7 +61,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
       MavenSession session = mock(MavenSession.class);
       when(session.getProjects()).thenReturn(new ArrayList<MavenProject>());
 
-      for (File projectDir : sessionService.getCurrentProjectDirs())
+      for (File projectDir : getModuleDirs())
       {
          PropertiesMap properties = ModelBuilderTestHarness.newProperties(projectDir);
 

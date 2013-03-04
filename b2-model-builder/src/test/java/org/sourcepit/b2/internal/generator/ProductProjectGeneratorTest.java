@@ -23,7 +23,6 @@ import javax.inject.Inject;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.logging.console.ConsoleLogger;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.hamcrest.core.Is;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,7 +33,6 @@ import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.internal.generator.p2.Action;
 import org.sourcepit.b2.internal.generator.p2.Instruction;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -63,9 +61,6 @@ public class ProductProjectGeneratorTest extends InjectedTest
    @Inject
    private B2 b2;
 
-   @Inject
-   private B2SessionService sessionService;
-
    @Test
    public void testGetClassifier() throws Exception
    {
@@ -90,9 +85,6 @@ public class ProductProjectGeneratorTest extends InjectedTest
 
       final List<File> projectDirs = new ArrayList<File>();
       projectDirs.add(moduleDir);
-
-      sessionService.setCurrentProjectDirs(projectDirs);
-      sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       File productFile = new File(moduleDir, "bundle.a/bundle.a.product");
       Node features = XmlUtils.queryNode(XmlUtils.readXml(productFile), "/product/features");
@@ -136,9 +128,6 @@ public class ProductProjectGeneratorTest extends InjectedTest
       final List<File> projectDirs = new ArrayList<File>();
       projectDirs.add(moduleDir);
 
-      sessionService.setCurrentProjectDirs(projectDirs);
-      sessionService.setCurrentResourceSet(new ResourceSetImpl());
-
       PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
       props.put("b2.products.resources", "p2.inf,legal/**");
 
@@ -179,9 +168,6 @@ public class ProductProjectGeneratorTest extends InjectedTest
 
       final List<File> projectDirs = new ArrayList<File>();
       projectDirs.add(moduleDir);
-
-      sessionService.setCurrentProjectDirs(projectDirs);
-      sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       PropertiesMap props = ModelBuilderTestHarness.newProperties(moduleDir);
       props.put("b2.products.features", "foo:1.0.0,bar");
@@ -235,9 +221,6 @@ public class ProductProjectGeneratorTest extends InjectedTest
       final List<File> projectDirs = new ArrayList<File>();
       projectDirs.add(moduleDir);
 
-      sessionService.setCurrentProjectDirs(projectDirs);
-      sessionService.setCurrentResourceSet(new ResourceSetImpl());
-
       PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
       props.put("b2.products.plugins", "foo:1.0.0,bar");
 
@@ -286,9 +269,6 @@ public class ProductProjectGeneratorTest extends InjectedTest
 
       final List<File> projectDirs = new ArrayList<File>();
       projectDirs.add(moduleDir);
-
-      sessionService.setCurrentProjectDirs(projectDirs);
-      sessionService.setCurrentResourceSet(new ResourceSetImpl());
 
       PropertiesMap props = B2ModelBuildingRequest.newDefaultProperties();
       props.put("b2.products.sites",

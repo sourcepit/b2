@@ -12,9 +12,6 @@ import static org.sourcepit.common.utils.xml.XmlUtils.readXml;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelWriter;
@@ -35,17 +32,6 @@ public final class ModelBuilderTestHarness
    private ModelBuilderTestHarness()
    {
       super();
-   }
-
-   // TODO remove
-   public static List<File> createB2Session(File... moduleDirs)
-   {
-      final List<File> result = new ArrayList<File>();
-      if (moduleDirs != null)
-      {
-         Collections.addAll(result, moduleDirs);
-      }
-      return result;
    }
 
    public static ModuleParsingRequest createParsingRequest(File moduleDir)

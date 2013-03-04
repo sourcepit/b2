@@ -7,13 +7,10 @@ package org.sourcepit.b2.internal.maven;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,14 +31,12 @@ import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
 import org.sonatype.aether.resolution.ArtifactResult;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
-import org.sourcepit.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.internal.generator.VersionUtils;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
@@ -77,69 +72,23 @@ public class B2SessionInitializer
    private LayoutManager layoutManager;
 
    @Inject
-   private B2SessionService sessionService;
-
-   @Inject
    private ModelContextAdapterFactory adapterFactory;
 
    @Inject
    private BasicConverter converter;
-
-   public List<File> initialize(MavenSession bootSession, Properties properties)
-   {
-      intEMF();
-      return initB2Session(bootSession, properties);
-   }
 
    private void intEMF()
    {
       ModuleModelPackage.eINSTANCE.getClass();
    }
 
-   private List<File> initB2Session(MavenSession bootSession, Properties properties)
-   {
-      ModelContext modelContext = adapterFactory.adapt(bootSession, bootSession.getCurrentProject());
-      sessionService.setCurrentResourceSet(modelContext.getResourceSet());
-
-      createB2Session(modelContext.getResourceSet(), bootSession);
-
-      return sessionService.getCurrentProjectDirs();
-   }
-
-   private void createB2Session(ResourceSet resourceSet, MavenSession bootSession)
-   {
-      final List<File> projectDirs = new ArrayList<File>();
-      final List<AbstractModule> modules = new ArrayList<AbstractModule>();
-
-      final File currentProjectDir = bootSession.getCurrentProject().getBasedir();
-
-      for (MavenProject project : bootSession.getProjects())
-      {
-         final File projectDir = project.getBasedir();
-         projectDirs.add(projectDir);
-
-         if (!projectDir.equals(currentProjectDir))
-         {
-            final ModelContext modelContext = ModelContextAdapterFactory.get(project);
-            if (modelContext != null)
-            {
-               final URI moduleUri = modelContext.getModuleUri();
-               final AbstractModule module = (AbstractModule) resourceSet.getEObject(moduleUri, true);
-               modules.add(module);
-            }
-         }
-      }
-
-      sessionService.setCurrentProjectDirs(projectDirs);
-      sessionService.setCurrentModules(modules);
-   }
-
    public B2Request newB2Request(MavenSession bootSession, MavenProject bootProject)
    {
+      intEMF();
+
       final PropertiesSource moduleProperties = createSource(legacySupport.getSession(), bootProject);
 
-      final List<File> projectDirs = sessionService.getCurrentProjectDirs();
-      final ResourceSet resourceSet = sessionService.getCurrentResourceSet();
+      final ResourceSet resourceSet = adapterFactory.adapt(bootSession, bootProject).getResourceSet();
       processDependencies(resourceSet, bootSession, bootProject);
 
       final File moduleDir = bootProject.getBasedir();
@@ -147,22 +96,31 @@ public class B2SessionInitializer
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(moduleProperties));
 
-      final Set<File> whitelist = new HashSet<File>();
-      whitelist.addAll(projectDirs);
-
-      final IModuleFilter fileFilter = new WhitelistModuleFilter(whitelist);
-
       final B2Request b2Request = new B2Request();
       b2Request.setModuleDirectory(moduleDir);
       b2Request.setModuleProperties(moduleProperties);
-      b2Request.setModuleFilter(fileFilter);
       b2Request.setInterpolate(!converter.isSkipInterpolator(moduleProperties));
       b2Request.setTemplates(templates);
 
-      for (AbstractModule module : sessionService.getCurrentModules())
+      final List<File> projectDirs = new ArrayList<File>();
+      for (MavenProject project : bootSession.getProjects())
       {
-         b2Request.getModulesCache().put(module.getDirectory(), module);
+         final File projectDir = project.getBasedir();
+         projectDirs.add(projectDir);
+
+         if (!projectDir.equals(bootProject.getBasedir()))
+         {
+            final ModelContext modelContext = ModelContextAdapterFactory.get(project);
+            if (modelContext != null)
+            {
+               final URI moduleUri = modelContext.getModuleUri();
+               final AbstractModule module = (AbstractModule) resourceSet.getEObject(moduleUri, true);
+               b2Request.getModulesCache().put(module.getDirectory(), module);
+            }
+         }
       }
+
+      b2Request.setModuleFilter(new WhitelistModuleFilter(projectDirs));
 
       return b2Request;
    }
