@@ -16,6 +16,7 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Activation;
 import org.apache.maven.model.BuildBase;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.inheritance.InheritanceAssembler;
@@ -112,8 +113,24 @@ public class ModulePomBuilder
 
       resultModel.setParent(null);
 
+
+      P2RepositoryDependencyConverter.filterDependencies(resultModel, determineModuleDependencies(bootProject));
+
       // poms
       return resultModel;
+   }
+
+   private static List<Dependency> determineModuleDependencies(final MavenProject project)
+   {
+      final List<Dependency> dependencies = new ArrayList<Dependency>();
+      for (Dependency dependency : project.getDependencies())
+      {
+         if ("module".equals(dependency.getType()))
+         {
+            dependencies.add(dependency);
+         }
+      }
+      return dependencies;
    }
 
    private List<Model> cloneModelHierarchy(MavenProject project)

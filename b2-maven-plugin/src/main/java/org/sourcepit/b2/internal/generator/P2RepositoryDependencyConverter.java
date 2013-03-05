@@ -114,7 +114,7 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
       return dependencies;
    }
 
-   private static void filterDependencies(final ModelBase mavenModel, final List<Dependency> blackList)
+   public static void filterDependencies(final ModelBase mavenModel, final List<Dependency> blackList)
    {
       final List<Dependency> filteredDependencies = new ArrayList<Dependency>();
       

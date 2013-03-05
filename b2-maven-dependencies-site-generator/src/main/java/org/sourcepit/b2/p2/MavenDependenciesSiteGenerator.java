@@ -31,6 +31,7 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.ITemplates;
+import org.sourcepit.b2.internal.generator.P2RepositoryDependencyConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -204,7 +205,8 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          final Model pom = readMavenModel(pomFile);
 
          final List<Dependency> dependencies = determineMavenDependencies(project);
-         filterDependencies(pom, dependencies);
+         
+         P2RepositoryDependencyConverter.filterDependencies(pom, dependencies);
 
          final String repositoryName = inputElement.getAnnotationEntry("b2.mavenDependencies", "repositoryName");
 
@@ -216,31 +218,6 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
 
          writeMavenModel(pomFile, pom);
       }
-   }
-
-   private static void filterDependencies(final Model mavenModel, final List<Dependency> blackList)
-   {
-      final List<Dependency> filteredDependencies = new ArrayList<Dependency>();
-      for (Dependency dependency : mavenModel.getDependencies())
-      {
-         if (!containsDependency(blackList, dependency))
-         {
-            filteredDependencies.add(dependency);
-         }
-      }
-      mavenModel.setDependencies(filteredDependencies);
-   }
-
-   private static boolean containsDependency(final List<Dependency> dependencies, Dependency dependency)
-   {
-      for (Dependency d : dependencies)
-      {
-         if (dependency.getManagementKey().equals(d.getManagementKey()))
-         {
-            return true;
-         }
-      }
-      return false;
    }
 
    @Override
