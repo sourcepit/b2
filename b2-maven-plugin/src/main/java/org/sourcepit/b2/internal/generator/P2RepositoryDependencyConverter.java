@@ -37,7 +37,6 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 
 @Named
