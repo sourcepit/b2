@@ -6,7 +6,6 @@
 
 package org.sourcepit.b2.p2;
 
-import static com.google.common.base.Predicates.not;
 import static com.google.common.collect.Collections2.filter;
 import static org.sourcepit.b2.internal.maven.util.MavenDepenenciesUtils.removeDependencies;
 import static org.sourcepit.common.utils.lang.Exceptions.pipe;
