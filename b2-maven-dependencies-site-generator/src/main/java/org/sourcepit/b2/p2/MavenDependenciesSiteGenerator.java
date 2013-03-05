@@ -6,6 +6,9 @@
 
 package org.sourcepit.b2.p2;
 
+import static com.google.common.base.Predicates.not;
+import static com.google.common.collect.Collections2.filter;
+import static org.sourcepit.b2.internal.maven.util.MavenDepenenciesUtils.removeDependencies;
 import static org.sourcepit.common.utils.lang.Exceptions.pipe;
 
 import java.io.File;
@@ -31,7 +34,6 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.ITemplates;
-import org.sourcepit.b2.internal.generator.P2RepositoryDependencyConverter;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -48,6 +50,7 @@ import org.sourcepit.osgify.core.model.context.BundleCandidate;
 import org.sourcepit.osgify.core.model.context.OsgifyContext;
 import org.sourcepit.osgify.maven.p2.P2UpdateSiteGenerator;
 
+import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 
 @Named
@@ -56,6 +59,15 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       ModuleInterpolatorLifecycleParticipant,
       IB2GenerationParticipant
 {
+
+   private Predicate<Dependency> JARS = new Predicate<Dependency>()
+   {
+      public boolean apply(Dependency dependency)
+      {
+         return "jar".equals(dependency.getType());
+      }
+   };
+
    @Inject
    private LegacySupport legacySupport;
 
@@ -70,8 +82,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       final MavenSession session = legacySupport.getSession();
       final MavenProject project = session.getCurrentProject();
 
-      final List<Dependency> dependencies = determineMavenDependencies(project);
-
+      final List<Dependency> dependencies = new ArrayList<Dependency>(filter(project.getDependencies(), JARS));
       if (!dependencies.isEmpty())
       {
          final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
@@ -197,16 +208,11 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       final String repositoryURL = inputElement.getAnnotationEntry("b2.mavenDependencies", "repositoryURL");
       if (repositoryURL != null)
       {
-         final MavenSession session = legacySupport.getSession();
-         final MavenProject project = session.getCurrentProject();
-
          final File pomFile = resolvePomFile(inputElement);
 
          final Model pom = readMavenModel(pomFile);
 
-         final List<Dependency> dependencies = determineMavenDependencies(project);
-         
-         P2RepositoryDependencyConverter.filterDependencies(pom, dependencies);
+         removeDependencies(pom, JARS);
 
          final String repositoryName = inputElement.getAnnotationEntry("b2.mavenDependencies", "repositoryName");
 
@@ -230,18 +236,5 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
    public GeneratorType getGeneratorType()
    {
       return GeneratorType.MODULE_RESOURCE_FILTER;
-   }
-
-   private static List<Dependency> determineMavenDependencies(final MavenProject project)
-   {
-      final List<Dependency> dependencies = new ArrayList<Dependency>();
-      for (Dependency dependency : project.getDependencies())
-      {
-         if ("jar".equals(dependency.getType()))
-         {
-            dependencies.add(dependency);
-         }
-      }
-      return dependencies;
    }
 }

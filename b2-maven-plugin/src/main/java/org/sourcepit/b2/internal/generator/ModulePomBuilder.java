@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.b2.internal.maven.util.MavenDepenenciesUtils.removeDependencies;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -23,6 +25,8 @@ import org.apache.maven.model.inheritance.InheritanceAssembler;
 import org.apache.maven.model.merge.ModelMerger;
 import org.apache.maven.model.normalization.ModelNormalizer;
 import org.apache.maven.project.MavenProject;
+
+import com.google.common.base.Predicate;
 
 @Named
 public class ModulePomBuilder
@@ -113,24 +117,16 @@ public class ModulePomBuilder
 
       resultModel.setParent(null);
 
-
-      P2RepositoryDependencyConverter.filterDependencies(resultModel, determineModuleDependencies(bootProject));
+      removeDependencies(resultModel, new Predicate<Dependency>()
+      {
+         public boolean apply(Dependency input)
+         {
+            return "module".equals(input.getType());
+         }
+      });
 
       // poms
       return resultModel;
-   }
-
-   private static List<Dependency> determineModuleDependencies(final MavenProject project)
-   {
-      final List<Dependency> dependencies = new ArrayList<Dependency>();
-      for (Dependency dependency : project.getDependencies())
-      {
-         if ("module".equals(dependency.getType()))
-         {
-            dependencies.add(dependency);
-         }
-      }
-      return dependencies;
    }
 
    private List<Model> cloneModelHierarchy(MavenProject project)
