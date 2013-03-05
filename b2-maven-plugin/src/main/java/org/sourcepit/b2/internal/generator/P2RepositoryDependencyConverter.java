@@ -6,10 +6,10 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.b2.internal.maven.util.MavenDepenenciesUtils.removeDependencies;
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -19,8 +19,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
-import org.apache.maven.model.ModelBase;
-import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
@@ -38,9 +36,20 @@ import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
 @Named
 public class P2RepositoryDependencyConverter extends AbstractPomGenerator implements IB2GenerationParticipant
 {
+   private Predicate<Dependency> P2_REPOSITORIES = new Predicate<Dependency>()
+   {
+      public boolean apply(Dependency dependency)
+      {
+         return "p2-repository".equals(dependency.getType());
+      }
+   };
+
    @Inject
    private LegacySupport legacySupport;
 
@@ -57,7 +66,7 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
       final MavenSession session = legacySupport.getSession();
       final MavenProject project = session.getCurrentProject();
 
-      final List<Dependency> p2RepoDeps = determineP2RepositoryDependencies(project);
+      final Collection<Dependency> p2RepoDeps = Collections2.filter(project.getDependencies(), P2_REPOSITORIES);
       if (!p2RepoDeps.isEmpty())
       {
          final File pomFile = resolvePomFile(inputElement);
@@ -76,7 +85,7 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
             pom.getRepositories().add(repository);
          }
 
-         filterDependencies(pom, p2RepoDeps);
+         removeDependencies(pom, P2_REPOSITORIES);
          writeMavenModel(pomFile, pom);
       }
    }
@@ -99,54 +108,6 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
       final ArtifactIdentifier uniqueId = new ArtifactIdentifier(artifact.getGroupId(), artifact.getArtifactId(),
          artifact.getVersion(), artifact.getClassifier(), artifact.getType());
       return uniqueId;
-   }
-
-   private static List<Dependency> determineP2RepositoryDependencies(final MavenProject project)
-   {
-      final List<Dependency> dependencies = new ArrayList<Dependency>();
-      for (Dependency dependency : project.getDependencies())
-      {
-         if ("p2-repository".equals(dependency.getType()))
-         {
-            dependencies.add(dependency);
-         }
-      }
-      return dependencies;
-   }
-
-   private static void filterDependencies(final ModelBase mavenModel, final List<Dependency> blackList)
-   {
-      final List<Dependency> filteredDependencies = new ArrayList<Dependency>();
-
-      for (Dependency dependency : mavenModel.getDependencies())
-      {
-         if (!containsDependency(blackList, dependency))
-         {
-            filteredDependencies.add(dependency);
-         }
-      }
-
-      mavenModel.setDependencies(filteredDependencies);
-
-      if (mavenModel instanceof Model)
-      {
-         for (Profile profile : ((Model) mavenModel).getProfiles())
-         {
-            filterDependencies(profile, blackList);
-         }
-      }
-   }
-
-   private static boolean containsDependency(final List<Dependency> dependencies, Dependency dependency)
-   {
-      for (Dependency d : dependencies)
-      {
-         if (dependency.getManagementKey().equals(d.getManagementKey()))
-         {
-            return true;
-         }
-      }
-      return false;
    }
 
    @Override

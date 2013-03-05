@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.b2.internal.maven.util.MavenDepenenciesUtils.removeDependencies;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,12 +18,15 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Activation;
 import org.apache.maven.model.BuildBase;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.inheritance.InheritanceAssembler;
 import org.apache.maven.model.merge.ModelMerger;
 import org.apache.maven.model.normalization.ModelNormalizer;
 import org.apache.maven.project.MavenProject;
+
+import com.google.common.base.Predicate;
 
 @Named
 public class ModulePomBuilder
@@ -111,6 +116,14 @@ public class ModulePomBuilder
       modelNormalizer.mergeDuplicates(resultModel, null, null);
 
       resultModel.setParent(null);
+
+      removeDependencies(resultModel, new Predicate<Dependency>()
+      {
+         public boolean apply(Dependency input)
+         {
+            return "module".equals(input.getType());
+         }
+      });
 
       // poms
       return resultModel;
