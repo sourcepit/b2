@@ -16,20 +16,20 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named
-public class B2SessionRunner
+public class B2LifecycleRunner
 {
    private static abstract class LifecyclePhases<RESULT, PARTICIPANT>
       extends
          LifecyclePhase<RESULT, List<File>, PARTICIPANT>
    {
-      private final B2RequestFactory requestFactory;
+      private final B2Request request;
       private int index;
 
-      public LifecyclePhases(int currentIdx, List<PARTICIPANT> participants, B2RequestFactory requestFactory)
+      public LifecyclePhases(int currentIdx, List<PARTICIPANT> participants, B2Request request)
       {
          super(participants);
          this.index = currentIdx;
-         this.requestFactory = requestFactory;
+         this.request = request;
       }
 
       @Override
@@ -56,10 +56,10 @@ public class B2SessionRunner
       @Override
       protected RESULT doExecute(List<File> projectDirs)
       {
-         return doExecutePhases(requestFactory, projectDirs);
+         return doExecutePhases(request, projectDirs);
       }
 
-      protected abstract RESULT doExecutePhases(final B2RequestFactory requestFactory, List<File> projectDirs);
+      protected abstract RESULT doExecutePhases(final B2Request request, List<File> projectDirs);
 
       @Override
       protected void post(List<File> projectDirs, RESULT result, ThrowablePipe errors)
@@ -92,12 +92,12 @@ public class B2SessionRunner
    @Inject
    private List<B2SessionLifecycleParticipant> lifecycleParticipants;
 
-   public AbstractModule prepareNext(final List<File> projectDirs, final int currentIdx, final B2RequestFactory requestFactory)
+   public AbstractModule prepareNext(final List<File> projectDirs, final int currentIdx, final B2Request request)
    {
       final File projectDir = projectDirs.get(currentIdx);
 
       final AbstractModule module = new LifecyclePhases<AbstractModule, B2SessionLifecycleParticipant>(currentIdx,
-         lifecycleParticipants, requestFactory)
+         lifecycleParticipants, request)
       {
          @Override
          protected void prePhases(B2SessionLifecycleParticipant participant, List<File> projectDirs)
@@ -106,9 +106,9 @@ public class B2SessionRunner
          }
 
          @Override
-         protected AbstractModule doExecutePhases(B2RequestFactory requestFactory, List<File> projectDirs)
+         protected AbstractModule doExecutePhases(B2Request request, List<File> projectDirs)
          {
-            return newPrepareProjectPhase(projectDir).execute(requestFactory.newRequest(projectDirs, currentIdx));
+            return newPrepareProjectPhase(projectDir).execute(request);
          }
 
          @Override
@@ -118,7 +118,7 @@ public class B2SessionRunner
             participant.postPrepareProjects(projectDirs, errors);
          }
       }.execute(projectDirs);
-      
+
       return module;
    }
 
@@ -135,7 +135,7 @@ public class B2SessionRunner
          }
 
          @Override
-         protected Void doExecutePhases(B2RequestFactory requestFactory, final List<File> projectDirs)
+         protected Void doExecutePhases(B2Request request, final List<File> projectDirs)
          {
             new LifecyclePhase<Void, Void, B2SessionLifecycleParticipant>(lifecycleParticipants)
             {

@@ -33,6 +33,7 @@ import org.sonatype.aether.resolution.ArtifactResult;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.b2.execution.B2Request;
+import org.sourcepit.b2.execution.B2RequestFactory;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.internal.generator.VersionUtils;
@@ -53,8 +54,8 @@ import com.google.common.base.Optional;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
-@Named
-public class B2SessionInitializer
+@Named("maven")
+public class MavenB2RequestFactory implements B2RequestFactory
 {
    @Inject
    private LegacySupport legacySupport;
@@ -77,14 +78,16 @@ public class B2SessionInitializer
    @Inject
    private BasicConverter converter;
 
-   private void intEMF()
+   public B2Request newRequest(List<File> projectDirs, int currentIdx)
    {
-      ModuleModelPackage.eINSTANCE.getClass();
+      final MavenSession bootSession = legacySupport.getSession();
+      final MavenProject bootProject = bootSession.getProjects().get(currentIdx);
+      return newB2Request(bootSession, bootProject);
    }
 
    public B2Request newB2Request(MavenSession bootSession, MavenProject bootProject)
    {
-      intEMF();
+      ModuleModelPackage.eINSTANCE.getClass();
 
       final PropertiesSource moduleProperties = createSource(legacySupport.getSession(), bootProject);
 

@@ -26,7 +26,7 @@ import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 import org.sourcepit.b2.execution.B2Request;
-import org.sourcepit.b2.internal.maven.B2SessionInitializer;
+import org.sourcepit.b2.internal.maven.MavenB2RequestFactory;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -42,7 +42,7 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
    private LegacySupport legacySupport;
 
    @Inject
-   private B2SessionInitializer b2SessionInitializer;
+   private MavenB2RequestFactory b2SessionInitializer;
 
    @Inject
    private IB2ModelBuilder modelBuilder;
