@@ -6,87 +6,66 @@
 
 package org.sourcepit.b2.internal.maven;
 
-import java.util.Properties;
+import static com.google.common.base.Preconditions.checkState;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.repository.RepositorySystem;
+import org.sourcepit.b2.execution.B2LifecycleRunner;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
-import org.sourcepit.b2.execution.B2SessionRunner;
 import org.sourcepit.b2.internal.scm.svn.SCM;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
 
 @Named
 public class B2BootstrapParticipant implements BootstrapParticipant
 {
    @Inject
-   private LegacySupport legacySupport;
-
-   @Inject
-   private RepositorySystem repositorySystem;
-
-   @Inject
-   private B2SessionService sessionService;
-
-   @Inject
    private SCM scm;
 
    @Inject
-   private B2SessionInitializer b2SessionInitializer;
+   @Named("maven")
+   private B2RequestFactory b2RequestFactory;
 
    @Inject
-   private B2SessionRunner sessionRunner;
+   private B2LifecycleRunner b2LifecycleRunner;
 
    public void beforeBuild(MavenSession bootSession, final MavenProject bootProject, MavenSession actualSession)
    {
-      final MavenSession mavenSession = legacySupport.getSession();
-      final Properties properties = new Properties();
-      properties.putAll(mavenSession.getSystemProperties());
-      properties.putAll(mavenSession.getUserProperties());
-
-      final B2Session b2Session = b2SessionInitializer.initialize(bootSession, properties);
-
-      final B2RequestFactory b2RequestFactory = new B2RequestFactory()
+      final List<File> projectDirs = new ArrayList<File>();
+      for (MavenProject project : bootSession.getProjects())
       {
-         public B2Request newRequest(B2Session session)
-         {
-            return b2SessionInitializer.newB2Request(bootProject);
-         }
-      };
+         projectDirs.add(project.getBasedir());
+      }
 
-      sessionRunner.prepareNext(b2Session, b2RequestFactory);
+      final int idx = bootSession.getProjects().indexOf(bootProject);
+      checkState(idx > -1);
+
+      final B2Request b2Request = b2RequestFactory.newRequest(projectDirs, idx);
+
+      final AbstractModule module = b2LifecycleRunner.prepareNext(projectDirs, idx, b2Request);
+      bootProject.setContextValue(AbstractModule.class.getName(), module);
    }
 
    public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)
    {
-      final B2Session b2Session = sessionService.getCurrentSession();
-      for (ModuleProject project : b2Session.getProjects())
-      {
-         if (bootProject.getBasedir().equals(project.getDirectory()))
-         {
-            b2Session.setCurrentProject(project);
-            break;
-         }
-      }
-
       final String setScmIgnoresProp = bootProject.getProperties().getProperty("b2.scm.setScmIgnores",
          System.getProperty("b2.scm.setScmIgnores", "false"));
 
       final boolean isSetScmIgnores = Boolean.valueOf(setScmIgnoresProp).booleanValue();
       if (isSetScmIgnores)
       {
-         ModuleProject project = b2Session.getCurrentProject();
-         if (project != null && project.getModuleModel() != null)
+         final AbstractModule module = (AbstractModule) bootProject.getContextValue(AbstractModule.class.getName());
+         if (module != null)
          {
-            scm.doSetScmIgnores(project.getModuleModel());
+            scm.doSetScmIgnores(module);
          }
       }
    }

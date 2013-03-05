@@ -7,40 +7,58 @@
 package org.sourcepit.b2.maven.core;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.component.annotations.Component;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
-import org.sourcepit.common.utils.adapt.AbstractAdapterFactory;
-import org.sourcepit.common.utils.adapt.Adapters;
 
 @Component(role = B2MavenBridge.class)
 public class B2MavenBridge
 {
-   static final String CTX_KEY_ADAPTER_LIST = B2MavenBridge.class.getCanonicalName() + "#adapterList";
-
-   public void connect(MavenSession mavenSession, final B2Session b2Session)
+   // TODO move
+   public static URI toArtifactURI(MavenProject project, String type, String classifier)
    {
-      if (!adapt(mavenSession, b2Session))
+      final StringBuilder sb = new StringBuilder();
+      sb.append(project.getGroupId());
+      sb.append("/");
+      sb.append(project.getArtifactId());
+      sb.append("/");
+      sb.append(type);
+      if (classifier != null && classifier.length() > 0)
       {
-         throw new IllegalStateException("Maven session is already connected with a b2 session");
+         sb.append("/");
+         sb.append(classifier);
       }
+      sb.append("/");
+      sb.append(project.getVersion());
+      return URI.createURI("gav:/" + sb.toString());
+   }
 
+   public void connect(MavenSession mavenSession, ResourceSet resourceSet)
+   {
       final Map<File, Project> dirToProjectMap = new HashMap<File, Project>();
-      for (ModuleProject moduleProject : b2Session.getProjects())
+      for (MavenProject mavenProject : mavenSession.getProjects())
       {
-         final AbstractModule module = moduleProject.getModuleModel();
-         if (module != null)
+         if (isModuleProject(resourceSet, mavenProject))
          {
+            if (getContextValue(mavenProject, AbstractModule.class) != null)
+            {
+               throw new IllegalStateException("b2 maven bridge already connected");
+            }
+
+            final URI uri = B2MavenBridge.toArtifactURI(mavenProject, "module", null);
+            final AbstractModule module = (AbstractModule) resourceSet.getResource(uri, true).getContents().get(0);
+
+            mavenProject.setContextValue(AbstractModule.class.getName(), module);
+
             for (ProjectFacet<Project> projectFacet : module.getFacets(ProjectFacet.class))
             {
                for (Project project : projectFacet.getProjects())
@@ -53,164 +71,51 @@ public class B2MavenBridge
 
       for (MavenProject mavenProject : mavenSession.getProjects())
       {
-         final List<Object> adapterList = getAdapterList(mavenProject, true);
-
-         final File basedir = mavenProject.getBasedir();
-         for (ModuleProject moduleProject : b2Session.getProjects())
+         final Project project = dirToProjectMap.get(mavenProject.getBasedir());
+         if (project != null)
          {
-            final AbstractModule module = moduleProject.getModuleModel();
-            if (module != null)
-            {
-               if (basedir.equals(moduleProject.getDirectory()))
-               {
-                  addAdapterUnique(adapterList, ModuleProject.class, moduleProject);
-                  addAdapterUnique(adapterList, AbstractModule.class, module);
-                  Adapters.addAdapter(moduleProject, mavenProject);
-                  Adapters.addAdapter(module, mavenProject);
-                  break;
-               }
-
-               final Project p = dirToProjectMap.get(basedir);
-               if (p != null)
-               {
-                  addAdapterUnique(adapterList, Project.class, p);
-                  Adapters.addAdapter(p, mavenProject);
-                  break;
-               }
-            }
+            mavenProject.setContextValue(Project.class.getName(), project);
          }
       }
    }
 
-   public void disconnect(MavenSession mavenSession, final B2Session b2Session)
+   static boolean isModuleProject(ResourceSet resourceSet, MavenProject mavenProject)
    {
-      Adapters.removeAdapters(mavenSession, B2Session.class);
-      Adapters.removeAdapters(b2Session, MavenSession.class);
-
-      for (ModuleProject moduleProject : b2Session.getProjects())
+      Resource resource;
+      try
       {
-         Adapters.removeAdapters(moduleProject, MavenProject.class);
-
-         final AbstractModule module = moduleProject.getModuleModel();
-         if (module != null)
-         {
-            Adapters.removeAdapters(module, MavenProject.class);
-            for (ProjectFacet<Project> projectFacet : module.getFacets(ProjectFacet.class))
-            {
-               for (Project project : projectFacet.getProjects())
-               {
-                  Adapters.removeAdapters(project, MavenProject.class);
-               }
-            }
-         }
+         final URI uri = toArtifactURI(mavenProject, "module", null);
+         resource = resourceSet.getResource(uri, true);
       }
+      catch (RuntimeException e)
+      {
+         resource = null;
+      }
+      return resource != null && !resource.getContents().isEmpty();
+   }
 
+   @SuppressWarnings("unchecked")
+   private static <T> T getContextValue(MavenProject mavenProject, Class<T> type)
+   {
+      return (T) mavenProject.getContextValue(type.getName());
+   }
+
+   public void disconnect(MavenSession mavenSession)
+   {
       for (MavenProject mavenProject : mavenSession.getProjects())
       {
-         mavenProject.setContextValue(CTX_KEY_ADAPTER_LIST, null);
+         mavenProject.setContextValue(AbstractModule.class.getName(), null);
+         mavenProject.setContextValue(Project.class.getName(), null);
       }
-   }
-
-   private static boolean adapt(MavenSession mavenSession, final B2Session b2Session)
-   {
-      final boolean[] result = new boolean[1];
-      final AbstractAdapterFactory adapterFactory = new AbstractAdapterFactory()
-      {
-         @Override
-         @SuppressWarnings("unchecked")
-         protected <A> A newAdapter(Object adaptable, Class<A> adapterType)
-         {
-            result[0] = true;
-            return (A) b2Session;
-         }
-      };
-      Adapters.adapt(adapterFactory, mavenSession, B2Session.class);
-      if (result[0])
-      {
-         Adapters.addAdapter(b2Session, mavenSession);
-      }
-      return result[0];
-   }
-
-   private static <A> void addAdapterUnique(List<Object> adapterList, Class<? super A> adapterType, A adapter)
-   {
-      if (Adapters.findAdapter(adapterList, adapterType) != null)
-      {
-         throw new IllegalStateException("Adapter for type " + adapterType.getName() + " already registered");
-      }
-      adapterList.add(adapter);
-   }
-
-   private static List<Object> getAdapterList(MavenProject project, boolean createOnDemand)
-   {
-      synchronized (project)
-      {
-         @SuppressWarnings("unchecked")
-         List<Object> adapterList = (List<Object>) project.getContextValue(CTX_KEY_ADAPTER_LIST);
-         if (adapterList == null && createOnDemand)
-         {
-            adapterList = new ArrayList<Object>();
-            project.setContextValue(CTX_KEY_ADAPTER_LIST, adapterList);
-         }
-         return adapterList;
-      }
-   }
-
-   public B2Session getB2Session(MavenSession mavenSession)
-   {
-      return Adapters.getAdapter(mavenSession, B2Session.class);
-   }
-
-   public MavenSession getMavenSession(B2Session b2Session)
-   {
-      return Adapters.getAdapter(b2Session, MavenSession.class);
-   }
-
-   public ModuleProject findContainingModuleProject(MavenProject mavenProject)
-   {
-      ModuleProject moduleProject = null;
-      MavenProject parentProject = mavenProject;
-      while (parentProject != null && moduleProject == null)
-      {
-         moduleProject = getModuleProject(parentProject);
-         parentProject = parentProject.getParent();
-      }
-      return moduleProject;
-   }
-
-   public ModuleProject getModuleProject(MavenProject mavenProject)
-   {
-      return findAdapter(mavenProject, ModuleProject.class);
-   }
-
-   public MavenProject getMavenProject(ModuleProject moduleProject)
-   {
-      return Adapters.getAdapter(moduleProject, MavenProject.class);
-   }
-
-   public MavenProject getMavenProject(AbstractModule module)
-   {
-      return Adapters.getAdapter(module, MavenProject.class);
-   }
-
-   public MavenProject getMavenProject(Project eclipseProject)
-   {
-      return Adapters.getAdapter(eclipseProject, MavenProject.class);
    }
 
    public AbstractModule getModule(MavenProject mavenProject)
    {
-      return findAdapter(mavenProject, AbstractModule.class);
+      return getContextValue(mavenProject, AbstractModule.class);
    }
 
    public Project getEclipseProject(MavenProject mavenProject)
    {
-      return findAdapter(mavenProject, Project.class);
-   }
-
-   private static <A> A findAdapter(MavenProject mavenProject, Class<A> adapterType)
-   {
-      final List<Object> adapterList = getAdapterList(mavenProject, false);
-      return adapterList == null ? null : Adapters.findAdapter(adapterList, adapterType);
+      return getContextValue(mavenProject, Project.class);
    }
 }

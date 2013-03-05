@@ -21,7 +21,9 @@ import org.sourcepit.b2.model.common.CommonModelFactory;
 import org.sourcepit.b2.model.common.CommonModelPackage;
 
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Factory</b>.
+ * <!-- end-user-doc -->
  * 
  * @generated
  */
@@ -29,7 +31,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
 {
    /**
     * Creates the default factory implementation.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -53,7 +56,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
 
    /**
     * Creates an instance of the factory.
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -63,7 +67,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -82,7 +87,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -101,7 +107,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -120,7 +127,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -131,7 +139,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -142,7 +151,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -152,7 +162,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -162,7 +173,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -172,7 +184,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -182,7 +195,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @generated
     */
@@ -192,7 +206,8 @@ public class CommonModelFactoryImpl extends EFactoryImpl implements CommonModelF
    }
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @deprecated
     * @generated

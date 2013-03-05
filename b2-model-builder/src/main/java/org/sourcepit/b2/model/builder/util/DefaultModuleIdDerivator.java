@@ -4,28 +4,28 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import java.io.File;
+import static com.google.common.base.Strings.isNullOrEmpty;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sourcepit.b2.model.session.ModuleProject;
+import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 public class DefaultModuleIdDerivator implements ModuleIdDerivator
 {
-   private final B2SessionService sessionService;
-
-   @Inject
-   public DefaultModuleIdDerivator(B2SessionService sessionService)
+   public String deriveModuleId(AbstractModule module, PropertiesSource properties)
    {
-      this.sessionService = sessionService;
-   }
-
-   public String deriveModuleId(File moduleDir)
-   {
-      ModuleProject project = sessionService.getCurrentSession().getCurrentProject();
-      return beautify(resolveSymbolicName(project.getGroupId(), project.getArtifactId()));
+      final String groupId = properties.get("project.groupId");
+      if (!isNullOrEmpty(groupId))
+      {
+         final String artifactId = properties.get("project.artifactId");
+         if (!isNullOrEmpty(artifactId))
+         {
+            return beautify(resolveSymbolicName(groupId, artifactId));
+         }
+      }
+      return null;
    }
 
    private String beautify(String symbolicName)

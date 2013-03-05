@@ -7,8 +7,11 @@
 package org.sourcepit.b2.model.internal.builder;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
@@ -80,11 +83,11 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 
    public void testSimpleComponent() throws Exception
    {
-      File coreResources = getCurrentModuleDir();
+      File coreResources = getModuleDirs().get(0);
       assertTrue(coreResources.canRead());
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
+      request.setModuleProperties(ModelBuilderTestHarness.newProperties(coreResources));
       request.setModuleDirectory(coreResources);
 
       B2ModelBuilder modelBuilder = lookup();
@@ -111,7 +114,8 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 
    public void testComposedComposite() throws Exception
    {
-      final File moduleDir = getModuleDirByArtifactId("composite-layout");
+      final File moduleDir = getModuleDirByName("composite-layout");
+      assertNotNull(moduleDir);
 
       // get dummy module files
       final File parentFile = moduleDir;
@@ -126,26 +130,28 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
       assertNotNull(simpleModule);
-      
-      getCurrentSession().getCurrentProject().setModuleModel(simpleModule);
-      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(1));
+
+      List<AbstractModule> currentModules = new ArrayList<AbstractModule>();
+      currentModules.add(simpleModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(structuredFile);
       BasicModule structuredModule = (BasicModule) builder.build(request);
-      
-      getCurrentSession().getCurrentProject().setModuleModel(structuredModule);
-      getCurrentSession().setCurrentProject(getCurrentSession().getProjects().get(2));
+
+      currentModules.add(structuredModule);
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(parentFile);
 
+      for (AbstractModule module : currentModules)
+      {
+         request.getModulesCache().put(module.getDirectory(), module);
+      }
+
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());
-      
-      getCurrentSession().getCurrentProject().setModuleModel(compositeModule);
 
       final EList<AbstractModule> modules = compositeModule.getModules();
       assertEquals(2, modules.size());
@@ -158,7 +164,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
 
    public void testSkipInterpolator() throws Exception
    {
-      File coreResources = getCurrentModuleDir();
+      File coreResources = getModuleDirs().get(0);
       assertTrue(coreResources.canRead());
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();

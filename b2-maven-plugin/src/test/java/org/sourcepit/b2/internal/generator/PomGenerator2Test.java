@@ -29,7 +29,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Test;
 import org.sourcepit.b2.execution.B2Request;
-import org.sourcepit.b2.internal.maven.B2SessionInitializer;
+import org.sourcepit.b2.internal.maven.MavenB2RequestFactory;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -41,7 +41,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
    private LegacySupport legacySupport;
 
    @Inject
-   private B2SessionInitializer b2SessionInitializer;
+   private MavenB2RequestFactory b2SessionInitializer;
 
    @Inject
    private IB2ModelBuilder modelBuilder;
@@ -156,9 +156,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
 
       mavenSession.setCurrentProject(project);
 
-      b2SessionInitializer.initialize(mavenSession, properties);
-
-      final B2Request b2Request = b2SessionInitializer.newB2Request(project);
+      final B2Request b2Request = b2SessionInitializer.newB2Request(mavenSession, project);
 
       final AbstractModule module = modelBuilder.build(b2Request);
 

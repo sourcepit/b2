@@ -6,17 +6,26 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.ModelReader;
+import org.apache.maven.plugin.LegacySupport;
+import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.IB2ModelBuildingRequest;
@@ -40,6 +49,39 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
 
    @Inject
    protected Map<String, IInterpolationLayout> layoutMap;
+
+   @Inject
+   private LegacySupport buildContext;
+
+   @Override
+   protected void setUp() throws Exception
+   {
+      super.setUp();
+
+      MavenSession session = mock(MavenSession.class);
+      when(session.getProjects()).thenReturn(new ArrayList<MavenProject>());
+
+      for (File projectDir : getModuleDirs())
+      {
+         PropertiesMap properties = ModelBuilderTestHarness.newProperties(projectDir);
+
+         MavenProject project = new MavenProject();
+         project.setGroupId(properties.get("project.groupId"));
+         project.setArtifactId(properties.get("project.artifactId"));
+         project.setVersion(properties.get("project.version"));
+         project.setFile(new File(projectDir, "module.xml"));
+
+         session.getProjects().add(project);
+      }
+
+      List<MavenProject> projects = session.getProjects();
+      if (!projects.isEmpty())
+      {
+         when(session.getCurrentProject()).thenReturn(projects.get(0));
+      }
+
+      buildContext.setSession(session);
+   }
 
    @Override
    public void configure(Binder binder)
@@ -70,7 +112,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
       request.setModuleDirectory(moduleDir);
       request.setInterpolate(false);
-      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
+      request.setModuleProperties(ModelBuilderTestHarness.newProperties(moduleDir));
       return request;
    }
 

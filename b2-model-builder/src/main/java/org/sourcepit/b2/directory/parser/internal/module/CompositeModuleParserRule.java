@@ -10,28 +10,22 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.directory.parser.module.IModuleFilter;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
-import org.sourcepit.b2.model.session.B2Session;
-import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("compositeModule")
 public class CompositeModuleParserRule extends AbstractModuleParserRule<CompositeModule>
 {
-   @Inject
-   private B2SessionService sessionService;
-
    @Inject
    private BasicConverter converter;
 
@@ -52,21 +46,16 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
             {
                if (moduleFilter == null || moduleFilter.accept(member))
                {
-                  B2Session session = sessionService.getCurrentSession();
+                  final Map<File, AbstractModule> modulesCache = request.getModulesCache();
 
-                  EList<ModuleProject> projects = session.getProjects();
-                  for (ModuleProject project : projects)
+                  final AbstractModule nestedModule = modulesCache.get(member);
+
+                  if (nestedModule == null)
                   {
-                     if (member.equals(project.getDirectory()))
-                     {
-                        final AbstractModule nestedModule = project.getModuleModel();
-                        if (nestedModule == null)
-                        {
-                           throw new IllegalStateException("Invalid build order");
-                        }
-                        modules.add(nestedModule);
-                     }
+                     throw new IllegalStateException("Invalid build order");
                   }
+
+                  modules.add(nestedModule);
                }
             }
             return false;
@@ -74,7 +63,7 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
       });
 
       final CompositeModule compositeModule = ModuleModelFactory.eINSTANCE.createCompositeModule();
-      compositeModule.setId(getModuleId(baseDir));
+      compositeModule.setId(getModuleId(compositeModule, properties));
       compositeModule.setVersion(getModuleVersion(properties));
       compositeModule.setDirectory(baseDir);
       compositeModule.setLayoutId("composite");

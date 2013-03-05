@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.URI;
 import org.sourcepit.b2.maven.core.B2MavenBridge;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.Project;
-import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.manifest.resource.ManifestResource;
@@ -60,7 +59,7 @@ public class B2ReleaseHelper
       MavenProject moduleProject = (MavenProject) reactorProject.getContextValue("b2.moduleProject");
       if (moduleProject == null)
       {
-         if (bridge.getModuleProject(reactorProject) != null)
+         if (bridge.getModule(reactorProject) != null)
          {
             moduleProject = (MavenProject) reactorProject.clone();
             moduleProject.setFile(new File(reactorProject.getBasedir(), "module.xml"));
@@ -169,27 +168,25 @@ public class B2ReleaseHelper
       String mavenVersion = versionMap.get(projectId);
       if (mavenVersion == null)
       {
-         final ModuleProject moduleProject = determineModuleMavenProject(mavenProject);
+         final MavenProject moduleProject = determineModuleMavenProject(mavenProject);
          projectId = ArtifactUtils.versionlessKey(moduleProject.getGroupId(), moduleProject.getArtifactId());
          mavenVersion = versionMap.get(projectId);
       }
       return mavenVersion;
    }
 
-   private ModuleProject determineModuleMavenProject(MavenProject mavenProject)
+   private MavenProject determineModuleMavenProject(MavenProject mavenProject)
    {
-      ModuleProject moduleProject = null;
       MavenProject parentProject = mavenProject;
-      while (parentProject != null && moduleProject == null)
+      while (parentProject != null)
       {
-         moduleProject = bridge.getModuleProject(parentProject);
+         if (bridge.getModule(parentProject) != null)
+         {
+            return parentProject;
+         }
          parentProject = parentProject.getParent();
       }
-      if (moduleProject == null)
-      {
-         throw new IllegalStateException("Unable to determine module project for maven project " + mavenProject);
-      }
-      return moduleProject;
+      throw new IllegalStateException("Unable to determine module project for maven project " + mavenProject);
    }
 
    private BundleManifest readBundleManifest(final File manifestFile)

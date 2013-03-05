@@ -9,7 +9,6 @@ package org.sourcepit.b2.directory.parser.internal.module;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createB2Session;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createParsingRequest;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initModuleDir;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initPluginDir;
@@ -20,7 +19,6 @@ import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
-import org.sourcepit.b2.model.builder.util.B2SessionService;
 import org.sourcepit.b2.model.module.BasicModule;
 
 public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
@@ -35,9 +33,6 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
 
       moduleDir = ws.getRoot();
       initModuleDir(moduleDir);
-
-      final B2SessionService sessionService = gLookup(B2SessionService.class);
-      sessionService.setCurrentSession(createB2Session(moduleDir));
    }
 
    @Test

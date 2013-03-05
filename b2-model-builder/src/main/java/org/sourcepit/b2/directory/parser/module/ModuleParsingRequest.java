@@ -7,7 +7,10 @@
 package org.sourcepit.b2.directory.parser.module;
 
 import java.io.File;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class ModuleParsingRequest implements IModuleParsingRequest
@@ -17,6 +20,8 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    private IModuleFilter moduleFilter;
 
    private PropertiesSource moduleProperties;
+   
+   private Map<File, AbstractModule> modulesCache = new LinkedHashMap<File, AbstractModule>();
 
    public PropertiesSource getModuleProperties()
    {
@@ -49,5 +54,10 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    public void setModuleFilter(IModuleFilter moduleFilter)
    {
       this.moduleFilter = moduleFilter;
+   }
+   
+   public Map<File, AbstractModule> getModulesCache()
+   {
+      return modulesCache;
    }
 }

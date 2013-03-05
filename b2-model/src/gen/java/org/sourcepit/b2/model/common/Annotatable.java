@@ -10,7 +10,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Annotatable</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Annotatable</b></em>'.
+ * <!-- end-user-doc -->
  * 
  * <p>
  * The following features are supported:
@@ -46,7 +48,8 @@ public interface Annotatable extends EObject
    EList<Annotation> getAnnotations();
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model
     * @generated
@@ -54,7 +57,8 @@ public interface Annotatable extends EObject
    Annotation getAnnotation(String source);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model
     * @generated
@@ -62,7 +66,8 @@ public interface Annotatable extends EObject
    String getAnnotationEntry(String source, String key);
 
    /**
-    * <!-- begin-user-doc --> <!-- end-user-doc -->
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
     * 
     * @model required="true"
     * @generated

@@ -46,8 +46,6 @@ import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.b2.model.module.util.Identifier;
-import org.sourcepit.b2.model.session.SessionModelPackage;
-import org.sourcepit.b2.model.session.internal.impl.SessionModelPackageImpl;
 import org.sourcepit.common.manifest.ManifestPackage;
 import org.sourcepit.common.manifest.osgi.BundleManifestPackage;
 
@@ -327,19 +325,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE
          .getEPackage(CommonModelPackage.eNS_URI) instanceof CommonModelPackageImpl ? EPackage.Registry.INSTANCE
          .getEPackage(CommonModelPackage.eNS_URI) : CommonModelPackage.eINSTANCE);
-      SessionModelPackageImpl theSessionModelPackage = (SessionModelPackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(SessionModelPackage.eNS_URI) instanceof SessionModelPackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(SessionModelPackage.eNS_URI) : SessionModelPackage.eINSTANCE);
 
       // Create package meta-data objects
       theModuleModelPackage.createPackageContents();
       theCommonModelPackage.createPackageContents();
-      theSessionModelPackage.createPackageContents();
 
       // Initialize created meta-data
       theModuleModelPackage.initializePackageContents();
       theCommonModelPackage.initializePackageContents();
-      theSessionModelPackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
       theModuleModelPackage.freeze();

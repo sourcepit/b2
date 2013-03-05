@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,12 +27,13 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.Profile;
 import org.apache.maven.plugin.LegacySupport;
+import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
-import org.sourcepit.b2.model.builder.util.IB2SessionService;
 import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
@@ -39,8 +42,6 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
-import org.sourcepit.b2.model.session.Environment;
-import org.sourcepit.b2.model.session.ModuleProject;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.common.base.Strings;
@@ -53,9 +54,6 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 {
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
-
-   @Inject
-   private IB2SessionService sessionService;
 
    @Inject
    private LegacySupport legacySupport;
@@ -120,7 +118,10 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       final Model model = readMavenModel(pomFile);
       new ModelTemplateMerger().merge(model, defaultModel, false, null);
 
-      Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module);
+      final List<Environment> environments = configureModuleTargetEnvironments(legacySupport.getSession()
+         .getCurrentProject(), properties);
+
+      Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module, environments);
       if (!artifacts.isEmpty())
       {
          artifacts.addAll(gatherArtifacts(module, propertie));
@@ -166,35 +167,57 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
    private void configureDeployMojo(final Plugin deployMojo, final Collection<ModuleArtifact> artifacts)
    {
-      final StringBuilder files = new StringBuilder();
-      final StringBuilder classifiers = new StringBuilder();
-      final StringBuilder types = new StringBuilder();
-      for (ModuleArtifact artifact : artifacts)
+      final Xpp3Dom deployConfig = (Xpp3Dom) deployMojo.getExecutions().get(0).getConfiguration();
+      if (artifacts.size() == 1)
       {
-         files.append(artifact.getFile().getAbsolutePath());
-         files.append(',');
-         classifiers.append(artifact.getClassifier() == null ? "" : artifact.getClassifier());
-         classifiers.append(',');
-         types.append(artifact.getType());
-         types.append(',');
+         final ModuleArtifact artifact = artifacts.iterator().next();
+
+         final Xpp3Dom fileNode = deployConfig.getChild("file");
+         fileNode.setValue(artifact.getFile().getAbsolutePath());
+
+         final String cl = artifact.getClassifier();
+         if (!isNullOrEmpty(cl))
+         {
+            final Xpp3Dom classifierNode = new Xpp3Dom("classifier");
+            classifierNode.setValue(cl);
+            deployConfig.addChild(classifierNode);
+         }
+
+         final Xpp3Dom packagingNode = new Xpp3Dom("packaging");
+         packagingNode.setValue(artifact.getType());
+         deployConfig.addChild(packagingNode);
       }
-      files.deleteCharAt(files.length() - 1);
-      classifiers.deleteCharAt(classifiers.length() - 1);
-      types.deleteCharAt(types.length() - 1);
+      else
+      {
+         final StringBuilder files = new StringBuilder();
+         final StringBuilder classifiers = new StringBuilder();
+         final StringBuilder types = new StringBuilder();
+         for (ModuleArtifact artifact : artifacts)
+         {
+            files.append(artifact.getFile().getAbsolutePath());
+            files.append(',');
+            classifiers.append(artifact.getClassifier() == null ? "" : artifact.getClassifier());
+            classifiers.append(',');
+            types.append(artifact.getType());
+            types.append(',');
+         }
+         files.deleteCharAt(files.length() - 1);
+         classifiers.deleteCharAt(classifiers.length() - 1);
+         types.deleteCharAt(types.length() - 1);
 
-      Xpp3Dom filesNode = new Xpp3Dom("files");
-      filesNode.setValue(files.toString());
+         Xpp3Dom filesNode = new Xpp3Dom("files");
+         filesNode.setValue(files.toString());
 
-      Xpp3Dom classifiersNode = new Xpp3Dom("classifiers");
-      classifiersNode.setValue(classifiers.toString());
+         Xpp3Dom classifiersNode = new Xpp3Dom("classifiers");
+         classifiersNode.setValue(classifiers.toString());
 
-      Xpp3Dom typesNode = new Xpp3Dom("types");
-      typesNode.setValue(types.toString());
+         Xpp3Dom typesNode = new Xpp3Dom("types");
+         typesNode.setValue(types.toString());
 
-      Xpp3Dom deployConfig = (Xpp3Dom) deployMojo.getExecutions().get(0).getConfiguration();
-      deployConfig.addChild(filesNode);
-      deployConfig.addChild(classifiersNode);
-      deployConfig.addChild(typesNode);
+         deployConfig.addChild(filesNode);
+         deployConfig.addChild(classifiersNode);
+         deployConfig.addChild(typesNode);
+      }
    }
 
    private void configureInstallMojo(final Plugin installMojo, final Model moduleModel,
@@ -321,11 +344,6 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
 
-      final ModuleArtifact sessionModel = new ModuleArtifact();
-      sessionModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.session")));
-      sessionModel.setType("session");
-      artifacts.add(sessionModel);
-
       final ModuleArtifact moduleModel = new ModuleArtifact();
       moduleModel.setFile(new File(layout.pathOfMetaDataFile(module, "b2.module")));
       moduleModel.setType("module");
@@ -358,14 +376,12 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
    }
 
-   private List<ModuleArtifact> gatherProductArtifacts(final AbstractModule module)
+   private List<ModuleArtifact> gatherProductArtifacts(final AbstractModule module, List<Environment> environments)
    {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
-      ModuleProject project = sessionService.getCurrentSession().getCurrentProject();
-
       final List<String> envAppendixes = new ArrayList<String>();
-      for (Environment environment : project.getEnvironements())
+      for (Environment environment : environments)
       {
          envAppendixes.add(toEnvAppendix(environment));
       }
@@ -404,6 +420,104 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
 
       return artifacts;
+   }
+
+   private static class Environment
+   {
+      private String os, ws, arch;
+
+      public String getOs()
+      {
+         return os;
+      }
+
+      public void setOs(String os)
+      {
+         this.os = os;
+      }
+
+      public String getWs()
+      {
+         return ws;
+      }
+
+      public void setWs(String ws)
+      {
+         this.ws = ws;
+      }
+
+      public String getArch()
+      {
+         return arch;
+      }
+
+      public void setArch(String arch)
+      {
+         this.arch = arch;
+      }
+
+
+   }
+
+   // HACK
+   private static List<Environment> configureModuleTargetEnvironments(MavenProject project, Properties properties)
+   {
+      final List<Environment> environments = new ArrayList<Environment>();
+
+      for (Plugin plugin : project.getBuildPlugins())
+      {
+         if ("org.eclipse.tycho:target-platform-configuration".equals(plugin.getKey()))
+         {
+            Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
+            if (configuration != null)
+            {
+               Xpp3Dom envs = configuration.getChild("environments");
+               if (envs != null)
+               {
+                  for (Xpp3Dom envNode : envs.getChildren("environment"))
+                  {
+                     Environment env = new Environment();
+
+                     Xpp3Dom node = envNode.getChild("os");
+                     if (node != null)
+                     {
+                        env.os = node.getValue();
+                     }
+
+                     node = envNode.getChild("ws");
+                     if (node != null)
+                     {
+                        env.ws = node.getValue();
+                     }
+
+                     node = envNode.getChild("arch");
+                     if (node != null)
+                     {
+                        env.arch = node.getValue();
+                     }
+
+                     environments.add(env);
+                  }
+               }
+            }
+         }
+      }
+
+      if (environments.isEmpty())
+      {
+         String os = PlatformPropertiesUtils.getOS(properties);
+         String ws = PlatformPropertiesUtils.getWS(properties);
+         String arch = PlatformPropertiesUtils.getArch(properties);
+
+         Environment env = new Environment();
+         env.setOs(os);
+         env.setWs(ws);
+         env.setArch(arch);
+
+         environments.add(env);
+      }
+
+      return environments;
    }
 
    /**
