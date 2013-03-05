@@ -37,7 +37,7 @@ import com.google.inject.name.Names;
 public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 {
    @Inject
-   private B2SessionRunner sessionRunner;
+   private B2LifecycleRunner b2LifecycleRunner;
 
    @Inject
    private LayoutManager layoutManager;
@@ -90,12 +90,14 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
       for (int i = 0; i < projectDirs.size(); i++)
       {
-         final AbstractModule module = sessionRunner.prepareNext(projectDirs, i, requestFactory);
+         final B2Request b2Request = requestFactory.newRequest(projectDirs, i);
+
+         final AbstractModule module = b2LifecycleRunner.prepareNext(projectDirs, i, b2Request);
          modules.put(module.getDirectory(), module);
       }
 
       int idx = 0;
-      while (sessionRunner.finalizeNext(projectDirs, idx++))
+      while (b2LifecycleRunner.finalizeNext(projectDirs, idx++))
       { // noop
       }
 

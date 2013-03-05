@@ -11,18 +11,15 @@ import static com.google.common.base.Preconditions.checkState;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.repository.RepositorySystem;
+import org.sourcepit.b2.execution.B2LifecycleRunner;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
-import org.sourcepit.b2.execution.B2SessionRunner;
 import org.sourcepit.b2.internal.scm.svn.SCM;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
@@ -31,35 +28,17 @@ import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
 public class B2BootstrapParticipant implements BootstrapParticipant
 {
    @Inject
-   private LegacySupport legacySupport;
-
-   @Inject
-   private RepositorySystem repositorySystem;
-
-   @Inject
    private SCM scm;
 
    @Inject
-   private B2SessionInitializer b2SessionInitializer;
+   @Named("maven")
+   private B2RequestFactory b2RequestFactory;
 
    @Inject
-   private B2SessionRunner sessionRunner;
+   private B2LifecycleRunner b2LifecycleRunner;
 
    public void beforeBuild(MavenSession bootSession, final MavenProject bootProject, MavenSession actualSession)
    {
-      final MavenSession mavenSession = legacySupport.getSession();
-      final Properties properties = new Properties();
-      properties.putAll(mavenSession.getSystemProperties());
-      properties.putAll(mavenSession.getUserProperties());
-
-      final B2RequestFactory b2RequestFactory = new B2RequestFactory()
-      {
-         public B2Request newRequest(List<File> projectDirs, int currentIdx)
-         {
-            return b2SessionInitializer.newB2Request(mavenSession, bootProject);
-         }
-      };
-
       final List<File> projectDirs = new ArrayList<File>();
       for (MavenProject project : bootSession.getProjects())
       {
@@ -69,7 +48,9 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       final int idx = bootSession.getProjects().indexOf(bootProject);
       checkState(idx > -1);
 
-      final AbstractModule module = sessionRunner.prepareNext(projectDirs, idx, b2RequestFactory);
+      final B2Request b2Request = b2RequestFactory.newRequest(projectDirs, idx);
+
+      final AbstractModule module = b2LifecycleRunner.prepareNext(projectDirs, idx, b2Request);
       bootProject.setContextValue(AbstractModule.class.getName(), module);
    }
 
