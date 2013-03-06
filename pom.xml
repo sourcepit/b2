@@ -19,7 +19,7 @@
 
 	<properties>
 		<tycho.version>0.16.0</tycho.version>
-		<maven-bootstrap.version>0.1.0-SNAPSHOT</maven-bootstrap.version>
+		<maven-bootstrap.version>0.1.0-alpha-6</maven-bootstrap.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 
@@ -125,53 +125,53 @@
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>osgify-maven-plugin</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit</groupId>
 				<artifactId>slf4j-plexus</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>shared-resources-harness</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-4</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>shared-resources-harness</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-4</version>
 				<type>test-jar</type>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-testing</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-manifest</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-9</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-maven</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-8</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-utils</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-5</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-constraints</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit</groupId>
 				<artifactId>guice-plexus-bridge</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-6</version>
 			</dependency>
 			<dependency>
 				<groupId>org.tmatesoft.svnkit</groupId>
@@ -217,12 +217,12 @@
 				<plugin>
 					<groupId>org.sourcepit.tools</groupId>
 					<artifactId>shared-resources-maven-plugin</artifactId>
-					<version>0.1.0-SNAPSHOT</version>
+					<version>0.1.0-alpha-4</version>
 				</plugin>
 				<plugin>
 					<groupId>org.sourcepit.tools</groupId>
 					<artifactId>maven-install-plugin</artifactId>
-					<version>0.1.0-SNAPSHOT</version>
+					<version>0.1.0-alpha-4</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -449,20 +449,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<id>vr</id>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>srcpit.snapshots</id>
-					<uniqueVersion>false</uniqueVersion>
-					<url>${env.VR_MAVEN_REPO_URL}/srcpit-snapshots/</url>
-				</snapshotRepository>
-				<repository>
-					<id>srcpit.releases</id>
-					<url>${env.VR_MAVEN_REPO_URL}/srcpit-releases/</url>
-				</repository>
-			</distributionManagement>
 		</profile>
 	</profiles>
 </project>
