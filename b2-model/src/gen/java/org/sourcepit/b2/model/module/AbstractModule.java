@@ -9,7 +9,7 @@ package org.sourcepit.b2.model.module;
 import java.util.Locale;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.b2.model.common.Annotatable;
+import org.sourcepit.modeling.common.Annotatable;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,7 +72,7 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
     * 
     * @return the value of the '<em>Locales</em>' attribute list.
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractModule_Locales()
-    * @model dataType="org.sourcepit.b2.model.common.ELocale"
+    * @model dataType="org.sourcepit.modeling.common.ELocale"
     * @generated
     */
    EList<Locale> getLocales();

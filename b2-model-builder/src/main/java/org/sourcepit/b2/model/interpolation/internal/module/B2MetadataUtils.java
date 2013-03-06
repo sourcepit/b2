@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.sourcepit.b2.model.common.Annotatable;
-import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.FeatureProject;
+import org.sourcepit.modeling.common.Annotatable;
+import org.sourcepit.modeling.common.Annotation;
 
 public final class B2MetadataUtils
 {
@@ -46,7 +46,7 @@ public final class B2MetadataUtils
 
    public static String getModuleId(Annotatable annotatable)
    {
-      return annotatable.getAnnotationEntry(B2, MODULE_ID);
+      return annotatable.getAnnotationData(B2, MODULE_ID);
    }
 
    public static void setModuleVersion(Annotatable annotatable, String value)
@@ -56,7 +56,7 @@ public final class B2MetadataUtils
 
    public static String getModuleVersion(Annotatable annotatable)
    {
-      return annotatable.getAnnotationEntry(B2, MODULE_VERSION);
+      return annotatable.getAnnotationData(B2, MODULE_VERSION);
    }
 
    public static String getClassifier(FeatureProject featureProject)
@@ -102,7 +102,7 @@ public final class B2MetadataUtils
    public static List<String> getAssemblyNames(Annotatable annotatable)
    {
       final List<String> names = new ArrayList<String>();
-      split(names, annotatable.getAnnotationEntry(B2, ASSEMBLY_NAMES));
+      split(names, annotatable.getAnnotationData(B2, ASSEMBLY_NAMES));
       return names;
    }
 
@@ -121,7 +121,7 @@ public final class B2MetadataUtils
    public static List<String> getAssemblyClassifiers(Annotatable annotatable)
    {
       final List<String> classifiers = new ArrayList<String>();
-      split(classifiers, annotatable.getAnnotationEntry(B2, ASSEMBLY_CLASSIFIERS));
+      split(classifiers, annotatable.getAnnotationData(B2, ASSEMBLY_CLASSIFIERS));
       return classifiers;
    }
 
@@ -140,7 +140,7 @@ public final class B2MetadataUtils
    public static List<String> getReplacedFeatureIds(Annotatable annotatable)
    {
       final List<String> names = new ArrayList<String>();
-      split(names, annotatable.getAnnotationEntry(B2, "replacedFeatureIds"));
+      split(names, annotatable.getAnnotationData(B2, "replacedFeatureIds"));
       return names;
    }
 
@@ -158,7 +158,7 @@ public final class B2MetadataUtils
 
    public static String getFacetName(Annotatable annotatable)
    {
-      return annotatable.getAnnotationEntry(B2, FACET_NAME);
+      return annotatable.getAnnotationData(B2, FACET_NAME);
    }
 
    public static void setFacetName(Annotatable annotatable, String value)
@@ -168,7 +168,7 @@ public final class B2MetadataUtils
 
    public static String getFacetClassifier(Annotatable annotatable)
    {
-      return annotatable.getAnnotationEntry(B2, FACET_CLASSIFIER);
+      return annotatable.getAnnotationData(B2, FACET_CLASSIFIER);
    }
 
    public static void setFacetClassifier(Annotatable annotatable, String value)
@@ -183,7 +183,7 @@ public final class B2MetadataUtils
 
    public static boolean isSourceFeature(Annotatable annotatable)
    {
-      return toBoolean(annotatable.getAnnotationEntry(B2, IS_SOURCE_FEATURE));
+      return toBoolean(annotatable.getAnnotationData(B2, IS_SOURCE_FEATURE));
    }
 
    // TODO add model attribute to FeatureProject?
@@ -195,7 +195,7 @@ public final class B2MetadataUtils
    // TODO add model attribute to FeatureProject?
    public static boolean isTestFeature(Annotatable annotatable)
    {
-      return toBoolean(annotatable.getAnnotationEntry(B2, IS_TEST_FEATURE));
+      return toBoolean(annotatable.getAnnotationData(B2, IS_TEST_FEATURE));
    }
 
    public static void setTestPlugin(Annotatable annotatable, boolean value)
@@ -205,7 +205,7 @@ public final class B2MetadataUtils
 
    public static boolean isTestPlugin(Annotatable annotatable)
    {
-      return toBoolean(annotatable.getAnnotationEntry(B2, IS_TEST_PLUGIN));
+      return toBoolean(annotatable.getAnnotationData(B2, IS_TEST_PLUGIN));
    }
 
    private static void setB2Metadata(Annotatable annotatable, String key, String value)
@@ -215,12 +215,12 @@ public final class B2MetadataUtils
          final Annotation b2Metadata = getB2Metadata(annotatable);
          if (b2Metadata != null)
          {
-            b2Metadata.getEntries().removeKey(key);
+            b2Metadata.getData().removeKey(key);
          }
       }
       else
       {
-         annotatable.putAnnotationEntry(B2, key, value);
+         annotatable.setAnnotationData(B2, key, value);
       }
    }
 
@@ -273,7 +273,7 @@ public final class B2MetadataUtils
 
    public static String getBrandedFeature(Annotatable annotatable)
    {
-      return annotatable.getAnnotationEntry(B2, BRANDED_FEATURE);
+      return annotatable.getAnnotationData(B2, BRANDED_FEATURE);
    }
 
    public static void setBrandingPlugin(Annotatable annotatable, String pluginId)
@@ -283,6 +283,6 @@ public final class B2MetadataUtils
    
    public static String getBrandingPlugin(Annotatable annotatable)
    {
-      return annotatable.getAnnotationEntry(B2, BRANDING_PLUGIN);
+      return annotatable.getAnnotationData(B2, BRANDING_PLUGIN);
    }
 }

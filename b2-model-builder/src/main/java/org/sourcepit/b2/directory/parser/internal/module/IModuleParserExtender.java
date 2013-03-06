@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.directory.parser.internal.module;
 
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.modeling.common.Annotatable;
 
 public interface IModuleParserExtender
 {

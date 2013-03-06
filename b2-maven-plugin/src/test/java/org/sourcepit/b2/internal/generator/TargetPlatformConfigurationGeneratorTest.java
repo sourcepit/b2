@@ -92,7 +92,7 @@ public class TargetPlatformConfigurationGeneratorTest
       FileUtils.copyFile(moduleFile, pomFile);
       assertTrue(pomFile.exists());
 
-      module.putAnnotationEntry("maven", "pomFile", pomFile.getAbsolutePath());
+      module.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
 
       resolutionContext = new TestResolutionContextResolver();
 

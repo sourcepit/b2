@@ -19,13 +19,13 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.sourcepit.b2.model.common.Annotation;
-import org.sourcepit.b2.model.common.CommonModelPackage;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.modeling.common.Annotation;
+import org.sourcepit.modeling.common.CommonModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -146,8 +146,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList.Resolving<Annotation>(Annotation.class, this,
-            ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonModelPackage.ANNOTATION__PARENT);
+         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
+            ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonModelPackage.ANNOTATION__TARGET);
       }
       return annotations;
    }
@@ -380,7 +380,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public String getAnnotationEntry(String source, String key)
+   public Annotation getAnnotation(String source, boolean createOnDemand)
    {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
@@ -393,7 +393,20 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public String putAnnotationEntry(String source, String key, String value)
+   public String getAnnotationData(String source, String key)
+   {
+      // TODO: implement this method
+      // Ensure that you remove @generated or mark it @generated NOT
+      throw new UnsupportedOperationException();
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   public String setAnnotationData(String source, String key, String value)
    {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT

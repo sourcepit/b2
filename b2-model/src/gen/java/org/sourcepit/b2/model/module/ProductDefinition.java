@@ -8,7 +8,7 @@ package org.sourcepit.b2.model.module;
 
 import java.io.File;
 
-import org.sourcepit.b2.model.common.Annotatable;
+import org.sourcepit.modeling.common.Annotatable;
 
 /**
  * <!-- begin-user-doc -->
@@ -73,7 +73,7 @@ public interface ProductDefinition extends Annotatable, Derivable
     * @return the value of the '<em>File</em>' attribute.
     * @see #setFile(File)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProductDefinition_File()
-    * @model dataType="org.sourcepit.b2.model.common.EJavaFile" required="true"
+    * @model dataType="org.sourcepit.modeling.common.EFile" required="true"
     * @generated
     */
    File getFile();

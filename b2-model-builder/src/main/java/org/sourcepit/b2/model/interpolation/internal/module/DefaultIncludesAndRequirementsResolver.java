@@ -29,7 +29,6 @@ import org.sourcepit.b2.model.builder.util.BasicConverter.AggregatorMode;
 import org.sourcepit.b2.model.builder.util.FeaturesConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.CompositeModule;
@@ -51,6 +50,7 @@ import org.sourcepit.common.manifest.osgi.VersionRange;
 import org.sourcepit.common.utils.collections.FilteredIterable;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.modeling.common.Annotatable;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;

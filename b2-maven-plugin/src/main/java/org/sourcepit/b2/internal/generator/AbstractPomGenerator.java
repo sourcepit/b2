@@ -18,9 +18,9 @@ import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.model.io.ModelReader;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.AbstractGenerator;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.common.utils.path.PathUtils;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.modeling.common.Annotatable;
 
 public abstract class AbstractPomGenerator extends AbstractGenerator
 {
@@ -39,7 +39,7 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
 
    protected File getPomFile(Annotatable annotateable)
    {
-      final String path = annotateable.getAnnotationEntry(SOURCE_MAVEN, KEY_POM_FILE);
+      final String path = annotateable.getAnnotationData(SOURCE_MAVEN, KEY_POM_FILE);
       if (path != null)
       {
          return new File(path);
@@ -49,7 +49,7 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
 
    protected File resolvePomFile(Annotatable annotateable)
    {
-      final File pomFile = new File(annotateable.getAnnotationEntry(SOURCE_MAVEN, KEY_POM_FILE));
+      final File pomFile = new File(annotateable.getAnnotationData(SOURCE_MAVEN, KEY_POM_FILE));
       if (!pomFile.exists())
       {
          throw new IllegalStateException("Pom file was not generated for " + annotateable);

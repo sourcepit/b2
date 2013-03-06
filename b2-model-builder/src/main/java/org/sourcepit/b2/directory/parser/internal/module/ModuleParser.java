@@ -20,10 +20,10 @@ import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.modeling.common.Annotatable;
 
 @Named
 public class ModuleParser implements IModuleParser

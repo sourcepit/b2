@@ -13,12 +13,12 @@ import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
+import org.sourcepit.modeling.common.Annotatable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -58,7 +58,7 @@ public class JavaProjectExtender extends AbstractModuleParserExtender implements
          if (sb.length() > 0)
          {
             sb.deleteCharAt(0);
-            modelElement.putAnnotationEntry("java", "source.paths", sb.toString());
+            modelElement.setAnnotationData("java", "source.paths", sb.toString());
          }
 
          for (Node node : XmlUtils.queryNodes(cpDoc,
@@ -67,7 +67,7 @@ public class JavaProjectExtender extends AbstractModuleParserExtender implements
             Element conEntry = (Element) node;
             String conPath = conEntry.getAttribute("path");
             String jreName = conPath.substring(conPath.lastIndexOf('/') + 1);
-            modelElement.putAnnotationEntry("java", "jre.name", jreName);
+            modelElement.setAnnotationData("java", "jre.name", jreName);
          }
       }
    }
@@ -83,13 +83,13 @@ public class JavaProjectExtender extends AbstractModuleParserExtender implements
          final String target = jdtPrefs.get("org.eclipse.jdt.core.compiler.codegen.targetPlatform");
          if (target != null)
          {
-            modelElement.putAnnotationEntry("java", "compiler.target", target);
+            modelElement.setAnnotationData("java", "compiler.target", target);
          }
 
          final String source = jdtPrefs.get("org.eclipse.jdt.core.compiler.codegen.targetPlatform");
          if (source != null)
          {
-            modelElement.putAnnotationEntry("java", "compiler.source", source);
+            modelElement.setAnnotationData("java", "compiler.source", source);
          }
       }
    }

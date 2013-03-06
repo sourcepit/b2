@@ -10,7 +10,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
@@ -36,6 +35,7 @@ import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.modeling.common.Annotatable;
 
 /**
  * <!-- begin-user-doc -->
@@ -684,7 +684,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.common.Annotatable
+    * Creates a new adapter for an object of class '{@link org.sourcepit.modeling.common.Annotatable
     * <em>Annotatable</em>}'.
     * <!-- begin-user-doc -->
     * This default implementation returns null so that we can easily ignore cases;
@@ -692,7 +692,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * <!-- end-user-doc -->
     * 
     * @return the new adapter.
-    * @see org.sourcepit.b2.model.common.Annotatable
+    * @see org.sourcepit.modeling.common.Annotatable
     * @generated
     */
    public Adapter createAnnotatableAdapter()

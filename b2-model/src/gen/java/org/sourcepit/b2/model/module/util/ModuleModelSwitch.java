@@ -9,7 +9,6 @@ package org.sourcepit.b2.model.module.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
@@ -35,6 +34,7 @@ import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.modeling.common.Annotatable;
 
 /**
  * <!-- begin-user-doc -->

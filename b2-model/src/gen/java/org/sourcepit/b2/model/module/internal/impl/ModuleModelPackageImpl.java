@@ -16,8 +16,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.sourcepit.b2.model.common.CommonModelPackage;
-import org.sourcepit.b2.model.common.internal.impl.CommonModelPackageImpl;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
@@ -48,6 +46,7 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.b2.model.module.util.Identifier;
 import org.sourcepit.common.manifest.ManifestPackage;
 import org.sourcepit.common.manifest.osgi.BundleManifestPackage;
+import org.sourcepit.modeling.common.CommonModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -319,20 +318,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       isInited = true;
 
       // Initialize simple dependencies
+      CommonModelPackage.eINSTANCE.eClass();
       ManifestPackage.eINSTANCE.eClass();
-
-      // Obtain or create and register interdependencies
-      CommonModelPackageImpl theCommonModelPackage = (CommonModelPackageImpl) (EPackage.Registry.INSTANCE
-         .getEPackage(CommonModelPackage.eNS_URI) instanceof CommonModelPackageImpl ? EPackage.Registry.INSTANCE
-         .getEPackage(CommonModelPackage.eNS_URI) : CommonModelPackage.eINSTANCE);
 
       // Create package meta-data objects
       theModuleModelPackage.createPackageContents();
-      theCommonModelPackage.createPackageContents();
 
       // Initialize created meta-data
       theModuleModelPackage.initializePackageContents();
-      theCommonModelPackage.initializePackageContents();
 
       // Mark meta-data to indicate it can't be changed
       theModuleModelPackage.freeze();
@@ -1428,7 +1421,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       initEClass(fileContainerEClass, FileContainer.class, "FileContainer", IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getFileContainer_Directory(), theCommonModelPackage.getEJavaFile(), "directory", null, 0, 1,
+      initEAttribute(getFileContainer_Directory(), theCommonModelPackage.getEFile(), "directory", null, 0, 1,
          FileContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
 
@@ -1475,7 +1468,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
          this.getProductsFacet_ProductDefinitions(), "parent", null, 1, 1, ProductDefinition.class, !IS_TRANSIENT,
          !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
          IS_ORDERED);
-      initEAttribute(getProductDefinition_File(), theCommonModelPackage.getEJavaFile(), "file", null, 1, 1,
+      initEAttribute(getProductDefinition_File(), theCommonModelPackage.getEFile(), "file", null, 1, 1,
          ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
       initEReference(getProductDefinition_ProductPlugin(), this.getStrictReference(), null, "productPlugin", null, 1,

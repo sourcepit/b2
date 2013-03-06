@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.sourcepit.b2.model.common.CommonModelPackage;
+import org.sourcepit.modeling.common.CommonModelPackage;
 
 /**
  * <!-- begin-user-doc -->

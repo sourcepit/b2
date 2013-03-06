@@ -33,7 +33,6 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.ITemplates;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
@@ -45,6 +44,7 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.modeling.common.Annotatable;
 import org.sourcepit.osgify.core.model.context.BundleCandidate;
 import org.sourcepit.osgify.core.model.context.OsgifyContext;
 import org.sourcepit.osgify.maven.p2.P2UpdateSiteGenerator;
@@ -105,13 +105,13 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          try
          {
             module
-               .putAnnotationEntry("b2.mavenDependencies", "repositoryURL", siteDir.toURI().toURL().toExternalForm());
+               .setAnnotationData("b2.mavenDependencies", "repositoryURL", siteDir.toURI().toURL().toExternalForm());
          }
          catch (MalformedURLException e)
          {
             throw pipe(e);
          }
-         module.putAnnotationEntry("b2.mavenDependencies", "repositoryName", repositoryName);
+         module.setAnnotationData("b2.mavenDependencies", "repositoryName", repositoryName);
 
          interpolatePlugins(module, moduleProperties, osgifyContext);
       }
@@ -185,7 +185,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
 
    public void postInterpolation(AbstractModule module, PropertiesSource moduleProperties, ThrowablePipe errors)
    {
-      final String repositoryURL = module.getAnnotationEntry("b2.mavenDependencies", "repositoryURL");
+      final String repositoryURL = module.getAnnotationData("b2.mavenDependencies", "repositoryURL");
       if (repositoryURL != null)
       {
          AbstractFacet facet = module.getFacetByName(getFacetName(moduleProperties));
@@ -205,7 +205,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
       ITemplates templates)
    {
-      final String repositoryURL = inputElement.getAnnotationEntry("b2.mavenDependencies", "repositoryURL");
+      final String repositoryURL = inputElement.getAnnotationData("b2.mavenDependencies", "repositoryURL");
       if (repositoryURL != null)
       {
          final File pomFile = resolvePomFile(inputElement);
@@ -214,7 +214,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
 
          removeDependencies(pom, JARS);
 
-         final String repositoryName = inputElement.getAnnotationEntry("b2.mavenDependencies", "repositoryName");
+         final String repositoryName = inputElement.getAnnotationData("b2.mavenDependencies", "repositoryName");
 
          final Repository repository = new Repository();
          repository.setId(repositoryName);

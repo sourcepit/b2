@@ -14,7 +14,6 @@ import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
@@ -24,6 +23,7 @@ import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
+import org.sourcepit.modeling.common.Annotatable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -69,7 +69,7 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                   final ProductDefinition productDef = ModuleModelFactory.eINSTANCE.createProductDefinition();
                   productDef.setFile(productFile);
 
-                  productDef.putAnnotationEntry("product", "file", productFile.getAbsolutePath());
+                  productDef.setAnnotationData("product", "file", productFile.getAbsolutePath());
 
                   Document productDoc = XmlUtils.readXml(productFile);
                   Element elem = productDoc.getDocumentElement();
@@ -108,13 +108,13 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                      }
                   }
 
-                  productDef.putAnnotationEntry("product", "uid", uid);
+                  productDef.setAnnotationData("product", "uid", uid);
                   if (version != null)
                   {
-                     productDef.putAnnotationEntry("product", "version", version);
+                     productDef.setAnnotationData("product", "version", version);
                   }
-                  productDef.putAnnotationEntry("product", "id", id);
-                  productDef.putAnnotationEntry("product", "application", elem.getAttribute("application"));
+                  productDef.setAnnotationData("product", "id", id);
+                  productDef.setAnnotationData("product", "application", elem.getAttribute("application"));
 
                   final Iterable<Node> nodes = XmlUtils.queryNodes(productDoc, "product/launcher/*/ico");
                   for (Node node : nodes)
@@ -124,7 +124,7 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                      if (path.length() > 0)
                      {
                         String osName = ico.getParentNode().getNodeName();
-                        productDef.putAnnotationEntry("product", osName + ".icon", path);
+                        productDef.setAnnotationData("product", osName + ".icon", path);
                      }
                   }
 

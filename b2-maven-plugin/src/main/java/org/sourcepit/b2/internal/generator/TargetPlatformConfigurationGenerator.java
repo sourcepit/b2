@@ -25,10 +25,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.modeling.common.Annotatable;
 
 @Named
 public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator implements IB2GenerationParticipant

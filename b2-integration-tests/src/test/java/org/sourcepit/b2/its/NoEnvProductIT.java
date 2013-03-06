@@ -56,7 +56,7 @@ public class NoEnvProductIT extends AbstractB2IT
       assertThat(productDefinitions.size(), Is.is(1));
 
       ProductDefinition productDefinition = productDefinitions.get(0);
-      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      final String uid = productDefinition.getAnnotationData("product", "uid");
       assertNotNull(uid);
 
       final IInterpolationLayout layout = new SimpleInterpolationLayout();

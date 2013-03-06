@@ -16,7 +16,6 @@ import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.b2.model.builder.util.SitesConverter;
-import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -29,6 +28,7 @@ import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.modeling.common.Annotation;
 
 @Named
 public class SitesInterpolator
