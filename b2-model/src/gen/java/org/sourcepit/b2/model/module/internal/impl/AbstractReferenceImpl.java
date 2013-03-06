@@ -20,8 +20,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.modeling.common.Annotation;
-import org.sourcepit.modeling.common.CommonModelPackage;
+import org.sourcepit.common.modeling.Annotation;
+import org.sourcepit.common.modeling.CommonModelingPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -139,7 +139,7 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS, CommonModelPackage.ANNOTATION__TARGET);
+            ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
       return annotations;
    }

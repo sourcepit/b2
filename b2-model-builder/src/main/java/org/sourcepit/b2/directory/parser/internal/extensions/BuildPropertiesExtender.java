@@ -15,10 +15,10 @@ import javax.inject.Named;
 import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
 import org.sourcepit.b2.model.module.Project;
+import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.modeling.common.Annotatable;
 
 @Named
 public class BuildPropertiesExtender extends AbstractModuleParserExtender implements IModuleParserExtender

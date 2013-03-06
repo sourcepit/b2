@@ -8,7 +8,7 @@ package org.sourcepit.b2.model.module;
 
 import java.io.File;
 
-import org.sourcepit.modeling.common.Annotatable;
+import org.sourcepit.common.modeling.Annotatable;
 
 /**
  * <!-- begin-user-doc -->

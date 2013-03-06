@@ -24,8 +24,8 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.StrictReference;
-import org.sourcepit.modeling.common.Annotation;
-import org.sourcepit.modeling.common.CommonModelPackage;
+import org.sourcepit.common.modeling.Annotation;
+import org.sourcepit.common.modeling.CommonModelingPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -147,7 +147,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonModelPackage.ANNOTATION__TARGET);
+            ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
       return annotations;
    }

@@ -22,9 +22,9 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.util.Identifier;
-import org.sourcepit.modeling.common.Annotatable;
-import org.sourcepit.modeling.common.Annotation;
-import org.sourcepit.modeling.common.CommonModelPackage;
+import org.sourcepit.common.modeling.Annotatable;
+import org.sourcepit.common.modeling.Annotation;
+import org.sourcepit.common.modeling.CommonModelingPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -180,7 +180,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModuleModelPackage.PROJECT__ANNOTATIONS, CommonModelPackage.ANNOTATION__TARGET);
+            ModuleModelPackage.PROJECT__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
       return annotations;
    }
@@ -487,7 +487,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
          switch (derivedFeatureID)
          {
             case ModuleModelPackage.PROJECT__ANNOTATIONS :
-               return CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
+               return CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -530,7 +530,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (baseFeatureID)
          {
-            case CommonModelPackage.ANNOTATABLE__ANNOTATIONS :
+            case CommonModelingPackage.ANNOTATABLE__ANNOTATIONS :
                return ModuleModelPackage.PROJECT__ANNOTATIONS;
             default :
                return -1;

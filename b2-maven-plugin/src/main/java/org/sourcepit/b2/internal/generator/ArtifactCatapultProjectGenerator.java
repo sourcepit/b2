@@ -41,8 +41,8 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
+import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.modeling.common.Annotatable;
 
 import com.google.common.base.Strings;
 

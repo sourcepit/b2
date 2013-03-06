@@ -42,11 +42,11 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
+import org.sourcepit.common.modeling.Annotatable;
+import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.io.IOOperation;
 import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.modeling.common.Annotatable;
-import org.sourcepit.modeling.common.Annotation;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant

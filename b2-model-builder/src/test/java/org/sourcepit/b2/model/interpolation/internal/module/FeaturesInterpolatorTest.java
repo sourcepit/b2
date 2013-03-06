@@ -31,9 +31,9 @@ import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
-import org.sourcepit.modeling.common.Annotation;
 
 public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 {

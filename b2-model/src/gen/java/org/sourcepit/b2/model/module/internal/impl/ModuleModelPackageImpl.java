@@ -46,7 +46,7 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.b2.model.module.util.Identifier;
 import org.sourcepit.common.manifest.ManifestPackage;
 import org.sourcepit.common.manifest.osgi.BundleManifestPackage;
-import org.sourcepit.modeling.common.CommonModelPackage;
+import org.sourcepit.common.modeling.CommonModelingPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -318,7 +318,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       isInited = true;
 
       // Initialize simple dependencies
-      CommonModelPackage.eINSTANCE.eClass();
+      CommonModelingPackage.eINSTANCE.eClass();
       ManifestPackage.eINSTANCE.eClass();
 
       // Create package meta-data objects
@@ -1195,8 +1195,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       setNsURI(eNS_URI);
 
       // Obtain other dependent packages
-      CommonModelPackage theCommonModelPackage = (CommonModelPackage) EPackage.Registry.INSTANCE
-         .getEPackage(CommonModelPackage.eNS_URI);
+      CommonModelingPackage theCommonModelingPackage = (CommonModelingPackage) EPackage.Registry.INSTANCE
+         .getEPackage(CommonModelingPackage.eNS_URI);
       BundleManifestPackage theBundleManifestPackage = (BundleManifestPackage) EPackage.Registry.INSTANCE
          .getEPackage(BundleManifestPackage.eNS_URI);
 
@@ -1209,11 +1209,11 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       // Add supertypes to classes
       abstractModuleEClass.getESuperTypes().add(this.getFileContainer());
-      abstractModuleEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
+      abstractModuleEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
       abstractModuleEClass.getESuperTypes().add(this.getIdentifiable());
       basicModuleEClass.getESuperTypes().add(this.getAbstractModule());
       abstractFacetEClass.getESuperTypes().add(this.getDerivable());
-      abstractFacetEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
+      abstractFacetEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
       compositeModuleEClass.getESuperTypes().add(this.getAbstractModule());
       g1 = createEGenericType(this.getProjectFacet());
       EGenericType g2 = createEGenericType(this.getPluginProject());
@@ -1232,14 +1232,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       siteProjectEClass.getESuperTypes().add(this.getProject());
       projectEClass.getESuperTypes().add(this.getFileContainer());
       projectEClass.getESuperTypes().add(this.getDerivable());
-      projectEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
+      projectEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
       projectEClass.getESuperTypes().add(this.getIdentifiable());
       projectFacetEClass.getESuperTypes().add(this.getAbstractFacet());
       pluginIncludeEClass.getESuperTypes().add(this.getAbstractStrictReference());
       productsFacetEClass.getESuperTypes().add(this.getAbstractFacet());
-      productDefinitionEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
+      productDefinitionEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
       productDefinitionEClass.getESuperTypes().add(this.getDerivable());
-      abstractReferenceEClass.getESuperTypes().add(theCommonModelPackage.getAnnotatable());
+      abstractReferenceEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
       ruledReferenceEClass.getESuperTypes().add(this.getAbstractReference());
       abstractStrictReferenceEClass.getESuperTypes().add(this.getAbstractReference());
       strictReferenceEClass.getESuperTypes().add(this.getAbstractStrictReference());
@@ -1251,7 +1251,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getAbstractModule_LayoutId(), ecorePackage.getEString(), "layoutId", null, 1, 1,
          AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getAbstractModule_Locales(), theCommonModelPackage.getELocale(), "locales", null, 0, -1,
+      initEAttribute(getAbstractModule_Locales(), theCommonModelingPackage.getELocale(), "locales", null, 0, -1,
          AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
       initEReference(getAbstractModule_Facets(), this.getAbstractFacet(), this.getAbstractFacet_Parent(), "facets",
@@ -1421,7 +1421,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       initEClass(fileContainerEClass, FileContainer.class, "FileContainer", IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getFileContainer_Directory(), theCommonModelPackage.getEFile(), "directory", null, 0, 1,
+      initEAttribute(getFileContainer_Directory(), theCommonModelingPackage.getEFile(), "directory", null, 0, 1,
          FileContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
 
@@ -1468,7 +1468,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
          this.getProductsFacet_ProductDefinitions(), "parent", null, 1, 1, ProductDefinition.class, !IS_TRANSIENT,
          !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
          IS_ORDERED);
-      initEAttribute(getProductDefinition_File(), theCommonModelPackage.getEFile(), "file", null, 1, 1,
+      initEAttribute(getProductDefinition_File(), theCommonModelingPackage.getEFile(), "file", null, 1, 1,
          ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
       initEReference(getProductDefinition_ProductPlugin(), this.getStrictReference(), null, "productPlugin", null, 1,

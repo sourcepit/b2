@@ -16,7 +16,7 @@ import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.ClassPathEntry;
-import org.sourcepit.modeling.common.Annotation;
+import org.sourcepit.common.modeling.Annotation;
 
 @Named
 public class DefaultUnpackStrategy implements UnpackStrategy

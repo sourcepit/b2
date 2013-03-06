@@ -35,7 +35,7 @@ import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
-import org.sourcepit.modeling.common.Annotatable;
+import org.sourcepit.common.modeling.Annotatable;
 
 /**
  * <!-- begin-user-doc -->

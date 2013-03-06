@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.sourcepit.modeling.common.CommonModelPackage;
+import org.sourcepit.common.modeling.CommonModelingPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -1214,7 +1214,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
+   int ABSTRACT_REFERENCE__ANNOTATIONS = CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1224,7 +1224,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE__ID = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 0;
+   int ABSTRACT_REFERENCE__ID = CommonModelingPackage.ANNOTATABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1234,7 +1234,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE__VERSION = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 1;
+   int ABSTRACT_REFERENCE__VERSION = CommonModelingPackage.ANNOTATABLE_FEATURE_COUNT + 1;
 
    /**
     * The number of structural features of the '<em>Abstract Reference</em>' class.
@@ -1244,7 +1244,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int ABSTRACT_REFERENCE_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 2;
+   int ABSTRACT_REFERENCE_FEATURE_COUNT = CommonModelingPackage.ANNOTATABLE_FEATURE_COUNT + 2;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractStrictReferenceImpl
@@ -1535,7 +1535,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__ANNOTATIONS = CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
+   int PRODUCT_DEFINITION__ANNOTATIONS = CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
 
    /**
     * The feature id for the '<em><b>Derived</b></em>' attribute.
@@ -1545,7 +1545,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__DERIVED = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 0;
+   int PRODUCT_DEFINITION__DERIVED = CommonModelingPackage.ANNOTATABLE_FEATURE_COUNT + 0;
 
    /**
     * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -1555,7 +1555,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__PARENT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 1;
+   int PRODUCT_DEFINITION__PARENT = CommonModelingPackage.ANNOTATABLE_FEATURE_COUNT + 1;
 
    /**
     * The feature id for the '<em><b>File</b></em>' attribute.
@@ -1565,7 +1565,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__FILE = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 2;
+   int PRODUCT_DEFINITION__FILE = CommonModelingPackage.ANNOTATABLE_FEATURE_COUNT + 2;
 
    /**
     * The feature id for the '<em><b>Product Plugin</b></em>' containment reference.
@@ -1575,7 +1575,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION__PRODUCT_PLUGIN = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 3;
+   int PRODUCT_DEFINITION__PRODUCT_PLUGIN = CommonModelingPackage.ANNOTATABLE_FEATURE_COUNT + 3;
 
    /**
     * The number of structural features of the '<em>Product Definition</em>' class.
@@ -1585,7 +1585,7 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int PRODUCT_DEFINITION_FEATURE_COUNT = CommonModelPackage.ANNOTATABLE_FEATURE_COUNT + 4;
+   int PRODUCT_DEFINITION_FEATURE_COUNT = CommonModelingPackage.ANNOTATABLE_FEATURE_COUNT + 4;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.RuledReferenceImpl

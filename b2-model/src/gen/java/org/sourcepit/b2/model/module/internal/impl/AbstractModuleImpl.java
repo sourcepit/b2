@@ -26,9 +26,9 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.util.Identifier;
-import org.sourcepit.modeling.common.Annotatable;
-import org.sourcepit.modeling.common.Annotation;
-import org.sourcepit.modeling.common.CommonModelPackage;
+import org.sourcepit.common.modeling.Annotatable;
+import org.sourcepit.common.modeling.Annotation;
+import org.sourcepit.common.modeling.CommonModelingPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -183,7 +183,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       if (annotations == null)
       {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS, CommonModelPackage.ANNOTATION__TARGET);
+            ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
       return annotations;
    }
@@ -604,7 +604,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
          switch (derivedFeatureID)
          {
             case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
-               return CommonModelPackage.ANNOTATABLE__ANNOTATIONS;
+               return CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
             default :
                return -1;
          }
@@ -637,7 +637,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          switch (baseFeatureID)
          {
-            case CommonModelPackage.ANNOTATABLE__ANNOTATIONS :
+            case CommonModelingPackage.ANNOTATABLE__ANNOTATIONS :
                return ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS;
             default :
                return -1;

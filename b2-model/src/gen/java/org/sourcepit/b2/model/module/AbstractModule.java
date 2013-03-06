@@ -9,7 +9,7 @@ package org.sourcepit.b2.model.module;
 import java.util.Locale;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.modeling.common.Annotatable;
+import org.sourcepit.common.modeling.Annotatable;
 
 /**
  * <!-- begin-user-doc -->

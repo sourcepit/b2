@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.sourcepit.b2.model.module.FeatureProject;
-import org.sourcepit.modeling.common.Annotatable;
-import org.sourcepit.modeling.common.Annotation;
+import org.sourcepit.common.modeling.Annotatable;
+import org.sourcepit.common.modeling.Annotation;
 
 public final class B2MetadataUtils
 {

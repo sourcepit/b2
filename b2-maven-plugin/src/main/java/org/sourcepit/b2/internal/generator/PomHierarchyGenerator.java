@@ -23,8 +23,8 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.ProjectFacet;
+import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.modeling.common.Annotatable;
 
 @Named
 public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2GenerationParticipant

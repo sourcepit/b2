@@ -26,9 +26,9 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.modeling.common.Annotation;
 
 @Named
 public class SitesInterpolator

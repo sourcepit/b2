@@ -24,8 +24,8 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.manifest.Manifest;
 import org.sourcepit.common.manifest.osgi.resource.GenericManifestResourceImpl;
+import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.io.IOOperation;
-import org.sourcepit.modeling.common.Annotation;
 
 public final class B2ModelUtils
 {

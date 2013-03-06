@@ -13,8 +13,8 @@ import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExt
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
 import org.sourcepit.b2.model.builder.util.UIDetector;
 import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.modeling.common.Annotatable;
 
 @Named
 public class BundlePropertiesAppender extends AbstractModuleParserExtender implements IModuleParserExtender

@@ -33,8 +33,8 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.modeling.common.Annotatable;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
