@@ -6,6 +6,7 @@
 		<exportedPackage>org.sourcepit.common.utils.adapt</exportedPackage>
 		<exportedPackage>org.sourcepit.common.utils.props</exportedPackage>
 		<exportedPackage>org.sourcepit.common.utils.lang</exportedPackage>
+		<exportedPackage>org.sourcepit.common.modeling</exportedPackage>
 		<exportedPackage>org.sourcepit.common.manifest</exportedPackage>
 		<exportedPackage>org.eclipse.emf</exportedPackage>
 		<exportedPackage>com.google.common.base</exportedPackage>
