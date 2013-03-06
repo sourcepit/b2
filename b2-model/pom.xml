@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.sourcepit.b2</groupId>
 		<artifactId>b2</artifactId>
-		<version>0.1.0-alpha-7</version>
+		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>b2-model</artifactId>
 
