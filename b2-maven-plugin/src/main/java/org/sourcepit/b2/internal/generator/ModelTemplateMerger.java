@@ -15,7 +15,6 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Prerequisites;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.merge.MavenModelMerger;
-import org.apache.maven.model.merge.ModelMerger;
 
 public class ModelTemplateMerger extends MavenModelMerger
 {

@@ -132,7 +132,7 @@ public class SvnSCM implements SCM
    {
       try
       {
-         SVNURL svnURL = SVNURL.parseURIDecoded(createSvnURL(rootDir, version));
+         SVNURL svnURL = SVNURL.parseURIEncoded(createSvnURL(rootDir, version));
          FileUtils.deleteDirectory(rootDir);
          svn.doCheckout(svnURL, rootDir);
       }

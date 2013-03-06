@@ -58,7 +58,7 @@ public class RecordingLogger extends MarkerIgnoringBase
       // NOP
    }
 
-   public void trace(String format, Object[] argArray)
+   public void trace(String format, Object... argArray)
    {
       // NOP
    }
@@ -88,7 +88,7 @@ public class RecordingLogger extends MarkerIgnoringBase
       // NOP
    }
 
-   public void debug(String format, Object[] argArray)
+   public void debug(String format, Object... argArray)
    {
       // NOP
    }
@@ -118,7 +118,7 @@ public class RecordingLogger extends MarkerIgnoringBase
       formatAndLog(INFO, format, arg1, arg2);
    }
 
-   public void info(String format, Object[] argArray)
+   public void info(String format, Object... argArray)
    {
       formatAndLog(INFO, format, argArray);
    }
@@ -143,7 +143,7 @@ public class RecordingLogger extends MarkerIgnoringBase
       formatAndLog(WARN, format, arg);
    }
 
-   public void warn(String format, Object[] argArray)
+   public void warn(String format, Object... argArray)
    {
       formatAndLog(WARN, format, argArray);
    }
@@ -178,7 +178,7 @@ public class RecordingLogger extends MarkerIgnoringBase
       formatAndLog(ERROR, format, arg1, arg2);
    }
 
-   public void error(String format, Object[] argArray)
+   public void error(String format, Object... argArray)
    {
       formatAndLog(ERROR, format, argArray);
    }
