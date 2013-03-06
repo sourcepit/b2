@@ -72,8 +72,19 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
-							<!-- <goal>test-compile</goal> -->
 						</goals>
+						<configuration>
+							<aspectLibraries>
+								<aspectLibrary>
+									<groupId>org.sourcepit.common</groupId>
+									<artifactId>common-modeling</artifactId>
+								</aspectLibrary>
+								<aspectLibrary>
+									<groupId>org.sourcepit.common</groupId>
+									<artifactId>common-constraints</artifactId>
+								</aspectLibrary>
+							</aspectLibraries>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
