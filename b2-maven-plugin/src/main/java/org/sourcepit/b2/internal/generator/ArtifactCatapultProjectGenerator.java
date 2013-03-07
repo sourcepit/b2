@@ -361,11 +361,13 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       {
          for (SiteProject siteProject : sitesFacet.getProjects())
          {
-            final String projectVersion = VersionUtils.getProjectVersion(siteProject);
+            String osgiVersion = siteProject.getVersion();
+
+            String mavenVersion = VersionUtils.toTychoVersion(osgiVersion);
 
             final ModuleArtifact siteArtifact = new ModuleArtifact();
             siteArtifact.setFile(new File(siteProject.getDirectory(), "target/" + siteProject.getId() + "-"
-               + projectVersion + ".zip"));
+               + mavenVersion + ".zip"));
             String cl = SiteProjectGenerator.getAssemblyClassifier(siteProject);
             siteArtifact.setClassifier(cl == null || cl.length() == 0 ? "site" : "site-" + cl);
             siteArtifact.setType("zip");

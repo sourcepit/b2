@@ -9,8 +9,6 @@ package org.sourcepit.b2.internal.generator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.sourcepit.b2.model.module.AbstractModule;
-import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.manifest.osgi.Version;
 
 import com.google.common.base.Strings;
@@ -27,44 +25,14 @@ public final class VersionUtils
    {
       super();
    }
-   
-   public static String getProjectVersion(AbstractModule module)
-   {
-      return module.getVersion();
-   }
-   
-   public static String getProjectVersion(Project project)
-   {
-      return project.getVersion();
-   }
-   
-   public static String getMavenVersion(AbstractModule module)
-   {
-      return module.getVersion();
-   }
-   
-   public static String getMavenVersion(Project project)
-   {
-      return project.getVersion();
-   }
-   
-   public static String getOSGiVersion(AbstractModule module)
-   {
-      return module.getVersion();
-   }
-   
-   public static String getOSGiVersion(Project project)
-   {
-      return project.getVersion();
-   }
 
-   public static String toBundleVersion(String mavenVersion)
+   public static String toBundleVersion(String version)
    {
-      if (mavenVersion == null)
+      if (version == null)
       {
          return null;
       }
-      return cleanupVersion(replaceSnapshotQualifier(mavenVersion));
+      return cleanupVersion(replaceSnapshotQualifier(version));
    }
 
    private static String replaceSnapshotQualifier(String version)
@@ -77,19 +45,34 @@ public final class VersionUtils
       return version;
    }
 
-   public static String toMavenVersion(String osgiVersion)
+   public static String toTychoVersion(String version)
    {
-      if (osgiVersion == null)
+      if (version == null)
       {
          return null;
       }
 
-      if (osgiVersion.endsWith(SUFFIX_QUALIFIER))
+      if (version.endsWith(SUFFIX_QUALIFIER))
       {
-         return osgiVersion.substring(0, osgiVersion.length() - SUFFIX_QUALIFIER.length()) + SUFFIX_SNAPSHOT;
+         return version.substring(0, version.length() - SUFFIX_QUALIFIER.length()) + SUFFIX_SNAPSHOT;
       }
 
-      final Version v = Version.parse(osgiVersion);
+      return version;
+   }
+
+   public static String toMavenVersion(String version)
+   {
+      if (version == null)
+      {
+         return null;
+      }
+
+      if (version.endsWith(SUFFIX_QUALIFIER))
+      {
+         return version.substring(0, version.length() - SUFFIX_QUALIFIER.length()) + SUFFIX_SNAPSHOT;
+      }
+
+      final Version v = Version.parse(version);
       if (!Strings.isNullOrEmpty(v.getQualifier()))
       {
          StringBuilder sb = new StringBuilder();
@@ -103,7 +86,7 @@ public final class VersionUtils
          return sb.toString();
       }
 
-      return osgiVersion;
+      return version;
    }
 
    /**

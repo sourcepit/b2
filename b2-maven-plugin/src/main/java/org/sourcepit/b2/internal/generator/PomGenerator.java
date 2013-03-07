@@ -182,8 +182,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
 
       final String uid = product.getAnnotationEntry("product", "uid");
-      // TODO support product version
-      // final String version = product.getAnnotationEntry("product", "version");
+      final String version = product.getAnnotationEntry("product", "version");
 
       final File targetDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
       targetDir.mkdirs();
@@ -201,7 +200,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.getProperties().putAll(properties);
       defaultModel.setGroupId(basicConverter.getNameSpace(source));
       defaultModel.setArtifactId(uid);
-      defaultModel.setVersion(VersionUtils.getProjectVersion(module));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(version == null ? module.getVersion() : version));
       defaultModel.setPackaging("eclipse-repository");
 
       mergeIntoPomFile(pomFile, defaultModel);
@@ -224,7 +223,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
 
       defaultModel.setArtifactId(getArtifactIdForModule(module, properties));
-      defaultModel.setVersion(VersionUtils.getProjectVersion(module));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
       @SuppressWarnings("unchecked")
@@ -374,7 +373,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
       defaultModel.setArtifactId(getArtifactIdForFacet(facet, properties));
-      defaultModel.setVersion(VersionUtils.getProjectVersion(facet.getParent()));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(facet.getParent().getVersion()));
       defaultModel.setPackaging("pom");
 
       mergeIntoPomFile(pomFile, defaultModel);
@@ -400,7 +399,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
       defaultModel.setArtifactId(project.getId());
-      defaultModel.setVersion(VersionUtils.getProjectVersion(project));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(project.getVersion()));
       defaultModel.setPackaging("eclipse-repository");
       final String classifier = SiteProjectGenerator.getAssemblyClassifier(project);
       defaultModel.getProperties().setProperty("classifier", classifier == null ? "" : classifier);
@@ -421,7 +420,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
       defaultModel.setArtifactId(project.getId());
-      defaultModel.setVersion(VersionUtils.getProjectVersion(project));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(project.getVersion()));
       defaultModel.setPackaging("eclipse-feature");
 
       mergeIntoPomFile(pomFile, defaultModel);
@@ -439,7 +438,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(groupId);
       defaultModel.setArtifactId(project.getId());
-      defaultModel.setVersion(VersionUtils.getProjectVersion(project));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(project.getVersion()));
       if (project.isTestPlugin())
       {
          defaultModel.setPackaging("eclipse-test-plugin");

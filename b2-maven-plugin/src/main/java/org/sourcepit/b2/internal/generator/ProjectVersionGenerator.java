@@ -68,7 +68,13 @@ public class ProjectVersionGenerator extends AbstractPomGenerator implements IB2
          convertedModel = new DefaultModelReader().read(
             new StringReader(out.toString().replace("${project.version}", "${project.mavenVersion}")), null);
 
-         convertedModel.getProperties().setProperty("project.osgiVersion", VersionUtils.getMavenVersion(project));
+         final String osgiVersion = project.getVersion();
+         final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
+         final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
+
+         convertedModel.getProperties().setProperty("project.tychoVersion", tychoVersion);
+         convertedModel.getProperties().setProperty("project.mavenVersion", mavenVersion);
+         convertedModel.getProperties().setProperty("project.osgiVersion", osgiVersion);
       }
       catch (IOException e)
       {
