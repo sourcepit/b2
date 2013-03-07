@@ -106,7 +106,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       assertThat(productDefinitions.size(), Is.is(1));
 
       ProductDefinition productDefinition = productDefinitions.get(0);
-      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      final String uid = productDefinition.getAnnotationData("product", "uid");
       assertNotNull(uid);
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
@@ -147,7 +147,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       assertThat(productDefinitions.size(), Is.is(1));
 
       ProductDefinition productDefinition = productDefinitions.get(0);
-      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      final String uid = productDefinition.getAnnotationData("product", "uid");
       assertNotNull(uid);
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
@@ -188,7 +188,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       assertThat(productDefinitions.size(), Is.is(1));
 
       ProductDefinition productDefinition = productDefinitions.get(0);
-      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      final String uid = productDefinition.getAnnotationData("product", "uid");
       assertNotNull(uid);
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
@@ -240,7 +240,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       assertThat(productDefinitions.size(), Is.is(1));
 
       ProductDefinition productDefinition = productDefinitions.get(0);
-      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      final String uid = productDefinition.getAnnotationData("product", "uid");
       assertNotNull(uid);
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
@@ -290,7 +290,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
       assertThat(productDefinitions.size(), Is.is(1));
 
       ProductDefinition productDefinition = productDefinitions.get(0);
-      final String uid = productDefinition.getAnnotationEntry("product", "uid");
+      final String uid = productDefinition.getAnnotationData("product", "uid");
       assertNotNull(uid);
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());

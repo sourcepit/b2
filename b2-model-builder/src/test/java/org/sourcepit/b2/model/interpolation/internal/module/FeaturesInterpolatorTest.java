@@ -22,7 +22,6 @@ import java.io.File;
 
 import org.eclipse.emf.common.util.EList;
 import org.junit.Test;
-import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -32,6 +31,7 @@ import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.RuledReference;
+import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
@@ -57,8 +57,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
    }
@@ -77,35 +77,35 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -122,16 +122,16 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
    }
@@ -150,48 +150,48 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
    }
@@ -209,16 +209,16 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       FeatureProject featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
    }
@@ -237,71 +237,71 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -318,16 +318,16 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("public, sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public, sdk", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
    }
@@ -346,71 +346,71 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.sdk.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("sdk", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("public", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -427,45 +427,45 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.doc.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("doc", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("doc", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.doc.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("doc", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("doc", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -482,97 +482,97 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.doc.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("doc", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("doc", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.doc.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("doc", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("doc", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(6);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.doc.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("doc", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("doc", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.doc.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("doc", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("doc", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(2);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(3);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(7);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -671,73 +671,73 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.public.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("public, sdk", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public, sdk", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.sdk.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("sdk", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("public, sdk", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public, sdk", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("test", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -754,109 +754,109 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.public.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("public", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.sdk.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("sdk", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(2);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("public", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(3);
       assertReference("bar.plugins.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(6);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(2);
       assertReference("bar.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(3);
       assertReference("bar.tests.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -873,81 +873,81 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.public.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(2);
       assertReference("bar.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(3);
       assertReference("bar.tests.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -964,73 +964,73 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.public.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("public, sdk", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public, sdk", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.sdk.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("sdk", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("public, sdk", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public, sdk", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("test", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -1047,99 +1047,99 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.plugins.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(2);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(3);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.tests.sources.feature", "1.0.0.qualifier", featureProject);
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureProject.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(0, featureProject.getIncludedFeatures().size());
       assertEquals(2, featureProject.getIncludedPlugins().size());
 
       featureProject = featuresFacet.getProjects().get(4);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.public.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("public", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       FeatureInclude featureInclude;
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("public", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("public", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(5);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.sdk.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("sdk", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("sdk", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(3, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("plugins", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("plugins", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(2);
       assertReference("bar.sdk.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("sdk", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("sdk", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureInclude.getAnnotationData("b2", "facetName"));
 
       featureProject = featuresFacet.getProjects().get(6);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(3, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
       featureInclude = featureProject.getIncludedFeatures().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", featureInclude);
-      assertNull(featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertEquals("tests", featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertNull(featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertEquals("tests", featureInclude.getAnnotationData("b2", "facetName"));
 
       featureInclude = featureProject.getIncludedFeatures().get(2);
       assertReference("bar.test.feature", "1.0.0.qualifier", featureInclude);
-      assertEquals("test", featureInclude.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureInclude.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureInclude.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureInclude.getAnnotationData("b2", "facetName"));
    }
 
    @Override
@@ -1156,8 +1156,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
@@ -1183,8 +1183,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
@@ -1221,8 +1221,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
@@ -1248,8 +1248,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
@@ -1286,8 +1286,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
@@ -1331,8 +1331,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(4, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
@@ -1387,8 +1387,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(0);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.main.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
@@ -1414,8 +1414,8 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       featureProject = featuresFacet.getProjects().get(1);
       assertTrue(featureProject.isDerived());
       assertIdentifiable("foo.test.feature", "1.0.0.qualifier", featureProject);
-      assertEquals("test", featureProject.getAnnotationEntry("b2", "assemblyNames"));
-      assertNull(featureProject.getAnnotationEntry("b2", "facetName"));
+      assertEquals("test", featureProject.getAnnotationData("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "facetName"));
       assertEquals(2, featureProject.getIncludedFeatures().size());
       assertEquals(1, featureProject.getIncludedPlugins().size());
 
@@ -1465,15 +1465,15 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       featureProject = featuresFacet.getProjects().get(0);
       assertEquals("foo.plugins.feature", featureProject.getId());
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
 
       featureProject = featuresFacet.getProjects().get(1);
       assertEquals("foo.plugins.sources.feature", featureProject.getId());
-      assertNull(featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertNull(featureProject.getAnnotationData("b2", "assemblyNames"));
 
       featureProject = featuresFacet.getProjects().get(2);
       assertEquals("foo.main.feature", featureProject.getId());
-      assertEquals("main", featureProject.getAnnotationEntry("b2", "assemblyNames"));
+      assertEquals("main", featureProject.getAnnotationData("b2", "assemblyNames"));
    }
 
    // see structured-module IT
@@ -1539,7 +1539,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       FeatureProject featureProject = featuresFacet.getProjects().get(0);
       assertEquals("foo.plugins.feature", featureProject.getId());
 
-      String assemblyNames = featureProject.getAnnotationEntry("b2", "assemblyNames");
+      String assemblyNames = featureProject.getAnnotationData("b2", "assemblyNames");
       assertEquals("main, bla", assemblyNames);
    }
 

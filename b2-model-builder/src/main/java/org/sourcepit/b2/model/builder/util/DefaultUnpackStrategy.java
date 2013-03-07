@@ -13,10 +13,10 @@ import java.util.Map.Entry;
 import javax.inject.Named;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.ClassPathEntry;
+import org.sourcepit.common.modeling.Annotation;
 
 @Named
 public class DefaultUnpackStrategy implements UnpackStrategy
@@ -56,7 +56,7 @@ public class DefaultUnpackStrategy implements UnpackStrategy
       final Annotation build = pluginProject.getAnnotation("build");
       if (build != null)
       {
-         final String binIncs = build.getEntries().get("bin.includes");
+         final String binIncs = build.getData().get("bin.includes");
          if (binIncs != null)
          {
             final String[] split = binIncs.split(",");
@@ -78,7 +78,7 @@ public class DefaultUnpackStrategy implements UnpackStrategy
       final Annotation build = pluginProject.getAnnotation("build");
       if (build != null)
       {
-         for (Entry<String, String> entry : build.getEntries())
+         for (Entry<String, String> entry : build.getData())
          {
             String key = entry.getKey();
             if (key.startsWith("source.") && key.endsWith(".jar"))

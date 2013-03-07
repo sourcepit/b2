@@ -28,6 +28,6 @@ public class SourceService implements ISourceService
 
    public boolean hasSource(PluginProject pluginProject)
    {
-      return pluginProject.getAnnotationEntry("java", "source.paths") != null;
+      return pluginProject.getAnnotationData("java", "source.paths") != null;
    }
 }

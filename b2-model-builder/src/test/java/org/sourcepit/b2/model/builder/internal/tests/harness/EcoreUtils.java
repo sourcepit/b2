@@ -8,12 +8,11 @@ package org.sourcepit.b2.model.builder.internal.tests.harness;
 
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.junit.Assert;
 
 /**
  * @author Bernd

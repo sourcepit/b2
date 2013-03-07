@@ -83,12 +83,12 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       final AbstractModule module = product.getParent().getParent();
       final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
 
-      final String uid = product.getAnnotationEntry("product", "uid");
+      final String uid = product.getAnnotationData("product", "uid");
 
       final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
       projectDir.mkdirs();
 
-      EMap<String, String> data = product.getAnnotation("product").getEntries();
+      EMap<String, String> data = product.getAnnotation("product").getData();
 
       File srcFile = product.getFile();
       File productFile = new File(projectDir, srcFile.getName());

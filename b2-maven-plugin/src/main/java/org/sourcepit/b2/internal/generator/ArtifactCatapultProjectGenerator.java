@@ -34,7 +34,6 @@ import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -42,6 +41,7 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
+import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.common.base.Strings;
@@ -401,7 +401,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
             }
 
             final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
-            final String uid = product.getAnnotationEntry("product", "uid");
+            final String uid = product.getAnnotationData("product", "uid");
             final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
             for (String envAppendix : envAppendixes)
             {

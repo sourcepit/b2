@@ -31,9 +31,9 @@ import org.sonatype.aether.resolution.ArtifactResult;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.common.base.Predicate;

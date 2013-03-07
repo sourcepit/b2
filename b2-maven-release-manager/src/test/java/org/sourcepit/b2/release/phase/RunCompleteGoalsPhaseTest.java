@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.release.phase;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.apache.maven.shared.release.config.ReleaseDescriptor;
 import org.junit.Test;

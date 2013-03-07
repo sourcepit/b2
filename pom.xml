@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -14,8 +15,8 @@
 
 	<scm>
 		<connection>scm:git:git@github.com:sourcepit/b2.git</connection>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 
 	<properties>
 		<tycho.version>0.16.0</tycho.version>
@@ -125,7 +126,7 @@
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>osgify-maven-plugin</artifactId>
-				<version>0.1.0-alpha-3</version>
+				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit</groupId>
@@ -150,13 +151,18 @@
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
+				<artifactId>common-modeling</artifactId>
+				<version>0.1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-manifest</artifactId>
 				<version>0.1.0-alpha-9</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-maven</artifactId>
-				<version>0.1.0-alpha-8</version>
+				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>

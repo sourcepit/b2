@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sourcepit.b2</groupId>
@@ -8,6 +9,10 @@
 	<artifactId>b2-model</artifactId>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.sourcepit.common</groupId>
+			<artifactId>common-modeling</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>srcpit.org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore</artifactId>
@@ -37,7 +42,7 @@
 				<directory>src/main/resources</directory>
 			</resource>
 			<resource>
-				<directory>src/main/model</directory>
+				<directory>src/main/emf</directory>
 				<targetPath>META-INF/model</targetPath>
 			</resource>
 		</resources>
@@ -54,7 +59,7 @@
 						<configuration>
 							<sources>
 								<source>${basedir}/src/main/aspects</source>
-								<source>${basedir}/src/gen/java</source>
+								<source>${basedir}/gen/main/emf</source>
 							</sources>
 						</configuration>
 					</execution>
@@ -67,8 +72,19 @@
 					<execution>
 						<goals>
 							<goal>compile</goal>
-							<!-- <goal>test-compile</goal> -->
 						</goals>
+						<configuration>
+							<aspectLibraries>
+								<aspectLibrary>
+									<groupId>org.sourcepit.common</groupId>
+									<artifactId>common-modeling</artifactId>
+								</aspectLibrary>
+								<aspectLibrary>
+									<groupId>org.sourcepit.common</groupId>
+									<artifactId>common-constraints</artifactId>
+								</aspectLibrary>
+							</aspectLibraries>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

@@ -15,7 +15,6 @@ import java.io.InputStream;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
@@ -25,6 +24,7 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.manifest.Manifest;
 import org.sourcepit.common.manifest.osgi.resource.GenericManifestResourceImpl;
+import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.io.IOOperation;
 
 public final class B2ModelUtils
