@@ -72,7 +72,7 @@ public interface AbstractModule extends FileContainer, Annotatable, Identifiable
     * 
     * @return the value of the '<em>Locales</em>' attribute list.
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractModule_Locales()
-    * @model dataType="org.sourcepit.modeling.common.ELocale"
+    * @model dataType="org.sourcepit.common.modeling.ELocale"
     * @generated
     */
    EList<Locale> getLocales();

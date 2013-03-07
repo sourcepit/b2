@@ -73,7 +73,7 @@ public interface ProductDefinition extends Annotatable, Derivable
     * @return the value of the '<em>File</em>' attribute.
     * @see #setFile(File)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProductDefinition_File()
-    * @model dataType="org.sourcepit.modeling.common.EFile" required="true"
+    * @model dataType="org.sourcepit.common.modeling.EFile" required="true"
     * @generated
     */
    File getFile();

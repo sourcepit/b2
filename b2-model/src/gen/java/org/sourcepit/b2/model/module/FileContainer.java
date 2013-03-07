@@ -40,7 +40,7 @@ public interface FileContainer extends EObject
     * @return the value of the '<em>Directory</em>' attribute.
     * @see #setDirectory(File)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getFileContainer_Directory()
-    * @model dataType="org.sourcepit.modeling.common.EFile"
+    * @model dataType="org.sourcepit.common.modeling.EFile"
     * @generated
     */
    File getDirectory();

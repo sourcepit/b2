@@ -392,7 +392,7 @@
         <styles xmi:type="notation:FilteringStyle" xmi:id="_8tVAm4ZvEeKCe84PIVCdFQ"/>
       </children>
       <styles xmi:type="notation:ShapeStyle" xmi:id="_8tVAkYZvEeKCe84PIVCdFQ" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-      <element xmi:type="ecore:EClass" href="platform:/resource/common-modeling/src/main/emf/common.ecore#//Annotatable"/>
+      <element xmi:type="ecore:EClass" href="platform:/resource/common-modeling/src/main/emf/CommonModeling.ecore#//Annotatable"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8tVAkoZvEeKCe84PIVCdFQ" x="85" y="75"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_GKReseBsEeCuft77Tiw4BQ"/>

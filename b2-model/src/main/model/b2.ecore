@@ -3,7 +3,7 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="http://www.sourcepit.org/b2/model/0.1" nsPrefix="model">
   <eSubpackages name="module" nsURI="http://www.sourcepit.org/b2/model/0.1/module"
       nsPrefix="module">
-    <eClassifiers xsi:type="ecore:EClass" name="AbstractModule" abstract="true" eSuperTypes="#//module/FileContainer ../../../../common-modeling/src/main/emf/common.ecore#//Annotatable #//module/Identifiable">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractModule" abstract="true" eSuperTypes="#//module/FileContainer ../../../../common-modeling/src/main/emf/CommonModeling.ecore#//Annotatable #//module/Identifiable">
       <eOperations name="getFacets" lowerBound="1" upperBound="-1">
         <eGenericType eTypeParameter="#//module/AbstractModule/getFacets/T"/>
         <eTypeParameters name="T">
@@ -51,12 +51,12 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutId" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="locales" upperBound="-1"
-          eType="ecore:EDataType ../../../../common-modeling/src/main/emf/common.ecore#//ELocale"/>
+          eType="ecore:EDataType ../../../../common-modeling/src/main/emf/CommonModeling.ecore#//ELocale"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="facets" upperBound="-1"
           eType="#//module/AbstractFacet" containment="true" eOpposite="#//module/AbstractFacet/parent"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BasicModule" eSuperTypes="#//module/AbstractModule"/>
-    <eClassifiers xsi:type="ecore:EClass" name="AbstractFacet" abstract="true" eSuperTypes="#//module/Derivable ../../../../common-modeling/src/main/emf/common.ecore#//Annotatable">
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractFacet" abstract="true" eSuperTypes="#//module/Derivable ../../../../common-modeling/src/main/emf/CommonModeling.ecore#//Annotatable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//module/AbstractModule" eOpposite="#//module/AbstractModule/facets"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
@@ -122,7 +122,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="featureReferences" upperBound="-1"
           eType="#//module/StrictReference" containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//module/FileContainer #//module/Derivable ../../../../common-modeling/src/main/emf/common.ecore#//Annotatable #//module/Identifiable">
+    <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//module/FileContainer #//module/Derivable ../../../../common-modeling/src/main/emf/CommonModeling.ecore#//Annotatable #//module/Identifiable">
       <eOperations name="getParent">
         <eGenericType eClassifier="#//module/ProjectFacet">
           <eTypeArguments>
@@ -150,7 +150,7 @@
       </eOperations>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FileContainer" abstract="true">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directory" eType="ecore:EDataType ../../../../common-modeling/src/main/emf/common.ecore#//EFile"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="directory" eType="ecore:EDataType ../../../../common-modeling/src/main/emf/CommonModeling.ecore#//EFile"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Derivable" abstract="true" interface="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="derived" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -177,17 +177,17 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="productDefinitions" upperBound="-1"
           eType="#//module/ProductDefinition" containment="true" eOpposite="#//module/ProductDefinition/parent"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ProductDefinition" eSuperTypes="../../../../common-modeling/src/main/emf/common.ecore#//Annotatable #//module/Derivable">
+    <eClassifiers xsi:type="ecore:EClass" name="ProductDefinition" eSuperTypes="../../../../common-modeling/src/main/emf/CommonModeling.ecore#//Annotatable #//module/Derivable">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parent" lowerBound="1"
           eType="#//module/ProductsFacet" eOpposite="#//module/ProductsFacet/productDefinitions"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1"
-          eType="ecore:EDataType ../../../../common-modeling/src/main/emf/common.ecore#//EFile"/>
+          eType="ecore:EDataType ../../../../common-modeling/src/main/emf/CommonModeling.ecore#//EFile"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="productPlugin" lowerBound="1"
           eType="#//module/StrictReference" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EDataType" name="Identifier" instanceClassName="org.sourcepit.b2.model.module.util.Identifier"/>
     <eClassifiers xsi:type="ecore:EClass" name="AbstractReference" abstract="true"
-        eSuperTypes="../../../../common-modeling/src/main/emf/common.ecore#//Annotatable">
+        eSuperTypes="../../../../common-modeling/src/main/emf/CommonModeling.ecore#//Annotatable">
       <eOperations name="isSatisfiableBy" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
         <eParameters name="identifier" eType="#//module/Identifiable"/>
       </eOperations>
