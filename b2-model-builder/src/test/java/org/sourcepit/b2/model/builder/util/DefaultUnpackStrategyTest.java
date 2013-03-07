@@ -30,11 +30,11 @@ public class DefaultUnpackStrategyTest
 
       assertFalse(unpackStrategy.isUnpack(pluginProject));
 
-      pluginProject.putAnnotationEntry("build", "bin.includes", ".");
+      pluginProject.setAnnotationData("build", "bin.includes", ".");
 
       assertFalse(unpackStrategy.isUnpack(pluginProject));
 
-      pluginProject.putAnnotationEntry("build", "bin.includes", ".,foo.jar");
+      pluginProject.setAnnotationData("build", "bin.includes", ".,foo.jar");
 
       assertTrue(unpackStrategy.isUnpack(pluginProject));
    }

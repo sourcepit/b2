@@ -17,6 +17,7 @@ import javax.inject.Named;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
+import org.slf4j.Logger;
 import org.sourcepit.b2.execution.B2LifecycleRunner;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
@@ -37,8 +38,16 @@ public class B2BootstrapParticipant implements BootstrapParticipant
    @Inject
    private B2LifecycleRunner b2LifecycleRunner;
 
+   @Inject
+   private Logger logger;
+
    public void beforeBuild(MavenSession bootSession, final MavenProject bootProject, MavenSession actualSession)
    {
+      logger.info("");
+      logger.info("------------------------------------------------------------------------");
+      logger.info("Bootstrapping " + bootProject.getName() + " " + bootProject.getVersion());
+      logger.info("------------------------------------------------------------------------");
+
       final List<File> projectDirs = new ArrayList<File>();
       for (MavenProject project : bootSession.getProjects())
       {

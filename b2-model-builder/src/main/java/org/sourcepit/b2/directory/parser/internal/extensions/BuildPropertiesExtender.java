@@ -14,8 +14,8 @@ import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
-import org.sourcepit.b2.model.common.Annotatable;
 import org.sourcepit.b2.model.module.Project;
+import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -41,7 +41,7 @@ public class BuildPropertiesExtender extends AbstractModuleParserExtender implem
          props.load(propsFile);
          for (Entry<String, String> entry : props.entrySet())
          {
-            modelElement.putAnnotationEntry("build", entry.getKey(), entry.getValue());
+            modelElement.setAnnotationData("build", entry.getKey(), entry.getValue());
          }
       }
    }

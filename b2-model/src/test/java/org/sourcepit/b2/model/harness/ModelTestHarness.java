@@ -127,7 +127,7 @@ public final class ModelTestHarness
       plugin.setBundleManifest(manifest);
 
       // fake source
-      plugin.putAnnotationEntry("java", "source.paths", "src");
+      plugin.setAnnotationData("java", "source.paths", "src");
 
       return plugin;
    }

@@ -70,7 +70,7 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       }
 
 
-      final File pomFile = new File(module.getAnnotationEntry(AbstractPomGenerator.SOURCE_MAVEN,
+      final File pomFile = new File(module.getAnnotationData(AbstractPomGenerator.SOURCE_MAVEN,
          AbstractPomGenerator.KEY_POM_FILE));
 
       bootProject.setContextValue("pom", pomFile);

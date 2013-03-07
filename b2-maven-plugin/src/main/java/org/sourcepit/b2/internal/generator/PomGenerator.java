@@ -32,8 +32,6 @@ import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
-import org.sourcepit.b2.model.common.Annotatable;
-import org.sourcepit.b2.model.common.Annotation;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -44,6 +42,8 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
+import org.sourcepit.common.modeling.Annotatable;
+import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.io.IOOperation;
 import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -92,10 +92,10 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       if (inputElement instanceof Project)
       {
          final Annotation additionalProps = inputElement.getAnnotation("project.properties");
-         if (additionalProps != null && !additionalProps.getEntries().isEmpty())
+         if (additionalProps != null && !additionalProps.getData().isEmpty())
          {
             final Model model = readMavenModel(pomFile);
-            for (Entry<String, String> property : additionalProps.getEntries())
+            for (Entry<String, String> property : additionalProps.getData())
             {
                model.getProperties().setProperty(property.getKey(), property.getValue());
             }
@@ -126,7 +126,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          }
       }
 
-      inputElement.putAnnotationEntry(SOURCE_MAVEN, KEY_POM_FILE, pomFile.toString());
+      inputElement.setAnnotationData(SOURCE_MAVEN, KEY_POM_FILE, pomFile.toString());
    }
 
    protected File doGenerate(final EObject inputElement, final PropertiesSource properties, final ITemplates templates)
@@ -181,8 +181,8 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       final AbstractModule module = product.getParent().getParent();
       final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
 
-      final String uid = product.getAnnotationEntry("product", "uid");
-      final String version = product.getAnnotationEntry("product", "version");
+      final String uid = product.getAnnotationData("product", "uid");
+      final String version = product.getAnnotationData("product", "version");
 
       final File targetDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
       targetDir.mkdirs();
@@ -191,8 +191,8 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       Properties properties = new Properties();
       properties.setProperty("product.uid", uid);
-      properties.setProperty("product.id", product.getAnnotationEntry("product", "id"));
-      properties.setProperty("product.applications", product.getAnnotationEntry("product", "application"));
+      properties.setProperty("product.id", product.getAnnotationData("product", "id"));
+      properties.setProperty("product.applications", product.getAnnotationData("product", "application"));
       copyPomTemplate(templates, pomFile);
 
       final Model defaultModel = new Model();
@@ -248,7 +248,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       final Model moduleModel;
 
-      final String path = module.getAnnotationEntry("maven", "modulePomTemplate");
+      final String path = module.getAnnotationData("maven", "modulePomTemplate");
       if (path != null)
       {
          moduleModel = readMavenModel(new File(path));
@@ -451,7 +451,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.getProperties().setProperty("bundle.symbolicName", project.getId());
       defaultModel.getProperties().setProperty("bundle.version", project.getVersion());
 
-      final String requiresUI = project.getAnnotationEntry("UI", "required");
+      final String requiresUI = project.getAnnotationData("UI", "required");
       defaultModel.getProperties().setProperty("bundle.requiresUI", requiresUI == null ? "false" : requiresUI);
 
       if (unpackStrategy.isUnpack(project))
