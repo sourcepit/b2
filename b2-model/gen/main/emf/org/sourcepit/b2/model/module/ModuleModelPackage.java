@@ -48,7 +48,7 @@ public interface ModuleModelPackage extends EPackage
     * 
     * @generated
     */
-   String eNS_URI = "http://www.sourcepit.org/b2/model/0.1/module";
+   String eNS_URI = "http://www.sourcepit.org/b2/module/0.1/";
 
    /**
     * The package namespace name.
@@ -57,7 +57,7 @@ public interface ModuleModelPackage extends EPackage
     * 
     * @generated
     */
-   String eNS_PREFIX = "module";
+   String eNS_PREFIX = "b2-module";
 
    /**
     * The package content type ID.
