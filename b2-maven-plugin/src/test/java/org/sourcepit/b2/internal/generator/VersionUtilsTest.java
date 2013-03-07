@@ -13,12 +13,21 @@ import org.junit.Test;
 public class VersionUtilsTest
 {
    @Test
+   public void testToTychoVersion()
+   {
+      assertEquals("1.2", VersionUtils.toTychoVersion("1.2"));
+      assertEquals("1.2.3", VersionUtils.toTychoVersion("1.2.3"));
+      assertEquals("1.2.3-SNAPSHOT", VersionUtils.toTychoVersion("1.2.3.qualifier"));
+      assertEquals("1.2.3.rc1", VersionUtils.toTychoVersion("1.2.3.rc1"));
+   }
+   
+   @Test
    public void testToMavenVersion()
    {
       assertEquals("1.2", VersionUtils.toMavenVersion("1.2"));
       assertEquals("1.2.3", VersionUtils.toMavenVersion("1.2.3"));
       assertEquals("1.2.3-SNAPSHOT", VersionUtils.toMavenVersion("1.2.3.qualifier"));
-      assertEquals("1.2.3.rc1", VersionUtils.toMavenVersion("1.2.3.rc1"));
+      assertEquals("1.2.3-rc1", VersionUtils.toMavenVersion("1.2.3.rc1"));
    }
    
    @Test

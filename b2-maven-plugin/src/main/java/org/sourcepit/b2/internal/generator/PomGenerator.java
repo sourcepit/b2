@@ -200,7 +200,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.getProperties().putAll(properties);
       defaultModel.setGroupId(basicConverter.getNameSpace(source));
       defaultModel.setArtifactId(uid);
-      defaultModel.setVersion(VersionUtils.toMavenVersion(version == null ? module.getVersion() : version));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(version == null ? module.getVersion() : version));
       defaultModel.setPackaging("eclipse-repository");
 
       mergeIntoPomFile(pomFile, defaultModel);
@@ -373,7 +373,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
       defaultModel.setArtifactId(getArtifactIdForFacet(facet, properties));
-      defaultModel.setVersion(VersionUtils.toMavenVersion(facet.getParent().getVersion()));
+      defaultModel.setVersion(VersionUtils.toMavenVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
       mergeIntoPomFile(pomFile, defaultModel);
@@ -399,7 +399,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
       defaultModel.setArtifactId(project.getId());
-      defaultModel.setVersion(VersionUtils.toMavenVersion(project.getVersion()));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(project.getVersion()));
       defaultModel.setPackaging("eclipse-repository");
       final String classifier = SiteProjectGenerator.getAssemblyClassifier(project);
       defaultModel.getProperties().setProperty("classifier", classifier == null ? "" : classifier);
@@ -420,7 +420,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
       defaultModel.setArtifactId(project.getId());
-      defaultModel.setVersion(VersionUtils.toMavenVersion(project.getVersion()));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(project.getVersion()));
       defaultModel.setPackaging("eclipse-feature");
 
       mergeIntoPomFile(pomFile, defaultModel);
@@ -438,7 +438,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(groupId);
       defaultModel.setArtifactId(project.getId());
-      defaultModel.setVersion(VersionUtils.toMavenVersion(project.getVersion()));
+      defaultModel.setVersion(VersionUtils.toTychoVersion(project.getVersion()));
       if (project.isTestPlugin())
       {
          defaultModel.setPackaging("eclipse-test-plugin");

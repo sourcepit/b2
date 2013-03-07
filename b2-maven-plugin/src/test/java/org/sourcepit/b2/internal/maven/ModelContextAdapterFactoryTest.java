@@ -26,49 +26,20 @@ import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-import org.junit.Rule;
 import org.junit.Test;
+import org.sourcepit.b2.maven.AbstractB2MavenPluginTest;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.common.maven.model.MavenArtifact;
 import org.sourcepit.common.maven.model.MavenModelFactory;
-import org.sourcepit.common.testing.Environment;
-import org.sourcepit.common.testing.Workspace;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
-public class ModelContextAdapterFactoryTest
+public class ModelContextAdapterFactoryTest extends AbstractB2MavenPluginTest
 {
-   private final Environment env = Environment.get("env-test.properties");
-
-   @Rule
-   public Workspace ws = newWorkspace();
-
-   protected Workspace newWorkspace()
-   {
-      return new Workspace(new File(env.getBuildDir(), "ws"), false);
-   }
-
-   public Environment getEnvironment()
-   {
-      return env;
-   }
-
-   protected File getResource(String path) throws IOException
-   {
-      File resources = getResourcesDir();
-      File resource = new File(resources, path).getCanonicalFile();
-      return ws.importFileOrDir(resource);
-   }
-
-   protected File getResourcesDir()
-   {
-      return getEnvironment().getResourcesDir();
-   }
-
    @Test
    public void testAdoptionReactorProjectURIMappings() throws IOException
    {
