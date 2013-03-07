@@ -34,7 +34,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       new DefaultModelWriter().write(pomFile, null, model);
 
       AbstractModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
-      module.putAnnotationEntry("maven", "pomFile", pomFile.getAbsolutePath());
+      module.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       module.setVersion("1.0.0.qualifier");
       
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
@@ -63,7 +63,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       new DefaultModelWriter().write(pomFile, null, model);
 
       PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
-      project.putAnnotationEntry("maven", "pomFile", pomFile.getAbsolutePath());
+      project.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       project.setVersion("1.0.0.qualifier");
       
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
@@ -92,7 +92,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       new DefaultModelWriter().write(pomFile, null, model);
 
       AbstractModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
-      module.putAnnotationEntry("maven", "pomFile", pomFile.getAbsolutePath());
+      module.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       module.setVersion("1.0.0.rc1");
       
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
@@ -121,7 +121,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       new DefaultModelWriter().write(pomFile, null, model);
 
       PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
-      project.putAnnotationEntry("maven", "pomFile", pomFile.getAbsolutePath());
+      project.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       project.setVersion("1.0.0.rc1");
       
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
@@ -150,7 +150,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       new DefaultModelWriter().write(pomFile, null, model);
 
       AbstractModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
-      module.putAnnotationEntry("maven", "pomFile", pomFile.getAbsolutePath());
+      module.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       module.setVersion("1.0.0");
       
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
@@ -179,7 +179,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       new DefaultModelWriter().write(pomFile, null, model);
 
       PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
-      project.putAnnotationEntry("maven", "pomFile", pomFile.getAbsolutePath());
+      project.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       project.setVersion("1.0.0");
       
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
