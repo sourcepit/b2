@@ -7,20 +7,16 @@
 package org.sourcepit.b2.internal.generator;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.Collection;
 
 import javax.inject.Named;
 
 import org.apache.maven.model.Model;
-import org.apache.maven.model.io.DefaultModelReader;
-import org.apache.maven.model.io.DefaultModelWriter;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.common.Annotatable;
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -36,6 +32,7 @@ public class ProjectVersionGenerator extends AbstractPomGenerator implements IB2
    @Override
    protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
    {
+      inputTypes.add(AbstractModule.class);
       inputTypes.add(Project.class);
    }
 
@@ -43,44 +40,41 @@ public class ProjectVersionGenerator extends AbstractPomGenerator implements IB2
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
       ITemplates templates)
    {
-      generate((Project) inputElement, skipFacets, properties, templates);
-   }
-
-   private void generate(Project project, boolean skipFacets, PropertiesSource properties, ITemplates templates)
-   {
-      final File pomFile = resolvePomFile(project);
-
+      final File pomFile = resolvePomFile(inputElement);
       final Model model = readMavenModel(pomFile);
-
-      final StringWriter out = new StringWriter();
-      try
+      if (inputElement instanceof AbstractModule)
       {
-         new DefaultModelWriter().write(out, null, model);
+         final String osgiVersion = ((AbstractModule) inputElement).getVersion();
+         appendModuleVersionProperties(model, osgiVersion);
       }
-      catch (IOException e)
+      else
       {
-         throw new IllegalStateException(e);
+         final String osgiVersion = ((Project) inputElement).getVersion();
+         appendProjectVersionProperties(model, osgiVersion);
       }
-
-      final Model convertedModel;
-      try
-      {
-         convertedModel = new DefaultModelReader().read(
-            new StringReader(out.toString().replace("${project.version}", "${project.mavenVersion}")), null);
-
-         final String osgiVersion = project.getVersion();
-         final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
-         final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
-
-         convertedModel.getProperties().setProperty("project.tychoVersion", tychoVersion);
-         convertedModel.getProperties().setProperty("project.mavenVersion", mavenVersion);
-         convertedModel.getProperties().setProperty("project.osgiVersion", osgiVersion);
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException(e);
-      }
-      writeMavenModel(pomFile, convertedModel);
+      writeMavenModel(pomFile, model);
    }
 
+   private static void appendModuleVersionProperties(Model model, String osgiVersion)
+   {
+      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
+      final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
+      model.getProperties().setProperty("module.version", mavenVersion);
+      model.getProperties().setProperty("module.mavenVersion", mavenVersion);
+      model.getProperties().setProperty("module.osgiVersion", osgiVersion);
+      model.getProperties().setProperty("module.tychoVersion", tychoVersion);
+      model.getProperties().setProperty("project.tychoVersion", tychoVersion);
+      model.getProperties().setProperty("project.mavenVersion", mavenVersion);
+      model.getProperties().setProperty("project.osgiVersion", osgiVersion);
+   }
+
+   private static void appendProjectVersionProperties(Model model, String osgiVersion)
+   {
+      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
+      final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
+
+      model.getProperties().setProperty("project.tychoVersion", tychoVersion);
+      model.getProperties().setProperty("project.mavenVersion", mavenVersion);
+      model.getProperties().setProperty("project.osgiVersion", osgiVersion);
+   }
 }

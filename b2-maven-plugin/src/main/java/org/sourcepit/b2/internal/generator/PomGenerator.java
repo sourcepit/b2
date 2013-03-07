@@ -223,7 +223,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
 
       defaultModel.setArtifactId(getArtifactIdForModule(module, properties));
-      defaultModel.setVersion(VersionUtils.toTychoVersion(module.getVersion()));
+      defaultModel.setVersion(VersionUtils.toMavenVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
       @SuppressWarnings("unchecked")
@@ -373,7 +373,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setModelVersion("4.0.0");
       defaultModel.setGroupId(basicConverter.getNameSpace(properties));
       defaultModel.setArtifactId(getArtifactIdForFacet(facet, properties));
-      defaultModel.setVersion(VersionUtils.toTychoVersion(facet.getParent().getVersion()));
+      defaultModel.setVersion(VersionUtils.toMavenVersion(module.getVersion()));
       defaultModel.setPackaging("pom");
 
       mergeIntoPomFile(pomFile, defaultModel);
