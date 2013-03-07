@@ -9,6 +9,10 @@ package org.sourcepit.b2.internal.generator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.sourcepit.common.manifest.osgi.Version;
+
+import com.google.common.base.Strings;
+
 public final class VersionUtils
 {
    private static final String SUFFIX_QUALIFIER = ".qualifier";
@@ -41,6 +45,21 @@ public final class VersionUtils
       return version;
    }
 
+   public static String toTychoVersion(String version)
+   {
+      if (version == null)
+      {
+         return null;
+      }
+
+      if (version.endsWith(SUFFIX_QUALIFIER))
+      {
+         return version.substring(0, version.length() - SUFFIX_QUALIFIER.length()) + SUFFIX_SNAPSHOT;
+      }
+
+      return version;
+   }
+
    public static String toMavenVersion(String version)
    {
       if (version == null)
@@ -53,19 +72,19 @@ public final class VersionUtils
          return version.substring(0, version.length() - SUFFIX_QUALIFIER.length()) + SUFFIX_SNAPSHOT;
       }
 
-      // final Version v = Version.parse(version);
-      // if (!Strings.isNullOrEmpty(v.getQualifier()))
-      // {
-      // StringBuilder sb = new StringBuilder();
-      // sb.append(v.getMajor());
-      // sb.append('.');
-      // sb.append(v.getMinor());
-      // sb.append('.');
-      // sb.append(v.getMicro());
-      // sb.append('-');
-      // sb.append(v.getQualifier());
-      // return sb.toString();
-      // }
+      final Version v = Version.parse(version);
+      if (!Strings.isNullOrEmpty(v.getQualifier()))
+      {
+         StringBuilder sb = new StringBuilder();
+         sb.append(v.getMajor());
+         sb.append('.');
+         sb.append(v.getMinor());
+         sb.append('.');
+         sb.append(v.getMicro());
+         sb.append('-');
+         sb.append(v.getQualifier());
+         return sb.toString();
+      }
 
       return version;
    }
