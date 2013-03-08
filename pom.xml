@@ -20,7 +20,6 @@
 
 	<properties>
 		<tycho.version>0.16.0</tycho.version>
-		<maven-bootstrap.version>0.1.0-SNAPSHOT</maven-bootstrap.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 
@@ -62,12 +61,12 @@
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>maven-bootstrap-participation</artifactId>
-				<version>${maven-bootstrap.version}</version>
+				<version>0.1.0-alpha-7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>maven-bootstrap-core</artifactId>
-				<version>${maven-bootstrap.version}</version>
+				<version>0.1.0-alpha-7</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.b2</groupId>
@@ -126,7 +125,7 @@
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>osgify-maven-plugin</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-4</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit</groupId>
@@ -152,7 +151,7 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-modeling</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-6</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
@@ -162,7 +161,7 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-maven</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>0.1.0-alpha-9</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
