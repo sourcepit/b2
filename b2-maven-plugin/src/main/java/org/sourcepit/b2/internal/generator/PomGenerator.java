@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.sourcepit.common.utils.io.IOResources.cpIn;
+import static org.sourcepit.common.utils.io.IO.cpIn;
 
 import java.io.File;
 import java.io.IOException;

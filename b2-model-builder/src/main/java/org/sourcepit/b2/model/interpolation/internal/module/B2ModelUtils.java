@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
-import static org.sourcepit.common.utils.io.IOResources.buffIn;
-import static org.sourcepit.common.utils.io.IOResources.fileIn;
+import static org.sourcepit.common.utils.io.IO.buffIn;
+import static org.sourcepit.common.utils.io.IO.fileIn;
 
 import java.io.File;
 import java.io.IOException;
