@@ -14,7 +14,10 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,7 +29,6 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.sourcepit.b2.generator.GeneratorType;
@@ -41,12 +43,18 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.common.maven.model.ArtifactKey;
+import org.sourcepit.common.maven.model.MavenArtifact;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesSource;
+import org.sourcepit.maven.dependency.model.DependencyModel;
+import org.sourcepit.maven.dependency.model.DependencyNode;
+import org.sourcepit.maven.dependency.model.DependencyTree;
 import org.sourcepit.osgify.core.model.context.BundleCandidate;
 import org.sourcepit.osgify.core.model.context.OsgifyContext;
+import org.sourcepit.osgify.maven.OsgifyModelBuilder.Result;
 import org.sourcepit.osgify.maven.p2.P2UpdateSiteGenerator;
 
 import com.google.common.base.Predicate;
@@ -99,13 +107,12 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
             }
          };
 
-         final OsgifyContext osgifyContext = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true,
-            remoteRepositories, localRepository, repositoryName, options);
+         final Result result = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true, remoteRepositories,
+            localRepository, repositoryName, options);
 
          try
          {
-            module
-               .setAnnotationData("b2.mavenDependencies", "repositoryURL", siteDir.toURI().toURL().toExternalForm());
+            module.setAnnotationData("b2.mavenDependencies", "repositoryURL", siteDir.toURI().toURL().toExternalForm());
          }
          catch (MalformedURLException e)
          {
@@ -113,12 +120,12 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          }
          module.setAnnotationData("b2.mavenDependencies", "repositoryName", repositoryName);
 
-         interpolatePlugins(module, moduleProperties, osgifyContext);
+         interpolatePlugins(module, moduleProperties, result);
       }
    }
 
    private static void interpolatePlugins(final AbstractModule module, PropertiesSource moduleProperties,
-      final OsgifyContext osgifyContext)
+      final Result result)
    {
       ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
 
@@ -135,7 +142,38 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          sourcesFacet = pluginsFacet;
       }
 
-      final EList<BundleCandidate> bundles = osgifyContext.getBundles();
+      DependencyModel dependencyModel = result.dependencyModel;
+      OsgifyContext osgifyContext = result.osgifyModel;
+
+      final Map<ArtifactKey, BundleCandidate> artifactKeyToBundle = new HashMap<ArtifactKey, BundleCandidate>();
+      for (BundleCandidate bundle : osgifyContext.getBundles())
+      {
+         artifactKeyToBundle.put(bundle.getExtension(MavenArtifact.class).getArtifactKey(), bundle);
+      }
+
+      final Collection<BundleCandidate> bundles = new LinkedHashSet<BundleCandidate>();
+      for (MavenArtifact artifact : dependencyModel.getRootArtifacts())
+      {
+         ArtifactKey artifactKey = artifact.getArtifactKey();
+         BundleCandidate bundle = artifactKeyToBundle.get(artifactKey);
+         if (bundle != null)
+         {
+            bundles.add(bundle);
+            
+            BundleCandidate sourceBundle = bundle.getSourceBundle();
+            if (sourceBundle != null)
+            {
+               bundles.add(sourceBundle);
+            }
+            
+            DependencyTree tree = dependencyModel.getDependencyTree(artifact);
+            for (DependencyNode node : tree.getDependencyNodes())
+            {
+               addNodeArtifact(artifactKeyToBundle, bundles, node);
+            }
+         }
+      }
+
       for (BundleCandidate bundle : bundles)
       {
          PluginProject pluginProject = eFactory.createPluginProject();
@@ -162,6 +200,27 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       if (sourcesFacet != pluginsFacet && !sourcesFacet.getProjects().isEmpty())
       {
          module.getFacets().add(sourcesFacet);
+      }
+   }
+
+   private static void addNodeArtifact(Map<ArtifactKey, BundleCandidate> artifactKeyToBundle,
+      final Collection<BundleCandidate> bundles, DependencyNode node)
+   {
+      if (node.isSelected())
+      {
+         BundleCandidate bundle = artifactKeyToBundle.get(node.getArtifact().getArtifactKey());
+         bundles.add(bundle);
+         
+         BundleCandidate sourceBundle = bundle.getSourceBundle();
+         if (sourceBundle != null)
+         {
+            bundles.add(sourceBundle);
+         }
+         
+         for (DependencyNode childNode : node.getChildren())
+         {
+            addNodeArtifact(artifactKeyToBundle, bundles, childNode);
+         }
       }
    }
 
