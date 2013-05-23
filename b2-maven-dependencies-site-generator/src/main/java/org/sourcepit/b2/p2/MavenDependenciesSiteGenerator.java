@@ -14,6 +14,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -107,8 +108,10 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
             }
          };
 
+         final Date startTime = session.getStartTime();
+
          final Result result = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true, remoteRepositories,
-            localRepository, repositoryName, options);
+            localRepository, repositoryName, options, startTime);
 
          try
          {
@@ -159,13 +162,13 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          if (bundle != null)
          {
             bundles.add(bundle);
-            
+
             BundleCandidate sourceBundle = bundle.getSourceBundle();
             if (sourceBundle != null)
             {
                bundles.add(sourceBundle);
             }
-            
+
             DependencyTree tree = dependencyModel.getDependencyTree(artifact);
             for (DependencyNode node : tree.getDependencyNodes())
             {
@@ -210,13 +213,13 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       {
          BundleCandidate bundle = artifactKeyToBundle.get(node.getArtifact().getArtifactKey());
          bundles.add(bundle);
-         
+
          BundleCandidate sourceBundle = bundle.getSourceBundle();
          if (sourceBundle != null)
          {
             bundles.add(sourceBundle);
          }
-         
+
          for (DependencyNode childNode : node.getChildren())
          {
             addNodeArtifact(artifactKeyToBundle, bundles, childNode);
