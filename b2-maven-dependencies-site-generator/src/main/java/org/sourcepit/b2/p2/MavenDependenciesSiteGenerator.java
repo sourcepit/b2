@@ -48,7 +48,6 @@ import org.sourcepit.common.maven.model.ArtifactKey;
 import org.sourcepit.common.maven.model.MavenArtifact;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
-import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.maven.dependency.model.DependencyModel;
 import org.sourcepit.maven.dependency.model.DependencyNode;
@@ -100,18 +99,10 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          final List<ArtifactRepository> remoteRepositories = project.getRemoteArtifactRepositories();
          final ArtifactRepository localRepository = session.getLocalRepository();
 
-         final PropertiesSource options = new AbstractPropertiesSource()
-         {
-            public String get(String key)
-            {
-               return moduleProperties.get("b2.osgify." + key);
-            }
-         };
-
          final Date startTime = session.getStartTime();
 
          final Result result = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true, remoteRepositories,
-            localRepository, repositoryName, options, startTime);
+            localRepository, repositoryName, moduleProperties, startTime);
 
          try
          {
