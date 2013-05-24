@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -50,9 +51,8 @@ import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.maven.dependency.model.DependencyModel;
-import org.sourcepit.maven.dependency.model.DependencyNode;
-import org.sourcepit.maven.dependency.model.DependencyTree;
 import org.sourcepit.osgify.core.model.context.BundleCandidate;
+import org.sourcepit.osgify.core.model.context.BundleReference;
 import org.sourcepit.osgify.core.model.context.OsgifyContext;
 import org.sourcepit.osgify.maven.OsgifyModelBuilder.Result;
 import org.sourcepit.osgify.maven.p2.P2UpdateSiteGenerator;
@@ -142,29 +142,17 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       final Map<ArtifactKey, BundleCandidate> artifactKeyToBundle = new HashMap<ArtifactKey, BundleCandidate>();
       for (BundleCandidate bundle : osgifyContext.getBundles())
       {
-         artifactKeyToBundle.put(bundle.getExtension(MavenArtifact.class).getArtifactKey(), bundle);
+         artifactKeyToBundle.put(getArtifactKey(bundle), bundle);
       }
 
+      final Stack<BundleCandidate> path = new Stack<BundleCandidate>();
       final Collection<BundleCandidate> bundles = new LinkedHashSet<BundleCandidate>();
       for (MavenArtifact artifact : dependencyModel.getRootArtifacts())
       {
-         ArtifactKey artifactKey = artifact.getArtifactKey();
-         BundleCandidate bundle = artifactKeyToBundle.get(artifactKey);
-         if (bundle != null)
+         BundleCandidate rootBundle = artifactKeyToBundle.get(artifact.getArtifactKey());
+         if (rootBundle != null)
          {
-            bundles.add(bundle);
-
-            BundleCandidate sourceBundle = bundle.getSourceBundle();
-            if (sourceBundle != null)
-            {
-               bundles.add(sourceBundle);
-            }
-
-            DependencyTree tree = dependencyModel.getDependencyTree(artifact);
-            for (DependencyNode node : tree.getDependencyNodes())
-            {
-               addNodeArtifact(artifactKeyToBundle, bundles, node);
-            }
+            addBundles(bundles, path, rootBundle);
          }
       }
 
@@ -197,25 +185,37 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       }
    }
 
-   private static void addNodeArtifact(Map<ArtifactKey, BundleCandidate> artifactKeyToBundle,
-      final Collection<BundleCandidate> bundles, DependencyNode node)
+   private static ArtifactKey getArtifactKey(BundleCandidate bundle)
    {
-      if (node.isSelected())
-      {
-         BundleCandidate bundle = artifactKeyToBundle.get(node.getArtifact().getArtifactKey());
-         bundles.add(bundle);
+      return bundle.getExtension(MavenArtifact.class).getArtifactKey();
+   }
 
+   private static void addBundles(final Collection<BundleCandidate> bundles, Stack<BundleCandidate> path,
+      BundleCandidate bundle)
+   {
+      if (!bundles.contains(bundle) && !path.contains(bundle))
+      {
+         path.push(bundle);
+         for (BundleReference reference : bundle.getDependencies())
+         {
+            if (reference.getTarget() != null && select(path, reference))
+            {
+               addBundles(bundles, path, reference.getTarget());
+            }
+         }
+         bundles.add(bundle);
          BundleCandidate sourceBundle = bundle.getSourceBundle();
          if (sourceBundle != null)
          {
             bundles.add(sourceBundle);
          }
-
-         for (DependencyNode childNode : node.getChildren())
-         {
-            addNodeArtifact(artifactKeyToBundle, bundles, childNode);
-         }
+         path.pop();
       }
+   }
+
+   private static boolean select(Stack<BundleCandidate> path, BundleReference reference)
+   {
+      return !(reference.isOptional() || reference.isProvided());
    }
 
    private static String getSourcesFacetName(PropertiesSource moduleProperties)
