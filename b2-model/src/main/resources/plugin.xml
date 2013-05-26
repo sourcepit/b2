@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Example -->
+      <package
+            uri="http://www.sourcepit.org/b2/module/0.1/"
+            class="org.sourcepit.b2.model.module.ModuleModelPackage"
+            genModel="META-INF/emf/ModuleModel.genmodel"/>
+   </extension>
+
+</plugin>
