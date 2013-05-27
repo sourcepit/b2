@@ -215,7 +215,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
 
    private static boolean select(Stack<BundleCandidate> path, BundleReference reference)
    {
-      return !(reference.isOptional() || reference.isProvided());
+      return !reference.isOptional();
    }
 
    private static String getSourcesFacetName(PropertiesSource moduleProperties)
