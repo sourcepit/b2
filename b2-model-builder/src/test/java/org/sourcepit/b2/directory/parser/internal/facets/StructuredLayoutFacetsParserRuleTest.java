@@ -15,6 +15,7 @@ import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParse
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
@@ -82,21 +83,41 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       final List<ProjectFacet<? extends Project>> facets = result.getFacets();
       assertEquals(2, facets.size());
 
-      final PluginsFacet pluginsFacet1 = (PluginsFacet) facets.get(0);
-      final PluginsFacet pluginsFacet2 = (PluginsFacet) facets.get(1);
-      if (pluginsFacet1.getProjects().get(0).isTestPlugin()) // facet order differs between linux/win or different vm
-                                                             // impls
+      final PluginsFacet facet1 = (PluginsFacet) facets.get(0);
+      final PluginsFacet facet2 = (PluginsFacet) facets.get(1);
+
+      final File facet1Dir = getFacetDirectory(facet1);
+
+      final PluginsFacet pluginsFacet;
+      final PluginsFacet testsFacet;
+
+      if ("plugins".equals(facet1Dir.getName()))
       {
-         assertEquals(2, pluginsFacet1.getProjects().size());
-         assertEquals(1, pluginsFacet2.getProjects().size());
+         pluginsFacet = facet1;
+         testsFacet = facet2;
       }
       else
       {
-         assertTrue(pluginsFacet2.getProjects().get(0).isTestPlugin());
-         assertEquals(1, pluginsFacet1.getProjects().size());
-         assertEquals(2, pluginsFacet2.getProjects().size());
+         pluginsFacet = facet2;
+         testsFacet = facet1;
       }
+      
+      assertEquals(1, pluginsFacet.getProjects().size());
+      assertEquals(2, testsFacet.getProjects().size());
+      
+      PluginProject bundleA = pluginsFacet.getProjects().get(0);
+      assertFalse(bundleA.isTestPlugin());
+      
+      PluginProject bundleATests = testsFacet.getProjectById("bundle.a.tests");
+      assertTrue(bundleATests.isTestPlugin());
+      PluginProject bundleTestharness = testsFacet.getProjectById("bundle.testharness");
+      assertFalse(bundleTestharness.isTestPlugin());
+   }
 
+   private static File getFacetDirectory(final PluginsFacet pluginsFacet)
+   {
+      final PluginProject pluginProject = pluginsFacet.getProjects().get(0);
+      return pluginProject.getDirectory().getParentFile();
    }
 
    public static void assertStructuredLayout(BasicModule module)
