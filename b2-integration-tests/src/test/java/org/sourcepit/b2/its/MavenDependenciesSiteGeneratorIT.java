@@ -39,18 +39,14 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
       final File pomDepsSiteDir = new File(moduleDir, ".b2/maven-dependencies");
       assertTrue(pomDepsSiteDir.exists());
 
-      final File[] bundles = new File(pomDepsSiteDir, "plugins").listFiles();
-      assertEquals(4, bundles.length);
-
-      final List<String> bundleFileNames = new ArrayList<String>();
-      for (File bundle : bundles)
-      {
-         bundleFileNames.add(bundle.getName());
-      }
-      assertTrue(bundleFileNames.contains("javax.activation_1.1.0.jar"));
-      assertTrue(bundleFileNames.contains("javax.activation.source_1.1.0.jar"));
-      assertTrue(bundleFileNames.contains("javax.mail.mail_1.4.2.jar"));
-      assertTrue(bundleFileNames.contains("javax.mail.mail.source_1.4.2.jar"));
+      File bundleDir = new File(pomDepsSiteDir, "plugins");
+      List<String> bundleKeys = getBundleKeys(bundleDir);
+      assertEquals(4, bundleKeys.size());
+      
+      assertTrue(bundleKeys.contains("javax.activation_1.1.0"));
+      assertTrue(bundleKeys.contains("javax.activation.source_1.1.0"));
+      assertTrue(bundleKeys.contains("javax.mail.mail_1.4.2"));
+      assertTrue(bundleKeys.contains("javax.mail.mail.source_1.4.2"));
 
       final Model pom = loadMavenModel(moduleDir);
       final List<Repository> repositories = pom.getRepositories();
@@ -69,15 +65,30 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
       assertEquals(2, siteDirs.length);
       for (File siteDir : siteDirs)
       {
-         List<String> bundleNames = Arrays.asList(new File(siteDir, "target/repository/plugins").list());
-         assertTrue(bundleNames.contains("javax.activation_1.1.0.jar"));
-         assertTrue(bundleNames.contains("javax.mail.mail_1.4.2.jar"));
+         bundleKeys = getBundleKeys(new File(siteDir, "target/repository/plugins"));
+         
+         assertTrue(bundleKeys.contains("javax.activation_1.1.0"));
+         assertTrue(bundleKeys.contains("javax.mail.mail_1.4.2"));
 
          if (siteDir.getName().contains(".sdk."))
          {
-            assertTrue(bundleNames.contains("javax.activation.source_1.1.0.jar"));
-            assertTrue(bundleNames.contains("javax.mail.mail.source_1.4.2.jar"));
+            assertTrue(bundleKeys.contains("javax.activation.source_1.1.0"));
+            assertTrue(bundleKeys.contains("javax.mail.mail.source_1.4.2"));
          }
       }
+   }
+
+   private List<String> getBundleKeys(File bundleDir)
+   {
+      final File[] bundles = bundleDir.listFiles();
+      final List<String> bundleFileNames = new ArrayList<String>();
+      for (File bundle : bundles)
+      {
+         String name = bundle.getName();
+         name = name.substring(0, name.lastIndexOf('.')); // trim .jar
+         name = name.substring(0, name.lastIndexOf('.')); // trim time stamp
+         bundleFileNames.add(name);
+      }
+      return bundleFileNames;
    }
 }

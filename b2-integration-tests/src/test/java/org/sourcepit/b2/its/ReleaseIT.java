@@ -9,7 +9,7 @@ package org.sourcepit.b2.its;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.sourcepit.common.utils.io.IOResources.osgiIn;
+import static org.sourcepit.common.utils.io.IO.osgiIn;
 
 import java.io.File;
 import java.io.FileNotFoundException;

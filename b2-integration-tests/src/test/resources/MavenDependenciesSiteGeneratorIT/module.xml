@@ -11,7 +11,7 @@
 
 	<properties>
 		<tycho.version>${tycho.version}</tycho.version>
-		<b2.osgify.forceManifestGeneration>javax.mail.mail</b2.osgify.forceManifestGeneration>
+		<osgifier.overrideNativeBundles>javax.mail.mail</osgifier.overrideNativeBundles>
 	</properties>
 
 	<dependencies>
