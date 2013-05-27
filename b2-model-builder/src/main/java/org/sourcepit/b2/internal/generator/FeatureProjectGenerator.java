@@ -345,7 +345,17 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          xml.addAttribute("id", plugin.getId());
          xml.addAttribute("download-size", "0");
          xml.addAttribute("install-size", "0");
-         xml.addAttribute("version", "0.0.0");
+
+         final String version = plugin.getVersion();
+         if (version != null && !version.endsWith(".qualifier"))
+         {
+            xml.addAttribute("version", version);
+         }
+         else
+         {
+            xml.addAttribute("version", "0.0.0");
+         }
+
          xml.addAttribute("unpack", String.valueOf(plugin.isUnpack()));
          xml.endElement();
       }
