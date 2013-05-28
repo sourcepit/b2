@@ -9,6 +9,7 @@ package org.sourcepit.b2.p2;
 import static com.google.common.collect.Collections2.filter;
 import static org.sourcepit.b2.internal.maven.util.MavenDepenenciesUtils.removeDependencies;
 import static org.sourcepit.common.utils.lang.Exceptions.pipe;
+import static org.sourcepit.osgify.maven.p2.BundleSelectorUtils.selectBundles;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -49,12 +50,14 @@ import org.sourcepit.common.maven.model.ArtifactKey;
 import org.sourcepit.common.maven.model.MavenArtifact;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
+import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.maven.dependency.model.DependencyModel;
 import org.sourcepit.osgify.core.model.context.BundleCandidate;
 import org.sourcepit.osgify.core.model.context.BundleReference;
 import org.sourcepit.osgify.core.model.context.OsgifyContext;
-import org.sourcepit.osgify.maven.OsgifyModelBuilder.Result;
+import org.sourcepit.osgify.maven.p2.AbstractBundleTreeSelector;
+import org.sourcepit.osgify.maven.p2.BundleSelector;
 import org.sourcepit.osgify.maven.p2.P2UpdateSiteGenerator;
 
 import com.google.common.base.Predicate;
@@ -101,8 +104,62 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
 
          final Date startTime = session.getStartTime();
 
-         final Result result = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true, remoteRepositories,
-            localRepository, repositoryName, moduleProperties, startTime);
+         final String pattern = moduleProperties.get("osgifier.updateSiteBundles");
+         final PathMatcher bundleMatcher = pattern == null ? null : PathMatcher.parsePackagePatterns(pattern);
+
+         BundleSelector bundleSelector = new AbstractBundleTreeSelector()
+         {
+            @Override
+            public Collection<BundleCandidate> selectRootBundles(OsgifyContext bundleContext)
+            {
+               final DependencyModel dependencyModel = bundleContext.getExtension(DependencyModel.class);
+
+               final Map<ArtifactKey, BundleCandidate> artifactKeyToBundle = new HashMap<ArtifactKey, BundleCandidate>();
+               for (BundleCandidate bundle : bundleContext.getBundles())
+               {
+                  artifactKeyToBundle.put(getArtifactKey(bundle), bundle);
+               }
+
+               final List<BundleCandidate> rootBundles = new ArrayList<BundleCandidate>();
+               for (MavenArtifact artifact : dependencyModel.getRootArtifacts())
+               {
+                  final BundleCandidate rootBundle = artifactKeyToBundle.get(artifact.getArtifactKey());
+                  if (rootBundle != null && select(rootBundle))
+                  {
+                     rootBundles.add(rootBundle);
+                  }
+               }
+               return rootBundles;
+            }
+
+            private ArtifactKey getArtifactKey(BundleCandidate bundle)
+            {
+               return bundle.getExtension(MavenArtifact.class).getArtifactKey();
+            }
+
+            @Override
+            public boolean select(Stack<BundleCandidate> path, BundleReference reference)
+            {
+               return !reference.isOptional() && super.select(path, reference);
+            }
+
+            @Override
+            protected boolean select(BundleCandidate bundle)
+            {
+               return bundleMatcher == null || bundleMatcher.isMatch(bundle.getSymbolicName());
+            }
+         };
+
+         final OsgifyContext bundleContext = updateSiteGenerator.generateUpdateSite(
+            siteDir,
+            dependencies,
+            true,
+            remoteRepositories,
+            localRepository,
+            repositoryName,
+            moduleProperties,
+            startTime,
+            bundleSelector);
 
          try
          {
@@ -114,12 +171,14 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          }
          module.setAnnotationData("b2.mavenDependencies", "repositoryName", repositoryName);
 
-         interpolatePlugins(module, moduleProperties, result);
+         final Collection<BundleCandidate> selectedBundles = new LinkedHashSet<BundleCandidate>();
+         selectBundles(selectedBundles, bundleContext, bundleSelector);
+         interpolatePlugins(module, moduleProperties, selectedBundles);
       }
    }
 
    private static void interpolatePlugins(final AbstractModule module, PropertiesSource moduleProperties,
-      final Result result)
+      Collection<BundleCandidate> selectedBundles)
    {
       ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
 
@@ -136,27 +195,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          sourcesFacet = pluginsFacet;
       }
 
-      DependencyModel dependencyModel = result.dependencyModel;
-      OsgifyContext osgifyContext = result.osgifyModel;
-
-      final Map<ArtifactKey, BundleCandidate> artifactKeyToBundle = new HashMap<ArtifactKey, BundleCandidate>();
-      for (BundleCandidate bundle : osgifyContext.getBundles())
-      {
-         artifactKeyToBundle.put(getArtifactKey(bundle), bundle);
-      }
-
-      final Stack<BundleCandidate> path = new Stack<BundleCandidate>();
-      final Collection<BundleCandidate> bundles = new LinkedHashSet<BundleCandidate>();
-      for (MavenArtifact artifact : dependencyModel.getRootArtifacts())
-      {
-         BundleCandidate rootBundle = artifactKeyToBundle.get(artifact.getArtifactKey());
-         if (rootBundle != null)
-         {
-            addBundles(bundles, path, rootBundle);
-         }
-      }
-
-      for (BundleCandidate bundle : bundles)
+      for (BundleCandidate bundle : selectedBundles)
       {
          PluginProject pluginProject = eFactory.createPluginProject();
          pluginProject.setDerived(true);
@@ -183,39 +222,6 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       {
          module.getFacets().add(sourcesFacet);
       }
-   }
-
-   private static ArtifactKey getArtifactKey(BundleCandidate bundle)
-   {
-      return bundle.getExtension(MavenArtifact.class).getArtifactKey();
-   }
-
-   private static void addBundles(final Collection<BundleCandidate> bundles, Stack<BundleCandidate> path,
-      BundleCandidate bundle)
-   {
-      if (!bundles.contains(bundle) && !path.contains(bundle))
-      {
-         path.push(bundle);
-         for (BundleReference reference : bundle.getDependencies())
-         {
-            if (reference.getTarget() != null && select(path, reference))
-            {
-               addBundles(bundles, path, reference.getTarget());
-            }
-         }
-         bundles.add(bundle);
-         BundleCandidate sourceBundle = bundle.getSourceBundle();
-         if (sourceBundle != null)
-         {
-            bundles.add(sourceBundle);
-         }
-         path.pop();
-      }
-   }
-
-   private static boolean select(Stack<BundleCandidate> path, BundleReference reference)
-   {
-      return !reference.isOptional();
    }
 
    private static String getSourcesFacetName(PropertiesSource moduleProperties)
