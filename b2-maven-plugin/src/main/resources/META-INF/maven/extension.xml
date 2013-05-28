@@ -10,6 +10,7 @@
 		<exportedPackage>org.sourcepit.common.manifest</exportedPackage>
 		<exportedPackage>org.eclipse.emf</exportedPackage>
 		<exportedPackage>com.google.common.base</exportedPackage>
+		<exportedPackage>com.google.common.collect</exportedPackage>
 	</exportedPackages>
 
 	<exportedArtifacts>

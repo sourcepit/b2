@@ -17,9 +17,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import javax.inject.Inject;
@@ -38,6 +40,7 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.ITemplates;
+import org.sourcepit.b2.model.interpolation.internal.module.ResolutionContextResolver;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
@@ -242,6 +245,9 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       return moduleProperties.get("b2.mavenDependenciesFacetName", "dependencies");
    }
 
+   @Inject
+   private ResolutionContextResolver contextResolver;
+
    public void postInterpolation(AbstractModule module, PropertiesSource moduleProperties, ThrowablePipe errors)
    {
       final String repositoryURL = module.getAnnotationData("b2.mavenDependencies", "repositoryURL");
@@ -264,16 +270,43 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
       ITemplates templates)
    {
-      final String repositoryURL = inputElement.getAnnotationData("b2.mavenDependencies", "repositoryURL");
+      if (inputElement instanceof AbstractModule)
+      {
+         final AbstractModule module = (AbstractModule) inputElement;
+
+         final Set<AbstractModule> requiredModules = new LinkedHashSet<AbstractModule>();
+         requiredModules.add(module);
+         requiredModules.addAll(contextResolver.resolveResolutionContext(module, false).keySet());
+         requiredModules.addAll(contextResolver.resolveResolutionContext(module, true).keySet());
+
+         final Set<File> projectDirs = new HashSet<File>();
+         for (MavenProject project : legacySupport.getSession().getProjects())
+         {
+            projectDirs.add(project.getBasedir());
+         }
+
+         for (AbstractModule requiredModule : requiredModules)
+         {
+            if (projectDirs.contains(requiredModule.getDirectory())) // only if in reactor
+            {
+               addMavenDependenciesRepository(module, requiredModule);
+            }
+         }
+      }
+   }
+
+   private void addMavenDependenciesRepository(final AbstractModule module, AbstractModule requiredModule)
+   {
+      final String repositoryURL = requiredModule.getAnnotationData("b2.mavenDependencies", "repositoryURL");
       if (repositoryURL != null)
       {
-         final File pomFile = resolvePomFile(inputElement);
+         final File pomFile = resolvePomFile(module);
 
          final Model pom = readMavenModel(pomFile);
 
          removeDependencies(pom, JARS);
 
-         final String repositoryName = inputElement.getAnnotationData("b2.mavenDependencies", "repositoryName");
+         final String repositoryName = requiredModule.getAnnotationData("b2.mavenDependencies", "repositoryName");
 
          final Repository repository = new Repository();
          repository.setId(repositoryName);
