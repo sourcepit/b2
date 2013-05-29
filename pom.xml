@@ -124,7 +124,7 @@
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>osgify-maven-plugin</artifactId>
-				<version>0.1.0-alpha-5-rc4</version>
+				<version>0.1.0-alpha-5-rc5</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit</groupId>
