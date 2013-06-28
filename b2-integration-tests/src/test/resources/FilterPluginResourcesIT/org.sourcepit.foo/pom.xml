@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.sourcepit.foo</groupId>
+	<artifactId>org.sourcepit.foo</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<name>Sourcepit Foo Plug-in</name>
+	
+	<properties>
+		<project.symbolicName>org.sourcepit.foo</project.symbolicName>
+		<project.osgiVersion>1.0.0.qualifier</project.osgiVersion>
+		<project.vendor>Sourcepit.org</project.vendor>
+		<project.execEnv>JavaSE-1.7</project.execEnv>
+
+		<eclipse.runtimeVersion>[3.8,4)</eclipse.runtimeVersion>
+	</properties>
+	
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+
+		<resources>
+			<resource>
+				<directory>resources</directory>
+				<targetPath>${basedir}</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+</project>

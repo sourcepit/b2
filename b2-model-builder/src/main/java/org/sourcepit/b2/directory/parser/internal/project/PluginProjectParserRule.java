@@ -34,32 +34,39 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
          return null;
       }
 
-      final Manifest manifest = B2ModelUtils.readManifest(manifestFile);
+      final Manifest manifest = B2ModelUtils.readManifest(manifestFile, false);
       if (manifest instanceof BundleManifest)
       {
-         final BundleManifest bundleManifest = (BundleManifest) manifest;
-
          final PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
-         project.setId(bundleManifest.getBundleSymbolicName().getSymbolicName());
-         project.setVersion(bundleManifest.getBundleVersion().toString());
-         project.setBundleManifest(bundleManifest);
          project.setDirectory(directory);
-
-         // TODO replace with configurable filter pattern
-         project.setTestPlugin(project.getId().endsWith(".tests"));
-
-         final FragmentHost fragmentHost = bundleManifest.getFragmentHost();
-         if (fragmentHost != null)
-         {
-            project.setFragmentHostSymbolicName(fragmentHost.getSymbolicName());
-            final VersionRange hostVersion = fragmentHost.getBundleVersion();
-            if (hostVersion != null)
-            {
-               project.setFragmentHostVersion(hostVersion.toString());
-            }
-         }
          return project;
       }
       return null;
+   }
+
+   @Override
+   public void initialize(PluginProject project, PropertiesSource properties)
+   {
+      final File manifestFile = new File(project.getDirectory(), "META-INF/MANIFEST.MF");
+
+      final BundleManifest bundleManifest = (BundleManifest) B2ModelUtils.readManifest(manifestFile, true);
+
+      project.setId(bundleManifest.getBundleSymbolicName().getSymbolicName());
+      project.setVersion(bundleManifest.getBundleVersion().toString());
+      project.setBundleManifest(bundleManifest);
+
+      // TODO replace with configurable filter pattern
+      project.setTestPlugin(project.getId().endsWith(".tests"));
+
+      final FragmentHost fragmentHost = bundleManifest.getFragmentHost();
+      if (fragmentHost != null)
+      {
+         project.setFragmentHostSymbolicName(fragmentHost.getSymbolicName());
+         final VersionRange hostVersion = fragmentHost.getBundleVersion();
+         if (hostVersion != null)
+         {
+            project.setFragmentHostVersion(hostVersion.toString());
+         }
+      }
    }
 }

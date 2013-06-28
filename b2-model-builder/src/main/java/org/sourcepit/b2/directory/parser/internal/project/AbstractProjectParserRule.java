@@ -17,4 +17,6 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public abstract class AbstractProjectParserRule<P extends Project>
 {
    public abstract P parse(File directory, PropertiesSource properties);
+   
+   public abstract void initialize(P project, PropertiesSource properties);
 }

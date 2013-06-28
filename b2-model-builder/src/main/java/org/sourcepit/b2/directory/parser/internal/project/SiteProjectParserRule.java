@@ -29,16 +29,20 @@ public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject
       try
       {
          XmlUtils.readXml(new File(directory, "site.xml"));
-
          final SiteProject siteProject = ModuleModelFactory.eINSTANCE.createSiteProject();
          siteProject.setDirectory(directory);
-         siteProject.setId(directory.getName());
-         siteProject.setVersion(this.converter.getModuleVersion(properties));
          return siteProject;
       }
       catch (IllegalArgumentException e)
-      { // no site project
+      {
+         return null;
       }
-      return null;
+   }
+   
+   @Override
+   public void initialize(SiteProject siteProject, PropertiesSource properties)
+   {
+      siteProject.setId(siteProject.getDirectory().getName());
+      siteProject.setVersion(this.converter.getModuleVersion(properties));
    }
 }

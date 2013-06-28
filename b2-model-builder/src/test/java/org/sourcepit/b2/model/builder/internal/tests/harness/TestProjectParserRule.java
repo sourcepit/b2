@@ -29,6 +29,11 @@ public class TestProjectParserRule extends AbstractProjectParserRule<PluginProje
       calls.incrementAndGet();
       return null;
    }
+   
+   @Override
+   public void initialize(PluginProject project, PropertiesSource properties)
+   {
+   }
 
    public int getCalls()
    {
