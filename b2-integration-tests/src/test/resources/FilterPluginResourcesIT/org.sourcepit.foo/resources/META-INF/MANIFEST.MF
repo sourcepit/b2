@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ${project.name}
-Bundle-SymbolicName: ${project.symbolicName}
-Bundle-Version: ${project.osgiVersion}
+Bundle-Name: ${project.name} Plug-in
+Bundle-SymbolicName: org.sourcepit.foo
+Bundle-Version: ${module.osgiVersion}
 Bundle-Vendor: ${project.vendor}
 Bundle-RequiredExecutionEnvironment: ${project.execEnv}
 Require-Bundle: org.eclipse.core.runtime;bundle-version="${eclipse.runtimeVersion}"

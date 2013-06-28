@@ -9,6 +9,9 @@
 	<packaging>pom</packaging>
 
 	<properties>
+		<project.vendor>Sourcepit.org</project.vendor>
+		<project.execEnv>JavaSE-1.7</project.execEnv>
+		<eclipse.runtimeVersion>[3.5,5)</eclipse.runtimeVersion>
 		<tycho.version>${tycho.version}</tycho.version>
 	</properties>
 
