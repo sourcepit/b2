@@ -14,6 +14,7 @@ import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -22,7 +23,16 @@ import org.w3c.dom.Node;
 
 @Named("feature")
 public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureProject>
+   implements
+      ProjectDetectionRule<FeatureProject>,
+      ProjectModelInitializationParticipant
 {
+   @Override
+   public FeatureProject detect(File directory, PropertiesSource properties)
+   {
+      return parse(directory, properties);
+   }
+
    @Override
    public FeatureProject parse(File directory, PropertiesSource properties)
    {
@@ -51,7 +61,16 @@ public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureP
    }
 
    @Override
-   public void initialize(FeatureProject featureProject, PropertiesSource properties)
+   public void initialize(Project project, PropertiesSource properties)
+   {
+      if (project instanceof FeatureProject)
+      {
+         initializeeee((FeatureProject) project, properties);
+      }
+   }
+
+   @Override
+   public void initializeeee(FeatureProject featureProject, PropertiesSource properties)
    {
       final File directory = featureProject.getDirectory();
 

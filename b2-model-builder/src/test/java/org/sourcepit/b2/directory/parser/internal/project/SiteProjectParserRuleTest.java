@@ -15,6 +15,7 @@ import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParse
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class SiteProjectParserRuleTest extends AbstractModuleParserTest
@@ -48,14 +49,19 @@ public class SiteProjectParserRuleTest extends AbstractModuleParserTest
       final File siteDir = workspace.importResources("composed-component/simple-layout/example.site", "example.site");
       assertTrue(siteDir.exists());
 
-      final PropertiesSource properties = new LinkedPropertiesMap();
 
       final SiteProjectParserRule parserRule = lookupSiteProjectParserRule();
-      SiteProject project = parserRule.parse(siteDir, B2ModelBuildingRequest.newDefaultProperties());
+      SiteProject project = parserRule.detect(siteDir, B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(project);
+      assertNull(project.getId());
+      
+      final PropertiesMap properties = new LinkedPropertiesMap();
+      properties.put("b2.moduleVersion", "1");
+      
+      parserRule.initializeeee(project, properties);
       assertEquals(siteDir, project.getDirectory());
       assertEquals("example.site", project.getId());
-      assertEquals(converter.getModuleVersion(properties), project.getVersion());
+      assertEquals("1", project.getVersion());
    }
 
    private SiteProjectParserRule lookupSiteProjectParserRule() throws Exception

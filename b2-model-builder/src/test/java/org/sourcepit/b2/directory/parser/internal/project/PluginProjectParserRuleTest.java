@@ -11,6 +11,7 @@ import java.io.File;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 /**
  * @author Bernd
@@ -42,6 +43,8 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
 
    public void testParsePluginDirectory() throws Exception
    {
+      final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
+      
       workspace.importResources("composed-component/simple-layout/example.core");
 
       File pluginDir = workspace.getDir();
@@ -49,8 +52,11 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertTrue(pluginDir.exists());
 
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
-      PluginProject project = parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties());
+      PluginProject project = parserRule.detect(pluginDir, properties);
       assertNotNull(project);
+      assertNull(project.getId());
+      
+      parserRule.initialize(project, properties);
       assertEquals(pluginDir, project.getDirectory());
       assertEquals("example.core", project.getId());
       assertEquals("1.0.0.qualifier", project.getVersion());
@@ -60,14 +66,19 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
 
    public void testParseTestPluginDirectory() throws Exception
    {
+      final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
+
       workspace.importResources("composed-component/simple-layout/example.core.tests");
 
       final File pluginDir = workspace.getDir();
       assertTrue(pluginDir.exists());
 
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
-      PluginProject project = parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties());
+      PluginProject project = parserRule.detect(pluginDir, properties);
       assertNotNull(project);
+      assertNull(project.getId());
+
+      parserRule.initialize(project, properties);
       assertEquals(pluginDir, project.getDirectory());
       assertEquals("example.core.tests", project.getId());
       assertEquals("1.0.0.qualifier", project.getVersion());
@@ -77,14 +88,19 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
 
    public void testParseFragmentDirectory() throws Exception
    {
+      final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
+      
       workspace.importResources("composed-component/simple-layout/example.core.fragment");
 
       final File pluginDir = workspace.getDir();
       assertTrue(pluginDir.exists());
 
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
-      PluginProject project = parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties());
+      PluginProject project = parserRule.detect(pluginDir, properties);
       assertNotNull(project);
+      assertNull(project.getId());
+      
+      parserRule.initialize(project, properties);
       assertEquals(pluginDir, project.getDirectory());
       assertEquals("example.core.fragment", project.getId());
       assertEquals("1.0.0.qualifier", project.getVersion());

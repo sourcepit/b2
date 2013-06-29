@@ -19,9 +19,17 @@ import org.sourcepit.common.utils.xml.XmlUtils;
 
 @Named("site")
 public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject>
+   implements
+      ProjectDetectionRule<SiteProject>
 {
    @Inject
    private BasicConverter converter;
+
+   @Override
+   public SiteProject detect(File directory, PropertiesSource properties)
+   {
+      return parse(directory, properties);
+   }
 
    @Override
    public SiteProject parse(File directory, PropertiesSource properties)
@@ -38,9 +46,9 @@ public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject
          return null;
       }
    }
-   
+
    @Override
-   public void initialize(SiteProject siteProject, PropertiesSource properties)
+   public void initializeeee(SiteProject siteProject, PropertiesSource properties)
    {
       siteProject.setId(siteProject.getDirectory().getName());
       siteProject.setVersion(this.converter.getModuleVersion(properties));
