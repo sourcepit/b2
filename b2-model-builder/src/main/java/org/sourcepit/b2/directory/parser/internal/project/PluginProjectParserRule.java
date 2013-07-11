@@ -7,7 +7,6 @@
 package org.sourcepit.b2.directory.parser.internal.project;
 
 import static java.util.jar.JarFile.MANIFEST_NAME;
-import static org.sourcepit.b2.directory.parser.internal.project.ProjectResourcesUtils.getResourcesDir;
 
 import java.io.File;
 
@@ -43,12 +42,7 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
    @Override
    public PluginProject parse(File directory, PropertiesSource properties)
    {
-      File manifestFile = new File(getResourcesDir(directory, properties), MANIFEST_NAME);
-      if (!manifestFile.exists())
-      {
-         manifestFile = new File(directory, MANIFEST_NAME);
-      }
-
+      final File manifestFile = new File(directory, MANIFEST_NAME);
       if (!manifestFile.exists())
       {
          return null;

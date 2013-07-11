@@ -8,21 +8,14 @@ package org.sourcepit.b2.directory.parser.internal.project;
 
 import java.io.File;
 
-import javax.inject.Inject;
-
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
-import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
-import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class SiteProjectParserRuleTest extends AbstractModuleParserTest
 {
-   @Inject
-   private BasicConverter converter;
-
    public void testBasic() throws Exception
    {
       final SiteProjectParserRule parserRule = lookupSiteProjectParserRule();
