@@ -14,6 +14,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.sourcepit.b2.directory.parser.internal.project.ProjectDetector;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -26,12 +27,20 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
    @Inject
    @Named("simple")
    private AbstractFacetsParserRule<ProjectFacet<? extends Project>> simpleLayoutParserRule;
+   
+   @Inject
+   private ProjectDetector projectDetector;
 
    @Override
    public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, final PropertiesSource properties)
    {
       final List<ProjectFacet<? extends Project>> facets = new ArrayList<ProjectFacet<? extends Project>>();
       if (directory == null || !directory.exists())
+      {
+         return null;
+      }
+      
+      if (projectDetector.detect(directory, properties) != null)
       {
          return null;
       }

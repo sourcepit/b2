@@ -41,9 +41,8 @@ public class B2
    {
       final File moduleDir = request.getModuleDirectory().getFile();
       fileService.clean(moduleDir);
-
+      
       final AbstractModule module = modelBuilder.build(request);
-
       if (!converter.isSkipGenerator(request.getModuleProperties()))
       {
          for (IB2Listener listener : listeners)
@@ -59,7 +58,6 @@ public class B2
 
          generator.generate(genRequest);
       }
-
       return module;
    }
 }

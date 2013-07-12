@@ -28,6 +28,7 @@ import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.content.ContentTypes;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -82,6 +83,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
             request.setTemplates(new DefaultTemplateCopier());
             request.getModulesCache().putAll(modules);
             request.setModuleDirectory(createModuleDirectory(moduleDir, projectDirs.toArray(new File[projectDirs.size()])));
+            request.setContentTypes(ContentTypes.DEFAULT);
             return request;
          }
       };

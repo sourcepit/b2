@@ -10,6 +10,7 @@ import static org.sourcepit.common.utils.lang.Exceptions.pipe;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -35,6 +36,9 @@ public class ProjectResourcesPreprocessor
 {
    @Inject
    private ProjectDetector projectDetector;
+
+   @Inject
+   private ContentTypes contentTypes;
 
    @Override
    public boolean isGarbage(File file)
@@ -87,10 +91,9 @@ public class ProjectResourcesPreprocessor
 
    private AbstractResourceFilter createResourceFilter(PropertiesSource properties)
    {
-      final String targetEncoding = "UTF-8";
+      final String targetEncoding = properties.get("project.build.sourceEncoding", Charset.defaultCharset().name());
       final PlexusPropertyFilterFactory filterFactory = new PlexusPropertyFilterFactory("\\");
-      return new DefaultResourceFilter(ContentTypes.getDefault(), targetEncoding, properties, propertyConverters,
-         filterFactory);
+      return new DefaultResourceFilter(contentTypes, targetEncoding, properties, propertyConverters, filterFactory);
    }
 
    public static File getResourcesDir(File projectDir, PropertiesSource properties)

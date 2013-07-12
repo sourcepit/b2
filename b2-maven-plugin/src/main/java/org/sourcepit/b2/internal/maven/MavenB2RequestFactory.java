@@ -44,6 +44,7 @@ import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
+import org.sourcepit.common.utils.content.ContentTypes;
 import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -99,6 +100,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
       b2Request.setModuleProperties(moduleProperties);
       b2Request.setInterpolate(!converter.isSkipInterpolator(moduleProperties));
       b2Request.setTemplates(templates);
+      b2Request.setContentTypes(ContentTypes.DEFAULT);
 
       for (MavenProject project : bootSession.getProjects())
       {

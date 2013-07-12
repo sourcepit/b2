@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.utils.content.ContentTypes;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class ModuleParsingRequest implements IModuleParsingRequest
@@ -21,6 +22,8 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    private PropertiesSource moduleProperties;
    
    private Map<File, AbstractModule> modulesCache = new LinkedHashMap<File, AbstractModule>();
+   
+   private ContentTypes contentTypes;
 
    public PropertiesSource getModuleProperties()
    {
@@ -46,5 +49,16 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    public Map<File, AbstractModule> getModulesCache()
    {
       return modulesCache;
+   }
+   
+   public void setContentTypes(ContentTypes contentTypes)
+   {
+      this.contentTypes = contentTypes;
+   }
+   
+   @Override
+   public ContentTypes getContentTypes()
+   {
+      return contentTypes;
    }
 }
