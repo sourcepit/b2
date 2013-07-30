@@ -34,6 +34,8 @@ import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
+import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleFilesFactroy;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.internal.generator.VersionUtils;
@@ -78,6 +80,9 @@ public class MavenB2RequestFactory implements B2RequestFactory
    @Inject
    private BasicConverter converter;
 
+   @Inject
+   private ModuleFilesFactroy moduleFilesFactroy;
+   
    public B2Request newRequest(List<File> projectDirs, int currentIdx)
    {
       final MavenSession bootSession = legacySupport.getSession();
@@ -124,6 +129,9 @@ public class MavenB2RequestFactory implements B2RequestFactory
       }
 
       b2Request.setModuleFilter(new WhitelistModuleFilter(projectDirs));
+      
+      ModuleFiles moduleFiles = moduleFilesFactroy.create(moduleDir, moduleProperties);
+      System.out.println(moduleFiles);
 
       return b2Request;
    }

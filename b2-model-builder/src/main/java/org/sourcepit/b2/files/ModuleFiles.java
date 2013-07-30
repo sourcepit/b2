@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.files;
 
+import static org.sourcepit.common.utils.file.FileUtils.isParentOf;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Map;
@@ -13,11 +15,22 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ModuleFiles
 {
+   public static final int FLAG_FORBIDDEN = 0x3;
+
+   public static final int FLAG_HIDDEN = 0x2;
+
+   public static final int FLAG_DERIVED = 0x1;
+
    private final File moduleDir;
 
-   public ModuleFiles(File moduleDir)
+   private Map<File, Integer> fileFlags;
+
+   private final Map<File, Integer> aggregatedFlags = new ConcurrentHashMap<File, Integer>();
+
+   public ModuleFiles(File moduleDir, Map<File, Integer> fileFlags)
    {
       this.moduleDir = moduleDir;
+      this.fileFlags = fileFlags;
    }
 
    public File getModuleDir()
@@ -25,85 +38,111 @@ public class ModuleFiles
       return moduleDir;
    }
 
-   public boolean isModuleFile(File file, boolean allowDerived)
+   public boolean isModuleFile(File file)
    {
-      if (isHidden(file))
+      return isModuleFile(file, ~FLAG_DERIVED);
+   }
+
+   public boolean isModuleFile(File file, boolean includeHidden, boolean includeDerived)
+   {
+      return isModuleFile(file, toFlagMask(includeHidden, includeDerived));
+   }
+
+   private static int toFlagMask(boolean includeHidden, boolean includeDerived)
+   {
+      int flagMask = 0xff;
+      if (includeHidden)
       {
-         return false;
+         flagMask ^= FLAG_HIDDEN;
       }
-      if (!allowDerived && isDerived(file))
+      if (includeDerived)
+      {
+         flagMask ^= FLAG_DERIVED;
+      }
+      return flagMask;
+   }
+
+   private boolean isModuleFile(File file, int flagMask)
+   {
+      if ((getFlags(file) & flagMask) != 0)
       {
          return false;
       }
       return isParentOf(moduleDir, file);
    }
 
-   private static boolean isParentOf(File dir, File file)
-   {
-      final File parent = file.getParentFile();
-      if (dir.equals(parent))
-      {
-         return true;
-      }
-      return parent == null ? false : isParentOf(dir, parent);
-   }
-
-   private final Map<File, Boolean> hiddenCache = new ConcurrentHashMap<File, Boolean>();
-
    public boolean isHidden(File file)
    {
-      Boolean hidden = hiddenCache.get(file);
-      if (hidden == null)
-      {
-         hidden = Boolean.valueOf(computeIsHidden(file));
-         hiddenCache.put(file, hidden);
-      }
-      return hidden.booleanValue();
+      return hasFlag(file, FLAG_HIDDEN);
    }
-
-   private boolean computeIsHidden(File file)
-   {
-      return false;
-   }
-
-
-   private final Map<File, Boolean> derivedCache = new ConcurrentHashMap<File, Boolean>();
 
    public boolean isDerived(File file)
    {
-      Boolean derived = derivedCache.get(file);
-      if (derived == null)
+      return hasFlag(file, FLAG_DERIVED);
+   }
+
+   public boolean hasFlag(File file, int flag)
+   {
+      return (getFlags(file) & flag) != 0;
+   }
+
+   public int getFlags(File file)
+   {
+      if (file.equals(moduleDir))
       {
-         derived = Boolean.valueOf(computeIsDerived(file));
-         derivedCache.put(file, derived);
+         return 0;
       }
-      return derived.booleanValue();
+      else
+      {
+         Integer oFlags = aggregatedFlags.get(file);
+         if (oFlags == null)
+         {
+            final int flags = getFlags(file.getParentFile()) | getDirectFlags(file);
+            oFlags = Integer.valueOf(flags);
+            aggregatedFlags.put(file, oFlags);
+         }
+         return oFlags.intValue();
+      }
    }
 
-   private boolean computeIsDerived(File file)
+   private int getDirectFlags(File file)
    {
-      return false;
+      final Integer oFlags = fileFlags.get(file);
+      return oFlags == null ? 0 : oFlags.intValue();
    }
 
-   public void accept(ModuleFileVisitor visitor)
+   public void accept(FileVisitor visitor)
    {
-      accept(getModuleDir(), visitor, false, 0, -1);
+      accept(getModuleDir(), visitor, ~FLAG_DERIVED, 0, -1);
    }
 
+   public void accept(File file, FileVisitor visitor)
+   {
+      final int flagMask = ~FLAG_DERIVED;
+      if (file.equals(getModuleDir()) || isModuleFile(file, flagMask))
+      {
+         accept(file, visitor, flagMask, 0, -1);
+      }
+   }
 
-   private void accept(File file, final ModuleFileVisitor visitor, final boolean visitDerived, final int currentDepth,
-      final int maxDepth)
+   public void accept(FileVisitor visitor, boolean visitHidden, boolean visitDerived)
+   {
+      accept(getModuleDir(), visitor, toFlagMask(visitHidden, visitDerived), 0, -1);
+   }
+
+   void accept(File file, final FileVisitor visitor, final int flagMask, final int currentDepth, final int maxDepth)
    {
       if (maxDepth <= currentDepth || maxDepth == -1)
       {
          file.listFiles(new FileFilter()
          {
             @Override
-            public boolean accept(File file)
+            public boolean accept(File child)
             {
-               if (isModuleFile(file, visitDerived) && visitor.visit(file, isDerived(file)))
+               final int flags = getFlags(child);
+               if ((flags & flagMask) == 0 && visitor.visit(child, flags))
                {
-                  ModuleFiles.this.accept(file, visitor, visitDerived, currentDepth + 1, maxDepth);
+                  ModuleFiles.this.accept(child, visitor, flagMask, currentDepth + 1, maxDepth);
                }
                return false;
             }

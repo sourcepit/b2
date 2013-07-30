@@ -7,8 +7,11 @@
 package org.sourcepit.b2.files;
 
 import java.io.File;
+import java.util.Map;
 
-public interface ModuleFileVisitor
+import org.sourcepit.common.utils.props.PropertiesSource;
+
+public interface FileFlagsProvider
 {
-   boolean visit(File file, boolean derived);
+   Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties);
 }
