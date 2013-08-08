@@ -15,11 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ModuleFiles
 {
-   public static final int FLAG_FORBIDDEN = 0x3;
+   public static final int FLAG_FORBIDDEN = 0x04;
 
-   public static final int FLAG_HIDDEN = 0x2;
+   public static final int FLAG_HIDDEN = 0x02;
 
-   public static final int FLAG_DERIVED = 0x1;
+   public static final int FLAG_DERIVED = 0x01;
 
    private final File moduleDir;
 
