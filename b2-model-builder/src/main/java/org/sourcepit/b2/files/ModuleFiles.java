@@ -15,11 +15,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ModuleFiles
 {
-   public static final int FLAG_FORBIDDEN = 0x04;
+   public static final int DEPTH_INFINITE = -1;
 
-   public static final int FLAG_HIDDEN = 0x02;
+   public static final int MASK_NONE = 0xffffffff;
 
-   public static final int FLAG_DERIVED = 0x01;
+   public static final int FLAG_FORBIDDEN = 0x00000004;
+
+   public static final int FLAG_HIDDEN = 0x00000002;
+
+   public static final int FLAG_DERIVED = 0x00000001;
 
    private final File moduleDir;
 
@@ -40,29 +44,20 @@ public class ModuleFiles
 
    public boolean isModuleFile(File file)
    {
-      return isModuleFile(file, ~FLAG_DERIVED);
+      return isModuleFile(file, FLAG_DERIVED);
+   }
+
+   public boolean isModuleFile(File file, int flags)
+   {
+      return isModuleFile0(file, ~flags);
    }
 
    public boolean isModuleFile(File file, boolean includeHidden, boolean includeDerived)
    {
-      return isModuleFile(file, toFlagMask(includeHidden, includeDerived));
+      return isModuleFile0(file, toFlagMask(includeHidden, includeDerived));
    }
 
-   private static int toFlagMask(boolean includeHidden, boolean includeDerived)
-   {
-      int flagMask = 0xff;
-      if (includeHidden)
-      {
-         flagMask ^= FLAG_HIDDEN;
-      }
-      if (includeDerived)
-      {
-         flagMask ^= FLAG_DERIVED;
-      }
-      return flagMask;
-   }
-
-   private boolean isModuleFile(File file, int flagMask)
+   private boolean isModuleFile0(File file, int flagMask)
    {
       if ((getFlags(file) & flagMask) != 0)
       {
@@ -113,26 +108,47 @@ public class ModuleFiles
 
    public void accept(FileVisitor visitor)
    {
-      accept(getModuleDir(), visitor, ~FLAG_DERIVED, 0, -1);
+      accept(visitor, DEPTH_INFINITE);
+   }
+
+   public void accept(FileVisitor visitor, int depth)
+   {
+      accept(visitor, depth, FLAG_DERIVED);
+   }
+
+   public void accept(FileVisitor visitor, int depth, int flags)
+   {
+      acceptRecursive(getModuleDir(), visitor, 0, depth, ~flags);
    }
 
    public void accept(File file, FileVisitor visitor)
    {
-      final int flagMask = ~FLAG_DERIVED;
+      accept(file, visitor, DEPTH_INFINITE);
+   }
+
+   public void accept(File file, FileVisitor visitor, int depth)
+   {
+      accept(file, visitor, depth, FLAG_DERIVED);
+   }
+
+   public void accept(File file, FileVisitor visitor, int depth, int flags)
+   {
+      final int flagMask = ~flags;
       if (file.equals(getModuleDir()) || isModuleFile(file, flagMask))
       {
-         accept(file, visitor, flagMask, 0, -1);
+         acceptRecursive(file, visitor, 0, depth, flagMask);
       }
    }
 
    public void accept(FileVisitor visitor, boolean visitHidden, boolean visitDerived)
    {
-      accept(getModuleDir(), visitor, toFlagMask(visitHidden, visitDerived), 0, -1);
+      acceptRecursive(getModuleDir(), visitor, 0, DEPTH_INFINITE, toFlagMask(visitHidden, visitDerived));
    }
 
-   void accept(File file, final FileVisitor visitor, final int flagMask, final int currentDepth, final int maxDepth)
+   private void acceptRecursive(File file, final FileVisitor visitor, final int currentDepth, final int maxDepth,
+      final int flagMask)
    {
-      if (maxDepth <= currentDepth || maxDepth == -1)
+      if (currentDepth <= maxDepth || maxDepth == DEPTH_INFINITE)
       {
          file.listFiles(new FileFilter()
          {
@@ -142,11 +158,25 @@ public class ModuleFiles
                final int flags = getFlags(child);
                if ((flags & flagMask) == 0 && visitor.visit(child, flags))
                {
-                  ModuleFiles.this.accept(child, visitor, flagMask, currentDepth + 1, maxDepth);
+                  ModuleFiles.this.acceptRecursive(child, visitor, currentDepth + 1, maxDepth, flagMask);
                }
                return false;
             }
          });
       }
+   }
+
+   private static int toFlagMask(boolean includeHidden, boolean includeDerived)
+   {
+      int flagMask = MASK_NONE;
+      if (includeHidden)
+      {
+         flagMask ^= FLAG_HIDDEN;
+      }
+      if (includeDerived)
+      {
+         flagMask ^= FLAG_DERIVED;
+      }
+      return flagMask;
    }
 }

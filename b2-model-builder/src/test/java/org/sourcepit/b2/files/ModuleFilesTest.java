@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.sourcepit.b2.files.ModuleFiles.DEPTH_INFINITE;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
@@ -83,6 +84,62 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
    }
 
    @Test
+   public void testAcceptWithDepth() throws Exception
+   {
+      final File moduleDir = ws.getRoot();
+
+      ModuleFilesBuilder fb = new ModuleFilesBuilder(moduleDir);
+      fb.mkdir(".b2", FLAG_DERIVED | FLAG_HIDDEN);
+      fb.mkdir("plugins/foo/resources", FLAG_HIDDEN);
+      fb.mkfile("plugins/foo/resources/META-INF/MANIFEST.MF", 0);
+      fb.mkfile("plugins/foo/META-INF/MANIFEST.MF", FLAG_DERIVED);
+      fb.mkfile("plugins/foo/plugin.xml", 0);
+      fb.mkdir(".git", FLAG_FORBIDDEN);
+      fb.mkfile("module.xml", 0);
+
+      final ModuleFiles mf = fb.toModuleFiles();
+
+      RelPathCollector pc = new RelPathCollector(mf.getModuleDir());
+      mf.accept(pc, 0);
+
+      Map<String, Integer> pathToFlags = pc.getVisiedFiles();
+      assertEquals(2, pathToFlags.size());
+      assertContains("module.xml", 0, pathToFlags);
+      assertContains("plugins", 0, pathToFlags);
+
+      pc = new RelPathCollector(mf.getModuleDir());
+      mf.accept(pc, 1);
+
+      pathToFlags = pc.getVisiedFiles();
+      assertEquals(3, pathToFlags.size());
+      assertContains("module.xml", 0, pathToFlags);
+      assertContains("plugins", 0, pathToFlags);
+      assertContains("plugins/foo", 0, pathToFlags);
+
+      pc = new RelPathCollector(mf.getModuleDir());
+      mf.accept(pc, 2);
+
+      pathToFlags = pc.getVisiedFiles();
+      assertEquals(5, pathToFlags.size());
+      assertContains("module.xml", 0, pathToFlags);
+      assertContains("plugins", 0, pathToFlags);
+      assertContains("plugins/foo", 0, pathToFlags);
+      assertContains("plugins/foo/META-INF", 0, pathToFlags);
+      assertContains("plugins/foo/plugin.xml", 0, pathToFlags);
+
+      pc = new RelPathCollector(mf.getModuleDir());
+      mf.accept(pc, ModuleFiles.DEPTH_INFINITE);
+
+      pathToFlags = pc.getVisiedFiles();
+      assertContains("module.xml", 0, pathToFlags);
+      assertContains("plugins", 0, pathToFlags);
+      assertContains("plugins/foo", 0, pathToFlags);
+      assertContains("plugins/foo/META-INF", 0, pathToFlags);
+      assertContains("plugins/foo/META-INF/MANIFEST.MF", 1, pathToFlags);
+      assertContains("plugins/foo/plugin.xml", 0, pathToFlags);
+   }
+
+   @Test
    public void testAccept() throws Exception
    {
       final File moduleDir = ws.getRoot();
@@ -126,7 +183,35 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("plugins/foo/resources/META-INF/MANIFEST.MF", FLAG_HIDDEN, pathToFlags);
 
       pc = new RelPathCollector(mf.getModuleDir());
+      mf.accept(pc, DEPTH_INFINITE, FLAG_DERIVED | FLAG_HIDDEN);
+      pathToFlags = pc.getVisiedFiles();
+      assertEquals(10, pathToFlags.size());
+      assertContains(".b2", FLAG_DERIVED | FLAG_HIDDEN, pathToFlags);
+      assertContains("module.xml", 0, pathToFlags);
+      assertContains("plugins", 0, pathToFlags);
+      assertContains("plugins/foo", 0, pathToFlags);
+      assertContains("plugins/foo/META-INF", 0, pathToFlags);
+      assertContains("plugins/foo/META-INF/MANIFEST.MF", 1, pathToFlags);
+      assertContains("plugins/foo/plugin.xml", 0, pathToFlags);
+      assertContains("plugins/foo/resources", FLAG_HIDDEN, pathToFlags);
+      assertContains("plugins/foo/resources/META-INF", FLAG_HIDDEN, pathToFlags);
+      assertContains("plugins/foo/resources/META-INF/MANIFEST.MF", FLAG_HIDDEN, pathToFlags);
+
+      pc = new RelPathCollector(mf.getModuleDir());
       mf.accept(pc, true, false);
+      pathToFlags = pc.getVisiedFiles();
+      assertEquals(8, pathToFlags.size());
+      assertContains("module.xml", 0, pathToFlags);
+      assertContains("plugins", 0, pathToFlags);
+      assertContains("plugins/foo", 0, pathToFlags);
+      assertContains("plugins/foo/META-INF", 0, pathToFlags);
+      assertContains("plugins/foo/plugin.xml", 0, pathToFlags);
+      assertContains("plugins/foo/resources", FLAG_HIDDEN, pathToFlags);
+      assertContains("plugins/foo/resources/META-INF", FLAG_HIDDEN, pathToFlags);
+      assertContains("plugins/foo/resources/META-INF/MANIFEST.MF", FLAG_HIDDEN, pathToFlags);
+
+      pc = new RelPathCollector(mf.getModuleDir());
+      mf.accept(pc, DEPTH_INFINITE, FLAG_HIDDEN);
       pathToFlags = pc.getVisiedFiles();
       assertEquals(8, pathToFlags.size());
       assertContains("module.xml", 0, pathToFlags);
