@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
 
 import java.io.File;
@@ -19,12 +20,12 @@ import java.util.HashSet;
 import java.util.Map;
 
 import org.junit.Test;
+import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironmentTest;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class ModuleFilesFactroyTest
+public class ModuleFilesFactroyTest extends AbstractTestEnvironmentTest
 {
-
    @Test
    public void testDetermineFileFlags()
    {
@@ -92,6 +93,27 @@ public class ModuleFilesFactroyTest
       flags = fileToFlagsMap.get(new File(moduleDir, "bar")).intValue();
       assertFalse((flags & FLAG_HIDDEN) != 0);
       assertTrue((flags & FLAG_DERIVED) != 0);
+   }
 
+   @Test
+   public void testDetermineFileFlagsWithInvestigator()
+   {
+      Collection<FileFlagsProvider> providers = new HashSet<FileFlagsProvider>();
+      providers.add(new B2FileFlagsProvider());
+      providers.add(new ScmFileFlagsProvider());
+
+      File moduleDir = ws.getRoot();
+      new File(moduleDir, ".b2/.svn/entries").mkdirs();
+      new File(moduleDir, ".b2/foo").mkdirs();
+      new File(moduleDir, ".svn/entries").mkdirs();
+      new File(moduleDir, "foo").mkdirs();
+
+      final Map<File, Integer> fileToFlagsMap = ModuleFilesFactroy.determineFileFlags(providers, moduleDir,
+         new LinkedPropertiesMap());
+      assertEquals(3, fileToFlagsMap.size());
+
+      assertEquals(FLAG_HIDDEN | FLAG_DERIVED, fileToFlagsMap.get(new File(moduleDir, ".b2")).intValue());
+      assertEquals(FLAG_HIDDEN | FLAG_FORBIDDEN, fileToFlagsMap.get(new File(moduleDir, ".b2/.svn")).intValue());
+      assertEquals(FLAG_HIDDEN | FLAG_FORBIDDEN, fileToFlagsMap.get(new File(moduleDir, ".svn")).intValue());
    }
 }
