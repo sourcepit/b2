@@ -6,18 +6,25 @@
 
 package org.sourcepit.b2.directory.parser.internal.module;
 
+import static java.lang.Integer.valueOf;
 import static org.junit.Assert.assertTrue;
+import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleFiles.FLAG_MODULE_DIR;
 import static org.sourcepit.common.utils.xml.XmlUtils.queryText;
 import static org.sourcepit.common.utils.xml.XmlUtils.readXml;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
+import org.sourcepit.b2.files.ModuleFiles;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -34,12 +41,26 @@ public final class ModelBuilderTestHarness
       super();
    }
 
-   public static ModuleParsingRequest createParsingRequest(File moduleDir)
+   public static ModuleParsingRequest createParsingRequest(File moduleDir, File... subModuleDirs)
    {
       final ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleDirectory(moduleDir);
+      request.setModuleFiles(createModuleFiles(moduleDir, subModuleDirs));
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       return request;
+   }
+
+   public static ModuleFiles createModuleFiles(File moduleDir, File... subModuleDirs)
+   {
+      final Map<File, Integer> fileFlags = new HashMap<File, Integer>();
+      if (subModuleDirs != null)
+      {
+         for (File subModuleDir : subModuleDirs)
+         {
+            fileFlags.put(subModuleDir, valueOf(FLAG_HIDDEN | FLAG_FORBIDDEN | FLAG_MODULE_DIR));
+         }
+      }
+      return new ModuleFiles(moduleDir, fileFlags);
    }
 
    public static File mkdir(File parentDir, String name)

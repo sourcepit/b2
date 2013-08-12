@@ -6,18 +6,17 @@
 
 package org.sourcepit.b2.model.builder.util;
 
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createModuleFiles;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
 import org.sourcepit.b2.model.internal.builder.B2ModelBuilder;
-import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
@@ -27,9 +26,6 @@ import org.sourcepit.b2.model.module.CompositeModule;
  */
 public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 {
-   @Inject
-   private LayoutManager layoutManager;
-
    @Override
    protected String setUpModulePath()
    {
@@ -72,6 +68,8 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       {
          request.getModulesCache().put(module.getDirectory(), module);
       }
+      
+      request.setModuleFiles(createModuleFiles(moduleDir, simpleFile, structuredFile));
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());
@@ -125,6 +123,8 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       {
          request.getModulesCache().put(module.getDirectory(), module);
       }
+      
+      request.setModuleFiles(createModuleFiles(moduleDir, simpleFile, structuredFile));
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());

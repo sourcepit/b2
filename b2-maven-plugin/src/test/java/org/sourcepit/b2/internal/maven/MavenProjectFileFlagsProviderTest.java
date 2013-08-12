@@ -143,7 +143,6 @@ public class MavenProjectFileFlagsProviderTest
       write(new ToStream<String>()
       {
          @Override
-         @SuppressWarnings("hiding")
          public void write(OutputStream output, String content) throws Exception
          {
             copy(new ByteArrayInputStream(content.getBytes("UTF-8")), output);

@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.model.internal.builder;
 
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createModuleFiles;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,6 +151,8 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       {
          request.getModulesCache().put(module.getDirectory(), module);
       }
+
+      request.setModuleFiles(createModuleFiles(moduleDir, simpleFile, structuredFile));
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());

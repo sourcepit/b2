@@ -20,7 +20,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.interpolation.ValueSource;
 import org.eclipse.emf.common.util.URI;
@@ -31,7 +30,6 @@ import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
 import org.sonatype.aether.resolution.ArtifactResult;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
-import org.sourcepit.b2.directory.parser.module.WhitelistModuleFilter;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
 import org.sourcepit.b2.files.ModuleFiles;
@@ -43,7 +41,6 @@ import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
-import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
@@ -66,13 +63,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
    private RepositorySystem repositorySystem;
 
    @Inject
-   private MavenProjectHelper projectHelper;
-
-   @Inject
    private Logger logger;
-
-   @Inject
-   private LayoutManager layoutManager;
 
    @Inject
    private ModelContextAdapterFactory adapterFactory;
@@ -110,11 +101,9 @@ public class MavenB2RequestFactory implements B2RequestFactory
       b2Request.setInterpolate(!converter.isSkipInterpolator(moduleProperties));
       b2Request.setTemplates(templates);
 
-      final List<File> projectDirs = new ArrayList<File>();
       for (MavenProject project : bootSession.getProjects())
       {
          final File projectDir = project.getBasedir();
-         projectDirs.add(projectDir);
 
          if (!projectDir.equals(bootProject.getBasedir()))
          {
@@ -127,11 +116,9 @@ public class MavenB2RequestFactory implements B2RequestFactory
             }
          }
       }
-
-      b2Request.setModuleFilter(new WhitelistModuleFilter(projectDirs));
       
       ModuleFiles moduleFiles = moduleFilesFactroy.create(moduleDir, moduleProperties);
-      System.out.println(moduleFiles);
+      b2Request.setModuleFiles(moduleFiles);
 
       return b2Request;
    }

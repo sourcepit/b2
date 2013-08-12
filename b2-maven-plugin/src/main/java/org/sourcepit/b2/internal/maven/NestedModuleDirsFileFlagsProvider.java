@@ -9,6 +9,7 @@ package org.sourcepit.b2.internal.maven;
 import static java.lang.Integer.valueOf;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleFiles.FLAG_MODULE_DIR;
 import static org.sourcepit.common.utils.file.FileUtils.isParentOf;
 
 import java.io.File;
@@ -46,7 +47,7 @@ public class NestedModuleDirsFileFlagsProvider extends AbstractFileFlagsProvider
          final File projectDir = project.getBasedir();
          if (isParentOf(moduleDir, projectDir))
          {
-            fileToFlagsMap.put(projectDir, valueOf(FLAG_FORBIDDEN | FLAG_HIDDEN));
+            fileToFlagsMap.put(projectDir, valueOf(FLAG_FORBIDDEN | FLAG_HIDDEN | FLAG_MODULE_DIR));
          }
       }
       return fileToFlagsMap;

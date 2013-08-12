@@ -10,6 +10,8 @@ import static org.sourcepit.common.utils.file.FileUtils.isParentOf;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,6 +20,8 @@ public class ModuleFiles
    public static final int DEPTH_INFINITE = -1;
 
    public static final int MASK_NONE = 0xffffffff;
+
+   public static final int FLAG_MODULE_DIR = 0x00000008;
 
    public static final int FLAG_FORBIDDEN = 0x00000004;
 
@@ -178,5 +182,23 @@ public class ModuleFiles
          flagMask ^= FLAG_DERIVED;
       }
       return flagMask;
+   }
+
+   public List<File> getFiles(final FileVisitor filter, int flags)
+   {
+      final List<File> files = new ArrayList<File>();
+      accept(new FileVisitor()
+      {
+         @Override
+         public boolean visit(File file, int flags)
+         {
+            if (filter.visit(file, flags))
+            {
+               files.add(file);
+            }
+            return false;
+         }
+      }, 0, flags);
+      return files;
    }
 }
