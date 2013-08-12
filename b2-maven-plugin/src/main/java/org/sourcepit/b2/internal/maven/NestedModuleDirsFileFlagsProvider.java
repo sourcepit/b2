@@ -21,11 +21,12 @@ import javax.inject.Named;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
+import org.sourcepit.b2.files.AbstractFileFlagsProvider;
 import org.sourcepit.b2.files.FileFlagsProvider;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class NestedModuleDirsFileFlagsProvider implements FileFlagsProvider
+public class NestedModuleDirsFileFlagsProvider extends AbstractFileFlagsProvider implements FileFlagsProvider
 {
    private final LegacySupport buildContext;
 
@@ -36,7 +37,7 @@ public class NestedModuleDirsFileFlagsProvider implements FileFlagsProvider
    }
 
    @Override
-   public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
    {
       final Map<File, Integer> fileToFlagsMap = new HashMap<File, Integer>();
       final MavenSession session = buildContext.getSession();

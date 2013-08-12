@@ -19,10 +19,10 @@ import javax.inject.Named;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class B2FileFlagsProvider implements FileFlagsProvider
+public class B2FileFlagsProvider extends AbstractFileFlagsProvider implements FileFlagsProvider
 {
    @Override
-   public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
    {
       return singletonMap(new File(moduleDir, ".b2"), valueOf(FLAG_DERIVED | FLAG_HIDDEN));
    }

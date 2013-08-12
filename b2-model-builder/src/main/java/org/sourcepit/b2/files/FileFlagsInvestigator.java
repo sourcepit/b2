@@ -10,5 +10,5 @@ import java.io.File;
 
 public interface FileFlagsInvestigator
 {
-   int getFileFlags(File file);
+   int determineFileFlags(File file);
 }

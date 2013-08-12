@@ -27,6 +27,7 @@ import org.apache.maven.model.Profile;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.ModelParseException;
 import org.apache.maven.model.io.ModelReader;
+import org.sourcepit.b2.files.AbstractFileFlagsProvider;
 import org.sourcepit.b2.files.FileFlagsProvider;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -34,10 +35,10 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 @Named
-public class MavenFileFlagsProvider implements FileFlagsProvider
+public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements FileFlagsProvider
 {
    @Override
-   public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
    {
       final File basePomFile = new File(moduleDir, "pom.xml");
       if (basePomFile.exists())

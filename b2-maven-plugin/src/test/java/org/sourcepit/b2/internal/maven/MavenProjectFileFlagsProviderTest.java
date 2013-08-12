@@ -80,7 +80,7 @@ public class MavenProjectFileFlagsProviderTest
       final MavenFileFlagsProvider provider = new MavenFileFlagsProvider();
       final PropertiesSource properties = new LinkedPropertiesMap();
 
-      final Map<File, Integer> fileFlags = provider.getFileFlags(moduleDir, properties);
+      final Map<File, Integer> fileFlags = provider.getAlreadyKnownFileFlags(moduleDir, properties);
       assertEquals(12, fileFlags.size());
 
       assertTrue(fileFlags.containsKey(new File(moduleDir, "pom.xml")));

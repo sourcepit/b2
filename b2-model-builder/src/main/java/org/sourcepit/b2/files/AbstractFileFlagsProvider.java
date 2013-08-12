@@ -7,10 +7,21 @@
 package org.sourcepit.b2.files;
 
 import java.io.File;
+import java.util.Map;
 
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public interface FileFlagsInvestigatorFactroy
+public abstract class AbstractFileFlagsProvider implements FileFlagsProvider
 {
-   FileFlagsInvestigator createFileFlagsCollector(File moduleDir, PropertiesSource properties);
+   @Override
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
+   {
+      return null;
+   }
+
+   @Override
+   public FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, PropertiesSource properties)
+   {
+      return null;
+   }
 }

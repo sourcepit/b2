@@ -13,5 +13,7 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface FileFlagsProvider
 {
-   Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties);
+   Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties);
+   
+   FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, PropertiesSource properties);
 }

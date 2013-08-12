@@ -21,10 +21,10 @@ import javax.inject.Named;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ScmFileFlagsProvider implements FileFlagsProvider, FileFlagsInvestigatorFactroy
+public class ScmFileFlagsProvider implements FileFlagsProvider
 {
    @Override
-   public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
    {
       final Set<String> scmDirs = getScmDirectories(properties);
       final Map<File, Integer> flags = new HashMap<File, Integer>(scmDirs.size());
@@ -40,13 +40,13 @@ public class ScmFileFlagsProvider implements FileFlagsProvider, FileFlagsInvesti
    }
 
    @Override
-   public FileFlagsInvestigator createFileFlagsCollector(File moduleDir, PropertiesSource properties)
+   public FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, PropertiesSource properties)
    {
       final Set<String> scmDirs = getScmDirectories(properties);
       return new FileFlagsInvestigator()
       {
          @Override
-         public int getFileFlags(File file)
+         public int determineFileFlags(File file)
          {
             if (file.isDirectory() && scmDirs.contains(file.getName()))
             {

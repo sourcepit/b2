@@ -31,46 +31,46 @@ public class ModuleFilesFactroyTest extends AbstractTestEnvironmentTest
    {
       Collection<FileFlagsProvider> providers = new HashSet<FileFlagsProvider>();
 
-      providers.add(new FileFlagsProvider()
+      providers.add(new AbstractFileFlagsProvider()
       {
          @Override
-         public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
          {
             return singletonMap(new File(moduleDir, "target"), Integer.valueOf(FLAG_HIDDEN));
          }
       });
 
-      providers.add(new FileFlagsProvider()
+      providers.add(new AbstractFileFlagsProvider()
       {
          @Override
-         public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
          {
             return singletonMap(new File(moduleDir, "target"), Integer.valueOf(FLAG_DERIVED));
          }
       });
 
-      providers.add(new FileFlagsProvider()
+      providers.add(new AbstractFileFlagsProvider()
       {
          @Override
-         public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
          {
             return singletonMap(new File(moduleDir, "foo"), Integer.valueOf(FLAG_HIDDEN));
          }
       });
 
-      providers.add(new FileFlagsProvider()
+      providers.add(new AbstractFileFlagsProvider()
       {
          @Override
-         public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
          {
             return singletonMap(new File(moduleDir, "bar"), Integer.valueOf(FLAG_DERIVED));
          }
       });
 
-      providers.add(new FileFlagsProvider()
+      providers.add(new AbstractFileFlagsProvider()
       {
          @Override
-         public Map<File, Integer> getFileFlags(File moduleDir, PropertiesSource properties)
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
          {
             return singletonMap(new File(moduleDir, "murks"), null);
          }

@@ -29,13 +29,13 @@ public class ScmFileFlagsProviderTest extends AbstractTestEnvironmentTest
 
       ScmFileFlagsProvider provider = new ScmFileFlagsProvider();
 
-      Map<File, Integer> flags = provider.getFileFlags(moduleDir, properties);
+      Map<File, Integer> flags = provider.getAlreadyKnownFileFlags(moduleDir, properties);
       assertEquals(0, flags.size());
 
       File svnDir = new File(moduleDir, ".SvN");
       svnDir.mkdir();
 
-      flags = provider.getFileFlags(moduleDir, properties);
+      flags = provider.getAlreadyKnownFileFlags(moduleDir, properties);
       assertEquals(1, flags.size());
       assertEquals(FLAG_HIDDEN | FLAG_FORBIDDEN, flags.get(svnDir).intValue());
    }
@@ -48,17 +48,17 @@ public class ScmFileFlagsProviderTest extends AbstractTestEnvironmentTest
 
       ScmFileFlagsProvider provider = new ScmFileFlagsProvider();
 
-      FileFlagsInvestigator flagsInvestigator = provider.createFileFlagsCollector(moduleDir, properties);
+      FileFlagsInvestigator flagsInvestigator = provider.createFileFlagsInvestigator(moduleDir, properties);
 
       File gitDir = new File(moduleDir, ".git");
       gitDir.mkdir();
 
-      assertEquals(FLAG_HIDDEN | FLAG_FORBIDDEN, flagsInvestigator.getFileFlags(gitDir));
+      assertEquals(FLAG_HIDDEN | FLAG_FORBIDDEN, flagsInvestigator.determineFileFlags(gitDir));
 
       File fooDir = new File(moduleDir, "foo");
       fooDir.mkdir();
 
-      assertEquals(0, flagsInvestigator.getFileFlags(fooDir));
+      assertEquals(0, flagsInvestigator.determineFileFlags(fooDir));
    }
 
 }

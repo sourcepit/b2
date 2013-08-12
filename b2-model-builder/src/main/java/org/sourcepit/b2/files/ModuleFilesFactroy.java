@@ -42,17 +42,17 @@ public class ModuleFilesFactroy
       PropertiesSource properties)
    {
       final Map<File, Integer> fileToFlagsMap = new HashMap<File, Integer>();
-      getFileFlags(flagsProviders, moduleDir, properties, fileToFlagsMap);
-      collectFileFlags(flagsProviders, fileToFlagsMap, moduleDir, properties);
+      collectAlreadyKnownFileFlags(flagsProviders, moduleDir, properties, fileToFlagsMap);
+      collectDeterminedFileFlags(flagsProviders, fileToFlagsMap, moduleDir, properties);
       return fileToFlagsMap;
    }
 
-   private static void getFileFlags(Collection<FileFlagsProvider> flagsProviders, File moduleDir,
+   private static void collectAlreadyKnownFileFlags(Collection<FileFlagsProvider> flagsProviders, File moduleDir,
       PropertiesSource properties, final Map<File, Integer> fileToFlagsMap)
    {
       for (FileFlagsProvider flagsProvider : flagsProviders)
       {
-         final Map<File, Integer> providedFlags = flagsProvider.getFileFlags(moduleDir, properties);
+         final Map<File, Integer> providedFlags = flagsProvider.getAlreadyKnownFileFlags(moduleDir, properties);
          if (providedFlags != null)
          {
             for (Entry<File, Integer> entry : providedFlags.entrySet())
@@ -68,13 +68,13 @@ public class ModuleFilesFactroy
       }
    }
 
-   private static void collectFileFlags(Collection<FileFlagsProvider> flagsProviders,
+   private static void collectDeterminedFileFlags(Collection<FileFlagsProvider> flagsProviders,
       final Map<File, Integer> fileToFlagsMap, File moduleDir, PropertiesSource properties)
    {
       final FileFlagsInvestigator investigator = getFileFlagsInvestigator(flagsProviders, moduleDir, properties);
       if (investigator != null)
       {
-         collectFileFlags(moduleDir, fileToFlagsMap, investigator);
+         collectDeterminedFileFlags(moduleDir, fileToFlagsMap, investigator);
       }
    }
 
@@ -84,24 +84,28 @@ public class ModuleFilesFactroy
       final List<FileFlagsInvestigator> investigators = new ArrayList<FileFlagsInvestigator>(flagsProviders.size());
       for (FileFlagsProvider flagsProvider : flagsProviders)
       {
-         addInvestigator(investigators, flagsProvider, moduleDir, properties);
+         final FileFlagsInvestigator investigator = flagsProvider.createFileFlagsInvestigator(moduleDir, properties);
+         if (investigator != null)
+         {
+            investigators.add(investigator);
+         }
       }
       return investigators.isEmpty() ? null : new FileFlagsInvestigator()
       {
          @Override
-         public int getFileFlags(File file)
+         public int determineFileFlags(File file)
          {
             int flags = 0;
             for (FileFlagsInvestigator investigator : investigators)
             {
-               flags |= investigator.getFileFlags(file);
+               flags |= investigator.determineFileFlags(file);
             }
             return flags;
          }
       };
    }
 
-   private static void collectFileFlags(File moduleDir, final Map<File, Integer> fileToFlagsMap,
+   private static void collectDeterminedFileFlags(File moduleDir, final Map<File, Integer> fileToFlagsMap,
       final FileFlagsInvestigator investigator)
    {
       new ModuleFiles(moduleDir, fileToFlagsMap).accept(new FileVisitor()
@@ -109,7 +113,7 @@ public class ModuleFilesFactroy
          @Override
          public boolean visit(File file, int flags)
          {
-            final int fileFlags = investigator.getFileFlags(file);
+            final int fileFlags = investigator.determineFileFlags(file);
             if (fileFlags != 0)
             {
                fileToFlagsMap.put(file, getFlags(fileToFlagsMap, file) | fileFlags);
@@ -121,20 +125,6 @@ public class ModuleFilesFactroy
             return true;
          }
       }, true, true);
-   }
-
-   private static void addInvestigator(final List<FileFlagsInvestigator> investigators,
-      FileFlagsProvider fileFlagsProvider, File moduleDir, PropertiesSource properties)
-   {
-      if (fileFlagsProvider instanceof FileFlagsInvestigatorFactroy)
-      {
-         final FileFlagsInvestigatorFactroy investigatorFactroy = (FileFlagsInvestigatorFactroy) fileFlagsProvider;
-         final FileFlagsInvestigator investigator = investigatorFactroy.createFileFlagsCollector(moduleDir, properties);
-         if (investigator != null)
-         {
-            investigators.add(investigator);
-         }
-      }
    }
 
    private static int getFlags(final Map<File, Integer> fileToFlagsMap, File file)
