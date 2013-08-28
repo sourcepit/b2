@@ -102,6 +102,8 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          throw new IllegalStateException(e);
       }
 
+      injectUIdAndVersion(productFile, uid, product.getAnnotationData("product", "version"));
+
       final String classifier = getAssemblyClassifier(productFile.getName());
 
       final Optional<FeatureProject> oAssemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
@@ -211,6 +213,15 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       XmlUtils.writeXml(productDoc, productFile);
 
       generateP2Inf(properties, uid, projectDir, getProductName(productFile.getName()));
+   }
+
+   private static void injectUIdAndVersion(File productFile, String uid, String version)
+   {
+      final Document productXml = XmlUtils.readXml(productFile);
+      final Element productElem = productXml.getDocumentElement();
+      productElem.setAttribute("uid", uid);
+      productElem.setAttribute("version", version);
+      XmlUtils.writeXml(productXml, productFile);
    }
 
    private static List<Node> getChildNodes(final Element node)
