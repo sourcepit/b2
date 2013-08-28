@@ -19,10 +19,10 @@ import org.sourcepit.b2.model.module.PluginInclude;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginIncludeImpl#isUnpack <em>Unpack</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginIncludeImpl#isUnpack <em>Unpack</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements PluginInclude
@@ -31,7 +31,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * The default value of the '{@link #isUnpack() <em>Unpack</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #isUnpack()
     * @generated
     * @ordered
@@ -42,7 +41,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * The cached value of the '{@link #isUnpack() <em>Unpack</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #isUnpack()
     * @generated
     * @ordered
@@ -52,7 +50,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected PluginIncludeImpl()
@@ -63,7 +60,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -75,7 +71,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public boolean isUnpack()
@@ -86,7 +81,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setUnpack(boolean newUnpack)
@@ -94,14 +88,12 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
       boolean oldUnpack = unpack;
       unpack = newUnpack;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_INCLUDE__UNPACK, oldUnpack,
-            unpack));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_INCLUDE__UNPACK, oldUnpack, unpack));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -109,7 +101,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
+         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK:
             return isUnpack();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -118,7 +110,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -126,8 +117,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
-            setUnpack((Boolean) newValue);
+         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK:
+            setUnpack((Boolean)newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -136,7 +127,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -144,7 +134,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
+         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK:
             setUnpack(UNPACK_EDEFAULT);
             return;
       }
@@ -154,7 +144,6 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -162,7 +151,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
+         case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK:
             return unpack != UNPACK_EDEFAULT;
       }
       return super.eIsSet(featureID);
@@ -171,14 +160,12 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
    public String toString()
    {
-      if (eIsProxy())
-         return super.toString();
+      if (eIsProxy()) return super.toString();
 
       StringBuffer result = new StringBuffer(super.toString());
       result.append(" (unpack: ");

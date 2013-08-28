@@ -30,12 +30,12 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getAnnotations <em>Annotations</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getId <em>Id</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getVersion <em>Version</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.AbstractReferenceImpl#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class AbstractReferenceImpl extends EObjectImpl implements AbstractReference
@@ -44,7 +44,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getAnnotations()
     * @generated
     * @ordered
@@ -55,7 +54,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getId()
     * @generated
     * @ordered
@@ -66,7 +64,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getId()
     * @generated
     * @ordered
@@ -77,7 +74,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getVersion()
     * @generated
     * @ordered
@@ -88,7 +84,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getVersion()
     * @generated
     * @ordered
@@ -99,7 +94,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
     * This is true if the Version attribute has been set.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     * @ordered
     */
@@ -108,7 +102,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected AbstractReferenceImpl()
@@ -119,7 +112,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -131,15 +123,13 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EList<Annotation> getAnnotations()
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
+         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this, ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
       return annotations;
    }
@@ -147,7 +137,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getId()
@@ -158,7 +147,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setId(String newId)
@@ -172,7 +160,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getVersion()
@@ -183,7 +170,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setVersion(String newVersion)
@@ -193,14 +179,12 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
       boolean oldVersionESet = versionESet;
       versionESet = true;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_REFERENCE__VERSION,
-            oldVersion, version, !oldVersionESet));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.ABSTRACT_REFERENCE__VERSION, oldVersion, version, !oldVersionESet));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void unsetVersion()
@@ -210,14 +194,12 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
       version = VERSION_EDEFAULT;
       versionESet = false;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.UNSET, ModuleModelPackage.ABSTRACT_REFERENCE__VERSION,
-            oldVersion, VERSION_EDEFAULT, oldVersionESet));
+         eNotify(new ENotificationImpl(this, Notification.UNSET, ModuleModelPackage.ABSTRACT_REFERENCE__VERSION, oldVersion, VERSION_EDEFAULT, oldVersionESet));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public boolean isSetVersion()
@@ -228,7 +210,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public boolean isSatisfiableBy(Identifiable identifier)
@@ -241,7 +222,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public Annotation getAnnotation(String source)
@@ -254,7 +234,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public Annotation getAnnotation(String source, boolean createOnDemand)
@@ -267,7 +246,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getAnnotationData(String source, String key)
@@ -280,7 +258,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String setAnnotationData(String source, String key, String value)
@@ -293,7 +270,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -302,8 +278,8 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       switch (featureID)
       {
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
-            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS:
+            return ((InternalEList<InternalEObject>)(InternalEList<?>)getAnnotations()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -311,7 +287,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -319,8 +294,8 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       switch (featureID)
       {
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
-            return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS:
+            return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -328,7 +303,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -336,11 +310,11 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       switch (featureID)
       {
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS:
             return getAnnotations();
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ID:
             return getId();
-         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION:
             return getVersion();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -349,7 +323,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -358,15 +331,15 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       switch (featureID)
       {
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS:
             getAnnotations().clear();
-            getAnnotations().addAll((Collection<? extends Annotation>) newValue);
+            getAnnotations().addAll((Collection<? extends Annotation>)newValue);
             return;
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
-            setId((String) newValue);
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ID:
+            setId((String)newValue);
             return;
-         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
-            setVersion((String) newValue);
+         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION:
+            setVersion((String)newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -375,7 +348,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -383,13 +355,13 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       switch (featureID)
       {
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS:
             getAnnotations().clear();
             return;
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ID:
             setId(ID_EDEFAULT);
             return;
-         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION:
             unsetVersion();
             return;
       }
@@ -399,7 +371,6 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -407,11 +378,11 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    {
       switch (featureID)
       {
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ANNOTATIONS:
             return annotations != null && !annotations.isEmpty();
-         case ModuleModelPackage.ABSTRACT_REFERENCE__ID :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__ID:
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION :
+         case ModuleModelPackage.ABSTRACT_REFERENCE__VERSION:
             return isSetVersion();
       }
       return super.eIsSet(featureID);
@@ -420,23 +391,18 @@ public abstract class AbstractReferenceImpl extends EObjectImpl implements Abstr
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
    public String toString()
    {
-      if (eIsProxy())
-         return super.toString();
+      if (eIsProxy()) return super.toString();
 
       StringBuffer result = new StringBuffer(super.toString());
       result.append(" (id: ");
       result.append(id);
       result.append(", version: ");
-      if (versionESet)
-         result.append(version);
-      else
-         result.append("<unset>");
+      if (versionESet) result.append(version); else result.append("<unset>");
       result.append(')');
       return result.toString();
    }

@@ -14,16 +14,16 @@ import org.sourcepit.common.modeling.Annotatable;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Product Definition</b></em>'.
  * <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.ProductDefinition#getFile <em>File</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.ProductDefinition#getProductPlugin <em>Product Plugin</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.ProductDefinition#getFile <em>File</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.ProductDefinition#getProductPlugin <em>Product Plugin</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProductDefinition()
  * @model
  * @generated
@@ -32,15 +32,13 @@ public interface ProductDefinition extends Annotatable, Derivable
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.
-    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.ProductsFacet#getProductDefinitions
-    * <em>Product Definitions</em>}'.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.ProductsFacet#getProductDefinitions <em>Product Definitions</em>}'.
     * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(ProductsFacet)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProductDefinition_Parent()
@@ -51,11 +49,9 @@ public interface ProductDefinition extends Annotatable, Derivable
    ProductsFacet getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}'
-    * container reference.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getParent <em>Parent</em>}' container reference.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
     * @generated
@@ -69,7 +65,6 @@ public interface ProductDefinition extends Annotatable, Derivable
     * If the meaning of the '<em>File</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>File</em>' attribute.
     * @see #setFile(File)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProductDefinition_File()
@@ -82,7 +77,6 @@ public interface ProductDefinition extends Annotatable, Derivable
     * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getFile <em>File</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>File</em>' attribute.
     * @see #getFile()
     * @generated
@@ -97,7 +91,6 @@ public interface ProductDefinition extends Annotatable, Derivable
     * a description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Product Plugin</em>' containment reference.
     * @see #setProductPlugin(StrictReference)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getProductDefinition_ProductPlugin()
@@ -107,11 +100,9 @@ public interface ProductDefinition extends Annotatable, Derivable
    StrictReference getProductPlugin();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getProductPlugin
-    * <em>Product Plugin</em>}' containment reference.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.ProductDefinition#getProductPlugin <em>Product Plugin</em>}' containment reference.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Product Plugin</em>' containment reference.
     * @see #getProductPlugin()
     * @generated

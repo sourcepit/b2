@@ -31,10 +31,10 @@ import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
+import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.SiteProject;
-import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesUtils;
 import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
@@ -105,13 +105,13 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       {
          final String categoryName = category.getName();
 
-         for (AbstractReference featureRef : category.getFeatureReferences())
+         for (AbstractReference featureRef : category.getInstallableUnits())
          {
             put(fullFeatureIdToCategoriesMap, fullFeatureIdToRefMap, featureRef, categoryName);
          }
       }
 
-      for (StrictReference featureRef : siteProject.getFeatureReferences())
+      for (AbstractStrictReference featureRef : siteProject.getInstallableUnits())
       {
          put(fullFeatureIdToCategoriesMap, fullFeatureIdToRefMap, featureRef, "");
       }

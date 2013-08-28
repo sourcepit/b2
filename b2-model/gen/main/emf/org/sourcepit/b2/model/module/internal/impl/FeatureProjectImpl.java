@@ -31,18 +31,14 @@ import org.sourcepit.b2.model.module.RuledReference;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedPlugins <em>Included Plugins
- * </em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedFeatures <em>Included Features
- * </em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getRequiredFeatures <em>Required Features
- * </em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getRequiredPlugins <em>Required Plugins
- * </em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedPlugins <em>Included Plugins</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getIncludedFeatures <em>Included Features</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getRequiredFeatures <em>Required Features</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureProjectImpl#getRequiredPlugins <em>Required Plugins</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
@@ -51,7 +47,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * The cached value of the '{@link #getIncludedPlugins() <em>Included Plugins</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getIncludedPlugins()
     * @generated
     * @ordered
@@ -62,7 +57,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * The cached value of the '{@link #getIncludedFeatures() <em>Included Features</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getIncludedFeatures()
     * @generated
     * @ordered
@@ -73,7 +67,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * The cached value of the '{@link #getRequiredFeatures() <em>Required Features</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getRequiredFeatures()
     * @generated
     * @ordered
@@ -84,7 +77,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
     * The cached value of the '{@link #getRequiredPlugins() <em>Required Plugins</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getRequiredPlugins()
     * @generated
     * @ordered
@@ -94,7 +86,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected FeatureProjectImpl()
@@ -105,7 +96,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -117,51 +107,44 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public FeaturesFacet getParent()
    {
-      if (eContainerFeatureID() != ModuleModelPackage.FEATURE_PROJECT__PARENT)
-         return null;
-      return (FeaturesFacet) eContainer();
+      if (eContainerFeatureID() != ModuleModelPackage.FEATURE_PROJECT__PARENT) return null;
+      return (FeaturesFacet)eContainer();
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public FeaturesFacet basicGetParent()
    {
-      if (eContainerFeatureID() != ModuleModelPackage.FEATURE_PROJECT__PARENT)
-         return null;
-      return (FeaturesFacet) eInternalContainer();
+      if (eContainerFeatureID() != ModuleModelPackage.FEATURE_PROJECT__PARENT) return null;
+      return (FeaturesFacet)eInternalContainer();
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public NotificationChain basicSetParent(FeaturesFacet newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.FEATURE_PROJECT__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject)newParent, ModuleModelPackage.FEATURE_PROJECT__PARENT, msgs);
       return msgs;
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setParent(FeaturesFacet newParent)
    {
-      if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModuleModelPackage.FEATURE_PROJECT__PARENT && newParent != null))
+      if (newParent != eInternalContainer() || (eContainerFeatureID() != ModuleModelPackage.FEATURE_PROJECT__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -169,29 +152,24 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModuleModelPackage.FEATURES_FACET__PROJECTS,
-               FeaturesFacet.class, msgs);
+            msgs = ((InternalEObject)newParent).eInverseAdd(this, ModuleModelPackage.FEATURES_FACET__PROJECTS, FeaturesFacet.class, msgs);
          msgs = basicSetParent(newParent, msgs);
-         if (msgs != null)
-            msgs.dispatch();
+         if (msgs != null) msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_PROJECT__PARENT, newParent,
-            newParent));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_PROJECT__PARENT, newParent, newParent));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EList<PluginInclude> getIncludedPlugins()
    {
       if (includedPlugins == null)
       {
-         includedPlugins = new EObjectContainmentEList.Resolving<PluginInclude>(PluginInclude.class, this,
-            ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS);
+         includedPlugins = new EObjectContainmentEList.Resolving<PluginInclude>(PluginInclude.class, this, ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS);
       }
       return includedPlugins;
    }
@@ -199,15 +177,13 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EList<FeatureInclude> getIncludedFeatures()
    {
       if (includedFeatures == null)
       {
-         includedFeatures = new EObjectContainmentEList.Resolving<FeatureInclude>(FeatureInclude.class, this,
-            ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES);
+         includedFeatures = new EObjectContainmentEList.Resolving<FeatureInclude>(FeatureInclude.class, this, ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES);
       }
       return includedFeatures;
    }
@@ -215,15 +191,13 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EList<RuledReference> getRequiredFeatures()
    {
       if (requiredFeatures == null)
       {
-         requiredFeatures = new EObjectContainmentEList.Resolving<RuledReference>(RuledReference.class, this,
-            ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES);
+         requiredFeatures = new EObjectContainmentEList.Resolving<RuledReference>(RuledReference.class, this, ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES);
       }
       return requiredFeatures;
    }
@@ -231,15 +205,13 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EList<RuledReference> getRequiredPlugins()
    {
       if (requiredPlugins == null)
       {
-         requiredPlugins = new EObjectContainmentEList.Resolving<RuledReference>(RuledReference.class, this,
-            ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS);
+         requiredPlugins = new EObjectContainmentEList.Resolving<RuledReference>(RuledReference.class, this, ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS);
       }
       return requiredPlugins;
    }
@@ -247,7 +219,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -255,10 +226,10 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__PARENT :
+         case ModuleModelPackage.FEATURE_PROJECT__PARENT:
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
-            return basicSetParent((FeaturesFacet) otherEnd, msgs);
+            return basicSetParent((FeaturesFacet)otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -266,7 +237,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -274,16 +244,16 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__PARENT :
+         case ModuleModelPackage.FEATURE_PROJECT__PARENT:
             return basicSetParent(null, msgs);
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
-            return ((InternalEList<?>) getIncludedPlugins()).basicRemove(otherEnd, msgs);
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
-            return ((InternalEList<?>) getIncludedFeatures()).basicRemove(otherEnd, msgs);
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
-            return ((InternalEList<?>) getRequiredFeatures()).basicRemove(otherEnd, msgs);
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
-            return ((InternalEList<?>) getRequiredPlugins()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS:
+            return ((InternalEList<?>)getIncludedPlugins()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES:
+            return ((InternalEList<?>)getIncludedFeatures()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES:
+            return ((InternalEList<?>)getRequiredFeatures()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS:
+            return ((InternalEList<?>)getRequiredPlugins()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -291,7 +261,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -299,9 +268,8 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (eContainerFeatureID())
       {
-         case ModuleModelPackage.FEATURE_PROJECT__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.FEATURES_FACET__PROJECTS,
-               FeaturesFacet.class, msgs);
+         case ModuleModelPackage.FEATURE_PROJECT__PARENT:
+            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.FEATURES_FACET__PROJECTS, FeaturesFacet.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
    }
@@ -309,7 +277,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -317,17 +284,16 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__PARENT :
-            if (resolve)
-               return getParent();
+         case ModuleModelPackage.FEATURE_PROJECT__PARENT:
+            if (resolve) return getParent();
             return basicGetParent();
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS:
             return getIncludedPlugins();
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES:
             return getIncludedFeatures();
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES:
             return getRequiredFeatures();
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS:
             return getRequiredPlugins();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -336,7 +302,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -345,24 +310,24 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__PARENT :
-            setParent((FeaturesFacet) newValue);
+         case ModuleModelPackage.FEATURE_PROJECT__PARENT:
+            setParent((FeaturesFacet)newValue);
             return;
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS:
             getIncludedPlugins().clear();
-            getIncludedPlugins().addAll((Collection<? extends PluginInclude>) newValue);
+            getIncludedPlugins().addAll((Collection<? extends PluginInclude>)newValue);
             return;
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES:
             getIncludedFeatures().clear();
-            getIncludedFeatures().addAll((Collection<? extends FeatureInclude>) newValue);
+            getIncludedFeatures().addAll((Collection<? extends FeatureInclude>)newValue);
             return;
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES:
             getRequiredFeatures().clear();
-            getRequiredFeatures().addAll((Collection<? extends RuledReference>) newValue);
+            getRequiredFeatures().addAll((Collection<? extends RuledReference>)newValue);
             return;
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS:
             getRequiredPlugins().clear();
-            getRequiredPlugins().addAll((Collection<? extends RuledReference>) newValue);
+            getRequiredPlugins().addAll((Collection<? extends RuledReference>)newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -371,7 +336,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -379,19 +343,19 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__PARENT :
-            setParent((FeaturesFacet) null);
+         case ModuleModelPackage.FEATURE_PROJECT__PARENT:
+            setParent((FeaturesFacet)null);
             return;
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS:
             getIncludedPlugins().clear();
             return;
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES:
             getIncludedFeatures().clear();
             return;
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES:
             getRequiredFeatures().clear();
             return;
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS:
             getRequiredPlugins().clear();
             return;
       }
@@ -401,7 +365,6 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -409,15 +372,15 @@ public class FeatureProjectImpl extends ProjectImpl implements FeatureProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_PROJECT__PARENT :
+         case ModuleModelPackage.FEATURE_PROJECT__PARENT:
             return basicGetParent() != null;
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS :
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_PLUGINS:
             return includedPlugins != null && !includedPlugins.isEmpty();
-         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES :
+         case ModuleModelPackage.FEATURE_PROJECT__INCLUDED_FEATURES:
             return includedFeatures != null && !includedFeatures.isEmpty();
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES :
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_FEATURES:
             return requiredFeatures != null && !requiredFeatures.isEmpty();
-         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS :
+         case ModuleModelPackage.FEATURE_PROJECT__REQUIRED_PLUGINS:
             return requiredPlugins != null && !requiredPlugins.isEmpty();
       }
       return super.eIsSet(featureID);

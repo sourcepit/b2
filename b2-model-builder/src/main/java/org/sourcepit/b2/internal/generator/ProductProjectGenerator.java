@@ -104,13 +104,11 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
 
       final String classifier = getAssemblyClassifier(productFile.getName());
 
-      final Optional<FeatureProject> oAssemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
-      if (!oAssemblyFeature.isPresent())
+      final FeatureProject assemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
+      if (assemblyFeature == null)
       {
          throw new IllegalStateException("Cannot determine assembly feature for classifier '" + classifier + "'");
       }
-
-      final FeatureProject assemblyFeature = oAssemblyFeature.get();
 
       final Optional<String> oAssemblyName = getAssemblyNameByClassifier(properties, classifier,
          B2MetadataUtils.getAssemblyNames(assemblyFeature));
@@ -326,8 +324,7 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
       });
    }
 
-   private static Optional<FeatureProject> findAssemblyFeatureForClassifier(final AbstractModule module,
-      String classifier)
+   private static FeatureProject findAssemblyFeatureForClassifier(final AbstractModule module, String classifier)
    {
       for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
       {
@@ -336,11 +333,11 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
             final int idx = B2MetadataUtils.getAssemblyClassifiers(featureProject).indexOf(classifier);
             if (idx > -1)
             {
-               return Optional.of(featureProject);
+               return featureProject;
             }
          }
       }
-      return Optional.absent();
+      return null;
    }
 
    private Element getFeaturesNode(final Document productDoc)

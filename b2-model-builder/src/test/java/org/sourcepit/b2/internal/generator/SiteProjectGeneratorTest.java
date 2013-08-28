@@ -137,7 +137,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       StrictReference strictReference = ModuleModelFactory.eINSTANCE.createStrictReference();
       strictReference.setId(featureId);
       strictReference.setVersion(siteProject.getParent().getParent().getVersion());
-      category.getFeatureReferences().add(strictReference);
+      category.getInstallableUnits().add(strictReference);
 
       return strictReference;
    }

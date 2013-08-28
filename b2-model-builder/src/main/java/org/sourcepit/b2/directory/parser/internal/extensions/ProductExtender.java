@@ -84,7 +84,8 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                   String version = elem.getAttribute("version");
                   if (version.length() == 0)
                   {
-                     version = null;
+                     throw new IllegalStateException("Attribute version not specified in product file "
+                        + productDef.getFile());
                   }
 
                   final String id = elem.getAttribute("id");

@@ -13,15 +13,15 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Category</b></em>'.
  * <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.Category#getFeatureReferences <em>Feature References</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.Category#getName <em>Name</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.Category#getInstallableUnits <em>Installable Units</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.Category#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getCategory()
  * @model
  * @generated
@@ -29,21 +29,20 @@ import org.eclipse.emf.ecore.EObject;
 public interface Category extends EObject
 {
    /**
-    * Returns the value of the '<em><b>Feature References</b></em>' containment reference list.
-    * The list contents are of type {@link org.sourcepit.b2.model.module.StrictReference}.
+    * Returns the value of the '<em><b>Installable Units</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.AbstractStrictReference}.
     * <!-- begin-user-doc -->
     * <p>
-    * If the meaning of the '<em>Feature References</em>' containment reference list isn't clear, there really should be
-    * more of a description here...
+    * If the meaning of the '<em>Installable Units</em>' containment reference list isn't clear,
+    * there really should be more of a description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
-    * @return the value of the '<em>Feature References</em>' containment reference list.
-    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getCategory_FeatureReferences()
+    * @return the value of the '<em>Installable Units</em>' containment reference list.
+    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getCategory_InstallableUnits()
     * @model containment="true" resolveProxies="true"
     * @generated
     */
-   EList<StrictReference> getFeatureReferences();
+   EList<AbstractStrictReference> getInstallableUnits();
 
    /**
     * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -52,7 +51,6 @@ public interface Category extends EObject
     * If the meaning of the '<em>Name</em>' attribute isn't clear, there really should be more of a description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Name</em>' attribute.
     * @see #setName(String)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getCategory_Name()
@@ -65,7 +63,6 @@ public interface Category extends EObject
     * Sets the value of the '{@link org.sourcepit.b2.model.module.Category#getName <em>Name</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Name</em>' attribute.
     * @see #getName()
     * @generated

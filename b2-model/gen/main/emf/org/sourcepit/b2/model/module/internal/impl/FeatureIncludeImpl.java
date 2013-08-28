@@ -19,10 +19,10 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl#isOptional <em>Optional</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.FeatureIncludeImpl#isOptional <em>Optional</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements FeatureInclude
@@ -31,7 +31,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
     * The default value of the '{@link #isOptional() <em>Optional</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #isOptional()
     * @generated
     * @ordered
@@ -42,7 +41,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
     * The cached value of the '{@link #isOptional() <em>Optional</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #isOptional()
     * @generated
     * @ordered
@@ -52,7 +50,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected FeatureIncludeImpl()
@@ -63,7 +60,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -75,7 +71,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public boolean isOptional()
@@ -86,7 +81,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setOptional(boolean newOptional)
@@ -94,14 +88,12 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
       boolean oldOptional = optional;
       optional = newOptional;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL,
-            oldOptional, optional));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL, oldOptional, optional));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -109,7 +101,7 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL :
+         case ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL:
             return isOptional();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -118,7 +110,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -126,8 +117,8 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL :
-            setOptional((Boolean) newValue);
+         case ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL:
+            setOptional((Boolean)newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -136,7 +127,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -144,7 +134,7 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL :
+         case ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL:
             setOptional(OPTIONAL_EDEFAULT);
             return;
       }
@@ -154,7 +144,6 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -162,7 +151,7 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL :
+         case ModuleModelPackage.FEATURE_INCLUDE__OPTIONAL:
             return optional != OPTIONAL_EDEFAULT;
       }
       return super.eIsSet(featureID);
@@ -171,14 +160,12 @@ public class FeatureIncludeImpl extends AbstractStrictReferenceImpl implements F
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
    public String toString()
    {
-      if (eIsProxy())
-         return super.toString();
+      if (eIsProxy()) return super.toString();
 
       StringBuffer result = new StringBuffer(super.toString());
       result.append(" (optional: ");

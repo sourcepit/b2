@@ -115,8 +115,8 @@
         eOpposite="#//SitesFacet/projects"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="categories" upperBound="-1"
         eType="#//Category" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureReferences" upperBound="-1"
-        eType="#//StrictReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="installableUnits" upperBound="-1"
+        eType="#//AbstractStrictReference" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Project" abstract="true" eSuperTypes="#//FileContainer #//Derivable ../../../../common-modeling/src/main/emf/CommonModeling.ecore#//Annotatable #//AbstractIdentifiable">
     <eOperations name="getParent">
@@ -156,8 +156,8 @@
         defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Category">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureReferences" upperBound="-1"
-        eType="#//StrictReference" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="installableUnits" upperBound="-1"
+        eType="#//AbstractStrictReference" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractIdentifiable" abstract="true"

@@ -53,7 +53,6 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Package</b>.
  * <!-- end-user-doc -->
- * 
  * @generated
  */
 public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelPackage
@@ -61,7 +60,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass abstractModuleEClass = null;
@@ -69,7 +67,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass basicModuleEClass = null;
@@ -77,7 +74,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass abstractFacetEClass = null;
@@ -85,7 +81,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass compositeModuleEClass = null;
@@ -93,7 +88,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass pluginsFacetEClass = null;
@@ -101,7 +95,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass featuresFacetEClass = null;
@@ -109,7 +102,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass sitesFacetEClass = null;
@@ -117,7 +109,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass pluginProjectEClass = null;
@@ -125,7 +116,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass featureProjectEClass = null;
@@ -133,7 +123,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass siteProjectEClass = null;
@@ -141,7 +130,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass projectEClass = null;
@@ -149,7 +137,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass projectFacetEClass = null;
@@ -157,7 +144,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass fileContainerEClass = null;
@@ -165,7 +151,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass derivableEClass = null;
@@ -173,7 +158,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass pluginIncludeEClass = null;
@@ -181,7 +165,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass categoryEClass = null;
@@ -189,7 +172,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass abstractIdentifiableEClass = null;
@@ -197,7 +179,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass productsFacetEClass = null;
@@ -205,7 +186,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass productDefinitionEClass = null;
@@ -213,7 +193,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass abstractReferenceEClass = null;
@@ -221,7 +200,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass ruledReferenceEClass = null;
@@ -229,7 +207,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass abstractStrictReferenceEClass = null;
@@ -237,7 +214,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass strictReferenceEClass = null;
@@ -245,7 +221,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass featureIncludeEClass = null;
@@ -253,7 +228,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EClass identifiableEClass = null;
@@ -261,7 +235,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EEnum versionMatchRuleEEnum = null;
@@ -269,7 +242,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private EDataType identifierEDataType = null;
@@ -296,7 +268,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private static boolean isInited = false;
@@ -304,11 +275,10 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
     * 
-    * <p>
-    * This method is used to initialize {@link ModuleModelPackage#eINSTANCE} when that field is accessed. Clients should
-    * not invoke it directly. Instead, they should simply access that field to obtain the package. <!-- begin-user-doc
+    * <p>This method is used to initialize {@link ModuleModelPackage#eINSTANCE} when that field is accessed.
+    * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
+    * <!-- begin-user-doc
     * --> <!-- end-user-doc -->
-    * 
     * @see #eNS_URI
     * @see #createPackageContents()
     * @see #initializePackageContents()
@@ -316,13 +286,10 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     */
    public static ModuleModelPackage init()
    {
-      if (isInited)
-         return (ModuleModelPackage) EPackage.Registry.INSTANCE.getEPackage(ModuleModelPackage.eNS_URI);
+      if (isInited) return (ModuleModelPackage)EPackage.Registry.INSTANCE.getEPackage(ModuleModelPackage.eNS_URI);
 
       // Obtain or create and register package
-      ModuleModelPackageImpl theModuleModelPackage = (ModuleModelPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModuleModelPackageImpl
-         ? EPackage.Registry.INSTANCE.get(eNS_URI)
-         : new ModuleModelPackageImpl());
+      ModuleModelPackageImpl theModuleModelPackage = (ModuleModelPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ModuleModelPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ModuleModelPackageImpl());
 
       isInited = true;
 
@@ -339,7 +306,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       // Mark meta-data to indicate it can't be changed
       theModuleModelPackage.freeze();
 
-
+  
       // Update the registry and return the package
       EPackage.Registry.INSTANCE.put(ModuleModelPackage.eNS_URI, theModuleModelPackage);
       return theModuleModelPackage;
@@ -348,7 +315,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getAbstractModule()
@@ -359,40 +325,36 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getAbstractModule_LayoutId()
    {
-      return (EAttribute) abstractModuleEClass.getEStructuralFeatures().get(0);
+      return (EAttribute)abstractModuleEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getAbstractModule_Locales()
    {
-      return (EAttribute) abstractModuleEClass.getEStructuralFeatures().get(1);
+      return (EAttribute)abstractModuleEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getAbstractModule_Facets()
    {
-      return (EReference) abstractModuleEClass.getEStructuralFeatures().get(2);
+      return (EReference)abstractModuleEClass.getEStructuralFeatures().get(2);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getBasicModule()
@@ -403,7 +365,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getAbstractFacet()
@@ -414,29 +375,26 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getAbstractFacet_Parent()
    {
-      return (EReference) abstractFacetEClass.getEStructuralFeatures().get(0);
+      return (EReference)abstractFacetEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getAbstractFacet_Name()
    {
-      return (EAttribute) abstractFacetEClass.getEStructuralFeatures().get(1);
+      return (EAttribute)abstractFacetEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getCompositeModule()
@@ -447,18 +405,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getCompositeModule_Modules()
    {
-      return (EReference) compositeModuleEClass.getEStructuralFeatures().get(0);
+      return (EReference)compositeModuleEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getPluginsFacet()
@@ -469,18 +425,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getPluginsFacet_Projects()
    {
-      return (EReference) pluginsFacetEClass.getEStructuralFeatures().get(0);
+      return (EReference)pluginsFacetEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getFeaturesFacet()
@@ -491,18 +445,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getFeaturesFacet_Projects()
    {
-      return (EReference) featuresFacetEClass.getEStructuralFeatures().get(0);
+      return (EReference)featuresFacetEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getSitesFacet()
@@ -513,18 +465,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getSitesFacet_Projects()
    {
-      return (EReference) sitesFacetEClass.getEStructuralFeatures().get(0);
+      return (EReference)sitesFacetEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getPluginProject()
@@ -535,73 +485,66 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getPluginProject_Parent()
    {
-      return (EReference) pluginProjectEClass.getEStructuralFeatures().get(0);
+      return (EReference)pluginProjectEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getPluginProject_BundleVersion()
    {
-      return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(1);
+      return (EAttribute)pluginProjectEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getPluginProject_TestPlugin()
    {
-      return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(2);
+      return (EAttribute)pluginProjectEClass.getEStructuralFeatures().get(2);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getPluginProject_FragmentHostSymbolicName()
    {
-      return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(3);
+      return (EAttribute)pluginProjectEClass.getEStructuralFeatures().get(3);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getPluginProject_FragmentHostVersion()
    {
-      return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(4);
+      return (EAttribute)pluginProjectEClass.getEStructuralFeatures().get(4);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getPluginProject_BundleManifest()
    {
-      return (EReference) pluginProjectEClass.getEStructuralFeatures().get(5);
+      return (EReference)pluginProjectEClass.getEStructuralFeatures().get(5);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getFeatureProject()
@@ -612,62 +555,56 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getFeatureProject_Parent()
    {
-      return (EReference) featureProjectEClass.getEStructuralFeatures().get(0);
+      return (EReference)featureProjectEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getFeatureProject_IncludedPlugins()
    {
-      return (EReference) featureProjectEClass.getEStructuralFeatures().get(1);
+      return (EReference)featureProjectEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getFeatureProject_IncludedFeatures()
    {
-      return (EReference) featureProjectEClass.getEStructuralFeatures().get(2);
+      return (EReference)featureProjectEClass.getEStructuralFeatures().get(2);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getFeatureProject_RequiredFeatures()
    {
-      return (EReference) featureProjectEClass.getEStructuralFeatures().get(3);
+      return (EReference)featureProjectEClass.getEStructuralFeatures().get(3);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getFeatureProject_RequiredPlugins()
    {
-      return (EReference) featureProjectEClass.getEStructuralFeatures().get(4);
+      return (EReference)featureProjectEClass.getEStructuralFeatures().get(4);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getSiteProject()
@@ -678,40 +615,36 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getSiteProject_Parent()
    {
-      return (EReference) siteProjectEClass.getEStructuralFeatures().get(0);
+      return (EReference)siteProjectEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getSiteProject_Categories()
    {
-      return (EReference) siteProjectEClass.getEStructuralFeatures().get(1);
+      return (EReference)siteProjectEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
-   public EReference getSiteProject_FeatureReferences()
+   public EReference getSiteProject_InstallableUnits()
    {
-      return (EReference) siteProjectEClass.getEStructuralFeatures().get(2);
+      return (EReference)siteProjectEClass.getEStructuralFeatures().get(2);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getProject()
@@ -722,7 +655,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getProjectFacet()
@@ -733,7 +665,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getFileContainer()
@@ -744,18 +675,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getFileContainer_Directory()
    {
-      return (EAttribute) fileContainerEClass.getEStructuralFeatures().get(0);
+      return (EAttribute)fileContainerEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getDerivable()
@@ -766,18 +695,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getDerivable_Derived()
    {
-      return (EAttribute) derivableEClass.getEStructuralFeatures().get(0);
+      return (EAttribute)derivableEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getPluginInclude()
@@ -788,18 +715,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getPluginInclude_Unpack()
    {
-      return (EAttribute) pluginIncludeEClass.getEStructuralFeatures().get(0);
+      return (EAttribute)pluginIncludeEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getCategory()
@@ -810,29 +735,26 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
-   public EReference getCategory_FeatureReferences()
+   public EReference getCategory_InstallableUnits()
    {
-      return (EReference) categoryEClass.getEStructuralFeatures().get(0);
+      return (EReference)categoryEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getCategory_Name()
    {
-      return (EAttribute) categoryEClass.getEStructuralFeatures().get(1);
+      return (EAttribute)categoryEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getAbstractIdentifiable()
@@ -843,29 +765,26 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getAbstractIdentifiable_Id()
    {
-      return (EAttribute) abstractIdentifiableEClass.getEStructuralFeatures().get(0);
+      return (EAttribute)abstractIdentifiableEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getAbstractIdentifiable_Version()
    {
-      return (EAttribute) abstractIdentifiableEClass.getEStructuralFeatures().get(1);
+      return (EAttribute)abstractIdentifiableEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getProductsFacet()
@@ -876,18 +795,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getProductsFacet_ProductDefinitions()
    {
-      return (EReference) productsFacetEClass.getEStructuralFeatures().get(0);
+      return (EReference)productsFacetEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getProductDefinition()
@@ -898,40 +815,36 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getProductDefinition_Parent()
    {
-      return (EReference) productDefinitionEClass.getEStructuralFeatures().get(0);
+      return (EReference)productDefinitionEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getProductDefinition_File()
    {
-      return (EAttribute) productDefinitionEClass.getEStructuralFeatures().get(1);
+      return (EAttribute)productDefinitionEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EReference getProductDefinition_ProductPlugin()
    {
-      return (EReference) productDefinitionEClass.getEStructuralFeatures().get(2);
+      return (EReference)productDefinitionEClass.getEStructuralFeatures().get(2);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getAbstractReference()
@@ -942,29 +855,26 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getAbstractReference_Id()
    {
-      return (EAttribute) abstractReferenceEClass.getEStructuralFeatures().get(0);
+      return (EAttribute)abstractReferenceEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getAbstractReference_Version()
    {
-      return (EAttribute) abstractReferenceEClass.getEStructuralFeatures().get(1);
+      return (EAttribute)abstractReferenceEClass.getEStructuralFeatures().get(1);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getRuledReference()
@@ -975,18 +885,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getRuledReference_VersionMatchRule()
    {
-      return (EAttribute) ruledReferenceEClass.getEStructuralFeatures().get(0);
+      return (EAttribute)ruledReferenceEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getAbstractStrictReference()
@@ -997,7 +905,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getStrictReference()
@@ -1008,7 +915,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getFeatureInclude()
@@ -1019,18 +925,16 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EAttribute getFeatureInclude_Optional()
    {
-      return (EAttribute) featureIncludeEClass.getEStructuralFeatures().get(0);
+      return (EAttribute)featureIncludeEClass.getEStructuralFeatures().get(0);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EClass getIdentifiable()
@@ -1041,7 +945,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EEnum getVersionMatchRule()
@@ -1052,7 +955,6 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EDataType getIdentifier()
@@ -1063,34 +965,30 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public ModuleModelFactory getModuleModelFactory()
    {
-      return (ModuleModelFactory) getEFactoryInstance();
+      return (ModuleModelFactory)getEFactoryInstance();
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private boolean isCreated = false;
 
    /**
-    * Creates the meta-model objects for the package. This method is
+    * Creates the meta-model objects for the package.  This method is
     * guarded to have no affect on any invocation but its first.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void createPackageContents()
    {
-      if (isCreated)
-         return;
+      if (isCreated) return;
       isCreated = true;
 
       // Create classes and their features
@@ -1135,7 +1033,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       siteProjectEClass = createEClass(SITE_PROJECT);
       createEReference(siteProjectEClass, SITE_PROJECT__PARENT);
       createEReference(siteProjectEClass, SITE_PROJECT__CATEGORIES);
-      createEReference(siteProjectEClass, SITE_PROJECT__FEATURE_REFERENCES);
+      createEReference(siteProjectEClass, SITE_PROJECT__INSTALLABLE_UNITS);
 
       projectEClass = createEClass(PROJECT);
 
@@ -1151,7 +1049,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEAttribute(pluginIncludeEClass, PLUGIN_INCLUDE__UNPACK);
 
       categoryEClass = createEClass(CATEGORY);
-      createEReference(categoryEClass, CATEGORY__FEATURE_REFERENCES);
+      createEReference(categoryEClass, CATEGORY__INSTALLABLE_UNITS);
       createEAttribute(categoryEClass, CATEGORY__NAME);
 
       abstractIdentifiableEClass = createEClass(ABSTRACT_IDENTIFIABLE);
@@ -1192,23 +1090,20 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    private boolean isInitialized = false;
 
    /**
-    * Complete the initialization of the package and its meta-model. This
+    * Complete the initialization of the package and its meta-model.  This
     * method is guarded to have no affect on any invocation but its first.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void initializePackageContents()
    {
-      if (isInitialized)
-         return;
+      if (isInitialized) return;
       isInitialized = true;
 
       // Initialize package
@@ -1217,10 +1112,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       setNsURI(eNS_URI);
 
       // Obtain other dependent packages
-      CommonModelingPackage theCommonModelingPackage = (CommonModelingPackage) EPackage.Registry.INSTANCE
-         .getEPackage(CommonModelingPackage.eNS_URI);
-      BundleManifestPackage theBundleManifestPackage = (BundleManifestPackage) EPackage.Registry.INSTANCE
-         .getEPackage(BundleManifestPackage.eNS_URI);
+      CommonModelingPackage theCommonModelingPackage = (CommonModelingPackage)EPackage.Registry.INSTANCE.getEPackage(CommonModelingPackage.eNS_URI);
+      BundleManifestPackage theBundleManifestPackage = (BundleManifestPackage)EPackage.Registry.INSTANCE.getEPackage(BundleManifestPackage.eNS_URI);
 
       // Create type parameters
       ETypeParameter projectFacetEClass_P = addETypeParameter(projectFacetEClass, "P");
@@ -1269,17 +1162,10 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       featureIncludeEClass.getESuperTypes().add(this.getAbstractStrictReference());
 
       // Initialize classes and features; add operations and parameters
-      initEClass(abstractModuleEClass, AbstractModule.class, "AbstractModule", IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getAbstractModule_LayoutId(), ecorePackage.getEString(), "layoutId", null, 1, 1,
-         AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getAbstractModule_Locales(), theCommonModelingPackage.getELocale(), "locales", null, 0, -1,
-         AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
-      initEReference(getAbstractModule_Facets(), this.getAbstractFacet(), this.getAbstractFacet_Parent(), "facets",
-         null, 0, -1, AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(abstractModuleEClass, AbstractModule.class, "AbstractModule", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getAbstractModule_LayoutId(), ecorePackage.getEString(), "layoutId", null, 1, 1, AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getAbstractModule_Locales(), theCommonModelingPackage.getELocale(), "locales", null, 0, -1, AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getAbstractModule_Facets(), this.getAbstractFacet(), this.getAbstractFacet_Parent(), "facets", null, 0, -1, AbstractModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       EOperation op = addEOperation(abstractModuleEClass, null, "getFacets", 1, -1, IS_UNIQUE, IS_ORDERED);
       ETypeParameter t1 = addETypeParameter(op, "T");
@@ -1325,93 +1211,45 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       g1 = createEGenericType(t1);
       initEOperation(op, g1);
 
-      initEClass(basicModuleEClass, BasicModule.class, "BasicModule", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
+      initEClass(basicModuleEClass, BasicModule.class, "BasicModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-      initEClass(abstractFacetEClass, AbstractFacet.class, "AbstractFacet", IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getAbstractFacet_Parent(), this.getAbstractModule(), this.getAbstractModule_Facets(), "parent",
-         null, 1, 1, AbstractFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getAbstractFacet_Name(), ecorePackage.getEString(), "name", null, 1, 1, AbstractFacet.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(abstractFacetEClass, AbstractFacet.class, "AbstractFacet", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getAbstractFacet_Parent(), this.getAbstractModule(), this.getAbstractModule_Facets(), "parent", null, 1, 1, AbstractFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getAbstractFacet_Name(), ecorePackage.getEString(), "name", null, 1, 1, AbstractFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(compositeModuleEClass, CompositeModule.class, "CompositeModule", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getCompositeModule_Modules(), this.getAbstractModule(), null, "modules", null, 0, -1,
-         CompositeModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(compositeModuleEClass, CompositeModule.class, "CompositeModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getCompositeModule_Modules(), this.getAbstractModule(), null, "modules", null, 0, -1, CompositeModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(pluginsFacetEClass, PluginsFacet.class, "PluginsFacet", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getPluginsFacet_Projects(), this.getPluginProject(), this.getPluginProject_Parent(), "projects",
-         null, 0, -1, PluginsFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(pluginsFacetEClass, PluginsFacet.class, "PluginsFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getPluginsFacet_Projects(), this.getPluginProject(), this.getPluginProject_Parent(), "projects", null, 0, -1, PluginsFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(featuresFacetEClass, FeaturesFacet.class, "FeaturesFacet", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getFeaturesFacet_Projects(), this.getFeatureProject(), this.getFeatureProject_Parent(),
-         "projects", null, 0, -1, FeaturesFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(featuresFacetEClass, FeaturesFacet.class, "FeaturesFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getFeaturesFacet_Projects(), this.getFeatureProject(), this.getFeatureProject_Parent(), "projects", null, 0, -1, FeaturesFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(sitesFacetEClass, SitesFacet.class, "SitesFacet", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getSitesFacet_Projects(), this.getSiteProject(), this.getSiteProject_Parent(), "projects", null,
-         0, -1, SitesFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(sitesFacetEClass, SitesFacet.class, "SitesFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getSitesFacet_Projects(), this.getSiteProject(), this.getSiteProject_Parent(), "projects", null, 0, -1, SitesFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(pluginProjectEClass, PluginProject.class, "PluginProject", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getPluginProject_Parent(), this.getPluginsFacet(), this.getPluginsFacet_Projects(), "parent",
-         null, 0, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getPluginProject_BundleVersion(), ecorePackage.getEString(), "bundleVersion", null, 1, 1,
-         PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getPluginProject_TestPlugin(), ecorePackage.getEBoolean(), "testPlugin", null, 0, 1,
-         PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getPluginProject_FragmentHostSymbolicName(), ecorePackage.getEString(),
-         "fragmentHostSymbolicName", null, 0, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-         !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getPluginProject_FragmentHostVersion(), ecorePackage.getEString(), "fragmentHostVersion", null, 0,
-         1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
-      initEReference(getPluginProject_BundleManifest(), theBundleManifestPackage.getBundleManifest(), null,
-         "bundleManifest", null, 1, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(pluginProjectEClass, PluginProject.class, "PluginProject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getPluginProject_Parent(), this.getPluginsFacet(), this.getPluginsFacet_Projects(), "parent", null, 0, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getPluginProject_BundleVersion(), ecorePackage.getEString(), "bundleVersion", null, 1, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getPluginProject_TestPlugin(), ecorePackage.getEBoolean(), "testPlugin", null, 0, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getPluginProject_FragmentHostSymbolicName(), ecorePackage.getEString(), "fragmentHostSymbolicName", null, 0, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getPluginProject_FragmentHostVersion(), ecorePackage.getEString(), "fragmentHostVersion", null, 0, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getPluginProject_BundleManifest(), theBundleManifestPackage.getBundleManifest(), null, "bundleManifest", null, 1, 1, PluginProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       addEOperation(pluginProjectEClass, ecorePackage.getEBoolean(), "isFragment", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-      initEClass(featureProjectEClass, FeatureProject.class, "FeatureProject", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getFeatureProject_Parent(), this.getFeaturesFacet(), this.getFeaturesFacet_Projects(), "parent",
-         null, 0, 1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-         IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getFeatureProject_IncludedPlugins(), this.getPluginInclude(), null, "includedPlugins", null, 0,
-         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getFeatureProject_IncludedFeatures(), this.getFeatureInclude(), null, "includedFeatures", null, 0,
-         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getFeatureProject_RequiredFeatures(), this.getRuledReference(), null, "requiredFeatures", null, 0,
-         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getFeatureProject_RequiredPlugins(), this.getRuledReference(), null, "requiredPlugins", null, 0,
-         -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(featureProjectEClass, FeatureProject.class, "FeatureProject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getFeatureProject_Parent(), this.getFeaturesFacet(), this.getFeaturesFacet_Projects(), "parent", null, 0, 1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_IncludedPlugins(), this.getPluginInclude(), null, "includedPlugins", null, 0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_IncludedFeatures(), this.getFeatureInclude(), null, "includedFeatures", null, 0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_RequiredFeatures(), this.getRuledReference(), null, "requiredFeatures", null, 0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getFeatureProject_RequiredPlugins(), this.getRuledReference(), null, "requiredPlugins", null, 0, -1, FeatureProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(siteProjectEClass, SiteProject.class, "SiteProject", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getSiteProject_Parent(), this.getSitesFacet(), this.getSitesFacet_Projects(), "parent", null, 0,
-         1, SiteProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getSiteProject_Categories(), this.getCategory(), null, "categories", null, 0, -1,
-         SiteProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEReference(getSiteProject_FeatureReferences(), this.getStrictReference(), null, "featureReferences", null, 0,
-         -1, SiteProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(siteProjectEClass, SiteProject.class, "SiteProject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getSiteProject_Parent(), this.getSitesFacet(), this.getSitesFacet_Projects(), "parent", null, 0, 1, SiteProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getSiteProject_Categories(), this.getCategory(), null, "categories", null, 0, -1, SiteProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getSiteProject_InstallableUnits(), this.getAbstractStrictReference(), null, "installableUnits", null, 0, -1, SiteProject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(projectEClass, Project.class, "Project", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1423,8 +1261,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       g2.setEUpperBound(g3);
       initEOperation(op, g1);
 
-      initEClass(projectFacetEClass, ProjectFacet.class, "ProjectFacet", IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
+      initEClass(projectFacetEClass, ProjectFacet.class, "ProjectFacet", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
       op = addEOperation(projectFacetEClass, null, "getProjects", 1, 1, IS_UNIQUE, IS_ORDERED);
       g1 = createEGenericType(ecorePackage.getEEList());
@@ -1442,96 +1279,54 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       g1 = createEGenericType(projectFacetEClass_P);
       initEOperation(op, g1);
 
-      initEClass(fileContainerEClass, FileContainer.class, "FileContainer", IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getFileContainer_Directory(), theCommonModelingPackage.getEFile(), "directory", null, 0, 1,
-         FileContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
+      initEClass(fileContainerEClass, FileContainer.class, "FileContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getFileContainer_Directory(), theCommonModelingPackage.getEFile(), "directory", null, 0, 1, FileContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(derivableEClass, Derivable.class, "Derivable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getDerivable_Derived(), ecorePackage.getEBoolean(), "derived", null, 0, 1, Derivable.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getDerivable_Derived(), ecorePackage.getEBoolean(), "derived", null, 0, 1, Derivable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(pluginIncludeEClass, PluginInclude.class, "PluginInclude", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getPluginInclude_Unpack(), ecorePackage.getEBoolean(), "unpack", "true", 0, 1,
-         PluginInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
+      initEClass(pluginIncludeEClass, PluginInclude.class, "PluginInclude", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getPluginInclude_Unpack(), ecorePackage.getEBoolean(), "unpack", "true", 0, 1, PluginInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
       initEClass(categoryEClass, Category.class, "Category", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getCategory_FeatureReferences(), this.getStrictReference(), null, "featureReferences", null, 0,
-         -1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 1, 1, Category.class, !IS_TRANSIENT,
-         !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getCategory_InstallableUnits(), this.getAbstractStrictReference(), null, "installableUnits", null, 0, -1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 1, 1, Category.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(abstractIdentifiableEClass, AbstractIdentifiable.class, "AbstractIdentifiable", IS_ABSTRACT,
-         IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getAbstractIdentifiable_Id(), ecorePackage.getEString(), "id", null, 0, 1,
-         AbstractIdentifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getAbstractIdentifiable_Version(), ecorePackage.getEString(), "version", null, 0, 1,
-         AbstractIdentifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
+      initEClass(abstractIdentifiableEClass, AbstractIdentifiable.class, "AbstractIdentifiable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getAbstractIdentifiable_Id(), ecorePackage.getEString(), "id", null, 0, 1, AbstractIdentifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getAbstractIdentifiable_Version(), ecorePackage.getEString(), "version", null, 0, 1, AbstractIdentifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      op = addEOperation(abstractIdentifiableEClass, ecorePackage.getEBoolean(), "isIdentifyableBy", 1, 1, IS_UNIQUE,
-         IS_ORDERED);
+      op = addEOperation(abstractIdentifiableEClass, ecorePackage.getEBoolean(), "isIdentifyableBy", 1, 1, IS_UNIQUE, IS_ORDERED);
       addEParameter(op, this.getIdentifier(), "identifier", 0, 1, IS_UNIQUE, IS_ORDERED);
 
       addEOperation(abstractIdentifiableEClass, this.getIdentifier(), "toIdentifier", 1, 1, IS_UNIQUE, IS_ORDERED);
 
-      initEClass(productsFacetEClass, ProductsFacet.class, "ProductsFacet", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getProductsFacet_ProductDefinitions(), this.getProductDefinition(),
-         this.getProductDefinition_Parent(), "productDefinitions", null, 0, -1, ProductsFacet.class, !IS_TRANSIENT,
-         !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-         IS_ORDERED);
+      initEClass(productsFacetEClass, ProductsFacet.class, "ProductsFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getProductsFacet_ProductDefinitions(), this.getProductDefinition(), this.getProductDefinition_Parent(), "productDefinitions", null, 0, -1, ProductsFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(productDefinitionEClass, ProductDefinition.class, "ProductDefinition", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEReference(getProductDefinition_Parent(), this.getProductsFacet(),
-         this.getProductsFacet_ProductDefinitions(), "parent", null, 1, 1, ProductDefinition.class, !IS_TRANSIENT,
-         !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
-         IS_ORDERED);
-      initEAttribute(getProductDefinition_File(), theCommonModelingPackage.getEFile(), "file", null, 1, 1,
-         ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
-      initEReference(getProductDefinition_ProductPlugin(), this.getStrictReference(), null, "productPlugin", null, 1,
-         1, ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES,
-         !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(productDefinitionEClass, ProductDefinition.class, "ProductDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEReference(getProductDefinition_Parent(), this.getProductsFacet(), this.getProductsFacet_ProductDefinitions(), "parent", null, 1, 1, ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getProductDefinition_File(), theCommonModelingPackage.getEFile(), "file", null, 1, 1, ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEReference(getProductDefinition_ProductPlugin(), this.getStrictReference(), null, "productPlugin", null, 1, 1, ProductDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(abstractReferenceEClass, AbstractReference.class, "AbstractReference", IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getAbstractReference_Id(), ecorePackage.getEString(), "id", null, 1, 1, AbstractReference.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getAbstractReference_Version(), ecorePackage.getEString(), "version", "0.0.0", 0, 1,
-         AbstractReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
+      initEClass(abstractReferenceEClass, AbstractReference.class, "AbstractReference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getAbstractReference_Id(), ecorePackage.getEString(), "id", null, 1, 1, AbstractReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getAbstractReference_Version(), ecorePackage.getEString(), "version", "0.0.0", 0, 1, AbstractReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      op = addEOperation(abstractReferenceEClass, ecorePackage.getEBoolean(), "isSatisfiableBy", 1, 1, IS_UNIQUE,
-         IS_ORDERED);
+      op = addEOperation(abstractReferenceEClass, ecorePackage.getEBoolean(), "isSatisfiableBy", 1, 1, IS_UNIQUE, IS_ORDERED);
       addEParameter(op, this.getIdentifiable(), "identifier", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-      initEClass(ruledReferenceEClass, RuledReference.class, "RuledReference", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getRuledReference_VersionMatchRule(), this.getVersionMatchRule(), "versionMatchRule",
-         "compatible", 0, 1, RuledReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID,
-         IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(ruledReferenceEClass, RuledReference.class, "RuledReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getRuledReference_VersionMatchRule(), this.getVersionMatchRule(), "versionMatchRule", "compatible", 0, 1, RuledReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(abstractStrictReferenceEClass, AbstractStrictReference.class, "AbstractStrictReference", IS_ABSTRACT,
-         !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEClass(abstractStrictReferenceEClass, AbstractStrictReference.class, "AbstractStrictReference", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-      initEClass(strictReferenceEClass, StrictReference.class, "StrictReference", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
+      initEClass(strictReferenceEClass, StrictReference.class, "StrictReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-      initEClass(featureIncludeEClass, FeatureInclude.class, "FeatureInclude", !IS_ABSTRACT, !IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getFeatureInclude_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1,
-         FeatureInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-         !IS_DERIVED, IS_ORDERED);
+      initEClass(featureIncludeEClass, FeatureInclude.class, "FeatureInclude", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getFeatureInclude_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1, FeatureInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE,
-         !IS_GENERATED_INSTANCE_CLASS);
+      initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 
       // Initialize enums and add enum literals
       initEEnum(versionMatchRuleEEnum, VersionMatchRule.class, "VersionMatchRule");

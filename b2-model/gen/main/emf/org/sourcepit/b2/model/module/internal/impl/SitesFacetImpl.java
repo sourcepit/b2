@@ -25,10 +25,10 @@ import org.sourcepit.b2.model.module.SitesFacet;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.SitesFacetImpl#getProjects <em>Projects</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.SitesFacetImpl#getProjects <em>Projects</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements SitesFacet
@@ -37,7 +37,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getProjects()
     * @generated
     * @ordered
@@ -47,7 +46,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected SitesFacetImpl()
@@ -58,7 +56,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -70,15 +67,13 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EList<SiteProject> getProjects()
    {
       if (projects == null)
       {
-         projects = new EObjectContainmentWithInverseEList.Resolving<SiteProject>(SiteProject.class, this,
-            ModuleModelPackage.SITES_FACET__PROJECTS, ModuleModelPackage.SITE_PROJECT__PARENT);
+         projects = new EObjectContainmentWithInverseEList.Resolving<SiteProject>(SiteProject.class, this, ModuleModelPackage.SITES_FACET__PROJECTS, ModuleModelPackage.SITE_PROJECT__PARENT);
       }
       return projects;
    }
@@ -86,7 +81,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -95,8 +89,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITES_FACET__PROJECTS :
-            return ((InternalEList<InternalEObject>) (InternalEList<?>) getProjects()).basicAdd(otherEnd, msgs);
+         case ModuleModelPackage.SITES_FACET__PROJECTS:
+            return ((InternalEList<InternalEObject>)(InternalEList<?>)getProjects()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -104,7 +98,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -112,8 +105,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITES_FACET__PROJECTS :
-            return ((InternalEList<?>) getProjects()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.SITES_FACET__PROJECTS:
+            return ((InternalEList<?>)getProjects()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -121,7 +114,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -129,7 +121,7 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITES_FACET__PROJECTS :
+         case ModuleModelPackage.SITES_FACET__PROJECTS:
             return getProjects();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -138,7 +130,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -147,9 +138,9 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITES_FACET__PROJECTS :
+         case ModuleModelPackage.SITES_FACET__PROJECTS:
             getProjects().clear();
-            getProjects().addAll((Collection<? extends SiteProject>) newValue);
+            getProjects().addAll((Collection<? extends SiteProject>)newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -158,7 +149,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -166,7 +156,7 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITES_FACET__PROJECTS :
+         case ModuleModelPackage.SITES_FACET__PROJECTS:
             getProjects().clear();
             return;
       }
@@ -176,7 +166,6 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -184,7 +173,7 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
    {
       switch (featureID)
       {
-         case ModuleModelPackage.SITES_FACET__PROJECTS :
+         case ModuleModelPackage.SITES_FACET__PROJECTS:
             return projects != null && !projects.isEmpty();
       }
       return super.eIsSet(featureID);

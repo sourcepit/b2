@@ -12,14 +12,14 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Derivable</b></em>'.
  * <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.Derivable#isDerived <em>Derived</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.Derivable#isDerived <em>Derived</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getDerivable()
  * @model interface="true" abstract="true"
  * @generated
@@ -34,7 +34,6 @@ public interface Derivable extends EObject
     * here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Derived</em>' attribute.
     * @see #setDerived(boolean)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getDerivable_Derived()
@@ -47,7 +46,6 @@ public interface Derivable extends EObject
     * Sets the value of the '{@link org.sourcepit.b2.model.module.Derivable#isDerived <em>Derived</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Derived</em>' attribute.
     * @see #isDerived()
     * @generated
