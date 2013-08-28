@@ -34,7 +34,10 @@ import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Derivable;
+import org.sourcepit.b2.model.module.FeatureInclude;
+import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.SiteProject;
+import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesUtils;
 import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
@@ -98,43 +101,31 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
    private void insertCategoriesProperty(final SiteProject siteProject, final Properties properties)
    {
-      final Map<String, Set<String>> fullFeatureIdToCategoriesMap = new HashMap<String, Set<String>>();
-      final Map<String, AbstractReference> fullFeatureIdToRefMap = new HashMap<String, AbstractReference>();
+      final Map<String, Set<String>> fullIUIdToCategoriesMap = new HashMap<String, Set<String>>();
+      final Map<String, AbstractReference> fullIUIdToRefMap = new HashMap<String, AbstractReference>();
 
       for (Category category : siteProject.getCategories())
       {
          final String categoryName = category.getName();
 
-         for (AbstractReference featureRef : category.getInstallableUnits())
+         for (AbstractReference iu : category.getInstallableUnits())
          {
-            put(fullFeatureIdToCategoriesMap, fullFeatureIdToRefMap, featureRef, categoryName);
+            put(fullIUIdToCategoriesMap, fullIUIdToRefMap, iu, categoryName);
          }
       }
 
-      for (AbstractStrictReference featureRef : siteProject.getInstallableUnits())
+      for (AbstractStrictReference iu : siteProject.getInstallableUnits())
       {
-         put(fullFeatureIdToCategoriesMap, fullFeatureIdToRefMap, featureRef, "");
+         put(fullIUIdToCategoriesMap, fullIUIdToRefMap, iu, "");
       }
 
       final StringWriter includes = new StringWriter();
       XMLWriter xml = new PrettyPrintXMLWriter(includes);
-      for (Entry<String, Set<String>> entry : fullFeatureIdToCategoriesMap.entrySet())
+      for (Entry<String, Set<String>> entry : fullIUIdToCategoriesMap.entrySet())
       {
-         final AbstractReference featureRef = fullFeatureIdToRefMap.get(entry.getKey());
-         xml.startElement("feature");
-         xml.addAttribute("url", "features/" + entry.getKey() + ".jar");
-         xml.addAttribute("id", featureRef.getId());
-         xml.addAttribute("version", featureRef.getVersion());
-         for (String categoryName : entry.getValue())
-         {
-            if (!Strings.isNullOrEmpty(categoryName))
-            {
-               xml.startElement("category");
-               xml.addAttribute("name", categoryName);
-               xml.endElement();
-            }
-         }
-         xml.endElement();
+         Set<String> categoryNames = entry.getValue();
+         final AbstractReference iu = fullIUIdToRefMap.get(entry.getKey());
+         addInstallableUnit(xml, iu, categoryNames);
       }
 
       for (Category category : siteProject.getCategories())
@@ -152,6 +143,41 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
       includes.flush();
       properties.setProperty("site.categories", includes.toString());
+   }
+
+   private void addInstallableUnit(XMLWriter xml, final AbstractReference installableUnit, Set<String> categoryNames)
+   {
+      if (installableUnit instanceof FeatureInclude)
+      {
+         xml.startElement("feature");
+         xml.addAttribute("url", "features/" + installableUnit.getId() + ".jar");
+      }
+      else if (installableUnit instanceof PluginInclude)
+      {
+         xml.startElement("bundle");
+      }
+      else if (installableUnit instanceof StrictReference)
+      {
+         xml.startElement("iu");
+      }
+      else
+      {
+         throw new IllegalStateException(installableUnit.getClass() + " currently not supported in update sites");
+      }
+
+      xml.addAttribute("id", installableUnit.getId());
+      xml.addAttribute("version", installableUnit.getVersion());
+      for (String categoryName : categoryNames)
+      {
+         if (!Strings.isNullOrEmpty(categoryName))
+         {
+            xml.startElement("category");
+            xml.addAttribute("name", categoryName);
+            xml.endElement();
+         }
+      }
+
+      xml.endElement();
    }
 
    private void put(final Map<String, Set<String>> fullFeatureIdToCategoriesMap,

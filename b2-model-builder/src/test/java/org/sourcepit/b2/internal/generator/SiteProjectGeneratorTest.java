@@ -6,31 +6,99 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.sourcepit.b2.model.harness.ModelTestHarness.addSiteProject;
 import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyClassifier;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyName;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.junit.Test;
 import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironmentTest;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
+import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
+import org.sourcepit.common.utils.xml.XmlUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.google.common.base.Optional;
 
 public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
 {
+   @Test
+   public void testGenDifferentIUTypes() throws Exception
+   {
+      final PropertiesMap properties = new LinkedPropertiesMap();
+
+      final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
+
+      final BasicModule module = createBasicModule("foo");
+
+      SiteProject siteProject = addSiteProject(module, "sites", "foo.site");
+      siteProject.setDirectory(ws.getRoot());
+
+      addFeatureReference(siteProject, "category", "foo.plugins.feature");
+      addPluginReference(siteProject, "category", "foo.plugin");
+      addProductReference(siteProject, "category", "foo.product");
+
+      final SiteProjectGenerator generator = gLookup(SiteProjectGenerator.class);
+      generator.generate(siteProject, properties, templates);
+
+      File siteDir = siteProject.getDirectory();
+      assertTrue(siteDir.exists());
+      System.out.println(siteDir);
+
+      Document categoryXml = XmlUtils.readXml(new File(siteDir, "category.xml"));
+
+      List<Element> elements = new ArrayList<Element>();
+
+      NodeList childNodes = categoryXml.getDocumentElement().getChildNodes();
+      for (int i = 0; i < childNodes.getLength(); i++)
+      {
+         Node node = childNodes.item(i);
+         if (node instanceof Element)
+         {
+            elements.add((Element) node);
+         }
+      }
+
+      assertEquals(4, elements.size());
+      
+      Element featureElem = elements.get(0);
+      assertEquals("feature", featureElem.getTagName());
+      assertEquals("foo.plugins.feature", featureElem.getAttribute("id"));
+      assertEquals("1.0.0.qualifier", featureElem.getAttribute("version"));
+      
+      Element pluginElem = elements.get(1);
+      assertEquals("bundle", pluginElem.getTagName());
+      assertEquals("foo.plugin", pluginElem.getAttribute("id"));
+      assertEquals("1.0.0.qualifier", pluginElem.getAttribute("version"));
+      
+      Element productElem = elements.get(2);
+      assertEquals("iu", productElem.getTagName());
+      assertEquals("foo.product", productElem.getAttribute("id"));
+      assertEquals("1.0.0.qualifier", productElem.getAttribute("version"));
+      
+      Element categoryElem = elements.get(3);
+      assertEquals("category-def", categoryElem.getTagName());
+      assertEquals("category", categoryElem.getAttribute("name"));
+      assertEquals("%categories.category.name", categoryElem.getAttribute("label"));
+   }
+
    @Test
    public void testSiteProperties()
    {
@@ -125,7 +193,41 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       assertEquals("Kern Plug-ins SDK (enthaltene Features)", featureProperties.get("categories.included.name"));
    }
 
-   private StrictReference addFeatureReference(SiteProject siteProject, String categoryName, String featureId)
+   private FeatureInclude addFeatureReference(SiteProject siteProject, String categoryName, String featureId)
+   {
+      Category category = getCategory(siteProject, categoryName);
+      if (category == null)
+      {
+         category = createCategory(siteProject, categoryName);
+         siteProject.getCategories().add(category);
+      }
+
+      FeatureInclude strictReference = ModuleModelFactory.eINSTANCE.createFeatureInclude();
+      strictReference.setId(featureId);
+      strictReference.setVersion(siteProject.getParent().getParent().getVersion());
+      category.getInstallableUnits().add(strictReference);
+
+      return strictReference;
+   }
+
+   private PluginInclude addPluginReference(SiteProject siteProject, String categoryName, String pluginId)
+   {
+      Category category = getCategory(siteProject, categoryName);
+      if (category == null)
+      {
+         category = createCategory(siteProject, categoryName);
+         siteProject.getCategories().add(category);
+      }
+
+      PluginInclude strictReference = ModuleModelFactory.eINSTANCE.createPluginInclude();
+      strictReference.setId(pluginId);
+      strictReference.setVersion(siteProject.getParent().getParent().getVersion());
+      category.getInstallableUnits().add(strictReference);
+
+      return strictReference;
+   }
+
+   private StrictReference addProductReference(SiteProject siteProject, String categoryName, String productId)
    {
       Category category = getCategory(siteProject, categoryName);
       if (category == null)
@@ -135,7 +237,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       }
 
       StrictReference strictReference = ModuleModelFactory.eINSTANCE.createStrictReference();
-      strictReference.setId(featureId);
+      strictReference.setId(productId);
       strictReference.setVersion(siteProject.getParent().getParent().getVersion());
       category.getInstallableUnits().add(strictReference);
 
