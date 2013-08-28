@@ -53,7 +53,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
       try
       {
          ModuleModelFactory theModuleModelFactory = (ModuleModelFactory) EPackage.Registry.INSTANCE
-            .getEFactory("http://www.sourcepit.org/b2/module/0.1/");
+            .getEFactory(ModuleModelPackage.eNS_URI);
          if (theModuleModelFactory != null)
          {
             return theModuleModelFactory;

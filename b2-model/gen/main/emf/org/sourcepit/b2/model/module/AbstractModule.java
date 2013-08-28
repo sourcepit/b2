@@ -29,7 +29,7 @@ import org.sourcepit.common.modeling.Annotatable;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractModule extends FileContainer, Annotatable, Identifiable
+public interface AbstractModule extends FileContainer, Annotatable, AbstractIdentifiable
 {
    /**
     * Returns the value of the '<em><b>Layout Id</b></em>' attribute.

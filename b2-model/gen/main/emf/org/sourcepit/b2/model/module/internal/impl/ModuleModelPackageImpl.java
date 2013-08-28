@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.ETypeParameter;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.sourcepit.b2.model.module.AbstractFacet;
+import org.sourcepit.b2.model.module.AbstractIdentifiable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
@@ -28,7 +29,6 @@ import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.FileContainer;
-import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginInclude;
@@ -43,6 +43,7 @@ import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.util.Identifier;
 import org.sourcepit.common.manifest.ManifestPackage;
 import org.sourcepit.common.manifest.osgi.BundleManifestPackage;
@@ -191,7 +192,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   private EClass identifiableEClass = null;
+   private EClass abstractIdentifiableEClass = null;
 
    /**
     * <!-- begin-user-doc -->
@@ -248,6 +249,14 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * @generated
     */
    private EClass featureIncludeEClass = null;
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
+   private EClass identifiableEClass = null;
 
    /**
     * <!-- begin-user-doc -->
@@ -826,9 +835,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getIdentifiable()
+   public EClass getAbstractIdentifiable()
    {
-      return identifiableEClass;
+      return abstractIdentifiableEClass;
    }
 
    /**
@@ -837,9 +846,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getIdentifiable_Id()
+   public EAttribute getAbstractIdentifiable_Id()
    {
-      return (EAttribute) identifiableEClass.getEStructuralFeatures().get(0);
+      return (EAttribute) abstractIdentifiableEClass.getEStructuralFeatures().get(0);
    }
 
    /**
@@ -848,9 +857,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getIdentifiable_Version()
+   public EAttribute getAbstractIdentifiable_Version()
    {
-      return (EAttribute) identifiableEClass.getEStructuralFeatures().get(1);
+      return (EAttribute) abstractIdentifiableEClass.getEStructuralFeatures().get(1);
    }
 
    /**
@@ -1024,6 +1033,17 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
+   public EClass getIdentifiable()
+   {
+      return identifiableEClass;
+   }
+
+   /**
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    */
    public EEnum getVersionMatchRule()
    {
       return versionMatchRuleEEnum;
@@ -1134,9 +1154,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       createEReference(categoryEClass, CATEGORY__FEATURE_REFERENCES);
       createEAttribute(categoryEClass, CATEGORY__NAME);
 
-      identifiableEClass = createEClass(IDENTIFIABLE);
-      createEAttribute(identifiableEClass, IDENTIFIABLE__ID);
-      createEAttribute(identifiableEClass, IDENTIFIABLE__VERSION);
+      abstractIdentifiableEClass = createEClass(ABSTRACT_IDENTIFIABLE);
+      createEAttribute(abstractIdentifiableEClass, ABSTRACT_IDENTIFIABLE__ID);
+      createEAttribute(abstractIdentifiableEClass, ABSTRACT_IDENTIFIABLE__VERSION);
 
       productsFacetEClass = createEClass(PRODUCTS_FACET);
       createEReference(productsFacetEClass, PRODUCTS_FACET__PRODUCT_DEFINITIONS);
@@ -1159,6 +1179,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
 
       featureIncludeEClass = createEClass(FEATURE_INCLUDE);
       createEAttribute(featureIncludeEClass, FEATURE_INCLUDE__OPTIONAL);
+
+      identifiableEClass = createEClass(IDENTIFIABLE);
 
       // Create enums
       versionMatchRuleEEnum = createEEnum(VERSION_MATCH_RULE);
@@ -1210,7 +1232,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       // Add supertypes to classes
       abstractModuleEClass.getESuperTypes().add(this.getFileContainer());
       abstractModuleEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
-      abstractModuleEClass.getESuperTypes().add(this.getIdentifiable());
+      abstractModuleEClass.getESuperTypes().add(this.getAbstractIdentifiable());
       basicModuleEClass.getESuperTypes().add(this.getAbstractModule());
       abstractFacetEClass.getESuperTypes().add(this.getDerivable());
       abstractFacetEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
@@ -1233,9 +1255,10 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       projectEClass.getESuperTypes().add(this.getFileContainer());
       projectEClass.getESuperTypes().add(this.getDerivable());
       projectEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
-      projectEClass.getESuperTypes().add(this.getIdentifiable());
+      projectEClass.getESuperTypes().add(this.getAbstractIdentifiable());
       projectFacetEClass.getESuperTypes().add(this.getAbstractFacet());
       pluginIncludeEClass.getESuperTypes().add(this.getAbstractStrictReference());
+      abstractIdentifiableEClass.getESuperTypes().add(this.getIdentifiable());
       productsFacetEClass.getESuperTypes().add(this.getAbstractFacet());
       productDefinitionEClass.getESuperTypes().add(theCommonModelingPackage.getAnnotatable());
       productDefinitionEClass.getESuperTypes().add(this.getDerivable());
@@ -1442,18 +1465,20 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getCategory_Name(), ecorePackage.getEString(), "name", null, 1, 1, Category.class, !IS_TRANSIENT,
          !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-      initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE,
-         IS_GENERATED_INSTANCE_CLASS);
-      initEAttribute(getIdentifiable_Id(), ecorePackage.getEString(), "id", null, 0, 1, Identifiable.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-      initEAttribute(getIdentifiable_Version(), ecorePackage.getEString(), "version", null, 0, 1, Identifiable.class,
-         !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+      initEClass(abstractIdentifiableEClass, AbstractIdentifiable.class, "AbstractIdentifiable", IS_ABSTRACT,
+         IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+      initEAttribute(getAbstractIdentifiable_Id(), ecorePackage.getEString(), "id", null, 0, 1,
+         AbstractIdentifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
+      initEAttribute(getAbstractIdentifiable_Version(), ecorePackage.getEString(), "version", null, 0, 1,
+         AbstractIdentifiable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+         !IS_DERIVED, IS_ORDERED);
 
-      op = addEOperation(identifiableEClass, ecorePackage.getEBoolean(), "isIdentifyableBy", 1, 1, IS_UNIQUE,
+      op = addEOperation(abstractIdentifiableEClass, ecorePackage.getEBoolean(), "isIdentifyableBy", 1, 1, IS_UNIQUE,
          IS_ORDERED);
       addEParameter(op, this.getIdentifier(), "identifier", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-      addEOperation(identifiableEClass, this.getIdentifier(), "toIdentifier", 1, 1, IS_UNIQUE, IS_ORDERED);
+      addEOperation(abstractIdentifiableEClass, this.getIdentifier(), "toIdentifier", 1, 1, IS_UNIQUE, IS_ORDERED);
 
       initEClass(productsFacetEClass, ProductsFacet.class, "ProductsFacet", !IS_ABSTRACT, !IS_INTERFACE,
          IS_GENERATED_INSTANCE_CLASS);
@@ -1504,6 +1529,9 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       initEAttribute(getFeatureInclude_Optional(), ecorePackage.getEBoolean(), "optional", null, 0, 1,
          FeatureInclude.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
          !IS_DERIVED, IS_ORDERED);
+
+      initEClass(identifiableEClass, Identifiable.class, "Identifiable", IS_ABSTRACT, IS_INTERFACE,
+         !IS_GENERATED_INSTANCE_CLASS);
 
       // Initialize enums and add enum literals
       initEEnum(versionMatchRuleEEnum, VersionMatchRule.class, "VersionMatchRule");

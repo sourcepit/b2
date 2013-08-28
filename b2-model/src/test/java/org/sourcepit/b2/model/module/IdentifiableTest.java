@@ -16,11 +16,11 @@ public class IdentifiableTest extends TestCase
 {
    public void testToIdentifier() throws Exception
    {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getIdentifiable(), new RunnableWithEObject()
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractIdentifiable(), new RunnableWithEObject()
       {
          public void run(EObject eObject)
          {
-            Identifiable identifiable = (Identifiable) eObject;
+            AbstractIdentifiable identifiable = (AbstractIdentifiable) eObject;
             try
             {
                identifiable.toIdentifier();

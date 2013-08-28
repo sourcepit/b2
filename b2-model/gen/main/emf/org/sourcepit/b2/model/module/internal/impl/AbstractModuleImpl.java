@@ -19,12 +19,13 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.b2.model.module.AbstractFacet;
+import org.sourcepit.b2.model.module.AbstractIdentifiable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
-import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.util.Identifier;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.modeling.Annotation;
@@ -613,10 +614,18 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          switch (derivedFeatureID)
          {
+            default :
+               return -1;
+         }
+      }
+      if (baseClass == AbstractIdentifiable.class)
+      {
+         switch (derivedFeatureID)
+         {
             case ModuleModelPackage.ABSTRACT_MODULE__ID :
-               return ModuleModelPackage.IDENTIFIABLE__ID;
+               return ModuleModelPackage.ABSTRACT_IDENTIFIABLE__ID;
             case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
-               return ModuleModelPackage.IDENTIFIABLE__VERSION;
+               return ModuleModelPackage.ABSTRACT_IDENTIFIABLE__VERSION;
             default :
                return -1;
          }
@@ -647,9 +656,17 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
       {
          switch (baseFeatureID)
          {
-            case ModuleModelPackage.IDENTIFIABLE__ID :
+            default :
+               return -1;
+         }
+      }
+      if (baseClass == AbstractIdentifiable.class)
+      {
+         switch (baseFeatureID)
+         {
+            case ModuleModelPackage.ABSTRACT_IDENTIFIABLE__ID :
                return ModuleModelPackage.ABSTRACT_MODULE__ID;
-            case ModuleModelPackage.IDENTIFIABLE__VERSION :
+            case ModuleModelPackage.ABSTRACT_IDENTIFIABLE__VERSION :
                return ModuleModelPackage.ABSTRACT_MODULE__VERSION;
             default :
                return -1;

@@ -11,6 +11,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.AbstractFacet;
+import org.sourcepit.b2.model.module.AbstractIdentifiable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
@@ -22,7 +23,6 @@ import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.FileContainer;
-import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
@@ -202,9 +202,9 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
       }
 
       @Override
-      public Adapter caseIdentifiable(Identifiable object)
+      public Adapter caseAbstractIdentifiable(AbstractIdentifiable object)
       {
-         return createIdentifiableAdapter();
+         return createAbstractIdentifiableAdapter();
       }
 
       @Override
@@ -247,6 +247,12 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseFeatureInclude(FeatureInclude object)
       {
          return createFeatureIncludeAdapter();
+      }
+
+      @Override
+      public Adapter caseIdentifiable(Identifiable object)
+      {
+         return createIdentifiableAdapter();
       }
 
       @Override
@@ -548,18 +554,18 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
    }
 
    /**
-    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.Identifiable
-    * <em>Identifiable</em>}'.
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.AbstractIdentifiable
+    * <em>Abstract Identifiable</em>}'.
     * <!-- begin-user-doc -->
     * This default implementation returns null so that we can easily ignore cases;
     * it's useful to ignore a case when inheritance will catch all the cases anyway.
     * <!-- end-user-doc -->
     * 
     * @return the new adapter.
-    * @see org.sourcepit.b2.model.module.Identifiable
+    * @see org.sourcepit.b2.model.module.AbstractIdentifiable
     * @generated
     */
-   public Adapter createIdentifiableAdapter()
+   public Adapter createAbstractIdentifiableAdapter()
    {
       return null;
    }
@@ -679,6 +685,23 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    public Adapter createFeatureIncludeAdapter()
+   {
+      return null;
+   }
+
+   /**
+    * Creates a new adapter for an object of class '{@link org.sourcepit.b2.model.module.util.Identifiable
+    * <em>Identifiable</em>}'.
+    * <!-- begin-user-doc -->
+    * This default implementation returns null so that we can easily ignore cases;
+    * it's useful to ignore a case when inheritance will catch all the cases anyway.
+    * <!-- end-user-doc -->
+    * 
+    * @return the new adapter.
+    * @see org.sourcepit.b2.model.module.util.Identifiable
+    * @generated
+    */
+   public Adapter createIdentifiableAdapter()
    {
       return null;
    }

@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.model.module;
 
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.common.modeling.Annotatable;
 
 /**
@@ -119,7 +120,7 @@ public interface AbstractReference extends Annotatable
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @model required="true"
+    * @model required="true" identifierType="org.sourcepit.b2.model.module.Identifiable"
     * @generated
     */
    boolean isSatisfiableBy(Identifiable identifier);

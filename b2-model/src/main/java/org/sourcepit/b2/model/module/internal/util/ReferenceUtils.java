@@ -12,7 +12,7 @@ import org.eclipse.osgi.service.resolver.VersionRange;
 import org.osgi.framework.Version;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
-import org.sourcepit.b2.model.module.Identifiable;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 

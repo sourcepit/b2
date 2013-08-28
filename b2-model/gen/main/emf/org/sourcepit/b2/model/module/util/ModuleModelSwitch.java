@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 import org.sourcepit.b2.model.module.AbstractFacet;
+import org.sourcepit.b2.model.module.AbstractIdentifiable;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.AbstractStrictReference;
@@ -21,7 +22,6 @@ import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.FileContainer;
-import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;
@@ -113,6 +113,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseAnnotatable(abstractModule);
             if (result == null)
+               result = caseAbstractIdentifiable(abstractModule);
+            if (result == null)
                result = caseIdentifiable(abstractModule);
             if (result == null)
                result = defaultCase(theEObject);
@@ -128,6 +130,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = caseFileContainer(basicModule);
             if (result == null)
                result = caseAnnotatable(basicModule);
+            if (result == null)
+               result = caseAbstractIdentifiable(basicModule);
             if (result == null)
                result = caseIdentifiable(basicModule);
             if (result == null)
@@ -156,6 +160,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = caseFileContainer(compositeModule);
             if (result == null)
                result = caseAnnotatable(compositeModule);
+            if (result == null)
+               result = caseAbstractIdentifiable(compositeModule);
             if (result == null)
                result = caseIdentifiable(compositeModule);
             if (result == null)
@@ -223,6 +229,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseAnnotatable(pluginProject);
             if (result == null)
+               result = caseAbstractIdentifiable(pluginProject);
+            if (result == null)
                result = caseIdentifiable(pluginProject);
             if (result == null)
                result = defaultCase(theEObject);
@@ -240,6 +248,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = caseDerivable(featureProject);
             if (result == null)
                result = caseAnnotatable(featureProject);
+            if (result == null)
+               result = caseAbstractIdentifiable(featureProject);
             if (result == null)
                result = caseIdentifiable(featureProject);
             if (result == null)
@@ -259,6 +269,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
             if (result == null)
                result = caseAnnotatable(siteProject);
             if (result == null)
+               result = caseAbstractIdentifiable(siteProject);
+            if (result == null)
                result = caseIdentifiable(siteProject);
             if (result == null)
                result = defaultCase(theEObject);
@@ -274,6 +286,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = caseDerivable(project);
             if (result == null)
                result = caseAnnotatable(project);
+            if (result == null)
+               result = caseAbstractIdentifiable(project);
             if (result == null)
                result = caseIdentifiable(project);
             if (result == null)
@@ -332,10 +346,12 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.IDENTIFIABLE :
+         case ModuleModelPackage.ABSTRACT_IDENTIFIABLE :
          {
-            Identifiable identifiable = (Identifiable) theEObject;
-            T result = caseIdentifiable(identifiable);
+            AbstractIdentifiable abstractIdentifiable = (AbstractIdentifiable) theEObject;
+            T result = caseAbstractIdentifiable(abstractIdentifiable);
+            if (result == null)
+               result = caseIdentifiable(abstractIdentifiable);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -424,6 +440,14 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = caseAbstractReference(featureInclude);
             if (result == null)
                result = caseAnnotatable(featureInclude);
+            if (result == null)
+               result = defaultCase(theEObject);
+            return result;
+         }
+         case ModuleModelPackage.IDENTIFIABLE :
+         {
+            Identifiable identifiable = (Identifiable) theEObject;
+            T result = caseIdentifiable(identifiable);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
@@ -706,18 +730,18 @@ public class ModuleModelSwitch<T> extends Switch<T>
    }
 
    /**
-    * Returns the result of interpreting the object as an instance of '<em>Identifiable</em>'.
+    * Returns the result of interpreting the object as an instance of '<em>Abstract Identifiable</em>'.
     * <!-- begin-user-doc -->
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
     * 
     * @param object the target of the switch.
-    * @return the result of interpreting the object as an instance of '<em>Identifiable</em>'.
+    * @return the result of interpreting the object as an instance of '<em>Abstract Identifiable</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseIdentifiable(Identifiable object)
+   public T caseAbstractIdentifiable(AbstractIdentifiable object)
    {
       return null;
    }
@@ -837,6 +861,23 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @generated
     */
    public T caseFeatureInclude(FeatureInclude object)
+   {
+      return null;
+   }
+
+   /**
+    * Returns the result of interpreting the object as an instance of '<em>Identifiable</em>'.
+    * <!-- begin-user-doc -->
+    * This implementation returns null;
+    * returning a non-null result will terminate the switch.
+    * <!-- end-user-doc -->
+    * 
+    * @param object the target of the switch.
+    * @return the result of interpreting the object as an instance of '<em>Identifiable</em>'.
+    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+    * @generated
+    */
+   public T caseIdentifiable(Identifiable object)
    {
       return null;
    }

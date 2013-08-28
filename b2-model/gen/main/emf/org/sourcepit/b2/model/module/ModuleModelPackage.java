@@ -1403,35 +1403,15 @@ public interface ModuleModelPackage extends EPackage
    int CATEGORY_FEATURE_COUNT = 2;
 
    /**
-    * The meta object id for the '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}' class.
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.util.Identifiable <em>Identifiable</em>}' class.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @see org.sourcepit.b2.model.module.Identifiable
+    * @see org.sourcepit.b2.model.module.util.Identifiable
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifiable()
     * @generated
     */
-   int IDENTIFIABLE = 16;
-
-   /**
-    * The feature id for the '<em><b>Id</b></em>' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int IDENTIFIABLE__ID = 0;
-
-   /**
-    * The feature id for the '<em><b>Version</b></em>' attribute.
-    * <!-- begin-user-doc -->
-    * <!-- end-user-doc -->
-    * 
-    * @generated
-    * @ordered
-    */
-   int IDENTIFIABLE__VERSION = 1;
+   int IDENTIFIABLE = 24;
 
    /**
     * The number of structural features of the '<em>Identifiable</em>' class.
@@ -1441,7 +1421,49 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     * @ordered
     */
-   int IDENTIFIABLE_FEATURE_COUNT = 2;
+   int IDENTIFIABLE_FEATURE_COUNT = 0;
+
+   /**
+    * The meta object id for the '{@link org.sourcepit.b2.model.module.AbstractIdentifiable
+    * <em>Abstract Identifiable</em>}' class.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @see org.sourcepit.b2.model.module.AbstractIdentifiable
+    * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractIdentifiable()
+    * @generated
+    */
+   int ABSTRACT_IDENTIFIABLE = 16;
+
+   /**
+    * The feature id for the '<em><b>Id</b></em>' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ABSTRACT_IDENTIFIABLE__ID = IDENTIFIABLE_FEATURE_COUNT + 0;
+
+   /**
+    * The feature id for the '<em><b>Version</b></em>' attribute.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ABSTRACT_IDENTIFIABLE__VERSION = IDENTIFIABLE_FEATURE_COUNT + 1;
+
+   /**
+    * The number of structural features of the '<em>Abstract Identifiable</em>' class.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @generated
+    * @ordered
+    */
+   int ABSTRACT_IDENTIFIABLE_FEATURE_COUNT = IDENTIFIABLE_FEATURE_COUNT + 2;
 
    /**
     * The meta object id for the '{@link org.sourcepit.b2.model.module.internal.impl.ProductsFacetImpl
@@ -1773,7 +1795,7 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getVersionMatchRule()
     * @generated
     */
-   int VERSION_MATCH_RULE = 24;
+   int VERSION_MATCH_RULE = 25;
 
    /**
     * The meta object id for the '<em>Identifier</em>' data type.
@@ -1784,7 +1806,7 @@ public interface ModuleModelPackage extends EPackage
     * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifier()
     * @generated
     */
-   int IDENTIFIER = 25;
+   int IDENTIFIER = 26;
 
 
    /**
@@ -2329,40 +2351,42 @@ public interface ModuleModelPackage extends EPackage
    EAttribute getCategory_Name();
 
    /**
-    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}'.
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.AbstractIdentifiable
+    * <em>Abstract Identifiable</em>}'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
-    * @return the meta object for class '<em>Identifiable</em>'.
-    * @see org.sourcepit.b2.model.module.Identifiable
+    * @return the meta object for class '<em>Abstract Identifiable</em>'.
+    * @see org.sourcepit.b2.model.module.AbstractIdentifiable
     * @generated
     */
-   EClass getIdentifiable();
+   EClass getAbstractIdentifiable();
 
    /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Identifiable#getId <em>Id</em>}'.
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.AbstractIdentifiable#getId
+    * <em>Id</em>}'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Id</em>'.
-    * @see org.sourcepit.b2.model.module.Identifiable#getId()
-    * @see #getIdentifiable()
+    * @see org.sourcepit.b2.model.module.AbstractIdentifiable#getId()
+    * @see #getAbstractIdentifiable()
     * @generated
     */
-   EAttribute getIdentifiable_Id();
+   EAttribute getAbstractIdentifiable_Id();
 
    /**
-    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.Identifiable#getVersion
+    * Returns the meta object for the attribute '{@link org.sourcepit.b2.model.module.AbstractIdentifiable#getVersion
     * <em>Version</em>}'.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @return the meta object for the attribute '<em>Version</em>'.
-    * @see org.sourcepit.b2.model.module.Identifiable#getVersion()
-    * @see #getIdentifiable()
+    * @see org.sourcepit.b2.model.module.AbstractIdentifiable#getVersion()
+    * @see #getAbstractIdentifiable()
     * @generated
     */
-   EAttribute getIdentifiable_Version();
+   EAttribute getAbstractIdentifiable_Version();
 
    /**
     * Returns the meta object for class '{@link org.sourcepit.b2.model.module.ProductsFacet <em>Products Facet</em>}'.
@@ -2548,6 +2572,18 @@ public interface ModuleModelPackage extends EPackage
     * @generated
     */
    EAttribute getFeatureInclude_Optional();
+
+   /**
+    * Returns the meta object for class '{@link org.sourcepit.b2.model.module.util.Identifiable <em>Identifiable</em>}'.
+    * <!-- begin-user-doc -->
+    * <!-- end-user-doc -->
+    * 
+    * @return the meta object for class '<em>Identifiable</em>'.
+    * @see org.sourcepit.b2.model.module.util.Identifiable
+    * @model instanceClass="org.sourcepit.b2.model.module.util.Identifiable"
+    * @generated
+    */
+   EClass getIdentifiable();
 
    /**
     * Returns the meta object for enum '{@link org.sourcepit.b2.model.module.VersionMatchRule
@@ -3042,16 +3078,16 @@ public interface ModuleModelPackage extends EPackage
       EAttribute CATEGORY__NAME = eINSTANCE.getCategory_Name();
 
       /**
-       * The meta object literal for the '{@link org.sourcepit.b2.model.module.Identifiable <em>Identifiable</em>}'
-       * class.
+       * The meta object literal for the '{@link org.sourcepit.b2.model.module.AbstractIdentifiable
+       * <em>Abstract Identifiable</em>}' class.
        * <!-- begin-user-doc -->
        * <!-- end-user-doc -->
        * 
-       * @see org.sourcepit.b2.model.module.Identifiable
-       * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifiable()
+       * @see org.sourcepit.b2.model.module.AbstractIdentifiable
+       * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getAbstractIdentifiable()
        * @generated
        */
-      EClass IDENTIFIABLE = eINSTANCE.getIdentifiable();
+      EClass ABSTRACT_IDENTIFIABLE = eINSTANCE.getAbstractIdentifiable();
 
       /**
        * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -3060,7 +3096,7 @@ public interface ModuleModelPackage extends EPackage
        * 
        * @generated
        */
-      EAttribute IDENTIFIABLE__ID = eINSTANCE.getIdentifiable_Id();
+      EAttribute ABSTRACT_IDENTIFIABLE__ID = eINSTANCE.getAbstractIdentifiable_Id();
 
       /**
        * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
@@ -3069,7 +3105,7 @@ public interface ModuleModelPackage extends EPackage
        * 
        * @generated
        */
-      EAttribute IDENTIFIABLE__VERSION = eINSTANCE.getIdentifiable_Version();
+      EAttribute ABSTRACT_IDENTIFIABLE__VERSION = eINSTANCE.getAbstractIdentifiable_Version();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.ProductsFacetImpl
@@ -3227,6 +3263,18 @@ public interface ModuleModelPackage extends EPackage
        * @generated
        */
       EAttribute FEATURE_INCLUDE__OPTIONAL = eINSTANCE.getFeatureInclude_Optional();
+
+      /**
+       * The meta object literal for the '{@link org.sourcepit.b2.model.module.util.Identifiable <em>Identifiable</em>}'
+       * class.
+       * <!-- begin-user-doc -->
+       * <!-- end-user-doc -->
+       * 
+       * @see org.sourcepit.b2.model.module.util.Identifiable
+       * @see org.sourcepit.b2.model.module.internal.impl.ModuleModelPackageImpl#getIdentifiable()
+       * @generated
+       */
+      EClass IDENTIFIABLE = eINSTANCE.getIdentifiable();
 
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.VersionMatchRule

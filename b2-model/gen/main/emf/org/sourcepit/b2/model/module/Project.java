@@ -18,7 +18,7 @@ import org.sourcepit.common.modeling.Annotatable;
  * @model abstract="true"
  * @generated
  */
-public interface Project extends FileContainer, Derivable, Annotatable, Identifiable
+public interface Project extends FileContainer, Derivable, Annotatable, AbstractIdentifiable
 {
    /**
     * <!-- begin-user-doc -->

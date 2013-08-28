@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.sourcepit.b2.model.module.AbstractReference;
-import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.modeling.CommonModelingPackage;
 

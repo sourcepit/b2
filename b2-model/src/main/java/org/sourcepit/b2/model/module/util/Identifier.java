@@ -5,7 +5,7 @@
  */
 
 package org.sourcepit.b2.model.module.util;
-public final class Identifier
+public final class Identifier implements Identifiable
 {
    private final String id;
 
@@ -68,5 +68,17 @@ public final class Identifier
          return false;
       return true;
    } // CSON
+
+   @Override
+   public boolean isIdentifyableBy(Identifier identifier)
+   {
+      throw new IllegalStateException();
+   }
+
+   @Override
+   public Identifier toIdentifier()
+   {
+      throw new IllegalStateException();
+   }
 
 }
