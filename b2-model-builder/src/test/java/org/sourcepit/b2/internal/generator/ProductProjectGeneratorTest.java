@@ -6,14 +6,13 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.sourcepit.common.utils.io.IO.buffOut;
+import static org.sourcepit.common.utils.io.IO.fileOut;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +37,8 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
+import org.sourcepit.common.utils.io.IO;
+import org.sourcepit.common.utils.io.Write.ToStream;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.xml.XmlUtils;
@@ -122,7 +123,7 @@ public class ProductProjectGeneratorTest extends InjectedTest
    public void testCopyProductResources_Feature86() throws Exception
    {
       final File moduleDir = getResource("ProductTest");
-      
+
       final List<File> projectDirs = new ArrayList<File>();
       projectDirs.add(moduleDir);
 
@@ -326,6 +327,55 @@ public class ProductProjectGeneratorTest extends InjectedTest
       assertEquals(1, action.getParameters().getInt("type", -1));
       assertEquals("http://download.eclipse.org/releases/juno/", action.getParameters().get("location"));
       assertEquals(true, action.getParameters().getBoolean("enabled", false));
+   }
+
+   @Test
+   public void testFeature14_EmptyUIdAndVersion() throws Exception
+   {
+      final File moduleDir = getResource("ProductTest");
+
+      final List<File> projectDirs = new ArrayList<File>();
+      projectDirs.add(moduleDir);
+
+      final StringBuilder sb = new StringBuilder();
+      sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+      sb.append("<?pde version=\"3.5\"?>\n");
+      sb.append("<product id=\"bundle.a.product\">\n");
+      sb.append("</product>\n");
+
+      final File productFile = new File(moduleDir, "bundle.a/bundle.a.product");
+      assertTrue(productFile.exists());
+      write(productFile, sb.toString().getBytes("UTF-8"));
+
+      B2Request request = new B2Request();
+      request.setModuleDirectory(moduleDir);
+      request.setInterpolate(true);
+      request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
+      request.setTemplates(new DefaultTemplateCopier());
+
+      // build model and generate
+      final AbstractModule module = b2.generate(request);
+      assertNotNull(module);
+
+      File newProductFile = new File(moduleDir, ".b2/products/bundle.a.product/bundle.a.product");
+      assertTrue(newProductFile.exists());
+
+      Element productElem = XmlUtils.readXml(newProductFile).getDocumentElement();
+      assertNotNull(productElem);
+      assertEquals("bundle.a.product", productElem.getAttribute("uid"));
+      assertEquals("1.0.0.qualifier", productElem.getAttribute("version"));
+   }
+
+   private static void write(final File productFile, final byte[] content)
+   {
+      IO.write(new ToStream<byte[]>()
+      {
+         @Override
+         public void write(OutputStream writer, byte[] content) throws Exception
+         {
+            writer.write(content);
+         }
+      }, buffOut(fileOut(productFile)), content);
    }
 
    protected File getResource(String path) throws IOException
