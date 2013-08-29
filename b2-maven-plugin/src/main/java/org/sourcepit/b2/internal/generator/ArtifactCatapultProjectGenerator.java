@@ -25,7 +25,6 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
-import org.apache.maven.model.Profile;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -123,25 +122,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          .getCurrentProject(), properties);
 
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module, environments);
-      if (!artifacts.isEmpty())
-      {
-         artifacts.addAll(gatherArtifacts(module, propertie));
-
-         Profile profile = new Profile();
-         profile.setId("buildProducts");
-         profile.setBuild(model.getBuild().clone());
-
-         final List<Plugin> plugins = profile.getBuild().getPlugins();
-         final Plugin installMojo = plugins.get(0);
-         final Plugin deployMojo = plugins.get(1);
-
-         configureInstallMojo(installMojo, moduleModel, artifacts);
-         configureDeployMojo(deployMojo, artifacts);
-
-         model.getProfiles().add(profile);
-      }
-
-      artifacts = gatherArtifacts(module, propertie);
+      artifacts.addAll(gatherArtifacts(module, propertie));
       if (!artifacts.isEmpty())
       {
          final List<Plugin> plugins = model.getBuild().getPlugins();
@@ -391,8 +372,12 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       {
          for (ProductDefinition product : productsFacet.getProductDefinitions())
          {
-            for (String classifierPrefix : B2MetadataUtils.getAssemblyClassifiers(product))
+            for (String classifier : B2MetadataUtils.getAssemblyClassifiers(product))
             {
+               final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
+               final File projectDir = new File(layout.pathOfSiteProject(module, classifier));
+
+               String classifierPrefix = classifier;
                if (Strings.isNullOrEmpty(classifierPrefix))
                {
                   classifierPrefix = "";
@@ -402,9 +387,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
                   classifierPrefix = classifierPrefix + ".";
                }
 
-               final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
                final String uid = product.getAnnotationData("product", "uid");
-               final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
                for (String envAppendix : envAppendixes)
                {
                   // target/products/de.visualrules.modeler-linux.gtk.x86.zip

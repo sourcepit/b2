@@ -436,7 +436,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       return null;
    }
 
-   private static String getAssemblyName(SiteProject site)
+   public static String getAssemblyName(SiteProject site)
    {
       List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(site);
       String assemblyName = assemblyNames.isEmpty() ? null : assemblyNames.get(0);

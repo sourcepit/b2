@@ -24,14 +24,18 @@ import javax.inject.Named;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Plugin;
+import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.builder.util.ISourceService;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
+import org.sourcepit.b2.model.interpolation.internal.module.SitesInterpolator;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -47,6 +51,8 @@ import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.io.IOOperation;
 import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.props.PropertiesSource;
+
+import com.google.common.base.Preconditions;
 
 @Named
 public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
@@ -72,7 +78,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    @Override
    protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
    {
-      inputTypes.add(ProductDefinition.class);
       inputTypes.add(Project.class);
       inputTypes.add(AbstractFacet.class);
       inputTypes.add(AbstractModule.class);
@@ -151,11 +156,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
             return generateSiteProject(project, properties, templates);
          }
 
-         public File caseProductDefinition(ProductDefinition project)
-         {
-            return generateProductProject(project, properties, templates);
-         };
-
          public File caseAbstractFacet(AbstractFacet facet)
          {
             return generateFacet(facet, properties, templates);
@@ -174,37 +174,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          }
       };
       return modelSwitch.doSwitch(inputElement);
-   }
-
-   protected File generateProductProject(ProductDefinition product, PropertiesSource source, ITemplates templates)
-   {
-      final AbstractModule module = product.getParent().getParent();
-      final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
-
-      final String uid = product.getAnnotationData("product", "uid");
-      final String version = product.getAnnotationData("product", "version");
-
-      final File targetDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
-      targetDir.mkdirs();
-
-      final File pomFile = new File(targetDir, "product-pom.xml");
-
-      Properties properties = new Properties();
-      properties.setProperty("product.uid", uid);
-      properties.setProperty("product.id", product.getAnnotationData("product", "id"));
-      properties.setProperty("product.applications", product.getAnnotationData("product", "application"));
-      copyPomTemplate(templates, pomFile);
-
-      final Model defaultModel = new Model();
-      defaultModel.setModelVersion("4.0.0");
-      defaultModel.getProperties().putAll(properties);
-      defaultModel.setGroupId(basicConverter.getNameSpace(source));
-      defaultModel.setArtifactId(uid);
-      defaultModel.setVersion(VersionUtils.toTychoVersion(version == null ? module.getVersion() : version));
-      defaultModel.setPackaging("eclipse-repository");
-
-      mergeIntoPomFile(pomFile, defaultModel);
-      return pomFile;
    }
 
    protected File generateModule(AbstractModule module, PropertiesSource properties, ITemplates templates)
@@ -390,6 +359,20 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    protected File generateSiteProject(SiteProject project, PropertiesSource properties, ITemplates templates)
    {
+      final String assemblyName = SiteProjectGenerator.getAssemblyName(project);
+
+      final AbstractModule module = project.getParent().getParent();
+
+      final List<ProductDefinition> productDefinitions = SitesInterpolator.getProductDefinitionsForAssembly(module,
+         assemblyName);
+
+      final List<String> productUniqueIds = new ArrayList<String>();
+      for (ProductDefinition productDefinition : productDefinitions)
+      {
+         Preconditions.checkNotNull(productDefinition.getAnnotationData("product", "uid"));
+         productUniqueIds.add(productDefinition.getAnnotationData("product", "uid"));
+      }
+
       final File targetDir = project.getDirectory();
 
       final File pomFile = new File(targetDir, "site-pom.xml");
@@ -403,6 +386,48 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setPackaging("eclipse-repository");
       final String classifier = SiteProjectGenerator.getAssemblyClassifier(project);
       defaultModel.getProperties().setProperty("classifier", classifier == null ? "" : classifier);
+
+      if (!productUniqueIds.isEmpty())
+      {
+         final List<PluginExecution> executions = new ArrayList<PluginExecution>();
+
+         PluginExecution execution;
+         execution = new PluginExecution();
+         execution.setId("materialize-products");
+         execution.addGoal("materialize-products");
+         executions.add(execution);
+
+         execution = new PluginExecution();
+         execution.setId("archive-products");
+         execution.addGoal("archive-products");
+         executions.add(execution);
+
+         final Xpp3Dom productsNode = new Xpp3Dom("products");
+         for (String productUniqueId : productUniqueIds)
+         {
+            final Xpp3Dom id = new Xpp3Dom("id");
+            id.setValue(productUniqueId);
+
+            final Xpp3Dom productNode = new Xpp3Dom("product");
+            productNode.addChild(id);
+
+            productsNode.addChild(productNode);
+         }
+
+         final Xpp3Dom configNode = new Xpp3Dom("configuration");
+         configNode.addChild(productsNode);
+         
+         final Plugin plugin = new Plugin();
+         plugin.setGroupId("org.eclipse.tycho");
+         plugin.setArtifactId("tycho-p2-director-plugin");
+         plugin.setExecutions(executions);
+         plugin.setConfiguration(configNode);
+
+         Build build = new Build();
+         build.getPlugins().add(plugin);
+
+         defaultModel.setBuild(build);
+      }
 
       mergeIntoPomFile(pomFile, defaultModel);
 
