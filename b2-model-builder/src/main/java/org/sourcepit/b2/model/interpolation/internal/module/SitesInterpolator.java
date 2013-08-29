@@ -123,17 +123,16 @@ public class SitesInterpolator
       }
    }
 
-   private Collection<StrictReference> getProductDefinitionsForAssembly(AbstractModule module, String assemblyName,
-      PropertiesSource moduleProperties)
+   public static List<ProductDefinition> getProductDefinitionsForAssembly(AbstractModule module, String assemblyName)
    {
-      final Collection<StrictReference> productDefinitions = new ArrayList<StrictReference>();
+      final List<ProductDefinition> productDefinitions = new ArrayList<ProductDefinition>();
       for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class))
       {
          for (ProductDefinition productDefinition : productsFacet.getProductDefinitions())
          {
             if (getAssemblyNames(productDefinition).contains(assemblyName))
             {
-               productDefinitions.add(toStrictReference(productDefinition));
+               productDefinitions.add(productDefinition);
             }
          }
       }
@@ -152,7 +151,11 @@ public class SitesInterpolator
          allIUs.addAll(getAllFeatures(assemblyName, assemblyFeature, moduleProperties));
       }
 
-      allIUs.addAll(getProductDefinitionsForAssembly(module, assemblyName, moduleProperties));
+      final List<ProductDefinition> productDefinitions = getProductDefinitionsForAssembly(module, assemblyName);
+      for (ProductDefinition productDefinition : productDefinitions)
+      {
+         allIUs.add(toStrictReference(productDefinition));
+      }
 
       return allIUs;
    }
