@@ -22,9 +22,15 @@ import org.junit.Test;
 import org.sourcepit.b2.model.builder.util.SitesConverter;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.CompositeModule;
+import org.sourcepit.b2.model.module.FeatureInclude;
+import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.b2.model.module.PluginProject;
+import org.sourcepit.b2.model.module.ProductDefinition;
+import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
@@ -56,18 +62,18 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(1, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
 
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -92,17 +98,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
 
-      assertEquals(0, siteProject.getFeatureReferences().size());
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
 
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -114,9 +120,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
 
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -125,7 +131,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -150,16 +156,16 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
 
-      assertEquals(0, siteProject.getFeatureReferences().size());
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(1, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -177,9 +183,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -203,17 +209,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -224,9 +230,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -235,7 +241,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -253,9 +259,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -266,9 +272,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -277,7 +283,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -302,17 +308,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
 
-      assertEquals(0, siteProject.getFeatureReferences().size());
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(1, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
 
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -332,9 +338,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
 
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -359,16 +365,16 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
 
-      assertEquals(0, siteProject.getFeatureReferences().size());
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -379,9 +385,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -390,7 +396,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -409,9 +415,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -422,9 +428,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -433,7 +439,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -458,16 +464,16 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
 
-      assertEquals(0, siteProject.getFeatureReferences().size());
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(1, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -485,9 +491,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -506,9 +512,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
 
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -534,16 +540,16 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
 
-      assertEquals(0, siteProject.getFeatureReferences().size());
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(1, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -561,9 +567,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -574,9 +580,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -585,7 +591,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -603,9 +609,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -616,9 +622,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -627,7 +633,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -652,17 +658,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -673,9 +679,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.doc.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -684,7 +690,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -702,9 +708,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -729,17 +735,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -750,9 +756,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(4, category.getFeatureReferences().size());
+      assertEquals(4, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.doc.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -761,7 +767,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.doc.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -770,7 +776,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -779,7 +785,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(3);
+      reference = category.getInstallableUnits().get(3);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -797,9 +803,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -810,9 +816,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -821,7 +827,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -846,17 +852,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -867,9 +873,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.doc.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -878,7 +884,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -896,9 +902,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -922,17 +928,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -943,9 +949,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(4, category.getFeatureReferences().size());
+      assertEquals(4, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.doc.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -954,7 +960,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.doc.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -963,7 +969,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -972,7 +978,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(3);
+      reference = category.getInstallableUnits().get(3);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -990,9 +996,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1003,9 +1009,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1014,7 +1020,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1040,16 +1046,16 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertIdentifiable("bar.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/bar.main.site"), siteProject.getDirectory());
 
-      assertEquals(0, siteProject.getFeatureReferences().size());
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(1, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1067,9 +1073,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1094,17 +1100,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.public.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1115,9 +1121,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1126,7 +1132,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1144,9 +1150,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1157,9 +1163,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1168,7 +1174,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1186,9 +1192,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1199,9 +1205,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1210,7 +1216,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1235,17 +1241,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.public.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1256,9 +1262,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1267,7 +1273,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1285,9 +1291,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1298,9 +1304,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(4, category.getFeatureReferences().size());
+      assertEquals(4, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1309,7 +1315,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1318,7 +1324,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1327,7 +1333,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(3);
+      reference = category.getInstallableUnits().get(3);
       assertReference("bar.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1345,9 +1351,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1358,9 +1364,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(4, category.getFeatureReferences().size());
+      assertEquals(4, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1369,7 +1375,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1378,7 +1384,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1387,7 +1393,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(3);
+      reference = category.getInstallableUnits().get(3);
       assertReference("bar.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1412,17 +1418,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.public.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1433,9 +1439,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1444,7 +1450,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1462,9 +1468,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1475,9 +1481,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(4, category.getFeatureReferences().size());
+      assertEquals(4, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1486,7 +1492,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1495,7 +1501,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1504,7 +1510,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(3);
+      reference = category.getInstallableUnits().get(3);
       assertReference("bar.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1528,17 +1534,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.public.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1549,9 +1555,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1560,7 +1566,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1578,9 +1584,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1591,9 +1597,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1602,7 +1608,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1620,9 +1626,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1633,9 +1639,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1644,7 +1650,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1669,17 +1675,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.public.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.public.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.public.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1690,9 +1696,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1701,7 +1707,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("bar.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1719,9 +1725,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.sdk.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1732,9 +1738,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(3, category.getFeatureReferences().size());
+      assertEquals(3, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1743,7 +1749,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1752,7 +1758,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("bar.sdk.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1770,9 +1776,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1783,9 +1789,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(3, category.getFeatureReferences().size());
+      assertEquals(3, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1794,7 +1800,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1803,7 +1809,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("bar.test.feature", "1.0.0.qualifier", reference);
       assertEquals("bar", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1828,17 +1834,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1849,9 +1855,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("core.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("core", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1860,7 +1866,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("ui.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("ui", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1877,9 +1883,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1890,9 +1896,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("core.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("core", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1901,7 +1907,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("ui.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("ui", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1931,17 +1937,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1952,9 +1958,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(4, category.getFeatureReferences().size());
+      assertEquals(4, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("core.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("core", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1963,7 +1969,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("core.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("core", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1972,7 +1978,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("ui.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("ui", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1981,7 +1987,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(3);
+      reference = category.getInstallableUnits().get(3);
       assertReference("ui.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("ui", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -1998,9 +2004,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2011,9 +2017,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(4, category.getFeatureReferences().size());
+      assertEquals(4, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("core.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("core", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2022,7 +2028,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("core.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("core", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2031,7 +2037,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(2);
+      reference = category.getInstallableUnits().get(2);
       assertReference("ui.tests.feature", "1.0.0.qualifier", reference);
       assertEquals("ui", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2040,7 +2046,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(3);
+      reference = category.getInstallableUnits().get(3);
       assertReference("ui.tests.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("ui", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2064,17 +2070,17 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(siteProject.isDerived());
       assertIdentifiable("foo.main.site", "1.0.0.qualifier", siteProject);
       assertEquals(new File(".b2/sites/foo.main.site"), siteProject.getDirectory());
-      
-      assertEquals(0, siteProject.getFeatureReferences().size());
+
+      assertEquals(0, siteProject.getInstallableUnits().size());
       assertEquals(2, siteProject.getCategories().size());
 
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2085,9 +2091,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("core.main.feature", "1.0.0.qualifier", reference);
       assertEquals("core", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2096,7 +2102,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("ui.main.feature", "1.0.0.qualifier", reference);
       assertEquals("ui", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2113,9 +2119,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(0);
       assertEquals("assembled", category.getName());
-      assertEquals(1, category.getFeatureReferences().size());
+      assertEquals(1, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.test.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2126,9 +2132,9 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       category = siteProject.getCategories().get(1);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      reference = category.getFeatureReferences().get(0);
+      reference = category.getInstallableUnits().get(0);
       assertReference("core.test.feature", "1.0.0.qualifier", reference);
       assertEquals("core", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2137,7 +2143,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertTrue(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("ui.test.feature", "1.0.0.qualifier", reference);
       assertEquals("ui", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2183,10 +2189,10 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2195,7 +2201,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2205,8 +2211,8 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       // not categorized
-      assertEquals(1, siteProject.getFeatureReferences().size());
-      reference = siteProject.getFeatureReferences().get(0);
+      assertEquals(1, siteProject.getInstallableUnits().size());
+      reference = siteProject.getInstallableUnits().get(0);
       assertReference("foo.main.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2215,7 +2221,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
    }
-   
+
    @Test
    public void testFeatureErasure() throws Exception
    {
@@ -2231,7 +2237,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
       moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
       moduleProperties.put("b2.assemblies.main.categories", "included");
-      
+
       moduleProperties.put("b2.assemblies.main.siteFeaturesFilter", "!**.main.**");
 
       // interpolate
@@ -2254,10 +2260,10 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       Category category;
       category = siteProject.getCategories().get(0);
       assertEquals("included", category.getName());
-      assertEquals(2, category.getFeatureReferences().size());
+      assertEquals(2, category.getInstallableUnits().size());
 
-      StrictReference reference;
-      reference = category.getFeatureReferences().get(0);
+      AbstractStrictReference reference;
+      reference = category.getInstallableUnits().get(0);
       assertReference("foo.plugins.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2266,7 +2272,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isSourceFeature(reference));
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
-      reference = category.getFeatureReferences().get(1);
+      reference = category.getInstallableUnits().get(1);
       assertReference("foo.plugins.sources.feature", "1.0.0.qualifier", reference);
       assertEquals("foo", B2MetadataUtils.getModuleId(reference));
       assertEquals("1.0.0.qualifier", B2MetadataUtils.getModuleVersion(reference));
@@ -2276,6 +2282,102 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertFalse(B2MetadataUtils.isTestFeature(reference));
 
       // erased
-      assertEquals(0, siteProject.getFeatureReferences().size());
+      assertEquals(0, siteProject.getInstallableUnits().size());
+   }
+
+   @Test
+   public void testProduct() throws Exception
+   {
+      // setup
+      BasicModule module = createBasicModule("foo");
+      module.setDirectory(new File(""));
+
+      PluginProject pluginProject = addPluginProject(module, "plugins", "plugin.foo", "1.0.0.qualifier");
+
+      String facetName = "products";
+
+      ProductDefinition productDefinition = addProductDefinition(module, facetName, pluginProject.getId() + ".product",
+         pluginProject);
+      B2MetadataUtils.addAssemblyName(productDefinition, "main");
+      B2MetadataUtils.addAssemblyClassifier(productDefinition, "");
+
+      productDefinition = addProductDefinition(module, facetName, pluginProject.getId() + ".foo.product", pluginProject);
+      B2MetadataUtils.addAssemblyName(productDefinition, "test");
+      B2MetadataUtils.addAssemblyClassifier(productDefinition, "test");
+
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("build.sources", "true"); // true is default
+      moduleProperties.put("b2.assemblies", "main, test"); // should be default?
+      moduleProperties.put("b2.assemblies.main.classifier", ""); // should be default?
+      moduleProperties.put("b2.assemblies.main.featuresFilter", "!**.tests.**"); // should be default?
+      moduleProperties.put("b2.assemblies.test.featuresFilter", "**.tests.**"); // should be default?
+
+      moduleProperties.put("b2.assemblies.main.siteFeaturesFilter", "!**.main.**");
+
+      // interpolate
+      interpolate(module, moduleProperties);
+
+      EList<SitesFacet> sitesFacets = module.getFacets(SitesFacet.class);
+      assertEquals(1, sitesFacets.size());
+
+      SitesFacet sitesFacet = sitesFacets.get(0);
+      assertEquals(2, sitesFacet.getProjects().size());
+
+      SiteProject siteProject = sitesFacet.getProjects().get(0);
+      assertEquals(0, siteProject.getInstallableUnits().size());
+      assertEquals(2, siteProject.getCategories().size());
+
+      Category category = siteProject.getCategories().get(0);
+      assertEquals(1, category.getInstallableUnits().size());
+
+      category = siteProject.getCategories().get(1);
+      assertEquals(3, category.getInstallableUnits().size());
+      assertTrue(category.getInstallableUnits().get(0) instanceof FeatureInclude);
+      assertTrue(category.getInstallableUnits().get(1) instanceof FeatureInclude);
+      assertTrue(category.getInstallableUnits().get(2) instanceof StrictReference);
+
+      AbstractStrictReference productIU = category.getInstallableUnits().get(2);
+      assertEquals("plugin.foo.product", productIU.getId());
+      assertEquals("1.0.0.qualifier", productIU.getVersion());
+
+      siteProject = sitesFacet.getProjects().get(1);
+      assertEquals(0, siteProject.getInstallableUnits().size());
+      assertEquals(1, siteProject.getCategories().size());
+
+      category = siteProject.getCategories().get(0);
+      assertEquals(1, category.getInstallableUnits().size());
+      assertTrue(category.getInstallableUnits().get(0) instanceof StrictReference);
+   }
+
+   private static ProductDefinition addProductDefinition(BasicModule module, String facetName, String productId,
+      PluginProject pluginProject)
+   {
+      final StrictReference productPlugin = ModuleModelFactory.eINSTANCE.createStrictReference();
+      productPlugin.setId(pluginProject.getId());
+      productPlugin.setVersion(pluginProject.getVersion());
+
+      final ProductDefinition productDefinition = ModuleModelFactory.eINSTANCE.createProductDefinition();
+      productDefinition.setAnnotationData("product", "uid", productId);
+      productDefinition.setAnnotationData("product", "version", pluginProject.getVersion());
+      productDefinition.setProductPlugin(productPlugin);
+
+      ProductsFacet productsFacet = module.getFacetByName(facetName);
+      if (productsFacet == null)
+      {
+         productsFacet = createProductsFacet(facetName);
+         module.getFacets().add(productsFacet);
+      }
+
+      productsFacet.getProductDefinitions().add(productDefinition);
+
+      return productDefinition;
+   }
+
+   private static ProductsFacet createProductsFacet(String name)
+   {
+      final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
+      final ProductsFacet productsFacet = eFactory.createProductsFacet();
+      productsFacet.setName(name);
+      return productsFacet;
    }
 }

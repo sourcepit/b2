@@ -539,7 +539,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       if ("included".equals(category))
       {
          final String assemblyClassifier = getAssemblyClassifier(moduleProperties, assemblyName);
-         defaultFilter = "!" + getFeatureId(moduleProperties, moduleId, assemblyClassifier, false);
+         defaultFilter = "**,!" + getFeatureId(moduleProperties, moduleId, assemblyClassifier, false);
       }
       else if ("assembled".equals(category))
       {

@@ -15,7 +15,7 @@ import org.sourcepit.guplex.test.GuplexTest;
 
 public abstract class AbstractTestEnvironmentTest extends GuplexTest
 {
-   private final Environment env = Environment.get("env-test.properties");
+   public final Environment env = Environment.get("env-test.properties");
 
    @Rule
    public Workspace ws = newWorkspace();

@@ -95,8 +95,9 @@ public class SitesConverterTest
 
       matcher = converter.getAssemblyCategoryFeatureMatcher(moduleProperties, "moduleId", "sdk", "included");
       assertNotNull(matcher);
-      assertEquals(0, matcher.getIncludes().size());
+      assertEquals(1, matcher.getIncludes().size());
       assertEquals(1, matcher.getExcludes().size());
+      assertEquals(".*", matcher.getIncludes().iterator().next());
       assertEquals("moduleId\\.sdk\\.feature", matcher.getExcludes().iterator().next());
    }
 

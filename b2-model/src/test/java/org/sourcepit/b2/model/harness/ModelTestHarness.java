@@ -15,7 +15,7 @@ import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
-import org.sourcepit.b2.model.module.Identifiable;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.PluginProject;

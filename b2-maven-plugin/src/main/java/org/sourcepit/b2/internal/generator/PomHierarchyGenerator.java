@@ -9,6 +9,7 @@ package org.sourcepit.b2.internal.generator;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Named;
@@ -21,7 +22,6 @@ import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.CompositeModule;
-import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -75,10 +75,6 @@ public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2Ge
       {
          return ((ProjectFacet<?>) annotateable).getProjects();
       }
-      if (annotateable instanceof ProductsFacet)
-      {
-         return ((ProductsFacet) annotateable).getProductDefinitions();
-      }
       if (annotateable instanceof AbstractModule)
       {
          final AbstractModule module = (AbstractModule) annotateable;
@@ -104,6 +100,6 @@ public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2Ge
 
          return modules;
       }
-      throw new IllegalStateException();
+      return Collections.<Annotatable> emptyList();
    }
 }

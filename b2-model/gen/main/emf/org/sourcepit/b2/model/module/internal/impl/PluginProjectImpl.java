@@ -24,17 +24,15 @@ import org.sourcepit.common.manifest.osgi.BundleManifest;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getBundleVersion <em>Bundle Version</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#isTestPlugin <em>Test Plugin</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostSymbolicName <em>Fragment
- * Host Symbolic Name</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostVersion <em>Fragment Host
- * Version</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getBundleManifest <em>Bundle Manifest</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getBundleVersion <em>Bundle Version</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#isTestPlugin <em>Test Plugin</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostSymbolicName <em>Fragment Host Symbolic Name</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getFragmentHostVersion <em>Fragment Host Version</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.PluginProjectImpl#getBundleManifest <em>Bundle Manifest</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class PluginProjectImpl extends ProjectImpl implements PluginProject
@@ -43,7 +41,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The default value of the '{@link #getBundleVersion() <em>Bundle Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getBundleVersion()
     * @generated
     * @ordered
@@ -54,7 +51,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The cached value of the '{@link #getBundleVersion() <em>Bundle Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getBundleVersion()
     * @generated
     * @ordered
@@ -65,7 +61,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The default value of the '{@link #isTestPlugin() <em>Test Plugin</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #isTestPlugin()
     * @generated
     * @ordered
@@ -76,7 +71,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The cached value of the '{@link #isTestPlugin() <em>Test Plugin</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #isTestPlugin()
     * @generated
     * @ordered
@@ -87,7 +81,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The default value of the '{@link #getFragmentHostSymbolicName() <em>Fragment Host Symbolic Name</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getFragmentHostSymbolicName()
     * @generated
     * @ordered
@@ -98,7 +91,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The cached value of the '{@link #getFragmentHostSymbolicName() <em>Fragment Host Symbolic Name</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getFragmentHostSymbolicName()
     * @generated
     * @ordered
@@ -109,7 +101,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The default value of the '{@link #getFragmentHostVersion() <em>Fragment Host Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getFragmentHostVersion()
     * @generated
     * @ordered
@@ -120,7 +111,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The cached value of the '{@link #getFragmentHostVersion() <em>Fragment Host Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getFragmentHostVersion()
     * @generated
     * @ordered
@@ -131,7 +121,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * The cached value of the '{@link #getBundleManifest() <em>Bundle Manifest</em>}' containment reference.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getBundleManifest()
     * @generated
     * @ordered
@@ -141,7 +130,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected PluginProjectImpl()
@@ -152,7 +140,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -164,51 +151,44 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public PluginsFacet getParent()
    {
-      if (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT)
-         return null;
-      return (PluginsFacet) eContainer();
+      if (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT) return null;
+      return (PluginsFacet)eContainer();
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public PluginsFacet basicGetParent()
    {
-      if (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT)
-         return null;
-      return (PluginsFacet) eInternalContainer();
+      if (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT) return null;
+      return (PluginsFacet)eInternalContainer();
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public NotificationChain basicSetParent(PluginsFacet newParent, NotificationChain msgs)
    {
-      msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.PLUGIN_PROJECT__PARENT, msgs);
+      msgs = eBasicSetContainer((InternalEObject)newParent, ModuleModelPackage.PLUGIN_PROJECT__PARENT, msgs);
       return msgs;
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setParent(PluginsFacet newParent)
    {
-      if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT && newParent != null))
+      if (newParent != eInternalContainer() || (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT && newParent != null))
       {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -216,21 +196,17 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
          if (eInternalContainer() != null)
             msgs = eBasicRemoveFromContainer(msgs);
          if (newParent != null)
-            msgs = ((InternalEObject) newParent).eInverseAdd(this, ModuleModelPackage.PLUGINS_FACET__PROJECTS,
-               PluginsFacet.class, msgs);
+            msgs = ((InternalEObject)newParent).eInverseAdd(this, ModuleModelPackage.PLUGINS_FACET__PROJECTS, PluginsFacet.class, msgs);
          msgs = basicSetParent(newParent, msgs);
-         if (msgs != null)
-            msgs.dispatch();
+         if (msgs != null) msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__PARENT, newParent,
-            newParent));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__PARENT, newParent, newParent));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getBundleVersion()
@@ -241,7 +217,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setBundleVersion(String newBundleVersion)
@@ -249,14 +224,12 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       String oldBundleVersion = bundleVersion;
       bundleVersion = newBundleVersion;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION,
-            oldBundleVersion, bundleVersion));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION, oldBundleVersion, bundleVersion));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public boolean isTestPlugin()
@@ -267,7 +240,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setTestPlugin(boolean newTestPlugin)
@@ -275,14 +247,12 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       boolean oldTestPlugin = testPlugin;
       testPlugin = newTestPlugin;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN,
-            oldTestPlugin, testPlugin));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN, oldTestPlugin, testPlugin));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getFragmentHostSymbolicName()
@@ -293,7 +263,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setFragmentHostSymbolicName(String newFragmentHostSymbolicName)
@@ -301,15 +270,12 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       String oldFragmentHostSymbolicName = fragmentHostSymbolicName;
       fragmentHostSymbolicName = newFragmentHostSymbolicName;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET,
-            ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME, oldFragmentHostSymbolicName,
-            fragmentHostSymbolicName));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME, oldFragmentHostSymbolicName, fragmentHostSymbolicName));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getFragmentHostVersion()
@@ -320,7 +286,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setFragmentHostVersion(String newFragmentHostVersion)
@@ -328,37 +293,31 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       String oldFragmentHostVersion = fragmentHostVersion;
       fragmentHostVersion = newFragmentHostVersion;
       if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET,
-            ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION, oldFragmentHostVersion, fragmentHostVersion));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION, oldFragmentHostVersion, fragmentHostVersion));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public BundleManifest getBundleManifest()
    {
       if (bundleManifest != null && bundleManifest.eIsProxy())
       {
-         InternalEObject oldBundleManifest = (InternalEObject) bundleManifest;
-         bundleManifest = (BundleManifest) eResolveProxy(oldBundleManifest);
+         InternalEObject oldBundleManifest = (InternalEObject)bundleManifest;
+         bundleManifest = (BundleManifest)eResolveProxy(oldBundleManifest);
          if (bundleManifest != oldBundleManifest)
          {
-            InternalEObject newBundleManifest = (InternalEObject) bundleManifest;
-            NotificationChain msgs = oldBundleManifest.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-               - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, null);
+            InternalEObject newBundleManifest = (InternalEObject)bundleManifest;
+            NotificationChain msgs = oldBundleManifest.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, null);
             if (newBundleManifest.eInternalContainer() == null)
             {
-               msgs = newBundleManifest.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-                  - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
+               msgs = newBundleManifest.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
             }
-            if (msgs != null)
-               msgs.dispatch();
+            if (msgs != null) msgs.dispatch();
             if (eNotificationRequired())
-               eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-                  ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, oldBundleManifest, bundleManifest));
+               eNotify(new ENotificationImpl(this, Notification.RESOLVE, ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, oldBundleManifest, bundleManifest));
          }
       }
       return bundleManifest;
@@ -367,7 +326,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public BundleManifest basicGetBundleManifest()
@@ -378,7 +336,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public NotificationChain basicSetBundleManifest(BundleManifest newBundleManifest, NotificationChain msgs)
@@ -387,12 +344,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       bundleManifest = newBundleManifest;
       if (eNotificationRequired())
       {
-         ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-            ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, oldBundleManifest, newBundleManifest);
-         if (msgs == null)
-            msgs = notification;
-         else
-            msgs.add(notification);
+         ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, oldBundleManifest, newBundleManifest);
+         if (msgs == null) msgs = notification; else msgs.add(notification);
       }
       return msgs;
    }
@@ -400,7 +353,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setBundleManifest(BundleManifest newBundleManifest)
@@ -409,24 +361,19 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
       {
          NotificationChain msgs = null;
          if (bundleManifest != null)
-            msgs = ((InternalEObject) bundleManifest).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-               - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
+            msgs = ((InternalEObject)bundleManifest).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
          if (newBundleManifest != null)
-            msgs = ((InternalEObject) newBundleManifest).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-               - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
+            msgs = ((InternalEObject)newBundleManifest).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
          msgs = basicSetBundleManifest(newBundleManifest, msgs);
-         if (msgs != null)
-            msgs.dispatch();
+         if (msgs != null) msgs.dispatch();
       }
       else if (eNotificationRequired())
-         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST,
-            newBundleManifest, newBundleManifest));
+         eNotify(new ENotificationImpl(this, Notification.SET, ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, newBundleManifest, newBundleManifest));
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public boolean isFragment()
@@ -439,7 +386,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -447,10 +393,10 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
+         case ModuleModelPackage.PLUGIN_PROJECT__PARENT:
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
-            return basicSetParent((PluginsFacet) otherEnd, msgs);
+            return basicSetParent((PluginsFacet)otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -458,7 +404,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -466,9 +411,9 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
+         case ModuleModelPackage.PLUGIN_PROJECT__PARENT:
             return basicSetParent(null, msgs);
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST:
             return basicSetBundleManifest(null, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -477,7 +422,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -485,9 +429,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    {
       switch (eContainerFeatureID())
       {
-         case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
-            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.PLUGINS_FACET__PROJECTS,
-               PluginsFacet.class, msgs);
+         case ModuleModelPackage.PLUGIN_PROJECT__PARENT:
+            return eInternalContainer().eInverseRemove(this, ModuleModelPackage.PLUGINS_FACET__PROJECTS, PluginsFacet.class, msgs);
       }
       return super.eBasicRemoveFromContainerFeature(msgs);
    }
@@ -495,7 +438,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -503,21 +445,19 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
-            if (resolve)
-               return getParent();
+         case ModuleModelPackage.PLUGIN_PROJECT__PARENT:
+            if (resolve) return getParent();
             return basicGetParent();
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION :
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION:
             return getBundleVersion();
-         case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN :
+         case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN:
             return isTestPlugin();
-         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME :
+         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME:
             return getFragmentHostSymbolicName();
-         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION :
+         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION:
             return getFragmentHostVersion();
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
-            if (resolve)
-               return getBundleManifest();
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST:
+            if (resolve) return getBundleManifest();
             return basicGetBundleManifest();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -526,7 +466,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -534,23 +473,23 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
-            setParent((PluginsFacet) newValue);
+         case ModuleModelPackage.PLUGIN_PROJECT__PARENT:
+            setParent((PluginsFacet)newValue);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION :
-            setBundleVersion((String) newValue);
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION:
+            setBundleVersion((String)newValue);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN :
-            setTestPlugin((Boolean) newValue);
+         case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN:
+            setTestPlugin((Boolean)newValue);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME :
-            setFragmentHostSymbolicName((String) newValue);
+         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME:
+            setFragmentHostSymbolicName((String)newValue);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION :
-            setFragmentHostVersion((String) newValue);
+         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION:
+            setFragmentHostVersion((String)newValue);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
-            setBundleManifest((BundleManifest) newValue);
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST:
+            setBundleManifest((BundleManifest)newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -559,7 +498,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -567,23 +505,23 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
-            setParent((PluginsFacet) null);
+         case ModuleModelPackage.PLUGIN_PROJECT__PARENT:
+            setParent((PluginsFacet)null);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION :
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION:
             setBundleVersion(BUNDLE_VERSION_EDEFAULT);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN :
+         case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN:
             setTestPlugin(TEST_PLUGIN_EDEFAULT);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME :
+         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME:
             setFragmentHostSymbolicName(FRAGMENT_HOST_SYMBOLIC_NAME_EDEFAULT);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION :
+         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION:
             setFragmentHostVersion(FRAGMENT_HOST_VERSION_EDEFAULT);
             return;
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
-            setBundleManifest((BundleManifest) null);
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST:
+            setBundleManifest((BundleManifest)null);
             return;
       }
       super.eUnset(featureID);
@@ -592,7 +530,6 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -600,22 +537,17 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
+         case ModuleModelPackage.PLUGIN_PROJECT__PARENT:
             return basicGetParent() != null;
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION :
-            return BUNDLE_VERSION_EDEFAULT == null ? bundleVersion != null : !BUNDLE_VERSION_EDEFAULT
-               .equals(bundleVersion);
-         case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN :
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION:
+            return BUNDLE_VERSION_EDEFAULT == null ? bundleVersion != null : !BUNDLE_VERSION_EDEFAULT.equals(bundleVersion);
+         case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN:
             return testPlugin != TEST_PLUGIN_EDEFAULT;
-         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME :
-            return FRAGMENT_HOST_SYMBOLIC_NAME_EDEFAULT == null
-               ? fragmentHostSymbolicName != null
-               : !FRAGMENT_HOST_SYMBOLIC_NAME_EDEFAULT.equals(fragmentHostSymbolicName);
-         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION :
-            return FRAGMENT_HOST_VERSION_EDEFAULT == null
-               ? fragmentHostVersion != null
-               : !FRAGMENT_HOST_VERSION_EDEFAULT.equals(fragmentHostVersion);
-         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
+         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME:
+            return FRAGMENT_HOST_SYMBOLIC_NAME_EDEFAULT == null ? fragmentHostSymbolicName != null : !FRAGMENT_HOST_SYMBOLIC_NAME_EDEFAULT.equals(fragmentHostSymbolicName);
+         case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_VERSION:
+            return FRAGMENT_HOST_VERSION_EDEFAULT == null ? fragmentHostVersion != null : !FRAGMENT_HOST_VERSION_EDEFAULT.equals(fragmentHostVersion);
+         case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST:
             return bundleManifest != null;
       }
       return super.eIsSet(featureID);
@@ -624,14 +556,12 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
    public String toString()
    {
-      if (eIsProxy())
-         return super.toString();
+      if (eIsProxy()) return super.toString();
 
       StringBuffer result = new StringBuffer(super.toString());
       result.append(" (bundleVersion: ");

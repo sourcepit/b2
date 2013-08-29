@@ -6,14 +6,26 @@
 
 package org.sourcepit.b2.directory.parser.internal.extensions;
 
+import static java.lang.Character.isWhitespace;
+import static com.google.common.base.Preconditions.checkState;
+import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyClassifier;
+import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyName;
+
 import java.io.File;
 import java.io.FileFilter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.directory.parser.internal.module.AbstractModuleParserExtender;
 import org.sourcepit.b2.directory.parser.internal.module.IModuleParserExtender;
+import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
@@ -28,12 +40,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-/**
- * @author Bernd
- */
 @Named
 public class ProductExtender extends AbstractModuleParserExtender implements IModuleParserExtender
 {
+   private BasicConverter converter;
+
+   @Inject
+   public ProductExtender(BasicConverter converter)
+   {
+      this.converter = converter;
+   }
+
    @Override
    protected void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes)
    {
@@ -43,7 +60,7 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
    @Override
    protected void doExtend(Annotatable modelElement, PropertiesSource properties)
    {
-      BasicModule module = (BasicModule) modelElement;
+      final BasicModule module = (BasicModule) modelElement;
 
       final ProductsFacet productsFacet = ModuleModelFactory.eINSTANCE.createProductsFacet();
       productsFacet.setDerived(true);
@@ -74,19 +91,6 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                   Document productDoc = XmlUtils.readXml(productFile);
                   Element elem = productDoc.getDocumentElement();
 
-                  final String uid = elem.getAttribute("uid");
-                  if (uid.length() == 0)
-                  {
-                     throw new IllegalStateException("Attribute uid not specified in product file "
-                        + productDef.getFile());
-                  }
-
-                  String version = elem.getAttribute("version");
-                  if (version.length() == 0)
-                  {
-                     version = null;
-                  }
-
                   final String id = elem.getAttribute("id");
                   if (id.startsWith(pluginProject.getId() + "."))
                   {
@@ -108,11 +112,14 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
                      }
                   }
 
+                  final StrictReference productPlugin = productDef.getProductPlugin();
+
+                  final String uid = determineProductUniqueId(productFile, elem, productPlugin);
                   productDef.setAnnotationData("product", "uid", uid);
-                  if (version != null)
-                  {
-                     productDef.setAnnotationData("product", "version", version);
-                  }
+
+                  final String version = determineProductVersion(productFile, elem, productPlugin);
+                  productDef.setAnnotationData("product", "version", version);
+
                   productDef.setAnnotationData("product", "id", id);
                   productDef.setAnnotationData("product", "application", elem.getAttribute("application"));
 
@@ -134,10 +141,203 @@ public class ProductExtender extends AbstractModuleParserExtender implements IMo
          }
       }
 
-      if (!productsFacet.getProductDefinitions().isEmpty())
+      final EList<ProductDefinition> productDefinitions = productsFacet.getProductDefinitions();
+      if (!productDefinitions.isEmpty())
       {
+         addAssemblyMetadata(productDefinitions, converter, properties);
          module.getFacets().add(productsFacet);
       }
+   }
+
+   private static String determineProductVersion(File productFile, Element productXML,
+      final StrictReference productPlugin)
+   {
+      String version = productXML.getAttribute("version");
+      if (version.length() == 0)
+      {
+         if (productPlugin != null)
+         {
+            version = productPlugin.getVersion();
+         }
+         else
+         {
+            throw new IllegalStateException("Attribute version not specified in product file " + productFile);
+         }
+      }
+      return version;
+   }
+
+   private static String determineProductUniqueId(File productFile, Element productXML,
+      final StrictReference productPlugin)
+   {
+      String uid = productXML.getAttribute("uid");
+      if (uid.length() == 0)
+      {
+         if (productPlugin == null)
+         {
+            throw new IllegalStateException("Attribute uid not specified in product file " + productFile);
+         }
+         else
+         {
+            uid = deriveProductUniqueId(productPlugin.getId(), productFile.getName());
+         }
+      }
+      return uid;
+   }
+
+   static String deriveProductUniqueId(String productPluginId, String productFileName)
+   {
+      final String[] nameSegments = normalizeAndSplitProductFileName(productFileName);
+      final String[] pluginSegments = productPluginId.split("\\.");
+
+      final StringBuilder sb = new StringBuilder();
+
+      int i = 0;
+      int j = 0;
+
+      final String firstNameSegment = nameSegments[0];
+      for (; i < pluginSegments.length; i++)
+      {
+         final String pluginSegment = pluginSegments[i];
+         sb.append(pluginSegment);
+         sb.append('.');
+
+         if (firstNameSegment.equals(pluginSegment))
+         {
+            i++;
+            j++;
+            break;
+         }
+      }
+
+      for (; i < pluginSegments.length && j < nameSegments.length; i++, j++)
+      {
+         final String pluginSegment = pluginSegments[i];
+         final String nameSegment = nameSegments[j];
+         if (pluginSegment.equals(nameSegment))
+         {
+            sb.append(pluginSegment);
+            sb.append('.');
+         }
+         else
+         {
+            j = 0;
+            break;
+         }
+      }
+
+      if (i != pluginSegments.length)
+      {
+         j = 0;
+      }
+
+      for (; i < pluginSegments.length; i++)
+      {
+         sb.append(pluginSegments[i]);
+         sb.append('.');
+      }
+
+      for (; j < nameSegments.length; j++)
+      {
+         sb.append(nameSegments[j]);
+         sb.append('.');
+      }
+
+      sb.append("product");
+
+      return sb.toString();
+   }
+
+   private static String[] normalizeAndSplitProductFileName(String productFileName)
+   {
+      int idx = productFileName.toLowerCase().lastIndexOf('.');
+      if (idx > -1)
+      {
+         productFileName = productFileName.substring(0, idx);
+      }
+
+      char[] chars = productFileName.toCharArray();
+
+      final List<String> segments = new ArrayList<String>();
+      StringBuilder sb = new StringBuilder();
+      for (int i = 0; i < chars.length; i++)
+      {
+         final char c = chars[i];
+         if (c == '-' || c == '.')
+         {
+            final String segment = sb.toString();
+            if (!segment.isEmpty())
+            {
+               segments.add(segment);
+            }
+            sb = new StringBuilder();
+         }
+         else if (isWhitespace(c))
+         {
+            sb.append('_');
+         }
+         else
+         {
+            sb.append(c);
+         }
+      }
+
+      final String segment = sb.toString();
+      if (!segment.isEmpty())
+      {
+         segments.add(segment);
+      }
+
+      return segments.toArray(new String[segments.size()]);
+   }
+
+   static void addAssemblyMetadata(List<ProductDefinition> productDefinitions, BasicConverter converter,
+      PropertiesSource properties)
+   {
+      final Map<String, String> assemblyClassifierToNameMap = createAssemblyClassifierToNameMap(converter, properties);
+      for (ProductDefinition productDefinition : productDefinitions)
+      {
+         final String productFileName = productDefinition.getFile().getName();
+         final String assemblyClassifier = getAssemblyClassifier(productFileName);
+
+         final String assemblyName = assemblyClassifierToNameMap.get(assemblyClassifier);
+         checkState(assemblyName != null, "Unable to determine assembly for product '%s' with classifier '%s'",
+            productFileName, assemblyClassifier);
+
+         addAssemblyName(productDefinition, assemblyName);
+         addAssemblyClassifier(productDefinition, assemblyClassifier);
+      }
+   }
+
+   private static Map<String, String> createAssemblyClassifierToNameMap(BasicConverter converter,
+      PropertiesSource properties)
+   {
+      final Map<String, String> assemblyClassifierToNameMap = new HashMap<String, String>();
+      for (String assemblyName : converter.getAssemblyNames(properties))
+      {
+         assemblyClassifierToNameMap.put(converter.getAssemblyClassifier(properties, assemblyName), assemblyName);
+      }
+      return assemblyClassifierToNameMap;
+   }
+
+   static String getAssemblyClassifier(String productFileName)
+   {
+      String classifier = productFileName;
+      int idx = classifier.lastIndexOf('.');
+      if (idx > -1)
+      {
+         classifier = classifier.substring(0, idx);
+      }
+      idx = classifier.lastIndexOf('-');
+      if (idx > -1)
+      {
+         classifier = classifier.substring(idx + 1, classifier.length());
+      }
+      else
+      {
+         classifier = "";
+      }
+      return classifier;
    }
 
 }

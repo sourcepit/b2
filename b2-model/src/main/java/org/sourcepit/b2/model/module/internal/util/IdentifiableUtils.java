@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.model.module.internal.util;
 
-import org.sourcepit.b2.model.module.Identifiable;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.util.Identifier;
 
 public final class IdentifiableUtils

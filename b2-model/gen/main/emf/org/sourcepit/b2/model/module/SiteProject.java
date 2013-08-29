@@ -12,16 +12,16 @@ import org.eclipse.emf.common.util.EList;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Site Project</b></em>'.
  * <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.SiteProject#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.SiteProject#getCategories <em>Categories</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.SiteProject#getFeatureReferences <em>Feature References</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.SiteProject#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.SiteProject#getCategories <em>Categories</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.SiteProject#getInstallableUnits <em>Installable Units</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getSiteProject()
  * @model
  * @generated
@@ -30,15 +30,13 @@ public interface SiteProject extends Project
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.
-    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.SitesFacet#getProjects
-    * <em>Projects</em>}'.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.SitesFacet#getProjects <em>Projects</em>}'.
     * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(SitesFacet)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getSiteProject_Parent()
@@ -49,11 +47,9 @@ public interface SiteProject extends Project
    SitesFacet getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.SiteProject#getParent <em>Parent</em>}' container
-    * reference.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.SiteProject#getParent <em>Parent</em>}' container reference.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
     * @generated
@@ -69,7 +65,6 @@ public interface SiteProject extends Project
     * a description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Categories</em>' containment reference list.
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getSiteProject_Categories()
     * @model containment="true" resolveProxies="true"
@@ -78,20 +73,19 @@ public interface SiteProject extends Project
    EList<Category> getCategories();
 
    /**
-    * Returns the value of the '<em><b>Feature References</b></em>' containment reference list.
-    * The list contents are of type {@link org.sourcepit.b2.model.module.StrictReference}.
+    * Returns the value of the '<em><b>Installable Units</b></em>' containment reference list.
+    * The list contents are of type {@link org.sourcepit.b2.model.module.AbstractStrictReference}.
     * <!-- begin-user-doc -->
     * <p>
-    * If the meaning of the '<em>Feature References</em>' containment reference list isn't clear, there really should be
-    * more of a description here...
+    * If the meaning of the '<em>Installable Units</em>' containment reference list isn't clear,
+    * there really should be more of a description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
-    * @return the value of the '<em>Feature References</em>' containment reference list.
-    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getSiteProject_FeatureReferences()
+    * @return the value of the '<em>Installable Units</em>' containment reference list.
+    * @see org.sourcepit.b2.model.module.ModuleModelPackage#getSiteProject_InstallableUnits()
     * @model containment="true" resolveProxies="true"
     * @generated
     */
-   EList<StrictReference> getFeatureReferences();
+   EList<AbstractStrictReference> getInstallableUnits();
 
 } // SiteProject
