@@ -26,6 +26,7 @@ import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
+import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
@@ -422,11 +423,15 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          plugin.setArtifactId("tycho-p2-director-plugin");
          plugin.setExecutions(executions);
          plugin.setConfiguration(configNode);
-
+         
          Build build = new Build();
          build.getPlugins().add(plugin);
+         
+         Profile profile = new Profile();
+         profile.setId("buildProducts");
+         profile.setBuild(build);
 
-         defaultModel.setBuild(build);
+         defaultModel.addProfile(profile);
       }
 
       mergeIntoPomFile(pomFile, defaultModel);
