@@ -14,14 +14,14 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>File Container</b></em>'.
  * <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.FileContainer#getDirectory <em>Directory</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.FileContainer#getDirectory <em>Directory</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getFileContainer()
  * @model abstract="true"
  * @generated
@@ -36,7 +36,6 @@ public interface FileContainer extends EObject
     * here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Directory</em>' attribute.
     * @see #setDirectory(File)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getFileContainer_Directory()
@@ -46,11 +45,9 @@ public interface FileContainer extends EObject
    File getDirectory();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.FileContainer#getDirectory <em>Directory</em>}'
-    * attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.FileContainer#getDirectory <em>Directory</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Directory</em>' attribute.
     * @see #getDirectory()
     * @generated

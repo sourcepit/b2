@@ -16,11 +16,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.sourcepit.b2.model.module.AbstractIdentifiable;
 import org.sourcepit.b2.model.module.Derivable;
-import org.sourcepit.b2.model.module.Identifiable;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.util.Identifier;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.modeling.Annotation;
@@ -33,13 +34,13 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl#isDerived <em>Derived</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl#getAnnotations <em>Annotations</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl#getId <em>Id</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl#getVersion <em>Version</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl#isDerived <em>Derived</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.ProjectImpl#getVersion <em>Version</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class ProjectImpl extends FileContainerImpl implements Project
@@ -48,7 +49,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #isDerived()
     * @generated
     * @ordered
@@ -59,7 +59,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #isDerived()
     * @generated
     * @ordered
@@ -70,7 +69,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getAnnotations()
     * @generated
     * @ordered
@@ -81,7 +79,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getId()
     * @generated
     * @ordered
@@ -92,7 +89,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getId()
     * @generated
     * @ordered
@@ -103,7 +99,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getVersion()
     * @generated
     * @ordered
@@ -114,7 +109,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getVersion()
     * @generated
     * @ordered
@@ -124,7 +118,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected ProjectImpl()
@@ -135,7 +128,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -147,7 +139,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public boolean isDerived()
@@ -158,7 +149,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setDerived(boolean newDerived)
@@ -172,15 +162,13 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EList<Annotation> getAnnotations()
    {
       if (annotations == null)
       {
-         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
-            ModuleModelPackage.PROJECT__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
+         annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this, ModuleModelPackage.PROJECT__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
       return annotations;
    }
@@ -188,7 +176,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getId()
@@ -199,7 +186,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setId(String newId)
@@ -213,7 +199,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getVersion()
@@ -224,7 +209,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setVersion(String newVersion)
@@ -238,7 +222,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public ProjectFacet<? extends Project> getParent()
@@ -251,7 +234,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public boolean isIdentifyableBy(Identifier identifier)
@@ -264,7 +246,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public Identifier toIdentifier()
@@ -277,7 +258,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public Annotation getAnnotation(String source)
@@ -290,7 +270,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public Annotation getAnnotation(String source, boolean createOnDemand)
@@ -303,7 +282,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getAnnotationData(String source, String key)
@@ -316,7 +294,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String setAnnotationData(String source, String key, String value)
@@ -329,7 +306,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -338,8 +314,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PROJECT__ANNOTATIONS :
-            return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
+         case ModuleModelPackage.PROJECT__ANNOTATIONS:
+            return ((InternalEList<InternalEObject>)(InternalEList<?>)getAnnotations()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -347,7 +323,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -355,8 +330,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PROJECT__ANNOTATIONS :
-            return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.PROJECT__ANNOTATIONS:
+            return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -364,7 +339,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -372,13 +346,13 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PROJECT__DERIVED :
+         case ModuleModelPackage.PROJECT__DERIVED:
             return isDerived();
-         case ModuleModelPackage.PROJECT__ANNOTATIONS :
+         case ModuleModelPackage.PROJECT__ANNOTATIONS:
             return getAnnotations();
-         case ModuleModelPackage.PROJECT__ID :
+         case ModuleModelPackage.PROJECT__ID:
             return getId();
-         case ModuleModelPackage.PROJECT__VERSION :
+         case ModuleModelPackage.PROJECT__VERSION:
             return getVersion();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -387,7 +361,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -396,18 +369,18 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PROJECT__DERIVED :
-            setDerived((Boolean) newValue);
+         case ModuleModelPackage.PROJECT__DERIVED:
+            setDerived((Boolean)newValue);
             return;
-         case ModuleModelPackage.PROJECT__ANNOTATIONS :
+         case ModuleModelPackage.PROJECT__ANNOTATIONS:
             getAnnotations().clear();
-            getAnnotations().addAll((Collection<? extends Annotation>) newValue);
+            getAnnotations().addAll((Collection<? extends Annotation>)newValue);
             return;
-         case ModuleModelPackage.PROJECT__ID :
-            setId((String) newValue);
+         case ModuleModelPackage.PROJECT__ID:
+            setId((String)newValue);
             return;
-         case ModuleModelPackage.PROJECT__VERSION :
-            setVersion((String) newValue);
+         case ModuleModelPackage.PROJECT__VERSION:
+            setVersion((String)newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -416,7 +389,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -424,16 +396,16 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PROJECT__DERIVED :
+         case ModuleModelPackage.PROJECT__DERIVED:
             setDerived(DERIVED_EDEFAULT);
             return;
-         case ModuleModelPackage.PROJECT__ANNOTATIONS :
+         case ModuleModelPackage.PROJECT__ANNOTATIONS:
             getAnnotations().clear();
             return;
-         case ModuleModelPackage.PROJECT__ID :
+         case ModuleModelPackage.PROJECT__ID:
             setId(ID_EDEFAULT);
             return;
-         case ModuleModelPackage.PROJECT__VERSION :
+         case ModuleModelPackage.PROJECT__VERSION:
             setVersion(VERSION_EDEFAULT);
             return;
       }
@@ -443,7 +415,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -451,13 +422,13 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PROJECT__DERIVED :
+         case ModuleModelPackage.PROJECT__DERIVED:
             return derived != DERIVED_EDEFAULT;
-         case ModuleModelPackage.PROJECT__ANNOTATIONS :
+         case ModuleModelPackage.PROJECT__ANNOTATIONS:
             return annotations != null && !annotations.isEmpty();
-         case ModuleModelPackage.PROJECT__ID :
+         case ModuleModelPackage.PROJECT__ID:
             return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-         case ModuleModelPackage.PROJECT__VERSION :
+         case ModuleModelPackage.PROJECT__VERSION:
             return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
       }
       return super.eIsSet(featureID);
@@ -466,7 +437,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -476,32 +446,32 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (derivedFeatureID)
          {
-            case ModuleModelPackage.PROJECT__DERIVED :
-               return ModuleModelPackage.DERIVABLE__DERIVED;
-            default :
-               return -1;
+            case ModuleModelPackage.PROJECT__DERIVED: return ModuleModelPackage.DERIVABLE__DERIVED;
+            default: return -1;
          }
       }
       if (baseClass == Annotatable.class)
       {
          switch (derivedFeatureID)
          {
-            case ModuleModelPackage.PROJECT__ANNOTATIONS :
-               return CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
-            default :
-               return -1;
+            case ModuleModelPackage.PROJECT__ANNOTATIONS: return CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
+            default: return -1;
          }
       }
       if (baseClass == Identifiable.class)
       {
          switch (derivedFeatureID)
          {
-            case ModuleModelPackage.PROJECT__ID :
-               return ModuleModelPackage.IDENTIFIABLE__ID;
-            case ModuleModelPackage.PROJECT__VERSION :
-               return ModuleModelPackage.IDENTIFIABLE__VERSION;
-            default :
-               return -1;
+            default: return -1;
+         }
+      }
+      if (baseClass == AbstractIdentifiable.class)
+      {
+         switch (derivedFeatureID)
+         {
+            case ModuleModelPackage.PROJECT__ID: return ModuleModelPackage.ABSTRACT_IDENTIFIABLE__ID;
+            case ModuleModelPackage.PROJECT__VERSION: return ModuleModelPackage.ABSTRACT_IDENTIFIABLE__VERSION;
+            default: return -1;
          }
       }
       return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
@@ -510,7 +480,6 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -520,32 +489,32 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
       {
          switch (baseFeatureID)
          {
-            case ModuleModelPackage.DERIVABLE__DERIVED :
-               return ModuleModelPackage.PROJECT__DERIVED;
-            default :
-               return -1;
+            case ModuleModelPackage.DERIVABLE__DERIVED: return ModuleModelPackage.PROJECT__DERIVED;
+            default: return -1;
          }
       }
       if (baseClass == Annotatable.class)
       {
          switch (baseFeatureID)
          {
-            case CommonModelingPackage.ANNOTATABLE__ANNOTATIONS :
-               return ModuleModelPackage.PROJECT__ANNOTATIONS;
-            default :
-               return -1;
+            case CommonModelingPackage.ANNOTATABLE__ANNOTATIONS: return ModuleModelPackage.PROJECT__ANNOTATIONS;
+            default: return -1;
          }
       }
       if (baseClass == Identifiable.class)
       {
          switch (baseFeatureID)
          {
-            case ModuleModelPackage.IDENTIFIABLE__ID :
-               return ModuleModelPackage.PROJECT__ID;
-            case ModuleModelPackage.IDENTIFIABLE__VERSION :
-               return ModuleModelPackage.PROJECT__VERSION;
-            default :
-               return -1;
+            default: return -1;
+         }
+      }
+      if (baseClass == AbstractIdentifiable.class)
+      {
+         switch (baseFeatureID)
+         {
+            case ModuleModelPackage.ABSTRACT_IDENTIFIABLE__ID: return ModuleModelPackage.PROJECT__ID;
+            case ModuleModelPackage.ABSTRACT_IDENTIFIABLE__VERSION: return ModuleModelPackage.PROJECT__VERSION;
+            default: return -1;
          }
       }
       return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
@@ -554,14 +523,12 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
    public String toString()
    {
-      if (eIsProxy())
-         return super.toString();
+      if (eIsProxy()) return super.toString();
 
       StringBuffer result = new StringBuffer(super.toString());
       result.append(" (derived: ");

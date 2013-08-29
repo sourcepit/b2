@@ -19,7 +19,7 @@ import org.sourcepit.b2.model.module.ProjectFacet;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetImpl implements ProjectFacet<P>
@@ -27,7 +27,6 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected ProjectFacetImpl()
@@ -38,7 +37,6 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -50,7 +48,6 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public EList<P> getProjects()
@@ -63,7 +60,6 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public P getProjectById(String name)
@@ -76,7 +72,6 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public P resolveReference(AbstractReference reference)

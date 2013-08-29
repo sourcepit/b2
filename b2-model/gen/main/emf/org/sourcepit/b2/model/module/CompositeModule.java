@@ -12,14 +12,14 @@ import org.eclipse.emf.common.util.EList;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Composite Module</b></em>'.
  * <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.CompositeModule#getModules <em>Modules</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.CompositeModule#getModules <em>Modules</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getCompositeModule()
  * @model
  * @generated
@@ -35,7 +35,6 @@ public interface CompositeModule extends AbstractModule
     * here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Modules</em>' reference list.
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getCompositeModule_Modules()
     * @model

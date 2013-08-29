@@ -7,7 +7,7 @@
 package org.sourcepit.b2.model.module.internal;
 
 import org.sourcepit.b2.model.module.AbstractReference;
-import org.sourcepit.b2.model.module.Identifiable;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.internal.util.ReferenceUtils;
 
 public aspect ReferenceAspect

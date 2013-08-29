@@ -16,7 +16,7 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
@@ -24,7 +24,6 @@ public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected BasicModuleImpl()
@@ -35,7 +34,6 @@ public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override

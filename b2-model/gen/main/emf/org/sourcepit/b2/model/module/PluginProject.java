@@ -12,20 +12,19 @@ import org.sourcepit.common.manifest.osgi.BundleManifest;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Plugin Project</b></em>'.
  * <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion <em>Bundle Version</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.PluginProject#isTestPlugin <em>Test Plugin</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName <em>Fragment Host Symbolic Name
- * </em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion <em>Fragment Host Version</em>}</li>
- * <li>{@link org.sourcepit.b2.model.module.PluginProject#getBundleManifest <em>Bundle Manifest</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion <em>Bundle Version</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.PluginProject#isTestPlugin <em>Test Plugin</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName <em>Fragment Host Symbolic Name</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion <em>Fragment Host Version</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.PluginProject#getBundleManifest <em>Bundle Manifest</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginProject()
  * @model
  * @generated
@@ -34,15 +33,13 @@ public interface PluginProject extends Project
 {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.
-    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.PluginsFacet#getProjects
-    * <em>Projects</em>}'.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.PluginsFacet#getProjects <em>Projects</em>}'.
     * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Parent</em>' container reference isn't clear, there really should be more of a
     * description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Parent</em>' container reference.
     * @see #setParent(PluginsFacet)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginProject_Parent()
@@ -53,11 +50,9 @@ public interface PluginProject extends Project
    PluginsFacet getParent();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}' container
-    * reference.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getParent <em>Parent</em>}' container reference.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Parent</em>' container reference.
     * @see #getParent()
     * @generated
@@ -72,7 +67,6 @@ public interface PluginProject extends Project
     * description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Bundle Version</em>' attribute.
     * @see #setBundleVersion(String)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginProject_BundleVersion()
@@ -82,11 +76,9 @@ public interface PluginProject extends Project
    String getBundleVersion();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion
-    * <em>Bundle Version</em>}' attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getBundleVersion <em>Bundle Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Bundle Version</em>' attribute.
     * @see #getBundleVersion()
     * @generated
@@ -101,7 +93,6 @@ public interface PluginProject extends Project
     * here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Test Plugin</em>' attribute.
     * @see #setTestPlugin(boolean)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginProject_TestPlugin()
@@ -111,11 +102,9 @@ public interface PluginProject extends Project
    boolean isTestPlugin();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#isTestPlugin <em>Test Plugin</em>}'
-    * attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#isTestPlugin <em>Test Plugin</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Test Plugin</em>' attribute.
     * @see #isTestPlugin()
     * @generated
@@ -130,7 +119,6 @@ public interface PluginProject extends Project
     * a description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Fragment Host Symbolic Name</em>' attribute.
     * @see #setFragmentHostSymbolicName(String)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginProject_FragmentHostSymbolicName()
@@ -140,11 +128,9 @@ public interface PluginProject extends Project
    String getFragmentHostSymbolicName();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName
-    * <em>Fragment Host Symbolic Name</em>}' attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostSymbolicName <em>Fragment Host Symbolic Name</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Fragment Host Symbolic Name</em>' attribute.
     * @see #getFragmentHostSymbolicName()
     * @generated
@@ -159,7 +145,6 @@ public interface PluginProject extends Project
     * description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Fragment Host Version</em>' attribute.
     * @see #setFragmentHostVersion(String)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginProject_FragmentHostVersion()
@@ -169,11 +154,9 @@ public interface PluginProject extends Project
    String getFragmentHostVersion();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion
-    * <em>Fragment Host Version</em>}' attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getFragmentHostVersion <em>Fragment Host Version</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Fragment Host Version</em>' attribute.
     * @see #getFragmentHostVersion()
     * @generated
@@ -188,7 +171,6 @@ public interface PluginProject extends Project
     * a description here...
     * </p>
     * <!-- end-user-doc -->
-    * 
     * @return the value of the '<em>Bundle Manifest</em>' containment reference.
     * @see #setBundleManifest(BundleManifest)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getPluginProject_BundleManifest()
@@ -198,11 +180,9 @@ public interface PluginProject extends Project
    BundleManifest getBundleManifest();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getBundleManifest
-    * <em>Bundle Manifest</em>}' containment reference.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.PluginProject#getBundleManifest <em>Bundle Manifest</em>}' containment reference.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @param value the new value of the '<em>Bundle Manifest</em>' containment reference.
     * @see #getBundleManifest()
     * @generated
@@ -212,7 +192,6 @@ public interface PluginProject extends Project
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @model kind="operation" required="true"
     * @generated
     */
