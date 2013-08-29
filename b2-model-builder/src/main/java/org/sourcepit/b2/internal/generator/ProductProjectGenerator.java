@@ -102,113 +102,114 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
          throw new IllegalStateException(e);
       }
 
-      final String classifier = getAssemblyClassifier(productFile.getName());
-
-      final FeatureProject assemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
-      if (assemblyFeature == null)
+      for (final String classifier : B2MetadataUtils.getAssemblyClassifiers(product))
       {
-         throw new IllegalStateException("Cannot determine assembly feature for classifier '" + classifier + "'");
-      }
-
-      final Optional<String> oAssemblyName = getAssemblyNameByClassifier(properties, classifier,
-         B2MetadataUtils.getAssemblyNames(assemblyFeature));
-      if (!oAssemblyName.isPresent())
-      {
-         throw new IllegalStateException("Cannot determine assembly name for classifier '" + classifier + "'");
-      }
-
-      final Document productDoc = XmlUtils.readXml(productFile);
-      final Element features = getFeaturesNode(productDoc);
-
-      final List<Node> featuresFromProductFile = getChildNodes(features);
-      for (Node node : featuresFromProductFile)
-      {
-         features.removeChild(node);
-      }
-
-      final AggregatorMode mode = converter.getAggregatorMode(properties, oAssemblyName.get());
-      switch (mode)
-      {
-         case UNWRAP :
-            appendUnwrapped(productDoc, features, assemblyFeature);
-            break;
-         case OFF :
-         case AGGREGATE :
-            appendAggregated(productDoc, features, assemblyFeature);
-            break;
-         default :
-            throw new IllegalStateException("Unknown aggregator mode: " + mode);
-      }
-
-      for (Node node : featuresFromProductFile)
-      {
-         features.appendChild(node);
-      }
-
-      Element element;
-      for (StrictReference feature : converter.getIncludedFeaturesForProduct(properties, uid))
-      {
-         element = productDoc.createElement("feature");
-         element.setAttribute("id", feature.getId());
-         final String version = feature.getVersion();
-         if (!Strings.isNullOrEmpty(version) && feature.isSetVersion())
+         final FeatureProject assemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
+         if (assemblyFeature == null)
          {
-            element.setAttribute("version", version);
+            throw new IllegalStateException("Cannot determine assembly feature for classifier '" + classifier + "'");
          }
-         features.appendChild(element);
-      }
 
-      final List<StrictReference> additionalPlugins = converter.getIncludedPluginsForProduct(properties, uid);
-      if (!additionalPlugins.isEmpty())
-      {
-         final Element plugins = getPluginsNode(productDoc);
-         for (StrictReference plugin : additionalPlugins)
+         final Optional<String> oAssemblyName = getAssemblyNameByClassifier(properties, classifier,
+            B2MetadataUtils.getAssemblyNames(assemblyFeature));
+         if (!oAssemblyName.isPresent())
          {
-            element = productDoc.createElement("plugin");
-            element.setAttribute("id", plugin.getId());
-            final String version = plugin.getVersion();
-            if (!Strings.isNullOrEmpty(version) && plugin.isSetVersion())
+            throw new IllegalStateException("Cannot determine assembly name for classifier '" + classifier + "'");
+         }
+
+         final Document productDoc = XmlUtils.readXml(productFile);
+         final Element features = getFeaturesNode(productDoc);
+
+         final List<Node> featuresFromProductFile = getChildNodes(features);
+         for (Node node : featuresFromProductFile)
+         {
+            features.removeChild(node);
+         }
+
+         final AggregatorMode mode = converter.getAggregatorMode(properties, oAssemblyName.get());
+         switch (mode)
+         {
+            case UNWRAP :
+               appendUnwrapped(productDoc, features, assemblyFeature);
+               break;
+            case OFF :
+            case AGGREGATE :
+               appendAggregated(productDoc, features, assemblyFeature);
+               break;
+            default :
+               throw new IllegalStateException("Unknown aggregator mode: " + mode);
+         }
+
+         for (Node node : featuresFromProductFile)
+         {
+            features.appendChild(node);
+         }
+
+         Element element;
+         for (StrictReference feature : converter.getIncludedFeaturesForProduct(properties, uid))
+         {
+            element = productDoc.createElement("feature");
+            element.setAttribute("id", feature.getId());
+            final String version = feature.getVersion();
+            if (!Strings.isNullOrEmpty(version) && feature.isSetVersion())
             {
                element.setAttribute("version", version);
             }
-            plugins.appendChild(element);
+            features.appendChild(element);
          }
-      }
 
-      final PluginProject productPlugin = resolveProductPlugin(module, product);
-      if (productPlugin != null)
-      {
-         copyProductResources(productPlugin.getDirectory(), projectDir, properties, uid);
-
-         // tycho icon bug fix
-         for (Entry<String, String> entry : data)
+         final List<StrictReference> additionalPlugins = converter.getIncludedPluginsForProduct(properties, uid);
+         if (!additionalPlugins.isEmpty())
          {
-            String key = entry.getKey();
-            if (key.endsWith(".icon"))
+            final Element plugins = getPluginsNode(productDoc);
+            for (StrictReference plugin : additionalPlugins)
             {
-               final String os = key.substring(0, key.length() - ".icon".length());
-               String path = entry.getValue();
-               if (path.startsWith("/"))
+               element = productDoc.createElement("plugin");
+               element.setAttribute("id", plugin.getId());
+               final String version = plugin.getVersion();
+               if (!Strings.isNullOrEmpty(version) && plugin.isSetVersion())
                {
-                  path = path.substring(1);
+                  element.setAttribute("version", version);
                }
+               plugins.appendChild(element);
+            }
+         }
 
-               final File iconFile = new File(productPlugin.getDirectory().getParentFile(), path);
-               if (iconFile.exists())
+         final PluginProject productPlugin = resolveProductPlugin(module, product);
+         if (productPlugin != null)
+         {
+            copyProductResources(productPlugin.getDirectory(), projectDir, properties, uid);
+
+            // tycho icon bug fix
+            for (Entry<String, String> entry : data)
+            {
+               String key = entry.getKey();
+               if (key.endsWith(".icon"))
                {
-                  for (Node node : XmlUtils.queryNodes(productDoc, "product/launcher/" + os + "/ico"))
+                  final String os = key.substring(0, key.length() - ".icon".length());
+                  String path = entry.getValue();
+                  if (path.startsWith("/"))
                   {
-                     element = (Element) node;
-                     element.setAttribute("path", iconFile.getAbsolutePath());
+                     path = path.substring(1);
+                  }
+
+                  final File iconFile = new File(productPlugin.getDirectory().getParentFile(), path);
+                  if (iconFile.exists())
+                  {
+                     for (Node node : XmlUtils.queryNodes(productDoc, "product/launcher/" + os + "/ico"))
+                     {
+                        element = (Element) node;
+                        element.setAttribute("path", iconFile.getAbsolutePath());
+                     }
                   }
                }
             }
          }
+
+         XmlUtils.writeXml(productDoc, productFile);
+
+         generateP2Inf(properties, uid, projectDir, getProductName(productFile.getName()));
       }
-
-      XmlUtils.writeXml(productDoc, productFile);
-
-      generateP2Inf(properties, uid, projectDir, getProductName(productFile.getName()));
    }
 
    private static List<Node> getChildNodes(final Element node)
@@ -367,26 +368,6 @@ public class ProductProjectGenerator extends AbstractGenerator implements IB2Gen
    public static String getProductName(String productFileName)
    {
       return new Path(productFileName).getFileName();
-   }
-
-   public static String getAssemblyClassifier(String productFileName)
-   {
-      String classifier = productFileName;
-      int idx = classifier.lastIndexOf('.');
-      if (idx > -1)
-      {
-         classifier = classifier.substring(0, idx);
-      }
-      idx = classifier.lastIndexOf('-');
-      if (idx > -1)
-      {
-         classifier = classifier.substring(idx + 1, classifier.length());
-      }
-      else
-      {
-         classifier = "";
-      }
-      return classifier;
    }
 
    private Optional<String> getAssemblyNameByClassifier(PropertiesSource properties, final String classifier,

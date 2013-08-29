@@ -2296,8 +2296,14 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
       String facetName = "products";
 
-      addProductDefinition(module, facetName, "foo.product", pluginProject.getId() + ".product", pluginProject);
-      addProductDefinition(module, facetName, "foo-test.product", pluginProject.getId() + ".foo.product", pluginProject);
+      ProductDefinition productDefinition = addProductDefinition(module, facetName, pluginProject.getId() + ".product",
+         pluginProject);
+      B2MetadataUtils.addAssemblyName(productDefinition, "main");
+      B2MetadataUtils.addAssemblyClassifier(productDefinition, "");
+
+      productDefinition = addProductDefinition(module, facetName, pluginProject.getId() + ".foo.product", pluginProject);
+      B2MetadataUtils.addAssemblyName(productDefinition, "test");
+      B2MetadataUtils.addAssemblyClassifier(productDefinition, "test");
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("build.sources", "true"); // true is default
@@ -2343,8 +2349,8 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(category.getInstallableUnits().get(0) instanceof StrictReference);
    }
 
-   private static void addProductDefinition(BasicModule module, String facetName, String productFileName,
-      String productId, PluginProject pluginProject)
+   private static ProductDefinition addProductDefinition(BasicModule module, String facetName, String productId,
+      PluginProject pluginProject)
    {
       final StrictReference productPlugin = ModuleModelFactory.eINSTANCE.createStrictReference();
       productPlugin.setId(pluginProject.getId());
@@ -2354,7 +2360,6 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       productDefinition.setAnnotationData("product", "uid", productId);
       productDefinition.setAnnotationData("product", "version", pluginProject.getVersion());
       productDefinition.setProductPlugin(productPlugin);
-      productDefinition.setFile(new File(productFileName));
 
       ProductsFacet productsFacet = module.getFacetByName(facetName);
       if (productsFacet == null)
@@ -2364,6 +2369,8 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       }
 
       productsFacet.getProductDefinitions().add(productDefinition);
+
+      return productDefinition;
    }
 
    private static ProductsFacet createProductsFacet(String name)

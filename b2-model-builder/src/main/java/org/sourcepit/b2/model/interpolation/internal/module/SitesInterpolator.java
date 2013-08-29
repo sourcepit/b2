@@ -6,8 +6,7 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
-import static com.google.common.base.Objects.equal;
-import static org.sourcepit.b2.internal.generator.ProductProjectGenerator.getAssemblyClassifier;
+import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.getAssemblyNames;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -128,12 +127,11 @@ public class SitesInterpolator
       PropertiesSource moduleProperties)
    {
       final Collection<StrictReference> productDefinitions = new ArrayList<StrictReference>();
-      final String assemblyClassifier = converter.getAssemblyClassifier(moduleProperties, assemblyName);
       for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class))
       {
          for (ProductDefinition productDefinition : productsFacet.getProductDefinitions())
          {
-            if (equal(assemblyClassifier, getAssemblyClassifier(productDefinition.getFile().getName())))
+            if (getAssemblyNames(productDefinition).contains(assemblyName))
             {
                productDefinitions.add(toStrictReference(productDefinition));
             }
@@ -229,7 +227,7 @@ public class SitesInterpolator
       final StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
       ref.setId(productDefinition.getAnnotationData("product", "uid"));
       ref.setVersion(productDefinition.getAnnotationData("product", "version"));
-      
+
       Preconditions.checkNotNull(ref.getId());
       Preconditions.checkNotNull(ref.getVersion());
 
