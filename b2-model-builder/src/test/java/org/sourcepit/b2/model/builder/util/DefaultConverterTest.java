@@ -6,11 +6,11 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+import static org.sourcepit.b2.model.module.VersionMatchRule.COMPATIBLE;
+import static org.sourcepit.b2.model.module.VersionMatchRule.EQUIVALENT;
+import static org.sourcepit.b2.model.module.VersionMatchRule.GREATER_OR_EQUAL;
+import static org.sourcepit.b2.model.module.VersionMatchRule.PERFECT;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.b2.model.module.RuledReference;
-import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
@@ -336,21 +335,21 @@ public class DefaultConverterTest
 
       PropertiesMap properties = new LinkedPropertiesMap();
 
-      List<StrictReference> result;
+      List<RuledReference> result;
 
       // empty
-      result = converter.getIncludedPluginsForProduct(properties, productId);
+      result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
       assertEquals(0, result.size());
 
       properties.put(key, " ,, ");
-      result = converter.getIncludedPluginsForProduct(properties, productId);
+      result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
       assertEquals(0, result.size());
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
       try
       {
-         result = converter.getIncludedPluginsForProduct(properties, productId);
+         result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -360,7 +359,7 @@ public class DefaultConverterTest
       properties.put(key, "foo.feature:1.0.0:murks");
       try
       {
-         result = converter.getIncludedPluginsForProduct(properties, productId);
+         result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -370,7 +369,7 @@ public class DefaultConverterTest
       properties.put(key, "foo.feature:1.0.0:unpack:murks");
       try
       {
-         result = converter.getIncludedPluginsForProduct(properties, productId);
+         result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -378,19 +377,26 @@ public class DefaultConverterTest
       }
 
       // valid
-      properties.put(key, "foo.feature, foo.feature:1.0.0");
-      result = converter.getIncludedPluginsForProduct(properties, productId);
-      assertEquals(2, result.size());
+      properties.put(key, "foo.feature, foo.feature:1.0.0, foo.feature:2.0.0:compatible");
+      result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
+      assertEquals(3, result.size());
 
-      StrictReference include;
+      RuledReference include;
       include = result.get(0);
       assertEquals("foo.feature", include.getId());
-      assertFalse(include.isSetVersion());
+      assertTrue(include.isSetVersion());
       assertEquals("0.0.0", include.getVersion());
+      assertSame(GREATER_OR_EQUAL, include.getVersionMatchRule());
 
       include = result.get(1);
       assertEquals("foo.feature", include.getId());
       assertEquals("1.0.0", include.getVersion());
+      assertSame(GREATER_OR_EQUAL, include.getVersionMatchRule());
+      
+      include = result.get(2);
+      assertEquals("foo.feature", include.getId());
+      assertEquals("2.0.0", include.getVersion());
+      assertSame(COMPATIBLE, include.getVersionMatchRule());
    }
 
    @Test
@@ -412,9 +418,64 @@ public class DefaultConverterTest
 
       ProductsConverter converter = new DefaultConverter();
 
-      List<StrictReference> result = converter.getIncludedFeaturesForProduct(properties, productId);
+      List<RuledReference> result = converter.getIncludedFeaturesForProduct(properties, productId, GREATER_OR_EQUAL);
       assertEquals(1, result.size());
       assertEquals("key1", result.get(0).getId());
+   }
+
+   @Test
+   public void testGetDefaultVersionMatchRuleForProduct() throws Exception
+   {
+      PropertiesMap properties = new LinkedPropertiesMap();
+
+      ProductsConverter converter = new DefaultConverter();
+      try
+      {
+         converter.getDefaultVersionMatchRuleForProduct(properties, "foo.product");
+         fail();
+      }
+      catch (NullPointerException e)
+      {
+      }
+
+      VersionMatchRule matchRule;
+
+      properties.put("b2.products.defaultVersionMatchRule", "compatible");
+      matchRule = converter.getDefaultVersionMatchRuleForProduct(properties, "foo.product");
+      assertSame(COMPATIBLE, matchRule);
+
+      properties.put("b2.products.foo.product.defaultVersionMatchRule", "perfect");
+      matchRule = converter.getDefaultVersionMatchRuleForProduct(properties, "foo.product");
+      assertSame(PERFECT, matchRule);
+   }
+
+   @Test
+   public void testGetVersionMatchRuleForProductInclude() throws Exception
+   {
+      PropertiesMap properties = new LinkedPropertiesMap();
+
+      ProductsConverter converter = new DefaultConverter();
+
+      VersionMatchRule matchRule;
+
+      matchRule = converter.getVersionMatchRuleForProductInclude(properties, "foo.product", "foo.feature", PERFECT);
+      assertSame(PERFECT, matchRule);
+
+      properties.put("b2.products.versionMatchRules", "foo.**,bar.**=compatible ;\n **=greaterOrEqual");
+
+      matchRule = converter.getVersionMatchRuleForProductInclude(properties, "foo.product", "foo.feature", PERFECT);
+      assertSame(COMPATIBLE, matchRule);
+
+      matchRule = converter.getVersionMatchRuleForProductInclude(properties, "foo.product", "bar.plugin.source",
+         PERFECT);
+      assertSame(COMPATIBLE, matchRule);
+
+      matchRule = converter.getVersionMatchRuleForProductInclude(properties, "foo.product", "hans.damp", PERFECT);
+      assertSame(GREATER_OR_EQUAL, matchRule);
+      
+      properties.put("b2.products.foo.product.versionMatchRules", "**=equivalent");
+      matchRule = converter.getVersionMatchRuleForProductInclude(properties, "foo.product", "hans.damp", PERFECT);
+      assertSame(EQUIVALENT, matchRule);
    }
 
    private void testGetIncludedFeaturesForProduct(String key, String facetName)
@@ -423,21 +484,21 @@ public class DefaultConverterTest
 
       PropertiesMap properties = new LinkedPropertiesMap();
 
-      List<StrictReference> result;
+      List<RuledReference> result;
 
       // empty
-      result = converter.getIncludedFeaturesForProduct(properties, facetName);
+      result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
       assertEquals(0, result.size());
 
       properties.put(key, " ,, ");
-      result = converter.getIncludedFeaturesForProduct(properties, facetName);
+      result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
       assertEquals(0, result.size());
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
       try
       {
-         result = converter.getIncludedFeaturesForProduct(properties, facetName);
+         result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -447,7 +508,7 @@ public class DefaultConverterTest
       properties.put(key, "foo.feature:1.0.0:murks");
       try
       {
-         result = converter.getIncludedFeaturesForProduct(properties, facetName);
+         result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -457,7 +518,7 @@ public class DefaultConverterTest
       properties.put(key, "foo.feature:1.0.0:optional:murks");
       try
       {
-         result = converter.getIncludedFeaturesForProduct(properties, facetName);
+         result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
          fail();
       }
       catch (IllegalArgumentException e)
@@ -465,19 +526,26 @@ public class DefaultConverterTest
       }
 
       // valid
-      properties.put(key, "foo.feature, foo.feature:1.0.0");
-      result = converter.getIncludedFeaturesForProduct(properties, facetName);
-      assertEquals(2, result.size());
+      properties.put(key, "foo.feature, foo.feature:1.0.0, foo.feature:2.0.0:compatible");
+      result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
+      assertEquals(3, result.size());
 
-      StrictReference requirement;
+      RuledReference requirement;
       requirement = result.get(0);
       assertEquals("foo.feature", requirement.getId());
-      assertFalse(requirement.isSetVersion());
+      assertTrue(requirement.isSetVersion());
       assertEquals("0.0.0", requirement.getVersion());
+      assertSame(GREATER_OR_EQUAL, requirement.getVersionMatchRule());
 
       requirement = result.get(1);
       assertEquals("foo.feature", requirement.getId());
       assertEquals("1.0.0", requirement.getVersion());
+      assertSame(GREATER_OR_EQUAL, requirement.getVersionMatchRule());
+      
+      requirement = result.get(2);
+      assertEquals("foo.feature", requirement.getId());
+      assertEquals("2.0.0", requirement.getVersion());
+      assertSame(COMPATIBLE, requirement.getVersionMatchRule());
    }
 
    private void testGetRequiredFeaturesOrPluginsAndKeyOrdering(final Method method, final String facetName,

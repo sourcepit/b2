@@ -6,12 +6,18 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Strings.isNullOrEmpty;
+import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.getAssemblyClassifiers;
+import static org.sourcepit.b2.model.module.internal.util.ReferenceUtils.toVersionRange;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -27,12 +33,13 @@ import org.apache.commons.io.FileUtils;
 import org.codehaus.plexus.interpolation.AbstractValueSource;
 import org.codehaus.plexus.util.xml.PrettyPrintXMLWriter;
 import org.codehaus.plexus.util.xml.XMLWriter;
-import org.eclipse.emf.common.util.EMap;
+import org.osgi.framework.VersionRange;
 import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.internal.generator.p2.Action;
 import org.sourcepit.b2.internal.generator.p2.Instruction;
+import org.sourcepit.b2.internal.generator.p2.Require;
 import org.sourcepit.b2.model.builder.util.BasicConverter.AggregatorMode;
 import org.sourcepit.b2.model.builder.util.ProductsConverter;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
@@ -52,6 +59,7 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.StrictReference;
+import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.file.FileVisitor;
 import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.path.Path;
@@ -130,8 +138,6 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
       final String uid = productDefinition.getAnnotationData("product", "uid");
 
-      EMap<String, String> data = productDefinition.getAnnotation("product").getData();
-
       File srcFile = productDefinition.getFile();
       File productFile = new File(projectDir, srcFile.getName());
       try
@@ -144,119 +150,243 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       {
          throw new IllegalStateException(e);
       }
-      
+
       injectUIdAndVersion(productFile, uid, productDefinition.getAnnotationData("product", "version"));
 
-      for (final String classifier : B2MetadataUtils.getAssemblyClassifiers(productDefinition))
+      for (final String classifier : getAssemblyClassifiers(productDefinition))
       {
-         final FeatureProject assemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
-         if (assemblyFeature == null)
-         {
-            throw new IllegalStateException("Cannot determine assembly feature for classifier '" + classifier + "'");
-         }
-
-         final Optional<String> oAssemblyName = getAssemblyNameByClassifier(properties, classifier,
-            B2MetadataUtils.getAssemblyNames(assemblyFeature));
-         if (!oAssemblyName.isPresent())
-         {
-            throw new IllegalStateException("Cannot determine assembly name for classifier '" + classifier + "'");
-         }
-
          final Document productDoc = XmlUtils.readXml(productFile);
+
+         final List<Require> requires = new ArrayList<Require>();
+
          final Element features = getFeaturesNode(productDoc);
+         convertProductIncludesFromXML(requires, uid, features, true, properties);
 
-         final List<Node> featuresFromProductFile = getChildNodes(features);
-         for (Node node : featuresFromProductFile)
-         {
-            features.removeChild(node);
-         }
+         final Element plugins = getPluginsNode(productDoc);
+         convertProductIncludesFromXML(requires, uid, plugins, false, properties);
 
-         final AggregatorMode mode = converter.getAggregatorMode(properties, oAssemblyName.get());
-         switch (mode)
-         {
-            case UNWRAP :
-               appendUnwrapped(productDoc, features, assemblyFeature);
-               break;
-            case OFF :
-            case AGGREGATE :
-               appendAggregated(productDoc, features, assemblyFeature);
-               break;
-            default :
-               throw new IllegalStateException("Unknown aggregator mode: " + mode);
-         }
+         collectProductIncludes(requires, module, uid, classifier, properties);
 
-         for (Node node : featuresFromProductFile)
+         // move strict dependencies back to XML
+         for (Iterator<Require> it = requires.iterator(); it.hasNext();)
          {
-            features.appendChild(node);
-         }
+            final Require require = it.next();
 
-         Element element;
-         for (StrictReference feature : converter.getIncludedFeaturesForProduct(properties, uid))
-         {
-            element = productDoc.createElement("feature");
-            element.setAttribute("id", feature.getId());
-            final String version = feature.getVersion();
-            if (!Strings.isNullOrEmpty(version) && feature.isSetVersion())
+            final VersionRange range = new VersionRange(require.getRange());
+            if (range.isExact())
             {
-               element.setAttribute("version", version);
-            }
-            features.appendChild(element);
-         }
+               final String name = require.getName();
 
-         final List<StrictReference> additionalPlugins = converter.getIncludedPluginsForProduct(properties, uid);
-         if (!additionalPlugins.isEmpty())
-         {
-            final Element plugins = getPluginsNode(productDoc);
-            for (StrictReference plugin : additionalPlugins)
-            {
-               element = productDoc.createElement("plugin");
-               element.setAttribute("id", plugin.getId());
-               final String version = plugin.getVersion();
-               if (!Strings.isNullOrEmpty(version) && plugin.isSetVersion())
+               final boolean feature = name.endsWith(".feature.group");
+
+               final String id = feature ? name.substring(0, name.length() - 14) : name;
+
+               String version = range.getLeft().toString();
+               if ("0.0.0".equals(version) || version.endsWith(".qualifier"))
+               {
+                  version = null;
+               }
+
+               Element parent;
+               Element element;
+
+               if (feature)
+               {
+                  parent = features;
+                  element = features.getOwnerDocument().createElement("feature");
+               }
+               else
+               {
+                  parent = plugins;
+                  element = plugins.getOwnerDocument().createElement("plugin");
+               }
+
+               element.setAttribute("id", id);
+               if (version != null)
                {
                   element.setAttribute("version", version);
                }
-               plugins.appendChild(element);
-            }
-         }
 
-         final PluginProject productPlugin = resolveProductPlugin(module, productDefinition);
-         if (productPlugin != null)
-         {
-            copyProductResources(productPlugin.getDirectory(), projectDir, properties, uid);
+               parent.appendChild(element);
 
-            // tycho icon bug fix
-            for (Entry<String, String> entry : data)
-            {
-               String key = entry.getKey();
-               if (key.endsWith(".icon"))
-               {
-                  final String os = key.substring(0, key.length() - ".icon".length());
-                  String path = entry.getValue();
-                  if (path.startsWith("/"))
-                  {
-                     path = path.substring(1);
-                  }
-
-                  final File iconFile = new File(productPlugin.getDirectory().getParentFile(), path);
-                  if (iconFile.exists())
-                  {
-                     for (Node node : XmlUtils.queryNodes(productDoc, "product/launcher/" + os + "/ico"))
-                     {
-                        element = (Element) node;
-                        element.setAttribute("path", iconFile.getAbsolutePath());
-                     }
-                  }
-               }
+               it.remove();
             }
          }
 
          XmlUtils.writeXml(productDoc, productFile);
 
-         generateP2Inf(properties, uid, projectDir, getProductName(productFile.getName()));
+         final PluginProject productPlugin = resolveProductPlugin(module, productDefinition);
+         if (productPlugin != null)
+         {
+            copyProductResources(productPlugin.getDirectory(), projectDir, properties, uid);
+            copyIcons(productDoc, productDefinition, productPlugin);
+         }
+
+         final File p2InfFile = new File(projectDir, getProductName(productFile.getName()) + ".p2.inf");
+
+         final PropertiesMap p2Inf = new LinkedPropertiesMap();
+         if (p2InfFile.exists())
+         {
+            p2Inf.load(p2InfFile);
+         }
+         
+         int i = 0;
+         for (Require require : requires)
+         {
+            require.put(p2Inf, i);
+            i++;
+         }
+
+         addUpdateSites(p2Inf, uid, properties);
+         
+         p2Inf.store(p2InfFile);
       }
    }
-   
+
+   void convertProductIncludesFromXML(final List<Require> requires, final String productId,
+      final Element featuresOrPlugins, boolean features, PropertiesSource properties)
+   {
+      final VersionMatchRule defaultVersionMatchRule = converter.getDefaultVersionMatchRuleForProduct(properties,
+         productId);
+      for (Node node : getChildNodes(featuresOrPlugins))
+      {
+         featuresOrPlugins.removeChild(node);
+
+         if (node instanceof Element)
+         {
+            final Element feature = (Element) node;
+
+            final String featureId = feature.getAttribute("id");
+            checkState(featureId.length() > 0);
+
+            String version = feature.getAttribute("version");
+            if (isNullOrEmpty(version))
+            {
+               version = "0.0.0";
+            }
+
+            VersionMatchRule matchRule = converter.getVersionMatchRuleForProductInclude(properties, productId,
+               featureId, defaultVersionMatchRule);
+
+            requires.add(toRequire(featureId, features, version, matchRule));
+         }
+      }
+   }
+
+   private void collectProductIncludes(final List<Require> requires, final AbstractModule module,
+      final String productId, final String classifier, PropertiesSource properties)
+   {
+      final VersionMatchRule defaultVersionMatchRule = converter.getDefaultVersionMatchRuleForProduct(properties,
+         productId);
+
+      appendProductIncludesFromAssembly(requires, module, productId, classifier, properties, defaultVersionMatchRule);
+
+      collectProductIncludesfromProperties(requires, productId, properties, defaultVersionMatchRule);
+   }
+
+   void collectProductIncludesfromProperties(final List<Require> requires, final String productId,
+      PropertiesSource properties, final VersionMatchRule defaultVersionMatchRule)
+   {
+      for (RuledReference feature : converter.getIncludedFeaturesForProduct(properties, productId,
+         defaultVersionMatchRule))
+      {
+         requires.add(toRequire(feature, true));
+      }
+
+      final List<RuledReference> additionalPlugins = converter.getIncludedPluginsForProduct(properties, productId,
+         defaultVersionMatchRule);
+      if (!additionalPlugins.isEmpty())
+      {
+         for (RuledReference plugin : additionalPlugins)
+         {
+            requires.add(toRequire(plugin, false));
+         }
+      }
+   }
+
+   private void appendProductIncludesFromAssembly(final List<Require> requires, final AbstractModule module,
+      final String productId, final String classifier, PropertiesSource properties,
+      final VersionMatchRule defaultVersionMatchRule)
+   {
+      final FeatureProject assemblyFeature = findAssemblyFeatureForClassifier(module, classifier);
+      if (assemblyFeature == null)
+      {
+         throw new IllegalStateException("Cannot determine assembly feature for classifier '" + classifier + "'");
+      }
+
+      final Optional<String> oAssemblyName = getAssemblyNameByClassifier(properties, classifier,
+         B2MetadataUtils.getAssemblyNames(assemblyFeature));
+      if (!oAssemblyName.isPresent())
+      {
+         throw new IllegalStateException("Cannot determine assembly name for classifier '" + classifier + "'");
+      }
+      final String assemblyName = oAssemblyName.get();
+
+      final AggregatorMode mode = converter.getAggregatorMode(properties, assemblyName);
+      switch (mode)
+      {
+         case UNWRAP :
+            appendUnwrapped(requires, productId, assemblyFeature, properties, defaultVersionMatchRule);
+            break;
+         case OFF :
+         case AGGREGATE :
+            appendAggregated(requires, productId, assemblyFeature, properties, defaultVersionMatchRule);
+            break;
+         default :
+            throw new IllegalStateException("Unknown aggregator mode: " + mode);
+      }
+   }
+
+   void copyIcons(final Document productDoc, ProductDefinition productDefinition, final PluginProject productPlugin)
+   {
+      // tycho icon bug fix
+      for (Entry<String, String> entry : productDefinition.getAnnotation("product").getData())
+      {
+         String key = entry.getKey();
+         if (key.endsWith(".icon"))
+         {
+            final String os = key.substring(0, key.length() - ".icon".length());
+            String path = entry.getValue();
+            if (path.startsWith("/"))
+            {
+               path = path.substring(1);
+            }
+
+            final File iconFile = new File(productPlugin.getDirectory().getParentFile(), path);
+            if (iconFile.exists())
+            {
+               for (Node node : XmlUtils.queryNodes(productDoc, "product/launcher/" + os + "/ico"))
+               {
+                  Element element = (Element) node;
+                  element.setAttribute("path", iconFile.getAbsolutePath());
+               }
+            }
+         }
+      }
+   }
+
+   private static Require toRequire(RuledReference reference, boolean feature)
+   {
+      return toRequire(reference.getId(), feature, reference.getVersion(), reference.getVersionMatchRule());
+   }
+
+   private static Require toRequire(final String pluginOrFeatureId, boolean feature, String version,
+      VersionMatchRule versionMatchRule)
+   {
+      final Require require = new Require();
+      require.setNamespace("org.eclipse.equinox.p2.iu");
+      if (feature)
+      {
+         require.setName(pluginOrFeatureId + ".feature.group");
+      }
+      else
+      {
+         require.setName(pluginOrFeatureId);
+      }
+      require.setRange(toVersionRange(version, versionMatchRule).toString());
+      return require;
+   }
+
    private static void injectUIdAndVersion(File productFile, String uid, String version)
    {
       final Document productXml = XmlUtils.readXml(productFile);
@@ -277,32 +407,37 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       return childNodes;
    }
 
-   private void appendAggregated(Document doc, Element features, FeatureProject assemblyFeature)
+   private void appendAggregated(List<Require> requires, String productId, FeatureProject assemblyFeature,
+      PropertiesSource properties, VersionMatchRule defaultVersionMatchRule)
    {
-      appendFeature(doc, features, assemblyFeature.getId());
+      appendFeature(requires, productId, assemblyFeature.getId(), assemblyFeature.getVersion(), properties,
+         defaultVersionMatchRule);
    }
 
-   private void appendFeature(Document doc, Element features, String featureId)
-   {
-      Element element = doc.createElement("feature");
-      element.setAttribute("id", featureId);
-      features.appendChild(element);
-   }
-
-   private void appendUnwrapped(Document doc, Element features, FeatureProject assemblyFeature)
+   private void appendUnwrapped(List<Require> requires, String productId, FeatureProject assemblyFeature,
+      PropertiesSource properties, VersionMatchRule defaultVersionMatchRule)
    {
       for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures())
       {
-         appendFeature(doc, features, featureInclude.getId());
+         appendFeature(requires, productId, featureInclude.getId(), featureInclude.getVersion(), properties,
+            defaultVersionMatchRule);
       }
 
       for (RuledReference ruledReference : assemblyFeature.getRequiredFeatures())
       {
-         appendFeature(doc, features, ruledReference.getId());
+         requires.add(toRequire(ruledReference, true));
       }
    }
 
-   private void generateP2Inf(PropertiesSource properties, String uid, File projectDir, String productName)
+   private void appendFeature(List<Require> requires, String productId, String featureId, String version,
+      PropertiesSource properties, VersionMatchRule defaultVersionMatchRule)
+   {
+      final VersionMatchRule rule = converter.getVersionMatchRuleForProductInclude(properties, productId, featureId,
+         defaultVersionMatchRule);
+      requires.add(toRequire(featureId, true, version, rule));
+   }
+
+   private void addUpdateSites(final PropertiesMap p2Inf, String uid, PropertiesSource properties)
    {
       final List<String> sites = converter.getUpdateSitesForProduct(properties, uid);
       if (!sites.isEmpty())
@@ -314,10 +449,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
             instruction.getActions().add(createAddRepoAction("0", site));
             instruction.getActions().add(createAddRepoAction("1", site));
          }
-
-         final PropertiesMap instructions = new LinkedPropertiesMap();
-         instructions.put(instruction.getHeader(), instruction.getBody());
-         instructions.store(new File(projectDir, productName + ".p2.inf"));
+         p2Inf.put(instruction.getHeader(), instruction.getBody());
       }
    }
 
