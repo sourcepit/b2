@@ -17,6 +17,8 @@ public interface ProductsConverter extends BasicConverter
 {
    PathMatcher getResourceMatcherForProduct(PropertiesSource moduleProperties, String productId);
    
+   List<String> getUpdateSitesForProduct(PropertiesSource moduleProperties, String productId);
+   
    VersionMatchRule getDefaultVersionMatchRuleForProduct(PropertiesSource moduleProperties, String productId);
 
    List<RuledReference> getIncludedFeaturesForProduct(PropertiesSource moduleProperties, String productId,
@@ -24,8 +26,6 @@ public interface ProductsConverter extends BasicConverter
 
    List<RuledReference> getIncludedPluginsForProduct(PropertiesSource moduleProperties, String productId,
       VersionMatchRule defaultVersionMatchRule);
-
-   List<String> getUpdateSitesForProduct(PropertiesSource moduleProperties, String productId);
 
    VersionMatchRule getVersionMatchRuleForProductInclude(PropertiesSource properties, String productId,
       String featureOrPluginId, VersionMatchRule defaultVersionMatchRule);
