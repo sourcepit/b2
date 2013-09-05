@@ -29,10 +29,15 @@ import org.sourcepit.b2.generator.AbstractGeneratorForDerivedElements;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
+import org.sourcepit.b2.model.interpolation.internal.module.SitesInterpolator;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.AbstractReference;
+import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.Derivable;
+import org.sourcepit.b2.model.module.FeatureInclude;
+import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -46,10 +51,13 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 {
    private final SitePropertiesQueryFactory queryFactory;
 
+   private final ProductGenerator productGenerator;
+
    @Inject
-   public SiteProjectGenerator(SitePropertiesQueryFactory queryFactory)
+   public SiteProjectGenerator(SitePropertiesQueryFactory queryFactory, ProductGenerator productGenerator)
    {
       this.queryFactory = queryFactory;
+      this.productGenerator = productGenerator;
    }
 
    @Override
@@ -69,7 +77,17 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
    {
       final SiteProject siteProject = (SiteProject) inputElement;
 
+      final AbstractModule module = siteProject.getParent().getParent();
+
       final String assemblyName = getAssemblyName(siteProject);
+
+      final List<ProductDefinition> productDefinitions = SitesInterpolator.getProductDefinitionsForAssembly(module,
+         assemblyName);
+
+      for (ProductDefinition productDefinition : productDefinitions)
+      {
+         productGenerator.processProduct(siteProject.getDirectory(), productDefinition, source);
+      }
 
       final String assemblyClassifier = getAssemblyClassifier(siteProject);
 
@@ -82,7 +100,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       generateProperties(source, siteProject, assemblyName, assemblyClassifier);
    }
 
-   private static String getAssemblyName(SiteProject site)
+   public static String getAssemblyName(SiteProject site)
    {
       List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(site);
       String assemblyName = assemblyNames.isEmpty() ? null : assemblyNames.get(0);
@@ -98,43 +116,31 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
    private void insertCategoriesProperty(final SiteProject siteProject, final Properties properties)
    {
-      final Map<String, Set<String>> fullFeatureIdToCategoriesMap = new HashMap<String, Set<String>>();
-      final Map<String, AbstractReference> fullFeatureIdToRefMap = new HashMap<String, AbstractReference>();
+      final Map<String, Set<String>> fullIUIdToCategoriesMap = new HashMap<String, Set<String>>();
+      final Map<String, AbstractReference> fullIUIdToRefMap = new HashMap<String, AbstractReference>();
 
       for (Category category : siteProject.getCategories())
       {
          final String categoryName = category.getName();
 
-         for (AbstractReference featureRef : category.getFeatureReferences())
+         for (AbstractReference iu : category.getInstallableUnits())
          {
-            put(fullFeatureIdToCategoriesMap, fullFeatureIdToRefMap, featureRef, categoryName);
+            put(fullIUIdToCategoriesMap, fullIUIdToRefMap, iu, categoryName);
          }
       }
 
-      for (StrictReference featureRef : siteProject.getFeatureReferences())
+      for (AbstractStrictReference iu : siteProject.getInstallableUnits())
       {
-         put(fullFeatureIdToCategoriesMap, fullFeatureIdToRefMap, featureRef, "");
+         put(fullIUIdToCategoriesMap, fullIUIdToRefMap, iu, "");
       }
 
       final StringWriter includes = new StringWriter();
       XMLWriter xml = new PrettyPrintXMLWriter(includes);
-      for (Entry<String, Set<String>> entry : fullFeatureIdToCategoriesMap.entrySet())
+      for (Entry<String, Set<String>> entry : fullIUIdToCategoriesMap.entrySet())
       {
-         final AbstractReference featureRef = fullFeatureIdToRefMap.get(entry.getKey());
-         xml.startElement("feature");
-         xml.addAttribute("url", "features/" + entry.getKey() + ".jar");
-         xml.addAttribute("id", featureRef.getId());
-         xml.addAttribute("version", featureRef.getVersion());
-         for (String categoryName : entry.getValue())
-         {
-            if (!Strings.isNullOrEmpty(categoryName))
-            {
-               xml.startElement("category");
-               xml.addAttribute("name", categoryName);
-               xml.endElement();
-            }
-         }
-         xml.endElement();
+         Set<String> categoryNames = entry.getValue();
+         final AbstractReference iu = fullIUIdToRefMap.get(entry.getKey());
+         addInstallableUnit(xml, iu, categoryNames);
       }
 
       for (Category category : siteProject.getCategories())
@@ -152,6 +158,41 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
       includes.flush();
       properties.setProperty("site.categories", includes.toString());
+   }
+
+   private void addInstallableUnit(XMLWriter xml, final AbstractReference installableUnit, Set<String> categoryNames)
+   {
+      if (installableUnit instanceof FeatureInclude)
+      {
+         xml.startElement("feature");
+         xml.addAttribute("url", "features/" + installableUnit.getId() + ".jar");
+      }
+      else if (installableUnit instanceof PluginInclude)
+      {
+         xml.startElement("bundle");
+      }
+      else if (installableUnit instanceof StrictReference)
+      {
+         xml.startElement("iu");
+      }
+      else
+      {
+         throw new IllegalStateException(installableUnit.getClass() + " currently not supported in update sites");
+      }
+
+      xml.addAttribute("id", installableUnit.getId());
+      xml.addAttribute("version", installableUnit.getVersion());
+      for (String categoryName : categoryNames)
+      {
+         if (!Strings.isNullOrEmpty(categoryName))
+         {
+            xml.startElement("category");
+            xml.addAttribute("name", categoryName);
+            xml.endElement();
+         }
+      }
+
+      xml.endElement();
    }
 
    private void put(final Map<String, Set<String>> fullFeatureIdToCategoriesMap,
@@ -224,6 +265,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       s.setEscapeString("\\");
       s.getValueSources().add(new AbstractValueSource(false)
       {
+         @Override
          public Object getValue(String expression)
          {
             return properties.get(expression);
@@ -231,6 +273,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       });
       s.getValueSources().add(new AbstractValueSource(false)
       {
+         @Override
          public Object getValue(String expression)
          {
             PropertiesQuery query = queries.get(expression);

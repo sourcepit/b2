@@ -17,9 +17,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
-import org.sourcepit.b2.model.module.StrictReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,32 +28,29 @@ import org.sourcepit.b2.model.module.StrictReference;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl#getFeatureReferences <em>Feature References</em>}
- * </li>
- * <li>{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl#getInstallableUnits <em>Installable Units</em>}</li>
+ *   <li>{@link org.sourcepit.b2.model.module.internal.impl.CategoryImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class CategoryImpl extends EObjectImpl implements Category
 {
    /**
-    * The cached value of the '{@link #getFeatureReferences() <em>Feature References</em>}' containment reference list.
+    * The cached value of the '{@link #getInstallableUnits() <em>Installable Units</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
-    * @see #getFeatureReferences()
+    * @see #getInstallableUnits()
     * @generated
     * @ordered
     */
-   protected EList<StrictReference> featureReferences;
+   protected EList<AbstractStrictReference> installableUnits;
 
    /**
     * The default value of the '{@link #getName() <em>Name</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getName()
     * @generated
     * @ordered
@@ -64,7 +61,6 @@ public class CategoryImpl extends EObjectImpl implements Category
     * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @see #getName()
     * @generated
     * @ordered
@@ -74,7 +70,6 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    protected CategoryImpl()
@@ -85,7 +80,6 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -97,23 +91,20 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
-   public EList<StrictReference> getFeatureReferences()
+   public EList<AbstractStrictReference> getInstallableUnits()
    {
-      if (featureReferences == null)
+      if (installableUnits == null)
       {
-         featureReferences = new EObjectContainmentEList.Resolving<StrictReference>(StrictReference.class, this,
-            ModuleModelPackage.CATEGORY__FEATURE_REFERENCES);
+         installableUnits = new EObjectContainmentEList.Resolving<AbstractStrictReference>(AbstractStrictReference.class, this, ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS);
       }
-      return featureReferences;
+      return installableUnits;
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public String getName()
@@ -124,7 +115,6 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    public void setName(String newName)
@@ -138,7 +128,6 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -146,8 +135,8 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case ModuleModelPackage.CATEGORY__FEATURE_REFERENCES :
-            return ((InternalEList<?>) getFeatureReferences()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS:
+            return ((InternalEList<?>)getInstallableUnits()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -155,7 +144,6 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -163,9 +151,9 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case ModuleModelPackage.CATEGORY__FEATURE_REFERENCES :
-            return getFeatureReferences();
-         case ModuleModelPackage.CATEGORY__NAME :
+         case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS:
+            return getInstallableUnits();
+         case ModuleModelPackage.CATEGORY__NAME:
             return getName();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -174,7 +162,6 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -183,12 +170,12 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case ModuleModelPackage.CATEGORY__FEATURE_REFERENCES :
-            getFeatureReferences().clear();
-            getFeatureReferences().addAll((Collection<? extends StrictReference>) newValue);
+         case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS:
+            getInstallableUnits().clear();
+            getInstallableUnits().addAll((Collection<? extends AbstractStrictReference>)newValue);
             return;
-         case ModuleModelPackage.CATEGORY__NAME :
-            setName((String) newValue);
+         case ModuleModelPackage.CATEGORY__NAME:
+            setName((String)newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -197,7 +184,6 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -205,10 +191,10 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case ModuleModelPackage.CATEGORY__FEATURE_REFERENCES :
-            getFeatureReferences().clear();
+         case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS:
+            getInstallableUnits().clear();
             return;
-         case ModuleModelPackage.CATEGORY__NAME :
+         case ModuleModelPackage.CATEGORY__NAME:
             setName(NAME_EDEFAULT);
             return;
       }
@@ -218,7 +204,6 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
@@ -226,9 +211,9 @@ public class CategoryImpl extends EObjectImpl implements Category
    {
       switch (featureID)
       {
-         case ModuleModelPackage.CATEGORY__FEATURE_REFERENCES :
-            return featureReferences != null && !featureReferences.isEmpty();
-         case ModuleModelPackage.CATEGORY__NAME :
+         case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS:
+            return installableUnits != null && !installableUnits.isEmpty();
+         case ModuleModelPackage.CATEGORY__NAME:
             return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       }
       return super.eIsSet(featureID);
@@ -237,14 +222,12 @@ public class CategoryImpl extends EObjectImpl implements Category
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
-    * 
     * @generated
     */
    @Override
    public String toString()
    {
-      if (eIsProxy())
-         return super.toString();
+      if (eIsProxy()) return super.toString();
 
       StringBuffer result = new StringBuffer(super.toString());
       result.append(" (name: ");

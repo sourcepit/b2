@@ -34,6 +34,7 @@ import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
+import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -390,31 +391,35 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       {
          for (ProductDefinition product : productsFacet.getProductDefinitions())
          {
-            String classifierPrefix = ProductProjectGenerator.getAssemblyClassifier(product.getFile().getName());
-            if (Strings.isNullOrEmpty(classifierPrefix))
+            for (String classifier : B2MetadataUtils.getAssemblyClassifiers(product))
             {
-               classifierPrefix = "";
-            }
-            else
-            {
-               classifierPrefix = classifierPrefix + ".";
-            }
+               final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
+               final File projectDir = new File(layout.pathOfSiteProject(module, classifier));
 
-            final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
-            final String uid = product.getAnnotationData("product", "uid");
-            final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
-            for (String envAppendix : envAppendixes)
-            {
-               // target/products/de.visualrules.modeler-linux.gtk.x86.zip
-               final File file = new File(projectDir, "target/products/" + uid + envAppendix + ".zip");
+               String classifierPrefix = classifier;
+               if (Strings.isNullOrEmpty(classifierPrefix))
+               {
+                  classifierPrefix = "";
+               }
+               else
+               {
+                  classifierPrefix = classifierPrefix + ".";
+               }
 
-               String classifierApendix = envAppendix.length() > 0 ? envAppendix.substring(1) : envAppendix;
+               final String uid = product.getAnnotationData("product", "uid");
+               for (String envAppendix : envAppendixes)
+               {
+                  // target/products/de.visualrules.modeler-linux.gtk.x86.zip
+                  final File file = new File(projectDir, "target/products/" + uid + envAppendix + ".zip");
 
-               final ModuleArtifact productArtifact = new ModuleArtifact();
-               productArtifact.setFile(file);
-               productArtifact.setClassifier(classifierPrefix + classifierApendix);
-               productArtifact.setType("zip");
-               artifacts.add(productArtifact);
+                  String classifierApendix = envAppendix.length() > 0 ? envAppendix.substring(1) : envAppendix;
+
+                  final ModuleArtifact productArtifact = new ModuleArtifact();
+                  productArtifact.setFile(file);
+                  productArtifact.setClassifier(classifierPrefix + classifierApendix);
+                  productArtifact.setType("zip");
+                  artifacts.add(productArtifact);
+               }
             }
          }
       }

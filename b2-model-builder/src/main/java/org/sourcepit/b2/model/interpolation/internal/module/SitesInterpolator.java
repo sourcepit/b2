@@ -6,7 +6,11 @@
 
 package org.sourcepit.b2.model.interpolation.internal.module;
 
+import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.getAssemblyNames;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,16 +23,21 @@ import org.sourcepit.b2.model.builder.util.SitesConverter;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.b2.model.module.AbstractStrictReference;
 import org.sourcepit.b2.model.module.Category;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
+import org.sourcepit.b2.model.module.ProductDefinition;
+import org.sourcepit.b2.model.module.ProductsFacet;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
+
+import com.google.common.base.Preconditions;
 
 @Named
 public class SitesInterpolator
@@ -67,16 +76,14 @@ public class SitesInterpolator
    {
       for (String assemblyName : assemblyNames)
       {
-         final FeatureProject assemblyFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForAssembly(
-            module, assemblyName);
-         if (assemblyFeature != null)
+         final Collection<AbstractStrictReference> installableUnits = getInstallableUnits(module, assemblyName,
+            moduleProperties);
+         if (!installableUnits.isEmpty())
          {
             final SiteProject siteProject = createSiteProject(module, moduleProperties, sitesFacet, assemblyName);
             sitesFacet.getProjects().add(siteProject);
 
-            final Set<FeatureInclude> allFeatures = getAllFeatures(assemblyName, assemblyFeature, moduleProperties);
-
-            final Set<FeatureInclude> categorizedFeatures = new LinkedHashSet<FeatureInclude>();
+            final Set<AbstractStrictReference> categorizedIUs = new LinkedHashSet<AbstractStrictReference>();
 
             for (String categoryName : converter.getAssemblyCategories(moduleProperties, assemblyName))
             {
@@ -86,34 +93,71 @@ public class SitesInterpolator
                final PathMatcher matcher = converter.getAssemblyCategoryFeatureMatcher(moduleProperties,
                   module.getId(), assemblyName, categoryName);
 
-               for (FeatureInclude featureInclude : allFeatures)
+               for (AbstractStrictReference iu : installableUnits)
                {
-                  final Set<String> featureIds = new LinkedHashSet<String>();
-                  featureIds.add(featureInclude.getId());
-                  featureIds.addAll(B2MetadataUtils.getReplacedFeatureIds(featureInclude));
+                  final Set<String> ids = new LinkedHashSet<String>();
+                  ids.add(iu.getId());
+                  ids.addAll(B2MetadataUtils.getReplacedFeatureIds(iu));
 
-                  if (isMatch(matcher, featureIds))
+                  if (isMatch(matcher, ids))
                   {
-                     category.getFeatureReferences().add(toStrictReference(featureInclude));
-                     categorizedFeatures.add(featureInclude);
+                     category.getInstallableUnits().add(iu);
+                     categorizedIUs.add(iu);
                   }
                }
 
-               if (!category.getFeatureReferences().isEmpty())
+               if (!category.getInstallableUnits().isEmpty())
                {
                   siteProject.getCategories().add(category);
                }
             }
 
-            allFeatures.removeAll(categorizedFeatures);
+            installableUnits.removeAll(categorizedIUs);
 
-            for (FeatureInclude notCategorizedFeature : allFeatures)
+            for (AbstractStrictReference notCategorizedIUs : installableUnits)
             {
-               siteProject.getFeatureReferences().add(toStrictReference(notCategorizedFeature));
+               siteProject.getInstallableUnits().add(notCategorizedIUs);
             }
 
          }
       }
+   }
+
+   public static List<ProductDefinition> getProductDefinitionsForAssembly(AbstractModule module, String assemblyName)
+   {
+      final List<ProductDefinition> productDefinitions = new ArrayList<ProductDefinition>();
+      for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class))
+      {
+         for (ProductDefinition productDefinition : productsFacet.getProductDefinitions())
+         {
+            if (getAssemblyNames(productDefinition).contains(assemblyName))
+            {
+               productDefinitions.add(productDefinition);
+            }
+         }
+      }
+      return productDefinitions;
+   }
+
+   private Collection<AbstractStrictReference> getInstallableUnits(AbstractModule module, String assemblyName,
+      PropertiesSource moduleProperties)
+   {
+      final Collection<AbstractStrictReference> allIUs = new ArrayList<AbstractStrictReference>();
+
+      final FeatureProject assemblyFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForAssembly(
+         module, assemblyName);
+      if (assemblyFeature != null)
+      {
+         allIUs.addAll(getAllFeatures(assemblyName, assemblyFeature, moduleProperties));
+      }
+
+      final List<ProductDefinition> productDefinitions = getProductDefinitionsForAssembly(module, assemblyName);
+      for (ProductDefinition productDefinition : productDefinitions)
+      {
+         allIUs.add(toStrictReference(productDefinition));
+      }
+
+      return allIUs;
    }
 
    private Set<FeatureInclude> getAllFeatures(String assemblyName, FeatureProject assemblyFeature,
@@ -126,12 +170,12 @@ public class SitesInterpolator
       {
          allFeatures.add(B2ModelUtils.toFeatureInclude(assemblyFeature));
       }
-      
+
       for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures())
       {
          if (featureFilter.isMatch(featureInclude.getId()))
          {
-            allFeatures.add(featureInclude);
+            allFeatures.add(EcoreUtil.copy(featureInclude));
          }
       }
 
@@ -181,13 +225,16 @@ public class SitesInterpolator
       return siteProject;
    }
 
-   private static StrictReference toStrictReference(FeatureInclude featureInclude)
+   private static StrictReference toStrictReference(ProductDefinition productDefinition)
    {
       final StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
-      ref.setId(featureInclude.getId());
-      ref.setVersion(featureInclude.getVersion());
+      ref.setId(productDefinition.getAnnotationData("product", "uid"));
+      ref.setVersion(productDefinition.getAnnotationData("product", "version"));
 
-      final Annotation b2Metadata = B2MetadataUtils.getB2Metadata(featureInclude);
+      Preconditions.checkNotNull(ref.getId());
+      Preconditions.checkNotNull(ref.getVersion());
+
+      final Annotation b2Metadata = B2MetadataUtils.getB2Metadata(productDefinition);
       if (b2Metadata != null)
       {
          ref.getAnnotations().add(EcoreUtil.copy(b2Metadata));

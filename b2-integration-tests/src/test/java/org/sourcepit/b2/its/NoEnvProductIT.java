@@ -60,7 +60,7 @@ public class NoEnvProductIT extends AbstractB2IT
       assertNotNull(uid);
 
       final IInterpolationLayout layout = new SimpleInterpolationLayout();
-      final File projectDir = new File(layout.pathOfFacetMetaData(module, "products", uid));
+      final File projectDir = new File(layout.pathOfSiteProject(module, ""));
       assertTrue(projectDir.exists());
 
       final File[] productZips = new File(projectDir, "target/products").listFiles(new FileFilter()

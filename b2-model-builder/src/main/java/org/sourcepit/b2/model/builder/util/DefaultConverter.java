@@ -6,11 +6,17 @@
 
 package org.sourcepit.b2.model.builder.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
+import static org.sourcepit.b2.model.module.VersionMatchRule.GREATER_OR_EQUAL;
+import static org.sourcepit.common.utils.path.PathMatcher.parsePackagePatterns;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
 
 import org.codehaus.plexus.interpolation.AbstractValueSource;
 import org.osgi.framework.Version;
@@ -25,6 +31,8 @@ import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 
+import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
 @Named
@@ -128,7 +136,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       final String key = "requiredFeatures";
       final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), assemblyKey(null, key),
          b2Key(key));
-      return toRuledReferenceList(rawIncludes);
+      return toRuledReferenceList(rawIncludes, GREATER_OR_EQUAL);
    }
 
    public List<RuledReference> getRequiredPluginsForAssembly(PropertiesSource moduleProperties, String assemblyName)
@@ -136,7 +144,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       final String key = "requiredPlugins";
       final String rawIncludes = get(moduleProperties, assemblyKey(assemblyName, key), assemblyKey(null, key),
          b2Key(key));
-      return toRuledReferenceList(rawIncludes);
+      return toRuledReferenceList(rawIncludes, GREATER_OR_EQUAL);
    }
 
    public String getFacetClassifier(PropertiesSource properties, String facetName)
@@ -233,7 +241,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    {
       final String key = isSource ? "requiredSourceFeatures" : "requiredFeatures";
       final String requirements = get(moduleProperties, facetKey(facetName, key), facetKey(null, key), b2Key(key));
-      return toRuledReferenceList(requirements);
+      return toRuledReferenceList(requirements, GREATER_OR_EQUAL);
    }
 
    public List<RuledReference> getRequiredPluginsForFacet(PropertiesSource moduleProperties, String facetName,
@@ -241,10 +249,20 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    {
       final String key = isSource ? "requiredSourcePlugins" : "requiredPlugins";
       final String requirements = get(moduleProperties, facetKey(facetName, key), facetKey(null, key), b2Key(key));
-      return toRuledReferenceList(requirements);
+      return toRuledReferenceList(requirements, GREATER_OR_EQUAL);
    }
 
-   private static List<RuledReference> toRuledReferenceList(String rawRequirements)
+   private static final Function<String, VersionMatchRule> GREATER_OR_EQUAL = new Function<String, VersionMatchRule>()
+   {
+      @Override
+      public VersionMatchRule apply(String input)
+      {
+         return VersionMatchRule.GREATER_OR_EQUAL;
+      }
+   };
+
+   private static List<RuledReference> toRuledReferenceList(String rawRequirements,
+      Function<String, VersionMatchRule> defaultVersionMatchRule)
    {
       final List<RuledReference> result = new ArrayList<RuledReference>();
 
@@ -256,7 +274,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
             final String requirement = rawRequirement.trim();
             if (requirement.length() > 0)
             {
-               result.add(toRuledReference(requirement));
+               result.add(toRuledReference(requirement, defaultVersionMatchRule));
             }
          }
       }
@@ -264,7 +282,8 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return result;
    }
 
-   private static RuledReference toRuledReference(String string)
+   private static RuledReference toRuledReference(String string,
+      Function<String, VersionMatchRule> defaultVersionMatchRule)
    {
       final RuledReference ref = ModuleModelFactory.eINSTANCE.createRuledReference();
       final String[] segments = string.split(":");
@@ -292,7 +311,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
          {
             ref.setVersion("0.0.0");
          }
-         ref.setVersionMatchRule(VersionMatchRule.GREATER_OR_EQUAL);
+         ref.setVersionMatchRule(defaultVersionMatchRule.apply(ref.getId()));
       }
 
       return ref;
@@ -539,7 +558,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       if ("included".equals(category))
       {
          final String assemblyClassifier = getAssemblyClassifier(moduleProperties, assemblyName);
-         defaultFilter = "!" + getFeatureId(moduleProperties, moduleId, assemblyClassifier, false);
+         defaultFilter = "**,!" + getFeatureId(moduleProperties, moduleId, assemblyClassifier, false);
       }
       else if ("assembled".equals(category))
       {
@@ -628,6 +647,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return moduleProperties.get("b2.moduleNameSpace", "b2.module");
    }
 
+   @Override
    public PathMatcher getResourceMatcherForProduct(PropertiesSource moduleProperties, String productId)
    {
       String patterns = get(moduleProperties, productKey(productId, "resources"), productKey(null, "resources"));
@@ -638,18 +658,70 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return PathMatcher.parse(patterns, "/", ",");
    }
 
-   public List<StrictReference> getIncludedFeaturesForProduct(PropertiesSource moduleProperties, String productId)
+   @Override
+   public VersionMatchRule getDefaultVersionMatchRuleForProduct(PropertiesSource moduleProperties, String productId)
+   {
+      final String key = "defaultVersionMatchRule";
+      final String defaultVersionMatchRule = get(moduleProperties, productKey(productId, key), productKey(null, key));
+      final VersionMatchRule rule = VersionMatchRule.get(defaultVersionMatchRule);
+      checkNotNull(rule);
+      return rule;
+   }
+
+   @Override
+   public List<RuledReference> getIncludedFeaturesForProduct(final PropertiesSource moduleProperties,
+      final String productId, final VersionMatchRule defaultVersionMatchRule)
    {
       final String key = "features";
       final String rawIncludes = get(moduleProperties, productKey(productId, key), productKey(null, key));
-      return toStrictReferenceList(rawIncludes);
+      return toRuledReferenceList(rawIncludes, new Function<String, VersionMatchRule>()
+      {
+         @Override
+         public VersionMatchRule apply(String featureId)
+         {
+            return getVersionMatchRuleForProductInclude(moduleProperties, productId, featureId, defaultVersionMatchRule);
+         }
+      });
    }
 
-   public List<StrictReference> getIncludedPluginsForProduct(PropertiesSource moduleProperties, String productId)
+   @Override
+   public List<RuledReference> getIncludedPluginsForProduct(final PropertiesSource moduleProperties,
+      final String productId, final VersionMatchRule defaultVersionMatchRule)
    {
       final String key = "plugins";
       final String rawIncludes = get(moduleProperties, productKey(productId, key), productKey(null, key));
-      return toStrictReferenceList(rawIncludes);
+      return toRuledReferenceList(rawIncludes, new Function<String, VersionMatchRule>()
+      {
+         @Override
+         public VersionMatchRule apply(String pluginId)
+         {
+            return getVersionMatchRuleForProductInclude(moduleProperties, productId, pluginId, defaultVersionMatchRule);
+         }
+      });
+   }
+
+   @Override
+   public VersionMatchRule getVersionMatchRuleForProductInclude(PropertiesSource moduleProperties, String productId,
+      String featureOrPluginId, VersionMatchRule defaultVersionMatchRule)
+   {
+      final String key = "versionMatchRules";
+      final String rawRules = get(moduleProperties, productKey(productId, key), productKey(null, key));
+      if (rawRules != null)
+      {
+         for (String mapping : rawRules.split(";"))
+         {
+            final String[] patternToRule = mapping.split("=");
+            checkState(patternToRule.length == 2, "Invalid mapping %s", mapping);
+            if (parsePackagePatterns(patternToRule[0].trim()).isMatch(featureOrPluginId))
+            {
+               final String literal = patternToRule[1].trim();
+               final VersionMatchRule rule = VersionMatchRule.get(literal);
+               checkNotNull(rule, "Invalid version match rule %s", literal);
+               return rule;
+            }
+         }
+      }
+      return defaultVersionMatchRule;
    }
 
    public List<String> getUpdateSitesForProduct(PropertiesSource moduleProperties, String productId)
