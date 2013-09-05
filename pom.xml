@@ -18,7 +18,7 @@
 	</scm>
 
 	<properties>
-		<tycho.version>0.18.0</tycho.version>
+		<tycho.version>0.18.1</tycho.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 
