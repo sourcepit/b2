@@ -8,9 +8,17 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.getAssemblyClassifiers;
 import static org.sourcepit.b2.model.module.internal.util.ReferenceUtils.toVersionRange;
+import static org.sourcepit.common.utils.io.IO.buffIn;
+import static org.sourcepit.common.utils.io.IO.buffOut;
+import static org.sourcepit.common.utils.io.IO.fileIn;
+import static org.sourcepit.common.utils.io.IO.fileOut;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +28,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
+import org.codehaus.plexus.interpolation.AbstractValueSource;
 import org.osgi.framework.VersionRange;
 import org.sourcepit.b2.internal.generator.p2.Action;
 import org.sourcepit.b2.internal.generator.p2.Instruction;
@@ -38,6 +47,7 @@ import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.file.FileVisitor;
+import org.sourcepit.common.utils.io.IOOperation;
 import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.path.Path;
 import org.sourcepit.common.utils.path.PathMatcher;
@@ -46,6 +56,7 @@ import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
+import org.sourcepit.tools.shared.resources.harness.AbstractPropertyInterpolator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -56,6 +67,35 @@ import com.google.common.base.Optional;
 @Named
 public class ProductGenerator
 {
+   final static class ProductFileCopier extends AbstractPropertyInterpolator
+   {
+      public void copy(File srcFile, final File destFile)
+      {
+         new IOOperation<InputStream>(buffIn(fileIn(srcFile)))
+         {
+            @Override
+            protected void run(final InputStream inputStream) throws IOException
+            {
+               inputStream.mark(8192);
+               final String encoding = XmlUtils.getEncoding(inputStream);
+               inputStream.reset();
+
+               new IOOperation<OutputStream>(buffOut(fileOut(destFile)))
+               {
+                  @Override
+                  @SuppressWarnings("synthetic-access")
+                  protected void run(OutputStream outputStream) throws IOException
+                  {
+                     final InputStreamReader reader = new InputStreamReader(inputStream, encoding);
+                     final OutputStreamWriter writer = new OutputStreamWriter(outputStream, encoding);
+                     newCopier().copy(reader, writer, null);
+                  }
+               }.run();
+            }
+         }.run();
+      }
+   }
+
    private final ProductsConverter converter;
 
    @Inject
@@ -64,7 +104,7 @@ public class ProductGenerator
       this.converter = converter;
    }
 
-   public void processProduct(File projectDir, ProductDefinition productDefinition, PropertiesSource properties)
+   public void processProduct(File projectDir, ProductDefinition productDefinition, final PropertiesSource properties)
    {
       final AbstractModule module = productDefinition.getParent().getParent();
 
@@ -72,16 +112,7 @@ public class ProductGenerator
 
       File srcFile = productDefinition.getFile();
       File productFile = new File(projectDir, srcFile.getName());
-      try
-      {
-         projectDir.mkdirs();
-         productFile.createNewFile();
-         FileUtils.copyFile(srcFile, productFile);
-      }
-      catch (IOException e)
-      {
-         throw new IllegalStateException(e);
-      }
+      copyAndFilterProductFile(srcFile, productFile, properties);
 
       injectUIdAndVersion(productFile, uid, productDefinition.getAnnotationData("product", "version"));
 
@@ -129,6 +160,34 @@ public class ProductGenerator
          addUpdateSites(p2Inf, uid, properties);
 
          p2Inf.store(p2InfFile);
+      }
+   }
+
+   static void copyAndFilterProductFile(File srcFile, File destFile, final PropertiesSource properties)
+   {
+      try
+      {
+         final File parentFile = destFile.getParentFile();
+         if (!parentFile.exists())
+         {
+            parentFile.mkdirs();
+         }
+         destFile.createNewFile();
+
+         final ProductFileCopier copier = new ProductFileCopier();
+         copier.getValueSources().add(new AbstractValueSource(false)
+         {
+            @Override
+            public Object getValue(String expression)
+            {
+               return properties.get(expression);
+            }
+         });
+         copier.copy(srcFile, destFile);
+      }
+      catch (IOException e)
+      {
+         throw new IllegalStateException(e);
       }
    }
 
