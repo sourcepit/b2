@@ -11,6 +11,7 @@ import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,14 +29,19 @@ public class ScmFileFlagsProvider implements FileFlagsProvider
    {
       final Set<String> scmDirs = getScmDirectories(properties);
       final Map<File, Integer> flags = new HashMap<File, Integer>(scmDirs.size());
-      for (String scmDir : scmDirs)
+      moduleDir.listFiles(new FileFilter()
       {
-         final File dir = new File(moduleDir, scmDir);
-         if (dir.exists())
+         @Override
+         public boolean accept(File file)
          {
-            flags.put(dir, valueOf(FLAG_HIDDEN | FLAG_FORBIDDEN));
+            final int f = determineFlags(file, scmDirs);
+            if (f != 0)
+            {
+               flags.put(file, valueOf(f));
+            }
+            return false;
          }
-      }
+      });
       return flags;
    }
 
@@ -48,13 +54,18 @@ public class ScmFileFlagsProvider implements FileFlagsProvider
          @Override
          public int determineFileFlags(File file)
          {
-            if (file.isDirectory() && scmDirs.contains(file.getName()))
-            {
-               return FLAG_HIDDEN | FLAG_FORBIDDEN;
-            }
-            return 0;
+            return determineFlags(file, scmDirs);
          }
       };
+   }
+
+   private static int determineFlags(File file, final Set<String> scmDirs)
+   {
+      if (file.isDirectory() && scmDirs.contains(normalize(file.getName())))
+      {
+         return FLAG_HIDDEN | FLAG_FORBIDDEN;
+      }
+      return 0;
    }
 
    private static Set<String> getScmDirectories(PropertiesSource properties)
@@ -70,10 +81,15 @@ public class ScmFileFlagsProvider implements FileFlagsProvider
          value = value.trim();
          if (value.length() > 0)
          {
-            result.add(value);
+            result.add(normalize(value));
          }
       }
       return result;
+   }
+   
+   private static String normalize(String fileName)
+   {
+      return fileName.toLowerCase();
    }
 
 }
