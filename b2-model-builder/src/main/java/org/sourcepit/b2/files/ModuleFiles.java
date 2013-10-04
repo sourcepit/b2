@@ -40,6 +40,11 @@ public class ModuleFiles
       this.moduleDir = moduleDir;
       this.fileFlags = fileFlags;
    }
+   
+   Map<File, Integer> getFileFlags()
+   {
+      return fileFlags;
+   }
 
    public File getModuleDir()
    {
