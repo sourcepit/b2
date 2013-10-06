@@ -9,6 +9,7 @@ package org.sourcepit.b2.files;
 import static java.lang.Integer.valueOf;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.common.utils.props.PropertiesUtils.split;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -70,26 +71,25 @@ public class ScmFileFlagsProvider implements FileFlagsProvider
 
    private static Set<String> getScmDirectories(PropertiesSource properties)
    {
-      return split(properties.get("b2.scmDirectories", ".git, .svn, .hg, CVS, .bzr"), ",");
-   }
-
-   private static Set<String> split(String values, String separator)
-   {
-      final Set<String> result = new HashSet<String>();
-      for (String value : values.split(separator))
+      final Set<String> result = new HashSet<String>()
       {
-         value = value.trim();
-         if (value.length() > 0)
+         private static final long serialVersionUID = 1L;
+
+         @Override
+         public boolean add(String e)
          {
-            result.add(normalize(value));
+            return super.add(normalize(e));
          }
-      }
+      };
+
+      split(result, properties.get("b2.scmDirectories", ".git, .svn, .hg, CVS, .bzr"), ",", true, true);
+
       return result;
    }
-   
-   private static String normalize(String fileName)
+
+   private static String normalize(String str)
    {
-      return fileName.toLowerCase();
+      return str.toLowerCase();
    }
 
 }
