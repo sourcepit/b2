@@ -46,6 +46,12 @@ public class B2FileFlagsProvider implements FileFlagsProvider
             final boolean match = pathMatcher.isMatch(file.getPath());
             return match ? 0 : FLAG_FORBIDDEN;
          }
+
+         @Override
+         public Map<File, Integer> getAdditionallyFoundFileFlags()
+         {
+            return null;
+         }
       };
    }
 

@@ -53,16 +53,21 @@ public class ModuleDirectoryFactroy
       for (FileFlagsProvider flagsProvider : flagsProviders)
       {
          final Map<File, Integer> providedFlags = flagsProvider.getAlreadyKnownFileFlags(moduleDir, properties);
-         if (providedFlags != null)
+         applyFileFlags(fileToFlagsMap, providedFlags);
+      }
+   }
+
+   private static void applyFileFlags(final Map<File, Integer> fileToFlagsMap, final Map<File, Integer> providedFlags)
+   {
+      if (providedFlags != null)
+      {
+         for (Entry<File, Integer> entry : providedFlags.entrySet())
          {
-            for (Entry<File, Integer> entry : providedFlags.entrySet())
+            final File file = entry.getKey();
+            final int flags = getFlags(fileToFlagsMap, file) | getFlags(providedFlags, file);
+            if (flags != 0)
             {
-               final File file = entry.getKey();
-               final int flags = getFlags(fileToFlagsMap, file) | getFlags(providedFlags, file);
-               if (flags != 0)
-               {
-                  fileToFlagsMap.put(file, Integer.valueOf(flags));
-               }
+               fileToFlagsMap.put(file, Integer.valueOf(flags));
             }
          }
       }
@@ -102,6 +107,21 @@ public class ModuleDirectoryFactroy
             }
             return flags;
          }
+
+         @Override
+         public Map<File, Integer> getAdditionallyFoundFileFlags()
+         {
+            final Map<File, Integer> fileToFlagsMap = new HashMap<File, Integer>();
+            for (FileFlagsInvestigator investigator : investigators)
+            {
+               Map<File, Integer> fileFlags = investigator.getAdditionallyFoundFileFlags();
+               if (fileFlags != null)
+               {
+                  applyFileFlags(fileToFlagsMap, fileFlags);
+               }
+            }
+            return fileToFlagsMap;
+         }
       };
    }
 
@@ -125,6 +145,12 @@ public class ModuleDirectoryFactroy
             return true;
          }
       }, true, true);
+
+      final Map<File, Integer> additionallyFoundFileFlags = investigator.getAdditionallyFoundFileFlags();
+      if (additionallyFoundFileFlags != null)
+      {
+         applyFileFlags(fileToFlagsMap, additionallyFoundFileFlags);
+      }
    }
 
    private static int getFlags(final Map<File, Integer> fileToFlagsMap, File file)

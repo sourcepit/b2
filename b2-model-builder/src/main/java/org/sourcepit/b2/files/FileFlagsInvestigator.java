@@ -7,8 +7,11 @@
 package org.sourcepit.b2.files;
 
 import java.io.File;
+import java.util.Map;
 
 public interface FileFlagsInvestigator
 {
    int determineFileFlags(File file);
+   
+   Map<File, Integer> getAdditionallyFoundFileFlags();
 }

@@ -50,7 +50,7 @@ public class ProjectResourcesPreprocessor
    public Project detect(File directory, PropertiesSource properties)
    {
       final File resourcesDir = getResourcesDir(directory, properties);
-      if (resourcesDir.exists())
+      if (resourcesDir.exists() && resourcesDir.isDirectory())
       {
          final Project project = projectDetector.detect(resourcesDir, properties);
          if (project != null && project.getDirectory() != null)
@@ -67,7 +67,7 @@ public class ProjectResourcesPreprocessor
    {
       final File projectDir = project.getDirectory();
       final File resourcesDir = getResourcesDir(projectDir, properties);
-      if (resourcesDir.exists())
+      if (resourcesDir.exists() && resourcesDir.isDirectory())
       {
          try
          {
@@ -98,7 +98,7 @@ public class ProjectResourcesPreprocessor
 
    public static File getResourcesDir(File projectDir, PropertiesSource properties)
    {
-      return new File(projectDir, "resources");
+      return new File(projectDir, "res");
    }
 
 }
