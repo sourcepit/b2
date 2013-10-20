@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.internal.scm.svn;
 
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -28,8 +30,8 @@ import javax.inject.Named;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.sourcepit.b2.execution.IB2Listener;
-import org.sourcepit.b2.internal.cleaner.AbstractFileVisitor;
-import org.sourcepit.b2.internal.cleaner.IFileService;
+import org.sourcepit.b2.files.FileVisitor;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
@@ -44,39 +46,36 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 public class SCM implements IB2Listener
 {
    @Inject
-   private IFileService fileService;
-
-   @Inject
    private Logger logger;
 
-   public void startGeneration(AbstractModule module)
+   @Override
+   public void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module)
    {
-      writeFileDump(module.getDirectory());
+      writeFileDump(moduleDirectory, module.getDirectory());
    }
 
-   public void doSetScmIgnores(AbstractModule module)
+   public void doSetScmIgnores(ModuleDirectory moduleDirectory, AbstractModule module)
    {
       final List<File> fileDump = readFileDump(module.getDirectory());
       final Collection<File> garbage = new LinkedHashSet<File>();
       final Collection<File> newFiles = new LinkedHashSet<File>();
-      fileService.accept(module.getDirectory(), new AbstractFileVisitor()
+
+      moduleDirectory.accept(new FileVisitor<RuntimeException>()
       {
          @Override
-         public boolean visit(File file)
+         public boolean visit(File file, int flags)
          {
-            if (!fileDump.remove(file))
+            if ((FLAG_DERIVED & flags) != 0)
+            {
+               garbage.add(file);
+            }
+            else if (!fileDump.remove(file))
             {
                newFiles.add(file);
             }
-            return true;
+            return false;
          }
-
-         @Override
-         public void visitGarbage(File file)
-         {
-            garbage.add(file);
-         }
-      });
+      }, true, true);
 
       garbage.addAll(newFiles);
 
@@ -136,7 +135,7 @@ public class SCM implements IB2Listener
       }
    }
 
-   private void writeFileDump(File moduleDir)
+   private void writeFileDump(ModuleDirectory moduleDirectory, File moduleDir)
    {
       try
       {
@@ -150,23 +149,17 @@ public class SCM implements IB2Listener
          final BufferedWriter writer = new BufferedWriter(new FileWriter(dumFile));
          try
          {
-            fileService.accept(moduleDir, new AbstractFileVisitor()
+            moduleDirectory.accept(new FileVisitor<IOException>()
             {
                @Override
-               public boolean visit(File file)
+               public boolean visit(File file, int flags) throws IOException
                {
-                  try
-                  {
-                     writer.write(file.getAbsolutePath());
-                     writer.newLine();
-                  }
-                  catch (IOException e)
-                  {
-                     throw new IllegalStateException(e);
-                  }
+                  writer.write(file.getAbsolutePath());
+                  writer.newLine();
                   return true;
                }
-            });
+            }, true, false);
+
             writer.flush();
          }
          finally

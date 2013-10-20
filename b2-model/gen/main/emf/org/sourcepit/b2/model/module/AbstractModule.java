@@ -15,16 +15,16 @@ import org.sourcepit.common.modeling.Annotatable;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Abstract Module</b></em>'.
  * <!-- end-user-doc -->
- *
+ * 
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.sourcepit.b2.model.module.AbstractModule#getLayoutId <em>Layout Id</em>}</li>
- *   <li>{@link org.sourcepit.b2.model.module.AbstractModule#getLocales <em>Locales</em>}</li>
- *   <li>{@link org.sourcepit.b2.model.module.AbstractModule#getFacets <em>Facets</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.AbstractModule#getLayoutId <em>Layout Id</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.AbstractModule#getLocales <em>Locales</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.AbstractModule#getFacets <em>Facets</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractModule()
  * @model abstract="true"
  * @generated
@@ -39,6 +39,7 @@ public interface AbstractModule extends FileContainer, Annotatable, AbstractIden
     * here...
     * </p>
     * <!-- end-user-doc -->
+    * 
     * @return the value of the '<em>Layout Id</em>' attribute.
     * @see #setLayoutId(String)
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractModule_LayoutId()
@@ -48,9 +49,11 @@ public interface AbstractModule extends FileContainer, Annotatable, AbstractIden
    String getLayoutId();
 
    /**
-    * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractModule#getLayoutId <em>Layout Id</em>}' attribute.
+    * Sets the value of the '{@link org.sourcepit.b2.model.module.AbstractModule#getLayoutId <em>Layout Id</em>}'
+    * attribute.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @param value the new value of the '<em>Layout Id</em>' attribute.
     * @see #getLayoutId()
     * @generated
@@ -66,6 +69,7 @@ public interface AbstractModule extends FileContainer, Annotatable, AbstractIden
     * here...
     * </p>
     * <!-- end-user-doc -->
+    * 
     * @return the value of the '<em>Locales</em>' attribute list.
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractModule_Locales()
     * @model dataType="org.sourcepit.common.modeling.ELocale"
@@ -76,13 +80,15 @@ public interface AbstractModule extends FileContainer, Annotatable, AbstractIden
    /**
     * Returns the value of the '<em><b>Facets</b></em>' containment reference list.
     * The list contents are of type {@link org.sourcepit.b2.model.module.AbstractFacet}.
-    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.AbstractFacet#getParent <em>Parent</em>}'.
+    * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.AbstractFacet#getParent
+    * <em>Parent</em>}'.
     * <!-- begin-user-doc -->
     * <p>
     * If the meaning of the '<em>Facets</em>' containment reference list isn't clear, there really should be more of a
     * description here...
     * </p>
     * <!-- end-user-doc -->
+    * 
     * @return the value of the '<em>Facets</em>' containment reference list.
     * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractModule_Facets()
     * @see org.sourcepit.b2.model.module.AbstractFacet#getParent
@@ -94,6 +100,7 @@ public interface AbstractModule extends FileContainer, Annotatable, AbstractIden
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @model required="true" facetTypeRequired="true"
     * @generated
     */
@@ -102,6 +109,7 @@ public interface AbstractModule extends FileContainer, Annotatable, AbstractIden
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @model required="true"
     * @generated
     */
@@ -110,6 +118,7 @@ public interface AbstractModule extends FileContainer, Annotatable, AbstractIden
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @model
     * @generated
     */
@@ -118,6 +127,7 @@ public interface AbstractModule extends FileContainer, Annotatable, AbstractIden
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @model referenceRequired="true" facetTypeRequired="true"
     * @generated
     */

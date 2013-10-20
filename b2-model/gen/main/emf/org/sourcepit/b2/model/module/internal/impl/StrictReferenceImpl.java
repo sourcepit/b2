@@ -16,7 +16,7 @@ import org.sourcepit.b2.model.module.StrictReference;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public class StrictReferenceImpl extends AbstractStrictReferenceImpl implements StrictReference
@@ -24,6 +24,7 @@ public class StrictReferenceImpl extends AbstractStrictReferenceImpl implements 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    protected StrictReferenceImpl()
@@ -34,6 +35,7 @@ public class StrictReferenceImpl extends AbstractStrictReferenceImpl implements 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override

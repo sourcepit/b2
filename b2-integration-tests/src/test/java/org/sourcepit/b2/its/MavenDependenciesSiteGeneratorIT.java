@@ -42,7 +42,7 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
       File bundleDir = new File(pomDepsSiteDir, "plugins");
       List<String> bundleKeys = getBundleKeys(bundleDir);
       assertEquals(4, bundleKeys.size());
-      
+
       assertTrue(bundleKeys.contains("javax.activation_1.1.0"));
       assertTrue(bundleKeys.contains("javax.activation.source_1.1.0"));
       assertTrue(bundleKeys.contains("javax.mail.mail_1.4.2"));
@@ -66,7 +66,7 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
       for (File siteDir : siteDirs)
       {
          bundleKeys = getBundleKeys(new File(siteDir, "target/repository/plugins"));
-         
+
          assertTrue(bundleKeys.contains("javax.activation_1.1.0"));
          assertTrue(bundleKeys.contains("javax.mail.mail_1.4.2"));
 

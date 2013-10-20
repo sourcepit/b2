@@ -27,7 +27,7 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
    @Inject
    @Named("simple")
    private AbstractFacetsParserRule<ProjectFacet<? extends Project>> simpleLayoutParserRule;
-   
+
    @Inject
    private ProjectDetector projectDetector;
 
@@ -39,7 +39,7 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
       {
          return null;
       }
-      
+
       if (projectDetector.detect(directory, properties) != null)
       {
          return null;

@@ -6,12 +6,12 @@
 
 package org.sourcepit.b2.internal.cleaner;
 
-import java.io.File;
+import java.io.IOException;
+
+import org.sourcepit.b2.files.ModuleDirectory;
 
 
 public interface IFileService
 {
-   void clean(File dir);
-
-   void accept(File dir, IFileVisitor visitor);
+   void clean(ModuleDirectory moduleFiles) throws IOException;
 }

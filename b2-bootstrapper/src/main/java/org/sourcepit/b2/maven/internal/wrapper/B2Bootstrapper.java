@@ -30,7 +30,7 @@ public class B2Bootstrapper extends AbstractBootstrapper
    {
       super("org.sourcepit.b2", "b2-maven-plugin");
    }
-   
+
    @Override
    protected boolean isAllowExtensionExtensions(MavenSession bootSession, MavenProject bootProject)
    {

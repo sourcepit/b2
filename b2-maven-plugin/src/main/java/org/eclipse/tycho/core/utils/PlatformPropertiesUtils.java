@@ -36,7 +36,8 @@ public class PlatformPropertiesUtils
    public final static String OSGI_ARCH = "osgi.arch"; //$NON-NLS-1$
    public final static String OSGI_NL = "osgi.nl"; //$NON-NLS-1$
 
-   private static final class Constants extends PlatformPropertiesUtils {
+   private static final class Constants extends PlatformPropertiesUtils
+   {
    }
 
    /**

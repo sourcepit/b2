@@ -99,7 +99,7 @@ public class B2ScmHelper
       final MavenProject moduleProject = determineModuleMavenProject(mavenProject);
       getCommitProposals(moduleProject).add(file);
    }
-   
+
    private MavenProject determineModuleMavenProject(MavenProject mavenProject)
    {
       MavenProject parentProject = mavenProject;

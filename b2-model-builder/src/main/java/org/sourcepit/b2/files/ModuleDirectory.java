@@ -13,7 +13,6 @@ import static org.sourcepit.common.utils.file.FileUtils.isParentOf;
 import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,6 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.validation.constraints.NotNull;
 
+import org.sourcepit.common.utils.file.FileUtils;
+import org.sourcepit.common.utils.file.FileUtils.AbstractFileFilter;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
@@ -186,32 +187,32 @@ public class ModuleDirectory
       return oFlags == null ? 0 : oFlags.intValue();
    }
 
-   public void accept(FileVisitor visitor)
+   public <E extends Exception> void accept(FileVisitor<E> visitor) throws E
    {
       accept(visitor, DEPTH_INFINITE);
    }
 
-   public void accept(FileVisitor visitor, int depth)
+   public <E extends Exception> void accept(FileVisitor<E> visitor, int depth) throws E
    {
       accept(visitor, depth, FLAG_DERIVED);
    }
 
-   public void accept(FileVisitor visitor, int depth, int flags)
+   public <E extends Exception> void accept(FileVisitor<E> visitor, int depth, int flags) throws E
    {
       acceptRecursive(getFile(), visitor, 0, depth, ~flags);
    }
 
-   public void accept(File file, FileVisitor visitor)
+   public <E extends Exception> void accept(File file, FileVisitor<E> visitor) throws E
    {
       accept(file, visitor, DEPTH_INFINITE);
    }
 
-   public void accept(File file, FileVisitor visitor, int depth)
+   public <E extends Exception> void accept(File file, FileVisitor<E> visitor, int depth) throws E
    {
       accept(file, visitor, depth, FLAG_DERIVED);
    }
 
-   public void accept(File file, FileVisitor visitor, int depth, int flags)
+   public <E extends Exception> void accept(File file, FileVisitor<E> visitor, int depth, int flags) throws E
    {
       final int flagMask = ~flags;
       if (file.equals(getFile()) || isModuleFile(file, flagMask))
@@ -220,20 +221,20 @@ public class ModuleDirectory
       }
    }
 
-   public void accept(FileVisitor visitor, boolean visitHidden, boolean visitDerived)
+   public <E extends Exception> void accept(FileVisitor<E> visitor, boolean visitHidden, boolean visitDerived) throws E
    {
       acceptRecursive(getFile(), visitor, 0, DEPTH_INFINITE, toFlagMask(visitHidden, visitDerived));
    }
 
-   private void acceptRecursive(File file, final FileVisitor visitor, final int currentDepth, final int maxDepth,
-      final int flagMask)
+   private <E extends Exception> void acceptRecursive(File file, final FileVisitor<E> visitor, final int currentDepth,
+      final int maxDepth, final int flagMask) throws E
    {
       if (currentDepth <= maxDepth || maxDepth == DEPTH_INFINITE)
       {
-         file.listFiles(new FileFilter()
+         FileUtils.listFiles(file, new AbstractFileFilter<E>()
          {
             @Override
-            public boolean accept(File child)
+            protected boolean acceptFile(File child) throws E
             {
                final int flags = getFlags(child);
                if ((flags & flagMask) == 0 && visitor.visit(child, flags))
@@ -260,13 +261,13 @@ public class ModuleDirectory
       return flagMask;
    }
 
-   public List<File> getFiles(final FileVisitor filter, int flags)
+   public <E extends Exception> List<File> getFiles(final FileVisitor<E> filter, int flags) throws E
    {
       final List<File> files = new ArrayList<File>();
-      accept(new FileVisitor()
+      accept(new FileVisitor<E>()
       {
          @Override
-         public boolean visit(File file, int flags)
+         public boolean visit(File file, int flags) throws E
          {
             if (filter.visit(file, flags))
             {

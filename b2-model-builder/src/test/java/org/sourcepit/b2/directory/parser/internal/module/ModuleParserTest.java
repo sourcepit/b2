@@ -44,7 +44,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
 {
    @Inject
    private BasicConverter converter;
-
+   
    public void testBasic() throws Exception
    {
       IModuleParser parser = lookup();

@@ -18,7 +18,7 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public interface FeaturesConverter extends BasicConverter
 {
    PathMatcher getAggregatorFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName);
-   
+
    PathMatcher getFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemplyName);
 
    PathMatcher getPluginMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName);
@@ -44,9 +44,9 @@ public interface FeaturesConverter extends BasicConverter
    List<RuledReference> getRequiredPluginsForFacet(PropertiesSource moduleProperties, String facetName, boolean isSource);
 
    String getFeatureId(PropertiesSource moduleProperties, String moduleId, String classifier, boolean isSource);
-   
+
    boolean isSkipBrandingPlugins(PropertiesSource moduleProperties);
-   
+
    String getBrandingPluginId(PropertiesSource moduleProperties, String moduleId, String classifier, boolean isSource);
 
    String getSourcePluginId(PropertiesSource moduleProperties, String pluginId);

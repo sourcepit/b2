@@ -22,17 +22,17 @@ public class RunCompleteGoalsPhaseTest
 
       releaseDescriptor.setCompletionGoals(null);
       assertEquals(null, phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setCompletionGoals("");
       assertEquals("", phase.getGoals(releaseDescriptor));
-      
+
       // Improvement #92
       releaseDescriptor.setCompletionGoals("none");
       assertEquals("", phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setCompletionGoals("clean");
       assertEquals("clean", phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setCompletionGoals("clean verify");
       assertEquals("clean verify", phase.getGoals(releaseDescriptor));
    }

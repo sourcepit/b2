@@ -8,7 +8,7 @@ package org.sourcepit.b2.files;
 
 import java.io.File;
 
-public interface FileVisitor
+public interface FileVisitor<E extends Exception>
 {
-   boolean visit(File file, int flags);
+   boolean visit(File file, int flags) throws E;
 }

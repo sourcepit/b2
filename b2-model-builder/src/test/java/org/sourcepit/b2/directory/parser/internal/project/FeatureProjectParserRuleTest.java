@@ -42,7 +42,7 @@ public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
    public void testParseFeatureDirectory() throws Exception
    {
       PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
-      
+
       final File featureDir = workspace.importResources("composed-component/simple-layout/example.feature");
       assertTrue(featureDir.exists());
 
@@ -50,7 +50,7 @@ public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
       FeatureProject project = parserRule.detect(featureDir, properties);
       assertNotNull(project);
       assertNull(project.getId());
-      
+
       parserRule.initialize(project, properties);
       assertEquals(featureDir, project.getDirectory());
       assertEquals("example.feature", project.getId());

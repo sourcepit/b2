@@ -109,7 +109,7 @@ public class B2Generator
 
    private static void removeNoneDerived(final Set<File> files, final ModuleDirectory moduleDirectory)
    {
-      moduleDirectory.accept(new FileVisitor()
+      moduleDirectory.accept(new FileVisitor<RuntimeException>()
       {
          @Override
          public boolean visit(File file, int flags)
@@ -122,7 +122,7 @@ public class B2Generator
 
    private static void addNoneDerived(final ModuleDirectory moduleDirectory, final Set<File> files)
    {
-      moduleDirectory.accept(new FileVisitor()
+      moduleDirectory.accept(new FileVisitor<RuntimeException>()
       {
          @Override
          public boolean visit(File file, int flags)

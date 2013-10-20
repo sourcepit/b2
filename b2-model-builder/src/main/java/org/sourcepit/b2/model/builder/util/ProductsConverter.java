@@ -16,9 +16,9 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public interface ProductsConverter extends BasicConverter
 {
    PathMatcher getResourceMatcherForProduct(PropertiesSource moduleProperties, String productId);
-   
+
    List<String> getUpdateSitesForProduct(PropertiesSource moduleProperties, String productId);
-   
+
    VersionMatchRule getDefaultVersionMatchRuleForProduct(PropertiesSource moduleProperties, String productId);
 
    List<RuledReference> getIncludedFeaturesForProduct(PropertiesSource moduleProperties, String productId,

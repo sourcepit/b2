@@ -128,7 +128,7 @@ public class ModuleDirectoryFactroy
    private static void collectDeterminedFileFlags(File moduleDir, final Map<File, Integer> fileToFlagsMap,
       final FileFlagsInvestigator investigator)
    {
-      new ModuleDirectory(moduleDir, fileToFlagsMap).accept(new FileVisitor()
+      new ModuleDirectory(moduleDir, fileToFlagsMap).accept(new FileVisitor<RuntimeException>()
       {
          @Override
          public boolean visit(File file, int flags)

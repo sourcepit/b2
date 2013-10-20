@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.its;
 
+import static org.apache.commons.io.FileUtils.forceDelete;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -54,13 +55,35 @@ public class ManifestFilterIT extends AbstractB2IT
 
       PropertiesMap moduleFiles = new LinkedPropertiesMap();
       moduleFiles.load(new File(moduleDir, ".b2/moduleFiles.properties"));
-      assertEquals(5, moduleFiles.size());
+      assertEquals(7, moduleFiles.size());
       assertEquals("3", moduleFiles.get(".b2")); // hidden
+
       assertEquals("4", moduleFiles.get("bundle.a/res")); // forbidden
       assertEquals("1", moduleFiles.get("bundle.a/META-INF")); // derived
       assertEquals("1", moduleFiles.get("bundle.a/META-INF/MANIFEST.MF")); // derived
+      assertEquals("1", moduleFiles.get("bundle.a/foo")); // derived
+      assertEquals("1", moduleFiles.get("bundle.a/foo/bar.txt")); // derived
 
       assertNull(moduleFiles.get("bundle.a/build/")); // not flagged because dir already exists
       assertEquals("1", moduleFiles.get("bundle.a/build/build.properties")); // derived
+
+      final File fooDir = new File(moduleDir, "bundle.a/foo");
+      assertTrue(fooDir.exists());
+
+      final File resFooDir = new File(moduleDir, "bundle.a/res/foo");
+      assertTrue(resFooDir.exists());
+      forceDelete(resFooDir);
+
+      err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
+      assertThat(err, is(0));
+      assertTrue(filteredMFFile.exists());
+
+      assertFalse(fooDir.exists());
+
+      moduleFiles = new LinkedPropertiesMap();
+      moduleFiles.load(new File(moduleDir, ".b2/moduleFiles.properties"));
+      assertNull(moduleFiles.get("bundle.a/foo")); // derived
+      assertNull(moduleFiles.get("bundle.a/foo/bar.txt")); // derived
+
    }
 }

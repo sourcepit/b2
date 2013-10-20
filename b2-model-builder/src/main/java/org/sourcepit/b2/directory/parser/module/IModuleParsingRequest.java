@@ -17,10 +17,10 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public interface IModuleParsingRequest
 {
    ModuleDirectory getModuleDirectory();
-   
+
    PropertiesSource getModuleProperties();
 
    Map<File, AbstractModule> getModulesCache();
-   
+
    ContentTypes getContentTypes();
 }

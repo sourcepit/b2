@@ -19,7 +19,7 @@ public abstract class AbstractTestEnvironmentTest extends GuplexTest
 
    @Rule
    public Workspace ws = newWorkspace();
-   
+
    @Override
    protected final boolean isUseIndex()
    {

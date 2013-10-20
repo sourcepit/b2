@@ -22,7 +22,6 @@ import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.files.ModuleDirectory;
-import org.sourcepit.b2.internal.cleaner.ModuleCleanerLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.B2GeneratorLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
@@ -50,7 +49,6 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
       participant = new LifecycleParticipant();
       binder.bind(newKey(B2SessionLifecycleParticipant.class, participant)).toInstance(participant);
-      binder.bind(newKey(ModuleCleanerLifecycleParticipant.class, participant)).toInstance(participant);
       binder.bind(newKey(ModuleParserLifecycleParticipant.class, participant)).toInstance(participant);
       binder.bind(newKey(ModuleInterpolatorLifecycleParticipant.class, participant)).toInstance(participant);
       binder.bind(newKey(B2GeneratorLifecycleParticipant.class, participant)).toInstance(participant);
@@ -105,7 +103,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
       List<String> actualCalls = new ArrayList<String>();
       List<MethodCall> calls = participant.getCalls();
-      assertThat(calls.size(), Is.is(40));
+      assertThat(calls.size(), Is.is(34));
 
       final List<String> excpectedCalls = new ArrayList<String>();
       excpectedCalls.add("prePrepareProjects ( session )");
@@ -131,7 +129,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
                   "org.sourcepit.b2.test.resources.simple.layout");
             }
          }
-         else if (i == 33)
+         else if (i == 27)
          {
             // project composite-layout
             addPrepareCalls(excpectedCalls, "testAll", "composite-layout",
@@ -172,12 +170,18 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
       Iterator<String> actual = actualCalls.iterator();
       Iterator<String> expected = excpectedCalls.iterator();
+
+      int i = 0;
       while (expected.hasNext())
       {
          String expectedCall = expected.next();
          assertEquals(message.toString(), expectedCall, actual.next());
+         message.append(i);
+         message.append(" ");
          message.append(expectedCall);
          message.append("\n");
+
+         i++;
       }
 
       assertSame(excpectedCalls.size(), actualCalls.size());
@@ -193,8 +197,6 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
    private void addPrepareCalls(List<String> excpectedCalls, String folderName, String artifactId, String moduleId)
    {
       excpectedCalls.add("prePrepareProject ( session, " + folderName + ", request )");
-      excpectedCalls.add("preClean ( " + folderName + " )");
-      excpectedCalls.add("postClean ( " + folderName + ", null )");
       excpectedCalls.add("preParse ( " + folderName + " )");
       excpectedCalls.add("postParse ( " + folderName + ", " + moduleId + ", null )");
       excpectedCalls.add("preInterpolation ( " + moduleId + " )");
@@ -257,7 +259,6 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
    private static class LifecycleParticipant
       implements
          B2SessionLifecycleParticipant,
-         ModuleCleanerLifecycleParticipant,
          ModuleParserLifecycleParticipant,
          ModuleInterpolatorLifecycleParticipant,
          B2GeneratorLifecycleParticipant
@@ -288,16 +289,6 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       public void prePrepareProject(File projectDir, B2Request request)
       {
          recordMethodCall("session", projectDir.getName(), "request");
-      }
-
-      public void preClean(File moduleDir)
-      {
-         recordMethodCall(moduleDir.getName());
-      }
-
-      public void postClean(File moduleDir, ThrowablePipe errors)
-      {
-         recordMethodCall(moduleDir.getName(), errors.isEmpty() ? null : errors);
       }
 
       public void preParse(IModuleParsingRequest request)

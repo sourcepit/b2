@@ -63,7 +63,7 @@ public class ProductExtenderTest extends AbstractTestEnvironmentTest
 
       LinkedPropertiesMap properties = new LinkedPropertiesMap();
       properties.put("b2.assemblies", "sdk");
-      
+
       ProductExtender productExtender = new ProductExtender(new DefaultConverter());
       productExtender.extend(module, properties);
 

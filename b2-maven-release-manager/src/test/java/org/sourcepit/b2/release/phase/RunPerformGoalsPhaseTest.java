@@ -22,17 +22,17 @@ public class RunPerformGoalsPhaseTest
 
       releaseDescriptor.setPerformGoals(null);
       assertEquals(null, phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setPerformGoals("");
       assertEquals("", phase.getGoals(releaseDescriptor));
-      
+
       // Improvement #92
       releaseDescriptor.setPerformGoals("none");
       assertEquals("", phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setPerformGoals("clean");
       assertEquals("clean", phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setPerformGoals("clean verify");
       assertEquals("clean verify", phase.getGoals(releaseDescriptor));
    }

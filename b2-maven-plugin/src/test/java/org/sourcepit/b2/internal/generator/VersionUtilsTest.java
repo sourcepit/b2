@@ -20,7 +20,7 @@ public class VersionUtilsTest
       assertEquals("1.2.3-SNAPSHOT", VersionUtils.toTychoVersion("1.2.3.qualifier"));
       assertEquals("1.2.3.rc1", VersionUtils.toTychoVersion("1.2.3.rc1"));
    }
-   
+
    @Test
    public void testToMavenVersion()
    {
@@ -29,7 +29,7 @@ public class VersionUtilsTest
       assertEquals("1.2.3-SNAPSHOT", VersionUtils.toMavenVersion("1.2.3.qualifier"));
       assertEquals("1.2.3-rc1", VersionUtils.toMavenVersion("1.2.3.rc1"));
    }
-   
+
    @Test
    public void testToBundleVersion() throws Exception
    {

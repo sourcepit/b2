@@ -36,6 +36,7 @@ import org.sourcepit.b2.model.module.util.Identifier;
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
  * <!-- end-user-doc -->
+ * 
  * @generated
  */
 public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelFactory
@@ -44,13 +45,15 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * Creates the default factory implementation.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public static ModuleModelFactory init()
    {
       try
       {
-         ModuleModelFactory theModuleModelFactory = (ModuleModelFactory)EPackage.Registry.INSTANCE.getEFactory(ModuleModelPackage.eNS_URI);
+         ModuleModelFactory theModuleModelFactory = (ModuleModelFactory) EPackage.Registry.INSTANCE
+            .getEFactory(ModuleModelPackage.eNS_URI);
          if (theModuleModelFactory != null)
          {
             return theModuleModelFactory;
@@ -67,6 +70,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * Creates an instance of the factory.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public ModuleModelFactoryImpl()
@@ -77,6 +81,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -84,22 +89,37 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    {
       switch (eClass.getClassifierID())
       {
-         case ModuleModelPackage.BASIC_MODULE: return createBasicModule();
-         case ModuleModelPackage.COMPOSITE_MODULE: return createCompositeModule();
-         case ModuleModelPackage.PLUGINS_FACET: return createPluginsFacet();
-         case ModuleModelPackage.FEATURES_FACET: return createFeaturesFacet();
-         case ModuleModelPackage.SITES_FACET: return createSitesFacet();
-         case ModuleModelPackage.PLUGIN_PROJECT: return createPluginProject();
-         case ModuleModelPackage.FEATURE_PROJECT: return createFeatureProject();
-         case ModuleModelPackage.SITE_PROJECT: return createSiteProject();
-         case ModuleModelPackage.PLUGIN_INCLUDE: return createPluginInclude();
-         case ModuleModelPackage.CATEGORY: return createCategory();
-         case ModuleModelPackage.PRODUCTS_FACET: return createProductsFacet();
-         case ModuleModelPackage.PRODUCT_DEFINITION: return createProductDefinition();
-         case ModuleModelPackage.RULED_REFERENCE: return createRuledReference();
-         case ModuleModelPackage.STRICT_REFERENCE: return createStrictReference();
-         case ModuleModelPackage.FEATURE_INCLUDE: return createFeatureInclude();
-         default:
+         case ModuleModelPackage.BASIC_MODULE :
+            return createBasicModule();
+         case ModuleModelPackage.COMPOSITE_MODULE :
+            return createCompositeModule();
+         case ModuleModelPackage.PLUGINS_FACET :
+            return createPluginsFacet();
+         case ModuleModelPackage.FEATURES_FACET :
+            return createFeaturesFacet();
+         case ModuleModelPackage.SITES_FACET :
+            return createSitesFacet();
+         case ModuleModelPackage.PLUGIN_PROJECT :
+            return createPluginProject();
+         case ModuleModelPackage.FEATURE_PROJECT :
+            return createFeatureProject();
+         case ModuleModelPackage.SITE_PROJECT :
+            return createSiteProject();
+         case ModuleModelPackage.PLUGIN_INCLUDE :
+            return createPluginInclude();
+         case ModuleModelPackage.CATEGORY :
+            return createCategory();
+         case ModuleModelPackage.PRODUCTS_FACET :
+            return createProductsFacet();
+         case ModuleModelPackage.PRODUCT_DEFINITION :
+            return createProductDefinition();
+         case ModuleModelPackage.RULED_REFERENCE :
+            return createRuledReference();
+         case ModuleModelPackage.STRICT_REFERENCE :
+            return createStrictReference();
+         case ModuleModelPackage.FEATURE_INCLUDE :
+            return createFeatureInclude();
+         default :
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
       }
    }
@@ -107,6 +127,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -114,11 +135,11 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    {
       switch (eDataType.getClassifierID())
       {
-         case ModuleModelPackage.VERSION_MATCH_RULE:
+         case ModuleModelPackage.VERSION_MATCH_RULE :
             return createVersionMatchRuleFromString(eDataType, initialValue);
-         case ModuleModelPackage.IDENTIFIER:
+         case ModuleModelPackage.IDENTIFIER :
             return createIdentifierFromString(eDataType, initialValue);
-         default:
+         default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
       }
    }
@@ -126,6 +147,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -133,11 +155,11 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    {
       switch (eDataType.getClassifierID())
       {
-         case ModuleModelPackage.VERSION_MATCH_RULE:
+         case ModuleModelPackage.VERSION_MATCH_RULE :
             return convertVersionMatchRuleToString(eDataType, instanceValue);
-         case ModuleModelPackage.IDENTIFIER:
+         case ModuleModelPackage.IDENTIFIER :
             return convertIdentifierToString(eDataType, instanceValue);
-         default:
+         default :
             throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
       }
    }
@@ -145,6 +167,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public BasicModule createBasicModule()
@@ -156,6 +179,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public CompositeModule createCompositeModule()
@@ -167,6 +191,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public PluginsFacet createPluginsFacet()
@@ -178,6 +203,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public FeaturesFacet createFeaturesFacet()
@@ -189,6 +215,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public SitesFacet createSitesFacet()
@@ -200,6 +227,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public PluginProject createPluginProject()
@@ -211,6 +239,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public FeatureProject createFeatureProject()
@@ -222,6 +251,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public SiteProject createSiteProject()
@@ -233,6 +263,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public PluginInclude createPluginInclude()
@@ -244,6 +275,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public Category createCategory()
@@ -255,6 +287,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public ProductsFacet createProductsFacet()
@@ -266,6 +299,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public ProductDefinition createProductDefinition()
@@ -277,6 +311,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public RuledReference createRuledReference()
@@ -288,6 +323,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public StrictReference createStrictReference()
@@ -299,6 +335,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public FeatureInclude createFeatureInclude()
@@ -310,18 +347,22 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public VersionMatchRule createVersionMatchRuleFromString(EDataType eDataType, String initialValue)
    {
       VersionMatchRule result = VersionMatchRule.get(initialValue);
-      if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+      if (result == null)
+         throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
+            + eDataType.getName() + "'");
       return result;
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public String convertVersionMatchRuleToString(EDataType eDataType, Object instanceValue)
@@ -332,16 +373,18 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public Identifier createIdentifierFromString(EDataType eDataType, String initialValue)
    {
-      return (Identifier)super.createFromString(eDataType, initialValue);
+      return (Identifier) super.createFromString(eDataType, initialValue);
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public String convertIdentifierToString(EDataType eDataType, Object instanceValue)
@@ -352,16 +395,18 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public ModuleModelPackage getModuleModelPackage()
    {
-      return (ModuleModelPackage)getEPackage();
+      return (ModuleModelPackage) getEPackage();
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @deprecated
     * @generated
     */

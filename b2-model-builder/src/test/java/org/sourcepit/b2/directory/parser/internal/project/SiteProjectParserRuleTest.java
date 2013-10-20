@@ -47,10 +47,10 @@ public class SiteProjectParserRuleTest extends AbstractModuleParserTest
       SiteProject project = parserRule.detect(siteDir, B2ModelBuildingRequest.newDefaultProperties());
       assertNotNull(project);
       assertNull(project.getId());
-      
+
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("b2.moduleVersion", "1");
-      
+
       parserRule.initializeeee(project, properties);
       assertEquals(siteDir, project.getDirectory());
       assertEquals("example.site", project.getId());

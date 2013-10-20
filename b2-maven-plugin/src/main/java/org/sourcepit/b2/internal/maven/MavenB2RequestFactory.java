@@ -236,19 +236,19 @@ public class MavenB2RequestFactory implements B2RequestFactory
    public static PropertiesSource createSource(MavenSession mavenSession, MavenProject project)
    {
       final PropertiesMap propertiesMap = B2ModelBuildingRequest.newDefaultProperties();
-      
+
       final String mavenVersion = project.getVersion();
       final String osgiVersion = VersionUtils.toBundleVersion(mavenVersion);
-      
+
       propertiesMap.put("b2.moduleVersion", osgiVersion);
       propertiesMap.put("b2.moduleNameSpace", project.getGroupId());
-      
+
       final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
       propertiesMap.put("module.version", mavenVersion);
       propertiesMap.put("module.mavenVersion", mavenVersion);
       propertiesMap.put("module.osgiVersion", osgiVersion);
       propertiesMap.put("module.tychoVersion", tychoVersion);
-      
+
       propertiesMap.putMap(project.getProperties());
       propertiesMap.putMap(mavenSession.getSystemProperties());
       propertiesMap.putMap(mavenSession.getUserProperties());

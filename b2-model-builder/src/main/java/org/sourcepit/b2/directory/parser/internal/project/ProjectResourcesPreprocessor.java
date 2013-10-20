@@ -16,7 +16,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sourcepit.b2.internal.cleaner.IModuleGarbageCollector;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.content.ContentTypes;
 import org.sourcepit.common.utils.props.PlexusPropertyFilterFactory;
@@ -28,23 +27,13 @@ import org.sourcepit.common.utils.resources.FileStorage;
 import org.sourcepit.common.utils.resources.FileTraverser;
 
 @Named
-public class ProjectResourcesPreprocessor
-   implements
-      IModuleGarbageCollector,
-      ProjectDetectionRule<Project>,
-      ProjectPreprocessingParticipant
+public class ProjectResourcesPreprocessor implements ProjectDetectionRule<Project>, ProjectPreprocessingParticipant
 {
    @Inject
    private ProjectDetector projectDetector;
 
    @Inject
    private ContentTypes contentTypes;
-
-   @Override
-   public boolean isGarbage(File file)
-   {
-      return false;
-   }
 
    @Override
    public Project detect(File directory, PropertiesSource properties)

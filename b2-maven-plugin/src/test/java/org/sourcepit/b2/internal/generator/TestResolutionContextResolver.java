@@ -31,8 +31,7 @@ public class TestResolutionContextResolver implements ResolutionContextResolver
       return requiredTestFeatures;
    }
 
-   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
-      boolean scopeTest)
+   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest)
    {
       final SetMultimap<AbstractModule, FeatureProject> result = LinkedHashMultimap.create();
       for (FeatureProject featureProject : requiredFeatures)

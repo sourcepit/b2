@@ -15,7 +15,7 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public class ModuleInterpolationRequest implements IModuleInterpolationRequest
 {
    private AbstractModule module;
-   
+
    private PropertiesSource moduleProperties;
 
    public AbstractModule getModule()
@@ -27,15 +27,15 @@ public class ModuleInterpolationRequest implements IModuleInterpolationRequest
    {
       this.module = module;
    }
-   
+
    public PropertiesSource getModuleProperties()
    {
       return moduleProperties;
    }
-   
+
    public void setModuleProperties(PropertiesSource moduleProperties)
    {
       this.moduleProperties = moduleProperties;
    }
-   
+
 }

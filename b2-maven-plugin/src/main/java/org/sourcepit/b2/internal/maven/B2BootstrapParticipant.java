@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.sourcepit.b2.execution.B2LifecycleRunner;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.scm.svn.SCM;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
@@ -61,6 +62,7 @@ public class B2BootstrapParticipant implements BootstrapParticipant
 
       final AbstractModule module = b2LifecycleRunner.prepareNext(projectDirs, idx, b2Request);
       bootProject.setContextValue(AbstractModule.class.getName(), module);
+      bootProject.setContextValue(ModuleDirectory.class.getName(), b2Request.getModuleDirectory());
    }
 
    public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)
@@ -72,9 +74,10 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       if (isSetScmIgnores)
       {
          final AbstractModule module = (AbstractModule) bootProject.getContextValue(AbstractModule.class.getName());
-         if (module != null)
+         final ModuleDirectory moduleDirectory = (ModuleDirectory) bootProject.getContextValue(ModuleDirectory.class.getName());
+         if (module != null && moduleDirectory != null)
          {
-            scm.doSetScmIgnores(module);
+            scm.doSetScmIgnores(moduleDirectory, module);
          }
       }
    }

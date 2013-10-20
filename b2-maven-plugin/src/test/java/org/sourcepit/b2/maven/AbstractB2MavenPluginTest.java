@@ -24,7 +24,7 @@ public class AbstractB2MavenPluginTest
    {
       return new Workspace(new File(env.getBuildDir(), "ws"), false);
    }
-   
+
    public Workspace getWorkspace()
    {
       return ws;

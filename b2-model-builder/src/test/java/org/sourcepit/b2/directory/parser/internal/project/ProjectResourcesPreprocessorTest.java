@@ -50,13 +50,14 @@ public class ProjectResourcesPreprocessorTest extends GuplexTest
       mfFile.getParentFile().mkdirs();
       mfFile.createNewFile();
 
-      BundleManifestResourceImpl mfResource = new BundleManifestResourceImpl(URI.createFileURI(mfFile.getAbsolutePath()));
+      BundleManifestResourceImpl mfResource = new BundleManifestResourceImpl(
+         URI.createFileURI(mfFile.getAbsolutePath()));
       mfResource.getContents().add(BundleManifestFactory.eINSTANCE.createBundleManifest());
       mfResource.save(null);
 
       assertNull(preprocessor.detect(baseDir, null));
 
-      FileUtils.moveDirectory(mfFile.getParentFile(), new File(baseDir, "resources/META-INF"));
+      FileUtils.moveDirectory(mfFile.getParentFile(), new File(baseDir, "res/META-INF"));
 
       assertNotNull(preprocessor.detect(baseDir, null));
    }

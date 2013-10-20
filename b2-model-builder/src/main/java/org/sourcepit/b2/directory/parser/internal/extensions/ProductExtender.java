@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.directory.parser.internal.extensions;
 
-import static java.lang.Character.isWhitespace;
 import static com.google.common.base.Preconditions.checkState;
+import static java.lang.Character.isWhitespace;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyClassifier;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyName;
 
@@ -15,8 +15,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;

@@ -42,7 +42,8 @@ public class ScmCheckModificationsPhase extends org.apache.maven.shared.release.
 
    private static void addB2ModificationExcludes(ReleaseDescriptor releaseDescriptor)
    {
-      final Set<String> modificationExcludes = new LinkedHashSet<String>(releaseDescriptor.getCheckModificationExcludes());
+      final Set<String> modificationExcludes = new LinkedHashSet<String>(
+         releaseDescriptor.getCheckModificationExcludes());
       modificationExcludes.add("**" + File.separator + ".b2");
       modificationExcludes.add("**" + File.separator + "pom.xml");
       modificationExcludes.add("**" + File.separator + "module.xml.backup");

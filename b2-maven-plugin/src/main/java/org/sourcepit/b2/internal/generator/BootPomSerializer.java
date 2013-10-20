@@ -18,6 +18,7 @@ import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.sourcepit.b2.execution.IB2Listener;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.interpolation.layout.IInterpolationLayout;
 import org.sourcepit.b2.model.module.AbstractModule;
 
@@ -36,7 +37,8 @@ public class BootPomSerializer implements IB2Listener
    @Inject
    private ModulePomBuilder modulePomBuilder;
 
-   public void startGeneration(AbstractModule module)
+   @Override
+   public void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module)
    {
       final MavenProject currentProject = legacySupport.getSession().getCurrentProject();
       if (module.getDirectory().equals(currentProject.getBasedir()))

@@ -32,7 +32,7 @@ public class RunPrepareGoalsPhase extends org.apache.maven.shared.release.phase.
    {
       return super.simulate(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
-   
+
    @Override
    protected String getGoals(ReleaseDescriptor releaseDescriptor)
    {
