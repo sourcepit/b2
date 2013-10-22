@@ -37,7 +37,7 @@ public class ManifestFilterIT extends AbstractB2IT
    {
       final File moduleDir = getResource(getClass().getSimpleName());
 
-      final File templateMFFile = new File(moduleDir, "bundle.a/res/" + JarFile.MANIFEST_NAME);
+      final File templateMFFile = new File(moduleDir, "bundle.a/templates/" + JarFile.MANIFEST_NAME);
       assertTrue(templateMFFile.exists());
 
       final BundleManifest templateMF = (BundleManifest) B2ModelUtils.readManifest(templateMFFile, false);
@@ -46,7 +46,8 @@ public class ManifestFilterIT extends AbstractB2IT
       final File filteredMFFile = new File(moduleDir, "bundle.a/" + JarFile.MANIFEST_NAME);
       assertFalse(filteredMFFile.exists());
 
-      int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
+      int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven",
+         "-Db2.projects.resourcesDirectory=templates");
       assertThat(err, is(0));
       assertTrue(filteredMFFile.exists());
 
@@ -58,7 +59,7 @@ public class ManifestFilterIT extends AbstractB2IT
       assertEquals(7, moduleFiles.size());
       assertEquals("3", moduleFiles.get(".b2")); // hidden
 
-      assertEquals("4", moduleFiles.get("bundle.a/res")); // forbidden
+      assertEquals("4", moduleFiles.get("bundle.a/templates")); // forbidden
       assertEquals("1", moduleFiles.get("bundle.a/META-INF")); // derived
       assertEquals("1", moduleFiles.get("bundle.a/META-INF/MANIFEST.MF")); // derived
       assertEquals("1", moduleFiles.get("bundle.a/foo")); // derived
@@ -70,11 +71,11 @@ public class ManifestFilterIT extends AbstractB2IT
       final File fooDir = new File(moduleDir, "bundle.a/foo");
       assertTrue(fooDir.exists());
 
-      final File resFooDir = new File(moduleDir, "bundle.a/res/foo");
+      final File resFooDir = new File(moduleDir, "bundle.a/templates/foo");
       assertTrue(resFooDir.exists());
       forceDelete(resFooDir);
 
-      err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
+      err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven", "-Db2.projects.resourcesDirectory=templates");
       assertThat(err, is(0));
       assertTrue(filteredMFFile.exists());
 

@@ -87,7 +87,7 @@ public class ProjectResourcesPreprocessor implements ProjectDetectionRule<Projec
 
    public static File getResourcesDir(File projectDir, PropertiesSource properties)
    {
-      return new File(projectDir, "res");
+      return new File(projectDir, properties.get("b2.projects.resourcesDirectory", "res"));
    }
 
 }
