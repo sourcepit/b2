@@ -22,6 +22,7 @@ import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.guplex.test.GuplexTest;
 
 public class ProjectResourcesPreprocessorTest extends GuplexTest
@@ -44,7 +45,7 @@ public class ProjectResourcesPreprocessorTest extends GuplexTest
    public void testDetect() throws IOException
    {
       final File baseDir = ws.getRoot();
-      assertNull(preprocessor.detect(baseDir, null));
+      assertNull(preprocessor.detect(baseDir, new LinkedPropertiesMap()));
 
       File mfFile = new File(baseDir, "META-INF/MANIFEST.MF");
       mfFile.getParentFile().mkdirs();
@@ -55,11 +56,11 @@ public class ProjectResourcesPreprocessorTest extends GuplexTest
       mfResource.getContents().add(BundleManifestFactory.eINSTANCE.createBundleManifest());
       mfResource.save(null);
 
-      assertNull(preprocessor.detect(baseDir, null));
+      assertNull(preprocessor.detect(baseDir, new LinkedPropertiesMap()));
 
       FileUtils.moveDirectory(mfFile.getParentFile(), new File(baseDir, "res/META-INF"));
 
-      assertNotNull(preprocessor.detect(baseDir, null));
+      assertNotNull(preprocessor.detect(baseDir, new LinkedPropertiesMap()));
    }
 
 }
