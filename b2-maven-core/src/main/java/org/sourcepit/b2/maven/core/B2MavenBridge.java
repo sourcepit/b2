@@ -7,6 +7,7 @@
 package org.sourcepit.b2.maven.core;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
@@ -66,6 +68,21 @@ public class B2MavenBridge
                   dirToProjectMap.put(project.getDirectory(), project);
                }
             }
+
+            final File moduleDir = module.getDirectory();
+            final File fileFlagsFile = new File(moduleDir, ".b2/moduleFiles.properties");
+
+            final ModuleDirectory moduleFiles;
+            if (fileFlagsFile.exists())
+            {
+               moduleFiles = ModuleDirectory.load(moduleDir, fileFlagsFile);
+            }
+            else
+            {
+               moduleFiles = new ModuleDirectory(moduleDir, Collections.<File, Integer> emptyMap());
+            }
+            
+            mavenProject.setContextValue(ModuleDirectory.class.getName(), moduleFiles);
          }
       }
 
@@ -107,6 +124,11 @@ public class B2MavenBridge
          mavenProject.setContextValue(AbstractModule.class.getName(), null);
          mavenProject.setContextValue(Project.class.getName(), null);
       }
+   }
+   
+   public ModuleDirectory getModuleDirectory(MavenProject mavenProject)
+   {
+      return getContextValue(mavenProject, ModuleDirectory.class);
    }
 
    public AbstractModule getModule(MavenProject mavenProject)

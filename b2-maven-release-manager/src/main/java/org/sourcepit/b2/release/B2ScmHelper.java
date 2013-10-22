@@ -31,6 +31,7 @@ import org.apache.maven.shared.release.scm.ReleaseScmRepositoryException;
 import org.apache.maven.shared.release.scm.ScmRepositoryConfigurator;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.maven.core.B2MavenBridge;
 import org.sourcepit.common.utils.lang.Exceptions;
 
@@ -97,7 +98,11 @@ public class B2ScmHelper
    public void markForCommit(MavenProject mavenProject, File file)
    {
       final MavenProject moduleProject = determineModuleMavenProject(mavenProject);
-      getCommitProposals(moduleProject).add(file);
+      final ModuleDirectory moduleFiles = bridge.getModuleDirectory(moduleProject);
+      if (!moduleFiles.isDerived(file))
+      {
+         getCommitProposals(moduleProject).add(file);
+      }
    }
 
    private MavenProject determineModuleMavenProject(MavenProject mavenProject)

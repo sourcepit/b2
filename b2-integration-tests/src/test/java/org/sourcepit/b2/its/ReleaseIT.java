@@ -223,7 +223,7 @@ public class ReleaseIT extends AbstractB2IT
       assertThat(actual.getUrl(), IsEqual.equalTo(expected.getUrl()));
    }
 
-   private static void setScm(SCM scm, final List<File> moduleXmls) throws FileNotFoundException, IOException,
+   public static void setScm(SCM scm, final List<File> moduleXmls) throws FileNotFoundException, IOException,
       XmlPullParserException
    {
       for (File moduleXml : moduleXmls)

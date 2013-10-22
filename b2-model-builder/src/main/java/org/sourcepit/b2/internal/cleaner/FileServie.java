@@ -13,10 +13,7 @@ import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -26,8 +23,6 @@ import javax.inject.Singleton;
 import org.slf4j.Logger;
 import org.sourcepit.b2.files.FileVisitor;
 import org.sourcepit.b2.files.ModuleDirectory;
-import org.sourcepit.common.utils.props.LinkedPropertiesMap;
-import org.sourcepit.common.utils.props.PropertiesMap;
 
 @Named
 @Singleton
@@ -93,7 +88,7 @@ public class FileServie implements IFileService
 
    private int cleanFilesFromPreviousBuild(final File moduleDir, final File fileFlagsFile) throws IOException
    {
-      final ModuleDirectory moduleFiles = loadModuleFiles(moduleDir, fileFlagsFile);
+      final ModuleDirectory moduleFiles = ModuleDirectory.load(moduleDir, fileFlagsFile);
       return doClean(moduleDir, moduleFiles);
    }
 
@@ -104,17 +99,4 @@ public class FileServie implements IFileService
       return cleaner.getCounter();
    }
 
-   private static ModuleDirectory loadModuleFiles(final File moduleDir, final File fileFlagsFile)
-   {
-      final PropertiesMap props = new LinkedPropertiesMap();
-      props.load(fileFlagsFile);
-      final Map<File, Integer> fileFlags = new HashMap<File, Integer>();
-      for (Entry<String, String> entry : props.entrySet())
-      {
-         final File file = new File(moduleDir, entry.getKey());
-         final Integer flags = Integer.valueOf(entry.getValue());
-         fileFlags.put(file, flags);
-      }
-      return new ModuleDirectory(moduleDir, fileFlags);
-   }
 }

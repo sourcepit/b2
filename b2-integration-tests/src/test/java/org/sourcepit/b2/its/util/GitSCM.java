@@ -101,6 +101,7 @@ public class GitSCM implements SCM
       {
          git.checkout().setName(isSnapshot ? "master" : repoDir.getName() + "-" + version).call();
          git.reset().setMode(ResetType.HARD).call();
+         git.clean().setIgnore(false).setCleanDirectories(true).call();
       }
       catch (Exception e)
       {
