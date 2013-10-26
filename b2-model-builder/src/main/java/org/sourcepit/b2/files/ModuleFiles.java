@@ -11,6 +11,7 @@ import static org.sourcepit.common.utils.file.FileUtils.isParentOf;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,16 +32,23 @@ public class ModuleFiles
 
    private final File moduleDir;
 
-   private Map<File, Integer> fileFlags;
+   private final Map<File, Integer> fileFlags;
 
    private final Map<File, Integer> aggregatedFlags = new ConcurrentHashMap<File, Integer>();
 
    public ModuleFiles(File moduleDir, Map<File, Integer> fileFlags)
    {
       this.moduleDir = moduleDir;
-      this.fileFlags = fileFlags;
+      if (fileFlags == null)
+      {
+         this.fileFlags = new HashMap<File, Integer>();
+      }
+      else
+      {
+         this.fileFlags = new HashMap<File, Integer>(fileFlags);
+      }
    }
-   
+
    Map<File, Integer> getFileFlags()
    {
       return fileFlags;
@@ -88,6 +96,18 @@ public class ModuleFiles
    public boolean hasFlag(File file, int flag)
    {
       return (getFlags(file) & flag) != 0;
+   }
+
+   public void addFlags(File file, int flags)
+   {
+      fileFlags.put(file, Integer.valueOf(getDirectFlags(file) | flags));
+      aggregatedFlags.remove(file);
+   }
+
+   public void removeFlags(File file, int flags)
+   {
+      fileFlags.put(file, Integer.valueOf(getDirectFlags(file) & ~flags));
+      aggregatedFlags.remove(file);
    }
 
    public int getFlags(File file)

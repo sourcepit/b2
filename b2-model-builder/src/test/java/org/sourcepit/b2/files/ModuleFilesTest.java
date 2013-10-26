@@ -7,10 +7,7 @@
 package org.sourcepit.b2.files;
 
 import static java.lang.Integer.valueOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.sourcepit.b2.files.ModuleFiles.DEPTH_INFINITE;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
 import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
@@ -19,6 +16,7 @@ import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -222,6 +220,50 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("plugins/foo/resources", FLAG_HIDDEN, pathToFlags);
       assertContains("plugins/foo/resources/META-INF", FLAG_HIDDEN, pathToFlags);
       assertContains("plugins/foo/resources/META-INF/MANIFEST.MF", FLAG_HIDDEN, pathToFlags);
+   }
+
+   @Test
+   public void testAddFlags() throws Exception
+   {
+      final File moduleDir = ws.getRoot();
+
+      ModuleFiles moduleFiles = new ModuleFiles(moduleDir, Collections.<File, Integer> emptyMap());
+
+      File f = new File(moduleDir, "foo");
+      f.createNewFile();
+
+      assertEquals(0, moduleFiles.getFlags(f));
+
+      moduleFiles.addFlags(f, FLAG_DERIVED);
+      assertEquals(FLAG_DERIVED, moduleFiles.getFlags(f));
+
+      moduleFiles.addFlags(f, FLAG_FORBIDDEN);
+      assertEquals(FLAG_DERIVED | FLAG_FORBIDDEN, moduleFiles.getFlags(f));
+   }
+
+   @Test
+   public void testRemoveFlags() throws Exception
+   {
+      final File moduleDir = ws.getRoot();
+
+      ModuleFiles moduleFiles = new ModuleFiles(moduleDir, Collections.<File, Integer> emptyMap());
+
+      File f = new File(moduleDir, "foo");
+      f.createNewFile();
+
+      assertEquals(0, moduleFiles.getFlags(f));
+
+      moduleFiles.removeFlags(f, FLAG_DERIVED);
+      assertEquals(0, moduleFiles.getFlags(f));
+
+      moduleFiles.addFlags(f, FLAG_DERIVED | FLAG_FORBIDDEN);
+      assertEquals(FLAG_DERIVED | FLAG_FORBIDDEN, moduleFiles.getFlags(f));
+
+      moduleFiles.removeFlags(f, FLAG_DERIVED);
+      assertEquals(FLAG_FORBIDDEN, moduleFiles.getFlags(f));
+      
+      moduleFiles.removeFlags(f, FLAG_FORBIDDEN);
+      assertEquals(0, moduleFiles.getFlags(f));
    }
 
    private static void assertContains(String expectedPath, int expectedFlags, Map<String, Integer> actual)
