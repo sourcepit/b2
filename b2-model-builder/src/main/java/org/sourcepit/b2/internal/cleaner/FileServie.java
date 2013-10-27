@@ -70,32 +70,32 @@ public class FileServie implements IFileService
       ignored.add(".git");
    }
 
-   public void clean(ModuleDirectory moduleFiles) throws IOException
+   public void clean(ModuleDirectory moduleDirectory) throws IOException
    {
-      final File moduleDir = moduleFiles.getFile();
+      final File moduleDir = moduleDirectory.getFile();
 
       int counter = 0;
 
-      final File fileFlagsFile = new File(moduleDir, ".b2/moduleFiles.properties");
+      final File fileFlagsFile = new File(moduleDir, ".b2/moduleDirectory.properties");
       if (fileFlagsFile.exists())
       {
          counter += cleanFilesFromPreviousBuild(moduleDir, fileFlagsFile);
       }
-      counter += doClean(moduleDir, moduleFiles);
+      counter += doClean(moduleDir, moduleDirectory);
 
       logger.info("Deleted " + counter + " files");
    }
 
    private int cleanFilesFromPreviousBuild(final File moduleDir, final File fileFlagsFile) throws IOException
    {
-      final ModuleDirectory moduleFiles = ModuleDirectory.load(moduleDir, fileFlagsFile);
-      return doClean(moduleDir, moduleFiles);
+      final ModuleDirectory moduleDirectory = ModuleDirectory.load(moduleDir, fileFlagsFile);
+      return doClean(moduleDir, moduleDirectory);
    }
 
-   private int doClean(final File moduleDir, final ModuleDirectory moduleFiles) throws IOException
+   private int doClean(final File moduleDir, final ModuleDirectory moduleDirectory) throws IOException
    {
       final Cleaner cleaner = new Cleaner(moduleDir);
-      moduleFiles.accept(cleaner, true, true);
+      moduleDirectory.accept(cleaner, true, true);
       return cleaner.getCounter();
    }
 

@@ -70,19 +70,19 @@ public class B2MavenBridge
             }
 
             final File moduleDir = module.getDirectory();
-            final File fileFlagsFile = new File(moduleDir, ".b2/moduleFiles.properties");
+            final File fileFlagsFile = new File(moduleDir, ".b2/moduleDirectory.properties");
 
-            final ModuleDirectory moduleFiles;
+            final ModuleDirectory moduleDirectory;
             if (fileFlagsFile.exists())
             {
-               moduleFiles = ModuleDirectory.load(moduleDir, fileFlagsFile);
+               moduleDirectory = ModuleDirectory.load(moduleDir, fileFlagsFile);
             }
             else
             {
-               moduleFiles = new ModuleDirectory(moduleDir, Collections.<File, Integer> emptyMap());
+               moduleDirectory = new ModuleDirectory(moduleDir, Collections.<File, Integer> emptyMap());
             }
             
-            mavenProject.setContextValue(ModuleDirectory.class.getName(), moduleFiles);
+            mavenProject.setContextValue(ModuleDirectory.class.getName(), moduleDirectory);
          }
       }
 

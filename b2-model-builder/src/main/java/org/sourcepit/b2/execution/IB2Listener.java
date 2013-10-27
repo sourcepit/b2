@@ -14,5 +14,5 @@ import org.sourcepit.b2.model.module.AbstractModule;
  */
 public interface IB2Listener
 {
-   void startGeneration(ModuleDirectory moduleFiles, AbstractModule module);
+   void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module);
 }

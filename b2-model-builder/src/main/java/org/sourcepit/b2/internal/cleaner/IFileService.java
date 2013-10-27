@@ -13,5 +13,5 @@ import org.sourcepit.b2.files.ModuleDirectory;
 
 public interface IFileService
 {
-   void clean(ModuleDirectory moduleFiles) throws IOException;
+   void clean(ModuleDirectory moduleDirectory) throws IOException;
 }

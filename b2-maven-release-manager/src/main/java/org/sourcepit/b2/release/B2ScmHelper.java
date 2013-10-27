@@ -98,8 +98,8 @@ public class B2ScmHelper
    public void markForCommit(MavenProject mavenProject, File file)
    {
       final MavenProject moduleProject = determineModuleMavenProject(mavenProject);
-      final ModuleDirectory moduleFiles = bridge.getModuleDirectory(moduleProject);
-      if (!moduleFiles.isDerived(file))
+      final ModuleDirectory moduleDirectory = bridge.getModuleDirectory(moduleProject);
+      if (!moduleDirectory.isDerived(file))
       {
          getCommitProposals(moduleProject).add(file);
       }

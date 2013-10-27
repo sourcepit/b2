@@ -54,19 +54,23 @@ public class ManifestFilterIT extends AbstractB2IT
       final BundleManifest filteredMF = (BundleManifest) B2ModelUtils.readManifest(filteredMFFile, false);
       assertEquals("1.0.0.qualifier", filteredMF.getHeaderValue(BUNDLE_VERSION));
 
-      PropertiesMap moduleFiles = new LinkedPropertiesMap();
-      moduleFiles.load(new File(moduleDir, ".b2/moduleFiles.properties"));
-      assertEquals(7, moduleFiles.size());
-      assertEquals("3", moduleFiles.get(".b2")); // hidden
+      PropertiesMap moduleDirectory = new LinkedPropertiesMap();
+      moduleDirectory.load(new File(moduleDir, ".b2/moduleDirectory.properties"));
+      assertEquals(11, moduleDirectory.size());
+      assertEquals("3", moduleDirectory.get(".b2")); // hidden, derived
+      assertEquals("3", moduleDirectory.get("target")); // hidden, derived
+      assertEquals("3", moduleDirectory.get("pom.xml")); // hidden, derived
 
-      assertEquals("4", moduleFiles.get("bundle.a/templates")); // forbidden
-      assertEquals("1", moduleFiles.get("bundle.a/META-INF")); // derived
-      assertEquals("1", moduleFiles.get("bundle.a/META-INF/MANIFEST.MF")); // derived
-      assertEquals("1", moduleFiles.get("bundle.a/foo")); // derived
-      assertEquals("1", moduleFiles.get("bundle.a/foo/bar.txt")); // derived
+      assertEquals("4", moduleDirectory.get("bundle.a/templates")); // forbidden
+      assertEquals("1", moduleDirectory.get("bundle.a/META-INF")); // derived
+      assertEquals("1", moduleDirectory.get("bundle.a/META-INF/MANIFEST.MF")); // derived
+      assertEquals("1", moduleDirectory.get("bundle.a/foo")); // derived
+      assertEquals("1", moduleDirectory.get("bundle.a/foo/bar.txt")); // derived
+      assertEquals("3", moduleDirectory.get("bundle.a/target")); // derived, hidden
+      assertEquals("3", moduleDirectory.get("bundle.a/pom.xml")); // derived, hidden
 
-      assertNull(moduleFiles.get("bundle.a/build/")); // not flagged because dir already exists
-      assertEquals("1", moduleFiles.get("bundle.a/build/build.properties")); // derived
+      assertNull(moduleDirectory.get("bundle.a/build/")); // not flagged because dir already exists
+      assertEquals("1", moduleDirectory.get("bundle.a/build/build.properties")); // derived
 
       final File fooDir = new File(moduleDir, "bundle.a/foo");
       assertTrue(fooDir.exists());
@@ -81,10 +85,10 @@ public class ManifestFilterIT extends AbstractB2IT
 
       assertFalse(fooDir.exists());
 
-      moduleFiles = new LinkedPropertiesMap();
-      moduleFiles.load(new File(moduleDir, ".b2/moduleFiles.properties"));
-      assertNull(moduleFiles.get("bundle.a/foo")); // derived
-      assertNull(moduleFiles.get("bundle.a/foo/bar.txt")); // derived
+      moduleDirectory = new LinkedPropertiesMap();
+      moduleDirectory.load(new File(moduleDir, ".b2/moduleDirectory.properties"));
+      assertNull(moduleDirectory.get("bundle.a/foo")); // derived
+      assertNull(moduleDirectory.get("bundle.a/foo/bar.txt")); // derived
 
    }
 }
