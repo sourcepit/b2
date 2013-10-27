@@ -16,8 +16,6 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class ModuleParsingRequest implements IModuleParsingRequest
 {
-   private File moduleDirectory;
-   
    private ModuleFiles moduleFiles;
 
    private PropertiesSource moduleProperties;
@@ -32,17 +30,6 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    public void setModuleProperties(PropertiesSource moduleProperties)
    {
       this.moduleProperties = moduleProperties;
-   }
-
-   @Override
-   public File getModuleDirectory()
-   {
-      return moduleDirectory;
-   }
-
-   public void setModuleDirectory(File moduleDirectory)
-   {
-      this.moduleDirectory = moduleDirectory;
    }
    
    @Override

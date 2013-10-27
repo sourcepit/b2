@@ -15,8 +15,6 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface IModuleParsingRequest
 {
-   File getModuleDirectory();
-   
    ModuleFiles getModuleFiles();
    
    PropertiesSource getModuleProperties();

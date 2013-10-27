@@ -10,6 +10,7 @@ import java.io.File;
 
 import javax.inject.Inject;
 
+import org.sourcepit.b2.files.ModuleFiles;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
@@ -45,7 +46,7 @@ public class B2Test extends AbstractB2SessionWorkspaceTest
       assertTrue(converter.isSkipGenerator(properties));
 
       B2Request request = new B2Request();
-      request.setModuleDirectory(moduleDir);
+      request.setModuleFiles(new ModuleFiles(moduleDir, null));
       request.setModuleProperties(properties);
       request.setTemplates(new DefaultTemplateCopier());
 

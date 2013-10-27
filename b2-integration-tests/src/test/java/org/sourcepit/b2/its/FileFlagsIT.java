@@ -34,8 +34,13 @@ public class FileFlagsIT extends AbstractB2IT
       PropertiesMap moduleFiles = new LinkedPropertiesMap();
       moduleFiles.load(new File(moduleDir, ".b2/moduleFiles.properties"));
 
-      assertEquals("3", moduleFiles.get(".b2")); // hidden
+      assertEquals(5, moduleFiles.size());
+      
+      assertEquals("3", moduleFiles.get(".b2")); // hidden, derived
       assertEquals("4", moduleFiles.get("module-a")); // forbidden (via b2.modules property)
       assertEquals("14", moduleFiles.get("module-b")); // module, forbidden, hidden
+      
+      assertEquals("3", moduleFiles.get("target")); // derived
+      assertEquals("3", moduleFiles.get("pom.xml")); // derived, hidden
    }
 }

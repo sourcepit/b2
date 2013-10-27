@@ -21,6 +21,7 @@ import org.hamcrest.core.Is;
 import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
+import org.sourcepit.b2.files.ModuleFiles;
 import org.sourcepit.b2.internal.cleaner.ModuleCleanerLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.B2GeneratorLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
@@ -75,7 +76,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          {
             File moduleDir = projectDirs.get(currentIdx);
             B2Request request = new B2Request();
-            request.setModuleDirectory(moduleDir);
+            request.setModuleFiles(new ModuleFiles(moduleDir, null));
             request.setModuleProperties(ModelBuilderTestHarness.newProperties(moduleDir));
             request.setInterpolate(true);
             request.setTemplates(new DefaultTemplateCopier());
@@ -303,7 +304,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          {
             throw new IllegalStateException("Nested module parsing detected");
          }
-         final File moduleDir = request.getModuleDirectory();
+         final File moduleDir = request.getModuleFiles().getModuleDir();
          barrier.push(moduleDir);
 
          assertNotNull(moduleDir);
@@ -319,7 +320,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          {
             return;
          }
-         final File moduleDir = request.getModuleDirectory();
+         final File moduleDir = request.getModuleFiles().getModuleDir();
          assertNotNull(moduleDir);
          assertTrue(moduleDir.exists());
          assertNotNull(module);

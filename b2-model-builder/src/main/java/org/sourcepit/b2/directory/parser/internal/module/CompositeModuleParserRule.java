@@ -30,7 +30,7 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
    {
       final List<AbstractModule> modules = new ArrayList<AbstractModule>();
 
-      final File baseDir = request.getModuleDirectory();
+      final File baseDir = request.getModuleFiles().getModuleDir();
       final PropertiesSource properties = request.getModuleProperties();
 
       final List<File> moduleDirs = request.getModuleFiles().getFiles(new FileVisitor()

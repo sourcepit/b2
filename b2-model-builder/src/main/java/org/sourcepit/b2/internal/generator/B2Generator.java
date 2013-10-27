@@ -6,18 +6,24 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.execution.LifecyclePhase;
+import org.sourcepit.b2.files.FileVisitor;
+import org.sourcepit.b2.files.ModuleFiles;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
-import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named
@@ -68,7 +74,10 @@ public class B2Generator
 
    private void doGenerate(final IB2GenerationRequest request)
    {
-      final AbstractModule module = request.getModule();
+      final ModuleFiles moduleFiles = request.getModuleFiles();
+
+      final Set<File> files = new HashSet<File>();
+      addNoneDerived(moduleFiles, files);
 
       final List<IB2GenerationParticipant> copy = new ArrayList<IB2GenerationParticipant>(generators);
       Collections.sort(copy);
@@ -82,12 +91,45 @@ public class B2Generator
             {
                if (generator.isGeneratorInput(eObject))
                {
-                  generator.generate(eObject, request.getModuleProperties(), request.getTemplates());
+                  generator.generate(eObject, request.getModuleProperties(), request.getTemplates(), moduleFiles);
                }
                return true;
             }
          };
-         walker.walk(module);
+         walker.walk(request.getModule());
       }
+
+      removeNoneDerived(files, moduleFiles);
+
+      for (File file : files)
+      {
+         moduleFiles.addFlags(file, FLAG_DERIVED);
+      }
+   }
+
+   private static void removeNoneDerived(final Set<File> files, final ModuleFiles moduleFiles)
+   {
+      moduleFiles.accept(new FileVisitor()
+      {
+         @Override
+         public boolean visit(File file, int flags)
+         {
+            files.remove(file);
+            return true;
+         }
+      }, true, false);
+   }
+
+   private static void addNoneDerived(final ModuleFiles moduleFiles, final Set<File> files)
+   {
+      moduleFiles.accept(new FileVisitor()
+      {
+         @Override
+         public boolean visit(File file, int flags)
+         {
+            files.add(file);
+            return true;
+         }
+      }, true, false);
    }
 }

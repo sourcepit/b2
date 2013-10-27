@@ -17,6 +17,7 @@ import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.apache.maven.model.io.ModelReader;
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.b2.files.ModuleFiles;
 import org.sourcepit.b2.generator.AbstractGenerator;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.path.PathUtils;
@@ -28,14 +29,14 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
    public static final String KEY_POM_FILE = "pomFile";
 
    @Override
-   public final void generate(EObject inputElement, PropertiesSource propertie, ITemplates templates)
+   public final void generate(EObject inputElement, PropertiesSource propertie, ITemplates templates, ModuleFiles moduleFiles)
    {
       final boolean skipFacets = propertie.getBoolean("b2.pomGenerator.skipFacets", true);
-      generate((Annotatable) inputElement, skipFacets, propertie, templates);
+      generate((Annotatable) inputElement, skipFacets, propertie, templates, moduleFiles);
    }
 
    protected abstract void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
-      ITemplates templates);
+      ITemplates templates, ModuleFiles moduleFiles);
 
    protected File getPomFile(Annotatable annotateable)
    {

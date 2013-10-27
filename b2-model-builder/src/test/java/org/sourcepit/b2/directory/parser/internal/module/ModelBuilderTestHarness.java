@@ -44,7 +44,7 @@ public final class ModelBuilderTestHarness
    public static ModuleParsingRequest createParsingRequest(File moduleDir, File... subModuleDirs)
    {
       final ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleDirectory(moduleDir);
+      request.setModuleFiles(new ModuleFiles(moduleDir, null));
       request.setModuleFiles(createModuleFiles(moduleDir, subModuleDirs));
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       return request;

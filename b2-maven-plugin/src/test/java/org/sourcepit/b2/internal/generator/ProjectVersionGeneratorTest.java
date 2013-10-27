@@ -15,6 +15,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.junit.Test;
+import org.sourcepit.b2.files.ModuleFiles;
 import org.sourcepit.b2.maven.AbstractB2MavenPluginTest;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -36,22 +37,22 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       AbstractModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
       module.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       module.setVersion("1.0.0.qualifier");
-      
+
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(module, new LinkedPropertiesMap(), null);
+      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
-      
+
       assertEquals("1.0.0-SNAPSHOT", converted.getProperties().getProperty("module.version"));
       assertEquals("1.0.0-SNAPSHOT", converted.getProperties().getProperty("module.tychoVersion"));
       assertEquals("1.0.0.qualifier", converted.getProperties().getProperty("module.osgiVersion"));
       assertEquals("1.0.0-SNAPSHOT", converted.getProperties().getProperty("module.mavenVersion"));
-      
+
       assertEquals("1.0.0-SNAPSHOT", converted.getProperties().getProperty("project.tychoVersion"));
       assertEquals("1.0.0.qualifier", converted.getProperties().getProperty("project.osgiVersion"));
       assertEquals("1.0.0-SNAPSHOT", converted.getProperties().getProperty("project.mavenVersion"));
    }
-   
+
    @Test
    public void testProjectSnapshotVersion() throws Exception
    {
@@ -65,22 +66,22 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
       project.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       project.setVersion("1.0.0.qualifier");
-      
+
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(project, new LinkedPropertiesMap(), null);
+      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
-      
+
       assertNull(converted.getProperties().getProperty("module.version"));
       assertNull(converted.getProperties().getProperty("module.tychoVersion"));
       assertNull(converted.getProperties().getProperty("module.osgiVersion"));
       assertNull(converted.getProperties().getProperty("module.mavenVersion"));
-      
+
       assertEquals("1.0.0-SNAPSHOT", converted.getProperties().getProperty("project.tychoVersion"));
       assertEquals("1.0.0.qualifier", converted.getProperties().getProperty("project.osgiVersion"));
       assertEquals("1.0.0-SNAPSHOT", converted.getProperties().getProperty("project.mavenVersion"));
    }
-   
+
    @Test
    public void testModuleQualifedVersion() throws Exception
    {
@@ -94,22 +95,22 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       AbstractModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
       module.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       module.setVersion("1.0.0.rc1");
-      
+
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(module, new LinkedPropertiesMap(), null);
+      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
-      
+
       assertEquals("1.0.0-rc1", converted.getProperties().getProperty("module.version"));
       assertEquals("1.0.0.rc1", converted.getProperties().getProperty("module.tychoVersion"));
       assertEquals("1.0.0.rc1", converted.getProperties().getProperty("module.osgiVersion"));
       assertEquals("1.0.0-rc1", converted.getProperties().getProperty("module.mavenVersion"));
-      
+
       assertEquals("1.0.0.rc1", converted.getProperties().getProperty("project.tychoVersion"));
       assertEquals("1.0.0.rc1", converted.getProperties().getProperty("project.osgiVersion"));
       assertEquals("1.0.0-rc1", converted.getProperties().getProperty("project.mavenVersion"));
    }
-   
+
    @Test
    public void testProjectQualifedVersion() throws Exception
    {
@@ -123,22 +124,22 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
       project.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       project.setVersion("1.0.0.rc1");
-      
+
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(project, new LinkedPropertiesMap(), null);
+      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
-      
+
       assertNull(converted.getProperties().getProperty("module.version"));
       assertNull(converted.getProperties().getProperty("module.tychoVersion"));
       assertNull(converted.getProperties().getProperty("module.osgiVersion"));
       assertNull(converted.getProperties().getProperty("module.mavenVersion"));
-      
+
       assertEquals("1.0.0.rc1", converted.getProperties().getProperty("project.tychoVersion"));
       assertEquals("1.0.0.rc1", converted.getProperties().getProperty("project.osgiVersion"));
       assertEquals("1.0.0-rc1", converted.getProperties().getProperty("project.mavenVersion"));
    }
-   
+
    @Test
    public void testModuleVersion() throws Exception
    {
@@ -152,22 +153,23 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       AbstractModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
       module.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       module.setVersion("1.0.0");
-      
+
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(module, new LinkedPropertiesMap(), null);
+      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
-      
+
       assertEquals("1.0.0", converted.getProperties().getProperty("module.version"));
       assertEquals("1.0.0", converted.getProperties().getProperty("module.tychoVersion"));
       assertEquals("1.0.0", converted.getProperties().getProperty("module.osgiVersion"));
-      assertEquals("1.0.0", converted.getProperties().getProperty("module.mavenVersion"));;
-      
+      assertEquals("1.0.0", converted.getProperties().getProperty("module.mavenVersion"));
+      ;
+
       assertEquals("1.0.0", converted.getProperties().getProperty("project.tychoVersion"));
       assertEquals("1.0.0", converted.getProperties().getProperty("project.osgiVersion"));
       assertEquals("1.0.0", converted.getProperties().getProperty("project.mavenVersion"));
    }
-   
+
    @Test
    public void testProjectVersion() throws Exception
    {
@@ -181,17 +183,17 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
       project.setAnnotationData("maven", "pomFile", pomFile.getAbsolutePath());
       project.setVersion("1.0.0");
-      
+
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(project, new LinkedPropertiesMap(), null);
+      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
-      
+
       assertNull(converted.getProperties().getProperty("module.version"));
       assertNull(converted.getProperties().getProperty("module.tychoVersion"));
       assertNull(converted.getProperties().getProperty("module.osgiVersion"));
       assertNull(converted.getProperties().getProperty("module.mavenVersion"));
-      
+
       assertEquals("1.0.0", converted.getProperties().getProperty("project.tychoVersion"));
       assertEquals("1.0.0", converted.getProperties().getProperty("project.osgiVersion"));
       assertEquals("1.0.0", converted.getProperties().getProperty("project.mavenVersion"));

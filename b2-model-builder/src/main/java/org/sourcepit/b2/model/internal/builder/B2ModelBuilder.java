@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.sourcepit.b2.directory.parser.module.IModuleParser;
+import org.sourcepit.b2.files.ModuleFiles;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.IB2ModelBuildingRequest;
 import org.sourcepit.b2.model.interpolation.module.IModuleInterpolator;
@@ -57,8 +58,14 @@ public class B2ModelBuilder implements IB2ModelBuilder
       {
          throw new IllegalArgumentException("request must not be null.");
       }
+      
+      final ModuleFiles moduleFiles = request.getModuleFiles();
+      if (moduleFiles == null)
+      {
+         throw new IllegalArgumentException("moduleFiles must not be null.");
+      }
 
-      final File moduleDir = request.getModuleDirectory();
+      final File moduleDir = moduleFiles.getModuleDir();
       if (moduleDir == null)
       {
          throw new IllegalArgumentException("directory must not be null.");

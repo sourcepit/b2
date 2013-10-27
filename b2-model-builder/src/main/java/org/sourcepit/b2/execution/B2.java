@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.execution;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -38,7 +39,8 @@ public class B2
 
    public AbstractModule generate(B2Request request)
    {
-      fileService.clean(request.getModuleDirectory());
+      final File moduleDir = request.getModuleFiles().getModuleDir();
+      fileService.clean(moduleDir);
 
       final AbstractModule module = modelBuilder.build(request);
 
@@ -51,6 +53,7 @@ public class B2
 
          final B2GenerationRequest genRequest = new B2GenerationRequest();
          genRequest.setModule(module);
+         genRequest.setModuleFiles(request.getModuleFiles());
          genRequest.setModuleProperties(request.getModuleProperties());
          genRequest.setTemplates(request.getTemplates());
 

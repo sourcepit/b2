@@ -96,7 +96,6 @@ public class MavenB2RequestFactory implements B2RequestFactory
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(moduleProperties));
 
       final B2Request b2Request = new B2Request();
-      b2Request.setModuleDirectory(moduleDir);
       b2Request.setModuleProperties(moduleProperties);
       b2Request.setInterpolate(!converter.isSkipInterpolator(moduleProperties));
       b2Request.setTemplates(templates);

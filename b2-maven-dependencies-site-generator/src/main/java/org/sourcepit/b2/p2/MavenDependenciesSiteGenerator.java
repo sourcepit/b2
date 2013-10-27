@@ -36,6 +36,7 @@ import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.sourcepit.b2.files.ModuleFiles;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
@@ -153,16 +154,8 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
             }
          };
 
-         final OsgifyContext bundleContext = updateSiteGenerator.generateUpdateSite(
-            siteDir,
-            dependencies,
-            true,
-            remoteRepositories,
-            localRepository,
-            repositoryName,
-            moduleProperties,
-            startTime,
-            bundleSelector);
+         final OsgifyContext bundleContext = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true,
+            remoteRepositories, localRepository, repositoryName, moduleProperties, startTime, bundleSelector);
 
          try
          {
@@ -268,7 +261,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
-      ITemplates templates)
+      ITemplates templates, ModuleFiles moduleFiles)
    {
       if (inputElement instanceof AbstractModule)
       {

@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.files;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static org.sourcepit.common.utils.file.FileUtils.isParentOf;
 
 import java.io.File;
@@ -15,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.validation.constraints.NotNull;
 
 public class ModuleFiles
 {
@@ -36,8 +39,9 @@ public class ModuleFiles
 
    private final Map<File, Integer> aggregatedFlags = new ConcurrentHashMap<File, Integer>();
 
-   public ModuleFiles(File moduleDir, Map<File, Integer> fileFlags)
+   public ModuleFiles(@NotNull File moduleDir, Map<File, Integer> fileFlags)
    {
+      checkArgument(moduleDir != null);
       this.moduleDir = moduleDir;
       if (fileFlags == null)
       {
