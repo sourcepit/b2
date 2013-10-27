@@ -29,6 +29,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Test;
 import org.sourcepit.b2.execution.B2Request;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.maven.MavenB2RequestFactory;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
@@ -162,6 +163,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
 
       final B2GenerationRequest request = new B2GenerationRequest();
       request.setModule(module);
+      request.setModuleDirectory(new ModuleDirectory(module.getDirectory(), null));
       request.setModuleProperties(b2Request.getModuleProperties());
       request.setTemplates(b2Request.getTemplates());
 

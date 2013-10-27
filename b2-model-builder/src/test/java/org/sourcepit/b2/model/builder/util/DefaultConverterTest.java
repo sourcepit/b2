@@ -6,11 +6,11 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import static org.junit.Assert.*;
-import static org.sourcepit.b2.model.module.VersionMatchRule.COMPATIBLE;
-import static org.sourcepit.b2.model.module.VersionMatchRule.EQUIVALENT;
-import static org.sourcepit.b2.model.module.VersionMatchRule.GREATER_OR_EQUAL;
-import static org.sourcepit.b2.model.module.VersionMatchRule.PERFECT;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

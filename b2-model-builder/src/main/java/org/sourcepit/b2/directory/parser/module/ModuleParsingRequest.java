@@ -10,14 +10,13 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class ModuleParsingRequest implements IModuleParsingRequest
 {
-   private File moduleDirectory;
-
-   private IModuleFilter moduleFilter;
+   private ModuleDirectory moduleDirectory;
 
    private PropertiesSource moduleProperties;
    
@@ -32,28 +31,16 @@ public class ModuleParsingRequest implements IModuleParsingRequest
    {
       this.moduleProperties = moduleProperties;
    }
-
-   /**
-    * {@inheritDoc}
-    */
-   public File getModuleDirectory()
+   
+   @Override
+   public ModuleDirectory getModuleDirectory()
    {
       return moduleDirectory;
    }
-
-   public void setModuleDirectory(File moduleDirectory)
+   
+   public void setModuleDirectory(ModuleDirectory moduleDirectory)
    {
       this.moduleDirectory = moduleDirectory;
-   }
-
-   public IModuleFilter getModuleFilter()
-   {
-      return moduleFilter;
-   }
-
-   public void setModuleFilter(IModuleFilter moduleFilter)
-   {
-      this.moduleFilter = moduleFilter;
    }
    
    public Map<File, AbstractModule> getModulesCache()

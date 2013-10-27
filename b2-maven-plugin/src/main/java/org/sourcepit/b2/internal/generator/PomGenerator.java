@@ -6,6 +6,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.io.IO.cpIn;
 
 import java.io.File;
@@ -31,6 +33,7 @@ import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
@@ -86,7 +89,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Override
    protected void generate(final Annotatable inputElement, boolean skipFacets, final PropertiesSource properties,
-      final ITemplates templates)
+      final ITemplates templates, ModuleDirectory moduleDirectory)
    {
       if (skipFacets && inputElement instanceof AbstractFacet)
       {
@@ -132,6 +135,11 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          }
       }
 
+      if (!moduleDirectory.isDerived(pomFile.getParentFile()))
+      {
+         moduleDirectory.addFlags(pomFile, FLAG_DERIVED | FLAG_HIDDEN);
+         moduleDirectory.addFlags(new File(pomFile.getParentFile(), "target"), FLAG_DERIVED | FLAG_HIDDEN);
+      }
       inputElement.setAnnotationData(SOURCE_MAVEN, KEY_POM_FILE, pomFile.toString());
    }
 
@@ -417,16 +425,16 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
          final Xpp3Dom configNode = new Xpp3Dom("configuration");
          configNode.addChild(productsNode);
-         
+
          final Plugin plugin = new Plugin();
          plugin.setGroupId("org.eclipse.tycho");
          plugin.setArtifactId("tycho-p2-director-plugin");
          plugin.setExecutions(executions);
          plugin.setConfiguration(configNode);
-         
+
          Build build = new Build();
          build.getPlugins().add(plugin);
-         
+
          Profile profile = new Profile();
          profile.setId("buildProducts");
          profile.setBuild(build);

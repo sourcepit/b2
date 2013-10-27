@@ -7,6 +7,7 @@ package org.sourcepit.b2.internal.generator;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 import org.sourcepit.b2.execution.B2Request;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.maven.MavenB2RequestFactory;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
@@ -75,6 +77,9 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
 
          final B2GenerationRequest request = new B2GenerationRequest();
          request.setModule(module);
+         ModuleDirectory moduleDirectory = new ModuleDirectory(module.getDirectory(), null);
+         moduleDirectory.addFlags(new File(module.getDirectory(), ".b2"), FLAG_DERIVED);
+         request.setModuleDirectory(moduleDirectory);
          request.setModuleProperties(b2Request.getModuleProperties());
          request.setTemplates(b2Request.getTemplates());
 

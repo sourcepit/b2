@@ -29,6 +29,7 @@ import org.sonatype.aether.resolution.ArtifactRequest;
 import org.sonatype.aether.resolution.ArtifactResolutionException;
 import org.sonatype.aether.resolution.ArtifactResult;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
@@ -61,7 +62,7 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
-      ITemplates templates)
+      ITemplates templates, ModuleDirectory moduleDirectory)
    {
       final MavenSession session = legacySupport.getSession();
       final MavenProject project = session.getCurrentProject();

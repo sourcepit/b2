@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.b2.execution.AbstractB2SessionLifecycleParticipant;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.ModelTemplateMerger;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -53,6 +54,9 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
 
    public void postPrepareProject(File project, B2Request request, AbstractModule module, ThrowablePipe errors)
    {
+      final ModuleDirectory moduleDirectory = request.getModuleDirectory();
+      ModuleDirectory.save(moduleDirectory, newFile(module, "moduleDirectory.properties"));
+
       final MavenProject bootProject = legacySupport.getSession().getCurrentProject();
 
       final ModelContext modelContext = ModelContextAdapterFactory.get(bootProject);
@@ -75,19 +79,25 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
 
       bootProject.setContextValue("pom", pomFile);
 
-      final String layoutId = module.getLayoutId();
 
       PropertiesMap uriMap = new LinkedPropertiesMap();
       for (Entry<URI, URI> entry : resourceSet.getURIConverter().getURIMap().entrySet())
       {
          uriMap.put(entry.getKey().toString(), entry.getValue().toString());
       }
-      uriMap.store(new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, "uriMap.properties")));
+      uriMap.store(newFile(module, "uriMap.properties"));
 
       final URI fileURI = resourceSet.getURIConverter().normalize(modelContext.getModuleUri());
       projectHelper.attachArtifact(bootProject, "module", null, new File(fileURI.toFileString()));
 
       processAttachments(bootProject, pomFile);
+   }
+
+   private File newFile(AbstractModule module, String fileName)
+   {
+      final String layoutId = module.getLayoutId();
+      File file = new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, fileName));
+      return file;
    }
 
    private void processAttachments(MavenProject wrapperProject, File pomFile)

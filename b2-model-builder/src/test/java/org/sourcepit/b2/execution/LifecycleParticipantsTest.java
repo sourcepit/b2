@@ -5,6 +5,7 @@
 package org.sourcepit.b2.execution;
 
 import static org.junit.Assert.assertThat;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createModuleDirectory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,11 +21,11 @@ import org.hamcrest.core.Is;
 import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.cleaner.ModuleCleanerLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.B2GeneratorLifecycleParticipant;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
-import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
 import org.sourcepit.b2.model.interpolation.module.ModuleInterpolatorLifecycleParticipant;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
@@ -38,9 +39,6 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 {
    @Inject
    private B2LifecycleRunner b2LifecycleRunner;
-
-   @Inject
-   private LayoutManager layoutManager;
 
    private LifecycleParticipant participant;
 
@@ -76,12 +74,14 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       {
          public B2Request newRequest(List<File> projectDirs, int currentIdx)
          {
+            File moduleDir = projectDirs.get(currentIdx);
             B2Request request = new B2Request();
-            request.setModuleDirectory(projectDirs.get(currentIdx));
-            request.setModuleProperties(ModelBuilderTestHarness.newProperties(projectDirs.get(currentIdx)));
+            request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
+            request.setModuleProperties(ModelBuilderTestHarness.newProperties(moduleDir));
             request.setInterpolate(true);
             request.setTemplates(new DefaultTemplateCopier());
             request.getModulesCache().putAll(modules);
+            request.setModuleDirectory(createModuleDirectory(moduleDir, projectDirs.toArray(new File[projectDirs.size()])));
             return request;
          }
       };
@@ -304,7 +304,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          {
             throw new IllegalStateException("Nested module parsing detected");
          }
-         final File moduleDir = request.getModuleDirectory();
+         final File moduleDir = request.getModuleDirectory().getFile();
          barrier.push(moduleDir);
 
          assertNotNull(moduleDir);
@@ -320,7 +320,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          {
             return;
          }
-         final File moduleDir = request.getModuleDirectory();
+         final File moduleDir = request.getModuleDirectory().getFile();
          assertNotNull(moduleDir);
          assertTrue(moduleDir.exists());
          assertNotNull(module);

@@ -13,6 +13,7 @@ import javax.inject.Named;
 
 import org.apache.maven.model.Model;
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.module.AbstractModule;
@@ -38,7 +39,7 @@ public class ProjectVersionGenerator extends AbstractPomGenerator implements IB2
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
-      ITemplates templates)
+      ITemplates templates, ModuleDirectory moduleDirectory)
    {
       final File pomFile = resolvePomFile(inputElement);
       final Model model = readMavenModel(pomFile);
