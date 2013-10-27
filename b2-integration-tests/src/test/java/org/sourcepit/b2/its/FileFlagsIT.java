@@ -31,16 +31,16 @@ public class FileFlagsIT extends AbstractB2IT
       int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
       assertThat(err, is(0));
 
-      PropertiesMap moduleFiles = new LinkedPropertiesMap();
-      moduleFiles.load(new File(moduleDir, ".b2/moduleFiles.properties"));
+      PropertiesMap props = new LinkedPropertiesMap();
+      props.load(new File(moduleDir, ".b2/moduleDirectory.properties"));
 
-      assertEquals(5, moduleFiles.size());
-      
-      assertEquals("3", moduleFiles.get(".b2")); // hidden, derived
-      assertEquals("4", moduleFiles.get("module-a")); // forbidden (via b2.modules property)
-      assertEquals("14", moduleFiles.get("module-b")); // module, forbidden, hidden
-      
-      assertEquals("3", moduleFiles.get("target")); // derived
-      assertEquals("3", moduleFiles.get("pom.xml")); // derived, hidden
+      assertEquals(5, props.size());
+
+      assertEquals("3", props.get(".b2")); // hidden, derived
+      assertEquals("4", props.get("module-a")); // forbidden (via b2.modules property)
+      assertEquals("14", props.get("module-b")); // module, forbidden, hidden
+
+      assertEquals("3", props.get("target")); // derived
+      assertEquals("3", props.get("pom.xml")); // derived, hidden
    }
 }

@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.io.IO.cpIn;
 
 import java.io.File;
@@ -33,7 +33,7 @@ import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
@@ -89,7 +89,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Override
    protected void generate(final Annotatable inputElement, boolean skipFacets, final PropertiesSource properties,
-      final ITemplates templates, ModuleFiles moduleFiles)
+      final ITemplates templates, ModuleDirectory moduleDirectory)
    {
       if (skipFacets && inputElement instanceof AbstractFacet)
       {
@@ -135,10 +135,10 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          }
       }
 
-      if (!moduleFiles.isDerived(pomFile.getParentFile()))
+      if (!moduleDirectory.isDerived(pomFile.getParentFile()))
       {
-         moduleFiles.addFlags(pomFile, FLAG_DERIVED | FLAG_HIDDEN);
-         moduleFiles.addFlags(new File(pomFile.getParentFile(), "target"), FLAG_DERIVED | FLAG_HIDDEN);
+         moduleDirectory.addFlags(pomFile, FLAG_DERIVED | FLAG_HIDDEN);
+         moduleDirectory.addFlags(new File(pomFile.getParentFile(), "target"), FLAG_DERIVED | FLAG_HIDDEN);
       }
       inputElement.setAnnotationData(SOURCE_MAVEN, KEY_POM_FILE, pomFile.toString());
    }

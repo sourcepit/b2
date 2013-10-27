@@ -7,11 +7,11 @@
 package org.sourcepit.b2.directory.parser.internal.module;
 
 import static java.lang.Integer.valueOf;
-import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createModuleFiles;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createModuleDirectory;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.newProperties;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_MODULE_DIR;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_MODULE_DIR;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import org.sourcepit.b2.directory.parser.internal.facets.SimpleLayoutFacetsParse
 import org.sourcepit.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
 import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParserTest;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
@@ -75,7 +75,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       {
       }
 
-      request.setModuleFiles(new ModuleFiles(new File(""), null));
+      request.setModuleDirectory(new ModuleDirectory(new File(""), null));
       request.setModuleProperties(null);
 
       try
@@ -97,7 +97,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       FileUtils.forceDelete(new File(moduleDir, "module_de.properties"));
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleFiles(new ModuleFiles(moduleDir, null));
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setModuleProperties(newProperties(moduleDir));
 
       ModuleParser modelParser = lookup();
@@ -120,7 +120,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       assertTrue(moduleDir.canRead());
 
       ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleFiles(new ModuleFiles(moduleDir, null));
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setModuleProperties(newProperties(moduleDir));
 
       ModuleParser modelParser = lookup();
@@ -161,18 +161,18 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleProperties(newProperties(moduleDir));
-      request.setModuleFiles(createModuleFiles(moduleDir, simpleDir, structuredDir));
+      request.setModuleDirectory(createModuleDirectory(moduleDir, simpleDir, structuredDir));
 
       ModuleParser modelParser = lookup();
       
-      request.setModuleFiles(new ModuleFiles(simpleDir, null));
-      request.setModuleFiles(createModuleFiles(simpleDir));
+      request.setModuleDirectory(new ModuleDirectory(simpleDir, null));
+      request.setModuleDirectory(createModuleDirectory(simpleDir));
 
       final List<AbstractModule> currentModules = new ArrayList<AbstractModule>();
       currentModules.add(modelParser.parse(request));
 
-      request.setModuleFiles(new ModuleFiles(structuredDir, null));
-      request.setModuleFiles(createModuleFiles(structuredDir));
+      request.setModuleDirectory(new ModuleDirectory(structuredDir, null));
+      request.setModuleDirectory(createModuleDirectory(structuredDir));
       
       currentModules.add(modelParser.parse(request));
       for (AbstractModule module : currentModules)
@@ -180,8 +180,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
          request.getModulesCache().put(module.getDirectory(), module);
       }
 
-      request.setModuleFiles(new ModuleFiles(moduleDir, null));
-      request.setModuleFiles(createModuleFiles(moduleDir, simpleDir, structuredDir));
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
+      request.setModuleDirectory(createModuleDirectory(moduleDir, simpleDir, structuredDir));
       
       CompositeModule module = (CompositeModule) modelParser.parse(request);
       assertNotNull(module);
@@ -211,11 +211,11 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       ModuleParser modelParser = lookup();
 
-      request.setModuleFiles(new ModuleFiles(simpleDir, null));
+      request.setModuleDirectory(new ModuleDirectory(simpleDir, null));
       List<AbstractModule> currentModules = new ArrayList<AbstractModule>();
       currentModules.add(modelParser.parse(request));
 
-      request.setModuleFiles(new ModuleFiles(structuredDir, null));
+      request.setModuleDirectory(new ModuleDirectory(structuredDir, null));
       currentModules.add(modelParser.parse(request));
 
       for (AbstractModule module : currentModules)
@@ -225,7 +225,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       
       Map<File, Integer> fileFlags = new HashMap<File, Integer>();
       fileFlags.put(simpleDir, valueOf(FLAG_HIDDEN | FLAG_FORBIDDEN | FLAG_MODULE_DIR));
-      request.setModuleFiles(new ModuleFiles(moduleDir, fileFlags));
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, fileFlags));
 
       CompositeModule module = (CompositeModule) modelParser.parse(request);
       assertNotNull(module);

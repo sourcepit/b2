@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.directory.parser.internal.module;
 
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_MODULE_DIR;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_MODULE_DIR;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,10 +30,10 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
    {
       final List<AbstractModule> modules = new ArrayList<AbstractModule>();
 
-      final File baseDir = request.getModuleFiles().getModuleDir();
+      final File baseDir = request.getModuleDirectory().getFile();
       final PropertiesSource properties = request.getModuleProperties();
 
-      final List<File> moduleDirs = request.getModuleFiles().getFiles(new FileVisitor()
+      final List<File> moduleDirs = request.getModuleDirectory().getFiles(new FileVisitor()
       {
          @Override
          public boolean visit(File file, int flags)

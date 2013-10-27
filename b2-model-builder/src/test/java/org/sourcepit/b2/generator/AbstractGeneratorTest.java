@@ -14,7 +14,7 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -37,7 +37,7 @@ public class AbstractGeneratorTest extends TestCase
 
          @Override
          public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates,
-            ModuleFiles moduleFiles)
+            ModuleDirectory moduleDirectory)
          {
          }
       };
@@ -57,7 +57,7 @@ public class AbstractGeneratorTest extends TestCase
 
          @Override
          public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates,
-            ModuleFiles moduleFiles)
+            ModuleDirectory moduleDirectory)
          {
          }
       };

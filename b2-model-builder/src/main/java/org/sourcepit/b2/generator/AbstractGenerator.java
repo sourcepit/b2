@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -62,7 +62,7 @@ public abstract class AbstractGenerator implements IB2GenerationParticipant
 
    @Override
    public abstract void generate(EObject inputElement, PropertiesSource properties, ITemplates templates,
-      ModuleFiles moduleFiles);
+      ModuleDirectory moduleDirectory);
 
    public int compareTo(IB2GenerationParticipant other)
    {

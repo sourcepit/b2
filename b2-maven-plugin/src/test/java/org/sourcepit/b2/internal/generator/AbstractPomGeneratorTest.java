@@ -26,7 +26,7 @@ import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.IB2ModelBuildingRequest;
@@ -111,7 +111,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
    protected static B2ModelBuildingRequest newModelBuildingRequest(File moduleDir)
    {
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
-      request.setModuleFiles(new ModuleFiles(moduleDir, null));
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setInterpolate(false);
       request.setModuleProperties(ModelBuilderTestHarness.newProperties(moduleDir));
       return request;
@@ -125,7 +125,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
    protected void generatePom(File moduleDir, EObject eObject, PropertiesMap properties)
    {
       pomGenerator.generate(eObject, ConverterUtils.newDefaultTestConverter(properties), new DefaultTemplateCopier(),
-         new ModuleFiles(moduleDir, null));
+         new ModuleDirectory(moduleDir, null));
    }
 
    protected void generateAllPoms(final AbstractModule module, PropertiesMap properties)
@@ -139,7 +139,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
          {
             if (pomGenerator.isGeneratorInput(eObject))
             {
-               pomGenerator.generate(eObject, source, templateCopier, new ModuleFiles(module.getDirectory(), null));
+               pomGenerator.generate(eObject, source, templateCopier, new ModuleDirectory(module.getDirectory(), null));
             }
             return true;
          }

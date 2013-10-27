@@ -14,9 +14,9 @@ import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTest
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initModuleDir;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.initPluginDir;
 import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.mkdir;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_MODULE_DIR;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_MODULE_DIR;
 
 import java.io.File;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
@@ -99,7 +99,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
 
       Map<File, Integer> fileFlags = new HashMap<File, Integer>();
       fileFlags.put(subModule1Dir, valueOf(FLAG_HIDDEN | FLAG_FORBIDDEN | FLAG_MODULE_DIR));
-      request.setModuleFiles(new ModuleFiles(moduleDir, fileFlags));
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, fileFlags));
 
       parseModulesAndAddModel(request.getModulesCache(), subModule1Dir);
 

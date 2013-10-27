@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.files;
 
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,25 +22,25 @@ import javax.inject.Named;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ModuleFilesFactroy
+public class ModuleDirectoryFactroy
 {
    private final Collection<FileFlagsProvider> infoProviders;
 
    @Inject
-   public ModuleFilesFactroy(List<FileFlagsProvider> infoProviders)
+   public ModuleDirectoryFactroy(List<FileFlagsProvider> infoProviders)
    {
       this.infoProviders = infoProviders;
    }
 
-   public ModuleFiles create(File moduleDir, PropertiesSource properties)
+   public ModuleDirectory create(File moduleDir, PropertiesSource properties)
    {
       final Map<File, Integer> fileToFlagsMap = determineFileFlags(infoProviders, moduleDir, properties);
-      return new ModuleFiles(moduleDir, fileToFlagsMap);
+      return new ModuleDirectory(moduleDir, fileToFlagsMap);
    }
 
-   public Map<File, Integer> saveToMemento(ModuleFiles moduleFiles)
+   public Map<File, Integer> saveToMemento(ModuleDirectory moduleDirectory)
    {
-      return new HashMap<File, Integer>(moduleFiles.getFileFlags());
+      return new HashMap<File, Integer>(moduleDirectory.getFileFlags());
    }
 
    static Map<File, Integer> determineFileFlags(Collection<FileFlagsProvider> flagsProviders, File moduleDir,
@@ -113,7 +113,7 @@ public class ModuleFilesFactroy
    private static void collectDeterminedFileFlags(File moduleDir, final Map<File, Integer> fileToFlagsMap,
       final FileFlagsInvestigator investigator)
    {
-      new ModuleFiles(moduleDir, fileToFlagsMap).accept(new FileVisitor()
+      new ModuleDirectory(moduleDir, fileToFlagsMap).accept(new FileVisitor()
       {
          @Override
          public boolean visit(File file, int flags)

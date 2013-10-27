@@ -9,13 +9,13 @@ package org.sourcepit.b2.directory.parser.module;
 import java.io.File;
 import java.util.Map;
 
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public interface IModuleParsingRequest
 {
-   ModuleFiles getModuleFiles();
+   ModuleDirectory getModuleDirectory();
    
    PropertiesSource getModuleProperties();
 

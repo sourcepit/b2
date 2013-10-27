@@ -19,7 +19,7 @@ import org.sourcepit.b2.directory.parser.module.IModuleParser;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.execution.LifecyclePhase;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.modeling.Annotatable;
@@ -118,13 +118,13 @@ public class ModuleParser implements IModuleParser
          throw new IllegalArgumentException("Request must not be null.");
       }
 
-      final ModuleFiles moduleFiles = request.getModuleFiles();
-      if (moduleFiles == null)
+      final ModuleDirectory moduleDirectory = request.getModuleDirectory();
+      if (moduleDirectory == null)
       {
          throw new IllegalArgumentException("Module files must not be null.");
       }
       
-      final File baseDir = moduleFiles.getModuleDir();
+      final File baseDir = moduleDirectory.getFile();
       if (baseDir == null)
       {
          throw new IllegalArgumentException("Project must not be null.");

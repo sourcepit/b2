@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.execution.LifecyclePhase;
 import org.sourcepit.b2.files.FileVisitor;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
@@ -74,10 +74,10 @@ public class B2Generator
 
    private void doGenerate(final IB2GenerationRequest request)
    {
-      final ModuleFiles moduleFiles = request.getModuleFiles();
+      final ModuleDirectory moduleDirectory = request.getModuleDirectory();
 
       final Set<File> files = new HashSet<File>();
-      addNoneDerived(moduleFiles, files);
+      addNoneDerived(moduleDirectory, files);
 
       final List<IB2GenerationParticipant> copy = new ArrayList<IB2GenerationParticipant>(generators);
       Collections.sort(copy);
@@ -91,7 +91,7 @@ public class B2Generator
             {
                if (generator.isGeneratorInput(eObject))
                {
-                  generator.generate(eObject, request.getModuleProperties(), request.getTemplates(), moduleFiles);
+                  generator.generate(eObject, request.getModuleProperties(), request.getTemplates(), moduleDirectory);
                }
                return true;
             }
@@ -99,17 +99,17 @@ public class B2Generator
          walker.walk(request.getModule());
       }
 
-      removeNoneDerived(files, moduleFiles);
+      removeNoneDerived(files, moduleDirectory);
 
       for (File file : files)
       {
-         moduleFiles.addFlags(file, FLAG_DERIVED);
+         moduleDirectory.addFlags(file, FLAG_DERIVED);
       }
    }
 
-   private static void removeNoneDerived(final Set<File> files, final ModuleFiles moduleFiles)
+   private static void removeNoneDerived(final Set<File> files, final ModuleDirectory moduleDirectory)
    {
-      moduleFiles.accept(new FileVisitor()
+      moduleDirectory.accept(new FileVisitor()
       {
          @Override
          public boolean visit(File file, int flags)
@@ -120,9 +120,9 @@ public class B2Generator
       }, true, false);
    }
 
-   private static void addNoneDerived(final ModuleFiles moduleFiles, final Set<File> files)
+   private static void addNoneDerived(final ModuleDirectory moduleDirectory, final Set<File> files)
    {
-      moduleFiles.accept(new FileVisitor()
+      moduleDirectory.accept(new FileVisitor()
       {
          @Override
          public boolean visit(File file, int flags)

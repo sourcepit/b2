@@ -15,7 +15,7 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.io.DefaultModelReader;
 import org.apache.maven.model.io.DefaultModelWriter;
 import org.junit.Test;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.maven.AbstractB2MavenPluginTest;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -39,7 +39,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       module.setVersion("1.0.0.qualifier");
 
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
+      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleDirectory(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
 
@@ -68,7 +68,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       project.setVersion("1.0.0.qualifier");
 
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
+      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleDirectory(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
 
@@ -97,7 +97,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       module.setVersion("1.0.0.rc1");
 
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
+      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleDirectory(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
 
@@ -126,7 +126,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       project.setVersion("1.0.0.rc1");
 
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
+      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleDirectory(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
 
@@ -155,7 +155,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       module.setVersion("1.0.0");
 
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
+      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleDirectory(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
 
@@ -185,7 +185,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
       project.setVersion("1.0.0");
 
       ProjectVersionGenerator generator = new ProjectVersionGenerator();
-      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleFiles(pomFile.getParentFile(), null));
+      generator.generate(project, new LinkedPropertiesMap(), null, new ModuleDirectory(pomFile.getParentFile(), null));
 
       Model converted = new DefaultModelReader().read(pomFile, null);
 

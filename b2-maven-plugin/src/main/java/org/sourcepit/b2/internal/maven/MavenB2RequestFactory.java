@@ -32,8 +32,8 @@ import org.sonatype.aether.resolution.ArtifactResult;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
-import org.sourcepit.b2.files.ModuleFiles;
-import org.sourcepit.b2.files.ModuleFilesFactroy;
+import org.sourcepit.b2.files.ModuleDirectory;
+import org.sourcepit.b2.files.ModuleDirectoryFactroy;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.internal.generator.VersionUtils;
@@ -72,7 +72,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
    private BasicConverter converter;
 
    @Inject
-   private ModuleFilesFactroy moduleFilesFactroy;
+   private ModuleDirectoryFactroy moduleDirectoryFactroy;
    
    public B2Request newRequest(List<File> projectDirs, int currentIdx)
    {
@@ -116,8 +116,8 @@ public class MavenB2RequestFactory implements B2RequestFactory
          }
       }
       
-      ModuleFiles moduleFiles = moduleFilesFactroy.create(moduleDir, moduleProperties);
-      b2Request.setModuleFiles(moduleFiles);
+      ModuleDirectory moduleDirectory = moduleDirectoryFactroy.create(moduleDir, moduleProperties);
+      b2Request.setModuleDirectory(moduleDirectory);
 
       return b2Request;
    }

@@ -8,9 +8,9 @@ package org.sourcepit.b2.directory.parser.internal.module;
 
 import static java.lang.Integer.valueOf;
 import static org.junit.Assert.assertTrue;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_MODULE_DIR;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_MODULE_DIR;
 import static org.sourcepit.common.utils.xml.XmlUtils.queryText;
 import static org.sourcepit.common.utils.xml.XmlUtils.readXml;
 
@@ -24,7 +24,7 @@ import org.apache.maven.model.io.DefaultModelWriter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
@@ -44,13 +44,13 @@ public final class ModelBuilderTestHarness
    public static ModuleParsingRequest createParsingRequest(File moduleDir, File... subModuleDirs)
    {
       final ModuleParsingRequest request = new ModuleParsingRequest();
-      request.setModuleFiles(new ModuleFiles(moduleDir, null));
-      request.setModuleFiles(createModuleFiles(moduleDir, subModuleDirs));
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
+      request.setModuleDirectory(createModuleDirectory(moduleDir, subModuleDirs));
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       return request;
    }
 
-   public static ModuleFiles createModuleFiles(File moduleDir, File... subModuleDirs)
+   public static ModuleDirectory createModuleDirectory(File moduleDir, File... subModuleDirs)
    {
       final Map<File, Integer> fileFlags = new HashMap<File, Integer>();
       if (subModuleDirs != null)
@@ -60,7 +60,7 @@ public final class ModelBuilderTestHarness
             fileFlags.put(subModuleDir, valueOf(FLAG_HIDDEN | FLAG_FORBIDDEN | FLAG_MODULE_DIR));
          }
       }
-      return new ModuleFiles(moduleDir, fileFlags);
+      return new ModuleDirectory(moduleDir, fileFlags);
    }
 
    public static File mkdir(File parentDir, String name)

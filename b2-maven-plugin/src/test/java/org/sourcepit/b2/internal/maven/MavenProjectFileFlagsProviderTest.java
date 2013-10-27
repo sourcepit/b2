@@ -9,8 +9,8 @@ package org.sourcepit.b2.internal.maven;
 import static org.apache.commons.io.IOUtils.copy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.io.IO.fileOut;
 import static org.sourcepit.common.utils.io.IO.write;
 import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
@@ -58,17 +58,17 @@ public class MavenProjectFileFlagsProviderTest
       final File basePomFile = new File(ws.getRoot(), "pom.xml");
 
       final Map<File, Model> fileToModelMap = new HashMap<File, Model>();
-      final Multimap<File, File> pomToModuleFilesMap = HashMultimap.create();
-      MavenFileFlagsProvider.collectMavenModels(basePomFile, fileToModelMap, pomToModuleFilesMap);
+      final Multimap<File, File> pomToModuleDirectoryMap = HashMultimap.create();
+      MavenFileFlagsProvider.collectMavenModels(basePomFile, fileToModelMap, pomToModuleDirectoryMap);
 
       assertEquals(6, fileToModelMap.size());
-      assertEquals(2, pomToModuleFilesMap.asMap().size());
+      assertEquals(2, pomToModuleDirectoryMap.asMap().size());
 
-      Collection<File> moduleFiles = pomToModuleFilesMap.get(basePomFile);
-      assertEquals(3, moduleFiles.size());
+      Collection<File> moduleDirectory = pomToModuleDirectoryMap.get(basePomFile);
+      assertEquals(3, moduleDirectory.size());
 
-      moduleFiles = pomToModuleFilesMap.get(new File(ws.getRoot(), "3/foo.xml"));
-      assertEquals(2, moduleFiles.size());
+      moduleDirectory = pomToModuleDirectoryMap.get(new File(ws.getRoot(), "3/foo.xml"));
+      assertEquals(2, moduleDirectory.size());
    }
 
    @Test

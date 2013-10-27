@@ -10,9 +10,9 @@ import static java.util.Collections.singletonMap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 
 import java.io.File;
 import java.util.Collection;
@@ -24,7 +24,7 @@ import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironment
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class ModuleFilesFactroyTest extends AbstractTestEnvironmentTest
+public class ModuleDirectoryFactroyTest extends AbstractTestEnvironmentTest
 {
    @Test
    public void testDetermineFileFlags()
@@ -78,7 +78,7 @@ public class ModuleFilesFactroyTest extends AbstractTestEnvironmentTest
 
       final File moduleDir = new File("");
 
-      final Map<File, Integer> fileToFlagsMap = ModuleFilesFactroy.determineFileFlags(providers, moduleDir,
+      final Map<File, Integer> fileToFlagsMap = ModuleDirectoryFactroy.determineFileFlags(providers, moduleDir,
          new LinkedPropertiesMap());
       assertEquals(3, fileToFlagsMap.size());
 
@@ -108,7 +108,7 @@ public class ModuleFilesFactroyTest extends AbstractTestEnvironmentTest
       new File(moduleDir, ".svn/entries").mkdirs();
       new File(moduleDir, "foo").mkdirs();
 
-      final Map<File, Integer> fileToFlagsMap = ModuleFilesFactroy.determineFileFlags(providers, moduleDir,
+      final Map<File, Integer> fileToFlagsMap = ModuleDirectoryFactroy.determineFileFlags(providers, moduleDir,
          new LinkedPropertiesMap());
       assertEquals(3, fileToFlagsMap.size());
 

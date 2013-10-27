@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.validation.constraints.NotNull;
 
-public class ModuleFiles
+public class ModuleDirectory
 {
    public static final int DEPTH_INFINITE = -1;
 
@@ -39,7 +39,7 @@ public class ModuleFiles
 
    private final Map<File, Integer> aggregatedFlags = new ConcurrentHashMap<File, Integer>();
 
-   public ModuleFiles(@NotNull File moduleDir, Map<File, Integer> fileFlags)
+   public ModuleDirectory(@NotNull File moduleDir, Map<File, Integer> fileFlags)
    {
       checkArgument(moduleDir != null);
       this.moduleDir = moduleDir;
@@ -58,7 +58,7 @@ public class ModuleFiles
       return fileFlags;
    }
 
-   public File getModuleDir()
+   public File getFile()
    {
       return moduleDir;
    }
@@ -151,7 +151,7 @@ public class ModuleFiles
 
    public void accept(FileVisitor visitor, int depth, int flags)
    {
-      acceptRecursive(getModuleDir(), visitor, 0, depth, ~flags);
+      acceptRecursive(getFile(), visitor, 0, depth, ~flags);
    }
 
    public void accept(File file, FileVisitor visitor)
@@ -167,7 +167,7 @@ public class ModuleFiles
    public void accept(File file, FileVisitor visitor, int depth, int flags)
    {
       final int flagMask = ~flags;
-      if (file.equals(getModuleDir()) || isModuleFile(file, flagMask))
+      if (file.equals(getFile()) || isModuleFile(file, flagMask))
       {
          acceptRecursive(file, visitor, 0, depth, flagMask);
       }
@@ -175,7 +175,7 @@ public class ModuleFiles
 
    public void accept(FileVisitor visitor, boolean visitHidden, boolean visitDerived)
    {
-      acceptRecursive(getModuleDir(), visitor, 0, DEPTH_INFINITE, toFlagMask(visitHidden, visitDerived));
+      acceptRecursive(getFile(), visitor, 0, DEPTH_INFINITE, toFlagMask(visitHidden, visitDerived));
    }
 
    private void acceptRecursive(File file, final FileVisitor visitor, final int currentDepth, final int maxDepth,
@@ -191,7 +191,7 @@ public class ModuleFiles
                final int flags = getFlags(child);
                if ((flags & flagMask) == 0 && visitor.visit(child, flags))
                {
-                  ModuleFiles.this.acceptRecursive(child, visitor, currentDepth + 1, maxDepth, flagMask);
+                  ModuleDirectory.this.acceptRecursive(child, visitor, currentDepth + 1, maxDepth, flagMask);
                }
                return false;
             }

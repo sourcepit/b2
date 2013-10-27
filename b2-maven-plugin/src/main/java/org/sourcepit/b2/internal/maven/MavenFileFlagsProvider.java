@@ -7,8 +7,8 @@
 package org.sourcepit.b2.internal.maven;
 
 import static java.lang.Integer.valueOf;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.lang.Exceptions.pipe;
 
 import java.io.File;
@@ -44,8 +44,8 @@ public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements
       if (basePomFile.exists())
       {
          final Map<File, Model> fileToModelMap = new HashMap<File, Model>();
-         final Multimap<File, File> pomToModuleFilesMap = HashMultimap.create();
-         collectMavenModels(basePomFile, fileToModelMap, pomToModuleFilesMap);
+         final Multimap<File, File> pomToModuleDirectoryMap = HashMultimap.create();
+         collectMavenModels(basePomFile, fileToModelMap, pomToModuleDirectoryMap);
 
          final Map<File, Integer> result = new HashMap<File, Integer>(fileToModelMap.size() * 2);
          for (Entry<File, Model> entry : fileToModelMap.entrySet())
@@ -61,14 +61,14 @@ public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements
    }
 
    static void collectMavenModels(final File pomFile, final Map<File, Model> fileToModelMap,
-      final Multimap<File, File> pomToModuleFilesMap)
+      final Multimap<File, File> pomToModuleDirectoryMap)
    {
       try
       {
          final Map<String, String> options = new HashMap<String, String>();
          options.put(ModelReader.IS_STRICT, Boolean.FALSE.toString());
          final ModelReader modelReader = new DefaultModelReader();
-         collectMavenModels(modelReader, options, pomFile, fileToModelMap, pomToModuleFilesMap);
+         collectMavenModels(modelReader, options, pomFile, fileToModelMap, pomToModuleDirectoryMap);
       }
       catch (IOException e)
       {
@@ -77,7 +77,7 @@ public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements
    }
 
    private static void collectMavenModels(ModelReader modelReader, Map<String, String> options, File pomFile,
-      Map<File, Model> fileToModelMap, Multimap<File, File> pomToModuleFilesMap) throws IOException,
+      Map<File, Model> fileToModelMap, Multimap<File, File> pomToModuleDirectoryMap) throws IOException,
       ModelParseException
    {
       final Model model = modelReader.read(pomFile, options);
@@ -91,8 +91,8 @@ public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements
          }
          if (moduleFile.exists())
          {
-            pomToModuleFilesMap.put(pomFile, moduleFile);
-            collectMavenModels(modelReader, options, moduleFile, fileToModelMap, pomToModuleFilesMap);
+            pomToModuleDirectoryMap.put(pomFile, moduleFile);
+            collectMavenModels(modelReader, options, moduleFile, fileToModelMap, pomToModuleDirectoryMap);
          }
       }
    }

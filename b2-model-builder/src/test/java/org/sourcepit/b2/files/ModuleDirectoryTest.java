@@ -8,10 +8,10 @@ package org.sourcepit.b2.files;
 
 import static java.lang.Integer.valueOf;
 import static org.junit.Assert.*;
-import static org.sourcepit.b2.files.ModuleFiles.DEPTH_INFINITE;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_DERIVED;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.DEPTH_INFINITE;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
 
 import java.io.File;
@@ -25,7 +25,7 @@ import junit.framework.AssertionFailedError;
 import org.junit.Test;
 import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironmentTest;
 
-public class ModuleFilesTest extends AbstractTestEnvironmentTest
+public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
 {
    @Test
    public void testFlags()
@@ -39,7 +39,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       fileFlags.put(targetDir, Integer.valueOf(FLAG_HIDDEN | FLAG_DERIVED));
       fileFlags.put(manifestMf, Integer.valueOf(FLAG_DERIVED));
 
-      final ModuleFiles files = new ModuleFiles(moduleDir, fileFlags);
+      final ModuleDirectory files = new ModuleDirectory(moduleDir, fileFlags);
       assertTrue(files.isHidden(targetDir));
       assertTrue(files.isDerived(targetDir));
       assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN | FLAG_DERIVED));
@@ -86,7 +86,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
    {
       final File moduleDir = ws.getRoot();
 
-      ModuleFilesBuilder fb = new ModuleFilesBuilder(moduleDir);
+      ModuleDirectoryBuilder fb = new ModuleDirectoryBuilder(moduleDir);
       fb.mkdir(".b2", FLAG_DERIVED | FLAG_HIDDEN);
       fb.mkdir("plugins/foo/resources", FLAG_HIDDEN);
       fb.mkfile("plugins/foo/resources/META-INF/MANIFEST.MF", 0);
@@ -95,9 +95,9 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       fb.mkdir(".git", FLAG_FORBIDDEN);
       fb.mkfile("module.xml", 0);
 
-      final ModuleFiles mf = fb.toModuleFiles();
+      final ModuleDirectory mf = fb.toModuleDirectory();
 
-      RelPathCollector pc = new RelPathCollector(mf.getModuleDir());
+      RelPathCollector pc = new RelPathCollector(mf.getFile());
       mf.accept(pc, 0);
 
       Map<String, Integer> pathToFlags = pc.getVisiedFiles();
@@ -105,7 +105,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("module.xml", 0, pathToFlags);
       assertContains("plugins", 0, pathToFlags);
 
-      pc = new RelPathCollector(mf.getModuleDir());
+      pc = new RelPathCollector(mf.getFile());
       mf.accept(pc, 1);
 
       pathToFlags = pc.getVisiedFiles();
@@ -114,7 +114,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("plugins", 0, pathToFlags);
       assertContains("plugins/foo", 0, pathToFlags);
 
-      pc = new RelPathCollector(mf.getModuleDir());
+      pc = new RelPathCollector(mf.getFile());
       mf.accept(pc, 2);
 
       pathToFlags = pc.getVisiedFiles();
@@ -125,8 +125,8 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("plugins/foo/META-INF", 0, pathToFlags);
       assertContains("plugins/foo/plugin.xml", 0, pathToFlags);
 
-      pc = new RelPathCollector(mf.getModuleDir());
-      mf.accept(pc, ModuleFiles.DEPTH_INFINITE);
+      pc = new RelPathCollector(mf.getFile());
+      mf.accept(pc, ModuleDirectory.DEPTH_INFINITE);
 
       pathToFlags = pc.getVisiedFiles();
       assertContains("module.xml", 0, pathToFlags);
@@ -142,7 +142,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
    {
       final File moduleDir = ws.getRoot();
 
-      ModuleFilesBuilder fb = new ModuleFilesBuilder(moduleDir);
+      ModuleDirectoryBuilder fb = new ModuleDirectoryBuilder(moduleDir);
       fb.mkdir(".b2", FLAG_DERIVED | FLAG_HIDDEN);
       fb.mkdir("plugins/foo/resources", FLAG_HIDDEN);
       fb.mkfile("plugins/foo/resources/META-INF/MANIFEST.MF", 0);
@@ -151,9 +151,9 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       fb.mkdir(".git", FLAG_FORBIDDEN);
       fb.mkfile("module.xml", 0);
 
-      final ModuleFiles mf = fb.toModuleFiles();
+      final ModuleDirectory mf = fb.toModuleDirectory();
 
-      RelPathCollector pc = new RelPathCollector(mf.getModuleDir());
+      RelPathCollector pc = new RelPathCollector(mf.getFile());
       mf.accept(pc);
 
       Map<String, Integer> pathToFlags = pc.getVisiedFiles();
@@ -165,7 +165,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("plugins/foo/META-INF/MANIFEST.MF", 1, pathToFlags);
       assertContains("plugins/foo/plugin.xml", 0, pathToFlags);
 
-      pc = new RelPathCollector(mf.getModuleDir());
+      pc = new RelPathCollector(mf.getFile());
       mf.accept(pc, true, true);
       pathToFlags = pc.getVisiedFiles();
       assertEquals(10, pathToFlags.size());
@@ -180,7 +180,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("plugins/foo/resources/META-INF", FLAG_HIDDEN, pathToFlags);
       assertContains("plugins/foo/resources/META-INF/MANIFEST.MF", FLAG_HIDDEN, pathToFlags);
 
-      pc = new RelPathCollector(mf.getModuleDir());
+      pc = new RelPathCollector(mf.getFile());
       mf.accept(pc, DEPTH_INFINITE, FLAG_DERIVED | FLAG_HIDDEN);
       pathToFlags = pc.getVisiedFiles();
       assertEquals(10, pathToFlags.size());
@@ -195,7 +195,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("plugins/foo/resources/META-INF", FLAG_HIDDEN, pathToFlags);
       assertContains("plugins/foo/resources/META-INF/MANIFEST.MF", FLAG_HIDDEN, pathToFlags);
 
-      pc = new RelPathCollector(mf.getModuleDir());
+      pc = new RelPathCollector(mf.getFile());
       mf.accept(pc, true, false);
       pathToFlags = pc.getVisiedFiles();
       assertEquals(8, pathToFlags.size());
@@ -208,7 +208,7 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       assertContains("plugins/foo/resources/META-INF", FLAG_HIDDEN, pathToFlags);
       assertContains("plugins/foo/resources/META-INF/MANIFEST.MF", FLAG_HIDDEN, pathToFlags);
 
-      pc = new RelPathCollector(mf.getModuleDir());
+      pc = new RelPathCollector(mf.getFile());
       mf.accept(pc, DEPTH_INFINITE, FLAG_HIDDEN);
       pathToFlags = pc.getVisiedFiles();
       assertEquals(8, pathToFlags.size());
@@ -227,18 +227,18 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
    {
       final File moduleDir = ws.getRoot();
 
-      ModuleFiles moduleFiles = new ModuleFiles(moduleDir, Collections.<File, Integer> emptyMap());
+      ModuleDirectory moduleDirectory = new ModuleDirectory(moduleDir, Collections.<File, Integer> emptyMap());
 
       File f = new File(moduleDir, "foo");
       f.createNewFile();
 
-      assertEquals(0, moduleFiles.getFlags(f));
+      assertEquals(0, moduleDirectory.getFlags(f));
 
-      moduleFiles.addFlags(f, FLAG_DERIVED);
-      assertEquals(FLAG_DERIVED, moduleFiles.getFlags(f));
+      moduleDirectory.addFlags(f, FLAG_DERIVED);
+      assertEquals(FLAG_DERIVED, moduleDirectory.getFlags(f));
 
-      moduleFiles.addFlags(f, FLAG_FORBIDDEN);
-      assertEquals(FLAG_DERIVED | FLAG_FORBIDDEN, moduleFiles.getFlags(f));
+      moduleDirectory.addFlags(f, FLAG_FORBIDDEN);
+      assertEquals(FLAG_DERIVED | FLAG_FORBIDDEN, moduleDirectory.getFlags(f));
    }
 
    @Test
@@ -246,24 +246,24 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
    {
       final File moduleDir = ws.getRoot();
 
-      ModuleFiles moduleFiles = new ModuleFiles(moduleDir, Collections.<File, Integer> emptyMap());
+      ModuleDirectory moduleDirectory = new ModuleDirectory(moduleDir, Collections.<File, Integer> emptyMap());
 
       File f = new File(moduleDir, "foo");
       f.createNewFile();
 
-      assertEquals(0, moduleFiles.getFlags(f));
+      assertEquals(0, moduleDirectory.getFlags(f));
 
-      moduleFiles.removeFlags(f, FLAG_DERIVED);
-      assertEquals(0, moduleFiles.getFlags(f));
+      moduleDirectory.removeFlags(f, FLAG_DERIVED);
+      assertEquals(0, moduleDirectory.getFlags(f));
 
-      moduleFiles.addFlags(f, FLAG_DERIVED | FLAG_FORBIDDEN);
-      assertEquals(FLAG_DERIVED | FLAG_FORBIDDEN, moduleFiles.getFlags(f));
+      moduleDirectory.addFlags(f, FLAG_DERIVED | FLAG_FORBIDDEN);
+      assertEquals(FLAG_DERIVED | FLAG_FORBIDDEN, moduleDirectory.getFlags(f));
 
-      moduleFiles.removeFlags(f, FLAG_DERIVED);
-      assertEquals(FLAG_FORBIDDEN, moduleFiles.getFlags(f));
+      moduleDirectory.removeFlags(f, FLAG_DERIVED);
+      assertEquals(FLAG_FORBIDDEN, moduleDirectory.getFlags(f));
       
-      moduleFiles.removeFlags(f, FLAG_FORBIDDEN);
-      assertEquals(0, moduleFiles.getFlags(f));
+      moduleDirectory.removeFlags(f, FLAG_FORBIDDEN);
+      assertEquals(0, moduleDirectory.getFlags(f));
    }
 
    private static void assertContains(String expectedPath, int expectedFlags, Map<String, Integer> actual)
@@ -298,13 +298,13 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
       }
    }
 
-   static class ModuleFilesBuilder
+   static class ModuleDirectoryBuilder
    {
       private final File baseDir;
 
       private Map<File, Integer> fileFlags = new HashMap<File, Integer>();
 
-      ModuleFilesBuilder(File baseDir)
+      ModuleDirectoryBuilder(File baseDir)
       {
          this.baseDir = baseDir;
       }
@@ -341,9 +341,9 @@ public class ModuleFilesTest extends AbstractTestEnvironmentTest
          return file;
       }
 
-      ModuleFiles toModuleFiles()
+      ModuleDirectory toModuleDirectory()
       {
-         return new ModuleFiles(baseDir, new HashMap<File, Integer>(fileFlags));
+         return new ModuleDirectory(baseDir, new HashMap<File, Integer>(fileFlags));
       }
    }
 

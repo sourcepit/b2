@@ -25,12 +25,12 @@ public final class DescriptorUtils
       final File moduleFile = findDescriptorFile(baseDir, resolver);
       if (moduleFile != null)
       {
-         collectModuleFiles(descriptors, skippeDescriptors, baseDir, moduleFile, resolver);
+         collectModuleDirectory(descriptors, skippeDescriptors, baseDir, moduleFile, resolver);
          descriptors.add(moduleFile);
       }
    }
 
-   private static void collectModuleFiles(final Collection<File> descriptors, final Collection<File> skippeDescriptors,
+   private static void collectModuleDirectory(final Collection<File> descriptors, final Collection<File> skippeDescriptors,
       File moduleDir, final File moduleDescriptor, final IDescriptorResolutionStrategy resolver)
    {
       moduleDir.listFiles(new FileFilter()
@@ -40,7 +40,7 @@ public final class DescriptorUtils
             final File moduleFile = findDescriptorFile(member, resolver);
             if (moduleFile != null)
             {
-               collectModuleFiles(descriptors, skippeDescriptors, member, moduleFile, resolver);
+               collectModuleDirectory(descriptors, skippeDescriptors, member, moduleFile, resolver);
                // skipped ?
                if (resolver.isSkipped(moduleDescriptor, moduleFile))
                {

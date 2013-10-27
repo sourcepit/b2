@@ -22,7 +22,7 @@ import javax.inject.Named;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
@@ -60,7 +60,7 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
-      ITemplates templates, ModuleFiles moduleFiles)
+      ITemplates templates, ModuleDirectory moduleDirectory)
    {
       if (converter.isSkipInterpolator(properties))
       {

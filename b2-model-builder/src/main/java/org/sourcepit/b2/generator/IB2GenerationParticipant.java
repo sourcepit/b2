@@ -7,7 +7,7 @@
 package org.sourcepit.b2.generator;
 
 import org.eclipse.emf.ecore.EObject;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -20,5 +20,5 @@ public interface IB2GenerationParticipant extends Comparable<IB2GenerationPartic
 
    boolean isReverse();
 
-   void generate(EObject inputElement, PropertiesSource properties, ITemplates templates, ModuleFiles moduleFiles);
+   void generate(EObject inputElement, PropertiesSource properties, ITemplates templates, ModuleDirectory moduleDirectory);
 }

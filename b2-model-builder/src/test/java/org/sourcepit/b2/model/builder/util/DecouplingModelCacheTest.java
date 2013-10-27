@@ -6,14 +6,14 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createModuleFiles;
+import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness.createModuleDirectory;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest;
@@ -46,7 +46,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleFiles(new ModuleFiles(simpleFile, null));
+      request.setModuleDirectory(new ModuleDirectory(simpleFile, null));
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
@@ -55,7 +55,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleFiles(new ModuleFiles(structuredFile, null));
+      request.setModuleDirectory(new ModuleDirectory(structuredFile, null));
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
@@ -63,14 +63,14 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleFiles(new ModuleFiles(parentFile, null));
+      request.setModuleDirectory(new ModuleDirectory(parentFile, null));
 
       for (AbstractModule module : currentModules)
       {
          request.getModulesCache().put(module.getDirectory(), module);
       }
       
-      request.setModuleFiles(createModuleFiles(moduleDir, simpleFile, structuredFile));
+      request.setModuleDirectory(createModuleDirectory(moduleDir, simpleFile, structuredFile));
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());
@@ -101,7 +101,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleFiles(new ModuleFiles(simpleFile, null));
+      request.setModuleDirectory(new ModuleDirectory(simpleFile, null));
 
       BasicModule simpleModule = (BasicModule) builder.build(request);
 
@@ -110,7 +110,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleFiles(new ModuleFiles(structuredFile, null));
+      request.setModuleDirectory(new ModuleDirectory(structuredFile, null));
 
       BasicModule structuredModule = (BasicModule) builder.build(request);
 
@@ -118,14 +118,14 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
 
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
-      request.setModuleFiles(new ModuleFiles(parentFile, null));
+      request.setModuleDirectory(new ModuleDirectory(parentFile, null));
 
       for (AbstractModule module : currentModules)
       {
          request.getModulesCache().put(module.getDirectory(), module);
       }
       
-      request.setModuleFiles(createModuleFiles(moduleDir, simpleFile, structuredFile));
+      request.setModuleDirectory(createModuleDirectory(moduleDir, simpleFile, structuredFile));
 
       CompositeModule compositeModule = (CompositeModule) builder.build(request);
       assertEquals("composite", compositeModule.getLayoutId());

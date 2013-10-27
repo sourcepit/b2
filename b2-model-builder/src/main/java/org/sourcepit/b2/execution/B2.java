@@ -39,7 +39,7 @@ public class B2
 
    public AbstractModule generate(B2Request request)
    {
-      final File moduleDir = request.getModuleFiles().getModuleDir();
+      final File moduleDir = request.getModuleDirectory().getFile();
       fileService.clean(moduleDir);
 
       final AbstractModule module = modelBuilder.build(request);
@@ -53,7 +53,7 @@ public class B2
 
          final B2GenerationRequest genRequest = new B2GenerationRequest();
          genRequest.setModule(module);
-         genRequest.setModuleFiles(request.getModuleFiles());
+         genRequest.setModuleDirectory(request.getModuleDirectory());
          genRequest.setModuleProperties(request.getModuleProperties());
          genRequest.setTemplates(request.getTemplates());
 

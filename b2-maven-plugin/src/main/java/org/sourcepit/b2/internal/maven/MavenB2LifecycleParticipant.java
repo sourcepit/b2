@@ -36,8 +36,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.sourcepit.b2.execution.AbstractB2SessionLifecycleParticipant;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
-import org.sourcepit.b2.files.ModuleFiles;
-import org.sourcepit.b2.files.ModuleFilesFactroy;
+import org.sourcepit.b2.files.ModuleDirectory;
+import org.sourcepit.b2.files.ModuleDirectoryFactroy;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.ModelTemplateMerger;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -61,12 +61,12 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
    private LegacySupport legacySupport;
 
    @Inject
-   private ModuleFilesFactroy moduleFilesFactroy;
+   private ModuleDirectoryFactroy moduleDirectoryFactroy;
 
    public void postPrepareProject(File project, B2Request request, AbstractModule module, ThrowablePipe errors)
    {
-      final ModuleFiles moduleFiles = request.getModuleFiles();
-      saveModuleFiles(moduleFiles, newFile(module, "moduleFiles.properties"));
+      final ModuleDirectory moduleDirectory = request.getModuleDirectory();
+      saveModuleDirectory(moduleDirectory, newFile(module, "moduleDirectory.properties"));
 
       final MavenProject bootProject = legacySupport.getSession().getCurrentProject();
 
@@ -141,10 +141,10 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       }
    }
 
-   private void saveModuleFiles(ModuleFiles moduleFiles, File dest)
+   private void saveModuleDirectory(ModuleDirectory moduleDirectory, File dest)
    {
-      final File moduleDir = moduleFiles.getModuleDir();
-      final Map<File, Integer> fileToFlagsMap = moduleFilesFactroy.saveToMemento(moduleFiles);
+      final File moduleDir = moduleDirectory.getFile();
+      final Map<File, Integer> fileToFlagsMap = moduleDirectoryFactroy.saveToMemento(moduleDirectory);
 
       final List<File> files = new ArrayList<File>(fileToFlagsMap.keySet());
       sort(files, new FileNameComparator(false));

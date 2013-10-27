@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -14,7 +14,7 @@ public class B2GenerationRequest implements IB2GenerationRequest
 {
    private AbstractModule module;
 
-   private ModuleFiles moduleFiles;
+   private ModuleDirectory moduleDirectory;
 
    private ITemplates templates;
 
@@ -34,14 +34,14 @@ public class B2GenerationRequest implements IB2GenerationRequest
    }
    
    @Override
-   public ModuleFiles getModuleFiles()
+   public ModuleDirectory getModuleDirectory()
    {
-      return moduleFiles;
+      return moduleDirectory;
    }
    
-   public void setModuleFiles(ModuleFiles moduleFiles)
+   public void setModuleDirectory(ModuleDirectory moduleDirectory)
    {
-      this.moduleFiles = moduleFiles;
+      this.moduleDirectory = moduleDirectory;
    }
 
    public PropertiesSource getModuleProperties()

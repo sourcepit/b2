@@ -33,7 +33,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.sourcepit.b2.files.ModuleFiles;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.builder.util.DefaultConverter;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.common.testing.Environment;
@@ -106,7 +106,7 @@ public class TargetPlatformConfigurationGeneratorTest
    @Test
    public void testEmptyRequirement() throws Exception
    {
-      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleFiles(module.getDirectory(), null));
+      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleDirectory(module.getDirectory(), null));
 
       Model model = new DefaultModelReader().read(pomFile, null);
       Plugin plugin = getPlugin(model, TYCHO_GROUP_ID, TYCHO_TPC_PLUGIN_ARTIFACT_ID, false);
@@ -119,7 +119,7 @@ public class TargetPlatformConfigurationGeneratorTest
       BasicModule module2 = createBasicModule("module-2");
       resolutionContext.getRequiredFeatures().add(addFeatureProject(module2, "features", "feature2", "1.0.0"));
 
-      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleFiles(module.getDirectory(), null));
+      generator.generate(module, new LinkedPropertiesMap(), null, new ModuleDirectory(module.getDirectory(), null));
 
       Model model = new DefaultModelReader().read(pomFile, null);
       Plugin plugin = getPlugin(model, TYCHO_GROUP_ID, TYCHO_TPC_PLUGIN_ARTIFACT_ID, false);

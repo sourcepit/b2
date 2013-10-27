@@ -7,8 +7,8 @@
 package org.sourcepit.b2.files;
 
 import static java.lang.Integer.valueOf;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_FORBIDDEN;
-import static org.sourcepit.b2.files.ModuleFiles.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.props.PropertiesUtils.split;
 
 import java.io.File;
