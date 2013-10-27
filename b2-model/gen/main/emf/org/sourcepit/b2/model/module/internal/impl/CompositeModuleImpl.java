@@ -22,10 +22,10 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sourcepit.b2.model.module.internal.impl.CompositeModuleImpl#getModules <em>Modules</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.CompositeModuleImpl#getModules <em>Modules</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class CompositeModuleImpl extends AbstractModuleImpl implements CompositeModule
@@ -34,6 +34,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
     * The cached value of the '{@link #getModules() <em>Modules</em>}' reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @see #getModules()
     * @generated
     * @ordered
@@ -43,6 +44,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    protected CompositeModuleImpl()
@@ -53,6 +55,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -64,13 +67,15 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public EList<AbstractModule> getModules()
    {
       if (modules == null)
       {
-         modules = new EObjectResolvingEList<AbstractModule>(AbstractModule.class, this, ModuleModelPackage.COMPOSITE_MODULE__MODULES);
+         modules = new EObjectResolvingEList<AbstractModule>(AbstractModule.class, this,
+            ModuleModelPackage.COMPOSITE_MODULE__MODULES);
       }
       return modules;
    }
@@ -78,6 +83,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -85,7 +91,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModuleModelPackage.COMPOSITE_MODULE__MODULES:
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             return getModules();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -94,6 +100,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -102,9 +109,9 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModuleModelPackage.COMPOSITE_MODULE__MODULES:
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             getModules().clear();
-            getModules().addAll((Collection<? extends AbstractModule>)newValue);
+            getModules().addAll((Collection<? extends AbstractModule>) newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -113,6 +120,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -120,7 +128,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModuleModelPackage.COMPOSITE_MODULE__MODULES:
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             getModules().clear();
             return;
       }
@@ -130,6 +138,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -137,7 +146,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
    {
       switch (featureID)
       {
-         case ModuleModelPackage.COMPOSITE_MODULE__MODULES:
+         case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             return modules != null && !modules.isEmpty();
       }
       return super.eIsSet(featureID);

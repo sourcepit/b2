@@ -351,7 +351,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       // build model and generate
       final AbstractModule module = b2.generate(request);
       assertNotNull(module);
-      
+
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
       final File projectDir = new File(layout.pathOfSiteProject(module, ""));
       assertTrue(projectDir.exists());

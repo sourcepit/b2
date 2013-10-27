@@ -44,7 +44,7 @@ public class MavenDepenenciesUtilsTest
       List<Dependency> dependencies = model.getDependencies();
       assertEquals(1, dependencies.size());
       assertEquals("jar", dependencies.get(0).getType());
-      
+
       dependencies = profile.getDependencies();
       assertEquals(1, dependencies.size());
       assertEquals("jar", dependencies.get(0).getType());

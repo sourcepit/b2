@@ -16,7 +16,7 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * <!-- end-user-doc -->
  * <p>
  * </p>
- *
+ * 
  * @generated
  */
 public abstract class AbstractStrictReferenceImpl extends AbstractReferenceImpl implements AbstractStrictReference
@@ -24,6 +24,7 @@ public abstract class AbstractStrictReferenceImpl extends AbstractReferenceImpl 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    protected AbstractStrictReferenceImpl()
@@ -34,6 +35,7 @@ public abstract class AbstractStrictReferenceImpl extends AbstractReferenceImpl 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override

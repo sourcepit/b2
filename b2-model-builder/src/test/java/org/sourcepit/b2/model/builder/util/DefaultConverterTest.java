@@ -316,7 +316,6 @@ public class DefaultConverterTest
       testGetRequiredFeaturesOrPluginsAndKeyOrdering(method, facetName, propertyName, isSource);
    }
 
-   
 
    private void testGetRequiredFeaturesOrPluginsAndKeyOrdering(final Method method, final String facetName,
       String propertyName, boolean isSource) throws Exception

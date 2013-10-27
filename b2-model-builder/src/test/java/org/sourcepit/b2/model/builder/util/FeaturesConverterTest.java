@@ -51,10 +51,10 @@ public class FeaturesConverterTest
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
 
       assertFalse(converter.isSkipBrandingPlugins(moduleProperties));
-      
+
       moduleProperties.put("b2.skipBrandingPlugins", "true");
       assertTrue(converter.isSkipBrandingPlugins(moduleProperties));
-      
+
       moduleProperties.put("b2.skipBrandingPlugins", "false");
       assertFalse(converter.isSkipBrandingPlugins(moduleProperties));
    }

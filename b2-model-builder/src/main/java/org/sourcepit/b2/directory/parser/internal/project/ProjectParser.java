@@ -7,7 +7,6 @@
 package org.sourcepit.b2.directory.parser.internal.project;
 
 import java.io.File;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,18 +22,22 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public class ProjectParser
 {
    @Inject
-   private List<AbstractProjectParserRule<? extends Project>> rules;
+   private ProjectDetector detector;
+
+   @Inject
+   private ProjectPreprocessor preprocessor;
+
+   @Inject
+   private ProjectModelInitializer modelInitializer;
 
    public Project parse(File directory, PropertiesSource properties)
    {
-      for (AbstractProjectParserRule<? extends Project> rule : rules)
+      final Project project = detector.detect(directory, properties);
+      if (project != null)
       {
-         final Project project = rule.parse(directory, properties);
-         if (project != null)
-         {
-            return project;
-         }
+         preprocessor.preprocess(project, properties);
+         modelInitializer.initialize(project, properties);
       }
-      return null;
+      return project;
    }
 }

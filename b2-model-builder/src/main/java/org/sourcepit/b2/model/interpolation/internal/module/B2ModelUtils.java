@@ -12,6 +12,8 @@ import static org.sourcepit.common.utils.io.IO.fileIn;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -51,7 +53,7 @@ public final class B2ModelUtils
 
    public static PluginInclude toPluginInclude(PluginProject pluginProject)
    {
-      final AbstractModule module =  pluginProject.getParent().getParent();
+      final AbstractModule module = pluginProject.getParent().getParent();
       return toPluginInclude(module, pluginProject);
    }
 
@@ -70,22 +72,24 @@ public final class B2ModelUtils
       B2MetadataUtils.setModuleId(featureInclude, module.getId());
       B2MetadataUtils.setModuleVersion(featureInclude, module.getVersion());
       B2MetadataUtils.setTestPlugin(featureInclude, pluginProject.isTestPlugin());
-      
+
       PluginsFacet facet = pluginProject.getParent();
       B2MetadataUtils.setFacetName(featureInclude, facet.getName());
-      
+
       return featureInclude;
    }
-   
-   public static Manifest readManifest(File file)
+
+   public static Manifest readManifest(File file, boolean strict)
    {
+      final Map<String, Boolean> options = Collections.singletonMap("strict", Boolean.valueOf(strict));
+
       final Resource eResource = new GenericManifestResourceImpl();
       new IOOperation<InputStream>(buffIn(fileIn(file)))
       {
          @Override
          protected void run(InputStream openResource) throws IOException
          {
-            eResource.load(openResource, null);
+            eResource.load(openResource, options);
          }
       }.run();
 

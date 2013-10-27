@@ -101,13 +101,13 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
          pluginsFacet = facet2;
          testsFacet = facet1;
       }
-      
+
       assertEquals(1, pluginsFacet.getProjects().size());
       assertEquals(2, testsFacet.getProjects().size());
-      
+
       PluginProject bundleA = pluginsFacet.getProjects().get(0);
       assertFalse(bundleA.isTestPlugin());
-      
+
       PluginProject bundleATests = testsFacet.getProjectById("bundle.a.tests");
       assertTrue(bundleATests.isTestPlugin());
       PluginProject bundleTestharness = testsFacet.getProjectById("bundle.testharness");

@@ -25,10 +25,10 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sourcepit.b2.model.module.internal.impl.FeaturesFacetImpl#getProjects <em>Projects</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.FeaturesFacetImpl#getProjects <em>Projects</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implements FeaturesFacet
@@ -37,6 +37,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
     * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @see #getProjects()
     * @generated
     * @ordered
@@ -46,6 +47,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    protected FeaturesFacetImpl()
@@ -56,6 +58,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -67,13 +70,15 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public EList<FeatureProject> getProjects()
    {
       if (projects == null)
       {
-         projects = new EObjectContainmentWithInverseEList.Resolving<FeatureProject>(FeatureProject.class, this, ModuleModelPackage.FEATURES_FACET__PROJECTS, ModuleModelPackage.FEATURE_PROJECT__PARENT);
+         projects = new EObjectContainmentWithInverseEList.Resolving<FeatureProject>(FeatureProject.class, this,
+            ModuleModelPackage.FEATURES_FACET__PROJECTS, ModuleModelPackage.FEATURE_PROJECT__PARENT);
       }
       return projects;
    }
@@ -81,6 +86,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -89,8 +95,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURES_FACET__PROJECTS:
-            return ((InternalEList<InternalEObject>)(InternalEList<?>)getProjects()).basicAdd(otherEnd, msgs);
+         case ModuleModelPackage.FEATURES_FACET__PROJECTS :
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getProjects()).basicAdd(otherEnd, msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -98,6 +104,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -105,8 +112,8 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURES_FACET__PROJECTS:
-            return ((InternalEList<?>)getProjects()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.FEATURES_FACET__PROJECTS :
+            return ((InternalEList<?>) getProjects()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -114,6 +121,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -121,7 +129,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURES_FACET__PROJECTS:
+         case ModuleModelPackage.FEATURES_FACET__PROJECTS :
             return getProjects();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -130,6 +138,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -138,9 +147,9 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURES_FACET__PROJECTS:
+         case ModuleModelPackage.FEATURES_FACET__PROJECTS :
             getProjects().clear();
-            getProjects().addAll((Collection<? extends FeatureProject>)newValue);
+            getProjects().addAll((Collection<? extends FeatureProject>) newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -149,6 +158,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -156,7 +166,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURES_FACET__PROJECTS:
+         case ModuleModelPackage.FEATURES_FACET__PROJECTS :
             getProjects().clear();
             return;
       }
@@ -166,6 +176,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -173,7 +184,7 @@ public class FeaturesFacetImpl extends ProjectFacetImpl<FeatureProject> implemen
    {
       switch (featureID)
       {
-         case ModuleModelPackage.FEATURES_FACET__PROJECTS:
+         case ModuleModelPackage.FEATURES_FACET__PROJECTS :
             return projects != null && !projects.isEmpty();
       }
       return super.eIsSet(featureID);

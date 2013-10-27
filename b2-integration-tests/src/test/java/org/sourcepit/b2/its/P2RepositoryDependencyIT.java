@@ -57,7 +57,7 @@ public class P2RepositoryDependencyIT extends AbstractB2IT
 
       final int err = build(moduleDir, "-e", "-B", "clean", "-P", "p2");
       assertThat(err, is(0));
-      
+
       final Model pom = readMavenModel(new File(moduleDir, "pom.xml"));
       assertThat(0, is(pom.getDependencies().size()));
       assertThat(2, is(pom.getRepositories().size()));

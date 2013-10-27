@@ -56,7 +56,7 @@ public class BrandingPluginsInterpolator
 
             B2MetadataUtils.setBrandedFeature(pluginProject, featureProject.getId());
             B2MetadataUtils.setBrandingPlugin(featureProject, pluginProject.getId());
-            
+
             final PluginInclude pluginInclude = toPluginInclude(module, pluginProject);
             pluginInclude.setUnpack(false);
 

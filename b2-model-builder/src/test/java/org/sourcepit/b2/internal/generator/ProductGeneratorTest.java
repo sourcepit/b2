@@ -4,7 +4,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.sourcepit.common.utils.io.IO.buffIn;
 import static org.sourcepit.common.utils.io.IO.buffOut;
 import static org.sourcepit.common.utils.io.IO.fileIn;

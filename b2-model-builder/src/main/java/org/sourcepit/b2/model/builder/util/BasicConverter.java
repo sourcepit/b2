@@ -29,7 +29,7 @@ public interface BasicConverter
    boolean isSkipInterpolator(PropertiesSource moduleProperties);
 
    boolean isSkipGenerator(PropertiesSource moduleProperties);
-   
+
    String getModuleVersion(PropertiesSource moduleProperties);
 
    String getNameSpace(PropertiesSource moduleProperties);

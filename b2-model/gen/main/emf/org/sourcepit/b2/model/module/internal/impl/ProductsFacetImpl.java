@@ -25,18 +25,21 @@ import org.sourcepit.b2.model.module.ProductsFacet;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.sourcepit.b2.model.module.internal.impl.ProductsFacetImpl#getProductDefinitions <em>Product Definitions</em>}</li>
+ * <li>{@link org.sourcepit.b2.model.module.internal.impl.ProductsFacetImpl#getProductDefinitions <em>Product
+ * Definitions</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFacet
 {
    /**
-    * The cached value of the '{@link #getProductDefinitions() <em>Product Definitions</em>}' containment reference list.
+    * The cached value of the '{@link #getProductDefinitions() <em>Product Definitions</em>}' containment reference
+    * list.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @see #getProductDefinitions()
     * @generated
     * @ordered
@@ -46,6 +49,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    protected ProductsFacetImpl()
@@ -56,6 +60,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -67,13 +72,16 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public EList<ProductDefinition> getProductDefinitions()
    {
       if (productDefinitions == null)
       {
-         productDefinitions = new EObjectContainmentWithInverseEList.Resolving<ProductDefinition>(ProductDefinition.class, this, ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS, ModuleModelPackage.PRODUCT_DEFINITION__PARENT);
+         productDefinitions = new EObjectContainmentWithInverseEList.Resolving<ProductDefinition>(
+            ProductDefinition.class, this, ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
+            ModuleModelPackage.PRODUCT_DEFINITION__PARENT);
       }
       return productDefinitions;
    }
@@ -81,6 +89,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -89,8 +98,9 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS:
-            return ((InternalEList<InternalEObject>)(InternalEList<?>)getProductDefinitions()).basicAdd(otherEnd, msgs);
+         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
+            return ((InternalEList<InternalEObject>) (InternalEList<?>) getProductDefinitions()).basicAdd(otherEnd,
+               msgs);
       }
       return super.eInverseAdd(otherEnd, featureID, msgs);
    }
@@ -98,6 +108,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -105,8 +116,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS:
-            return ((InternalEList<?>)getProductDefinitions()).basicRemove(otherEnd, msgs);
+         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
+            return ((InternalEList<?>) getProductDefinitions()).basicRemove(otherEnd, msgs);
       }
       return super.eInverseRemove(otherEnd, featureID, msgs);
    }
@@ -114,6 +125,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -121,7 +133,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS:
+         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return getProductDefinitions();
       }
       return super.eGet(featureID, resolve, coreType);
@@ -130,6 +142,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @SuppressWarnings("unchecked")
@@ -138,9 +151,9 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS:
+         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             getProductDefinitions().clear();
-            getProductDefinitions().addAll((Collection<? extends ProductDefinition>)newValue);
+            getProductDefinitions().addAll((Collection<? extends ProductDefinition>) newValue);
             return;
       }
       super.eSet(featureID, newValue);
@@ -149,6 +162,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -156,7 +170,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS:
+         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             getProductDefinitions().clear();
             return;
       }
@@ -166,6 +180,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override
@@ -173,7 +188,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
    {
       switch (featureID)
       {
-         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS:
+         case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return productDefinitions != null && !productDefinitions.isEmpty();
       }
       return super.eIsSet(featureID);

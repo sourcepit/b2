@@ -273,7 +273,7 @@ public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
       assertEquals(expectedFlags, flags.intValue());
    }
 
-   static class RelPathCollector implements FileVisitor
+   static class RelPathCollector implements FileVisitor<RuntimeException>
    {
       private final Map<String, Integer> visiedFiles = new HashMap<String, Integer>();
 

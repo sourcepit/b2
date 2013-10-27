@@ -44,6 +44,7 @@ import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
+import org.sourcepit.common.utils.content.ContentTypes;
 import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -99,6 +100,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
       b2Request.setModuleProperties(moduleProperties);
       b2Request.setInterpolate(!converter.isSkipInterpolator(moduleProperties));
       b2Request.setTemplates(templates);
+      b2Request.setContentTypes(ContentTypes.DEFAULT);
 
       for (MavenProject project : bootSession.getProjects())
       {
@@ -234,8 +236,19 @@ public class MavenB2RequestFactory implements B2RequestFactory
    public static PropertiesSource createSource(MavenSession mavenSession, MavenProject project)
    {
       final PropertiesMap propertiesMap = B2ModelBuildingRequest.newDefaultProperties();
-      propertiesMap.put("b2.moduleVersion", VersionUtils.toBundleVersion(project.getVersion()));
+
+      final String mavenVersion = project.getVersion();
+      final String osgiVersion = VersionUtils.toBundleVersion(mavenVersion);
+
+      propertiesMap.put("b2.moduleVersion", osgiVersion);
       propertiesMap.put("b2.moduleNameSpace", project.getGroupId());
+
+      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
+      propertiesMap.put("module.version", mavenVersion);
+      propertiesMap.put("module.mavenVersion", mavenVersion);
+      propertiesMap.put("module.osgiVersion", osgiVersion);
+      propertiesMap.put("module.tychoVersion", tychoVersion);
+
       propertiesMap.putMap(project.getProperties());
       propertiesMap.putMap(mavenSession.getSystemProperties());
       propertiesMap.putMap(mavenSession.getUserProperties());

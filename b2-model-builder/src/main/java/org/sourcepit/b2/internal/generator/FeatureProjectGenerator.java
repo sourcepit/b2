@@ -142,7 +142,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
             queries);
 
          brandingPlugin.setBundleManifest((BundleManifest) B2ModelUtils.readManifest(new File(pluginDir,
-            "META-INF/MANIFEST.MF")));
+            "META-INF/MANIFEST.MF"), true));
       }
    }
 

@@ -115,10 +115,10 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
    protected MavenExecutionRequest createMavenExecutionRequest(File pom) throws Exception
    {
       MavenExecutionRequest request = new DefaultMavenExecutionRequest().setPom(pom).setProjectPresent(true)
-         .setShowErrors(true).setPluginGroups(Arrays.asList(new String[] {"org.apache.maven.plugins"}))
+         .setShowErrors(true).setPluginGroups(Arrays.asList(new String[] { "org.apache.maven.plugins" }))
          .setLocalRepository(getLocalRepository()).setRemoteRepositories(getRemoteRepositories())
          .setPluginArtifactRepositories(getPluginArtifactRepositories())
-         .setGoals(Arrays.asList(new String[] {"package"}));
+         .setGoals(Arrays.asList(new String[] { "package" }));
 
       return request;
    }

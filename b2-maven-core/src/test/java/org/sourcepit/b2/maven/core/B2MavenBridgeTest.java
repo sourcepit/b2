@@ -140,7 +140,7 @@ public class B2MavenBridgeTest extends PlexusTest
       resourceSet.getResources().add(resourceB);
 
       b2Bridge.connect(mavenSession, resourceSet);
-      
+
       try
       {
          b2Bridge.connect(mavenSession, resourceSet);

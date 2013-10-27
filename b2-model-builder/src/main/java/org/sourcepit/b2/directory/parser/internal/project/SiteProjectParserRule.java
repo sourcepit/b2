@@ -19,9 +19,17 @@ import org.sourcepit.common.utils.xml.XmlUtils;
 
 @Named("site")
 public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject>
+   implements
+      ProjectDetectionRule<SiteProject>
 {
    @Inject
    private BasicConverter converter;
+
+   @Override
+   public SiteProject detect(File directory, PropertiesSource properties)
+   {
+      return parse(directory, properties);
+   }
 
    @Override
    public SiteProject parse(File directory, PropertiesSource properties)
@@ -29,16 +37,20 @@ public class SiteProjectParserRule extends AbstractProjectParserRule<SiteProject
       try
       {
          XmlUtils.readXml(new File(directory, "site.xml"));
-
          final SiteProject siteProject = ModuleModelFactory.eINSTANCE.createSiteProject();
          siteProject.setDirectory(directory);
-         siteProject.setId(directory.getName());
-         siteProject.setVersion(this.converter.getModuleVersion(properties));
          return siteProject;
       }
       catch (IllegalArgumentException e)
-      { // no site project
+      {
+         return null;
       }
-      return null;
+   }
+
+   @Override
+   public void initializeeee(SiteProject siteProject, PropertiesSource properties)
+   {
+      siteProject.setId(siteProject.getDirectory().getName());
+      siteProject.setVersion(this.converter.getModuleVersion(properties));
    }
 }

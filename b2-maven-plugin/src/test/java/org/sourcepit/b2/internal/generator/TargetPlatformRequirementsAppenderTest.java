@@ -150,7 +150,7 @@ public class TargetPlatformRequirementsAppenderTest
       assertNotNull(configuration);
 
       Xpp3Dom requirementsNode = configuration.getChild("dependency-resolution").getChild("extraRequirements");
-      
+
       List<Dependency> actualRequirements = readRequirements(requirementsNode);
       assertEquals(2, actualRequirements.size());
 
@@ -172,7 +172,7 @@ public class TargetPlatformRequirementsAppenderTest
 
       actualRequirements = readRequirements(requirementsNode);
       assertEquals(3, actualRequirements.size());
-      
+
       assertRequirement("foo.plugin", "1.0.0", TYPE_ECLIPSE_PLUGIN, actualRequirements.get(0)); // existing wins
       assertRequirement("foo.feature", "1.0.0", TYPE_ECLIPSE_FEATURE, actualRequirements.get(1)); // keep existing
       assertRequirement("foo.sources.feature", "1.0.0", TYPE_ECLIPSE_FEATURE, actualRequirements.get(2)); // add new

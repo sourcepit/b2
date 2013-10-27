@@ -19,7 +19,7 @@ public class CompatibilityTest extends PlexusTestCase
       @SuppressWarnings({ "unchecked", "rawtypes" })
       final Map<String, ReleasePhase> releasePhasesMap = (Map) getContainer().lookupMap(ReleasePhase.ROLE);
       assertFalse(releasePhasesMap.isEmpty());
-      
+
       for (Entry<String, ReleasePhase> entry : releasePhasesMap.entrySet())
       {
          final String roleHint = entry.getKey();

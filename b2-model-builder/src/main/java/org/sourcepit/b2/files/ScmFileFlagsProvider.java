@@ -57,6 +57,12 @@ public class ScmFileFlagsProvider implements FileFlagsProvider
          {
             return determineFlags(file, scmDirs);
          }
+
+         @Override
+         public Map<File, Integer> getAdditionallyFoundFileFlags()
+         {
+            return null;
+         }
       };
    }
 

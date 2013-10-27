@@ -96,7 +96,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       assertNotNull(generatedConf);
       assertNotNull(generatedConf.getChild("foo"));
    }
-   
+
    @Test
    public void testConfigureReleasePreparationGoals() throws Exception
    {
@@ -114,19 +114,19 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       modulePom.setGroupId("org.sourcepit.b2");
       modulePom.setArtifactId(projectDir.getName());
       modulePom.setVersion("1-SNAPSHOT");
-      
+
       final String defaultGoals = modulePom.getProperties().getProperty("b2.release.preparationGoals");
       assertEquals("clean verify", defaultGoals);
-      
+
       modulePom.getProperties().setProperty("b2.release.preparationGoals", "");
-      
+
       writePom(modulePom, moduleFile);
 
       // generate maven pom
       generatePom(projectDir);
 
       final Model generatedPom = readPom(new File(projectDir, "pom.xml"));
-      
+
       final String generatedGoals = generatedPom.getProperties().getProperty("b2.release.preparationGoals");
       assertEquals("", generatedGoals);
 

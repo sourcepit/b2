@@ -150,6 +150,7 @@ public class ReleaseIT extends AbstractB2IT
          args.add("-B");
          args.add("release:prepare");
          args.add("release:perform");
+         args.add("-Dtycho.mode=maven");
          args.add("-DreleaseVersion=" + releaseVersion);
          args.add("-DdevelopmentVersion=" + developmentVersion);
          args.add("-Dresume=false");
@@ -165,6 +166,7 @@ public class ReleaseIT extends AbstractB2IT
          args.add("clean");
          args.add("release:prepare");
          args.add("release:perform");
+         args.add("-Dtycho.mode=maven");
          args.add("-DreleaseVersion=" + releaseVersion);
          args.add("-DdevelopmentVersion=" + developmentVersion);
          args.add("-Dresume=false");
@@ -223,7 +225,7 @@ public class ReleaseIT extends AbstractB2IT
       assertThat(actual.getUrl(), IsEqual.equalTo(expected.getUrl()));
    }
 
-   private static void setScm(SCM scm, final List<File> moduleXmls) throws FileNotFoundException, IOException,
+   public static void setScm(SCM scm, final List<File> moduleXmls) throws FileNotFoundException, IOException,
       XmlPullParserException
    {
       for (File moduleXml : moduleXmls)
