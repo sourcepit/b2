@@ -38,11 +38,6 @@ public class ModuleDirectoryFactroy
       return new ModuleDirectory(moduleDir, fileToFlagsMap);
    }
 
-   public Map<File, Integer> saveToMemento(ModuleDirectory moduleDirectory)
-   {
-      return new HashMap<File, Integer>(moduleDirectory.getFileFlags());
-   }
-
    static Map<File, Integer> determineFileFlags(Collection<FileFlagsProvider> flagsProviders, File moduleDir,
       PropertiesSource properties)
    {

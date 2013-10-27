@@ -7,17 +7,25 @@
 package org.sourcepit.b2.files;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.lang.String.valueOf;
+import static java.util.Collections.sort;
 import static org.sourcepit.common.utils.file.FileUtils.isParentOf;
+import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.validation.constraints.NotNull;
+
+import org.sourcepit.common.utils.props.LinkedPropertiesMap;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class ModuleDirectory
 {
@@ -38,6 +46,45 @@ public class ModuleDirectory
    private final Map<File, Integer> fileFlags;
 
    private final Map<File, Integer> aggregatedFlags = new ConcurrentHashMap<File, Integer>();
+
+   public static ModuleDirectory load(final File moduleDir, final File srcFile)
+   {
+      final PropertiesMap props = new LinkedPropertiesMap();
+      props.load(srcFile);
+      final Map<File, Integer> fileFlags = new HashMap<File, Integer>();
+      for (Entry<String, String> entry : props.entrySet())
+      {
+         final File file = new File(moduleDir, entry.getKey());
+         final Integer flags = Integer.valueOf(entry.getValue());
+         fileFlags.put(file, flags);
+      }
+      return new ModuleDirectory(moduleDir, fileFlags);
+   }
+   
+   public static void save(ModuleDirectory moduleDirectory, File destFile)
+   {
+      final File moduleDir = moduleDirectory.getFile();
+      final Map<File, Integer> fileToFlagsMap = moduleDirectory.getFileFlags();
+
+      final List<File> files = new ArrayList<File>(fileToFlagsMap.keySet());
+      sort(files, new Comparator<File>()
+      {
+         @Override
+         public int compare(File f1, File f2)
+         {
+            return f1.getPath().compareToIgnoreCase(f2.getPath());
+         }
+      });
+
+      final PropertiesMap out = new LinkedPropertiesMap();
+      for (File file : files)
+      {
+         final int flags = fileToFlagsMap.get(file).intValue();
+         out.put(getRelativePath(file, moduleDir, "/"), valueOf(flags));
+      }
+
+      out.store(destFile);
+   }
 
    public ModuleDirectory(@NotNull File moduleDir, Map<File, Integer> fileFlags)
    {

@@ -4,16 +4,9 @@
 
 package org.sourcepit.b2.internal.maven;
 
-import static java.lang.String.valueOf;
-import static java.util.Collections.sort;
-import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.inject.Inject;
@@ -37,7 +30,6 @@ import org.sourcepit.b2.execution.AbstractB2SessionLifecycleParticipant;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2SessionLifecycleParticipant;
 import org.sourcepit.b2.files.ModuleDirectory;
-import org.sourcepit.b2.files.ModuleDirectoryFactroy;
 import org.sourcepit.b2.internal.generator.AbstractPomGenerator;
 import org.sourcepit.b2.internal.generator.ModelTemplateMerger;
 import org.sourcepit.b2.model.interpolation.layout.LayoutManager;
@@ -60,13 +52,10 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
    @Inject
    private LegacySupport legacySupport;
 
-   @Inject
-   private ModuleDirectoryFactroy moduleDirectoryFactroy;
-
    public void postPrepareProject(File project, B2Request request, AbstractModule module, ThrowablePipe errors)
    {
       final ModuleDirectory moduleDirectory = request.getModuleDirectory();
-      saveModuleDirectory(moduleDirectory, newFile(module, "moduleDirectory.properties"));
+      ModuleDirectory.save(moduleDirectory, newFile(module, "moduleDirectory.properties"));
 
       final MavenProject bootProject = legacySupport.getSession().getCurrentProject();
 
@@ -109,54 +98,6 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       final String layoutId = module.getLayoutId();
       File file = new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, fileName));
       return file;
-   }
-
-   private final class FileNameComparator implements Comparator<File>
-   {
-      private final boolean caseSensitive;
-
-      public FileNameComparator(boolean caseSensitive)
-      {
-         this.caseSensitive = caseSensitive;
-      }
-
-      public int compare(File f1, File f2)
-      {
-         if (f1.isDirectory() && !f2.isDirectory())
-         {
-            return -1;
-         }
-         else if (!f1.isDirectory() && f2.isDirectory())
-         {
-            return 1;
-         }
-         else if (caseSensitive)
-         {
-            return f1.getName().compareTo(f2.getName());
-         }
-         else
-         {
-            return f1.getName().compareToIgnoreCase(f2.getName());
-         }
-      }
-   }
-
-   private void saveModuleDirectory(ModuleDirectory moduleDirectory, File dest)
-   {
-      final File moduleDir = moduleDirectory.getFile();
-      final Map<File, Integer> fileToFlagsMap = moduleDirectoryFactroy.saveToMemento(moduleDirectory);
-
-      final List<File> files = new ArrayList<File>(fileToFlagsMap.keySet());
-      sort(files, new FileNameComparator(false));
-
-      final PropertiesMap out = new LinkedPropertiesMap();
-      for (File file : files)
-      {
-         final int flags = fileToFlagsMap.get(file).intValue();
-         out.put(getRelativePath(file, moduleDir, "/"), valueOf(flags));
-      }
-      
-      out.store(dest);
    }
 
    private void processAttachments(MavenProject wrapperProject, File pomFile)
