@@ -6,7 +6,6 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import java.io.File;
 import java.util.List;
 
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -31,8 +30,6 @@ public interface BasicConverter
 
    boolean isSkipGenerator(PropertiesSource moduleProperties);
 
-   boolean isPotentialModuleDirectory(PropertiesSource moduleProperties, File baseDir, File file);
-   
    String getModuleVersion(PropertiesSource moduleProperties);
 
    String getNameSpace(PropertiesSource moduleProperties);

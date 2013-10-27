@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>Version Match Rule</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * 
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getVersionMatchRule()
  * @model
  * @generated
@@ -27,6 +28,7 @@ public enum VersionMatchRule implements Enumerator
     * The '<em><b>Compatible</b></em>' literal object.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @see #COMPATIBLE_VALUE
     * @generated
     * @ordered
@@ -37,6 +39,7 @@ public enum VersionMatchRule implements Enumerator
     * The '<em><b>Perfect</b></em>' literal object.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @see #PERFECT_VALUE
     * @generated
     * @ordered
@@ -47,6 +50,7 @@ public enum VersionMatchRule implements Enumerator
     * The '<em><b>Equivalent</b></em>' literal object.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @see #EQUIVALENT_VALUE
     * @generated
     * @ordered
@@ -57,6 +61,7 @@ public enum VersionMatchRule implements Enumerator
     * The '<em><b>Greater Or Equal</b></em>' literal object.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @see #GREATER_OR_EQUAL_VALUE
     * @generated
     * @ordered
@@ -71,6 +76,7 @@ public enum VersionMatchRule implements Enumerator
     * description here...
     * </p>
     * <!-- end-user-doc -->
+    * 
     * @see #COMPATIBLE
     * @model name="compatible"
     * @generated
@@ -86,6 +92,7 @@ public enum VersionMatchRule implements Enumerator
     * description here...
     * </p>
     * <!-- end-user-doc -->
+    * 
     * @see #PERFECT
     * @model name="perfect"
     * @generated
@@ -101,6 +108,7 @@ public enum VersionMatchRule implements Enumerator
     * description here...
     * </p>
     * <!-- end-user-doc -->
+    * 
     * @see #EQUIVALENT
     * @model name="equivalent"
     * @generated
@@ -116,6 +124,7 @@ public enum VersionMatchRule implements Enumerator
     * description here...
     * </p>
     * <!-- end-user-doc -->
+    * 
     * @see #GREATER_OR_EQUAL
     * @model name="greaterOrEqual"
     * @generated
@@ -127,20 +136,17 @@ public enum VersionMatchRule implements Enumerator
     * An array of all the '<em><b>Version Match Rule</b></em>' enumerators.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
-   private static final VersionMatchRule[] VALUES_ARRAY = new VersionMatchRule[]
-      {
-         COMPATIBLE,
-         PERFECT,
-         EQUIVALENT,
-         GREATER_OR_EQUAL,
-      };
+   private static final VersionMatchRule[] VALUES_ARRAY = new VersionMatchRule[] { COMPATIBLE, PERFECT, EQUIVALENT,
+      GREATER_OR_EQUAL, };
 
    /**
     * A public read-only list of all the '<em><b>Version Match Rule</b></em>' enumerators.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public static final List<VersionMatchRule> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
@@ -149,6 +155,7 @@ public enum VersionMatchRule implements Enumerator
     * Returns the '<em><b>Version Match Rule</b></em>' literal with the specified literal value.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public static VersionMatchRule get(String literal)
@@ -168,6 +175,7 @@ public enum VersionMatchRule implements Enumerator
     * Returns the '<em><b>Version Match Rule</b></em>' literal with the specified name.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public static VersionMatchRule getByName(String name)
@@ -187,16 +195,21 @@ public enum VersionMatchRule implements Enumerator
     * Returns the '<em><b>Version Match Rule</b></em>' literal with the specified integer value.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public static VersionMatchRule get(int value)
    {
       switch (value)
       {
-         case COMPATIBLE_VALUE: return COMPATIBLE;
-         case PERFECT_VALUE: return PERFECT;
-         case EQUIVALENT_VALUE: return EQUIVALENT;
-         case GREATER_OR_EQUAL_VALUE: return GREATER_OR_EQUAL;
+         case COMPATIBLE_VALUE :
+            return COMPATIBLE;
+         case PERFECT_VALUE :
+            return PERFECT;
+         case EQUIVALENT_VALUE :
+            return EQUIVALENT;
+         case GREATER_OR_EQUAL_VALUE :
+            return GREATER_OR_EQUAL;
       }
       return null;
    }
@@ -204,6 +217,7 @@ public enum VersionMatchRule implements Enumerator
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    private final int value;
@@ -211,6 +225,7 @@ public enum VersionMatchRule implements Enumerator
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    private final String name;
@@ -218,6 +233,7 @@ public enum VersionMatchRule implements Enumerator
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    private final String literal;
@@ -226,6 +242,7 @@ public enum VersionMatchRule implements Enumerator
     * Only this class can construct instances.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    private VersionMatchRule(int value, String name, String literal)
@@ -238,37 +255,41 @@ public enum VersionMatchRule implements Enumerator
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public int getValue()
    {
-     return value;
+      return value;
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public String getName()
    {
-     return name;
+      return name;
    }
 
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public String getLiteral()
    {
-     return literal;
+      return literal;
    }
 
    /**
     * Returns the literal value of the enumerator, which is its string representation.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    @Override

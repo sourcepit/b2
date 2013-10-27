@@ -29,7 +29,7 @@ public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>
    @Override
    protected BasicModule doParse(IModuleParsingRequest request)
    {
-      final File baseDir = request.getModuleDirectory();
+      final File baseDir = request.getModuleDirectory().getFile();
       final PropertiesSource properties = request.getModuleProperties();
 
       final FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(baseDir, properties);

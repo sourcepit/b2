@@ -17,6 +17,7 @@ import javax.inject.Named;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
+import org.sourcepit.b2.directory.parser.internal.project.ProjectDetector;
 import org.sourcepit.b2.directory.parser.internal.project.ProjectParser;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
@@ -36,6 +37,9 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
    private static final String LAYOUT = SimpleLayoutFacetsParserRule.class.getAnnotation(Named.class).value();
 
    @Inject
+   private ProjectDetector projectDetector;
+
+   @Inject
    private ProjectParser projectParser;
 
    @Override
@@ -43,6 +47,11 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
    {
       final List<ProjectFacet<? extends Project>> facets = new ArrayList<ProjectFacet<? extends Project>>();
       if (directory == null || !directory.exists())
+      {
+         return null;
+      }
+
+      if (projectDetector.detect(directory, properties) != null)
       {
          return null;
       }

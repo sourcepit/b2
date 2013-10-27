@@ -47,7 +47,7 @@ public class ModuleWalkerTest
             return true;
          }
       }.walk(compositeModule);
-      
+
       assertEquals(1, visitedModules.size());
       assertEquals(compositeModule, visitedModules.get(0));
    }

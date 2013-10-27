@@ -6,7 +6,11 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.sourcepit.b2.model.harness.ModelTestHarness.addSiteProject;
 import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyClassifier;
@@ -31,6 +35,7 @@ import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironment
 import org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTestHarness;
 import org.sourcepit.b2.execution.B2;
 import org.sourcepit.b2.execution.B2Request;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.generator.p2.Action;
 import org.sourcepit.b2.internal.generator.p2.Instruction;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
@@ -80,7 +85,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       assertNull(features);
 
       B2Request request = new B2Request();
-      request.setModuleDirectory(moduleDir);
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setInterpolate(true);
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setTemplates(new DefaultTemplateCopier());
@@ -121,7 +126,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       props.put("b2.products.resources", "p2.inf,legal/**");
 
       B2Request request = new B2Request();
-      request.setModuleDirectory(moduleDir);
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setInterpolate(true);
       request.setModuleProperties(props);
       request.setTemplates(new DefaultTemplateCopier());
@@ -162,7 +167,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       props.put("b2.products.features", "foo:1.0.0,bar");
 
       B2Request request = new B2Request();
-      request.setModuleDirectory(moduleDir);
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setInterpolate(true);
       request.setModuleProperties(props);
       request.setTemplates(new DefaultTemplateCopier());
@@ -214,7 +219,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       props.put("b2.products.plugins", "foo:1.0.0,bar");
 
       B2Request request = new B2Request();
-      request.setModuleDirectory(moduleDir);
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setInterpolate(true);
       request.setModuleProperties(props);
       request.setTemplates(new DefaultTemplateCopier());
@@ -264,7 +269,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
          "http://download.eclipse.org/eclipse/updates/4.2,http://download.eclipse.org/releases/juno/");
 
       B2Request request = new B2Request();
-      request.setModuleDirectory(moduleDir);
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setInterpolate(true);
       request.setModuleProperties(props);
       request.setTemplates(new DefaultTemplateCopier());
@@ -338,7 +343,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       write(productFile, sb.toString().getBytes("UTF-8"));
 
       B2Request request = new B2Request();
-      request.setModuleDirectory(moduleDir);
+      request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setInterpolate(true);
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setTemplates(new DefaultTemplateCopier());
@@ -346,7 +351,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       // build model and generate
       final AbstractModule module = b2.generate(request);
       assertNotNull(module);
-      
+
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
       final File projectDir = new File(layout.pathOfSiteProject(module, ""));
       assertTrue(projectDir.exists());

@@ -11,8 +11,8 @@ package org.sourcepit.b2.model.module;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Abstract Strict Reference</b></em>'.
  * <!-- end-user-doc -->
- *
- *
+ * 
+ * 
  * @see org.sourcepit.b2.model.module.ModuleModelPackage#getAbstractStrictReference()
  * @model abstract="true"
  * @generated

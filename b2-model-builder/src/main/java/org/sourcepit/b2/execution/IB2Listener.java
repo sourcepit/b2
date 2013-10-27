@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.execution;
 
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 
 /**
@@ -13,5 +14,5 @@ import org.sourcepit.b2.model.module.AbstractModule;
  */
 public interface IB2Listener
 {
-   void startGeneration(AbstractModule module);
+   void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module);
 }

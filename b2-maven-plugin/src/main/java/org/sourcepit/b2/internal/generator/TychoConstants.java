@@ -11,7 +11,7 @@ public interface TychoConstants
    String TYCHO_VERSION_PROPERTY = "${tycho.version}";
 
    String TYCHO_TPC_PLUGIN_ARTIFACT_ID = "target-platform-configuration";
-   
+
    String TYPE_ECLIPSE_PLUGIN = "eclipse-plugin";
    String TYPE_ECLIPSE_TEST_PLUGIN = "eclipse-test-plugin";
    String TYPE_ECLIPSE_FEATURE = "eclipse-feature";

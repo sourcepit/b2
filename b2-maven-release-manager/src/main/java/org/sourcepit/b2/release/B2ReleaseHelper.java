@@ -175,7 +175,7 @@ public class B2ReleaseHelper
       return mavenVersion;
    }
 
-   private MavenProject determineModuleMavenProject(MavenProject mavenProject)
+   public MavenProject determineModuleMavenProject(MavenProject mavenProject)
    {
       MavenProject parentProject = mavenProject;
       while (parentProject != null)

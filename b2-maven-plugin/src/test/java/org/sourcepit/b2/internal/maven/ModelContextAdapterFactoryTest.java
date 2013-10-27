@@ -102,13 +102,12 @@ public class ModelContextAdapterFactoryTest extends AbstractB2MavenPluginTest
       artifact.setFile(new File(ws.getRoot(), "b2.module"));
 
       BasicModule module = createBasicModule("groupId.artifactId");
-      FeatureProject featureProject = addFeatureProject(module, "features", module.getId()
-         + ".feature", module.getVersion());
+      FeatureProject featureProject = addFeatureProject(module, "features", module.getId() + ".feature",
+         module.getVersion());
       B2MetadataUtils.addAssemblyName(featureProject, "public");
       B2MetadataUtils.addAssemblyClassifier(featureProject, "");
 
-      featureProject = addFeatureProject(module, "features", module.getId() + ".test.feature",
-         module.getVersion());
+      featureProject = addFeatureProject(module, "features", module.getId() + ".test.feature", module.getVersion());
       B2MetadataUtils.setTestFeature(featureProject, true);
       B2MetadataUtils.addAssemblyName(featureProject, "test");
       B2MetadataUtils.addAssemblyClassifier(featureProject, "test");

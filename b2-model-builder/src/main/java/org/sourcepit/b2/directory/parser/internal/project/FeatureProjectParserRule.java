@@ -14,6 +14,7 @@ import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Document;
@@ -22,7 +23,16 @@ import org.w3c.dom.Node;
 
 @Named("feature")
 public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureProject>
+   implements
+      ProjectDetectionRule<FeatureProject>,
+      ProjectModelInitializationParticipant
 {
+   @Override
+   public FeatureProject detect(File directory, PropertiesSource properties)
+   {
+      return parse(directory, properties);
+   }
+
    @Override
    public FeatureProject parse(File directory, PropertiesSource properties)
    {
@@ -44,15 +54,37 @@ public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureP
          return null;
       }
 
+      final FeatureProject featureProject = ModuleModelFactory.eINSTANCE.createFeatureProject();
+      featureProject.setDirectory(directory);
+
+      return featureProject;
+   }
+
+   @Override
+   public void initialize(Project project, PropertiesSource properties)
+   {
+      if (project instanceof FeatureProject)
+      {
+         initializeeee((FeatureProject) project, properties);
+      }
+   }
+
+   @Override
+   public void initializeeee(FeatureProject featureProject, PropertiesSource properties)
+   {
+      final File directory = featureProject.getDirectory();
+
+      final File featureXmlFile = new File(directory, "feature.xml");
+
+      final Element featureElem = XmlUtils.readXml(featureXmlFile).getDocumentElement();
+
       final String featureId = featureElem.getAttribute("id");
       final String featureVersion = featureElem.getAttribute("version");
 
-      final FeatureProject featureProject = ModuleModelFactory.eINSTANCE.createFeatureProject();
-      featureProject.setDirectory(directory);
       featureProject.setId(featureId);
       featureProject.setVersion(featureVersion);
 
-      for (Node node : XmlUtils.queryNodes(featureXml, "/feature/includes"))
+      for (Node node : XmlUtils.queryNodes(XmlUtils.readXml(featureXmlFile), "/feature/includes"))
       {
          final Element includeElem = (Element) node;
          final FeatureInclude fi = ModuleModelFactory.eINSTANCE.createFeatureInclude();
@@ -65,7 +97,7 @@ public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureP
          featureProject.getIncludedFeatures().add(fi);
       }
 
-      for (Node node : XmlUtils.queryNodes(featureXml, "/feature/plugin"))
+      for (Node node : XmlUtils.queryNodes(XmlUtils.readXml(featureXmlFile), "/feature/plugin"))
       {
          final Element pluginElem = (Element) node;
          final PluginInclude pi = ModuleModelFactory.eINSTANCE.createPluginInclude();
@@ -83,11 +115,9 @@ public class FeatureProjectParserRule extends AbstractProjectParserRule<FeatureP
          final String unpack = pluginElem.getAttribute("unpack");
          if (unpack != null && unpack.length() > 0)
          {
-            pi.setUnpack(Boolean.valueOf(unpack));
+            pi.setUnpack(Boolean.valueOf(unpack).booleanValue());
          }
          featureProject.getIncludedPlugins().add(pi);
       }
-
-      return featureProject;
    }
 }

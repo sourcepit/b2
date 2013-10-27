@@ -22,8 +22,7 @@ public class AbstractB2SessionLifecycleParticipant implements B2SessionLifecycle
    {
    }
 
-   public void postPrepareProject(File projectDir, B2Request request, AbstractModule module,
-      ThrowablePipe errors)
+   public void postPrepareProject(File projectDir, B2Request request, AbstractModule module, ThrowablePipe errors)
    {
    }
 

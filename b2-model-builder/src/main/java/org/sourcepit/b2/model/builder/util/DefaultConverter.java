@@ -8,17 +8,13 @@ package org.sourcepit.b2.model.builder.util;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
-import static org.sourcepit.b2.model.module.VersionMatchRule.GREATER_OR_EQUAL;
 import static org.sourcepit.common.utils.path.PathMatcher.parsePackagePatterns;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
 
-import org.codehaus.plexus.interpolation.AbstractValueSource;
 import org.osgi.framework.Version;
 import org.sourcepit.b2.model.module.AbstractReference;
 import org.sourcepit.b2.model.module.FeatureInclude;
@@ -29,10 +25,8 @@ import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 
 import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
 @Named
@@ -46,20 +40,6 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    public boolean isSkipGenerator(PropertiesSource moduleProperties)
    {
       return moduleProperties.getBoolean("b2.skipGenerator", false);
-   }
-
-   public boolean isPotentialModuleDirectory(PropertiesSource moduleProperties, File baseDir, File file)
-   {
-      if (file.isDirectory() && file.exists() && new File(file, "module.xml").exists())
-      {
-         final String pattern = interpolate(moduleProperties, "b2.moduleDirFilter", "**");
-         final PathMatcher moduleDirMacher = PathMatcher.parseFilePatterns(baseDir, pattern);
-         if (moduleDirMacher.isMatch(file.getAbsolutePath()))
-         {
-            return true;
-         }
-      }
-      return false;
    }
 
    public List<String> getAssemblyNames(PropertiesSource moduleProperties)
@@ -440,21 +420,6 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
          }
       }
       return null;
-   }
-
-   private static String interpolate(final PropertiesSource moduleProperties, String key, String defaultValue)
-   {
-      StringInterpolator s = new StringInterpolator();
-      s.setEscapeString("\\");
-      s.getValueSources().add(new AbstractValueSource(false)
-      {
-         public Object getValue(String expression)
-         {
-            return moduleProperties.get(expression);
-         }
-      });
-      final String value = moduleProperties.get(key, defaultValue);
-      return value == null ? value : s.interpolate(value);
    }
 
    public String getFeatureId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)

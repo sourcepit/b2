@@ -37,9 +37,9 @@ public class ScmCheckModificationsPhaseTest
       catch (NullPointerException e)
       {
       }
-      
+
       checkScmExcludes(releaseDescriptor);
-      
+
       try
       {
          phase.execute(releaseDescriptor, (Settings) null, null);
@@ -47,7 +47,7 @@ public class ScmCheckModificationsPhaseTest
       catch (NullPointerException e)
       {
       }
-      
+
       checkScmExcludes(releaseDescriptor);
    }
 

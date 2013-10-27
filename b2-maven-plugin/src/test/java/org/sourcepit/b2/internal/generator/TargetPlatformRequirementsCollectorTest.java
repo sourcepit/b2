@@ -209,17 +209,17 @@ public class TargetPlatformRequirementsCollectorTest
       dependency = requirements.get(3);
       assertRequirement("org.eclipse.core.runtime", "[3.4.0,4.0.0)", "eclipse-plugin", dependency);
    }
-   
+
    @Test
    public void testToRequirement() throws Exception
    {
       StrictReference reference = ModuleModelFactory.eINSTANCE.createStrictReference();
       reference.setId("foo");
-      
+
       Dependency requirement = TargetPlatformRequirementsCollector.toRequirement(reference);
       assertEquals("foo", requirement.getArtifactId());
       assertEquals("0.0.0", requirement.getVersion());
-      
+
       reference.setVersion("1.0.0");
       requirement = TargetPlatformRequirementsCollector.toRequirement(reference);
       assertEquals("foo", requirement.getArtifactId());
@@ -229,7 +229,7 @@ public class TargetPlatformRequirementsCollectorTest
       requirement = TargetPlatformRequirementsCollector.toRequirement(reference);
       assertEquals("foo", requirement.getArtifactId());
       assertEquals("1.0.0.v392840289", requirement.getVersion());
-      
+
       reference.setVersion("1.0.0.qualifier");
       requirement = TargetPlatformRequirementsCollector.toRequirement(reference);
       assertEquals("foo", requirement.getArtifactId());

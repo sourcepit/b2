@@ -14,6 +14,7 @@ import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractModuleParse
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginInclude;
+import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
 {
@@ -40,12 +41,17 @@ public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
 
    public void testParseFeatureDirectory() throws Exception
    {
+      PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
+
       final File featureDir = workspace.importResources("composed-component/simple-layout/example.feature");
       assertTrue(featureDir.exists());
 
       final FeatureProjectParserRule parserRule = lookupFeatureProjectParserRule();
-      FeatureProject project = parserRule.parse(featureDir, B2ModelBuildingRequest.newDefaultProperties());
+      FeatureProject project = parserRule.detect(featureDir, properties);
       assertNotNull(project);
+      assertNull(project.getId());
+
+      parserRule.initialize(project, properties);
       assertEquals(featureDir, project.getDirectory());
       assertEquals("example.feature", project.getId());
       assertEquals("1.0.0.qualifier", project.getVersion());

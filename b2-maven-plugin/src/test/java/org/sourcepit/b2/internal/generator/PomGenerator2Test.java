@@ -29,6 +29,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Test;
 import org.sourcepit.b2.execution.B2Request;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.maven.MavenB2RequestFactory;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
@@ -95,7 +96,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       assertNotNull(generatedConf);
       assertNotNull(generatedConf.getChild("foo"));
    }
-   
+
    @Test
    public void testConfigureReleasePreparationGoals() throws Exception
    {
@@ -113,19 +114,19 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       modulePom.setGroupId("org.sourcepit.b2");
       modulePom.setArtifactId(projectDir.getName());
       modulePom.setVersion("1-SNAPSHOT");
-      
+
       final String defaultGoals = modulePom.getProperties().getProperty("b2.release.preparationGoals");
       assertEquals("clean verify", defaultGoals);
-      
+
       modulePom.getProperties().setProperty("b2.release.preparationGoals", "");
-      
+
       writePom(modulePom, moduleFile);
 
       // generate maven pom
       generatePom(projectDir);
 
       final Model generatedPom = readPom(new File(projectDir, "pom.xml"));
-      
+
       final String generatedGoals = generatedPom.getProperties().getProperty("b2.release.preparationGoals");
       assertEquals("", generatedGoals);
 
@@ -162,6 +163,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
 
       final B2GenerationRequest request = new B2GenerationRequest();
       request.setModule(module);
+      request.setModuleDirectory(new ModuleDirectory(module.getDirectory(), null));
       request.setModuleProperties(b2Request.getModuleProperties());
       request.setTemplates(b2Request.getTemplates());
 

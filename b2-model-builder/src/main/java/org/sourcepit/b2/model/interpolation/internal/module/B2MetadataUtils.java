@@ -280,7 +280,7 @@ public final class B2MetadataUtils
    {
       setB2Metadata(annotatable, BRANDING_PLUGIN, pluginId);
    }
-   
+
    public static String getBrandingPlugin(Annotatable annotatable)
    {
       return annotatable.getAnnotationData(B2, BRANDING_PLUGIN);

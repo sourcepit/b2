@@ -31,6 +31,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.tycho.core.utils.PlatformPropertiesUtils;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
@@ -76,7 +77,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
-      ITemplates templates)
+      ITemplates templates, ModuleDirectory moduleDirectory)
    {
       // TODO ability to skip reactor projects
       if (basicConverter.isSkipInterpolator(propertie))

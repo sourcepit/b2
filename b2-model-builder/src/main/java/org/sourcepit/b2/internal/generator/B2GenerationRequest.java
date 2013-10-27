@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
@@ -13,8 +14,10 @@ public class B2GenerationRequest implements IB2GenerationRequest
 {
    private AbstractModule module;
 
+   private ModuleDirectory moduleDirectory;
+
    private ITemplates templates;
-   
+
    private PropertiesSource moduleProperties;
 
    /**
@@ -30,11 +33,22 @@ public class B2GenerationRequest implements IB2GenerationRequest
       this.module = module;
    }
    
+   @Override
+   public ModuleDirectory getModuleDirectory()
+   {
+      return moduleDirectory;
+   }
+   
+   public void setModuleDirectory(ModuleDirectory moduleDirectory)
+   {
+      this.moduleDirectory = moduleDirectory;
+   }
+
    public PropertiesSource getModuleProperties()
    {
       return moduleProperties;
    }
-   
+
    public void setModuleProperties(PropertiesSource moduleProperties)
    {
       this.moduleProperties = moduleProperties;

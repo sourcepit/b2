@@ -6,8 +6,8 @@
 
 package org.sourcepit.b2.model.module.internal;
 
-import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.internal.util.IdentifiableUtils;
+import org.sourcepit.b2.model.module.util.Identifiable;
 import org.sourcepit.b2.model.module.util.Identifier;
 
 public aspect IdentifiableAspect

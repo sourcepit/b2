@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -42,7 +43,7 @@ public abstract class AbstractGeneratorForDerivedElements extends AbstractGenera
    protected abstract void addTypesOfInputs(Collection<Class<? extends Derivable>> inputTypes);
 
    @Override
-   public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates)
+   public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates, ModuleDirectory moduleDirectory)
    {
       generate((Derivable) inputElement, properties, templates);
    }

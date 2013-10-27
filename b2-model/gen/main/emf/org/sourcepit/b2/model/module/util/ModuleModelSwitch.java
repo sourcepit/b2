@@ -46,6 +46,7 @@ import org.sourcepit.common.modeling.Annotatable;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
+ * 
  * @see org.sourcepit.b2.model.module.ModuleModelPackage
  * @generated
  */
@@ -55,6 +56,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * The cached model package
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    protected static ModuleModelPackage modelPackage;
@@ -63,6 +65,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * Creates an instance of the switch.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @generated
     */
    public ModuleModelSwitch()
@@ -77,6 +80,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * Checks whether this is a switch for the given package.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @parameter ePackage the package in question.
     * @return whether this is a switch for the given package.
     * @generated
@@ -91,6 +95,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
+    * 
     * @return the first non-null result returned by a <code>caseXXX</code> call.
     * @generated
     */
@@ -99,256 +104,356 @@ public class ModuleModelSwitch<T> extends Switch<T>
    {
       switch (classifierID)
       {
-         case ModuleModelPackage.ABSTRACT_MODULE:
+         case ModuleModelPackage.ABSTRACT_MODULE :
          {
-            AbstractModule abstractModule = (AbstractModule)theEObject;
+            AbstractModule abstractModule = (AbstractModule) theEObject;
             T result = caseAbstractModule(abstractModule);
-            if (result == null) result = caseFileContainer(abstractModule);
-            if (result == null) result = caseAnnotatable(abstractModule);
-            if (result == null) result = caseAbstractIdentifiable(abstractModule);
-            if (result == null) result = caseIdentifiable(abstractModule);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseFileContainer(abstractModule);
+            if (result == null)
+               result = caseAnnotatable(abstractModule);
+            if (result == null)
+               result = caseAbstractIdentifiable(abstractModule);
+            if (result == null)
+               result = caseIdentifiable(abstractModule);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.BASIC_MODULE:
+         case ModuleModelPackage.BASIC_MODULE :
          {
-            BasicModule basicModule = (BasicModule)theEObject;
+            BasicModule basicModule = (BasicModule) theEObject;
             T result = caseBasicModule(basicModule);
-            if (result == null) result = caseAbstractModule(basicModule);
-            if (result == null) result = caseFileContainer(basicModule);
-            if (result == null) result = caseAnnotatable(basicModule);
-            if (result == null) result = caseAbstractIdentifiable(basicModule);
-            if (result == null) result = caseIdentifiable(basicModule);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractModule(basicModule);
+            if (result == null)
+               result = caseFileContainer(basicModule);
+            if (result == null)
+               result = caseAnnotatable(basicModule);
+            if (result == null)
+               result = caseAbstractIdentifiable(basicModule);
+            if (result == null)
+               result = caseIdentifiable(basicModule);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.ABSTRACT_FACET:
+         case ModuleModelPackage.ABSTRACT_FACET :
          {
-            AbstractFacet abstractFacet = (AbstractFacet)theEObject;
+            AbstractFacet abstractFacet = (AbstractFacet) theEObject;
             T result = caseAbstractFacet(abstractFacet);
-            if (result == null) result = caseDerivable(abstractFacet);
-            if (result == null) result = caseAnnotatable(abstractFacet);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseDerivable(abstractFacet);
+            if (result == null)
+               result = caseAnnotatable(abstractFacet);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.COMPOSITE_MODULE:
+         case ModuleModelPackage.COMPOSITE_MODULE :
          {
-            CompositeModule compositeModule = (CompositeModule)theEObject;
+            CompositeModule compositeModule = (CompositeModule) theEObject;
             T result = caseCompositeModule(compositeModule);
-            if (result == null) result = caseAbstractModule(compositeModule);
-            if (result == null) result = caseFileContainer(compositeModule);
-            if (result == null) result = caseAnnotatable(compositeModule);
-            if (result == null) result = caseAbstractIdentifiable(compositeModule);
-            if (result == null) result = caseIdentifiable(compositeModule);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractModule(compositeModule);
+            if (result == null)
+               result = caseFileContainer(compositeModule);
+            if (result == null)
+               result = caseAnnotatable(compositeModule);
+            if (result == null)
+               result = caseAbstractIdentifiable(compositeModule);
+            if (result == null)
+               result = caseIdentifiable(compositeModule);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PLUGINS_FACET:
+         case ModuleModelPackage.PLUGINS_FACET :
          {
-            PluginsFacet pluginsFacet = (PluginsFacet)theEObject;
+            PluginsFacet pluginsFacet = (PluginsFacet) theEObject;
             T result = casePluginsFacet(pluginsFacet);
-            if (result == null) result = caseProjectFacet(pluginsFacet);
-            if (result == null) result = caseAbstractFacet(pluginsFacet);
-            if (result == null) result = caseDerivable(pluginsFacet);
-            if (result == null) result = caseAnnotatable(pluginsFacet);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseProjectFacet(pluginsFacet);
+            if (result == null)
+               result = caseAbstractFacet(pluginsFacet);
+            if (result == null)
+               result = caseDerivable(pluginsFacet);
+            if (result == null)
+               result = caseAnnotatable(pluginsFacet);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.FEATURES_FACET:
+         case ModuleModelPackage.FEATURES_FACET :
          {
-            FeaturesFacet featuresFacet = (FeaturesFacet)theEObject;
+            FeaturesFacet featuresFacet = (FeaturesFacet) theEObject;
             T result = caseFeaturesFacet(featuresFacet);
-            if (result == null) result = caseProjectFacet(featuresFacet);
-            if (result == null) result = caseAbstractFacet(featuresFacet);
-            if (result == null) result = caseDerivable(featuresFacet);
-            if (result == null) result = caseAnnotatable(featuresFacet);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseProjectFacet(featuresFacet);
+            if (result == null)
+               result = caseAbstractFacet(featuresFacet);
+            if (result == null)
+               result = caseDerivable(featuresFacet);
+            if (result == null)
+               result = caseAnnotatable(featuresFacet);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.SITES_FACET:
+         case ModuleModelPackage.SITES_FACET :
          {
-            SitesFacet sitesFacet = (SitesFacet)theEObject;
+            SitesFacet sitesFacet = (SitesFacet) theEObject;
             T result = caseSitesFacet(sitesFacet);
-            if (result == null) result = caseProjectFacet(sitesFacet);
-            if (result == null) result = caseAbstractFacet(sitesFacet);
-            if (result == null) result = caseDerivable(sitesFacet);
-            if (result == null) result = caseAnnotatable(sitesFacet);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseProjectFacet(sitesFacet);
+            if (result == null)
+               result = caseAbstractFacet(sitesFacet);
+            if (result == null)
+               result = caseDerivable(sitesFacet);
+            if (result == null)
+               result = caseAnnotatable(sitesFacet);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PLUGIN_PROJECT:
+         case ModuleModelPackage.PLUGIN_PROJECT :
          {
-            PluginProject pluginProject = (PluginProject)theEObject;
+            PluginProject pluginProject = (PluginProject) theEObject;
             T result = casePluginProject(pluginProject);
-            if (result == null) result = caseProject(pluginProject);
-            if (result == null) result = caseFileContainer(pluginProject);
-            if (result == null) result = caseDerivable(pluginProject);
-            if (result == null) result = caseAnnotatable(pluginProject);
-            if (result == null) result = caseAbstractIdentifiable(pluginProject);
-            if (result == null) result = caseIdentifiable(pluginProject);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseProject(pluginProject);
+            if (result == null)
+               result = caseFileContainer(pluginProject);
+            if (result == null)
+               result = caseDerivable(pluginProject);
+            if (result == null)
+               result = caseAnnotatable(pluginProject);
+            if (result == null)
+               result = caseAbstractIdentifiable(pluginProject);
+            if (result == null)
+               result = caseIdentifiable(pluginProject);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.FEATURE_PROJECT:
+         case ModuleModelPackage.FEATURE_PROJECT :
          {
-            FeatureProject featureProject = (FeatureProject)theEObject;
+            FeatureProject featureProject = (FeatureProject) theEObject;
             T result = caseFeatureProject(featureProject);
-            if (result == null) result = caseProject(featureProject);
-            if (result == null) result = caseFileContainer(featureProject);
-            if (result == null) result = caseDerivable(featureProject);
-            if (result == null) result = caseAnnotatable(featureProject);
-            if (result == null) result = caseAbstractIdentifiable(featureProject);
-            if (result == null) result = caseIdentifiable(featureProject);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseProject(featureProject);
+            if (result == null)
+               result = caseFileContainer(featureProject);
+            if (result == null)
+               result = caseDerivable(featureProject);
+            if (result == null)
+               result = caseAnnotatable(featureProject);
+            if (result == null)
+               result = caseAbstractIdentifiable(featureProject);
+            if (result == null)
+               result = caseIdentifiable(featureProject);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.SITE_PROJECT:
+         case ModuleModelPackage.SITE_PROJECT :
          {
-            SiteProject siteProject = (SiteProject)theEObject;
+            SiteProject siteProject = (SiteProject) theEObject;
             T result = caseSiteProject(siteProject);
-            if (result == null) result = caseProject(siteProject);
-            if (result == null) result = caseFileContainer(siteProject);
-            if (result == null) result = caseDerivable(siteProject);
-            if (result == null) result = caseAnnotatable(siteProject);
-            if (result == null) result = caseAbstractIdentifiable(siteProject);
-            if (result == null) result = caseIdentifiable(siteProject);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseProject(siteProject);
+            if (result == null)
+               result = caseFileContainer(siteProject);
+            if (result == null)
+               result = caseDerivable(siteProject);
+            if (result == null)
+               result = caseAnnotatable(siteProject);
+            if (result == null)
+               result = caseAbstractIdentifiable(siteProject);
+            if (result == null)
+               result = caseIdentifiable(siteProject);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PROJECT:
+         case ModuleModelPackage.PROJECT :
          {
-            Project project = (Project)theEObject;
+            Project project = (Project) theEObject;
             T result = caseProject(project);
-            if (result == null) result = caseFileContainer(project);
-            if (result == null) result = caseDerivable(project);
-            if (result == null) result = caseAnnotatable(project);
-            if (result == null) result = caseAbstractIdentifiable(project);
-            if (result == null) result = caseIdentifiable(project);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseFileContainer(project);
+            if (result == null)
+               result = caseDerivable(project);
+            if (result == null)
+               result = caseAnnotatable(project);
+            if (result == null)
+               result = caseAbstractIdentifiable(project);
+            if (result == null)
+               result = caseIdentifiable(project);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PROJECT_FACET:
+         case ModuleModelPackage.PROJECT_FACET :
          {
-            ProjectFacet<?> projectFacet = (ProjectFacet<?>)theEObject;
+            ProjectFacet<?> projectFacet = (ProjectFacet<?>) theEObject;
             T result = caseProjectFacet(projectFacet);
-            if (result == null) result = caseAbstractFacet(projectFacet);
-            if (result == null) result = caseDerivable(projectFacet);
-            if (result == null) result = caseAnnotatable(projectFacet);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractFacet(projectFacet);
+            if (result == null)
+               result = caseDerivable(projectFacet);
+            if (result == null)
+               result = caseAnnotatable(projectFacet);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.FILE_CONTAINER:
+         case ModuleModelPackage.FILE_CONTAINER :
          {
-            FileContainer fileContainer = (FileContainer)theEObject;
+            FileContainer fileContainer = (FileContainer) theEObject;
             T result = caseFileContainer(fileContainer);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.DERIVABLE:
+         case ModuleModelPackage.DERIVABLE :
          {
-            Derivable derivable = (Derivable)theEObject;
+            Derivable derivable = (Derivable) theEObject;
             T result = caseDerivable(derivable);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PLUGIN_INCLUDE:
+         case ModuleModelPackage.PLUGIN_INCLUDE :
          {
-            PluginInclude pluginInclude = (PluginInclude)theEObject;
+            PluginInclude pluginInclude = (PluginInclude) theEObject;
             T result = casePluginInclude(pluginInclude);
-            if (result == null) result = caseAbstractStrictReference(pluginInclude);
-            if (result == null) result = caseAbstractReference(pluginInclude);
-            if (result == null) result = caseAnnotatable(pluginInclude);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractStrictReference(pluginInclude);
+            if (result == null)
+               result = caseAbstractReference(pluginInclude);
+            if (result == null)
+               result = caseAnnotatable(pluginInclude);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.CATEGORY:
+         case ModuleModelPackage.CATEGORY :
          {
-            Category category = (Category)theEObject;
+            Category category = (Category) theEObject;
             T result = caseCategory(category);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.ABSTRACT_IDENTIFIABLE:
+         case ModuleModelPackage.ABSTRACT_IDENTIFIABLE :
          {
-            AbstractIdentifiable abstractIdentifiable = (AbstractIdentifiable)theEObject;
+            AbstractIdentifiable abstractIdentifiable = (AbstractIdentifiable) theEObject;
             T result = caseAbstractIdentifiable(abstractIdentifiable);
-            if (result == null) result = caseIdentifiable(abstractIdentifiable);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseIdentifiable(abstractIdentifiable);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PRODUCTS_FACET:
+         case ModuleModelPackage.PRODUCTS_FACET :
          {
-            ProductsFacet productsFacet = (ProductsFacet)theEObject;
+            ProductsFacet productsFacet = (ProductsFacet) theEObject;
             T result = caseProductsFacet(productsFacet);
-            if (result == null) result = caseAbstractFacet(productsFacet);
-            if (result == null) result = caseDerivable(productsFacet);
-            if (result == null) result = caseAnnotatable(productsFacet);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractFacet(productsFacet);
+            if (result == null)
+               result = caseDerivable(productsFacet);
+            if (result == null)
+               result = caseAnnotatable(productsFacet);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PRODUCT_DEFINITION:
+         case ModuleModelPackage.PRODUCT_DEFINITION :
          {
-            ProductDefinition productDefinition = (ProductDefinition)theEObject;
+            ProductDefinition productDefinition = (ProductDefinition) theEObject;
             T result = caseProductDefinition(productDefinition);
-            if (result == null) result = caseAnnotatable(productDefinition);
-            if (result == null) result = caseDerivable(productDefinition);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAnnotatable(productDefinition);
+            if (result == null)
+               result = caseDerivable(productDefinition);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.ABSTRACT_REFERENCE:
+         case ModuleModelPackage.ABSTRACT_REFERENCE :
          {
-            AbstractReference abstractReference = (AbstractReference)theEObject;
+            AbstractReference abstractReference = (AbstractReference) theEObject;
             T result = caseAbstractReference(abstractReference);
-            if (result == null) result = caseAnnotatable(abstractReference);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAnnotatable(abstractReference);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.RULED_REFERENCE:
+         case ModuleModelPackage.RULED_REFERENCE :
          {
-            RuledReference ruledReference = (RuledReference)theEObject;
+            RuledReference ruledReference = (RuledReference) theEObject;
             T result = caseRuledReference(ruledReference);
-            if (result == null) result = caseAbstractReference(ruledReference);
-            if (result == null) result = caseAnnotatable(ruledReference);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractReference(ruledReference);
+            if (result == null)
+               result = caseAnnotatable(ruledReference);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.ABSTRACT_STRICT_REFERENCE:
+         case ModuleModelPackage.ABSTRACT_STRICT_REFERENCE :
          {
-            AbstractStrictReference abstractStrictReference = (AbstractStrictReference)theEObject;
+            AbstractStrictReference abstractStrictReference = (AbstractStrictReference) theEObject;
             T result = caseAbstractStrictReference(abstractStrictReference);
-            if (result == null) result = caseAbstractReference(abstractStrictReference);
-            if (result == null) result = caseAnnotatable(abstractStrictReference);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractReference(abstractStrictReference);
+            if (result == null)
+               result = caseAnnotatable(abstractStrictReference);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.STRICT_REFERENCE:
+         case ModuleModelPackage.STRICT_REFERENCE :
          {
-            StrictReference strictReference = (StrictReference)theEObject;
+            StrictReference strictReference = (StrictReference) theEObject;
             T result = caseStrictReference(strictReference);
-            if (result == null) result = caseAbstractStrictReference(strictReference);
-            if (result == null) result = caseAbstractReference(strictReference);
-            if (result == null) result = caseAnnotatable(strictReference);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractStrictReference(strictReference);
+            if (result == null)
+               result = caseAbstractReference(strictReference);
+            if (result == null)
+               result = caseAnnotatable(strictReference);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.FEATURE_INCLUDE:
+         case ModuleModelPackage.FEATURE_INCLUDE :
          {
-            FeatureInclude featureInclude = (FeatureInclude)theEObject;
+            FeatureInclude featureInclude = (FeatureInclude) theEObject;
             T result = caseFeatureInclude(featureInclude);
-            if (result == null) result = caseAbstractStrictReference(featureInclude);
-            if (result == null) result = caseAbstractReference(featureInclude);
-            if (result == null) result = caseAnnotatable(featureInclude);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = caseAbstractStrictReference(featureInclude);
+            if (result == null)
+               result = caseAbstractReference(featureInclude);
+            if (result == null)
+               result = caseAnnotatable(featureInclude);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.IDENTIFIABLE:
+         case ModuleModelPackage.IDENTIFIABLE :
          {
-            Identifiable identifiable = (Identifiable)theEObject;
+            Identifiable identifiable = (Identifiable) theEObject;
             T result = caseIdentifiable(identifiable);
-            if (result == null) result = defaultCase(theEObject);
+            if (result == null)
+               result = defaultCase(theEObject);
             return result;
          }
-         default: return defaultCase(theEObject);
+         default :
+            return defaultCase(theEObject);
       }
    }
 
@@ -358,6 +463,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Abstract Module</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -374,6 +480,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Basic Module</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -390,6 +497,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Abstract Facet</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -406,6 +514,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Composite Module</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -422,6 +531,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Plugins Facet</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -438,6 +548,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Features Facet</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -454,6 +565,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Sites Facet</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -470,6 +582,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Plugin Project</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -486,6 +599,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Feature Project</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -502,6 +616,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Site Project</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -518,6 +633,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Project</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -534,6 +650,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Project Facet</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -550,6 +667,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>File Container</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -566,6 +684,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Derivable</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -582,6 +701,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Plugin Include</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -598,6 +718,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Category</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -614,6 +735,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Abstract Identifiable</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -630,6 +752,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Products Facet</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -646,6 +769,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Product Definition</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -662,6 +786,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Abstract Reference</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -678,6 +803,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Ruled Reference</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -694,6 +820,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Abstract Strict Reference</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -710,6 +837,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Strict Reference</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -726,6 +854,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Feature Include</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -742,6 +871,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Identifiable</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -758,6 +888,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>Annotatable</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -774,6 +905,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * This implementation returns null;
     * returning a non-null result will terminate the switch, but this is the last case anyway.
     * <!-- end-user-doc -->
+    * 
     * @param object the target of the switch.
     * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
     * @see #doSwitch(org.eclipse.emf.ecore.EObject)

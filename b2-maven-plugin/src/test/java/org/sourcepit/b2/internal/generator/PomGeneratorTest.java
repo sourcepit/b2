@@ -33,7 +33,7 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
       // Improvement #56
       assertEquals("org.sourcepit.b2.test.resources.simple.layout", module.getId());
 
-      generatePom(module, B2ModelBuildingRequest.newDefaultProperties());
+      generatePom(module.getDirectory(), module, B2ModelBuildingRequest.newDefaultProperties());
 
       File pomFile = new File(module.getDirectory(), "pom.xml");
       assertTrue(pomFile.exists());
@@ -52,7 +52,7 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
       assertNotNull(facet);
 
       assertIsGeneratorInput(facet);
-      generatePom(facet, B2ModelBuildingRequest.newDefaultProperties());
+      generatePom(module.getDirectory(), facet, B2ModelBuildingRequest.newDefaultProperties());
 
       IInterpolationLayout layout = getLayout(module);
       File facetPom = new File(layout.pathOfFacetMetaData(module, facet.getName(), "pom.xml"));
@@ -62,7 +62,7 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
 
       PropertiesMap properties = new LinkedPropertiesMap();
       properties.setBoolean("b2.pomGenerator.skipFacets", false);
-      generatePom(facet, properties);
+      generatePom(module.getDirectory(), facet, properties);
 
       assertTrue(facetPom.exists());
    }

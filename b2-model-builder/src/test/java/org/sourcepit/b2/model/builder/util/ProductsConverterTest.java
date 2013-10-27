@@ -269,33 +269,33 @@ public class ProductsConverterTest
 
       includes = converter.getIncludedFeaturesForProduct(properties, "foo.product", GREATER_OR_EQUAL);
       assertEquals(2, includes.size());
-      
+
       include = includes.get(0);
       assertEquals("foo.feature", include.getId());
       assertEquals("0.0.0", include.getVersion());
       assertSame(GREATER_OR_EQUAL, include.getVersionMatchRule());
-      
+
       include = includes.get(1);
       assertEquals("bar.feature", include.getId());
       assertEquals("0.0.0", include.getVersion());
       assertSame(GREATER_OR_EQUAL, include.getVersionMatchRule());
-      
+
       properties.put("b2.products.versionMatchRules", "bar.**=perfect;foo.**=compatible;");
-      
+
       includes = converter.getIncludedFeaturesForProduct(properties, "foo.product", GREATER_OR_EQUAL);
       assertEquals(2, includes.size());
-      
+
       include = includes.get(0);
       assertEquals("foo.feature", include.getId());
       assertEquals("0.0.0", include.getVersion());
       assertSame(COMPATIBLE, include.getVersionMatchRule());
-      
+
       include = includes.get(1);
       assertEquals("bar.feature", include.getId());
       assertEquals("0.0.0", include.getVersion());
       assertSame(PERFECT, include.getVersionMatchRule());
    }
-   
+
    @Test
    public void testGetIncludedPluginsForProduct_VersionMatchRules() throws Exception
    {
@@ -309,27 +309,27 @@ public class ProductsConverterTest
 
       includes = converter.getIncludedPluginsForProduct(properties, "foo.product", GREATER_OR_EQUAL);
       assertEquals(2, includes.size());
-      
+
       include = includes.get(0);
       assertEquals("foo.plugins", include.getId());
       assertEquals("0.0.0", include.getVersion());
       assertSame(GREATER_OR_EQUAL, include.getVersionMatchRule());
-      
+
       include = includes.get(1);
       assertEquals("bar.plugins", include.getId());
       assertEquals("0.0.0", include.getVersion());
       assertSame(GREATER_OR_EQUAL, include.getVersionMatchRule());
-      
+
       properties.put("b2.products.versionMatchRules", "bar.**=perfect;foo.**=compatible;");
-      
+
       includes = converter.getIncludedPluginsForProduct(properties, "foo.product", GREATER_OR_EQUAL);
       assertEquals(2, includes.size());
-      
+
       include = includes.get(0);
       assertEquals("foo.plugins", include.getId());
       assertEquals("0.0.0", include.getVersion());
       assertSame(COMPATIBLE, include.getVersionMatchRule());
-      
+
       include = includes.get(1);
       assertEquals("bar.plugins", include.getId());
       assertEquals("0.0.0", include.getVersion());

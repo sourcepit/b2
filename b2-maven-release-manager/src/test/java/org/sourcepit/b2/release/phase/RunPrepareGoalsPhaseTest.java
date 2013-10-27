@@ -22,17 +22,17 @@ public class RunPrepareGoalsPhaseTest
 
       releaseDescriptor.setPreparationGoals(null);
       assertEquals(null, phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setPreparationGoals("");
       assertEquals("", phase.getGoals(releaseDescriptor));
-      
+
       // Improvement #92
       releaseDescriptor.setPreparationGoals("none");
       assertEquals("", phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setPreparationGoals("clean");
       assertEquals("clean", phase.getGoals(releaseDescriptor));
-      
+
       releaseDescriptor.setPreparationGoals("clean verify");
       assertEquals("clean verify", phase.getGoals(releaseDescriptor));
    }

@@ -79,7 +79,7 @@ public class NoEnvProductIT extends AbstractB2IT
 
       final String classifier = productZipName.substring(productZipName.lastIndexOf('-') + 1,
          productZipName.length() - 4);
-      
+
       final File[] deployedProducts = deployTargetDir.listFiles(new FileFilter()
       {
          public boolean accept(File pathname)

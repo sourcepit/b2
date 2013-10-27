@@ -13,8 +13,8 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public interface ISourceService
 {
    boolean isSourceBuildEnabled(PropertiesSource moduleProperties);
-   
+
    boolean isSourceBuildEnabled(PluginProject pluginProject, PropertiesSource moduleProperties);
-   
+
    boolean hasSource(PluginProject pluginProject);
 }

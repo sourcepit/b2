@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
+import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.PluginsFacet;
@@ -49,7 +50,8 @@ public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest
       File facetPom = new File(getLayout(module).pathOfFacetMetaData(module, facet.getName(), "pom.xml"));
       assertFalse(facetPom.exists());
 
-      hierarchyGenerator.generate(module, B2ModelBuildingRequest.newDefaultProperties(), new DefaultTemplateCopier());
+      hierarchyGenerator.generate(module, B2ModelBuildingRequest.newDefaultProperties(), new DefaultTemplateCopier(),
+         new ModuleDirectory(moduleDir, null));
 
       Model moduleModel = readMavenModel(modulePom);
       assertFalse(moduleModel.getModules().isEmpty());
@@ -67,7 +69,7 @@ public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest
       assertTrue(facetPom.exists());
 
       hierarchyGenerator.generate(module, ConverterUtils.newDefaultTestConverter(properties),
-         new DefaultTemplateCopier());
+         new DefaultTemplateCopier(), new ModuleDirectory(moduleDir, null));
 
       assertIsMavenModule(modulePom, facetPom);
       assertIsMavenParent(facetPom, modulePom);
