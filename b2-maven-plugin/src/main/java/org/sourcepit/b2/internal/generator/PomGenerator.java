@@ -6,6 +6,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.apache.maven.model.Plugin.constructKey;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.io.IO.cpIn;
@@ -239,7 +240,67 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       mergeIntoPomFile(pomFile, defaultModel);
       mergeIntoPomFile(pomFile, moduleModel, true);
 
+      final Model pom = readMavenModel(pomFile);
+      disableDefaultPluginExecutions(pom);
+      writeMavenModel(pomFile, pom);
+
       return pomFile;
+   }
+
+   private static void disableDefaultPluginExecutions(final Model pom)
+   {
+      Build build = pom.getBuild();
+      if (build == null)
+      {
+         build = new Build();
+         pom.setBuild(build);
+      }
+
+      final String phase = "none";
+
+      String groupId = "org.eclipse.tycho";
+      forcePhase(build, groupId, "tycho-p2-plugin", "${tycho.version}", "default-update-local-index", phase);
+
+      groupId = "org.apache.maven.plugins";
+      forcePhase(build, groupId, "maven-source-plugin", "${maven.sourcePlugin.version}", "attach-sources", phase);
+      forcePhase(build, groupId, "maven-javadoc-plugin", "${maven.javadocPlugin.version}", "attach-javadocs", phase);
+      forcePhase(build, groupId, "maven-install-plugin", "${maven.installPlugin.version}", "default-install", phase);
+      forcePhase(build, groupId, "maven-deploy-plugin", "${maven.deployPlugin.version}", "default-deploy", phase);
+   }
+
+   private static void forcePhase(Build build, final String groupId, String artifactId, String version,
+      String executionId, String phase)
+   {
+      final Plugin plugin = getPlugin(build, groupId, artifactId, version);
+      getPluginExecution(plugin, executionId).setPhase(phase);
+   }
+
+   private static PluginExecution getPluginExecution(Plugin plugin, final String id)
+   {
+      PluginExecution pluginExecution = plugin.getExecutionsAsMap().get(id);
+      if (pluginExecution == null)
+      {
+         pluginExecution = new PluginExecution();
+         pluginExecution.setId(id);
+         plugin.getExecutions().add(pluginExecution);
+         plugin.flushExecutionMap();
+      }
+      return pluginExecution;
+   }
+
+   private static Plugin getPlugin(Build build, final String groupId, final String artifactId, final String version)
+   {
+      Plugin plugin = build.getPluginsAsMap().get(constructKey(groupId, artifactId));
+      if (plugin == null)
+      {
+         plugin = new Plugin();
+         plugin.setGroupId(groupId);
+         plugin.setArtifactId(artifactId);
+         plugin.setVersion(version);
+         build.getPlugins().add(plugin);
+         build.flushPluginMap();
+      }
+      return plugin;
    }
 
    private void addAdditionalProjectProperties(AbstractModule module, PropertiesSource properties, Model defaultModel)
