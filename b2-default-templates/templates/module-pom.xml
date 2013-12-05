@@ -40,60 +40,6 @@
 					<version>\${tycho.version}</version>
 				</plugin>
 				<plugin>
-					<groupId>org.eclipse.tycho</groupId>
-					<artifactId>tycho-p2-plugin</artifactId>
-					<executions>
-						<execution>
-							<id>default-update-local-index</id>
-							<phase>none</phase>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>\${maven.installPlugin.version}</version>
-					<executions>
-						<execution>
-							<id>default-install</id>
-							<phase>none</phase>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>\${maven.sourcePlugin.version}</version>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<phase>none</phase>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>\${maven.javadocPlugin.version}</version>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<phase>none</phase>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>\${maven.deployPlugin.version}</version>
-					<executions>
-						<execution>
-							<id>default-deploy</id>
-							<phase>none</phase>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
 					<version>\${maven.releasePlugin.version}</version>

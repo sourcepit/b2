@@ -8,6 +8,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.sourcepit.b2.internal.maven.util.MavenModelUtils.getPlugin;
+import static org.sourcepit.b2.internal.maven.util.MavenModelUtils.getPluginExecution;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,6 +143,57 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       Xpp3Dom child = generatedConf.getChild("preparationGoals");
       assertNotNull(child);
       assertEquals("${b2.release.preparationGoals}", child.getValue());
+   }
+
+   @Test
+   public void testDisableDefaultInstallAndDeploy() throws Exception
+   {
+      final File projectDir = getWs().getRoot();
+
+      // create test project
+      new DefaultTemplateCopier().copy("module-pom.xml", projectDir, getEnvironment().newProperties());
+
+      final File moduleFile = new File(projectDir, "module.xml");
+      new File(projectDir, "module-pom.xml").renameTo(moduleFile);
+
+      assertTrue(moduleFile.exists());
+
+      Model modulePom = readPom(moduleFile);
+      modulePom.setGroupId("org.sourcepit.b2");
+      modulePom.setArtifactId(projectDir.getName());
+      modulePom.setVersion("1-SNAPSHOT");
+
+      // add custom config
+      Plugin plugin = getPlugin(modulePom.getBuild(), true, "org.apache.maven.plugins", "maven-install-plugin",
+         "${maven.javadocPlugin.version}");
+      getPluginExecution(plugin, true, "default-install").setPhase("package");
+
+      writePom(modulePom, moduleFile);
+
+      // generate maven pom
+      generatePom(projectDir);
+
+      final Model generatedPom = readPom(new File(projectDir, "pom.xml"));
+
+      plugin = getPlugin(generatedPom.getBuild(), false, "org.eclipse.tycho", "tycho-p2-plugin", null);
+      assertNotNull(plugin);
+      assertEquals("none", getPluginExecution(plugin, false, "default-update-local-index").getPhase());
+
+      plugin = getPlugin(generatedPom.getBuild(), false, "org.apache.maven.plugins", "maven-source-plugin", null);
+      assertNotNull(plugin);
+      assertEquals("none", getPluginExecution(plugin, false, "attach-sources").getPhase());
+
+      plugin = getPlugin(generatedPom.getBuild(), false, "org.apache.maven.plugins", "maven-javadoc-plugin", null);
+      assertNotNull(plugin);
+      assertEquals("none", getPluginExecution(plugin, false, "attach-javadocs").getPhase());
+
+      plugin = getPlugin(generatedPom.getBuild(), false, "org.apache.maven.plugins", "maven-install-plugin", null);
+      assertNotNull(plugin);
+      assertEquals("none", getPluginExecution(plugin, false, "default-install").getPhase());
+
+      plugin = getPlugin(generatedPom.getBuild(), false, "org.apache.maven.plugins", "maven-deploy-plugin", null);
+      assertNotNull(plugin);
+      assertEquals("none", getPluginExecution(plugin, false, "default-deploy").getPhase());
    }
 
    private void generatePom(final File projectDir) throws Exception
