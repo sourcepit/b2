@@ -6,9 +6,10 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.apache.maven.model.Plugin.constructKey;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
+import static org.sourcepit.b2.internal.maven.util.MavenModelUtils.getPlugin;
+import static org.sourcepit.b2.internal.maven.util.MavenModelUtils.getPluginExecution;
 import static org.sourcepit.common.utils.io.IO.cpIn;
 
 import java.io.File;
@@ -271,37 +272,10 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    private static void forcePhase(Build build, final String groupId, String artifactId, String version,
       String executionId, String phase)
    {
-      final Plugin plugin = getPlugin(build, groupId, artifactId, version);
-      getPluginExecution(plugin, executionId).setPhase(phase);
+      final Plugin plugin = getPlugin(build, true, groupId, artifactId, version);
+      getPluginExecution(plugin, true, executionId).setPhase(phase);
    }
 
-   private static PluginExecution getPluginExecution(Plugin plugin, final String id)
-   {
-      PluginExecution pluginExecution = plugin.getExecutionsAsMap().get(id);
-      if (pluginExecution == null)
-      {
-         pluginExecution = new PluginExecution();
-         pluginExecution.setId(id);
-         plugin.getExecutions().add(pluginExecution);
-         plugin.flushExecutionMap();
-      }
-      return pluginExecution;
-   }
-
-   private static Plugin getPlugin(Build build, final String groupId, final String artifactId, final String version)
-   {
-      Plugin plugin = build.getPluginsAsMap().get(constructKey(groupId, artifactId));
-      if (plugin == null)
-      {
-         plugin = new Plugin();
-         plugin.setGroupId(groupId);
-         plugin.setArtifactId(artifactId);
-         plugin.setVersion(version);
-         build.getPlugins().add(plugin);
-         build.flushPluginMap();
-      }
-      return plugin;
-   }
 
    private void addAdditionalProjectProperties(AbstractModule module, PropertiesSource properties, Model defaultModel)
    {
