@@ -62,7 +62,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
    public String getAssemblyClassifier(PropertiesSource properties, String assemblyName)
    {
-      if (assemblyName.length() == 0)
+      if (assemblyName == null || assemblyName.length() == 0)
       {
          throw new IllegalArgumentException("assemblyName must not be empty.");
       }
@@ -422,7 +422,22 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return null;
    }
 
-   public String getFeatureId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
+   @Override
+   public String getFeatureIdForAssembly(PropertiesSource moduleProperties, String assemblyName, String moduleId)
+   {
+      final String classifier = getAssemblyClassifier(moduleProperties, assemblyName);
+      return getFeatureId(moduleProperties, moduleId, classifier, false);
+   }
+
+   @Override
+   public String getFeatureIdForFacet(PropertiesSource moduleProperties, String facetName, String moduleId,
+      boolean isSource)
+   {
+      final String classifier = getFacetClassifier(moduleProperties, facetName);
+      return getFeatureId(moduleProperties, moduleId, classifier, isSource);
+   }
+
+   private String getFeatureId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
    {
       final StringBuilder sb = new StringBuilder();
       if (classifier != null)
@@ -446,7 +461,22 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return properties.getBoolean("b2.skipBrandingPlugins", false);
    }
 
-   public String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
+   @Override
+   public String getBrandingPluginIdForAssembly(PropertiesSource moduleProperties, String assemblyName, String moduleId)
+   {
+      final String classifier = getAssemblyClassifier(moduleProperties, assemblyName);
+      return getBrandingPluginId(moduleProperties, moduleId, classifier, false);
+   }
+
+   @Override
+   public String getBrandingPluginIdForFacet(PropertiesSource moduleProperties, String facetName, String moduleId,
+      boolean isSource)
+   {
+      final String classifier = getFacetClassifier(moduleProperties, facetName);
+      return getBrandingPluginId(moduleProperties, moduleId, classifier, isSource);
+   }
+
+   private String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
    {
       final StringBuilder sb = new StringBuilder();
       if (classifier != null)

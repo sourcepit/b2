@@ -9,6 +9,7 @@ package org.sourcepit.b2.model.builder.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
@@ -23,23 +24,31 @@ public class FeaturesConverterTest
       FeaturesConverter converter = new DefaultConverter();
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("b2.assemblies", "main, test");
+      moduleProperties.put("b2.assemblies.main.classifier", "");
 
       String brandingPluginId;
 
-      brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", "", false);
+      try
+      {
+         brandingPluginId = converter.getBrandingPluginIdForAssembly(moduleProperties, null, "foo");
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      brandingPluginId = converter.getBrandingPluginIdForAssembly(moduleProperties, "main", "foo");
       assertEquals("foo.branding", brandingPluginId);
 
-      brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", null, false);
-      assertEquals("foo.branding", brandingPluginId);
-
-      brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", "plugins", false);
+      brandingPluginId = converter.getBrandingPluginIdForFacet(moduleProperties, "plugins", "foo", false);
       assertEquals("foo.plugins.branding", brandingPluginId);
 
-      brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", "plugins", true);
+      brandingPluginId = converter.getBrandingPluginIdForFacet(moduleProperties, "plugins", "foo", true);
       assertEquals("foo.plugins.sources.branding", brandingPluginId);
 
       moduleProperties.put("b2.featuresSourceClassifier", "murks");
-      brandingPluginId = converter.getBrandingPluginId(moduleProperties, "foo", "plugins", true);
+      brandingPluginId = converter.getBrandingPluginIdForFacet(moduleProperties, "plugins", "foo", true);
       assertEquals("foo.plugins.murks.branding", brandingPluginId);
    }
 
