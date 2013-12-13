@@ -593,9 +593,14 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return PathMatcher.parsePackagePatterns(filter);
    }
 
-   public String getSiteId(PropertiesSource moduleProperties, String moduleId, String classifier)
+   public String getSiteIdForAssembly(PropertiesSource moduleProperties, String moduleId, String assemblyName)
    {
-      return idOfProject(moduleId, classifier, "site");
+      String siteId = moduleProperties.get(assemblyKey(assemblyName, "siteId"));
+      if (siteId == null)
+      {
+         siteId = idOfProject(moduleId, getAssemblyClassifier(moduleProperties, assemblyName), "site");
+      }
+      return siteId;
    }
 
    private static String idOfProject(String moduleId, String classifier, String appendix)
