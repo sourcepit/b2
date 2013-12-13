@@ -129,7 +129,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
    public String getFacetClassifier(PropertiesSource properties, String facetName)
    {
-      if (facetName.length() == 0)
+      if (facetName == null || facetName.length() == 0)
       {
          throw new IllegalArgumentException("facetName must not be empty.");
       }
@@ -425,16 +425,26 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    @Override
    public String getFeatureIdForAssembly(PropertiesSource moduleProperties, String assemblyName, String moduleId)
    {
-      final String classifier = getAssemblyClassifier(moduleProperties, assemblyName);
-      return getFeatureId(moduleProperties, moduleId, classifier, false);
+      String featureId = moduleProperties.get(assemblyKey(assemblyName, "featureId"));
+      if (featureId == null)
+      {
+         final String classifier = getAssemblyClassifier(moduleProperties, assemblyName);
+         featureId = getFeatureId(moduleProperties, moduleId, classifier, false);
+      }
+      return featureId;
    }
 
    @Override
    public String getFeatureIdForFacet(PropertiesSource moduleProperties, String facetName, String moduleId,
       boolean isSource)
    {
-      final String classifier = getFacetClassifier(moduleProperties, facetName);
-      return getFeatureId(moduleProperties, moduleId, classifier, isSource);
+      String featureId = moduleProperties.get(facetKey(facetName, isSource ? "sourceFeatureId" : "featureId"));
+      if (featureId == null)
+      {
+         final String classifier = getFacetClassifier(moduleProperties, facetName);
+         featureId = getFeatureId(moduleProperties, moduleId, classifier, isSource);
+      }
+      return featureId;
    }
 
    private String getFeatureId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
@@ -464,16 +474,28 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
    @Override
    public String getBrandingPluginIdForAssembly(PropertiesSource moduleProperties, String assemblyName, String moduleId)
    {
-      final String classifier = getAssemblyClassifier(moduleProperties, assemblyName);
-      return getBrandingPluginId(moduleProperties, moduleId, classifier, false);
+      String pluginId = moduleProperties.get(assemblyKey(assemblyName, "brandingPluginId"));
+      if (pluginId == null)
+      {
+         final String classifier = getAssemblyClassifier(moduleProperties, assemblyName);
+         pluginId = getBrandingPluginId(moduleProperties, moduleId, classifier, false);
+      }
+      return pluginId;
    }
 
    @Override
    public String getBrandingPluginIdForFacet(PropertiesSource moduleProperties, String facetName, String moduleId,
       boolean isSource)
    {
-      final String classifier = getFacetClassifier(moduleProperties, facetName);
-      return getBrandingPluginId(moduleProperties, moduleId, classifier, isSource);
+      String pluginId = moduleProperties.get(facetKey(facetName, isSource
+         ? "sourceBrandingPluginId"
+         : "brandingPluginId"));
+      if (pluginId == null)
+      {
+         final String classifier = getFacetClassifier(moduleProperties, facetName);
+         pluginId = getBrandingPluginId(moduleProperties, moduleId, classifier, isSource);
+      }
+      return pluginId;
    }
 
    private String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
