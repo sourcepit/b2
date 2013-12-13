@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.sourcepit.b2.its</groupId>
+	<artifactId>CustomProjectIdsIT</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<tycho.version>${tycho.version}</tycho.version>
+		<b2.assemblies>main</b2.assemblies>
+		<b2.assemblies.main.featuresFilter>**</b2.assemblies.main.featuresFilter>
+		
+		<b2.assemblies.main.siteId>org.sourcepit.assembly.site</b2.assemblies.main.siteId>
+		<b2.assemblies.main.featureId>org.sourcepit.assembly</b2.assemblies.main.featureId>
+		<b2.assemblies.main.brandingPluginId>org.sourcepit.assembly.branding</b2.assemblies.main.brandingPluginId>
+		
+		<b2.facets.plugins.featureId>org.sourcepit.plugins</b2.facets.plugins.featureId>
+		<b2.facets.plugins.brandingPluginId>org.sourcepit.plugins.branding</b2.facets.plugins.brandingPluginId>
+		
+		<b2.facets.tests.featureId>org.sourcepit.tests</b2.facets.tests.featureId>
+		<b2.facets.tests.brandingPluginId>org.sourcepit.tests.branding</b2.facets.tests.brandingPluginId>
+	</properties>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.sourcepit.b2</groupId>
+				<artifactId>b2-maven-plugin</artifactId>
+				<version>${project.version}</version>
+			</extension>
+		</extensions>
+	</build>
+
+</project>

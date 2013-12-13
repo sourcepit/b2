@@ -442,7 +442,7 @@ public class DefaultConverterTest
          converter.getFacetClassifier(null, null);
          fail();
       }
-      catch (NullPointerException e)
+      catch (IllegalArgumentException e)
       {
       }
 

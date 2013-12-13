@@ -240,15 +240,13 @@ public class FeaturesInterpolator
 
    private String deriveFeatureId(AbstractModule module, String assemblyName, PropertiesSource properties)
    {
-      final String classifier = converter.getAssemblyClassifier(properties, assemblyName);
-      return converter.getFeatureId(properties, module.getId(), classifier, false);
+      return converter.getFeatureIdForAssembly(properties, assemblyName, module.getId());
    }
 
    private String deriveFeatureId(AbstractModule module, PluginsFacet pluginsFacet, PropertiesSource properties,
       boolean isSource)
    {
-      final String classifier = converter.getFacetClassifier(properties, pluginsFacet.getName());
-      return converter.getFeatureId(properties, module.getId(), classifier, isSource);
+      return converter.getFeatureIdForFacet(properties, pluginsFacet.getName(), module.getId(), isSource);
    }
 
    private FeaturesFacet createFeaturesFacet(String facetName)

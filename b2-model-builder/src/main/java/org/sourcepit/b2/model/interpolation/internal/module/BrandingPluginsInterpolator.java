@@ -9,6 +9,7 @@ package org.sourcepit.b2.model.interpolation.internal.module;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2ModelUtils.toPluginInclude;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -93,9 +94,26 @@ public class BrandingPluginsInterpolator
    private String deriveBrandingPluginId(AbstractModule module, FeatureProject featureProject,
       PropertiesSource moduleProperties)
    {
-      final String classifier = B2MetadataUtils.getClassifier(featureProject);
-      final boolean isSource = B2MetadataUtils.isFacetSourceFeature(featureProject);
+      final String moduleId = module.getId();
+      if (B2MetadataUtils.isAssemblyFeature(featureProject))
+      {
+         return converter.getBrandingPluginIdForAssembly(moduleProperties, getAssemblyName(featureProject), moduleId);
+      }
+      else
+      {
+         final String facetName = B2MetadataUtils.getFacetName(featureProject);
+         final boolean isSource = B2MetadataUtils.isFacetSourceFeature(featureProject);
+         return converter.getBrandingPluginIdForFacet(moduleProperties, facetName, moduleId, isSource);
+      }
+   }
 
-      return converter.getBrandingPluginId(moduleProperties, module.getId(), classifier, isSource);
+   private static String getAssemblyName(FeatureProject featureProject)
+   {
+      List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(featureProject);
+      if (assemblyNames.size() != 1)
+      {
+         throw new IllegalStateException();
+      }
+      return assemblyNames.get(0);
    }
 }

@@ -8,6 +8,7 @@ package org.sourcepit.b2.model.builder.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -18,6 +19,33 @@ import org.sourcepit.common.utils.props.PropertiesMap;
 
 public class SitesConverterTest
 {
+   @Test
+   public void testGetFeatureIdForAssembly() throws Exception
+   {
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("b2.assemblies", "main, test");
+      moduleProperties.put("b2.assemblies.main.classifier", "");
+
+      SitesConverter converter = new DefaultConverter();
+
+      try
+      {
+         converter.getSiteIdForAssembly(moduleProperties, "foo", null);
+         fail();
+      }
+      catch (IllegalArgumentException e)
+      {
+      }
+
+      assertEquals("foo.site", converter.getSiteIdForAssembly(moduleProperties, "foo", "main"));
+      assertEquals("foo.test.site", converter.getSiteIdForAssembly(moduleProperties, "foo", "test"));
+
+      moduleProperties.put("b2.assemblies.main.siteId", "bar");
+
+      assertEquals("bar", converter.getSiteIdForAssembly(moduleProperties, "foo", "main"));
+      assertEquals("foo.test.site", converter.getSiteIdForAssembly(moduleProperties, "foo", "test"));
+   }
+
    @Test
    public void testGetAssemblyCategories()
    {
