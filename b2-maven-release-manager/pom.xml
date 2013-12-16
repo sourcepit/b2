@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>b2</artifactId>
 		<groupId>org.sourcepit.b2</groupId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.1.0-alpha-11</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>b2-maven-release-manager</artifactId>
