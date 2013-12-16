@@ -62,7 +62,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
    public String getAssemblyClassifier(PropertiesSource properties, String assemblyName)
    {
-      if (assemblyName.length() == 0)
+      if (assemblyName == null || assemblyName.length() == 0)
       {
          throw new IllegalArgumentException("assemblyName must not be empty.");
       }
@@ -129,7 +129,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
 
    public String getFacetClassifier(PropertiesSource properties, String facetName)
    {
-      if (facetName.length() == 0)
+      if (facetName == null || facetName.length() == 0)
       {
          throw new IllegalArgumentException("facetName must not be empty.");
       }
@@ -422,7 +422,32 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return null;
    }
 
-   public String getFeatureId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
+   @Override
+   public String getFeatureIdForAssembly(PropertiesSource moduleProperties, String assemblyName, String moduleId)
+   {
+      String featureId = moduleProperties.get(assemblyKey(assemblyName, "featureId"));
+      if (featureId == null)
+      {
+         final String classifier = getAssemblyClassifier(moduleProperties, assemblyName);
+         featureId = getFeatureId(moduleProperties, moduleId, classifier, false);
+      }
+      return featureId;
+   }
+
+   @Override
+   public String getFeatureIdForFacet(PropertiesSource moduleProperties, String facetName, String moduleId,
+      boolean isSource)
+   {
+      String featureId = moduleProperties.get(facetKey(facetName, isSource ? "sourceFeatureId" : "featureId"));
+      if (featureId == null)
+      {
+         final String classifier = getFacetClassifier(moduleProperties, facetName);
+         featureId = getFeatureId(moduleProperties, moduleId, classifier, isSource);
+      }
+      return featureId;
+   }
+
+   private String getFeatureId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
    {
       final StringBuilder sb = new StringBuilder();
       if (classifier != null)
@@ -446,7 +471,34 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return properties.getBoolean("b2.skipBrandingPlugins", false);
    }
 
-   public String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
+   @Override
+   public String getBrandingPluginIdForAssembly(PropertiesSource moduleProperties, String assemblyName, String moduleId)
+   {
+      String pluginId = moduleProperties.get(assemblyKey(assemblyName, "brandingPluginId"));
+      if (pluginId == null)
+      {
+         final String classifier = getAssemblyClassifier(moduleProperties, assemblyName);
+         pluginId = getBrandingPluginId(moduleProperties, moduleId, classifier, false);
+      }
+      return pluginId;
+   }
+
+   @Override
+   public String getBrandingPluginIdForFacet(PropertiesSource moduleProperties, String facetName, String moduleId,
+      boolean isSource)
+   {
+      String pluginId = moduleProperties.get(facetKey(facetName, isSource
+         ? "sourceBrandingPluginId"
+         : "brandingPluginId"));
+      if (pluginId == null)
+      {
+         final String classifier = getFacetClassifier(moduleProperties, facetName);
+         pluginId = getBrandingPluginId(moduleProperties, moduleId, classifier, isSource);
+      }
+      return pluginId;
+   }
+
+   private String getBrandingPluginId(PropertiesSource properties, String moduleId, String classifier, boolean isSource)
    {
       final StringBuilder sb = new StringBuilder();
       if (classifier != null)
@@ -541,9 +593,14 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       return PathMatcher.parsePackagePatterns(filter);
    }
 
-   public String getSiteId(PropertiesSource moduleProperties, String moduleId, String classifier)
+   public String getSiteIdForAssembly(PropertiesSource moduleProperties, String moduleId, String assemblyName)
    {
-      return idOfProject(moduleId, classifier, "site");
+      String siteId = moduleProperties.get(assemblyKey(assemblyName, "siteId"));
+      if (siteId == null)
+      {
+         siteId = idOfProject(moduleId, getAssemblyClassifier(moduleProperties, assemblyName), "site");
+      }
+      return siteId;
    }
 
    private static String idOfProject(String moduleId, String classifier, String appendix)

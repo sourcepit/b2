@@ -6,7 +6,10 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.common.utils.lang.Exceptions.pipe;
+
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
 import org.sourcepit.b2.model.interpolation.internal.module.B2ModelUtils;
+import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.b2.model.module.FeatureInclude;
 import org.sourcepit.b2.model.module.FeatureProject;
@@ -118,7 +122,8 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       insertRequiresProperty(feature, featureProperties);
       templates.copy("feature-project", feature.getDirectory(), featureProperties);
 
-      final EList<Locale> locales = feature.getParent().getParent().getLocales();
+      final AbstractModule module = feature.getParent().getParent();
+      final EList<Locale> locales = module.getLocales();
       generateNlsPropertyFiles(locales, "feature", templates, "feature-project", feature.getDirectory(), properties,
          queries);
 
@@ -129,12 +134,44 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          final String defaultIcon = determineDefaultFeatureIconName(pluginDir, templates, featureProperties);
          PropertiesQuery query = queries.get("feature.featureImage");
          query.setDefaultValue(defaultIcon);
-         featureProperties.put("feature.featureImage", query.lookup(properties));
+         final String customIcon = query.lookup(properties);
+
+         final File moduleIcon = getModuleIcon(module);
+         if (moduleIcon == null)
+         {
+            featureProperties.put("feature.featureImage", customIcon);
+         }
+         else
+         {
+            featureProperties.put("feature.featureImage", moduleIcon.getName());
+         }
 
          // must be set for branding plugins
          queries.get("feature.providerName").setDefaultValue("<empty>");
 
          templates.copy("branding-plugin-project", pluginDir, featureProperties);
+
+         if (moduleIcon != null)
+         {
+            try
+            {
+               File file = new File(pluginDir, defaultIcon);
+               if (file.exists())
+               {
+                  FileUtils.forceDelete(file);
+               }
+               file = new File(pluginDir, customIcon);
+               if (file.exists())
+               {
+                  FileUtils.forceDelete(file);
+               }
+               FileUtils.copyFileToDirectory(moduleIcon, pluginDir);
+            }
+            catch (IOException e)
+            {
+               throw pipe(e);
+            }
+         }
 
          generateNlsPropertyFiles(locales, "plugin", templates, "branding-plugin-project", pluginDir, properties,
             queries);
@@ -146,18 +183,26 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       }
    }
 
+   private File getModuleIcon(final AbstractModule module)
+   {
+      final List<String> iconNames = getFeatureIconNames();
+      final File moduleDir = module.getDirectory();
+      final File[] iconFiles = moduleDir.listFiles(new FileFilter()
+      {
+         @Override
+         public boolean accept(File file)
+         {
+            return file.isFile() && iconNames.contains(file.getName());
+         }
+      });
+
+      return iconFiles.length == 0 ? null : iconFiles[0];
+   }
+
    private static String determineDefaultFeatureIconName(final File pluginDir, ITemplates templates,
       Properties featureProperties)
    {
-      final List<String> featureFileNames = new ArrayList<String>();
-      featureFileNames.add("feature.png");
-      featureFileNames.add("feature32.png");
-      featureFileNames.add("eclipse32.png");
-      featureFileNames.add("eclipse.png");
-      featureFileNames.add("feature32.gif");
-      featureFileNames.add("feature.gif");
-      featureFileNames.add("eclipse32.gif");
-      featureFileNames.add("eclipse.gif");
+      final List<String> featureFileNames = getFeatureIconNames();
 
       for (String featureIconName : featureFileNames)
       {
@@ -188,6 +233,24 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
       }
 
       return "";
+   }
+
+   private static List<String> getFeatureIconNames()
+   {
+      final List<String> featureFileNames = new ArrayList<String>();
+      featureFileNames.add("feature32.png");
+      featureFileNames.add("feature.png");
+      featureFileNames.add("eclipse32.png");
+      featureFileNames.add("eclipse.png");
+      featureFileNames.add("feature32.gif");
+      featureFileNames.add("feature.gif");
+      featureFileNames.add("eclipse32.gif");
+      featureFileNames.add("eclipse.gif");
+      featureFileNames.add("module32.gif");
+      featureFileNames.add("module32.png");
+      featureFileNames.add("module.gif");
+      featureFileNames.add("module.png");
+      return featureFileNames;
    }
 
    private PluginProject determineBrandingPlugin(FeatureProject feature)

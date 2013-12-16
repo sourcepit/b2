@@ -22,6 +22,6 @@ public interface SitesConverter extends BasicConverter
    PathMatcher getAssemblyCategoryFeatureMatcher(PropertiesSource moduleProperties, String moduleId,
       String assemblyName, String category);
 
-   String getSiteId(PropertiesSource moduleProperties, String moduleId, String classifier);
+   String getSiteIdForAssembly(PropertiesSource moduleProperties, String moduleId, String assemblyName);
 
 }

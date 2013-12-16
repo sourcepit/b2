@@ -211,8 +211,7 @@ public class SitesInterpolator
    {
       final SiteProject siteProject = ModuleModelFactory.eINSTANCE.createSiteProject();
       siteProject.setDerived(true);
-      siteProject.setId(converter.getSiteId(moduleProperties, module.getId(),
-         converter.getAssemblyClassifier(moduleProperties, assemblyName)));
+      siteProject.setId(converter.getSiteIdForAssembly(moduleProperties, module.getId(), assemblyName));
       siteProject.setVersion(module.getVersion());
 
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
