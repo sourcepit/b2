@@ -19,14 +19,26 @@ public interface ProductsConverter extends BasicConverter
 
    List<String> getUpdateSitesForProduct(PropertiesSource moduleProperties, String productId);
 
+   /**
+    * 'b2.products' [ '.' productId ] '.defaultVersionMatchRule'
+    */
    VersionMatchRule getDefaultVersionMatchRuleForProduct(PropertiesSource moduleProperties, String productId);
 
+   /**
+    * 'b2.products' [ '.' productId ] '.features'
+    */
    List<RuledReference> getIncludedFeaturesForProduct(PropertiesSource moduleProperties, String productId,
       VersionMatchRule defaultVersionMatchRule);
 
+   /**
+    * 'b2.products' [ '.' productId ] '.plugins'
+    */
    List<RuledReference> getIncludedPluginsForProduct(PropertiesSource moduleProperties, String productId,
       VersionMatchRule defaultVersionMatchRule);
 
+   /**
+    * 'b2.products' [ '.' productId ] '.versionMatchRules'
+    */
    VersionMatchRule getVersionMatchRuleForProductInclude(PropertiesSource properties, String productId,
       String featureOrPluginId, VersionMatchRule defaultVersionMatchRule);
 
