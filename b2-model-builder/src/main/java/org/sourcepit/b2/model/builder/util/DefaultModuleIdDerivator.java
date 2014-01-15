@@ -16,6 +16,12 @@ public class DefaultModuleIdDerivator implements ModuleIdDerivator
 {
    public String deriveModuleId(AbstractModule module, PropertiesSource properties)
    {
+      final String moduleId = properties.get("module.id");
+      if (!isNullOrEmpty(moduleId))
+      {
+         return moduleId;
+      }
+      
       final String groupId = properties.get("project.groupId");
       if (!isNullOrEmpty(groupId))
       {

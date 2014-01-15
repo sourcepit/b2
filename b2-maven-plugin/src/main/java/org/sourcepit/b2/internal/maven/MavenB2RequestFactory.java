@@ -5,7 +5,6 @@
 package org.sourcepit.b2.internal.maven;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,8 +19,6 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.settings.Settings;
-import org.codehaus.plexus.interpolation.ValueSource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.slf4j.Logger;
@@ -36,8 +33,6 @@ import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.files.ModuleDirectoryFactroy;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
-import org.sourcepit.b2.internal.generator.VersionUtils;
-import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.common.util.ArtifactIdentifier;
 import org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils;
@@ -45,10 +40,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.ModuleModelPackage;
 import org.sourcepit.common.utils.content.ContentTypes;
-import org.sourcepit.common.utils.props.AbstractPropertiesSource;
-import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
-import org.sourcepit.tools.shared.resources.harness.ValueSourceUtils;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.LinkedHashMultimap;
@@ -74,7 +66,10 @@ public class MavenB2RequestFactory implements B2RequestFactory
 
    @Inject
    private ModuleDirectoryFactroy moduleDirectoryFactroy;
-   
+
+   @Inject
+   private MavenModulePropertiesFactory modulePropertiesFactory;
+
    public B2Request newRequest(List<File> projectDirs, int currentIdx)
    {
       final MavenSession bootSession = legacySupport.getSession();
@@ -86,7 +81,8 @@ public class MavenB2RequestFactory implements B2RequestFactory
    {
       ModuleModelPackage.eINSTANCE.getClass();
 
-      final PropertiesSource moduleProperties = createSource(legacySupport.getSession(), bootProject);
+      final PropertiesSource moduleProperties = modulePropertiesFactory.createModuleProperties(
+         legacySupport.getSession(), bootProject);
 
       final ResourceSet resourceSet = adapterFactory.adapt(bootSession, bootProject).getResourceSet();
       processDependencies(resourceSet, bootSession, bootProject);
@@ -117,7 +113,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
             }
          }
       }
-      
+
       ModuleDirectory moduleDirectory = moduleDirectoryFactroy.create(moduleDir, moduleProperties);
       b2Request.setModuleDirectory(moduleDirectory);
 
@@ -233,60 +229,4 @@ public class MavenB2RequestFactory implements B2RequestFactory
       }
    }
 
-   public static PropertiesSource createSource(MavenSession mavenSession, MavenProject project)
-   {
-      final PropertiesMap propertiesMap = B2ModelBuildingRequest.newDefaultProperties();
-
-      final String mavenVersion = project.getVersion();
-      final String osgiVersion = VersionUtils.toBundleVersion(mavenVersion);
-
-      propertiesMap.put("b2.moduleVersion", osgiVersion);
-      propertiesMap.put("b2.moduleNameSpace", project.getGroupId());
-
-      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
-      propertiesMap.put("module.version", mavenVersion);
-      propertiesMap.put("module.mavenVersion", mavenVersion);
-      propertiesMap.put("module.osgiVersion", osgiVersion);
-      propertiesMap.put("module.tychoVersion", tychoVersion);
-
-      propertiesMap.putMap(project.getProperties());
-      propertiesMap.putMap(mavenSession.getSystemProperties());
-      propertiesMap.putMap(mavenSession.getUserProperties());
-
-      final List<ValueSource> valueSources = new ArrayList<ValueSource>();
-
-      final List<String> prefixes = new ArrayList<String>();
-      prefixes.add("pom");
-      prefixes.add("project");
-      valueSources.add(ValueSourceUtils.newPrefixedValueSource(prefixes, project));
-      valueSources.add(ValueSourceUtils.newPrefixedValueSource("session", mavenSession));
-
-      final Settings settings = mavenSession.getSettings();
-      if (settings != null)
-      {
-         valueSources.add(ValueSourceUtils.newPrefixedValueSource("settings", settings));
-         valueSources.add(ValueSourceUtils.newSingleValueSource("localRepository", settings.getLocalRepository()));
-      }
-
-      return new AbstractPropertiesSource()
-      {
-         public String get(String key)
-         {
-            final String value = propertiesMap.get(key);
-            if (value != null)
-            {
-               return value;
-            }
-            for (ValueSource valueSource : valueSources)
-            {
-               final Object oValue = valueSource.getValue(key);
-               if (oValue != null)
-               {
-                  return oValue.toString();
-               }
-            }
-            return null;
-         }
-      };
-   }
 }
