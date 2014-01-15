@@ -188,6 +188,54 @@ public class FeaturesConverterTest
    }
 
    @Test
+   public void testFeaturesAppendix() throws Exception
+   {
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("b2.assemblies", "main, test");
+      moduleProperties.put("b2.assemblies.main.classifier", "");
+
+      FeaturesConverter converter = new DefaultConverter();
+
+      assertEquals("foo.feature", converter.getFeatureIdForAssembly(moduleProperties, "main", "foo"));
+      assertEquals("foo.test.feature", converter.getFeatureIdForAssembly(moduleProperties, "test", "foo"));
+      assertEquals("foo.plugins.feature", converter.getFeatureIdForFacet(moduleProperties, "plugins", "foo", false));
+      assertEquals("foo.plugins.sources.feature",
+         converter.getFeatureIdForFacet(moduleProperties, "plugins", "foo", true));
+
+      moduleProperties.put("b2.featuresAppendix", "");
+
+      assertEquals("foo", converter.getFeatureIdForAssembly(moduleProperties, "main", "foo"));
+      assertEquals("foo.test", converter.getFeatureIdForAssembly(moduleProperties, "test", "foo"));
+      assertEquals("foo.plugins", converter.getFeatureIdForFacet(moduleProperties, "plugins", "foo", false));
+      assertEquals("foo.plugins.sources", converter.getFeatureIdForFacet(moduleProperties, "plugins", "foo", true));
+   }
+
+   @Test
+   public void testBrandingPluginsAppendix() throws Exception
+   {
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("b2.assemblies", "main, test");
+      moduleProperties.put("b2.assemblies.main.classifier", "");
+
+      FeaturesConverter converter = new DefaultConverter();
+      assertEquals("foo.branding", converter.getBrandingPluginIdForAssembly(moduleProperties, "main", "foo"));
+      assertEquals("foo.test.branding", converter.getBrandingPluginIdForAssembly(moduleProperties, "test", "foo"));
+      assertEquals("foo.plugins.branding",
+         converter.getBrandingPluginIdForFacet(moduleProperties, "plugins", "foo", false));
+      assertEquals("foo.plugins.sources.branding",
+         converter.getBrandingPluginIdForFacet(moduleProperties, "plugins", "foo", true));
+      
+      moduleProperties.put("b2.brandingPluginsAppendix", "brand");
+      
+      assertEquals("foo.brand", converter.getBrandingPluginIdForAssembly(moduleProperties, "main", "foo"));
+      assertEquals("foo.test.brand", converter.getBrandingPluginIdForAssembly(moduleProperties, "test", "foo"));
+      assertEquals("foo.plugins.brand",
+         converter.getBrandingPluginIdForFacet(moduleProperties, "plugins", "foo", false));
+      assertEquals("foo.plugins.sources.brand",
+         converter.getBrandingPluginIdForFacet(moduleProperties, "plugins", "foo", true));
+   }
+
+   @Test
    public void testIsSkipBrandingPlugins()
    {
       FeaturesConverter converter = new DefaultConverter();

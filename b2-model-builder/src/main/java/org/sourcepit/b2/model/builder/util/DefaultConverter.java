@@ -462,8 +462,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
          }
          sb.append(properties.get("b2.featuresSourceClassifier", "sources"));
       }
-
-      return idOfProject(moduleId, sb.toString(), "feature");
+      return idOfProject(moduleId, sb.toString(), properties.get("b2.featuresAppendix", "feature"));
    }
 
    public boolean isSkipBrandingPlugins(PropertiesSource properties)
@@ -513,7 +512,7 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
          }
          sb.append(properties.get("b2.featuresSourceClassifier", "sources"));
       }
-      return idOfProject(moduleId, sb.toString(), "branding");
+      return idOfProject(moduleId, sb.toString(), properties.get("b2.brandingPluginsAppendix", "branding"));
    }
 
    public String getSourcePluginId(PropertiesSource moduleProperties, String pluginId)
@@ -598,7 +597,8 @@ public class DefaultConverter implements SitesConverter, BasicConverter, Feature
       String siteId = moduleProperties.get(assemblyKey(assemblyName, "siteId"));
       if (siteId == null)
       {
-         siteId = idOfProject(moduleId, getAssemblyClassifier(moduleProperties, assemblyName), "site");
+         siteId = idOfProject(moduleId, getAssemblyClassifier(moduleProperties, assemblyName),
+            moduleProperties.get("b2.sitesAppendix", "site"));
       }
       return siteId;
    }
