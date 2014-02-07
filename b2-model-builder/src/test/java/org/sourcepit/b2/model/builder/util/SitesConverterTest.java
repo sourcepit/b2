@@ -129,4 +129,22 @@ public class SitesConverterTest
       assertEquals("moduleId\\.sdk\\.feature", matcher.getExcludes().iterator().next());
    }
 
+   @Test
+   public void testSitesAppendix() throws Exception
+   {
+      PropertiesMap moduleProperties = new LinkedPropertiesMap();
+      moduleProperties.put("b2.assemblies", "main, test");
+      moduleProperties.put("b2.assemblies.main.classifier", "");
+
+      SitesConverter converter = new DefaultConverter();
+
+      assertEquals("foo.site", converter.getSiteIdForAssembly(moduleProperties, "foo", "main"));
+      assertEquals("foo.test.site", converter.getSiteIdForAssembly(moduleProperties, "foo", "test"));
+
+      moduleProperties.put("b2.sitesAppendix", "repo");
+
+      assertEquals("foo.repo", converter.getSiteIdForAssembly(moduleProperties, "foo", "main"));
+      assertEquals("foo.test.repo", converter.getSiteIdForAssembly(moduleProperties, "foo", "test"));
+   }
+
 }

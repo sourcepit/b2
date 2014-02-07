@@ -243,6 +243,9 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       final Model pom = readMavenModel(pomFile);
       disableDefaultPluginExecutions(pom);
+      
+      pom.getProperties().setProperty("module.id", module.getId());
+      
       writeMavenModel(pomFile, pom);
 
       return pomFile;

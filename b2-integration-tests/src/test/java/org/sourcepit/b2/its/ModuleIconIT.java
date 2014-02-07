@@ -55,8 +55,12 @@ public class ModuleIconIT extends AbstractB2IT
    {
       assertTrue(new File(pluginDir, "module32.png").exists());
       
-      final PropertiesMap propertiesMap = new LinkedPropertiesMap();
-      propertiesMap.load(new File(pluginDir, "about.ini"));
-      assertEquals("module32.png", propertiesMap.get("featureImage"));
+      final PropertiesMap buildProps = new LinkedPropertiesMap();
+      buildProps.load(new File(pluginDir, "build.properties"));
+      assertTrue(buildProps.get("bin.includes").contains("module32.png"));
+      
+      final PropertiesMap aboutIni = new LinkedPropertiesMap();
+      aboutIni.load(new File(pluginDir, "about.ini"));
+      assertEquals("module32.png", aboutIni.get("featureImage"));
    }
 }
