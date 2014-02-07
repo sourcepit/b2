@@ -9,12 +9,12 @@
 
 	<groupId>org.sourcepit.b2</groupId>
 	<artifactId>b2</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.0-alpha-12</version>
 	<packaging>pom</packaging>
 
 	<scm>
 		<connection>scm:git:git@github.com:sourcepit/b2.git</connection>
-		<tag>HEAD</tag>
+		<tag>b2-0.1.0-alpha-12</tag>
 	</scm>
 
 	<properties>
