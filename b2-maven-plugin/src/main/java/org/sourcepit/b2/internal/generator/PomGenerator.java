@@ -249,7 +249,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       final Model pom = readMavenModel(pomFile);
       disableDefaultPluginExecutions(pom);
-      configureMavenReleasePlugin(pom);
+      configureMavenReleasePlugin(pom, properties);
 
       pom.getProperties().setProperty("module.id", module.getId());
 
@@ -258,23 +258,23 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       return pomFile;
    }
 
-   private void configureMavenReleasePlugin(Model pom)
+   private void configureMavenReleasePlugin(Model pom, PropertiesSource properties)
    {
       final Build build = getBuild(pom, true);
       Plugin plugin = getPlugin(build, "org.apache.maven.plugins", "maven-release-plugin", false);
       if (plugin != null)
       {
-         configureMavenReleasePlugin(plugin);
+         configureMavenReleasePlugin(plugin, properties);
       }
       plugin = getPlugin(getPluginManagement(build, true), "org.apache.maven.plugins", "maven-release-plugin", false);
       if (plugin == null)
       {
          throw new IllegalStateException("org.apache.maven.plugins:maven-release-plugin missing in plugin management.");
       }
-      configureMavenReleasePlugin(plugin);
+      configureMavenReleasePlugin(plugin, properties);
    }
 
-   private void configureMavenReleasePlugin(Plugin plugin)
+   private void configureMavenReleasePlugin(Plugin plugin, PropertiesSource properties)
    {
       if (getDependency(plugin.getDependencies(), "org.sourcepit.b2", "b2-maven-release-manager") == null)
       {
@@ -286,7 +286,8 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       }
       final Xpp3Dom cfg = MavenModelUtils.getConfiguration(plugin, true);
       setValueNode(cfg, "mavenExecutorId", "forked-path");
-      setValueNode(cfg, "mavenHome", "${maven.home}");
+      // set current maven home to support "two step releases"
+      setValueNode(cfg, "mavenHome", properties.get("maven.home", "${maven.home}"));
       setValueNode(cfg, "preparationGoals", "${b2.release.preparationGoals}");
    }
 
