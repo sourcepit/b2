@@ -216,7 +216,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       modulePom.setGroupId("org.sourcepit.b2");
       modulePom.setArtifactId(projectDir.getName());
       modulePom.setVersion("1-SNAPSHOT");
-      
+
       modulePom.getProperties().setProperty("b2.version", "1");
 
       // add custom config
@@ -238,37 +238,45 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       writePom(modulePom, moduleFile);
 
       // generate maven pom
-      generatePom(projectDir);
+      Properties properties = new Properties();
+      properties.setProperty("maven.home", "my-user-home");
+      generatePom(projectDir, properties);
 
       final Model generatedPom = readPom(new File(projectDir, "pom.xml"));
 
       // plugin
       plugin = getPlugin(generatedPom.getBuild(), true, "org.apache.maven.plugins", "maven-release-plugin", null);
       assertEquals(2, plugin.getDependencies().size());
-      
+
       cfg = MavenModelUtils.getConfiguration(plugin, true);
       assertEquals(4, cfg.getChildCount());
-      
+
       assertEquals("forked-path", cfg.getChild("mavenExecutorId").getValue());
-      assertEquals("${maven.home}", cfg.getChild("mavenHome").getValue());
+      assertEquals("my-user-home", cfg.getChild("mavenHome").getValue());
       assertEquals("${b2.release.preparationGoals}", cfg.getChild("preparationGoals").getValue());
       assertEquals("bar", cfg.getChild("foo").getValue());
-      
+
       // plugin management
-      plugin = getPlugin(generatedPom.getBuild().getPluginManagement(), true, "org.apache.maven.plugins", "maven-release-plugin", null);
+      plugin = getPlugin(generatedPom.getBuild().getPluginManagement(), true, "org.apache.maven.plugins",
+         "maven-release-plugin", null);
       assertEquals(1, plugin.getDependencies().size());
-      
+
       cfg = MavenModelUtils.getConfiguration(plugin, true);
       assertEquals(3, cfg.getChildCount());
-      
+
       assertEquals("forked-path", cfg.getChild("mavenExecutorId").getValue());
-      assertEquals("${maven.home}", cfg.getChild("mavenHome").getValue());
+      assertEquals("my-user-home", cfg.getChild("mavenHome").getValue());
       assertEquals("${b2.release.preparationGoals}", cfg.getChild("preparationGoals").getValue());
    }
 
    private void generatePom(final File projectDir) throws Exception
    {
-      final MavenExecutionResult2 result = buildProject(new File(projectDir, "module.xml"));
+      generatePom(projectDir, null);
+   }
+
+   private void generatePom(final File projectDir, Properties userProperties) throws Exception
+   {
+      final MavenExecutionResult2 result = buildProject(new File(projectDir, "module.xml"), userProperties, false);
       final MavenSession mavenSession = result.getSession();
       legacySupport.setSession(mavenSession);
 
