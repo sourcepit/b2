@@ -8,8 +8,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.sourcepit.b2.internal.maven.util.MavenModelUtils.getPlugin;
-import static org.sourcepit.b2.internal.maven.util.MavenModelUtils.getPluginExecution;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPlugin;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPluginExecution;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +21,7 @@ import java.util.Properties;
 import javax.inject.Inject;
 
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.io.DefaultModelReader;
@@ -36,7 +37,9 @@ import org.sourcepit.b2.internal.maven.MavenB2RequestFactory;
 import org.sourcepit.b2.model.builder.IB2ModelBuilder;
 import org.sourcepit.b2.model.builder.internal.tests.harness.AbstractB2SessionWorkspaceTest2;
 import org.sourcepit.b2.model.module.AbstractModule;
+import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.maven.testing.MavenExecutionResult2;
+import org.sourcepit.common.maven.util.Xpp3Utils;
 
 public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
 {
@@ -194,6 +197,73 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       plugin = getPlugin(generatedPom.getBuild(), false, "org.apache.maven.plugins", "maven-deploy-plugin", null);
       assertNotNull(plugin);
       assertEquals("none", getPluginExecution(plugin, false, "default-deploy").getPhase());
+   }
+
+   @Test
+   public void testBug128_AllwaysSetB2MavenReleaseManager() throws Exception
+   {
+      final File projectDir = getWs().getRoot();
+
+      // create test project
+      new DefaultTemplateCopier().copy("module-pom.xml", projectDir, getEnvironment().newProperties());
+
+      final File moduleFile = new File(projectDir, "module.xml");
+      new File(projectDir, "module-pom.xml").renameTo(moduleFile);
+
+      assertTrue(moduleFile.exists());
+
+      Model modulePom = readPom(moduleFile);
+      modulePom.setGroupId("org.sourcepit.b2");
+      modulePom.setArtifactId(projectDir.getName());
+      modulePom.setVersion("1-SNAPSHOT");
+      
+      modulePom.getProperties().setProperty("b2.version", "1");
+
+      // add custom config
+      Plugin plugin = getPlugin(modulePom.getBuild(), true, "org.apache.maven.plugins", "maven-release-plugin",
+         "${maven.releasePlugin.version}");
+
+      final Dependency dependency = new Dependency();
+      dependency.setGroupId("foo");
+      dependency.setArtifactId("bar");
+      dependency.setVersion("1");
+
+      plugin.getDependencies().clear();
+      plugin.getDependencies().add(dependency);
+
+      Xpp3Dom cfg = MavenModelUtils.getConfiguration(plugin, true);
+      Xpp3Utils.addValueNode(cfg, "mavenExecutorId", "bar");
+      Xpp3Utils.addValueNode(cfg, "foo", "bar");
+
+      writePom(modulePom, moduleFile);
+
+      // generate maven pom
+      generatePom(projectDir);
+
+      final Model generatedPom = readPom(new File(projectDir, "pom.xml"));
+
+      // plugin
+      plugin = getPlugin(generatedPom.getBuild(), true, "org.apache.maven.plugins", "maven-release-plugin", null);
+      assertEquals(2, plugin.getDependencies().size());
+      
+      cfg = MavenModelUtils.getConfiguration(plugin, true);
+      assertEquals(4, cfg.getChildCount());
+      
+      assertEquals("forked-path", cfg.getChild("mavenExecutorId").getValue());
+      assertEquals("${maven.home}", cfg.getChild("mavenHome").getValue());
+      assertEquals("${b2.release.preparationGoals}", cfg.getChild("preparationGoals").getValue());
+      assertEquals("bar", cfg.getChild("foo").getValue());
+      
+      // plugin management
+      plugin = getPlugin(generatedPom.getBuild().getPluginManagement(), true, "org.apache.maven.plugins", "maven-release-plugin", null);
+      assertEquals(1, plugin.getDependencies().size());
+      
+      cfg = MavenModelUtils.getConfiguration(plugin, true);
+      assertEquals(3, cfg.getChildCount());
+      
+      assertEquals("forked-path", cfg.getChild("mavenExecutorId").getValue());
+      assertEquals("${maven.home}", cfg.getChild("mavenHome").getValue());
+      assertEquals("${b2.release.preparationGoals}", cfg.getChild("preparationGoals").getValue());
    }
 
    private void generatePom(final File projectDir) throws Exception
