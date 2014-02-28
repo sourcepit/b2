@@ -8,8 +8,12 @@ package org.sourcepit.b2.internal.generator;
 
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
-import static org.sourcepit.b2.internal.maven.util.MavenModelUtils.getPlugin;
-import static org.sourcepit.b2.internal.maven.util.MavenModelUtils.getPluginExecution;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getBuild;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getDependency;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPlugin;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPluginExecution;
+import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPluginManagement;
+import static org.sourcepit.common.maven.util.Xpp3Utils.setValueNode;
 import static org.sourcepit.common.utils.io.IO.cpIn;
 
 import java.io.File;
@@ -27,6 +31,7 @@ import javax.inject.Named;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.model.PluginExecution;
@@ -52,6 +57,7 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
+import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.io.IOOperation;
@@ -243,12 +249,45 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       final Model pom = readMavenModel(pomFile);
       disableDefaultPluginExecutions(pom);
-      
+      configureMavenReleasePlugin(pom);
+
       pom.getProperties().setProperty("module.id", module.getId());
-      
+
       writeMavenModel(pomFile, pom);
 
       return pomFile;
+   }
+
+   private void configureMavenReleasePlugin(Model pom)
+   {
+      final Build build = getBuild(pom, true);
+      Plugin plugin = getPlugin(build, "org.apache.maven.plugins", "maven-release-plugin", false);
+      if (plugin != null)
+      {
+         configureMavenReleasePlugin(plugin);
+      }
+      plugin = getPlugin(getPluginManagement(build, true), "org.apache.maven.plugins", "maven-release-plugin", false);
+      if (plugin == null)
+      {
+         throw new IllegalStateException("org.apache.maven.plugins:maven-release-plugin missing in plugin management.");
+      }
+      configureMavenReleasePlugin(plugin);
+   }
+
+   private void configureMavenReleasePlugin(Plugin plugin)
+   {
+      if (getDependency(plugin.getDependencies(), "org.sourcepit.b2", "b2-maven-release-manager") == null)
+      {
+         final Dependency dependency = new Dependency();
+         dependency.setGroupId("org.sourcepit.b2");
+         dependency.setArtifactId("b2-maven-release-manager");
+         dependency.setVersion("${b2.version}");
+         plugin.getDependencies().add(dependency);
+      }
+      final Xpp3Dom cfg = MavenModelUtils.getConfiguration(plugin, true);
+      setValueNode(cfg, "mavenExecutorId", "forked-path");
+      setValueNode(cfg, "mavenHome", "${maven.home}");
+      setValueNode(cfg, "preparationGoals", "${b2.release.preparationGoals}");
    }
 
    private static void disableDefaultPluginExecutions(final Model pom)
@@ -278,7 +317,6 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       final Plugin plugin = getPlugin(build, true, groupId, artifactId, version);
       getPluginExecution(plugin, true, executionId).setPhase(phase);
    }
-
 
    private void addAdditionalProjectProperties(AbstractModule module, PropertiesSource properties, Model defaultModel)
    {
