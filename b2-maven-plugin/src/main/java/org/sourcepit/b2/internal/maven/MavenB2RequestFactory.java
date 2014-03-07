@@ -19,14 +19,14 @@ import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
+import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.artifact.DefaultArtifact;
+import org.eclipse.aether.resolution.ArtifactRequest;
+import org.eclipse.aether.resolution.ArtifactResolutionException;
+import org.eclipse.aether.resolution.ArtifactResult;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.slf4j.Logger;
-import org.sonatype.aether.RepositorySystem;
-import org.sonatype.aether.resolution.ArtifactRequest;
-import org.sonatype.aether.resolution.ArtifactResolutionException;
-import org.sonatype.aether.resolution.ArtifactResult;
-import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
 import org.sourcepit.b2.files.ModuleDirectory;
@@ -211,7 +211,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
    private Artifact resolveArtifact(final MavenProject wrapperProject, String groupId, String artifactId,
       String extension, String version, String classifier)
    {
-      final org.sonatype.aether.artifact.Artifact siteArtifact = new DefaultArtifact(groupId, artifactId, classifier,
+      final org.eclipse.aether.artifact.Artifact siteArtifact = new DefaultArtifact(groupId, artifactId, classifier,
          extension, version);
 
       ArtifactRequest request = new ArtifactRequest();

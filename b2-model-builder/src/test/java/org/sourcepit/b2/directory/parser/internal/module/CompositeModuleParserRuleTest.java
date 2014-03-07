@@ -47,7 +47,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
    @Test
    public void testEmptyModule() throws Exception
    {
-      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      final BasicModuleParserRule rule = lookup(BasicModuleParserRule.class);
       // TODO I think we should expect a simple module here because the module dir contains a module.xml file?
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
       assertNull(rule.parse(request));
@@ -67,7 +67,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
 
       parseModulesAndAddModel(request.getModulesCache(), subModule1Dir, subModule2Dir);
 
-      final CompositeModuleParserRule rule = gLookup(CompositeModuleParserRule.class);
+      final CompositeModuleParserRule rule = lookup(CompositeModuleParserRule.class);
       final CompositeModule module = rule.parse(request);
       assertNotNull(module);
       assertEquals(moduleDir, module.getDirectory());
@@ -91,7 +91,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
 
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
 
-      final CompositeModuleParserRule rule = gLookup(CompositeModuleParserRule.class);
+      final CompositeModuleParserRule rule = lookup(CompositeModuleParserRule.class);
       CompositeModule module = rule.parse(request);
       assertNotNull(module);
       assertEquals(moduleDir, module.getDirectory());
@@ -113,7 +113,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
    {
       if (subModuleDirs != null)
       {
-         BasicModuleParserRule basicRule = gLookup(BasicModuleParserRule.class);
+         BasicModuleParserRule basicRule = lookup(BasicModuleParserRule.class);
          for (int i = 0; i < subModuleDirs.length; i++)
          {
             BasicModule module = basicRule.doParse(createParsingRequest(subModuleDirs[i]));

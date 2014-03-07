@@ -534,7 +534,9 @@
 			<role-hint>check-poms</role-hint>
 			<implementation>org.sourcepit.b2.release.phase.CheckPomPhase</implementation>
 			<description>Phase that checks the validity of the module.xml before release.</description>
-			<isolated-realm>false</isolated-realm>
+			<configuration>
+				<scmRequired>true</scmRequired>
+			</configuration>
 			<requirements>
 				<requirement>
 					<role>org.sourcepit.b2.release.B2ReleaseHelper</role>
@@ -542,6 +544,22 @@
 				<requirement>
 					<role>org.apache.maven.shared.release.scm.ScmRepositoryConfigurator</role>
 					<field-name>scmRepositoryConfigurator</field-name>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>org.apache.maven.shared.release.phase.ReleasePhase</role>
+			<role-hint>check-poms-updateversions</role-hint>
+			<implementation>org.sourcepit.b2.release.phase.CheckPomPhase</implementation>
+			<configuration>
+				<scmRequired>false</scmRequired>
+			</configuration>
+			<requirements>
+                <requirement>
+                    <role>org.sourcepit.b2.release.B2ReleaseHelper</role>
+                </requirement>
+				<requirement>
+					<role>org.apache.maven.shared.release.scm.ScmRepositoryConfigurator</role>
 				</requirement>
 			</requirements>
 		</component>

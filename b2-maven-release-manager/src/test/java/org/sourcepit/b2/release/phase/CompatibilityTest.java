@@ -14,6 +14,8 @@ import org.codehaus.plexus.PlexusTestCase;
 
 public class CompatibilityTest extends PlexusTestCase
 {
+   
+   
    public void testAssureAllReleasePhasesAreImplementedByB2() throws Exception
    {
       @SuppressWarnings({ "unchecked", "rawtypes" })

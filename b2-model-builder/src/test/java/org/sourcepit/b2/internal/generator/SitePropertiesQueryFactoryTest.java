@@ -12,19 +12,13 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.sisu.launch.InjectedTest;
 import org.junit.Test;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
-import org.sourcepit.guplex.test.GuplexTest;
 
-public class SitePropertiesQueryFactoryTest extends GuplexTest
+public class SitePropertiesQueryFactoryTest extends InjectedTest
 {
-   @Override
-   protected boolean isUseIndex()
-   {
-      return true;
-   }
-
    @Test
    public void test()
    {
@@ -34,7 +28,7 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
       properties.put("nls_de.b2.sourceClassifierLabel", "(Quelldateien)");
 
 
-      final SitePropertiesQueryFactory queryFactory = gLookup(SitePropertiesQueryFactory.class);
+      final SitePropertiesQueryFactory queryFactory = lookup(SitePropertiesQueryFactory.class);
       Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(properties, "sdk", "", "included");
 
       PropertiesQuery query;
@@ -81,7 +75,7 @@ public class SitePropertiesQueryFactoryTest extends GuplexTest
       properties.put("nls_de.b2.sourceClassifierLabel", "(Quelldateien)");
 
 
-      final SitePropertiesQueryFactory queryFactory = gLookup(SitePropertiesQueryFactory.class);
+      final SitePropertiesQueryFactory queryFactory = lookup(SitePropertiesQueryFactory.class);
       Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(properties, "sdk", "sdk", "assembled");
 
       PropertiesQuery query;

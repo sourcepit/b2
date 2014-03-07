@@ -6,8 +6,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.sourcepit.b2.model.harness.ModelTestHarness.addFeatureProject;
 import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyClassifier;
@@ -52,7 +51,7 @@ public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest
       setFacetClassifier(featureProject, "");
       setSourceFeature(featureProject, true);
 
-      FeatureProjectGenerator generator = gLookup(FeatureProjectGenerator.class);
+      FeatureProjectGenerator generator = lookup(FeatureProjectGenerator.class);
       generator.generate(featureProject, properties, templates);
 
       File featureDir = featureProject.getDirectory();
@@ -92,7 +91,7 @@ public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest
       addAssemblyClassifier(featureProject, "");
       setSourceFeature(featureProject, true);
 
-      FeatureProjectGenerator generator = gLookup(FeatureProjectGenerator.class);
+      FeatureProjectGenerator generator = lookup(FeatureProjectGenerator.class);
       generator.generate(featureProject, properties, templates);
 
       File featureDir = featureProject.getDirectory();

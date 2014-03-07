@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.sourcepit</groupId>
 		<artifactId>srcpit-parent</artifactId>
-		<version>10</version>
+		<version>11-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.sourcepit.b2</groupId>
@@ -19,8 +19,8 @@
 
 	<properties>
 		<tycho.version>0.19.0</tycho.version>
-		<maven-bootstrap.version>0.1.0-alpha-9</maven-bootstrap.version>
-		<shared-resources.version>0.1.0-alpha-6</shared-resources.version>
+		<maven-bootstrap.version>0.10.0-SNAPSHOT</maven-bootstrap.version>
+		<shared-resources.version>0.7.0-SNAPSHOT</shared-resources.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 
@@ -126,12 +126,7 @@
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
 				<artifactId>osgify-maven-plugin</artifactId>
-				<version>0.1.0-alpha-9</version>
-			</dependency>
-			<dependency>
-				<groupId>org.sourcepit</groupId>
-				<artifactId>slf4j-plexus</artifactId>
-				<version>0.1.0-alpha-4</version>
+				<version>0.10.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
@@ -147,37 +142,32 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-testing</artifactId>
-				<version>0.1.0-alpha-8</version>
+				<version>0.9.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-modeling</artifactId>
-				<version>0.1.0-alpha-7</version>
+				<version>0.8.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-manifest</artifactId>
-				<version>0.1.0-alpha-11</version>
+				<version>0.12.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-maven</artifactId>
-				<version>0.14.0</version>
+				<version>0.15.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-utils</artifactId>
-				<version>0.1.0-alpha-9</version>
+				<version>0.10.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-constraints</artifactId>
-				<version>0.1.0-alpha-4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.sourcepit</groupId>
-				<artifactId>guice-plexus-bridge</artifactId>
-				<version>0.1.0-alpha-7</version>
+				<version>0.5.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.tmatesoft.svnkit</groupId>
@@ -227,8 +217,8 @@
 				</plugin>
 				<plugin>
 					<groupId>org.sourcepit.tools</groupId>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>0.1.0-alpha-5</version>
+					<artifactId>install-maven-plugin</artifactId>
+					<version>0.6.0-SNAPSHOT</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -246,7 +236,6 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.4</version>
 					<configuration>
 						<preparationGoals>clean</preparationGoals>
 					</configuration>
@@ -263,11 +252,6 @@
 							<phase>none</phase>
 						</execution>
 					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.3</version>
 				</plugin>
 				<!--This plugin's configuration is used to store Eclipse m2e settings
 					only. It has no influence on the Maven build itself. -->
@@ -355,7 +339,7 @@
 		<plugins>
 			<plugin>
 				<groupId>org.sourcepit.tools</groupId>
-				<artifactId>maven-install-plugin</artifactId>
+				<artifactId>install-maven-plugin</artifactId>
 				<executions>
 					<execution>
 						<id>install-base</id>
@@ -379,7 +363,7 @@
 				<plugins>
 					<plugin>
 						<groupId>org.sourcepit.tools</groupId>
-						<artifactId>maven-install-plugin</artifactId>
+						<artifactId>install-maven-plugin</artifactId>
 						<executions>
 							<execution>
 								<id>pre-integration-test</id>

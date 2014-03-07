@@ -22,13 +22,13 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
+import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.artifact.DefaultArtifact;
+import org.eclipse.aether.resolution.ArtifactRequest;
+import org.eclipse.aether.resolution.ArtifactResolutionException;
+import org.eclipse.aether.resolution.ArtifactResult;
 import org.eclipse.emf.ecore.EObject;
 import org.slf4j.Logger;
-import org.sonatype.aether.RepositorySystem;
-import org.sonatype.aether.resolution.ArtifactRequest;
-import org.sonatype.aether.resolution.ArtifactResolutionException;
-import org.sonatype.aether.resolution.ArtifactResult;
-import org.sonatype.aether.util.artifact.DefaultArtifact;
 import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
@@ -126,7 +126,7 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
    private Artifact resolveArtifact(final MavenProject wrapperProject, String groupId, String artifactId,
       String extension, String version, String classifier)
    {
-      final org.sonatype.aether.artifact.Artifact siteArtifact = new DefaultArtifact(groupId, artifactId, classifier,
+      final org.eclipse.aether.artifact.Artifact siteArtifact = new DefaultArtifact(groupId, artifactId, classifier,
          extension, version);
 
       ArtifactRequest request = new ArtifactRequest();

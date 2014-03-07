@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.sisu.launch.InjectedTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.model.builder.util.FeaturesConverter;
@@ -32,7 +33,6 @@ import org.sourcepit.common.manifest.osgi.PackageExport;
 import org.sourcepit.common.manifest.osgi.PackageImport;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
-import org.sourcepit.guplex.test.GuplexTest;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
@@ -44,14 +44,8 @@ import com.google.common.collect.SetMultimap;
 // TODO UC #5: Erase assembly classifier in feature id
 // TODO UC #6: Module that requires other Module
 // TODO UC #7. Module that includes other Module (aggregator)
-public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
+public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
 {
-   @Override
-   protected boolean isUseIndex()
-   {
-      return true;
-   }
-
    @Test
    public void testUC_1_SinglePlugin_NoSource() throws Exception
    {
@@ -914,11 +908,11 @@ public abstract class AbstractInterpolatorUseCasesTest extends GuplexTest
 
    protected void interpolate(AbstractModule module, PropertiesMap moduleProperties)
    {
-      ISourceService sourceService = gLookup(ISourceService.class);
-      LayoutManager layoutManager = gLookup(LayoutManager.class);
+      ISourceService sourceService = lookup(ISourceService.class);
+      LayoutManager layoutManager = lookup(LayoutManager.class);
       UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
-      FeaturesConverter converter = gLookup(FeaturesConverter.class);
-      BrandingPluginsInterpolator brandingInterpolator = gLookup(BrandingPluginsInterpolator.class);
+      FeaturesConverter converter = lookup(FeaturesConverter.class);
+      BrandingPluginsInterpolator brandingInterpolator = lookup(BrandingPluginsInterpolator.class);
 
       ResolutionContextResolver contextResolver = new ResolutionContextResolver()
       {

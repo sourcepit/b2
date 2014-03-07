@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.sisu.launch.InjectedTest;
 import org.junit.Rule;
 import org.junit.Test;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
@@ -23,9 +24,8 @@ import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
-import org.sourcepit.guplex.test.GuplexTest;
 
-public class ProjectResourcesPreprocessorTest extends GuplexTest
+public class ProjectResourcesPreprocessorTest extends InjectedTest
 {
    private Environment env = Environment.get("env-test.properties");
 
@@ -34,12 +34,6 @@ public class ProjectResourcesPreprocessorTest extends GuplexTest
 
    @Inject
    private ProjectResourcesPreprocessor preprocessor;
-
-   @Override
-   protected boolean isUseIndex()
-   {
-      return true;
-   }
 
    @Test
    public void testDetect() throws IOException
