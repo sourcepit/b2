@@ -56,10 +56,6 @@
 			<artifactId>maven-filtering</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-component-annotations</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.sourcepit.tools</groupId>
 			<artifactId>shared-resources-harness</artifactId>
 		</dependency>

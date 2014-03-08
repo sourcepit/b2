@@ -45,10 +45,6 @@
 			<artifactId>shared-resources-harness</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-component-annotations</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>net.sourceforge.collections</groupId>
 			<artifactId>collections-generic</artifactId>
 		</dependency>
