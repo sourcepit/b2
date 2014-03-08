@@ -12,6 +12,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
@@ -29,21 +32,19 @@ import org.apache.maven.shared.release.env.ReleaseEnvironment;
 import org.apache.maven.shared.release.scm.ReleaseScmCommandException;
 import org.apache.maven.shared.release.scm.ReleaseScmRepositoryException;
 import org.apache.maven.shared.release.scm.ScmRepositoryConfigurator;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.maven.core.B2MavenBridge;
 import org.sourcepit.common.utils.lang.Exceptions;
 
-@Component(role = B2ScmHelper.class)
+@Named
 public class B2ScmHelper
 {
    private static final String CTX_KEY_COMMIT_PROPOSALS = B2ScmHelper.class.getName() + "#commitProposals";
 
-   @Requirement
+   @Inject
    private B2MavenBridge bridge;
 
-   @Requirement
+   @Inject
    private ScmRepositoryConfigurator scmRepositoryConfigurator;
 
    public void edit(MavenProject mavenProject, ReleaseDescriptor releaseDescriptor, Settings settings, File file,

@@ -15,13 +15,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.artifact.ArtifactUtils;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.release.ReleaseResult;
 import org.apache.maven.shared.release.config.ReleaseDescriptor;
 import org.apache.maven.shared.release.env.ReleaseEnvironment;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.eclipse.emf.common.util.URI;
 import org.sourcepit.b2.maven.core.B2MavenBridge;
 import org.sourcepit.b2.model.module.PluginProject;
@@ -31,13 +32,13 @@ import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.manifest.resource.ManifestResource;
 import org.sourcepit.common.utils.lang.Exceptions;
 
-@Component(role = B2ReleaseHelper.class)
+@Named
 public class B2ReleaseHelper
 {
-   @Requirement
+   @Inject
    private B2MavenBridge bridge;
 
-   @Requirement
+   @Inject
    private B2ScmHelper scmHelper;
 
    public List<MavenProject> adaptModuleProjects(List<MavenProject> reactorProjects)

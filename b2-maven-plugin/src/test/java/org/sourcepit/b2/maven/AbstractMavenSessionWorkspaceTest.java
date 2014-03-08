@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import javax.inject.Inject;
+
 import org.apache.maven.artifact.InvalidRepositoryException;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.DefaultMavenExecutionRequest;
@@ -26,7 +28,6 @@ import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.project.ProjectSorter;
 import org.apache.maven.repository.RepositorySystem;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.eclipse.aether.DefaultRepositorySystemSession;
 import org.eclipse.aether.internal.impl.SimpleLocalRepositoryManagerFactory;
 import org.eclipse.aether.repository.LocalRepository;
@@ -38,13 +39,13 @@ import org.sourcepit.b2.test.resources.internal.harness.AbstractPlexusWorkspaceT
 
 public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWorkspaceTest
 {
-   @Requirement
+   @Inject
    protected ProjectBuilder projectBuilder;
 
-   @Requirement
+   @Inject
    protected RepositorySystem repositorySystem;
 
-   @Requirement
+   @Inject
    protected SimpleLocalRepositoryManagerFactory localRepositoryManagerFactory;
 
    protected File moduleDir;
@@ -139,7 +140,7 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
       }
       catch (NoLocalRepositoryManagerException e)
       {
-        throw new IllegalStateException(e);
+         throw new IllegalStateException(e);
       }
       request.setRepositorySession(session);
    }

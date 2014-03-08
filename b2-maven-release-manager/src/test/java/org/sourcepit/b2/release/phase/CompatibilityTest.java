@@ -10,12 +10,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.maven.shared.release.phase.ReleasePhase;
+import org.codehaus.plexus.ContainerConfiguration;
+import org.codehaus.plexus.PlexusConstants;
 import org.codehaus.plexus.PlexusTestCase;
 
 public class CompatibilityTest extends PlexusTestCase
 {
-   
-   
+   @Override
+   protected void customizeContainerConfiguration(ContainerConfiguration cc)
+   {
+      super.customizeContainerConfiguration(cc);
+      cc.setClassPathScanning(PlexusConstants.SCANNING_INDEX)
+         .setAutoWiring(true).setName("maven");
+   }
+
    public void testAssureAllReleasePhasesAreImplementedByB2() throws Exception
    {
       @SuppressWarnings({ "unchecked", "rawtypes" })

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.ContainerConfiguration;
+import org.codehaus.plexus.PlexusConstants;
 import org.codehaus.plexus.PlexusTestCase;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -39,6 +41,13 @@ import org.sourcepit.b2.model.module.SitesFacet;
 public class B2MavenBridgeTest extends PlexusTestCase
 {
    private B2MavenBridge b2Bridge;
+
+   @Override
+   protected void customizeContainerConfiguration(ContainerConfiguration cc)
+   {
+      super.customizeContainerConfiguration(cc);
+      cc.setClassPathScanning(PlexusConstants.SCANNING_INDEX).setAutoWiring(true).setName("maven");
+   }
 
    @Before
    public void setUp() throws Exception

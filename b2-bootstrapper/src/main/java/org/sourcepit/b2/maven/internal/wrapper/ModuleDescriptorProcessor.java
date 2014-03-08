@@ -11,18 +11,19 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Model;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.sourcepit.b2.maven.internal.converter.IModuleDescriptorConverter;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescriptorResolutionStrategy;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
 
-@Component(role = ModuleDescriptorProcessor.class)
+@Named
 public class ModuleDescriptorProcessor
 {
-   @Requirement
+   @Inject
    private Map<String, IModuleDescriptorConverter> fileNameToConverterMap;
 
    public void findModuleDescriptors(MavenSession session, Collection<File> descriptors,

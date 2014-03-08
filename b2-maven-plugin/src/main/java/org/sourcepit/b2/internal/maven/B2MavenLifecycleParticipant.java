@@ -9,13 +9,14 @@ package org.sourcepit.b2.internal.maven;
 import java.io.File;
 import java.util.Map.Entry;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.AbstractMavenLifecycleParticipant;
 import org.apache.maven.MavenExecutionException;
 import org.apache.maven.execution.ExecutionEvent;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -28,10 +29,10 @@ import org.sourcepit.common.utils.adapt.Adapters;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-@Component(role = AbstractMavenLifecycleParticipant.class)
+@Named
 public class B2MavenLifecycleParticipant extends AbstractMavenLifecycleParticipant
 {
-   @Requirement
+   @Inject
    private B2MavenBridge b2Bridge;
 
    @Override
