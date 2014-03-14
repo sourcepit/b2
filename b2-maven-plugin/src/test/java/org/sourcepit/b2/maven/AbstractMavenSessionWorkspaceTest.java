@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
+import javax.inject.Inject;
+
 import org.apache.maven.artifact.InvalidRepositoryException;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.DefaultMavenExecutionRequest;
@@ -26,9 +28,10 @@ import org.apache.maven.project.ProjectBuilder;
 import org.apache.maven.project.ProjectBuildingRequest;
 import org.apache.maven.project.ProjectSorter;
 import org.apache.maven.repository.RepositorySystem;
-import org.apache.maven.repository.internal.MavenRepositorySystemSession;
-import org.codehaus.plexus.component.annotations.Requirement;
-import org.sonatype.aether.impl.internal.SimpleLocalRepositoryManager;
+import org.eclipse.aether.DefaultRepositorySystemSession;
+import org.eclipse.aether.internal.impl.SimpleLocalRepositoryManagerFactory;
+import org.eclipse.aether.repository.LocalRepository;
+import org.eclipse.aether.repository.NoLocalRepositoryManagerException;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescriptorResolutionStrategy;
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
@@ -36,11 +39,14 @@ import org.sourcepit.b2.test.resources.internal.harness.AbstractPlexusWorkspaceT
 
 public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWorkspaceTest
 {
-   @Requirement
+   @Inject
    protected ProjectBuilder projectBuilder;
 
-   @Requirement
+   @Inject
    protected RepositorySystem repositorySystem;
+
+   @Inject
+   protected SimpleLocalRepositoryManagerFactory localRepositoryManagerFactory;
 
    protected File moduleDir;
 
@@ -126,8 +132,16 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
    protected void initRepoSession(ProjectBuildingRequest request)
    {
       File localRepo = new File(request.getLocalRepository().getBasedir());
-      MavenRepositorySystemSession session = new MavenRepositorySystemSession();
-      session.setLocalRepositoryManager(new SimpleLocalRepositoryManager(localRepo));
+      LocalRepository localRepository = new LocalRepository(localRepo);
+      DefaultRepositorySystemSession session = new DefaultRepositorySystemSession();
+      try
+      {
+         session.setLocalRepositoryManager(localRepositoryManagerFactory.newInstance(session, localRepository));
+      }
+      catch (NoLocalRepositoryManagerException e)
+      {
+         throw new IllegalStateException(e);
+      }
       request.setRepositorySession(session);
    }
 

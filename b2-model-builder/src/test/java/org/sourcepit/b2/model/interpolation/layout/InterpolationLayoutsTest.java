@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.sonatype.guice.bean.containers.InjectedTestCase;
+import org.eclipse.sisu.launch.InjectedTestCase;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 

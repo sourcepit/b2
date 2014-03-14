@@ -12,21 +12,22 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.model.Model;
 import org.apache.maven.model.building.DefaultModelProcessor;
 import org.apache.maven.model.building.ModelProcessor;
 import org.apache.maven.model.building.ModelSource;
 import org.apache.maven.model.io.ModelParseException;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 
 /**
  * @author Bernd
  */
-@Component(role = ModelProcessor.class)
+@Named("b2")
 public class B2ModelProcessor extends DefaultModelProcessor implements ModelProcessor
 {
-   @Requirement
+   @Inject
    private ModuleDescriptorProcessor moduleDescriptorProcessor;
 
    @Override

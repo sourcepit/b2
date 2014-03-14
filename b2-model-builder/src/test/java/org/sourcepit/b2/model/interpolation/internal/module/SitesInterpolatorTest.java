@@ -45,7 +45,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    {
       super.interpolate(module, moduleProperties);
 
-      new SitesInterpolator(gLookup(SitesConverter.class), gLookup(LayoutManager.class)).interpolate(module,
+      new SitesInterpolator(lookup(SitesConverter.class), lookup(LayoutManager.class)).interpolate(module,
          moduleProperties);
    }
 

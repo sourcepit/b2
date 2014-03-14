@@ -6,12 +6,21 @@
 
 package org.sourcepit.b2.test.resources.internal.harness;
 
+import org.codehaus.plexus.ContainerConfiguration;
+import org.codehaus.plexus.PlexusConstants;
 import org.codehaus.plexus.PlexusTestCase;
 import org.sourcepit.tools.shared.resources.internal.harness.MavenTestWorkspace;
 
 public abstract class AbstractPlexusWorkspaceTest extends PlexusTestCase
 {
    protected MavenTestWorkspace workspace = new MavenTestWorkspace(this, false);
+
+   @Override
+   protected void customizeContainerConfiguration(ContainerConfiguration cc)
+   {
+      super.customizeContainerConfiguration(cc);
+      cc.setClassPathScanning(PlexusConstants.SCANNING_INDEX).setAutoWiring(true).setName("maven");
+   }
 
    @Override
    protected void setUp() throws Exception

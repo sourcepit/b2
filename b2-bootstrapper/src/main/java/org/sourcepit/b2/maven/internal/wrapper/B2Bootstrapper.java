@@ -11,19 +11,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.sourcepit.maven.bootstrap.core.AbstractBootstrapper;
 import org.sourcepit.maven.exec.intercept.MavenExecutionParticipant;
 
-@Component(role = MavenExecutionParticipant.class)
-public class B2Bootstrapper extends AbstractBootstrapper
+@Named
+public class B2Bootstrapper extends AbstractBootstrapper implements MavenExecutionParticipant
 {
-   @Requirement
+   @Inject
    private ModuleDescriptorProcessor descriptorProcessor;
 
    public B2Bootstrapper()

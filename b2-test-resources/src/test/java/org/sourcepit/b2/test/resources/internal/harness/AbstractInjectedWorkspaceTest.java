@@ -6,7 +6,7 @@
 
 package org.sourcepit.b2.test.resources.internal.harness;
 
-import org.sonatype.guice.bean.containers.InjectedTestCase;
+import org.eclipse.sisu.launch.InjectedTestCase;
 import org.sourcepit.tools.shared.resources.internal.harness.MavenTestWorkspace;
 
 import com.google.inject.Binder;

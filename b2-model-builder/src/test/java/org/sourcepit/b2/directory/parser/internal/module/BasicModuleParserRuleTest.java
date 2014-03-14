@@ -38,7 +38,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
    @Test
    public void testEmptyModule() throws Exception
    {
-      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      final BasicModuleParserRule rule = lookup(BasicModuleParserRule.class);
       // TODO I think we should expect a simple module here because the module dir contains a module.xml file?
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
       assertNull(rule.parse(request));
@@ -49,7 +49,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
    {
       initPluginDir(mkdir(moduleDir, "foo"));
 
-      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      final BasicModuleParserRule rule = lookup(BasicModuleParserRule.class);
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
       final BasicModule module = rule.parse(request);
 
@@ -65,7 +65,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
       initPluginDir(mkdir(moduleDir, "foo"));
       initPluginDir(mkdir(moduleDir, "foo.tests"));
 
-      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      final BasicModuleParserRule rule = lookup(BasicModuleParserRule.class);
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
       final BasicModule module = rule.parse(request);
 
@@ -86,7 +86,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
       initPluginDir(mkdir(testsDir, "foo.tests"));
       initPluginDir(mkdir(examplesDir, "foo.example"));
 
-      final BasicModuleParserRule rule = gLookup(BasicModuleParserRule.class);
+      final BasicModuleParserRule rule = lookup(BasicModuleParserRule.class);
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
       final BasicModule module = rule.parse(request);
 

@@ -12,21 +12,15 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.sisu.launch.InjectedTest;
 import org.junit.Test;
-import org.sourcepit.guplex.test.GuplexTest;
 
-public class FeaturePropertiesQueryFactoryTest extends GuplexTest
+public class FeaturePropertiesQueryFactoryTest extends InjectedTest
 {
-   @Override
-   protected boolean isUseIndex()
-   {
-      return true;
-   }
-
    @Test
    public void testFacet()
    {
-      final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
+      final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, false, "plugins", "");
       assertEquals(17, queries.size());
@@ -168,7 +162,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
    @Test
    public void testFacetWithClassifier()
    {
-      final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
+      final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, false, "plugins",
          "plugins");
@@ -186,7 +180,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
    @Test
    public void testSourceFacet()
    {
-      final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
+      final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, true, "plugins", "");
       assertEquals(17, queries.size());
@@ -322,7 +316,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
    @Test
    public void testSourceFacetWithClassifier()
    {
-      final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
+      final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory
          .createPropertyQueries(false, true, "plugins", "plugins");
@@ -340,7 +334,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
    @Test
    public void testAssembly()
    {
-      final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
+      final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, false, "plugins", "");
       assertEquals(17, queries.size());
@@ -472,7 +466,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
    @Test
    public void testAssemblyWithClassifier()
    {
-      final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
+      final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory
          .createPropertyQueries(true, false, "plugins", "plugins");
@@ -490,7 +484,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
    @Test
    public void testSourceAssembly()
    {
-      final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
+      final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, true, "plugins", "");
       assertEquals(17, queries.size());
@@ -635,7 +629,7 @@ public class FeaturePropertiesQueryFactoryTest extends GuplexTest
    @Test
    public void testSourceAssemblyWithClassifier()
    {
-      final FeaturePropertiesQueryFactory queryFactory = gLookup(FeaturePropertiesQueryFactory.class);
+      final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, true, "plugins", "plugins");
       assertEquals(18, queries.size());

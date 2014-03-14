@@ -6,10 +6,7 @@
 
 package org.sourcepit.b2.maven.core;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +15,9 @@ import java.util.ArrayList;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.ContainerConfiguration;
+import org.codehaus.plexus.PlexusConstants;
+import org.codehaus.plexus.PlexusTestCase;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
@@ -37,11 +37,17 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
-import org.sourcepit.guplex.test.PlexusTest;
 
-public class B2MavenBridgeTest extends PlexusTest
+public class B2MavenBridgeTest extends PlexusTestCase
 {
    private B2MavenBridge b2Bridge;
+
+   @Override
+   protected void customizeContainerConfiguration(ContainerConfiguration cc)
+   {
+      super.customizeContainerConfiguration(cc);
+      cc.setClassPathScanning(PlexusConstants.SCANNING_INDEX).setAutoWiring(true).setName("maven");
+   }
 
    @Before
    public void setUp() throws Exception

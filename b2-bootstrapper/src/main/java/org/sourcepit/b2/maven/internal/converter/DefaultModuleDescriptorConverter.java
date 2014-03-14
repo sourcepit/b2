@@ -14,20 +14,21 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.ModelParseException;
 import org.apache.maven.model.io.ModelReader;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.path.PathUtils;
 
-@Component(role = IModuleDescriptorConverter.class, hint = "module.xml")
+@Named("module.xml")
 public class DefaultModuleDescriptorConverter implements IModuleDescriptorConverter
 {
-   @Requirement
+   @Inject
    private ModelReader modelReader;
-
+   
    public Model convert(File moduleDescriptor) throws IOException, ModelParseException
    {
       final Map<String, String> options = new HashMap<String, String>();

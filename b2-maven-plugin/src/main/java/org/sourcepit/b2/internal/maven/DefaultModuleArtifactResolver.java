@@ -22,17 +22,18 @@ import org.apache.maven.project.DefaultDependencyResolutionRequest;
 import org.apache.maven.project.DependencyResolutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectDependenciesResolver;
-import org.sonatype.aether.artifact.Artifact;
-import org.sonatype.aether.collection.DependencyCollectionContext;
-import org.sonatype.aether.collection.DependencySelector;
-import org.sonatype.aether.graph.Dependency;
-import org.sonatype.aether.graph.DependencyFilter;
-import org.sonatype.aether.graph.DependencyNode;
-import org.sonatype.aether.util.FilterRepositorySystemSession;
-import org.sonatype.aether.util.artifact.ArtifactProperties;
-import org.sonatype.aether.util.artifact.DefaultArtifact;
-import org.sonatype.aether.util.graph.selector.AndDependencySelector;
-import org.sonatype.aether.util.graph.selector.ScopeDependencySelector;
+import org.eclipse.aether.AbstractForwardingRepositorySystemSession;
+import org.eclipse.aether.RepositorySystemSession;
+import org.eclipse.aether.artifact.Artifact;
+import org.eclipse.aether.collection.DependencyCollectionContext;
+import org.eclipse.aether.collection.DependencySelector;
+import org.eclipse.aether.graph.Dependency;
+import org.eclipse.aether.graph.DependencyFilter;
+import org.eclipse.aether.graph.DependencyNode;
+import org.eclipse.aether.artifact.ArtifactProperties;
+import org.eclipse.aether.artifact.DefaultArtifact;
+import org.eclipse.aether.util.graph.selector.AndDependencySelector;
+import org.eclipse.aether.util.graph.selector.ScopeDependencySelector;
 import org.sourcepit.common.maven.model.MavenArtifact;
 import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.utils.lang.Exceptions;
@@ -62,7 +63,7 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
       return moduleArtifactToClassifiers;
    }
 
-   private SetMultimap<Artifact, String> resolveModuleDependencies(MavenSession session, MavenProject project,
+   private SetMultimap<Artifact, String> resolveModuleDependencies(final MavenSession session, MavenProject project,
       final String scope)
    {
       final Map<DependencyNode, String> moduleNodeToClassifiers = new LinkedHashMap<DependencyNode, String>();
@@ -106,13 +107,18 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
 
       final DependencySelector dependencySelector = createDependencySelector(scope);
 
-      final FilterRepositorySystemSession systemSession = new FilterRepositorySystemSession(
-         session.getRepositorySession())
+      final AbstractForwardingRepositorySystemSession systemSession = new AbstractForwardingRepositorySystemSession()
       {
          @Override
          public DependencySelector getDependencySelector()
          {
             return dependencySelector;
+         }
+
+         @Override
+         protected RepositorySystemSession getSession()
+         {
+            return session.getRepositorySession();
          }
       };
 

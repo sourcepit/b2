@@ -402,7 +402,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       addPluginReference(siteProject, "category", "foo.plugin");
       addProductReference(siteProject, "category", "foo.product");
 
-      final SiteProjectGenerator generator = gLookup(SiteProjectGenerator.class);
+      final SiteProjectGenerator generator = lookup(SiteProjectGenerator.class);
       generator.generate(siteProject, properties, templates);
 
       File siteDir = siteProject.getDirectory();
@@ -472,7 +472,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       addAssemblyName(siteProject, "sdk");
       addAssemblyClassifier(siteProject, "");
 
-      final SiteProjectGenerator generator = gLookup(SiteProjectGenerator.class);
+      final SiteProjectGenerator generator = lookup(SiteProjectGenerator.class);
       generator.generate(siteProject, properties, templates);
 
       File siteDir = siteProject.getDirectory();
@@ -519,7 +519,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       addAssemblyName(siteProject, "sdk");
       addAssemblyClassifier(siteProject, "sdk");
 
-      final SiteProjectGenerator generator = gLookup(SiteProjectGenerator.class);
+      final SiteProjectGenerator generator = lookup(SiteProjectGenerator.class);
       generator.generate(siteProject, properties, templates);
 
       File siteDir = siteProject.getDirectory();

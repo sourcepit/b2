@@ -38,12 +38,6 @@ import org.sourcepit.common.utils.props.PropertiesMap;
 public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 {
    @Override
-   protected boolean isUseIndex()
-   {
-      return true;
-   }
-
-   @Override
    protected void assertUC_1_SinglePlugin_NoSource(BasicModule module)
    {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
