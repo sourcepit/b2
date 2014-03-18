@@ -14,15 +14,11 @@
 	<artifactId>module-b</artifactId>
 	<packaging>pom</packaging>
 
-	<properties>
-		<osgifier.overrideNativeBundles>javax.mail.mail</osgifier.overrideNativeBundles>
-	</properties>
-
 	<dependencies>
 		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-			<version>1.4.2</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
 		</dependency>
 	</dependencies>
 
