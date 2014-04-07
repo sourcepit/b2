@@ -17,6 +17,7 @@ import javax.inject.Named;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.building.ModelProcessor;
 import org.apache.maven.project.MavenProject;
 import org.sourcepit.maven.bootstrap.core.AbstractBootstrapper;
 import org.sourcepit.maven.exec.intercept.MavenExecutionParticipant;
@@ -24,12 +25,18 @@ import org.sourcepit.maven.exec.intercept.MavenExecutionParticipant;
 @Named
 public class B2Bootstrapper extends AbstractBootstrapper implements MavenExecutionParticipant
 {
-   @Inject
-   private ModuleDescriptorProcessor descriptorProcessor;
+   private final ModuleDescriptorProcessor descriptorProcessor;
 
-   public B2Bootstrapper()
+   @Inject
+   public B2Bootstrapper(ModuleDescriptorProcessor descriptorProcessor, ModelProcessor modelProcessor)
    {
       super("org.sourcepit.b2", "b2-maven-plugin");
+      this.descriptorProcessor = descriptorProcessor;
+      if (!(modelProcessor instanceof B2ModelProcessor))
+      {
+         throw new IllegalArgumentException(
+            "Maven default module processor is expected to ne overriden by a b2 specific implementation.");
+      }
    }
 
    @Override
