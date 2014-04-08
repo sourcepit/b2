@@ -7,14 +7,22 @@
 		<groupId>org.sourcepit.b2.its</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>parent/module.xml</relativePath>
+		<relativePath>../parent/module.xml</relativePath>
 	</parent>
 
-	<artifactId>MavenDependenciesSiteGeneratorIT</artifactId>
+	<artifactId>module-a</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
-		<b2.skipInterpolator>true</b2.skipInterpolator>
+		<osgifier.overrideNativeBundles>javax.mail.mail</osgifier.overrideNativeBundles>
 	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+	</dependencies>
 
 </project>
