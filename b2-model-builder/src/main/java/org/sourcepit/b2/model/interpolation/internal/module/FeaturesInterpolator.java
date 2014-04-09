@@ -12,7 +12,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
+import org.sourcepit.common.constraints.NotNull;
 
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.util.FeaturesConverter;
