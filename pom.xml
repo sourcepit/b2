@@ -9,7 +9,7 @@
 
 	<groupId>org.sourcepit.b2</groupId>
 	<artifactId>b2</artifactId>
-	<version>0.13.1</version>
+	<version>0.13.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<scm>
