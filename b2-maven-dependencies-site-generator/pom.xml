@@ -14,8 +14,8 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.sourcepit.tools</groupId>
-			<artifactId>osgify-maven-plugin</artifactId>
+			<groupId>org.sourcepit.osgifier</groupId>
+			<artifactId>osgifier-maven-plugin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>

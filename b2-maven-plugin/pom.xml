@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sourcepit.b2</groupId>
@@ -21,7 +22,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.common</groupId>
-			<artifactId>common-utils</artifactId>
+			<artifactId>org.sourcepit.common.utils</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -69,12 +70,16 @@
 			<artifactId>b2-default-templates</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.sourcepit.common</groupId>
-			<artifactId>common-maven</artifactId>
+			<groupId>org.sourcepit.common.maven</groupId>
+			<artifactId>org.sourcepit.common.maven.artifact</artifactId>
 		</dependency>
 		<dependency>
+            <groupId>org.sourcepit.common.maven</groupId>
+            <artifactId>common-maven-core</artifactId>
+        </dependency>
+		<dependency>
 			<groupId>org.sourcepit.common</groupId>
-			<artifactId>common-constraints</artifactId>
+			<artifactId>org.sourcepit.common.constraints</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>srcpit.org.eclipse.emf</groupId>

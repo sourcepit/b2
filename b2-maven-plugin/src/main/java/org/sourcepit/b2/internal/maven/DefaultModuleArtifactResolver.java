@@ -25,17 +25,17 @@ import org.apache.maven.project.ProjectDependenciesResolver;
 import org.eclipse.aether.AbstractForwardingRepositorySystemSession;
 import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.artifact.Artifact;
+import org.eclipse.aether.artifact.ArtifactProperties;
+import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.collection.DependencyCollectionContext;
 import org.eclipse.aether.collection.DependencySelector;
 import org.eclipse.aether.graph.Dependency;
 import org.eclipse.aether.graph.DependencyFilter;
 import org.eclipse.aether.graph.DependencyNode;
-import org.eclipse.aether.artifact.ArtifactProperties;
-import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.util.graph.selector.AndDependencySelector;
 import org.eclipse.aether.util.graph.selector.ScopeDependencySelector;
+import org.sourcepit.common.maven.artifact.MavenArtifactUtils;
 import org.sourcepit.common.maven.model.MavenArtifact;
-import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.utils.lang.Exceptions;
 
 import com.google.common.collect.LinkedHashMultimap;
@@ -57,7 +57,7 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
          Artifact artifact = entry.getKey();
          Collection<String> classifiers = entry.getValue();
 
-         final MavenArtifact mavenArtifact = MavenModelUtils.toMavenArtifact(artifact);
+         final MavenArtifact mavenArtifact = MavenArtifactUtils.toMavenArtifact(artifact);
          moduleArtifactToClassifiers.get(mavenArtifact).addAll(classifiers);
       }
       return moduleArtifactToClassifiers;

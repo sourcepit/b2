@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.sourcepit.b2</groupId>
@@ -10,7 +11,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.sourcepit.common</groupId>
-			<artifactId>common-modeling</artifactId>
+			<artifactId>org.sourcepit.common.modeling</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>srcpit.org.eclipse.emf</groupId>
@@ -22,11 +23,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.sourcepit.common</groupId>
-			<artifactId>common-manifest</artifactId>
+			<artifactId>org.sourcepit.common.manifest</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
+			<groupId>srcpit.osgified</groupId>
+			<artifactId>org.aspectj.runtime</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -76,11 +77,11 @@
 							<aspectLibraries>
 								<aspectLibrary>
 									<groupId>org.sourcepit.common</groupId>
-									<artifactId>common-modeling</artifactId>
+									<artifactId>org.sourcepit.common.modeling</artifactId>
 								</aspectLibrary>
 								<aspectLibrary>
 									<groupId>org.sourcepit.common</groupId>
-									<artifactId>common-constraints</artifactId>
+									<artifactId>org.sourcepit.common.constraints</artifactId>
 								</aspectLibrary>
 							</aspectLibraries>
 						</configuration>

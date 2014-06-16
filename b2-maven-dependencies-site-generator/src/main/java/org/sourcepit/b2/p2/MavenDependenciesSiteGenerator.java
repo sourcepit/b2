@@ -9,7 +9,7 @@ package org.sourcepit.b2.p2;
 import static com.google.common.collect.Collections2.filter;
 import static org.sourcepit.b2.internal.maven.util.MavenDepenenciesUtils.removeDependencies;
 import static org.sourcepit.common.utils.lang.Exceptions.pipe;
-import static org.sourcepit.osgify.maven.p2.BundleSelectorUtils.selectBundles;
+import static org.sourcepit.osgifier.maven.p2.BundleSelectorUtils.selectBundles;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -57,12 +57,12 @@ import org.sourcepit.common.utils.lang.ThrowablePipe;
 import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.maven.dependency.model.DependencyModel;
-import org.sourcepit.osgify.core.model.context.BundleCandidate;
-import org.sourcepit.osgify.core.model.context.BundleReference;
-import org.sourcepit.osgify.core.model.context.OsgifyContext;
-import org.sourcepit.osgify.maven.p2.AbstractBundleTreeSelector;
-import org.sourcepit.osgify.maven.p2.BundleSelector;
-import org.sourcepit.osgify.maven.p2.P2UpdateSiteGenerator;
+import org.sourcepit.osgifier.core.model.context.BundleCandidate;
+import org.sourcepit.osgifier.core.model.context.BundleReference;
+import org.sourcepit.osgifier.core.model.context.OsgifierContext;
+import org.sourcepit.osgifier.maven.p2.AbstractBundleTreeSelector;
+import org.sourcepit.osgifier.maven.p2.BundleSelector;
+import org.sourcepit.osgifier.maven.p2.P2UpdateSiteGenerator;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
@@ -114,7 +114,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          BundleSelector bundleSelector = new AbstractBundleTreeSelector()
          {
             @Override
-            public Collection<BundleCandidate> selectRootBundles(OsgifyContext bundleContext)
+            public Collection<BundleCandidate> selectRootBundles(OsgifierContext bundleContext)
             {
                final DependencyModel dependencyModel = bundleContext.getExtension(DependencyModel.class);
 
@@ -154,7 +154,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
             }
          };
 
-         final OsgifyContext bundleContext = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true,
+         final OsgifierContext bundleContext = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true,
             remoteRepositories, localRepository, repositoryName, moduleProperties, startTime, bundleSelector);
 
          try

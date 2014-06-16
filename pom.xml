@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.sourcepit</groupId>
 		<artifactId>srcpit-parent</artifactId>
-		<version>11</version>
+		<version>15</version>
 	</parent>
 
 	<groupId>org.sourcepit.b2</groupId>
@@ -18,9 +18,9 @@
 	</scm>
 
 	<properties>
-		<tycho.version>0.19.0</tycho.version>
-		<maven-bootstrap.version>0.10.1</maven-bootstrap.version>
-		<shared-resources.version>0.7.0</shared-resources.version>
+		<tycho.version>0.20.0</tycho.version>
+		<maven-bootstrap.version>0.11.0</maven-bootstrap.version>
+		<shared-resources.version>0.8.0</shared-resources.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 	</properties>
 
@@ -124,9 +124,9 @@
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.sourcepit.tools</groupId>
-				<artifactId>osgify-maven-plugin</artifactId>
-				<version>0.17.0</version>
+				<groupId>org.sourcepit.osgifier</groupId>
+				<artifactId>osgifier-maven-plugin</artifactId>
+				<version>0.19.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
@@ -142,32 +142,37 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-testing</artifactId>
-				<version>0.9.0</version>
+				<version>0.11.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
-				<artifactId>common-modeling</artifactId>
-				<version>0.9.0</version>
+				<artifactId>org.sourcepit.common.modeling</artifactId>
+				<version>0.11.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
-				<artifactId>common-manifest</artifactId>
-				<version>0.12.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.sourcepit.common</groupId>
-				<artifactId>common-maven</artifactId>
+				<artifactId>org.sourcepit.common.manifest</artifactId>
 				<version>0.16.0</version>
 			</dependency>
 			<dependency>
-				<groupId>org.sourcepit.common</groupId>
-				<artifactId>common-utils</artifactId>
-				<version>0.10.0</version>
+                <groupId>org.sourcepit.common.maven</groupId>
+                <artifactId>org.sourcepit.common.maven.artifact</artifactId>
+                <version>0.19.0</version>
+            </dependency>
+			<dependency>
+				<groupId>org.sourcepit.common.maven</groupId>
+				<artifactId>common-maven-core</artifactId>
+				<version>0.19.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
-				<artifactId>common-constraints</artifactId>
-				<version>0.8.0</version>
+				<artifactId>org.sourcepit.common.utils</artifactId>
+				<version>0.13.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.sourcepit.common</groupId>
+				<artifactId>org.sourcepit.common.constraints</artifactId>
+				<version>0.13.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.tmatesoft.svnkit</groupId>
