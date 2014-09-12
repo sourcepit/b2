@@ -126,7 +126,7 @@
 			<dependency>
 				<groupId>org.sourcepit.osgifier</groupId>
 				<artifactId>osgifier-maven-plugin</artifactId>
-				<version>0.20.0-SNAPSHOT</version>
+				<version>0.20.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
