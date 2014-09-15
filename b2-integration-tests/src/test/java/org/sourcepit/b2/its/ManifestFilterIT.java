@@ -58,7 +58,7 @@ public class ManifestFilterIT extends AbstractB2IT
       moduleDirectory.load(new File(moduleDir, ".b2/moduleDirectory.properties"));
       assertEquals(11, moduleDirectory.size());
       assertEquals("3", moduleDirectory.get(".b2")); // hidden, derived
-      assertEquals("3", moduleDirectory.get("target")); // hidden, derived
+      assertEquals("3", moduleDirectory.get("target")); // hidden, derived //FIXME
       assertEquals("3", moduleDirectory.get("pom.xml")); // hidden, derived
 
       assertEquals("4", moduleDirectory.get("bundle.a/templates")); // forbidden

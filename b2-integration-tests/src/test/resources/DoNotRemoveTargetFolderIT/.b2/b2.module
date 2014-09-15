@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<b2-module:CompositeModule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:b2-module="http://www.sourcepit.org/b2/module/0.1/" directory="D:\F\GitRepos\vr-vrm__modeler1" id="de.visualrules.modeler" version="6.4.0.qualifier" layoutId="composite">
+  <annotations source="b2">
+    <data key="bootPom" value="D:\F\GitRepos\vr-vrm__modeler1\.b2\boot-pom.xml"/>
+  </annotations>
+  <annotations source="maven">
+    <data key="modulePomTemplate" value="D:\F\GitRepos\vr-vrm__modeler1\.b2\module-pom-template.xml"/>
+    <data key="pomFile" value="D:\F\GitRepos\vr-vrm__modeler1\pom.xml"/>
+  </annotations>
+  <locales></locales>
+  <locales>de</locales>
+  <modules xsi:type="b2-module:CompositeModule" href="../../modeler-base/module/6.4.0-SNAPSHOT#/"/>
+  <modules xsi:type="b2-module:CompositeModule" href="../../modeler-eclipse/module/6.4.0-SNAPSHOT#/"/>
+  <modules xsi:type="b2-module:CompositeModule" href="../../modeler-parent/module/6.4.0-SNAPSHOT#/"/>
+  <modules xsi:type="b2-module:CompositeModule" href="../../modeler-tests/module/6.4.0-SNAPSHOT#/"/>
+</b2-module:CompositeModule>

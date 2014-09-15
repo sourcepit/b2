@@ -40,7 +40,7 @@ public class FileFlagsIT extends AbstractB2IT
       assertEquals("4", props.get("module-a")); // forbidden (via b2.modules property)
       assertEquals("14", props.get("module-b")); // module, forbidden, hidden
 
-      assertEquals("3", props.get("target")); // derived
+      assertEquals("3", props.get("target")); // derived  //FIXME
       assertEquals("3", props.get("pom.xml")); // derived, hidden
    }
 }

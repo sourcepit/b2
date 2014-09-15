@@ -42,16 +42,16 @@ public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
       final ModuleDirectory files = new ModuleDirectory(moduleDir, fileFlags);
       assertTrue(files.isHidden(targetDir));
       assertTrue(files.isDerived(targetDir));
-      assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN | FLAG_DERIVED));
-      assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN));
-      assertTrue(files.hasFlag(targetDir, FLAG_DERIVED));
+      assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN | FLAG_DERIVED)); //FIXME
+      assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN)); 
+      assertTrue(files.hasFlag(targetDir, FLAG_DERIVED));//FIXME
 
       final File fileInTarget = new File(targetDir, "foo/file.txt");
       assertTrue(files.isHidden(fileInTarget));
       assertTrue(files.isDerived(fileInTarget));
-      assertTrue(files.hasFlag(fileInTarget, FLAG_HIDDEN | FLAG_DERIVED));
+      assertTrue(files.hasFlag(fileInTarget, FLAG_HIDDEN | FLAG_DERIVED)); //FIXME
       assertTrue(files.hasFlag(fileInTarget, FLAG_HIDDEN));
-      assertTrue(files.hasFlag(fileInTarget, FLAG_DERIVED));
+      assertTrue(files.hasFlag(fileInTarget, FLAG_DERIVED)); //FIXME
       assertFalse(files.isModuleFile(fileInTarget));
       assertFalse(files.isModuleFile(fileInTarget, false, false));
       assertFalse(files.isModuleFile(fileInTarget, true, false));

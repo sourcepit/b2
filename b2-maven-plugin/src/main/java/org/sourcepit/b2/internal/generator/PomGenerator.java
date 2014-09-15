@@ -146,7 +146,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       if (!moduleDirectory.isDerived(pomFile.getParentFile()))
       {
          moduleDirectory.addFlags(pomFile, FLAG_DERIVED | FLAG_HIDDEN);
-         moduleDirectory.addFlags(new File(pomFile.getParentFile(), "target"), FLAG_DERIVED | FLAG_HIDDEN);
+         moduleDirectory.addFlags(new File(pomFile.getParentFile(), "target"), FLAG_DERIVED | FLAG_HIDDEN); //FIXME
       }
       inputElement.setAnnotationData(SOURCE_MAVEN, KEY_POM_FILE, pomFile.toString());
    }

@@ -53,7 +53,7 @@ public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements
             final File pomFile = entry.getKey();
             result.put(pomFile, valueOf(FLAG_DERIVED | FLAG_HIDDEN));
             // TODO determine target properly
-            result.put(new File(pomFile.getParentFile(), "target"), valueOf(FLAG_DERIVED | FLAG_HIDDEN));
+            result.put(new File(pomFile.getParentFile(), "target"), valueOf(FLAG_DERIVED | FLAG_HIDDEN)); //FIXME
          }
          return result;
       }

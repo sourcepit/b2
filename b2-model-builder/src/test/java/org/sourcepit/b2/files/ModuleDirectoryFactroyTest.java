@@ -82,7 +82,7 @@ public class ModuleDirectoryFactroyTest extends AbstractTestEnvironmentTest
          new LinkedPropertiesMap());
       assertEquals(3, fileToFlagsMap.size());
 
-      int flags = fileToFlagsMap.get(new File(moduleDir, "target")).intValue();
+      int flags = fileToFlagsMap.get(new File(moduleDir, "target")).intValue(); //FIXME
       assertTrue((flags & FLAG_HIDDEN) != 0);
       assertTrue((flags & FLAG_DERIVED) != 0);
 
