@@ -24,7 +24,7 @@ import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironment
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class ModuleDirectoryFactroyTest extends AbstractTestEnvironmentTest
+public class ModuleDirectoryFactoryTest extends AbstractTestEnvironmentTest
 {
    @Test
    public void testDetermineFileFlags()
@@ -45,7 +45,7 @@ public class ModuleDirectoryFactroyTest extends AbstractTestEnvironmentTest
          @Override
          public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
          {
-            return singletonMap(new File(moduleDir, "target"), Integer.valueOf(FLAG_DERIVED));
+            return singletonMap(new File(moduleDir, "target"), Integer.valueOf(FLAG_FORBIDDEN));
          }
       });
 
@@ -78,13 +78,13 @@ public class ModuleDirectoryFactroyTest extends AbstractTestEnvironmentTest
 
       final File moduleDir = new File("");
 
-      final Map<File, Integer> fileToFlagsMap = ModuleDirectoryFactroy.determineFileFlags(providers, moduleDir,
+      final Map<File, Integer> fileToFlagsMap = ModuleDirectoryFactory.determineFileFlags(providers, moduleDir,
          new LinkedPropertiesMap());
       assertEquals(3, fileToFlagsMap.size());
 
-      int flags = fileToFlagsMap.get(new File(moduleDir, "target")).intValue(); //FIXME
+      int flags = fileToFlagsMap.get(new File(moduleDir, "target")).intValue();
       assertTrue((flags & FLAG_HIDDEN) != 0);
-      assertTrue((flags & FLAG_DERIVED) != 0);
+      assertTrue((flags & FLAG_FORBIDDEN) != 0);
 
       flags = fileToFlagsMap.get(new File(moduleDir, "foo")).intValue();
       assertTrue((flags & FLAG_HIDDEN) != 0);
@@ -108,7 +108,7 @@ public class ModuleDirectoryFactroyTest extends AbstractTestEnvironmentTest
       new File(moduleDir, ".svn/entries").mkdirs();
       new File(moduleDir, "foo").mkdirs();
 
-      final Map<File, Integer> fileToFlagsMap = ModuleDirectoryFactroy.determineFileFlags(providers, moduleDir,
+      final Map<File, Integer> fileToFlagsMap = ModuleDirectoryFactory.determineFileFlags(providers, moduleDir,
          new LinkedPropertiesMap());
       assertEquals(3, fileToFlagsMap.size());
 

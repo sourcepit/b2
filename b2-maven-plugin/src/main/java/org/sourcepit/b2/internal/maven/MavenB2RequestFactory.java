@@ -30,7 +30,7 @@ import org.slf4j.Logger;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
 import org.sourcepit.b2.files.ModuleDirectory;
-import org.sourcepit.b2.files.ModuleDirectoryFactroy;
+import org.sourcepit.b2.files.ModuleDirectoryFactory;
 import org.sourcepit.b2.internal.generator.DefaultTemplateCopier;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.model.builder.util.BasicConverter;
@@ -65,7 +65,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
    private BasicConverter converter;
 
    @Inject
-   private ModuleDirectoryFactroy moduleDirectoryFactroy;
+   private ModuleDirectoryFactory moduleDirectoryFactory;
 
    @Inject
    private MavenModulePropertiesFactory modulePropertiesFactory;
@@ -114,7 +114,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
          }
       }
 
-      ModuleDirectory moduleDirectory = moduleDirectoryFactroy.create(moduleDir, moduleProperties);
+      ModuleDirectory moduleDirectory = moduleDirectoryFactory.create(moduleDir, moduleProperties);
       b2Request.setModuleDirectory(moduleDirectory);
 
       return b2Request;
