@@ -8,6 +8,7 @@ package org.sourcepit.b2.internal.maven;
 
 import static java.lang.Integer.valueOf;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.lang.Exceptions.pipe;
 
@@ -53,7 +54,7 @@ public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements
             final File pomFile = entry.getKey();
             result.put(pomFile, valueOf(FLAG_DERIVED | FLAG_HIDDEN));
             // TODO determine target properly
-            result.put(new File(pomFile.getParentFile(), "target"), valueOf(FLAG_DERIVED | FLAG_HIDDEN)); //FIXME
+            result.put(new File(pomFile.getParentFile(), "target"), valueOf(FLAG_FORBIDDEN | FLAG_HIDDEN));
          }
          return result;
       }
