@@ -13,17 +13,15 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.util.ArrayList;
 
+import junit.framework.TestCase;
+
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.ContainerConfiguration;
-import org.codehaus.plexus.PlexusConstants;
-import org.codehaus.plexus.PlexusTestCase;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.hamcrest.core.Is;
-import org.junit.Before;
 import org.junit.Test;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
@@ -38,23 +36,8 @@ import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 
-public class B2MavenBridgeTest extends PlexusTestCase
+public class B2MavenBridgeTest extends TestCase
 {
-   private B2MavenBridge b2Bridge;
-
-   @Override
-   protected void customizeContainerConfiguration(ContainerConfiguration cc)
-   {
-      super.customizeContainerConfiguration(cc);
-      cc.setClassPathScanning(PlexusConstants.SCANNING_INDEX).setAutoWiring(true).setName("maven");
-   }
-
-   @Before
-   public void setUp() throws Exception
-   {
-      b2Bridge = lookup(B2MavenBridge.class);
-   }
-
    @Test
    public void testConnectProjects()
    {
@@ -144,17 +127,9 @@ public class B2MavenBridgeTest extends PlexusTestCase
       resourceSet.getResources().add(resourceR);
       resourceSet.getResources().add(resourceA);
       resourceSet.getResources().add(resourceB);
-
-      b2Bridge.connect(mavenSession, resourceSet);
-
-      try
-      {
-         b2Bridge.connect(mavenSession, resourceSet);
-         fail();
-      }
-      catch (IllegalStateException e)
-      {
-      }
+      
+      B2MavenBridge b2Bridge = B2MavenBridge.get(mavenSession, resourceSet);
+      assertSame(b2Bridge, B2MavenBridge.get(mavenSession));
 
       for (MavenProject mavenProject : mavenSession.getProjects())
       {
