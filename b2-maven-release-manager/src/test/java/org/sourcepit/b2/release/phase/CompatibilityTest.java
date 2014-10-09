@@ -6,9 +6,13 @@
 
 package org.sourcepit.b2.release.phase;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.shared.release.phase.ReleasePhase;
 import org.codehaus.plexus.ContainerConfiguration;
 import org.codehaus.plexus.PlexusConstants;
@@ -26,6 +30,9 @@ public class CompatibilityTest extends PlexusTestCase
 
    public void testAssureAllReleasePhasesAreImplementedByB2() throws Exception
    {
+      LegacySupport buildContext = lookup(LegacySupport.class);
+      buildContext.setSession(mock(MavenSession.class));
+      
       @SuppressWarnings({ "unchecked", "rawtypes" })
       final Map<String, ReleasePhase> releasePhasesMap = (Map) getContainer().lookupMap(ReleasePhase.ROLE);
       assertFalse(releasePhasesMap.isEmpty());

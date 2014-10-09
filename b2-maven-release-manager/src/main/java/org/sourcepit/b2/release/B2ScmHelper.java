@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.scm.ScmException;
 import org.apache.maven.scm.ScmFileSet;
@@ -41,11 +42,16 @@ public class B2ScmHelper
 {
    private static final String CTX_KEY_COMMIT_PROPOSALS = B2ScmHelper.class.getName() + "#commitProposals";
 
-   @Inject
-   private B2MavenBridge bridge;
+   private final ScmRepositoryConfigurator scmRepositoryConfigurator;
+
+   private final B2MavenBridge bridge;
 
    @Inject
-   private ScmRepositoryConfigurator scmRepositoryConfigurator;
+   public B2ScmHelper(ScmRepositoryConfigurator scmRepositoryConfigurator, LegacySupport buildContext)
+   {
+      this.scmRepositoryConfigurator = scmRepositoryConfigurator;
+      bridge = B2MavenBridge.get(buildContext.getSession());
+   }
 
    public void edit(MavenProject mavenProject, ReleaseDescriptor releaseDescriptor, Settings settings, File file,
       boolean simulate)

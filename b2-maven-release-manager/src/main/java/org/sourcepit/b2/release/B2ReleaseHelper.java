@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.maven.artifact.ArtifactUtils;
+import org.apache.maven.plugin.LegacySupport;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.release.ReleaseResult;
 import org.apache.maven.shared.release.config.ReleaseDescriptor;
@@ -35,11 +36,16 @@ import org.sourcepit.common.utils.lang.Exceptions;
 @Named
 public class B2ReleaseHelper
 {
-   @Inject
-   private B2MavenBridge bridge;
+   private final B2ScmHelper scmHelper;
+
+   private final B2MavenBridge bridge;
 
    @Inject
-   private B2ScmHelper scmHelper;
+   public B2ReleaseHelper(B2ScmHelper scmHelper, LegacySupport buildContext)
+   {
+      this.scmHelper = scmHelper;
+      bridge = B2MavenBridge.get(buildContext.getSession());
+   }
 
    public List<MavenProject> adaptModuleProjects(List<MavenProject> reactorProjects)
    {

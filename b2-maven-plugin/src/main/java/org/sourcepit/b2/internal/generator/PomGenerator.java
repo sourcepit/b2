@@ -33,8 +33,10 @@ import javax.inject.Named;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Extension;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
+import org.apache.maven.model.PluginContainer;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
@@ -58,6 +60,7 @@ import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
+import org.sourcepit.common.constraints.NotNull;
 import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.modeling.Annotation;
@@ -254,9 +257,42 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
       pom.getProperties().setProperty("module.id", module.getId());
 
+      Build build = getBuild(pom, true);
+
+      Plugin plugin = getPlugin(build, "org.sourcepit.b2", "b2-maven-plugin", false);
+      if (plugin != null)
+      {
+         build.getPlugins().remove(plugin);
+         build.flushPluginMap();
+      }
+
+      Extension ext = getExtension(build, "org.sourcepit.b2", "b2-maven-plugin");
+      if (ext != null)
+      {
+         build.getExtensions().remove(ext);
+      }
+
       writeMavenModel(pomFile, pom);
 
       return pomFile;
+   }
+
+   public static Extension getExtension(@NotNull Build build, String groupId, @NotNull String artifactId)
+   {
+      final String pluginKey = createPluginKey(groupId, artifactId);
+      for (Extension extension : build.getExtensions())
+      {
+         if (createPluginKey(extension.getGroupId(), extension.getArtifactId()).equals(pluginKey))
+         {
+            return extension;
+         }
+      }
+      return null;
+   }
+
+   private static String createPluginKey(String groupId, @NotNull String artifactId)
+   {
+      return Plugin.constructKey(groupId == null ? new Plugin().getGroupId() : groupId, artifactId);
    }
 
    private void configureMavenReleasePlugin(Model pom, PropertiesSource properties)
