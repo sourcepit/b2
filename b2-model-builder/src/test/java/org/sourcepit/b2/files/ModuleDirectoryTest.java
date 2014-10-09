@@ -36,27 +36,27 @@ public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
       final File manifestMf = new File(moduleDir, "META-INF/MANIFEST.MF");
 
       final Map<File, Integer> fileFlags = new HashMap<File, Integer>();
-      fileFlags.put(targetDir, Integer.valueOf(FLAG_HIDDEN | FLAG_DERIVED));
+      fileFlags.put(targetDir, Integer.valueOf(FLAG_HIDDEN | FLAG_FORBIDDEN));
       fileFlags.put(manifestMf, Integer.valueOf(FLAG_DERIVED));
 
       final ModuleDirectory files = new ModuleDirectory(moduleDir, fileFlags);
       assertTrue(files.isHidden(targetDir));
-      assertTrue(files.isDerived(targetDir));
-      assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN | FLAG_DERIVED));
-      assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN));
-      assertTrue(files.hasFlag(targetDir, FLAG_DERIVED));
-
+      assertFalse(files.isDerived(targetDir));
+      assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN | FLAG_FORBIDDEN));
+      assertTrue(files.hasFlag(targetDir, FLAG_HIDDEN)); 
+      assertTrue(files.hasFlag(targetDir, FLAG_FORBIDDEN));  // still derived for targets directly within module-dirs
+      
       final File fileInTarget = new File(targetDir, "foo/file.txt");
       assertTrue(files.isHidden(fileInTarget));
-      assertTrue(files.isDerived(fileInTarget));
-      assertTrue(files.hasFlag(fileInTarget, FLAG_HIDDEN | FLAG_DERIVED));
+      assertFalse(files.isDerived(fileInTarget));
+      assertTrue(files.hasFlag(fileInTarget, FLAG_HIDDEN | FLAG_FORBIDDEN));
       assertTrue(files.hasFlag(fileInTarget, FLAG_HIDDEN));
-      assertTrue(files.hasFlag(fileInTarget, FLAG_DERIVED));
+      assertTrue(files.hasFlag(fileInTarget, FLAG_FORBIDDEN));
       assertFalse(files.isModuleFile(fileInTarget));
       assertFalse(files.isModuleFile(fileInTarget, false, false));
       assertFalse(files.isModuleFile(fileInTarget, true, false));
       assertFalse(files.isModuleFile(fileInTarget, false, true));
-      assertTrue(files.isModuleFile(fileInTarget, true, true));
+      assertFalse(files.isModuleFile(fileInTarget, true, true));
 
       assertFalse(files.isHidden(moduleXml));
       assertFalse(files.isDerived(moduleXml));

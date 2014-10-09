@@ -58,7 +58,7 @@ public class ManifestFilterIT extends AbstractB2IT
       moduleDirectory.load(new File(moduleDir, ".b2/moduleDirectory.properties"));
       assertEquals(11, moduleDirectory.size());
       assertEquals("3", moduleDirectory.get(".b2")); // hidden, derived
-      assertEquals("3", moduleDirectory.get("target")); // hidden, derived
+      assertEquals("6", moduleDirectory.get("target")); // hidden, forbidden
       assertEquals("3", moduleDirectory.get("pom.xml")); // hidden, derived
 
       assertEquals("4", moduleDirectory.get("bundle.a/templates")); // forbidden
@@ -66,7 +66,7 @@ public class ManifestFilterIT extends AbstractB2IT
       assertEquals("1", moduleDirectory.get("bundle.a/META-INF/MANIFEST.MF")); // derived
       assertEquals("1", moduleDirectory.get("bundle.a/foo")); // derived
       assertEquals("1", moduleDirectory.get("bundle.a/foo/bar.txt")); // derived
-      assertEquals("3", moduleDirectory.get("bundle.a/target")); // derived, hidden
+      assertEquals("6", moduleDirectory.get("bundle.a/target")); //  hidden, forbidden
       assertEquals("3", moduleDirectory.get("bundle.a/pom.xml")); // derived, hidden
 
       assertNull(moduleDirectory.get("bundle.a/build/")); // not flagged because dir already exists

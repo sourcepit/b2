@@ -22,12 +22,12 @@ import javax.inject.Named;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ModuleDirectoryFactroy
+public class ModuleDirectoryFactory
 {
    private final Collection<FileFlagsProvider> infoProviders;
 
    @Inject
-   public ModuleDirectoryFactroy(List<FileFlagsProvider> infoProviders)
+   public ModuleDirectoryFactory(List<FileFlagsProvider> infoProviders)
    {
       this.infoProviders = infoProviders;
    }

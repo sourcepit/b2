@@ -7,6 +7,7 @@
 package org.sourcepit.b2.internal.generator;
 
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.maven.model.util.MavenModelUtils.getBuild;
 import static org.sourcepit.common.maven.model.util.MavenModelUtils.getDependency;
@@ -146,7 +147,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       if (!moduleDirectory.isDerived(pomFile.getParentFile()))
       {
          moduleDirectory.addFlags(pomFile, FLAG_DERIVED | FLAG_HIDDEN);
-         moduleDirectory.addFlags(new File(pomFile.getParentFile(), "target"), FLAG_DERIVED | FLAG_HIDDEN);
+         moduleDirectory.addFlags(new File(pomFile.getParentFile(), "target"), FLAG_FORBIDDEN | FLAG_HIDDEN);
       }
       inputElement.setAnnotationData(SOURCE_MAVEN, KEY_POM_FILE, pomFile.toString());
    }

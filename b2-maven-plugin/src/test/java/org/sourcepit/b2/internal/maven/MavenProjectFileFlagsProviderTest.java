@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
 import static org.sourcepit.common.utils.io.IO.fileOut;
 import static org.sourcepit.common.utils.io.IO.write;
 import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
@@ -85,9 +86,17 @@ public class MavenProjectFileFlagsProviderTest
 
       assertTrue(fileFlags.containsKey(new File(moduleDir, "pom.xml")));
 
-      for (Integer flags : fileFlags.values())
+      for (Entry<File, Integer> flags : fileFlags.entrySet())
       {
-         assertEquals(FLAG_DERIVED | FLAG_HIDDEN, flags.intValue());
+         String relativePath = flags.getKey().getAbsolutePath().replace(moduleDir.getAbsolutePath(), "");
+         if (relativePath.endsWith("pom.xml"))
+         {
+            assertEquals(FLAG_DERIVED | FLAG_HIDDEN, flags.getValue().intValue());
+         }
+         else if (relativePath.contains("target")) // not quite exact
+         {
+            assertEquals(FLAG_FORBIDDEN | FLAG_HIDDEN, flags.getValue().intValue());
+         }
       }
    }
 

@@ -76,8 +76,7 @@ public class B2Generator
    {
       final ModuleDirectory moduleDirectory = request.getModuleDirectory();
 
-      final Set<File> files = new HashSet<File>();
-      addNoneDerived(moduleDirectory, files);
+      final Set<File> filesBeforeGeneration = collectNotDerivedFiles(moduleDirectory);
 
       final List<IB2GenerationParticipant> copy = new ArrayList<IB2GenerationParticipant>(generators);
       Collections.sort(copy);
@@ -99,29 +98,24 @@ public class B2Generator
          walker.walk(request.getModule());
       }
 
-      removeNoneDerived(files, moduleDirectory);
+      markNewFilesAsDerivedByGenerator(moduleDirectory, filesBeforeGeneration);
+   }
 
-      for (File file : files)
+   private void markNewFilesAsDerivedByGenerator(final ModuleDirectory moduleDirectory,
+      final Set<File> filesBeforeGeneration)
+   {
+      final Set<File> filesAfterGeneration = collectNotDerivedFiles(moduleDirectory);
+      filesAfterGeneration.removeAll(filesBeforeGeneration);
+      
+      for (File file : filesAfterGeneration)
       {
          moduleDirectory.addFlags(file, FLAG_DERIVED);
       }
    }
 
-   private static void removeNoneDerived(final Set<File> files, final ModuleDirectory moduleDirectory)
+   private static Set<File> collectNotDerivedFiles(final ModuleDirectory moduleDirectory)
    {
-      moduleDirectory.accept(new FileVisitor<RuntimeException>()
-      {
-         @Override
-         public boolean visit(File file, int flags)
-         {
-            files.remove(file);
-            return true;
-         }
-      }, true, false);
-   }
-
-   private static void addNoneDerived(final ModuleDirectory moduleDirectory, final Set<File> files)
-   {
+      final Set<File> files = new HashSet<File>();
       moduleDirectory.accept(new FileVisitor<RuntimeException>()
       {
          @Override
@@ -131,5 +125,6 @@ public class B2Generator
             return true;
          }
       }, true, false);
+      return files;
    }
 }

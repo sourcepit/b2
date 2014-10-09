@@ -28,5 +28,4 @@ public class PlainMavenBuildIT extends AbstractB2IT
       int err = build(moduleDir, "-e", "-B", "clean", "verify");
       assertThat(err, is(0));
    }
-
 }
