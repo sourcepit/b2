@@ -14,17 +14,51 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.maven.MavenExecutionException;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.execution.MavenExecutionRequest;
+import org.apache.maven.execution.MavenExecutionResult;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.building.ModelProcessor;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.logging.Logger;
 import org.sourcepit.maven.bootstrap.core.AbstractBootstrapper;
 import org.sourcepit.maven.exec.intercept.MavenExecutionParticipant;
 
 @Named
 public class B2Bootstrapper extends AbstractBootstrapper implements MavenExecutionParticipant
 {
+   private static final String CONFIGURATION_SWITCH_SKIP_B2 = "skipB2";
+   @Inject
+   private Logger logger;
+
+
+   @Override
+   public void executionStarted(MavenSession arg0, MavenExecutionRequest arg1) throws MavenExecutionException
+   {
+      if (arg0.getUserProperties().containsKey(CONFIGURATION_SWITCH_SKIP_B2))
+      {
+         logger.info("");
+         logger.info("------------------------------------------------------------------------");
+         logger.info("       Skipping B2 Bootstrapping due to given Paramter -D" + CONFIGURATION_SWITCH_SKIP_B2 + ".");
+         logger.info("------------------------------------------------------------------------");
+      }
+      else
+      {
+         super.executionStarted(arg0, arg1);
+      }
+   }
+
+
+   @Override
+   public void executionEnded(MavenSession actualSession, MavenExecutionResult executionResult)
+   {
+      if (!actualSession.getUserProperties().containsKey(CONFIGURATION_SWITCH_SKIP_B2))
+      {
+         super.executionEnded(actualSession, executionResult);
+      }
+   }
+
    private final ModuleDescriptorProcessor descriptorProcessor;
 
    @Inject
