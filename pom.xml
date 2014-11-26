@@ -44,6 +44,8 @@
 		<maven-bootstrap.version>0.13.0-SNAPSHOT</maven-bootstrap.version>
 		<shared-resources.version>0.10.0-SNAPSHOT</shared-resources.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
+		<it.maven-release-plugin.version>${maven.releasePlugin.version}</it.maven-release-plugin.version>
+		<it.maven-scm-provider-svnjava.version>2.1.1</it.maven-scm-provider-svnjava.version>
 	</properties>
 
 	<modules>
