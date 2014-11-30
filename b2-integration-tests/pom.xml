@@ -28,6 +28,7 @@
 		<it.user.home>${it.dir}/user.home</it.user.home>
 		<it.localRepository>${it.dir}/user.home/.m2/repository</it.localRepository>
 		<it.localRepositoryXml />
+		<it.maven.version>${maven.version}</it.maven.version>
 		<proxy.settingsXml />
 		<b2.examples.finalName>b2-examples-${project.version}</b2.examples.finalName>
 	</properties>
@@ -168,7 +169,7 @@
 								<artifactItem>
 									<groupId>org.apache.maven</groupId>
 									<artifactId>apache-maven</artifactId>
-									<version>${maven.version}</version>
+									<version>${it.maven.version}</version>
 									<classifier>bin</classifier>
 									<type>zip</type>
 								</artifactItem>
@@ -189,7 +190,7 @@
 									<artifactId>b2-bootstrapper</artifactId>
 									<version>${project.version}</version>
 									<overWrite>true</overWrite>
-									<outputDirectory>${it.dir}/apache-maven-${maven.version}/lib/ext</outputDirectory>
+									<outputDirectory>${it.dir}/apache-maven-${it.maven.version}/lib/ext</outputDirectory>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
@@ -271,7 +272,7 @@
 								<configuration>
 									<executable>find</executable>
 									<arguments>
-										<argument>${it.dir}/apache-maven-${maven.version}/bin</argument>
+										<argument>${it.dir}/apache-maven-${it.maven.version}/bin</argument>
 										<argument>-type</argument>
 										<argument>f</argument>
 										<argument>-exec</argument>
