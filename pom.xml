@@ -41,7 +41,7 @@
 	</issueManagement>
 
 	<properties>
-		<tycho.version>0.21.0</tycho.version>
+		<tycho.version>0.22.0</tycho.version>
 		<maven-bootstrap.version>0.13.0-SNAPSHOT</maven-bootstrap.version>
 		<shared-resources.version>0.10.0-SNAPSHOT</shared-resources.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
