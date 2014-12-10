@@ -16,6 +16,7 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 import static org.sourcepit.common.utils.lang.Exceptions.pipe;
 
 import java.io.File;
@@ -168,12 +169,12 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
                File file = new File(pluginDir, defaultIcon);
                if (file.exists())
                {
-                  FileUtils.forceDelete(file);
+                  deleteFileOrDirectory(file);
                }
                file = new File(pluginDir, customIcon);
                if (file.exists())
                {
-                  FileUtils.forceDelete(file);
+                  deleteFileOrDirectory(file);
                }
                FileUtils.copyFileToDirectory(moduleIcon, pluginDir);
             }
@@ -325,7 +326,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
             File destFile = saveNlsProperty(srcFile, locale, projectDir, fileName, extension);
             nlsPropertyFiles.add(destFile);
          }
-         FileUtils.deleteDirectory(workDir);
+         deleteFileOrDirectory(workDir);
 
          addToBinIncludes(projectDir, nlsPropertyFiles);
       }
@@ -361,7 +362,7 @@ public class FeatureProjectGenerator extends AbstractGeneratorForDerivedElements
          destFile = new File(projectDir, fileName + nlsSuffix + extension);
       }
       FileUtils.copyFile(srcFile, destFile);
-      FileUtils.forceDelete(srcFile);
+      deleteFileOrDirectory(srcFile);
       return destFile;
    }
 

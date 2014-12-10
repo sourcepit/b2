@@ -19,6 +19,7 @@ package org.sourcepit.b2.its;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 import static org.sourcepit.common.utils.io.IO.osgiIn;
 
 import java.io.File;
@@ -145,7 +146,7 @@ public class ReleaseIT extends AbstractB2IT
 
          File mavenDir = new File(environment.getBuildDir(), "maven-without-b2");
          FileUtils.copyDirectory(b2Dir, mavenDir);
-         FileUtils.forceDelete(new File(mavenDir, "lib/ext"));
+         deleteFileOrDirectory(new File(mavenDir, "lib/ext"));
 
          List<String> args = new ArrayList<String>();
          args.add("-e");

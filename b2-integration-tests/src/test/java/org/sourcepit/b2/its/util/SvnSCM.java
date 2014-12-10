@@ -16,10 +16,11 @@
 
 package org.sourcepit.b2.its.util;
 
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
+
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Scm;
 import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.path.PathUtils;
@@ -122,7 +123,7 @@ public class SvnSCM implements SCM
       {
          SVNURL svnTrunk = svnRoot.appendPath("trunk", false);
          svn.doImport(rootDir, svnTrunk, "");
-         FileUtils.deleteDirectory(rootDir);
+         deleteFileOrDirectory(rootDir);
          svn.doCheckout(svnTrunk, rootDir);
       }
       catch (SVNException e)
@@ -143,7 +144,7 @@ public class SvnSCM implements SCM
       try
       {
          SVNURL svnURL = SVNURL.parseURIEncoded(createSvnURL(rootDir, version));
-         FileUtils.deleteDirectory(rootDir);
+         deleteFileOrDirectory(rootDir);
          svn.doCheckout(svnURL, rootDir);
       }
       catch (SVNException e)

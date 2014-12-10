@@ -18,13 +18,13 @@ package org.sourcepit.b2.directory.parser.internal.project;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.sourcepit.common.utils.file.FileUtils.moveDirectory;
 
 import java.io.File;
 import java.io.IOException;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.sisu.launch.InjectedTest;
 import org.junit.Rule;
@@ -62,7 +62,7 @@ public class ProjectResourcesPreprocessorTest extends InjectedTest
 
       assertNull(preprocessor.detect(baseDir, new LinkedPropertiesMap()));
 
-      FileUtils.moveDirectory(mfFile.getParentFile(), new File(baseDir, "res/META-INF"));
+      moveDirectory(mfFile.getParentFile(), new File(baseDir, "res/META-INF"));
 
       assertNotNull(preprocessor.detect(baseDir, new LinkedPropertiesMap()));
    }

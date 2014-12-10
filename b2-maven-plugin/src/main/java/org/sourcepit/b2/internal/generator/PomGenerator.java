@@ -25,6 +25,7 @@ import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPlugin;
 import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPluginExecution;
 import static org.sourcepit.common.maven.model.util.MavenModelUtils.getPluginManagement;
 import static org.sourcepit.common.maven.util.Xpp3Utils.setValueNode;
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 import static org.sourcepit.common.utils.io.IO.cpIn;
 
 import java.io.File;
@@ -46,7 +47,6 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Extension;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
-import org.apache.maven.model.PluginContainer;
 import org.apache.maven.model.PluginExecution;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
@@ -148,7 +148,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          {
             File destFile = new File(pomFile.getParentFile(), "pom.xml");
             FileUtils.copyFile(pomFile, destFile);
-            FileUtils.forceDelete(pomFile);
+            deleteFileOrDirectory(pomFile);
             pomFile = destFile;
          }
          catch (IOException e)
@@ -437,9 +437,9 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       {
          if (destFile.exists())
          {
-            FileUtils.forceDelete(destFile);
+            deleteFileOrDirectory(destFile);
          }
-         FileUtils.moveFile(srcFile, destFile);
+         org.sourcepit.common.utils.file.FileUtils.moveFile(srcFile, destFile);
       }
       catch (IOException e)
       {

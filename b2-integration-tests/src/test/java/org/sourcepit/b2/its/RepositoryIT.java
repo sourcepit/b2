@@ -20,6 +20,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 
 import java.io.File;
 import java.io.IOException;
@@ -83,7 +84,7 @@ public class RepositoryIT extends AbstractB2IT
       final File localBuild = new File(localRepo, pom.getGroupId().replace('.', '/') + "/" + pom.getArtifactId() + "/"
          + pom.getVersion());
       assertTrue(localBuild.exists());
-      FileUtils.forceDelete(localBuild);
+      deleteFileOrDirectory(localBuild);
       assertFalse(localBuild.exists());
    }
 

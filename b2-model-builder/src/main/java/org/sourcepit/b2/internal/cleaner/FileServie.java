@@ -19,6 +19,7 @@ package org.sourcepit.b2.internal.cleaner;
 import static java.io.File.separator;
 import static org.apache.commons.io.FileUtils.forceDelete;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
 
 import java.io.File;
@@ -59,7 +60,7 @@ public class FileServie implements IFileService
          if ((FLAG_DERIVED & flags) != 0)
          {
             logger.debug("Deleting '" + getRelativePath(file, moduleDir, separator) + "'");
-            forceDelete(file);
+            deleteFileOrDirectory(file);
             counter++;
             return false;
          }

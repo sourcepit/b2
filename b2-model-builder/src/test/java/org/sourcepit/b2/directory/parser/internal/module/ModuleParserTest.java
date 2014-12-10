@@ -22,6 +22,7 @@ import static org.sourcepit.b2.directory.parser.internal.module.ModelBuilderTest
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_MODULE_DIR;
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -103,8 +104,8 @@ public class ModuleParserTest extends AbstractModuleParserTest
       File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.canRead());
 
-      FileUtils.forceDelete(new File(moduleDir, "module.properties"));
-      FileUtils.forceDelete(new File(moduleDir, "module_de.properties"));
+      deleteFileOrDirectory(new File(moduleDir, "module.properties"));
+      deleteFileOrDirectory(new File(moduleDir, "module_de.properties"));
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleDirectory(new ModuleDirectory(moduleDir, null));

@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -50,7 +51,7 @@ public class NoEnvProductIT extends AbstractB2IT
          "remote-repository/snapshots/org/sourcepit/b2/its/NoEnvProductIT/1.0.0-SNAPSHOT");
       if (deployTargetDir.exists())
       {
-         FileUtils.forceDelete(deployTargetDir);
+         deleteFileOrDirectory(deployTargetDir);
       }
       assertFalse(deployTargetDir.exists());
 

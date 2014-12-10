@@ -24,6 +24,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.sourcepit.common.manifest.osgi.BundleHeaderName.BUNDLE_VERSION;
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 
 import java.io.File;
 import java.util.jar.JarFile;
@@ -87,7 +88,7 @@ public class ManifestFilterIT extends AbstractB2IT
 
       final File resFooDir = new File(moduleDir, "bundle.a/templates/foo");
       assertTrue(resFooDir.exists());
-      forceDelete(resFooDir);
+      deleteFileOrDirectory(resFooDir);
 
       err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven", "-Db2.projects.resourcesDirectory=templates");
       assertThat(err, is(0));

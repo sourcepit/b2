@@ -17,6 +17,7 @@
 package org.sourcepit.b2.internal.generator;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 
 import java.io.File;
 import java.io.IOException;
@@ -340,7 +341,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
          final File destFile = new File(pomFile.getParentFile(), "pom.xml");
          FileUtils.copyFile(pomFile, destFile);
-         FileUtils.forceDelete(pomFile);
+         deleteFileOrDirectory(pomFile);
 
          return destFile;
       }
