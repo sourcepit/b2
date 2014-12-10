@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.sourcepit</groupId>
 		<artifactId>srcpit-parent</artifactId>
-		<version>20-SNAPSHOT</version>
+		<version>20</version>
 	</parent>
 
 	<groupId>org.sourcepit.b2</groupId>
@@ -42,8 +42,8 @@
 
 	<properties>
 		<tycho.version>0.22.0</tycho.version>
-		<maven-bootstrap.version>0.13.0-SNAPSHOT</maven-bootstrap.version>
-		<shared-resources.version>0.10.0-SNAPSHOT</shared-resources.version>
+		<maven-bootstrap.version>0.13.0</maven-bootstrap.version>
+		<shared-resources.version>0.10.0</shared-resources.version>
 		<b2.examples.version>0.1.0-SNAPSHOT</b2.examples.version>
 		<it.maven-release-plugin.version>${maven.releasePlugin.version}</it.maven-release-plugin.version>
 		<it.maven-scm-provider-svnjava.version>2.1.1</it.maven-scm-provider-svnjava.version>
@@ -145,7 +145,7 @@
 			<dependency>
 				<groupId>org.sourcepit.osgifier</groupId>
 				<artifactId>osgifier-maven-plugin</artifactId>
-				<version>0.23.0-SNAPSHOT</version>
+				<version>0.23.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.tools</groupId>
@@ -161,37 +161,37 @@
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>common-testing</artifactId>
-				<version>0.13.0-SNAPSHOT</version>
+				<version>0.13.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>org.sourcepit.common.modeling</artifactId>
-				<version>0.13.0-SNAPSHOT</version>
+				<version>0.13.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>org.sourcepit.common.manifest</artifactId>
-				<version>0.18.0-SNAPSHOT</version>
+				<version>0.18.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common.maven</groupId>
 				<artifactId>org.sourcepit.common.maven.artifact</artifactId>
-				<version>0.22.0-SNAPSHOT</version>
+				<version>0.22.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common.maven</groupId>
 				<artifactId>common-maven-core</artifactId>
-				<version>0.22.0-SNAPSHOT</version>
+				<version>0.22.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>org.sourcepit.common.utils</artifactId>
-				<version>0.15.0-SNAPSHOT</version>
+				<version>0.15.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sourcepit.common</groupId>
 				<artifactId>org.sourcepit.common.constraints</artifactId>
-				<version>0.15.0-SNAPSHOT</version>
+				<version>0.15.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.tmatesoft.svnkit</groupId>
@@ -242,7 +242,7 @@
 				<plugin>
 					<groupId>org.sourcepit.tools</groupId>
 					<artifactId>deploy-maven-plugin</artifactId>
-					<version>0.3.0-SNAPSHOT</version>
+					<version>0.3.0</version>
 				</plugin>
 				<plugin>
 					<artifactId>maven-compiler-plugin</artifactId>
