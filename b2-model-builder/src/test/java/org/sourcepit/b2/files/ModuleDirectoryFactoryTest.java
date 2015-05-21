@@ -34,54 +34,42 @@ import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironment
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class ModuleDirectoryFactoryTest extends AbstractTestEnvironmentTest
-{
+public class ModuleDirectoryFactoryTest extends AbstractTestEnvironmentTest {
    @Test
-   public void testDetermineFileFlags()
-   {
+   public void testDetermineFileFlags() {
       Collection<FileFlagsProvider> providers = new HashSet<FileFlagsProvider>();
 
-      providers.add(new AbstractFileFlagsProvider()
-      {
+      providers.add(new AbstractFileFlagsProvider() {
          @Override
-         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-         {
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
             return singletonMap(new File(moduleDir, "target"), Integer.valueOf(FLAG_HIDDEN));
          }
       });
 
-      providers.add(new AbstractFileFlagsProvider()
-      {
+      providers.add(new AbstractFileFlagsProvider() {
          @Override
-         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-         {
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
             return singletonMap(new File(moduleDir, "target"), Integer.valueOf(FLAG_FORBIDDEN));
          }
       });
 
-      providers.add(new AbstractFileFlagsProvider()
-      {
+      providers.add(new AbstractFileFlagsProvider() {
          @Override
-         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-         {
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
             return singletonMap(new File(moduleDir, "foo"), Integer.valueOf(FLAG_HIDDEN));
          }
       });
 
-      providers.add(new AbstractFileFlagsProvider()
-      {
+      providers.add(new AbstractFileFlagsProvider() {
          @Override
-         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-         {
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
             return singletonMap(new File(moduleDir, "bar"), Integer.valueOf(FLAG_DERIVED));
          }
       });
 
-      providers.add(new AbstractFileFlagsProvider()
-      {
+      providers.add(new AbstractFileFlagsProvider() {
          @Override
-         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-         {
+         public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
             return singletonMap(new File(moduleDir, "murks"), null);
          }
       });
@@ -106,8 +94,7 @@ public class ModuleDirectoryFactoryTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testDetermineFileFlagsWithInvestigator()
-   {
+   public void testDetermineFileFlagsWithInvestigator() {
       Collection<FileFlagsProvider> providers = new HashSet<FileFlagsProvider>();
       providers.add(new B2FileFlagsProvider());
       providers.add(new ScmFileFlagsProvider());

@@ -46,11 +46,9 @@ import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.b2.model.module.SitesFacet;
 
-public class B2MavenBridgeTest extends TestCase
-{
+public class B2MavenBridgeTest extends TestCase {
    @Test
-   public void testConnectProjects()
-   {
+   public void testConnectProjects() {
       // reactor : CompositeModule
       // * module-a : BasicModule
       // * module-b : BasicModule
@@ -141,14 +139,11 @@ public class B2MavenBridgeTest extends TestCase
       B2MavenBridge b2Bridge = B2MavenBridge.get(mavenSession, resourceSet);
       assertSame(b2Bridge, B2MavenBridge.get(mavenSession));
 
-      for (MavenProject mavenProject : mavenSession.getProjects())
-      {
-         if (B2MavenBridge.isModuleProject(resourceSet, mavenProject))
-         {
+      for (MavenProject mavenProject : mavenSession.getProjects()) {
+         if (B2MavenBridge.isModuleProject(resourceSet, mavenProject)) {
             assertNotNull(mavenProject.getArtifactId(), mavenProject.getContextValue(AbstractModule.class.getName()));
          }
-         else
-         {
+         else {
             assertNotNull(mavenProject.getArtifactId(), mavenProject.getContextValue(Project.class.getName()));
          }
       }
@@ -177,45 +172,38 @@ public class B2MavenBridgeTest extends TestCase
       assertNull(b2Bridge.getModule(mavenProjectA));
       assertNull(b2Bridge.getModule(mavenProjectB));
 
-      for (MavenProject mavenProject : mavenSession.getProjects())
-      {
-         if (B2MavenBridge.isModuleProject(resourceSet, mavenProject))
-         {
+      for (MavenProject mavenProject : mavenSession.getProjects()) {
+         if (B2MavenBridge.isModuleProject(resourceSet, mavenProject)) {
             assertNull(mavenProject.getContextValue(AbstractModule.class.getName()));
          }
-         else
-         {
+         else {
             assertNull(mavenProject.getContextValue(Project.class.getName()));
          }
       }
    }
 
-   private static PluginProject createPluginProject(File projectDir)
-   {
+   private static PluginProject createPluginProject(File projectDir) {
       PluginProject plugin = ModuleModelFactory.eINSTANCE.createPluginProject();
       plugin.setDirectory(projectDir);
       plugin.setId(projectDir.getName());
       return plugin;
    }
 
-   private static FeatureProject createFeatureProject(File projectDir)
-   {
+   private static FeatureProject createFeatureProject(File projectDir) {
       FeatureProject feature = ModuleModelFactory.eINSTANCE.createFeatureProject();
       feature.setDirectory(projectDir);
       feature.setId(projectDir.getName());
       return feature;
    }
 
-   private static SiteProject createSiteProject(File projectDir)
-   {
+   private static SiteProject createSiteProject(File projectDir) {
       SiteProject site = ModuleModelFactory.eINSTANCE.createSiteProject();
       site.setDirectory(projectDir);
       site.setId(projectDir.getName());
       return site;
    }
 
-   private static CompositeModule createCompositeModule(File moduleDir)
-   {
+   private static CompositeModule createCompositeModule(File moduleDir) {
       CompositeModule moduleR = ModuleModelFactory.eINSTANCE.createCompositeModule();
       moduleR.setId(moduleDir.getName());
       moduleR.setDirectory(moduleDir);
@@ -223,8 +211,7 @@ public class B2MavenBridgeTest extends TestCase
       return moduleR;
    }
 
-   private static BasicModule createBasicModule(File moduleDir)
-   {
+   private static BasicModule createBasicModule(File moduleDir) {
       BasicModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
       module.setId(moduleDir.getName());
       module.setDirectory(moduleDir);
@@ -232,8 +219,7 @@ public class B2MavenBridgeTest extends TestCase
       return module;
    }
 
-   private static MavenProject createMavenProject(File baseDir)
-   {
+   private static MavenProject createMavenProject(File baseDir) {
       MavenProject mavenProject = new MavenProject();
       mavenProject.setFile(new File(baseDir, "pom.xml"));
       mavenProject.setArtifactId(baseDir.getName());

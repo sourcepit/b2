@@ -21,10 +21,8 @@ import java.util.List;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 
-public interface BasicConverter
-{
-   enum AggregatorMode
-   {
+public interface BasicConverter {
+   enum AggregatorMode {
       OFF, AGGREGATE, UNWRAP
    }
 

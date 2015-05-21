@@ -35,8 +35,7 @@ import org.sourcepit.b2.version.plugin.internal.Property;
  * @author eddi-weiss
  */
 @Mojo(requiresProject = true, name = "update-properties", defaultPhase = LifecyclePhase.POST_CLEAN)
-public class UpdateProperties extends ModuleVersionsMojo
-{
+public class UpdateProperties extends ModuleVersionsMojo {
 
    @Parameter(name = "properties", required = false, readonly = true)
    private Property[] properties;
@@ -44,19 +43,15 @@ public class UpdateProperties extends ModuleVersionsMojo
 
    @Override
    protected void updateModule(ModifiedPomXMLEventReader reader, Model projectModel) throws MojoExecutionException,
-      MojoFailureException, XMLStreamException
-   {
+      MojoFailureException, XMLStreamException {
       updateProperties(reader, projectModel.getProperties(), null);
       Set<String> activeProfiles = new TreeSet<String>();
-      for (Profile profile : project.getActiveProfiles())
-      {
+      for (Profile profile : project.getActiveProfiles()) {
          activeProfiles.add(profile.getId());
       }
 
-      for (Profile profile : projectModel.getProfiles())
-      {
-         if (activeProfiles.contains(profile.getId()))
-         {
+      for (Profile profile : projectModel.getProfiles()) {
+         if (activeProfiles.contains(profile.getId())) {
             updateProperties(reader, profile.getProperties(), profile.getId());
          }
 
@@ -64,13 +59,10 @@ public class UpdateProperties extends ModuleVersionsMojo
    }
 
    private void updateProperties(ModifiedPomXMLEventReader reader, Properties modelProperites, String profileId)
-      throws MojoExecutionException, XMLStreamException
-   {
+      throws MojoExecutionException, XMLStreamException {
       Set<Object> keySet = modelProperites.keySet();
-      for (Property prop : properties)
-      {
-         if (keySet.contains(prop.getName()))
-         {
+      for (Property prop : properties) {
+         if (keySet.contains(prop.getName())) {
             updatePropertyToNewestVersion(reader, prop, profileId, modelProperites.getProperty(prop.getName()));
          }
       }
@@ -78,12 +70,10 @@ public class UpdateProperties extends ModuleVersionsMojo
 
 
    private void updatePropertyToNewestVersion(ModifiedPomXMLEventReader reader, Property property, String profileId,
-      String oldValue) throws MojoExecutionException, XMLStreamException
-   {
+      String oldValue) throws MojoExecutionException, XMLStreamException {
       final String newValue = property.getValue();
       final String name = property.getName();
-      if (PomHelper.setPropertyVersion(reader, profileId, name, newValue))
-      {
+      if (PomHelper.setPropertyVersion(reader, profileId, name, newValue)) {
          getLog().info("Updated ${" + name + "} from " + oldValue + " to " + newValue);
       }
    }

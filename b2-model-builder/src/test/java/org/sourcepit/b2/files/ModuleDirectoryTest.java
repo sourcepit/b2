@@ -17,7 +17,10 @@
 package org.sourcepit.b2.files;
 
 import static java.lang.Integer.valueOf;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.sourcepit.b2.files.ModuleDirectory.DEPTH_INFINITE;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
@@ -35,11 +38,9 @@ import junit.framework.AssertionFailedError;
 import org.junit.Test;
 import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironmentTest;
 
-public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
-{
+public class ModuleDirectoryTest extends AbstractTestEnvironmentTest {
    @Test
-   public void testFlags()
-   {
+   public void testFlags() {
       final File moduleDir = new File("").getAbsoluteFile();
       final File targetDir = new File(moduleDir, "target");
       final File moduleXml = new File(moduleDir, "module.xml");
@@ -92,8 +93,7 @@ public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testAcceptWithDepth() throws Exception
-   {
+   public void testAcceptWithDepth() throws Exception {
       final File moduleDir = ws.getRoot();
 
       ModuleDirectoryBuilder fb = new ModuleDirectoryBuilder(moduleDir);
@@ -148,8 +148,7 @@ public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testAccept() throws Exception
-   {
+   public void testAccept() throws Exception {
       final File moduleDir = ws.getRoot();
 
       ModuleDirectoryBuilder fb = new ModuleDirectoryBuilder(moduleDir);
@@ -233,8 +232,7 @@ public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testAddFlags() throws Exception
-   {
+   public void testAddFlags() throws Exception {
       final File moduleDir = ws.getRoot();
 
       ModuleDirectory moduleDirectory = new ModuleDirectory(moduleDir, Collections.<File, Integer> emptyMap());
@@ -252,8 +250,7 @@ public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testRemoveFlags() throws Exception
-   {
+   public void testRemoveFlags() throws Exception {
       final File moduleDir = ws.getRoot();
 
       ModuleDirectory moduleDirectory = new ModuleDirectory(moduleDir, Collections.<File, Integer> emptyMap());
@@ -276,83 +273,69 @@ public class ModuleDirectoryTest extends AbstractTestEnvironmentTest
       assertEquals(0, moduleDirectory.getFlags(f));
    }
 
-   private static void assertContains(String expectedPath, int expectedFlags, Map<String, Integer> actual)
-   {
+   private static void assertContains(String expectedPath, int expectedFlags, Map<String, Integer> actual) {
       final Integer flags = actual.get(expectedPath);
       assertNotNull(flags);
       assertEquals(expectedFlags, flags.intValue());
    }
 
-   static class RelPathCollector implements FileVisitor<RuntimeException>
-   {
+   static class RelPathCollector implements FileVisitor<RuntimeException> {
       private final Map<String, Integer> visiedFiles = new HashMap<String, Integer>();
 
       private File baseDir;
 
-      public RelPathCollector(File baseDir)
-      {
+      public RelPathCollector(File baseDir) {
          this.baseDir = baseDir;
       }
 
       @Override
-      public boolean visit(File file, int flags)
-      {
+      public boolean visit(File file, int flags) {
          final String path = getRelativePath(file, baseDir, "/");
          visiedFiles.put(path, valueOf(flags));
          return true;
       }
 
-      Map<String, Integer> getVisiedFiles()
-      {
+      Map<String, Integer> getVisiedFiles() {
          return visiedFiles;
       }
    }
 
-   static class ModuleDirectoryBuilder
-   {
+   static class ModuleDirectoryBuilder {
       private final File baseDir;
 
       private Map<File, Integer> fileFlags = new HashMap<File, Integer>();
 
-      ModuleDirectoryBuilder(File baseDir)
-      {
+      ModuleDirectoryBuilder(File baseDir) {
          this.baseDir = baseDir;
       }
 
-      File mkdir(String name, int flags)
-      {
+      File mkdir(String name, int flags) {
          final File dir = new File(baseDir, name);
          assertTrue(dir.mkdirs());
-         if (flags > 0)
-         {
+         if (flags > 0) {
             fileFlags.put(dir, valueOf(flags));
          }
          return dir;
       }
 
-      File mkfile(String name, int flags)
-      {
+      File mkfile(String name, int flags) {
          final File file = new File(baseDir, name);
          file.getParentFile().mkdirs();
          assertTrue(file.getParentFile().exists());
-         try
-         {
+         try {
             assertTrue(file.createNewFile());
          }
-         catch (IOException e)
-         {
+         catch (IOException e) {
             throw new AssertionFailedError("Expected to create file " + file.getPath() + " but exception occurred "
                + e.getLocalizedMessage());
          }
-         if (flags > 0)
-         {
+         if (flags > 0) {
             fileFlags.put(file, valueOf(flags));
          }
          return file;
       }
 
-      ModuleDirectory toModuleDirectory()
-      {
+      ModuleDirectory toModuleDirectory() {
          return new ModuleDirectory(baseDir, new HashMap<File, Integer>(fileFlags));
       }
    }

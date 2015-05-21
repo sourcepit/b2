@@ -48,16 +48,12 @@ import org.sourcepit.common.maven.model.MavenModelFactory;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
-public class ModelContextAdapterFactoryTest extends AbstractB2MavenPluginTest
-{
+public class ModelContextAdapterFactoryTest extends AbstractB2MavenPluginTest {
    @Test
-   public void testAdoptionReactorProjectURIMappings() throws IOException
-   {
+   public void testAdoptionReactorProjectURIMappings() throws IOException {
 
-      final ModuleArtifactResolver artifactResolver = new ModuleArtifactResolver()
-      {
-         public SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope)
-         {
+      final ModuleArtifactResolver artifactResolver = new ModuleArtifactResolver() {
+         public SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope) {
             return LinkedHashMultimap.create();
          }
       };
@@ -100,8 +96,7 @@ public class ModelContextAdapterFactoryTest extends AbstractB2MavenPluginTest
    }
 
    @Test
-   public void testAssemblyClassifierToFeatureMapping() throws IOException
-   {
+   public void testAssemblyClassifierToFeatureMapping() throws IOException {
       MavenModelFactory mvnFactory = MavenModelFactory.eINSTANCE;
 
       final MavenArtifact artifact = mvnFactory.createMavenArtifact();
@@ -126,17 +121,13 @@ public class ModelContextAdapterFactoryTest extends AbstractB2MavenPluginTest
       resource.getContents().add(module);
       resource.save(null);
 
-      final ModuleArtifactResolver artifactResolver = new ModuleArtifactResolver()
-      {
-         public SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope)
-         {
+      final ModuleArtifactResolver artifactResolver = new ModuleArtifactResolver() {
+         public SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope) {
             final SetMultimap<MavenArtifact, String> moduleArtifactsToAssemblyClassifiers = LinkedHashMultimap.create();
-            if (Artifact.SCOPE_TEST.equals(scope))
-            {
+            if (Artifact.SCOPE_TEST.equals(scope)) {
                moduleArtifactsToAssemblyClassifiers.get(artifact).add("test");
             }
-            else
-            {
+            else {
                moduleArtifactsToAssemblyClassifiers.get(artifact).add("");
             }
             return moduleArtifactsToAssemblyClassifiers;

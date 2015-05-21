@@ -52,18 +52,15 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
 @Named
-public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
-{
+public class DefaultModuleArtifactResolver implements ModuleArtifactResolver {
    @Inject
    private ProjectDependenciesResolver dependenciesResolver;
 
-   public SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope)
-   {
+   public SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope) {
       final SetMultimap<Artifact, String> artifactToClassifiers = resolveModuleDependencies(session, project, scope);
 
       final SetMultimap<MavenArtifact, String> moduleArtifactToClassifiers = LinkedHashMultimap.create();
-      for (Entry<Artifact, Collection<String>> entry : artifactToClassifiers.asMap().entrySet())
-      {
+      for (Entry<Artifact, Collection<String>> entry : artifactToClassifiers.asMap().entrySet()) {
          Artifact artifact = entry.getKey();
          Collection<String> classifiers = entry.getValue();
 
@@ -74,16 +71,12 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
    }
 
    private SetMultimap<Artifact, String> resolveModuleDependencies(final MavenSession session, MavenProject project,
-      final String scope)
-   {
+      final String scope) {
       final Map<DependencyNode, String> moduleNodeToClassifiers = new LinkedHashMap<DependencyNode, String>();
-      final DependencyFilter resolutionFilter = new DependencyFilter()
-      {
-         public boolean accept(DependencyNode node, List<DependencyNode> parents)
-         {
+      final DependencyFilter resolutionFilter = new DependencyFilter() {
+         public boolean accept(DependencyNode node, List<DependencyNode> parents) {
             Artifact moduleArtifact = getModuleArtifact(node);
-            if (moduleArtifact != null)
-            {
+            if (moduleArtifact != null) {
                final String classifier = moduleArtifact.getClassifier();
 
                final Artifact newArtifact;
@@ -97,16 +90,12 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
             return true;
          }
 
-         private Artifact getModuleArtifact(DependencyNode node)
-         {
-            if (node.getDependency() != null)
-            {
+         private Artifact getModuleArtifact(DependencyNode node) {
+            if (node.getDependency() != null) {
                final Dependency dependency = node.getDependency();
-               if (dependency.getArtifact() != null)
-               {
+               if (dependency.getArtifact() != null) {
                   final Artifact artifact = dependency.getArtifact();
-                  if ("module".equals(artifact.getExtension()))
-                  {
+                  if ("module".equals(artifact.getExtension())) {
                      return artifact;
                   }
                }
@@ -117,17 +106,14 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
 
       final DependencySelector dependencySelector = createDependencySelector(scope);
 
-      final AbstractForwardingRepositorySystemSession systemSession = new AbstractForwardingRepositorySystemSession()
-      {
+      final AbstractForwardingRepositorySystemSession systemSession = new AbstractForwardingRepositorySystemSession() {
          @Override
-         public DependencySelector getDependencySelector()
-         {
+         public DependencySelector getDependencySelector() {
             return dependencySelector;
          }
 
          @Override
-         protected RepositorySystemSession getSession()
-         {
+         protected RepositorySystemSession getSession() {
             return session.getRepositorySession();
          }
       };
@@ -136,37 +122,30 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
       request = new DefaultDependencyResolutionRequest(project, systemSession);
       request.setResolutionFilter(resolutionFilter);
 
-      try
-      {
+      try {
          dependenciesResolver.resolve(request);
       }
-      catch (DependencyResolutionException e)
-      {
+      catch (DependencyResolutionException e) {
          throw Exceptions.pipe(e);
       }
 
       final SetMultimap<Artifact, String> artifactToClassifiers = LinkedHashMultimap.create();
-      for (Entry<DependencyNode, String> entry : moduleNodeToClassifiers.entrySet())
-      {
+      for (Entry<DependencyNode, String> entry : moduleNodeToClassifiers.entrySet()) {
          DependencyNode dependencyNode = entry.getKey();
          artifactToClassifiers.get(dependencyNode.getDependency().getArtifact()).add(entry.getValue());
       }
       return artifactToClassifiers;
    }
 
-   private static DependencySelector createDependencySelector(final String scope)
-   {
-      final DependencySelector moduleDependencySelector = new DependencySelector()
-      {
-         public boolean selectDependency(Dependency dependency)
-         {
+   private static DependencySelector createDependencySelector(final String scope) {
+      final DependencySelector moduleDependencySelector = new DependencySelector() {
+         public boolean selectDependency(Dependency dependency) {
             final Artifact artifact = dependency.getArtifact();
             final String type = artifact.getProperty(ArtifactProperties.TYPE, artifact.getExtension());
             return "module".equals(type);
          }
 
-         public DependencySelector deriveChildSelector(DependencyCollectionContext context)
-         {
+         public DependencySelector deriveChildSelector(DependencyCollectionContext context) {
             return this;
          }
       };
@@ -177,38 +156,31 @@ public class DefaultModuleArtifactResolver implements ModuleArtifactResolver
       return AndDependencySelector.newInstance(moduleDependencySelector, scopeDependencySelector);
    }
 
-   private static Collection<String> negate(Collection<String> scopes)
-   {
+   private static Collection<String> negate(Collection<String> scopes) {
       Collection<String> result = new HashSet<String>();
       Collections.addAll(result, "system", "compile", "provided", "runtime", "test");
-      for (String scope : scopes)
-      {
-         if ("compile".equals(scope))
-         {
+      for (String scope : scopes) {
+         if ("compile".equals(scope)) {
             result.remove("compile");
             result.remove("system");
             result.remove("provided");
          }
-         else if ("runtime".equals(scope))
-         {
+         else if ("runtime".equals(scope)) {
             result.remove("compile");
             result.remove("runtime");
          }
-         else if ("compile+runtime".equals(scope))
-         {
+         else if ("compile+runtime".equals(scope)) {
             result.remove("compile");
             result.remove("system");
             result.remove("provided");
             result.remove("runtime");
          }
-         else if ("runtime+system".equals(scope))
-         {
+         else if ("runtime+system".equals(scope)) {
             result.remove("compile");
             result.remove("system");
             result.remove("runtime");
          }
-         else if ("test".equals(scope))
-         {
+         else if ("test".equals(scope)) {
             result.clear();
          }
       }

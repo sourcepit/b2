@@ -59,8 +59,7 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
 @Named("maven")
-public class MavenB2RequestFactory implements B2RequestFactory
-{
+public class MavenB2RequestFactory implements B2RequestFactory {
    @Inject
    private LegacySupport legacySupport;
 
@@ -82,15 +81,13 @@ public class MavenB2RequestFactory implements B2RequestFactory
    @Inject
    private MavenModulePropertiesFactory modulePropertiesFactory;
 
-   public B2Request newRequest(List<File> projectDirs, int currentIdx)
-   {
+   public B2Request newRequest(List<File> projectDirs, int currentIdx) {
       final MavenSession bootSession = legacySupport.getSession();
       final MavenProject bootProject = bootSession.getProjects().get(currentIdx);
       return newB2Request(bootSession, bootProject);
    }
 
-   public B2Request newB2Request(MavenSession bootSession, MavenProject bootProject)
-   {
+   public B2Request newB2Request(MavenSession bootSession, MavenProject bootProject) {
       ModuleModelPackage.eINSTANCE.getClass();
 
       final PropertiesSource moduleProperties = modulePropertiesFactory.createModuleProperties(
@@ -110,15 +107,12 @@ public class MavenB2RequestFactory implements B2RequestFactory
       b2Request.setTemplates(templates);
       b2Request.setContentTypes(ContentTypes.DEFAULT);
 
-      for (MavenProject project : bootSession.getProjects())
-      {
+      for (MavenProject project : bootSession.getProjects()) {
          final File projectDir = project.getBasedir();
 
-         if (!projectDir.equals(bootProject.getBasedir()))
-         {
+         if (!projectDir.equals(bootProject.getBasedir())) {
             final ModelContext modelContext = ModelContextAdapterFactory.get(project);
-            if (modelContext != null)
-            {
+            if (modelContext != null) {
                final URI moduleUri = modelContext.getModuleUri();
                final AbstractModule module = (AbstractModule) resourceSet.getEObject(moduleUri, true);
                b2Request.getModulesCache().put(module.getDirectory(), module);
@@ -133,8 +127,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
    }
 
    private void processDependencies(ResourceSet resourceSet, MavenSession mavenSession,
-      final MavenProject wrapperProject)
-   {
+      final MavenProject wrapperProject) {
       final ModelContext modelContext = ModelContextAdapterFactory.get(wrapperProject);
 
       SetMultimap<AbstractModule, FeatureProject> foo = LinkedHashMultimap.create();
@@ -143,19 +136,15 @@ public class MavenB2RequestFactory implements B2RequestFactory
 
       final Map<String, String> sites = new LinkedHashMap<String, String>();
 
-      for (Entry<AbstractModule, Collection<FeatureProject>> entry : foo.asMap().entrySet())
-      {
+      for (Entry<AbstractModule, Collection<FeatureProject>> entry : foo.asMap().entrySet()) {
          ArtifactIdentifier id = toArtifactId(entry.getKey().eResource().getURI());
 
          MavenProject mavenProject = findMavenProject(mavenSession, entry.getKey().getDirectory());
-         if (mavenProject == null)
-         {
+         if (mavenProject == null) {
             // TODO move test sites to test projects
-            for (FeatureProject featureProject : entry.getValue())
-            {
+            for (FeatureProject featureProject : entry.getValue()) {
                List<String> classifiers = B2MetadataUtils.getAssemblyClassifiers(featureProject);
-               for (String classifier : classifiers)
-               {
+               for (String classifier : classifiers) {
                   final Artifact siteArtifact = resolveSiteZip(wrapperProject, id, classifier);
                   final File zipFile = siteArtifact.getFile();
 
@@ -176,20 +165,16 @@ public class MavenB2RequestFactory implements B2RequestFactory
       wrapperProject.setContextValue("b2.resolvedSites", sites);
    }
 
-   private static MavenProject findMavenProject(MavenSession mavenSession, File directory)
-   {
-      for (MavenProject mavenProject : mavenSession.getProjects())
-      {
-         if (mavenProject.getBasedir().equals(directory))
-         {
+   private static MavenProject findMavenProject(MavenSession mavenSession, File directory) {
+      for (MavenProject mavenProject : mavenSession.getProjects()) {
+         if (mavenProject.getBasedir().equals(directory)) {
             return mavenProject;
          }
       }
       return null;
    }
 
-   private static ArtifactIdentifier toArtifactId(URI uri)
-   {
+   private static ArtifactIdentifier toArtifactId(URI uri) {
       final String[] segments = uri.segments();
 
       final boolean hasClassifier = segments.length == 5;
@@ -200,12 +185,10 @@ public class MavenB2RequestFactory implements B2RequestFactory
       return new ArtifactIdentifier(segments[0], segments[1], version, classifier, segments[2]);
    }
 
-   private Artifact resolveSiteZip(final MavenProject wrapperProject, ArtifactIdentifier artifact, String classifier)
-   {
+   private Artifact resolveSiteZip(final MavenProject wrapperProject, ArtifactIdentifier artifact, String classifier) {
       final StringBuilder cl = new StringBuilder();
       cl.append("site");
-      if (classifier != null && classifier.length() > 0)
-      {
+      if (classifier != null && classifier.length() > 0) {
          cl.append('-');
          cl.append(classifier);
       }
@@ -221,8 +204,7 @@ public class MavenB2RequestFactory implements B2RequestFactory
    }
 
    private Artifact resolveArtifact(final MavenProject wrapperProject, String groupId, String artifactId,
-      String extension, String version, String classifier)
-   {
+      String extension, String version, String classifier) {
       final org.eclipse.aether.artifact.Artifact siteArtifact = new DefaultArtifact(groupId, artifactId, classifier,
          extension, version);
 
@@ -230,13 +212,11 @@ public class MavenB2RequestFactory implements B2RequestFactory
       request.setArtifact(siteArtifact);
       request.setRepositories(wrapperProject.getRemoteProjectRepositories());
 
-      try
-      {
+      try {
          final ArtifactResult result = repositorySystem.resolveArtifact(legacySupport.getRepositorySession(), request);
          return RepositoryUtils.toArtifact(result.getArtifact());
       }
-      catch (ArtifactResolutionException e)
-      {
+      catch (ArtifactResolutionException e) {
          throw new IllegalStateException(e);
       }
    }

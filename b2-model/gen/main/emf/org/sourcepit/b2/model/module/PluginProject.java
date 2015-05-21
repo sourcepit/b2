@@ -40,8 +40,7 @@ import org.sourcepit.common.manifest.osgi.BundleManifest;
  * @model
  * @generated
  */
-public interface PluginProject extends Project
-{
+public interface PluginProject extends Project {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.
     * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.PluginsFacet#getProjects

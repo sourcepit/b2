@@ -21,8 +21,7 @@ import java.util.LinkedHashSet;
 
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class PropertiesQuery
-{
+public class PropertiesQuery {
    private String prefix;
 
    private Collection<String> keys = new LinkedHashSet<String>();
@@ -31,54 +30,42 @@ public class PropertiesQuery
 
    private boolean retryWithoutPrefix;
 
-   public void setPrefix(String prefix)
-   {
+   public void setPrefix(String prefix) {
       this.prefix = prefix;
    }
 
-   public String getPrefix()
-   {
+   public String getPrefix() {
       return prefix;
    }
 
-   public void setRetryWithoutPrefix(boolean retryWithoutPrefix)
-   {
+   public void setRetryWithoutPrefix(boolean retryWithoutPrefix) {
       this.retryWithoutPrefix = retryWithoutPrefix;
    }
 
-   public Collection<String> getKeys()
-   {
+   public Collection<String> getKeys() {
       return keys;
    }
 
-   public void setDefaultValue(String defaultValue)
-   {
+   public void setDefaultValue(String defaultValue) {
       this.defaultValue = defaultValue;
    }
 
-   public String getDefaultValue()
-   {
+   public String getDefaultValue() {
       return defaultValue;
    }
 
-   public String lookup(PropertiesSource properties)
-   {
-      for (String rawKey : keys)
-      {
+   public String lookup(PropertiesSource properties) {
+      for (String rawKey : keys) {
          final String key = prefix == null ? rawKey : prefix + rawKey;
          final String result = lookup(properties, key);
-         if (result != null)
-         {
+         if (result != null) {
             return result;
          }
       }
-      if (prefix != null && retryWithoutPrefix)
-      {
-         for (String key : keys)
-         {
+      if (prefix != null && retryWithoutPrefix) {
+         for (String key : keys) {
             final String result = lookup(properties, key);
-            if (result != null)
-            {
+            if (result != null) {
                return result;
             }
          }
@@ -86,8 +73,7 @@ public class PropertiesQuery
       return defaultValue;
    }
 
-   private String lookup(PropertiesSource properties, String key)
-   {
+   private String lookup(PropertiesSource properties, String key) {
       return properties.get(key);
    }
 }

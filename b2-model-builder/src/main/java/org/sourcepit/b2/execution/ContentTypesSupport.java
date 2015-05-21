@@ -26,12 +26,10 @@ import org.sourcepit.common.utils.content.ContentTypes;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ContentTypesSupport implements ContentTypes
-{
+public class ContentTypesSupport implements ContentTypes {
    @Override
    public ContentType detect(String fileName, InputStream content, String targetEncoding, PropertiesSource options)
-      throws IOException
-   {
+      throws IOException {
       return ContentTypes.DEFAULT.detect(fileName, content, targetEncoding, options);
    }
 }

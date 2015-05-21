@@ -46,21 +46,17 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 @Named
-public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements FileFlagsProvider
-{
+public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements FileFlagsProvider {
    @Override
-   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-   {
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
       final File basePomFile = new File(moduleDir, "pom.xml");
-      if (basePomFile.exists())
-      {
+      if (basePomFile.exists()) {
          final Map<File, Model> fileToModelMap = new HashMap<File, Model>();
          final Multimap<File, File> pomToModuleDirectoryMap = HashMultimap.create();
          collectMavenModels(basePomFile, fileToModelMap, pomToModuleDirectoryMap);
 
          final Map<File, Integer> result = new HashMap<File, Integer>(fileToModelMap.size() * 2);
-         for (Entry<File, Model> entry : fileToModelMap.entrySet())
-         {
+         for (Entry<File, Model> entry : fileToModelMap.entrySet()) {
             final File pomFile = entry.getKey();
             result.put(pomFile, valueOf(FLAG_DERIVED | FLAG_HIDDEN));
             // TODO determine target properly
@@ -72,48 +68,39 @@ public class MavenFileFlagsProvider extends AbstractFileFlagsProvider implements
    }
 
    static void collectMavenModels(final File pomFile, final Map<File, Model> fileToModelMap,
-      final Multimap<File, File> pomToModuleDirectoryMap)
-   {
-      try
-      {
+      final Multimap<File, File> pomToModuleDirectoryMap) {
+      try {
          final Map<String, String> options = new HashMap<String, String>();
          options.put(ModelReader.IS_STRICT, Boolean.FALSE.toString());
          final ModelReader modelReader = new DefaultModelReader();
          collectMavenModels(modelReader, options, pomFile, fileToModelMap, pomToModuleDirectoryMap);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw pipe(e);
       }
    }
 
    private static void collectMavenModels(ModelReader modelReader, Map<String, String> options, File pomFile,
       Map<File, Model> fileToModelMap, Multimap<File, File> pomToModuleDirectoryMap) throws IOException,
-      ModelParseException
-   {
+      ModelParseException {
       final Model model = modelReader.read(pomFile, options);
       fileToModelMap.put(pomFile, model);
-      for (String module : getModules(model))
-      {
+      for (String module : getModules(model)) {
          File moduleFile = new File(pomFile.getParentFile(), module);
-         if (moduleFile.isDirectory())
-         {
+         if (moduleFile.isDirectory()) {
             moduleFile = new File(moduleFile, "pom.xml");
          }
-         if (moduleFile.exists())
-         {
+         if (moduleFile.exists()) {
             pomToModuleDirectoryMap.put(pomFile, moduleFile);
             collectMavenModels(modelReader, options, moduleFile, fileToModelMap, pomToModuleDirectoryMap);
          }
       }
    }
 
-   private static Collection<String> getModules(Model model)
-   {
+   private static Collection<String> getModules(Model model) {
       final Set<String> modules = new HashSet<String>();
       modules.addAll(model.getModules());
-      for (Profile profile : model.getProfiles())
-      {
+      for (Profile profile : model.getProfiles()) {
          modules.addAll(profile.getModules());
       }
       return modules;

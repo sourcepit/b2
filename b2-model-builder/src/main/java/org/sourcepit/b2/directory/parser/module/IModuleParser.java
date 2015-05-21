@@ -22,7 +22,6 @@ import org.sourcepit.b2.model.module.AbstractModule;
 /**
  * @author Bernd
  */
-public interface IModuleParser
-{
+public interface IModuleParser {
    AbstractModule parse(IModuleParsingRequest request);
 }

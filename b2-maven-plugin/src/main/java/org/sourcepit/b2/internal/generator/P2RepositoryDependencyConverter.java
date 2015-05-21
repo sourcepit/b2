@@ -51,12 +51,9 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 @Named
-public class P2RepositoryDependencyConverter extends AbstractPomGenerator implements IB2GenerationParticipant
-{
-   private Predicate<Dependency> P2_REPOSITORIES = new Predicate<Dependency>()
-   {
-      public boolean apply(Dependency dependency)
-      {
+public class P2RepositoryDependencyConverter extends AbstractPomGenerator implements IB2GenerationParticipant {
+   private Predicate<Dependency> P2_REPOSITORIES = new Predicate<Dependency>() {
+      public boolean apply(Dependency dependency) {
          return "p2-repository".equals(dependency.getType());
       }
    };
@@ -72,19 +69,16 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
-      ITemplates templates, ModuleDirectory moduleDirectory)
-   {
+      ITemplates templates, ModuleDirectory moduleDirectory) {
       final MavenSession session = legacySupport.getSession();
       final MavenProject project = session.getCurrentProject();
 
       final Collection<Dependency> p2RepoDeps = Collections2.filter(project.getDependencies(), P2_REPOSITORIES);
-      if (!p2RepoDeps.isEmpty())
-      {
+      if (!p2RepoDeps.isEmpty()) {
          final File pomFile = resolvePomFile(inputElement);
          final Model pom = readMavenModel(pomFile);
 
-         for (Dependency p2RepoDep : p2RepoDeps)
-         {
+         for (Dependency p2RepoDep : p2RepoDeps) {
             final Artifact artifact = resolveArtifact(project, p2RepoDep.getGroupId(), p2RepoDep.getArtifactId(),
                "zip", p2RepoDep.getVersion(), p2RepoDep.getClassifier());
 
@@ -101,8 +95,7 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
       }
    }
 
-   private static Repository toRepository(ArtifactIdentifier ident, File file)
-   {
+   private static Repository toRepository(ArtifactIdentifier ident, File file) {
       final String path = file.getAbsolutePath().replace('\\', '/');
       final String siteUrl = "jar:file:" + path + "!/";
 
@@ -114,28 +107,24 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
       return repository;
    }
 
-   private static ArtifactIdentifier toArtifactIdentifier(final Artifact artifact)
-   {
+   private static ArtifactIdentifier toArtifactIdentifier(final Artifact artifact) {
       final ArtifactIdentifier uniqueId = new ArtifactIdentifier(artifact.getGroupId(), artifact.getArtifactId(),
          artifact.getVersion(), artifact.getClassifier(), artifact.getType());
       return uniqueId;
    }
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
       inputTypes.add(AbstractModule.class);
    }
 
    @Override
-   public GeneratorType getGeneratorType()
-   {
+   public GeneratorType getGeneratorType() {
       return GeneratorType.MODULE_RESOURCE_FILTER;
    }
 
    private Artifact resolveArtifact(final MavenProject wrapperProject, String groupId, String artifactId,
-      String extension, String version, String classifier)
-   {
+      String extension, String version, String classifier) {
       final org.eclipse.aether.artifact.Artifact siteArtifact = new DefaultArtifact(groupId, artifactId, classifier,
          extension, version);
 
@@ -143,13 +132,11 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
       request.setArtifact(siteArtifact);
       request.setRepositories(wrapperProject.getRemoteProjectRepositories());
 
-      try
-      {
+      try {
          final ArtifactResult result = repositorySystem.resolveArtifact(legacySupport.getRepositorySession(), request);
          return RepositoryUtils.toArtifact(result.getArtifact());
       }
-      catch (ArtifactResolutionException e)
-      {
+      catch (ArtifactResolutionException e) {
          throw new IllegalStateException(e);
       }
    }

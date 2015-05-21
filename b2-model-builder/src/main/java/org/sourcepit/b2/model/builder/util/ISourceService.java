@@ -20,8 +20,7 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 
-public interface ISourceService
-{
+public interface ISourceService {
    boolean isSourceBuildEnabled(PropertiesSource moduleProperties);
 
    boolean isSourceBuildEnabled(PluginProject pluginProject, PropertiesSource moduleProperties);

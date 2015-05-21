@@ -28,8 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface ProjectFacet<P extends Project> extends AbstractFacet
-{
+public interface ProjectFacet<P extends Project> extends AbstractFacet {
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->

@@ -25,11 +25,9 @@ import java.util.Map;
 import org.eclipse.sisu.launch.InjectedTest;
 import org.junit.Test;
 
-public class FeaturePropertiesQueryFactoryTest extends InjectedTest
-{
+public class FeaturePropertiesQueryFactoryTest extends InjectedTest {
    @Test
-   public void testFacet()
-   {
+   public void testFacet() {
       final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, false, "plugins", "");
@@ -170,8 +168,7 @@ public class FeaturePropertiesQueryFactoryTest extends InjectedTest
    }
 
    @Test
-   public void testFacetWithClassifier()
-   {
+   public void testFacetWithClassifier() {
       final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, false, "plugins",
@@ -188,8 +185,7 @@ public class FeaturePropertiesQueryFactoryTest extends InjectedTest
    }
 
    @Test
-   public void testSourceFacet()
-   {
+   public void testSourceFacet() {
       final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, true, "plugins", "");
@@ -324,12 +320,10 @@ public class FeaturePropertiesQueryFactoryTest extends InjectedTest
    }
 
    @Test
-   public void testSourceFacetWithClassifier()
-   {
+   public void testSourceFacetWithClassifier() {
       final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
-      final Map<String, PropertiesQuery> queries = queryFactory
-         .createPropertyQueries(false, true, "plugins", "plugins");
+      final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(false, true, "plugins", "plugins");
       assertEquals(18, queries.size());
 
       PropertiesQuery query = queries.get("feature.classifierLabel");
@@ -342,8 +336,7 @@ public class FeaturePropertiesQueryFactoryTest extends InjectedTest
    }
 
    @Test
-   public void testAssembly()
-   {
+   public void testAssembly() {
       final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, false, "plugins", "");
@@ -474,12 +467,10 @@ public class FeaturePropertiesQueryFactoryTest extends InjectedTest
    }
 
    @Test
-   public void testAssemblyWithClassifier()
-   {
+   public void testAssemblyWithClassifier() {
       final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
-      final Map<String, PropertiesQuery> queries = queryFactory
-         .createPropertyQueries(true, false, "plugins", "plugins");
+      final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, false, "plugins", "plugins");
       assertEquals(18, queries.size());
 
       PropertiesQuery query = queries.get("feature.classifierLabel");
@@ -492,8 +483,7 @@ public class FeaturePropertiesQueryFactoryTest extends InjectedTest
    }
 
    @Test
-   public void testSourceAssembly()
-   {
+   public void testSourceAssembly() {
       final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, true, "plugins", "");
@@ -637,8 +627,7 @@ public class FeaturePropertiesQueryFactoryTest extends InjectedTest
    }
 
    @Test
-   public void testSourceAssemblyWithClassifier()
-   {
+   public void testSourceAssemblyWithClassifier() {
       final FeaturePropertiesQueryFactory queryFactory = lookup(FeaturePropertiesQueryFactory.class);
 
       final Map<String, PropertiesQuery> queries = queryFactory.createPropertyQueries(true, true, "plugins", "plugins");

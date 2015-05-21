@@ -21,14 +21,12 @@ import junit.framework.TestCase;
 /**
  * @author Bernd
  */
-public abstract class AbstractProjectFacetTest<P extends Project, F extends ProjectFacet<P>> extends TestCase
-{
+public abstract class AbstractProjectFacetTest<P extends Project, F extends ProjectFacet<P>> extends TestCase {
    protected abstract F createFacet();
 
    protected abstract P createProject();
 
-   public void testGetProjectByName() throws Exception
-   {
+   public void testGetProjectByName() throws Exception {
       F facet = createFacet();
       assertNull(facet.getProjectById(null));
 

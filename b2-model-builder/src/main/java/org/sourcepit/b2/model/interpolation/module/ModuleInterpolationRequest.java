@@ -22,29 +22,24 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 /**
  * @author Bernd
  */
-public class ModuleInterpolationRequest implements IModuleInterpolationRequest
-{
+public class ModuleInterpolationRequest implements IModuleInterpolationRequest {
    private AbstractModule module;
 
    private PropertiesSource moduleProperties;
 
-   public AbstractModule getModule()
-   {
+   public AbstractModule getModule() {
       return module;
    }
 
-   public void setModule(AbstractModule module)
-   {
+   public void setModule(AbstractModule module) {
       this.module = module;
    }
 
-   public PropertiesSource getModuleProperties()
-   {
+   public PropertiesSource getModuleProperties() {
       return moduleProperties;
    }
 
-   public void setModuleProperties(PropertiesSource moduleProperties)
-   {
+   public void setModuleProperties(PropertiesSource moduleProperties) {
       this.moduleProperties = moduleProperties;
    }
 

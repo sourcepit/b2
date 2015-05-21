@@ -35,8 +35,7 @@ import org.sourcepit.b2.model.module.PluginInclude;
  * 
  * @generated
  */
-public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements PluginInclude
-{
+public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements PluginInclude {
    /**
     * The default value of the '{@link #isUnpack() <em>Unpack</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -65,8 +64,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * 
     * @generated
     */
-   protected PluginIncludeImpl()
-   {
+   protected PluginIncludeImpl() {
       super();
    }
 
@@ -77,8 +75,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.PLUGIN_INCLUDE;
    }
 
@@ -88,8 +85,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * 
     * @generated
     */
-   public boolean isUnpack()
-   {
+   public boolean isUnpack() {
       return unpack;
    }
 
@@ -99,8 +95,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * 
     * @generated
     */
-   public void setUnpack(boolean newUnpack)
-   {
+   public void setUnpack(boolean newUnpack) {
       boolean oldUnpack = unpack;
       unpack = newUnpack;
       if (eNotificationRequired())
@@ -115,10 +110,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
             return isUnpack();
       }
@@ -132,10 +125,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * @generated
     */
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
             setUnpack((Boolean) newValue);
             return;
@@ -150,10 +141,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
             setUnpack(UNPACK_EDEFAULT);
             return;
@@ -168,10 +157,8 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_INCLUDE__UNPACK :
             return unpack != UNPACK_EDEFAULT;
       }
@@ -185,8 +172,7 @@ public class PluginIncludeImpl extends AbstractStrictReferenceImpl implements Pl
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

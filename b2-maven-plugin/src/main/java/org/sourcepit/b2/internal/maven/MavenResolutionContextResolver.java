@@ -29,35 +29,29 @@ import org.sourcepit.b2.model.module.FeatureProject;
 import com.google.common.collect.SetMultimap;
 
 @Named
-public class MavenResolutionContextResolver implements ResolutionContextResolver
-{
+public class MavenResolutionContextResolver implements ResolutionContextResolver {
    @Inject
    private LegacySupport buildContext;
 
-   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest)
-   {
+   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest) {
       final MavenSession session = buildContext.getSession();
       final MavenProject project = session.getCurrentProject();
 
       assertIsModuleProject(project, module);
 
       final ModelContext modelContext = ModelContextAdapterFactory.get(project);
-      if (scopeTest)
-      {
+      if (scopeTest) {
          return modelContext.getTestScope();
       }
-      else
-      {
+      else {
          return modelContext.getMainScope();
       }
    }
 
-   private static void assertIsModuleProject(final MavenProject project, AbstractModule module)
-   {
+   private static void assertIsModuleProject(final MavenProject project, AbstractModule module) {
       final String projectPath = project.getBasedir().getAbsolutePath();
       final String modelPath = module.getDirectory().getAbsolutePath();
-      if (!modelPath.startsWith(projectPath))
-      {
+      if (!modelPath.startsWith(projectPath)) {
          throw new IllegalStateException();
       }
    }

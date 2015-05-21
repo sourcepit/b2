@@ -23,15 +23,13 @@ import org.junit.Rule;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 
-public abstract class AbstractTestEnvironmentTest extends InjectedTest
-{
+public abstract class AbstractTestEnvironmentTest extends InjectedTest {
    public final Environment env = Environment.get("env-test.properties");
 
    @Rule
    public Workspace ws = newWorkspace();
 
-   protected Workspace newWorkspace()
-   {
+   protected Workspace newWorkspace() {
       return new Workspace(new File(env.getBuildDir(), "test-ws"), false);
    }
 }

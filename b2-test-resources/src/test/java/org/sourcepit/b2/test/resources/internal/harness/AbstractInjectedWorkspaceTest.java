@@ -21,32 +21,27 @@ import org.sourcepit.tools.shared.resources.internal.harness.MavenTestWorkspace;
 
 import com.google.inject.Binder;
 
-public abstract class AbstractInjectedWorkspaceTest extends InjectedTestCase
-{
+public abstract class AbstractInjectedWorkspaceTest extends InjectedTestCase {
    protected MavenTestWorkspace workspace = new MavenTestWorkspace(this, false);
 
    @Override
-   public void configure(Binder binder)
-   {
+   public void configure(Binder binder) {
       super.configure(binder);
       // binder.bind(Logger.class).toInstance(new ConsoleLogger());
    }
 
    @Override
-   protected void setUp() throws Exception
-   {
+   protected void setUp() throws Exception {
       workspace.startUp();
       super.setUp();
    }
 
-   public MavenTestWorkspace getWorkspace()
-   {
+   public MavenTestWorkspace getWorkspace() {
       return workspace;
    }
 
    @Override
-   protected void tearDown() throws Exception
-   {
+   protected void tearDown() throws Exception {
       super.tearDown();
       workspace.tearDown();
    }

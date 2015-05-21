@@ -44,40 +44,32 @@ import org.sourcepit.common.manifest.resource.ManifestResource;
 import org.sourcepit.common.utils.lang.Exceptions;
 
 @Named
-public class B2ReleaseHelper
-{
+public class B2ReleaseHelper {
    private final B2ScmHelper scmHelper;
 
    private final B2MavenBridge bridge;
 
    @Inject
-   public B2ReleaseHelper(B2ScmHelper scmHelper, LegacySupport buildContext)
-   {
+   public B2ReleaseHelper(B2ScmHelper scmHelper, LegacySupport buildContext) {
       this.scmHelper = scmHelper;
       bridge = B2MavenBridge.get(buildContext.getSession());
    }
 
-   public List<MavenProject> adaptModuleProjects(List<MavenProject> reactorProjects)
-   {
+   public List<MavenProject> adaptModuleProjects(List<MavenProject> reactorProjects) {
       final List<MavenProject> moduleProjects = new ArrayList<MavenProject>();
-      for (MavenProject reactorProject : reactorProjects)
-      {
+      for (MavenProject reactorProject : reactorProjects) {
          final MavenProject moduleProject = adaptModuleProject(reactorProject);
-         if (moduleProject != null)
-         {
+         if (moduleProject != null) {
             moduleProjects.add(moduleProject);
          }
       }
       return moduleProjects;
    }
 
-   public MavenProject adaptModuleProject(MavenProject reactorProject)
-   {
+   public MavenProject adaptModuleProject(MavenProject reactorProject) {
       MavenProject moduleProject = (MavenProject) reactorProject.getContextValue("b2.moduleProject");
-      if (moduleProject == null)
-      {
-         if (bridge.getModule(reactorProject) != null)
-         {
+      if (moduleProject == null) {
+         if (bridge.getModule(reactorProject) != null) {
             moduleProject = (MavenProject) reactorProject.clone();
             moduleProject.setFile(new File(reactorProject.getBasedir(), "module.xml"));
             reactorProject.setContextValue("b2.moduleProject", moduleProject);
@@ -86,32 +78,25 @@ public class B2ReleaseHelper
       return moduleProject;
    }
 
-   private Map<MavenProject, Project> getEclipseProjects(List<MavenProject> mavenProjects, boolean includeDerived)
-   {
+   private Map<MavenProject, Project> getEclipseProjects(List<MavenProject> mavenProjects, boolean includeDerived) {
       final Map<MavenProject, Project> result = new HashMap<MavenProject, Project>();
-      for (MavenProject mavenProject : mavenProjects)
-      {
+      for (MavenProject mavenProject : mavenProjects) {
          final Project eclipseProject = bridge.getEclipseProject(mavenProject);
-         if (eclipseProject != null && (includeDerived || !eclipseProject.isDerived()))
-         {
+         if (eclipseProject != null && (includeDerived || !eclipseProject.isDerived())) {
             result.put(mavenProject, eclipseProject);
          }
       }
       return result;
    }
 
-   private String toOSGiVersion(final String mavenVersion)
-   {
+   private String toOSGiVersion(final String mavenVersion) {
       final boolean isSnapshot = ArtifactUtils.isSnapshot(mavenVersion);
       int qualiIdx = mavenVersion.indexOf('-');
-      if (qualiIdx > -1)
-      {
-         if (isSnapshot)
-         {
+      if (qualiIdx > -1) {
+         if (isSnapshot) {
             return mavenVersion.substring(0, qualiIdx) + ".qualifier";
          }
-         else
-         {
+         else {
             char[] chars = mavenVersion.toCharArray();
             chars[qualiIdx] = '.';
             return new String(chars);
@@ -121,43 +106,35 @@ public class B2ReleaseHelper
    }
 
    public void rewriteEclipseVersions(ReleaseResult result, ReleaseDescriptor releaseDescriptor,
-      ReleaseEnvironment releaseEnvironment, List<MavenProject> mavenProjects, boolean release, boolean simulate)
-   {
+      ReleaseEnvironment releaseEnvironment, List<MavenProject> mavenProjects, boolean release, boolean simulate) {
       final Map<MavenProject, Project> projectMap = getEclipseProjects(mavenProjects, false);
-      if (!projectMap.isEmpty())
-      {
+      if (!projectMap.isEmpty()) {
          rewriteEclipseVersions(result, releaseDescriptor, releaseEnvironment, projectMap, release, simulate);
       }
    }
 
    private void rewriteEclipseVersions(ReleaseResult result, ReleaseDescriptor releaseDescriptor,
-      ReleaseEnvironment releaseEnvironment, Map<MavenProject, Project> projectMap, boolean release, boolean simulate)
-   {
-      for (Entry<MavenProject, Project> entry : projectMap.entrySet())
-      {
+      ReleaseEnvironment releaseEnvironment, Map<MavenProject, Project> projectMap, boolean release, boolean simulate) {
+      for (Entry<MavenProject, Project> entry : projectMap.entrySet()) {
          MavenProject mavenProject = entry.getKey();
          Project eclipseProject = entry.getValue();
-         if (eclipseProject instanceof PluginProject)
-         {
+         if (eclipseProject instanceof PluginProject) {
             rewriteBundleVersion(result, releaseDescriptor, releaseEnvironment, mavenProject, release, simulate);
          }
-         else
-         {
+         else {
             throw new UnsupportedOperationException(eclipseProject.getClass().getName() + " currently not supported");
          }
       }
    }
 
    private void rewriteBundleVersion(ReleaseResult result, ReleaseDescriptor releaseDescriptor,
-      ReleaseEnvironment releaseEnvironment, MavenProject mavenProject, boolean release, boolean simulate)
-   {
+      ReleaseEnvironment releaseEnvironment, MavenProject mavenProject, boolean release, boolean simulate) {
       final String mavenVersion = determineNewMavenVersion(releaseDescriptor, mavenProject, release);
 
       final String osgiVersion = toOSGiVersion(mavenVersion);
 
       final File manifestFile = new File(mavenProject.getBasedir(), "META-INF/MANIFEST.MF");
-      if (!manifestFile.canRead())
-      {
+      if (!manifestFile.canRead()) {
          throw Exceptions.pipe(new FileNotFoundException(manifestFile.getPath()));
       }
 
@@ -165,26 +142,23 @@ public class B2ReleaseHelper
 
       final BundleManifest manifest = readBundleManifest(manifestFile);
       manifest.setBundleVersion(osgiVersion);
-      try
-      {
+      try {
          manifest.eResource().save(null);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw Exceptions.pipe(e);
       }
    }
 
    private String determineNewMavenVersion(ReleaseDescriptor releaseDescriptor, MavenProject mavenProject,
-      boolean release)
-   {
+      boolean release) {
       @SuppressWarnings("unchecked")
-      final Map<String, String> versionMap = release ? releaseDescriptor.getReleaseVersions() : releaseDescriptor
-         .getDevelopmentVersions();
+      final Map<String, String> versionMap = release
+         ? releaseDescriptor.getReleaseVersions()
+         : releaseDescriptor.getDevelopmentVersions();
       String projectId = ArtifactUtils.versionlessKey(mavenProject.getGroupId(), mavenProject.getArtifactId());
       String mavenVersion = versionMap.get(projectId);
-      if (mavenVersion == null)
-      {
+      if (mavenVersion == null) {
          final MavenProject moduleProject = determineModuleMavenProject(mavenProject);
          projectId = ArtifactUtils.versionlessKey(moduleProject.getGroupId(), moduleProject.getArtifactId());
          mavenVersion = versionMap.get(projectId);
@@ -192,13 +166,10 @@ public class B2ReleaseHelper
       return mavenVersion;
    }
 
-   public MavenProject determineModuleMavenProject(MavenProject mavenProject)
-   {
+   public MavenProject determineModuleMavenProject(MavenProject mavenProject) {
       MavenProject parentProject = mavenProject;
-      while (parentProject != null)
-      {
-         if (bridge.getModule(parentProject) != null)
-         {
+      while (parentProject != null) {
+         if (bridge.getModule(parentProject) != null) {
             return parentProject;
          }
          parentProject = parentProject.getParent();
@@ -206,16 +177,13 @@ public class B2ReleaseHelper
       throw new IllegalStateException("Unable to determine module project for maven project " + mavenProject);
    }
 
-   private BundleManifest readBundleManifest(final File manifestFile)
-   {
+   private BundleManifest readBundleManifest(final File manifestFile) {
       final ManifestResource resource = new BundleManifestResourceImpl(
          URI.createFileURI(manifestFile.getAbsolutePath()));
-      try
-      {
+      try {
          resource.load(null);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw Exceptions.pipe(e);
       }
       return (BundleManifest) resource.getContents().get(0);

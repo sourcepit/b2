@@ -30,19 +30,16 @@ import org.sourcepit.tools.shared.resources.internal.harness.IFilterStrategy;
 
 import com.google.common.base.Optional;
 
-public class DefaultTemplateCopier implements ITemplates
-{
+public class DefaultTemplateCopier implements ITemplates {
    private final PropertiesSource globalProperties;
 
    final PathMatcher filterStrategy;
 
-   public DefaultTemplateCopier()
-   {
+   public DefaultTemplateCopier() {
       this(Optional.<PropertiesSource> absent());
    }
 
-   public DefaultTemplateCopier(Optional<? extends PropertiesSource> globalProperties)
-   {
+   public DefaultTemplateCopier(Optional<? extends PropertiesSource> globalProperties) {
       this.globalProperties = globalProperties.orNull();
       final String pattern = this.globalProperties == null ? "**" : this.globalProperties.get(
          "b2.templates.filteredResources", "**");
@@ -53,60 +50,47 @@ public class DefaultTemplateCopier implements ITemplates
     * {@inheritDoc}
     */
    public void copy(String resourcePath, File targetDir, Properties properties) throws IllegalArgumentException,
-      IllegalStateException
-   {
+      IllegalStateException {
       copy(resourcePath, targetDir, properties, true);
    }
 
    /**
     * {@inheritDoc}
     */
-   public void copy(String resourcePath, File targetDir, Properties properties, boolean includeDefaults)
-   {
+   public void copy(String resourcePath, File targetDir, Properties properties, boolean includeDefaults) {
       final SharedResourcesCopier copier = createCopier(properties);
-      try
-      {
+      try {
          copier.setManifestHeader("B2-Templates");
          copier.copy(resourcePath, targetDir);
       }
-      catch (IOException ex)
-      {
-         if (includeDefaults)
-         {
-            try
-            {
+      catch (IOException ex) {
+         if (includeDefaults) {
+            try {
                copier.setManifestHeader("B2-Default-Templates");
                copier.copy(resourcePath, targetDir);
             }
-            catch (FileNotFoundException e)
-            {
+            catch (FileNotFoundException e) {
                throw new IllegalArgumentException(e);
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                throw new IllegalStateException(e);
             }
          }
-         else
-         {
+         else {
             throw new IllegalStateException(ex);
          }
       }
    }
 
-   protected SharedResourcesCopier createCopier(Properties properties)
-   {
+   protected SharedResourcesCopier createCopier(Properties properties) {
       final SharedResourcesCopier copier = new SharedResourcesCopier();
       copier.setClassLoader(getClass().getClassLoader());
       copier.setEscapeString("\\");
       addValueSources(copier, properties);
 
-      if (globalProperties != null)
-      {
-         copier.getValueSources().add(new AbstractValueSource(false)
-         {
-            public Object getValue(String expression)
-            {
+      if (globalProperties != null) {
+         copier.getValueSources().add(new AbstractValueSource(false) {
+            public Object getValue(String expression) {
                return globalProperties.get(expression);
             }
          });
@@ -114,10 +98,8 @@ public class DefaultTemplateCopier implements ITemplates
 
       copier.setFilter(!copier.getValueSources().isEmpty());
 
-      copier.setFilterStrategy(new IFilterStrategy()
-      {
-         public boolean filter(String fileName)
-         {
+      copier.setFilterStrategy(new IFilterStrategy() {
+         public boolean filter(String fileName) {
             return filterStrategy.isMatch(fileName);
          }
       });
@@ -125,10 +107,8 @@ public class DefaultTemplateCopier implements ITemplates
       return copier;
    }
 
-   protected void addValueSources(final SharedResourcesCopier copier, Properties properties)
-   {
-      if (properties != null)
-      {
+   protected void addValueSources(final SharedResourcesCopier copier, Properties properties) {
+      if (properties != null) {
          copier.getValueSources().add(ValueSourceUtils.newPropertyValueSource(properties));
       }
    }

@@ -28,12 +28,10 @@ import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 
-public class ModuleWalkerTest
-{
+public class ModuleWalkerTest {
 
    @Test
-   public void test()
-   {
+   public void test() {
       final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
 
       BasicModule subModule1 = eFactory.createBasicModule();
@@ -45,13 +43,10 @@ public class ModuleWalkerTest
 
       final List<AbstractModule> visitedModules = new ArrayList<AbstractModule>();
 
-      new ModuleWalker()
-      {
+      new ModuleWalker() {
          @Override
-         protected boolean doVisit(EObject eObject)
-         {
-            if (eObject instanceof AbstractModule)
-            {
+         protected boolean doVisit(EObject eObject) {
+            if (eObject instanceof AbstractModule) {
                visitedModules.add((AbstractModule) eObject);
             }
             return true;

@@ -18,8 +18,7 @@ package org.sourcepit.b2.internal.generator.p2;
 
 import java.util.Map;
 
-public class Require
-{
+public class Require {
    // requires.{#}.namespace = {namespace}
    // requires.{#}.name = {name}
    // requires.{#}.range = {range} (optional / default: 0.0.0)]
@@ -34,91 +33,74 @@ public class Require
    private boolean optional;
    private boolean multiple;
 
-   public String getNamespace()
-   {
+   public String getNamespace() {
       return namespace;
    }
 
-   public void setNamespace(String namespace)
-   {
+   public void setNamespace(String namespace) {
       this.namespace = namespace;
    }
 
-   public String getName()
-   {
+   public String getName() {
       return name;
    }
 
-   public void setName(String name)
-   {
+   public void setName(String name) {
       this.name = name;
    }
 
-   public String getRange()
-   {
+   public String getRange() {
       return range;
    }
 
-   public void setRange(String range)
-   {
+   public void setRange(String range) {
       this.range = range;
    }
 
-   public boolean isGreedy()
-   {
+   public boolean isGreedy() {
       return greedy;
    }
 
-   public void setGreedy(boolean greedy)
-   {
+   public void setGreedy(boolean greedy) {
       this.greedy = greedy;
    }
 
-   public boolean isOptional()
-   {
+   public boolean isOptional() {
       return optional;
    }
 
-   public void setOptional(boolean optional)
-   {
+   public void setOptional(boolean optional) {
       this.optional = optional;
    }
 
-   public boolean isMultiple()
-   {
+   public boolean isMultiple() {
       return multiple;
    }
 
-   public void setMultiple(boolean multiple)
-   {
+   public void setMultiple(boolean multiple) {
       this.multiple = multiple;
    }
 
-   public void put(Map<String, String> map, int index)
-   {
+   public void put(Map<String, String> map, int index) {
       final String prefix = "requires." + index;
 
       map.put(prefix + ".namespace", getNamespace());
       map.put(prefix + ".name", getName());
 
       final String range = getRange();
-      if (range != null)
-      {
+      if (range != null) {
          map.put(prefix + ".range", range);
       }
 
-      if (!isGreedy())
-      {
+      if (!isGreedy()) {
          map.put(prefix + ".greedy", "false");
       }
 
-      if (isMultiple())
-      {
+      if (isMultiple()) {
          map.put(prefix + ".multiple", "true");
       }
 
-      if (isOptional())
-      {
+      if (isOptional()) {
          map.put(prefix + ".optional", "true");
       }
    }

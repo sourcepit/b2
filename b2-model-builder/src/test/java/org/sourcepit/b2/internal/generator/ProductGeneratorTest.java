@@ -46,12 +46,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class ProductGeneratorTest extends AbstractTestEnvironmentTest
-{
+public class ProductGeneratorTest extends AbstractTestEnvironmentTest {
 
    @Test
-   public void testCopyAndFilterProductFile() throws Exception
-   {
+   public void testCopyAndFilterProductFile() throws Exception {
       final StringBuilder sb = new StringBuilder();
       sb.append("<product name=\"${name}\" uid=\"${uid}\" version=\"${version}\">\n");
       sb.append("${content}\n");
@@ -59,11 +57,9 @@ public class ProductGeneratorTest extends AbstractTestEnvironmentTest
 
       final File srcFile = ws.newFile("src.product");
       final File destFile = ws.newFile("dest.product");
-      write(new ToStream<String>()
-      {
+      write(new ToStream<String>() {
          @Override
-         public void write(OutputStream output, String content) throws Exception
-         {
+         public void write(OutputStream output, String content) throws Exception {
             IOUtils.copy(new ByteArrayInputStream(content.getBytes("UTF-8")), output);
          }
       }, buffOut(fileOut(srcFile)), sb.toString());
@@ -77,11 +73,9 @@ public class ProductGeneratorTest extends AbstractTestEnvironmentTest
       ProductGenerator.copyAndFilterProductFile(srcFile, destFile, properties);
       assertTrue(destFile.exists());
 
-      String filteredContent = read(new FromStream<String>()
-      {
+      String filteredContent = read(new FromStream<String>() {
          @Override
-         public String read(InputStream input) throws Exception
-         {
+         public String read(InputStream input) throws Exception {
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             IOUtils.copy(input, output);
             return new String(output.toByteArray(), "UTF-8");
@@ -93,8 +87,7 @@ public class ProductGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testMoveStrictRequirementsToProductXML()
-   {
+   public void testMoveStrictRequirementsToProductXML() {
       List<Require> requires = new ArrayList<Require>();
       requires.add(createRequire("1.feature.group", "0.0.0"));
       requires.add(createRequire("2.feature.group", "[1.0.0,2.0.0]"));
@@ -129,8 +122,7 @@ public class ProductGeneratorTest extends AbstractTestEnvironmentTest
       assertEquals("2.0.0", childNode.getAttribute("version"));
    }
 
-   private static Require createRequire(String name, String range)
-   {
+   private static Require createRequire(String name, String range) {
       final Require require = new Require();
       require.setNamespace("org.eclipse.equinox.p2.iu");
       require.setName(name);

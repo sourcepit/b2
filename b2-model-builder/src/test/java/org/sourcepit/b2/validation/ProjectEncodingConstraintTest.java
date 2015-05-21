@@ -38,8 +38,7 @@ import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class ProjectEncodingConstraintTest
-{
+public class ProjectEncodingConstraintTest {
    private Environment env = Environment.get("env-test.properties");
 
    @Rule
@@ -50,15 +49,13 @@ public class ProjectEncodingConstraintTest
    private RecordingLogger logger;
 
    @Before
-   public void setUp()
-   {
+   public void setUp() {
       logger = new RecordingLogger();
       constraint = new ProjectEncodingConstraint(logger);
    }
 
    @Test
-   public void testOk() throws Exception
-   {
+   public void testOk() throws Exception {
       final File bundleDir = ws.newDir("bundle");
 
       final PluginProject pluginProject = newPluginProject(bundleDir);
@@ -81,8 +78,7 @@ public class ProjectEncodingConstraintTest
    }
 
    @Test
-   public void testQuickFix() throws Exception
-   {
+   public void testQuickFix() throws Exception {
       final File bundleDir = ws.newDir("bundle");
 
       final PluginProject pluginProject = newPluginProject(bundleDir);
@@ -98,41 +94,35 @@ public class ProjectEncodingConstraintTest
       logger.getMessages().clear();
       constraint.validate(pluginProject, buildProperties, true);
       assertThat(logger.getMessages().size(), is(1));
-      assertEquals("WARN bundle: Expected project encoding UTF-8 but is <not-set>. (applied quick fix)", logger
-         .getMessages().get(0));
+      assertEquals("WARN bundle: Expected project encoding UTF-8 but is <not-set>. (applied quick fix)",
+         logger.getMessages().get(0));
 
       final PropertiesMap projectProperties = new LinkedPropertiesMap();
       projectProperties.load(ws.newFile("bundle/.settings/org.eclipse.core.resources.prefs"));
       assertEquals("UTF-8", projectProperties.get("encoding/<project>"));
    }
 
-   private PluginProject newPluginProject(final File bundleDir)
-   {
+   private PluginProject newPluginProject(final File bundleDir) {
       final PluginProject pluginProject = ModuleModelFactory.eINSTANCE.createPluginProject();
       pluginProject.setId(bundleDir.getName());
       pluginProject.setDirectory(bundleDir);
       return pluginProject;
    }
 
-   private void save(final PropertiesMap resourcePrefs, final File resourcePrefsFile)
-   {
+   private void save(final PropertiesMap resourcePrefs, final File resourcePrefsFile) {
       OutputStream out = null;
-      try
-      {
-         if (!resourcePrefsFile.exists())
-         {
+      try {
+         if (!resourcePrefsFile.exists()) {
             resourcePrefsFile.getParentFile().mkdirs();
             resourcePrefsFile.createNewFile();
          }
          out = new BufferedOutputStream(new FileOutputStream(resourcePrefsFile));
          resourcePrefs.toJavaProperties().store(out, null);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw Exceptions.pipe(e);
       }
-      finally
-      {
+      finally {
          IOUtils.closeQuietly(out);
       }
    }

@@ -25,8 +25,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.content.ContentTypes;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class ModuleParsingRequest implements IModuleParsingRequest
-{
+public class ModuleParsingRequest implements IModuleParsingRequest {
    private ModuleDirectory moduleDirectory;
 
    private PropertiesSource moduleProperties;
@@ -35,40 +34,33 @@ public class ModuleParsingRequest implements IModuleParsingRequest
 
    private ContentTypes contentTypes;
 
-   public PropertiesSource getModuleProperties()
-   {
+   public PropertiesSource getModuleProperties() {
       return moduleProperties;
    }
 
-   public void setModuleProperties(PropertiesSource moduleProperties)
-   {
+   public void setModuleProperties(PropertiesSource moduleProperties) {
       this.moduleProperties = moduleProperties;
    }
 
    @Override
-   public ModuleDirectory getModuleDirectory()
-   {
+   public ModuleDirectory getModuleDirectory() {
       return moduleDirectory;
    }
 
-   public void setModuleDirectory(ModuleDirectory moduleDirectory)
-   {
+   public void setModuleDirectory(ModuleDirectory moduleDirectory) {
       this.moduleDirectory = moduleDirectory;
    }
 
-   public Map<File, AbstractModule> getModulesCache()
-   {
+   public Map<File, AbstractModule> getModulesCache() {
       return modulesCache;
    }
 
-   public void setContentTypes(ContentTypes contentTypes)
-   {
+   public void setContentTypes(ContentTypes contentTypes) {
       this.contentTypes = contentTypes;
    }
 
    @Override
-   public ContentTypes getContentTypes()
-   {
+   public ContentTypes getContentTypes() {
       return contentTypes;
    }
 }

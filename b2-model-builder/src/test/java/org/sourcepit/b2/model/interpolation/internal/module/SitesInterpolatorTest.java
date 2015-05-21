@@ -47,12 +47,10 @@ import org.sourcepit.b2.model.module.StrictReference;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
-{
+public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest {
 
    @Override
-   protected void interpolate(AbstractModule module, PropertiesMap moduleProperties)
-   {
+   protected void interpolate(AbstractModule module, PropertiesMap moduleProperties) {
       super.interpolate(module, moduleProperties);
 
       new SitesInterpolator(lookup(SitesConverter.class), lookup(LayoutManager.class)).interpolate(module,
@@ -60,8 +58,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_1_SinglePlugin_NoSource(BasicModule module)
-   {
+   protected void assertUC_1_SinglePlugin_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -94,8 +91,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_1_SinglePlugin_WithSource(BasicModule module)
-   {
+   protected void assertUC_1_SinglePlugin_WithSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -152,8 +148,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_2_PluginsAndTests_NoSource(BasicModule module)
-   {
+   protected void assertUC_2_PluginsAndTests_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -206,8 +201,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_2_PluginsAndTests_WithSource(BasicModule module)
-   {
+   protected void assertUC_2_PluginsAndTests_WithSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -304,8 +298,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_3_EraseFacetClassifier_NoSource(BasicModule module)
-   {
+   protected void assertUC_3_EraseFacetClassifier_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -361,8 +354,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_3_EraseFacetClassifier_WithSource(BasicModule module)
-   {
+   protected void assertUC_3_EraseFacetClassifier_WithSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -460,8 +452,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_4_CustomAssemblies_PublicSdkTest_NoSource(BasicModule module)
-   {
+   protected void assertUC_4_CustomAssemblies_PublicSdkTest_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -536,8 +527,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_4_CustomAssemblies_PublicSdkTest_WithSource(BasicModule module)
-   {
+   protected void assertUC_4_CustomAssemblies_PublicSdkTest_WithSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -655,8 +645,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_NoSource(BasicModule module)
-   {
+   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -732,8 +721,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_WithSource(BasicModule module)
-   {
+   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_WithSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -849,8 +837,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_6_InterFacetRequirements_NoSource(BasicModule module)
-   {
+   protected void assertUC_6_InterFacetRequirements_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -925,8 +912,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_6_InterFacetRequirements_WithSource(BasicModule module)
-   {
+   protected void assertUC_6_InterFacetRequirements_WithSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -1042,8 +1028,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_6_InterModuleFacetRequirements_NoSource(BasicModule module)
-   {
+   protected void assertUC_6_InterModuleFacetRequirements_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -1097,8 +1082,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_NoSource(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -1238,8 +1222,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -1415,8 +1398,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -1531,8 +1513,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -1672,8 +1653,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource(BasicModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -1831,8 +1811,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_8_AggregateContentOfCompositeModule_NoSource(CompositeModule module)
-   {
+   protected void assertUC_8_AggregateContentOfCompositeModule_NoSource(CompositeModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -1928,14 +1907,12 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module)
-   {
+   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module) {
       assertUC_8_AggregateContentOfCompositeModule_NoSource(module);
    }
 
    @Override
-   protected void assertUC_8_AggregateContentOfCompositeModule_WithSource(CompositeModule module)
-   {
+   protected void assertUC_8_AggregateContentOfCompositeModule_WithSource(CompositeModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -2067,8 +2044,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource(CompositeModule module)
-   {
+   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource(CompositeModule module) {
       EList<SitesFacet> siteFacets = module.getFacets(SitesFacet.class);
       assertEquals(1, siteFacets.size());
 
@@ -2164,8 +2140,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Test
-   public void testEnsureAllFeaturesAreIncludedEvenWithoutCategory() throws Exception
-   {
+   public void testEnsureAllFeaturesAreIncludedEvenWithoutCategory() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -2233,8 +2208,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Test
-   public void testFeatureErasure() throws Exception
-   {
+   public void testFeatureErasure() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -2296,8 +2270,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Test
-   public void testProduct() throws Exception
-   {
+   public void testProduct() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -2360,8 +2333,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    private static ProductDefinition addProductDefinition(BasicModule module, String facetName, String productId,
-      PluginProject pluginProject)
-   {
+      PluginProject pluginProject) {
       final StrictReference productPlugin = ModuleModelFactory.eINSTANCE.createStrictReference();
       productPlugin.setId(pluginProject.getId());
       productPlugin.setVersion(pluginProject.getVersion());
@@ -2372,8 +2344,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       productDefinition.setProductPlugin(productPlugin);
 
       ProductsFacet productsFacet = module.getFacetByName(facetName);
-      if (productsFacet == null)
-      {
+      if (productsFacet == null) {
          productsFacet = createProductsFacet(facetName);
          module.getFacets().add(productsFacet);
       }
@@ -2383,8 +2354,7 @@ public class SitesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       return productDefinition;
    }
 
-   private static ProductsFacet createProductsFacet(String name)
-   {
+   private static ProductsFacet createProductsFacet(String name) {
       final ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
       final ProductsFacet productsFacet = eFactory.createProductsFacet();
       productsFacet.setName(name);

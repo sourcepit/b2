@@ -26,7 +26,6 @@ import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 import java.io.File;
 import java.io.FileFilter;
 
-import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
 import org.hamcrest.core.Is;
 import org.junit.Test;
@@ -36,21 +35,17 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.ProductDefinition;
 import org.sourcepit.b2.model.module.ProductsFacet;
 
-public class NoEnvProductIT extends AbstractB2IT
-{
+public class NoEnvProductIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File deployTargetDir = new File(environment.getBuildDir(),
          "remote-repository/snapshots/org/sourcepit/b2/its/NoEnvProductIT/1.0.0-SNAPSHOT");
-      if (deployTargetDir.exists())
-      {
+      if (deployTargetDir.exists()) {
          deleteFileOrDirectory(deployTargetDir);
       }
       assertFalse(deployTargetDir.exists());
@@ -76,10 +71,8 @@ public class NoEnvProductIT extends AbstractB2IT
       final File projectDir = new File(layout.pathOfSiteProject(module, ""));
       assertTrue(projectDir.exists());
 
-      final File[] productZips = new File(projectDir, "target/products").listFiles(new FileFilter()
-      {
-         public boolean accept(File pathname)
-         {
+      final File[] productZips = new File(projectDir, "target/products").listFiles(new FileFilter() {
+         public boolean accept(File pathname) {
             return pathname.isFile() && pathname.getName().endsWith(".zip");
          }
       });
@@ -93,10 +86,8 @@ public class NoEnvProductIT extends AbstractB2IT
       final String classifier = productZipName.substring(productZipName.lastIndexOf('-') + 1,
          productZipName.length() - 4);
 
-      final File[] deployedProducts = deployTargetDir.listFiles(new FileFilter()
-      {
-         public boolean accept(File pathname)
-         {
+      final File[] deployedProducts = deployTargetDir.listFiles(new FileFilter() {
+         public boolean accept(File pathname) {
             return pathname.getName().endsWith(classifier + ".zip");
          }
       });

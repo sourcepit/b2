@@ -18,39 +18,32 @@ package org.sourcepit.b2.internal.generator;
 
 import java.io.File;
 
-public class ModuleArtifact
-{
+public class ModuleArtifact {
    private File file;
    private String classifier;
    private String type;
 
-   public File getFile()
-   {
+   public File getFile() {
       return file;
    }
 
-   public void setFile(File file)
-   {
+   public void setFile(File file) {
       this.file = file;
    }
 
-   public String getClassifier()
-   {
+   public String getClassifier() {
       return classifier;
    }
 
-   public void setClassifier(String classifier)
-   {
+   public void setClassifier(String classifier) {
       this.classifier = classifier;
    }
 
-   public String getType()
-   {
+   public String getType() {
       return type;
    }
 
-   public void setType(String type)
-   {
+   public void setType(String type) {
       this.type = type;
    }
 }

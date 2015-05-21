@@ -36,35 +36,29 @@ import org.apache.maven.model.Plugin;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
 @Named
-public class TargetPlatformRequirementsAppender
-{
-   public void append(Model model, List<Dependency> requirements)
-   {
+public class TargetPlatformRequirementsAppender {
+   public void append(Model model, List<Dependency> requirements) {
       checkNotNull(model);
 
-      if (requirements.isEmpty())
-      {
+      if (requirements.isEmpty()) {
          return;
       }
 
       final Plugin plugin = getPlugin(model, TYCHO_GROUP_ID, TYCHO_TPC_PLUGIN_ARTIFACT_ID, true);
       Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
-      if (configuration == null)
-      {
+      if (configuration == null) {
          configuration = new Xpp3Dom("configuration");
          plugin.setConfiguration(configuration);
       }
 
       Xpp3Dom dependencyResolution = configuration.getChild("dependency-resolution");
-      if (dependencyResolution == null)
-      {
+      if (dependencyResolution == null) {
          dependencyResolution = new Xpp3Dom("dependency-resolution");
          configuration.addChild(dependencyResolution);
       }
 
       Xpp3Dom extraRequirements = dependencyResolution.getChild("extraRequirements");
-      if (extraRequirements == null)
-      {
+      if (extraRequirements == null) {
          extraRequirements = new Xpp3Dom("extraRequirements");
          dependencyResolution.addChild(extraRequirements);
       }
@@ -74,23 +68,18 @@ public class TargetPlatformRequirementsAppender
 
       clearChildren(extraRequirements);
 
-      for (Dependency dependency : dependencyList)
-      {
+      for (Dependency dependency : dependencyList) {
          extraRequirements.addChild(toRequirementNode(dependency));
       }
    }
 
-   private static void addAllUnique(List<Dependency> dest, List<Dependency> src)
-   {
+   private static void addAllUnique(List<Dependency> dest, List<Dependency> src) {
       final Set<String> managementKeys = new HashSet<String>();
-      for (Dependency dependency : dest)
-      {
+      for (Dependency dependency : dest) {
          managementKeys.add(dependency.getManagementKey());
       }
-      for (Dependency dependency : src)
-      {
-         if (managementKeys.add(dependency.getManagementKey()))
-         {
+      for (Dependency dependency : src) {
+         if (managementKeys.add(dependency.getManagementKey())) {
             dest.add(dependency);
          }
       }

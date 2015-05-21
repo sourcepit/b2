@@ -25,26 +25,21 @@ import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.b2.model.module.Derivable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public abstract class AbstractGeneratorForDerivedElements extends AbstractGenerator
-{
+public abstract class AbstractGeneratorForDerivedElements extends AbstractGenerator {
    @Override
-   public boolean isGeneratorInput(EObject eObject)
-   {
+   public boolean isGeneratorInput(EObject eObject) {
       return eObject instanceof Derivable ? isGeneratorInput((Derivable) eObject) : false;
    }
 
-   protected boolean isGeneratorInput(Derivable derivable)
-   {
-      if (derivable.isDerived())
-      {
+   protected boolean isGeneratorInput(Derivable derivable) {
+      if (derivable.isDerived()) {
          return isGeneratorInputType(derivable.getClass());
       }
       return false;
    }
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
       final Collection<Class<? extends Derivable>> typesOfInputs = new ArrayList<Class<? extends Derivable>>();
       addTypesOfInputs(typesOfInputs);
       inputTypes.addAll(typesOfInputs);
@@ -54,8 +49,7 @@ public abstract class AbstractGeneratorForDerivedElements extends AbstractGenera
 
    @Override
    public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates,
-      ModuleDirectory moduleDirectory)
-   {
+      ModuleDirectory moduleDirectory) {
       generate((Derivable) inputElement, properties, templates);
    }
 

@@ -23,8 +23,7 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 /**
  * @author Bernd
  */
-public interface IModuleInterpolationRequest
-{
+public interface IModuleInterpolationRequest {
    AbstractModule getModule();
 
    PropertiesSource getModuleProperties();

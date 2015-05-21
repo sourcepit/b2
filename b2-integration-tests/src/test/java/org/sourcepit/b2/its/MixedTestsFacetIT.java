@@ -31,17 +31,14 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.PluginsFacet;
 
-public class MixedTestsFacetIT extends AbstractB2IT
-{
+public class MixedTestsFacetIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final BasicModule module = (BasicModule) buildModel(false);
       assertThat(module.getFacets().size(), Is.is(2));
 
@@ -57,8 +54,7 @@ public class MixedTestsFacetIT extends AbstractB2IT
       assertThat(3, Is.is(pom.getModules().size()));
    }
 
-   private AbstractModule buildModel(boolean interpolate) throws IOException
-   {
+   private AbstractModule buildModel(boolean interpolate) throws IOException {
       final File moduleDir = getResource(getClass().getSimpleName());
       final Map<String, String> envs = environment.newEnvs();
       final CommandLine cmd = newMavenCmd(environment.getMavenHome(), "-e", "-B", "-Dtycho.mode=maven",

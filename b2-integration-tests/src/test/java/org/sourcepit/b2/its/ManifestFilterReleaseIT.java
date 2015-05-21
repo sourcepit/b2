@@ -17,7 +17,8 @@
 package org.sourcepit.b2.its;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.sourcepit.b2.its.ReleaseIT.setScm;
 
 import java.io.File;
@@ -28,17 +29,14 @@ import org.junit.Test;
 import org.sourcepit.b2.its.util.GitSCM;
 import org.sourcepit.b2.its.util.SCM;
 
-public class ManifestFilterReleaseIT extends AbstractB2IT
-{
+public class ManifestFilterReleaseIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
       final SCM scm = new GitSCM(moduleDir);
 

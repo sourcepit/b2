@@ -38,8 +38,7 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * 
  * @generated
  */
-public abstract class FileContainerImpl extends EObjectImpl implements FileContainer
-{
+public abstract class FileContainerImpl extends EObjectImpl implements FileContainer {
    /**
     * The default value of the '{@link #getDirectory() <em>Directory</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -68,8 +67,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * 
     * @generated
     */
-   protected FileContainerImpl()
-   {
+   protected FileContainerImpl() {
       super();
    }
 
@@ -80,8 +78,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.FILE_CONTAINER;
    }
 
@@ -91,8 +88,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * 
     * @generated
     */
-   public File getDirectory()
-   {
+   public File getDirectory() {
       return directory;
    }
 
@@ -102,8 +98,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * 
     * @generated
     */
-   public void setDirectory(File newDirectory)
-   {
+   public void setDirectory(File newDirectory) {
       File oldDirectory = directory;
       directory = newDirectory;
       if (eNotificationRequired())
@@ -118,10 +113,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.FILE_CONTAINER__DIRECTORY :
             return getDirectory();
       }
@@ -135,10 +128,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * @generated
     */
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.FILE_CONTAINER__DIRECTORY :
             setDirectory((File) newValue);
             return;
@@ -153,10 +144,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.FILE_CONTAINER__DIRECTORY :
             setDirectory(DIRECTORY_EDEFAULT);
             return;
@@ -171,10 +160,8 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.FILE_CONTAINER__DIRECTORY :
             return DIRECTORY_EDEFAULT == null ? directory != null : !DIRECTORY_EDEFAULT.equals(directory);
       }
@@ -188,8 +175,7 @@ public abstract class FileContainerImpl extends EObjectImpl implements FileConta
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

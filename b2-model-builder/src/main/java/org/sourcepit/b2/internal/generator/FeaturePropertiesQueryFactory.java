@@ -24,11 +24,9 @@ import javax.inject.Named;
 import com.google.common.base.Strings;
 
 @Named
-public class FeaturePropertiesQueryFactory
-{
+public class FeaturePropertiesQueryFactory {
    public Map<String, PropertiesQuery> createPropertyQueries(boolean isAssemblyFeature, boolean isSourceFeature,
-      String facetOrAssemblyName, String facetOrAssemblyClassifier)
-   {
+      String facetOrAssemblyName, String facetOrAssemblyClassifier) {
       final boolean hasClassifier = !Strings.isNullOrEmpty(facetOrAssemblyClassifier);
 
       final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
@@ -36,12 +34,10 @@ public class FeaturePropertiesQueryFactory
          ? "sourceFeatureName"
          : "featureName");
 
-      if (hasClassifier)
-      {
+      if (hasClassifier) {
          nameQuery.setDefaultValue("${feature.label} ${feature.classifierLabel} ${feature.labelAppendix}");
       }
-      else
-      {
+      else {
          nameQuery.setDefaultValue("${feature.label} ${feature.labelAppendix}");
       }
       queries.put("feature.name", nameQuery);
@@ -50,8 +46,7 @@ public class FeaturePropertiesQueryFactory
          ? "sourceFeatureLabel"
          : "featureLabel");
 
-      if (isSourceFeature)
-      {
+      if (isSourceFeature) {
          labelQuery.getKeys().add(
             createQuery(isAssemblyFeature, facetOrAssemblyName, false, "featureLabel").getKeys().iterator().next());
       }
@@ -61,21 +56,18 @@ public class FeaturePropertiesQueryFactory
       labelQuery.getKeys().add("project.artifactId");
       queries.put("feature.label", labelQuery);
 
-      if (hasClassifier)
-      {
+      if (hasClassifier) {
          final PropertiesQuery clsQuery = createQuery(isAssemblyFeature, facetOrAssemblyName, false, "classifierLabel");
          clsQuery.setDefaultValue(toClassifierLabel(facetOrAssemblyClassifier));
          queries.put("feature.classifierLabel", clsQuery);
       }
 
-      if (isSourceFeature)
-      {
+      if (isSourceFeature) {
          PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "sourceFeatureLabelAppendix");
          query.setDefaultValue("(Sources)");
          queries.put("feature.labelAppendix", query);
       }
-      else
-      {
+      else {
          PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, true, "featureLabelAppendix");
          query.setDefaultValue("");
          queries.put("feature.labelAppendix", query);
@@ -102,15 +94,12 @@ public class FeaturePropertiesQueryFactory
       return queries;
    }
 
-   public static String toClassifierLabel(String classifier)
-   {
+   public static String toClassifierLabel(String classifier) {
       final StringBuilder sb = new StringBuilder();
       boolean nextUp = true;
 
-      for (char c : classifier.toCharArray())
-      {
-         if (c == '.')
-         {
+      for (char c : classifier.toCharArray()) {
+         if (c == '.') {
             c = ' ';
          }
          sb.append(nextUp ? Character.toUpperCase(c) : c);
@@ -121,23 +110,20 @@ public class FeaturePropertiesQueryFactory
    }
 
    private PropertiesQuery putQuery(Map<String, PropertiesQuery> queries, boolean isAssemblyFeature,
-      String facetOrAssemblyName, boolean addDefaultKey, String property)
-   {
+      String facetOrAssemblyName, boolean addDefaultKey, String property) {
       final PropertiesQuery query = createQuery(isAssemblyFeature, facetOrAssemblyName, addDefaultKey, property);
       queries.put("feature." + property, query);
       return query;
    }
 
    private PropertiesQuery createQuery(boolean isAssemblyFeature, String facetOrAssemblyName, boolean addDefaultKey,
-      String property)
-   {
+      String property) {
       final String preamble = "b2." + (isAssemblyFeature ? "assemblies" : "facets");
 
       final PropertiesQuery query = new PropertiesQuery();
       query.setRetryWithoutPrefix(true);
       query.getKeys().add(preamble + createPropertySpacer(facetOrAssemblyName) + property);
-      if (addDefaultKey)
-      {
+      if (addDefaultKey) {
          query.getKeys().add(preamble + "." + property);
          query.getKeys().add("b2.module." + property);
       }
@@ -145,8 +131,7 @@ public class FeaturePropertiesQueryFactory
       return query;
    }
 
-   private String createPropertySpacer(String stringInTheMiddle)
-   {
+   private String createPropertySpacer(String stringInTheMiddle) {
       return stringInTheMiddle == null || stringInTheMiddle.length() == 0 ? "." : "." + stringInTheMiddle + ".";
    }
 

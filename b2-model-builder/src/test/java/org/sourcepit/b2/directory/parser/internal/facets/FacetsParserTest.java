@@ -25,48 +25,38 @@ import org.sourcepit.b2.model.module.AbstractFacet;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 
-public class FacetsParserTest extends AbstractModuleParserTest
-{
-   public void testBasic() throws Exception
-   {
+public class FacetsParserTest extends AbstractModuleParserTest {
+   public void testBasic() throws Exception {
       FacetsParser facetsParser = lookup();
       assertNotNull(facetsParser);
    }
 
-   public void testNull() throws Exception
-   {
+   public void testNull() throws Exception {
       FacetsParser facetsParser = lookup();
 
-      try
-      {
+      try {
          facetsParser.parse(null, null);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
-      try
-      {
+      try {
          facetsParser.parse(new File(""), null);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
-      try
-      {
+      try {
          facetsParser.parse(null, B2ModelBuildingRequest.newDefaultProperties());
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
    }
 
-   public void testNonFacetDir() throws Exception
-   {
+   public void testNonFacetDir() throws Exception {
       final File pluginDir = workspace.importResources("composed-component/structured-layout/plugins/example.ui");
       assertTrue(pluginDir.exists());
 
@@ -74,8 +64,7 @@ public class FacetsParserTest extends AbstractModuleParserTest
       assertNull(facetsParser.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
-   public void testSimpleLayout() throws Exception
-   {
+   public void testSimpleLayout() throws Exception {
       File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.exists());
 
@@ -97,8 +86,7 @@ public class FacetsParserTest extends AbstractModuleParserTest
       SimpleLayoutFacetsParserRuleTest.assertSimpleLayout(dummyComponent);
    }
 
-   public void testStructuredLayout() throws Exception
-   {
+   public void testStructuredLayout() throws Exception {
       File moduleDir = workspace.importResources("composed-component/structured-layout");
       assertTrue(moduleDir.exists());
 
@@ -120,8 +108,7 @@ public class FacetsParserTest extends AbstractModuleParserTest
       StructuredLayoutFacetsParserRuleTest.assertStructuredLayout(dummyComponent);
    }
 
-   public void testCompositeComponentDir() throws Exception
-   {
+   public void testCompositeComponentDir() throws Exception {
       File moduleDir = workspace.importResources("composed-component");
       assertTrue(moduleDir.exists());
 
@@ -132,8 +119,7 @@ public class FacetsParserTest extends AbstractModuleParserTest
       assertNull(result);
    }
 
-   private FacetsParser lookup() throws Exception
-   {
+   private FacetsParser lookup() throws Exception {
       return (FacetsParser) lookup(FacetsParser.class);
    }
 }

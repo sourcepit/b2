@@ -25,8 +25,7 @@ import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 
-public interface FeaturesConverter extends BasicConverter
-{
+public interface FeaturesConverter extends BasicConverter {
    PathMatcher getAggregatorFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemblyName);
 
    PathMatcher getFeatureMatcherForAssembly(PropertiesSource moduleProperties, String assemplyName);

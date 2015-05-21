@@ -20,8 +20,7 @@ import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class B2GenerationRequest implements IB2GenerationRequest
-{
+public class B2GenerationRequest implements IB2GenerationRequest {
    private AbstractModule module;
 
    private ModuleDirectory moduleDirectory;
@@ -33,47 +32,39 @@ public class B2GenerationRequest implements IB2GenerationRequest
    /**
     * {@inheritDoc}
     */
-   public AbstractModule getModule()
-   {
+   public AbstractModule getModule() {
       return module;
    }
 
-   public void setModule(AbstractModule module)
-   {
+   public void setModule(AbstractModule module) {
       this.module = module;
    }
 
    @Override
-   public ModuleDirectory getModuleDirectory()
-   {
+   public ModuleDirectory getModuleDirectory() {
       return moduleDirectory;
    }
 
-   public void setModuleDirectory(ModuleDirectory moduleDirectory)
-   {
+   public void setModuleDirectory(ModuleDirectory moduleDirectory) {
       this.moduleDirectory = moduleDirectory;
    }
 
-   public PropertiesSource getModuleProperties()
-   {
+   public PropertiesSource getModuleProperties() {
       return moduleProperties;
    }
 
-   public void setModuleProperties(PropertiesSource moduleProperties)
-   {
+   public void setModuleProperties(PropertiesSource moduleProperties) {
       this.moduleProperties = moduleProperties;
    }
 
    /**
     * {@inheritDoc}
     */
-   public ITemplates getTemplates()
-   {
+   public ITemplates getTemplates() {
       return templates;
    }
 
-   public void setTemplates(ITemplates templates)
-   {
+   public void setTemplates(ITemplates templates) {
       this.templates = templates;
    }
 }

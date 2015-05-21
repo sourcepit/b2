@@ -26,16 +26,13 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class PomGeneratorTest extends AbstractPomGeneratorTest
-{
+public class PomGeneratorTest extends AbstractPomGeneratorTest {
    @Override
-   protected String setUpModulePath()
-   {
+   protected String setUpModulePath() {
       return "composed-component/simple-layout";
    }
 
-   public void testArtifactId() throws Exception
-   {
+   public void testArtifactId() throws Exception {
       BasicModule module = buildModel(getModuleDirs().get(0));
       assertNotNull(module);
       assertNoPomFiles(module.getDirectory());
@@ -52,8 +49,7 @@ public class PomGeneratorTest extends AbstractPomGeneratorTest
       assertEquals("simple-layout", pom.getArtifactId());
    }
 
-   public void testSkipFacets() throws Exception
-   {
+   public void testSkipFacets() throws Exception {
       BasicModule module = buildModel(getModuleDirs().get(0));
       assertNotNull(module);
       assertNoPomFiles(module.getDirectory());

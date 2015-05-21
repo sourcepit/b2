@@ -59,8 +59,7 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * 
  * @generated
  */
-public abstract class AbstractModuleImpl extends FileContainerImpl implements AbstractModule
-{
+public abstract class AbstractModuleImpl extends FileContainerImpl implements AbstractModule {
    /**
     * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -166,8 +165,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   protected AbstractModuleImpl()
-   {
+   protected AbstractModuleImpl() {
       super();
    }
 
@@ -178,8 +176,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.ABSTRACT_MODULE;
    }
 
@@ -189,10 +186,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public EList<Annotation> getAnnotations()
-   {
-      if (annotations == null)
-      {
+   public EList<Annotation> getAnnotations() {
+      if (annotations == null) {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
             ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
@@ -205,8 +200,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public String getId()
-   {
+   public String getId() {
       return id;
    }
 
@@ -216,8 +210,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public void setId(String newId)
-   {
+   public void setId(String newId) {
       String oldId = id;
       id = newId;
       if (eNotificationRequired())
@@ -230,8 +223,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public String getVersion()
-   {
+   public String getVersion() {
       return version;
    }
 
@@ -241,8 +233,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public void setVersion(String newVersion)
-   {
+   public void setVersion(String newVersion) {
       String oldVersion = version;
       version = newVersion;
       if (eNotificationRequired())
@@ -256,8 +247,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public String getLayoutId()
-   {
+   public String getLayoutId() {
       return layoutId;
    }
 
@@ -267,8 +257,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public void setLayoutId(String newLayoutId)
-   {
+   public void setLayoutId(String newLayoutId) {
       String oldLayoutId = layoutId;
       layoutId = newLayoutId;
       if (eNotificationRequired())
@@ -282,10 +271,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public EList<Locale> getLocales()
-   {
-      if (locales == null)
-      {
+   public EList<Locale> getLocales() {
+      if (locales == null) {
          locales = new EDataTypeUniqueEList<Locale>(Locale.class, this, ModuleModelPackage.ABSTRACT_MODULE__LOCALES);
       }
       return locales;
@@ -297,10 +284,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public EList<AbstractFacet> getFacets()
-   {
-      if (facets == null)
-      {
+   public EList<AbstractFacet> getFacets() {
+      if (facets == null) {
          facets = new EObjectContainmentWithInverseEList.Resolving<AbstractFacet>(AbstractFacet.class, this,
             ModuleModelPackage.ABSTRACT_MODULE__FACETS, ModuleModelPackage.ABSTRACT_FACET__PARENT);
       }
@@ -313,8 +298,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public <T extends AbstractFacet> EList<T> getFacets(Class<T> facetType)
-   {
+   public <T extends AbstractFacet> EList<T> getFacets(Class<T> facetType) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -326,8 +310,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public boolean hasFacets(Class<? extends AbstractFacet> facetType)
-   {
+   public boolean hasFacets(Class<? extends AbstractFacet> facetType) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -339,8 +322,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public <F extends AbstractFacet> F getFacetByName(String type)
-   {
+   public <F extends AbstractFacet> F getFacetByName(String type) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -353,8 +335,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    public <P extends Project, F extends ProjectFacet<P>> P resolveReference(AbstractReference reference,
-      Class<F> facetType)
-   {
+      Class<F> facetType) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -366,8 +347,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public boolean isIdentifyableBy(Identifier identifier)
-   {
+   public boolean isIdentifyableBy(Identifier identifier) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -379,8 +359,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public Identifier toIdentifier()
-   {
+   public Identifier toIdentifier() {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -392,8 +371,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public Annotation getAnnotation(String source)
-   {
+   public Annotation getAnnotation(String source) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -405,8 +383,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public Annotation getAnnotation(String source, boolean createOnDemand)
-   {
+   public Annotation getAnnotation(String source, boolean createOnDemand) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -418,8 +395,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public String getAnnotationData(String source, String key)
-   {
+   public String getAnnotationData(String source, String key) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -431,8 +407,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * 
     * @generated
     */
-   public String setAnnotationData(String source, String key, String value)
-   {
+   public String setAnnotationData(String source, String key, String value) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -446,10 +421,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     */
    @SuppressWarnings("unchecked")
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
          case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
@@ -465,10 +438,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
          case ModuleModelPackage.ABSTRACT_MODULE__FACETS :
@@ -484,10 +455,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return getAnnotations();
          case ModuleModelPackage.ABSTRACT_MODULE__ID :
@@ -512,10 +481,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
@@ -548,10 +515,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             getAnnotations().clear();
             return;
@@ -581,10 +546,8 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
          case ModuleModelPackage.ABSTRACT_MODULE__ID :
@@ -608,30 +571,23 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    @Override
-   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Annotatable.class)
-      {
-         switch (derivedFeatureID)
-         {
+   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+      if (baseClass == Annotatable.class) {
+         switch (derivedFeatureID) {
             case ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS :
                return CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
             default :
                return -1;
          }
       }
-      if (baseClass == Identifiable.class)
-      {
-         switch (derivedFeatureID)
-         {
+      if (baseClass == Identifiable.class) {
+         switch (derivedFeatureID) {
             default :
                return -1;
          }
       }
-      if (baseClass == AbstractIdentifiable.class)
-      {
-         switch (derivedFeatureID)
-         {
+      if (baseClass == AbstractIdentifiable.class) {
+         switch (derivedFeatureID) {
             case ModuleModelPackage.ABSTRACT_MODULE__ID :
                return ModuleModelPackage.ABSTRACT_IDENTIFIABLE__ID;
             case ModuleModelPackage.ABSTRACT_MODULE__VERSION :
@@ -650,30 +606,23 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    @Override
-   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Annotatable.class)
-      {
-         switch (baseFeatureID)
-         {
+   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+      if (baseClass == Annotatable.class) {
+         switch (baseFeatureID) {
             case CommonModelingPackage.ANNOTATABLE__ANNOTATIONS :
                return ModuleModelPackage.ABSTRACT_MODULE__ANNOTATIONS;
             default :
                return -1;
          }
       }
-      if (baseClass == Identifiable.class)
-      {
-         switch (baseFeatureID)
-         {
+      if (baseClass == Identifiable.class) {
+         switch (baseFeatureID) {
             default :
                return -1;
          }
       }
-      if (baseClass == AbstractIdentifiable.class)
-      {
-         switch (baseFeatureID)
-         {
+      if (baseClass == AbstractIdentifiable.class) {
+         switch (baseFeatureID) {
             case ModuleModelPackage.ABSTRACT_IDENTIFIABLE__ID :
                return ModuleModelPackage.ABSTRACT_MODULE__ID;
             case ModuleModelPackage.ABSTRACT_IDENTIFIABLE__VERSION :
@@ -692,8 +641,7 @@ public abstract class AbstractModuleImpl extends FileContainerImpl implements Ab
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

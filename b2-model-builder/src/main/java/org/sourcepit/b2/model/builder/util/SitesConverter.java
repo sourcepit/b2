@@ -23,8 +23,7 @@ import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 
-public interface SitesConverter extends BasicConverter
-{
+public interface SitesConverter extends BasicConverter {
    List<String> getAssemblyCategories(PropertiesSource moduleProperties, String assemblyName);
 
    PathMatcher getAssemblySiteFeatureMatcher(PropertiesSource moduleProperties, String assemblyName);

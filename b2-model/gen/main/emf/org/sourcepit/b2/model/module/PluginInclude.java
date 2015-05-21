@@ -33,8 +33,7 @@ package org.sourcepit.b2.model.module;
  * @model
  * @generated
  */
-public interface PluginInclude extends AbstractStrictReference
-{
+public interface PluginInclude extends AbstractStrictReference {
    /**
     * Returns the value of the '<em><b>Unpack</b></em>' attribute.
     * The default value is <code>"true"</code>.

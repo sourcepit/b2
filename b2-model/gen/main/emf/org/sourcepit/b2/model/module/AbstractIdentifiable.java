@@ -37,8 +37,7 @@ import org.sourcepit.b2.model.module.util.Identifier;
  * @model interface="true" abstract="true" superTypes="org.sourcepit.b2.model.module.Identifiable"
  * @generated
  */
-public interface AbstractIdentifiable extends EObject, Identifiable
-{
+public interface AbstractIdentifiable extends EObject, Identifiable {
    /**
     * Returns the value of the '<em><b>Id</b></em>' attribute.
     * <!-- begin-user-doc -->

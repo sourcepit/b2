@@ -37,29 +37,24 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class BrandingPluginsInterpolator
-{
+public class BrandingPluginsInterpolator {
    private final LayoutManager layoutManager;
 
    private final FeaturesConverter converter;
 
    @Inject
-   public BrandingPluginsInterpolator(LayoutManager layoutManager, FeaturesConverter converter)
-   {
+   public BrandingPluginsInterpolator(LayoutManager layoutManager, FeaturesConverter converter) {
       this.layoutManager = layoutManager;
       this.converter = converter;
    }
 
-   public void interpolate(AbstractModule module, FeaturesFacet featuresFacet, PropertiesSource moduleProperties)
-   {
-      if (!converter.isSkipBrandingPlugins(moduleProperties))
-      {
+   public void interpolate(AbstractModule module, FeaturesFacet featuresFacet, PropertiesSource moduleProperties) {
+      if (!converter.isSkipBrandingPlugins(moduleProperties)) {
          final PluginsFacet pluginsFacet = ModuleModelFactory.eINSTANCE.createPluginsFacet();
          pluginsFacet.setDerived(true);
          pluginsFacet.setName(featuresFacet.getName() + "-branding-plugins");
 
-         for (FeatureProject featureProject : featuresFacet.getProjects())
-         {
+         for (FeatureProject featureProject : featuresFacet.getProjects()) {
             final PluginProject pluginProject = createPluginProject(module, featureProject, moduleProperties);
             pluginProject.setDirectory(deriveProjectDir(module, pluginsFacet, pluginProject));
 
@@ -74,23 +69,20 @@ public class BrandingPluginsInterpolator
             featureProject.getIncludedPlugins().add(0, pluginInclude);
          }
 
-         if (!pluginsFacet.getProjects().isEmpty())
-         {
+         if (!pluginsFacet.getProjects().isEmpty()) {
             module.getFacets().add(pluginsFacet);
          }
       }
    }
 
    private File deriveProjectDir(AbstractModule module, final PluginsFacet pluginsFacet,
-      final PluginProject pluginProject)
-   {
+      final PluginProject pluginProject) {
       final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
       return new File(layout.pathOfFacetMetaData(module, pluginsFacet.getName(), pluginProject.getId()));
    }
 
    private PluginProject createPluginProject(AbstractModule module, FeatureProject featureProject,
-      PropertiesSource moduleProperties)
-   {
+      PropertiesSource moduleProperties) {
       final String pluginId = deriveBrandingPluginId(module, featureProject, moduleProperties);
 
       final PluginProject pluginProject = ModuleModelFactory.eINSTANCE.createPluginProject();
@@ -102,26 +94,21 @@ public class BrandingPluginsInterpolator
    }
 
    private String deriveBrandingPluginId(AbstractModule module, FeatureProject featureProject,
-      PropertiesSource moduleProperties)
-   {
+      PropertiesSource moduleProperties) {
       final String moduleId = module.getId();
-      if (B2MetadataUtils.isAssemblyFeature(featureProject))
-      {
+      if (B2MetadataUtils.isAssemblyFeature(featureProject)) {
          return converter.getBrandingPluginIdForAssembly(moduleProperties, getAssemblyName(featureProject), moduleId);
       }
-      else
-      {
+      else {
          final String facetName = B2MetadataUtils.getFacetName(featureProject);
          final boolean isSource = B2MetadataUtils.isFacetSourceFeature(featureProject);
          return converter.getBrandingPluginIdForFacet(moduleProperties, facetName, moduleId, isSource);
       }
    }
 
-   private static String getAssemblyName(FeatureProject featureProject)
-   {
+   private static String getAssemblyName(FeatureProject featureProject) {
       List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(featureProject);
-      if (assemblyNames.size() != 1)
-      {
+      if (assemblyNames.size() != 1) {
          throw new IllegalStateException();
       }
       return assemblyNames.get(0);

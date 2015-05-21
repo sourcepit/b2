@@ -54,11 +54,9 @@ import com.google.common.collect.SetMultimap;
 // TODO UC #5: Erase assembly classifier in feature id
 // TODO UC #6: Module that requires other Module
 // TODO UC #7. Module that includes other Module (aggregator)
-public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
-{
+public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest {
    @Test
-   public void testUC_1_SinglePlugin_NoSource() throws Exception
-   {
+   public void testUC_1_SinglePlugin_NoSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -80,8 +78,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_1_SinglePlugin_NoSource(BasicModule module);
 
    @Test
-   public void testUC_1_SinglePlugin_WithSource() throws Exception
-   {
+   public void testUC_1_SinglePlugin_WithSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -103,8 +100,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_1_SinglePlugin_WithSource(BasicModule module);
 
    @Test
-   public void testUC_2_PluginsAndTests_NoSource() throws Exception
-   {
+   public void testUC_2_PluginsAndTests_NoSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -127,8 +123,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_2_PluginsAndTests_NoSource(BasicModule module);
 
    @Test
-   public void testUC_2_PluginsAndTests_WithSource() throws Exception
-   {
+   public void testUC_2_PluginsAndTests_WithSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -151,8 +146,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_2_PluginsAndTests_WithSource(BasicModule module);
 
    @Test
-   public void testUC_3_EraseFacetClassifier_NoSource() throws Exception
-   {
+   public void testUC_3_EraseFacetClassifier_NoSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -177,8 +171,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_3_EraseFacetClassifier_NoSource(BasicModule module);
 
    @Test
-   public void testUC_3_EraseFacetClassifier_WithSource() throws Exception
-   {
+   public void testUC_3_EraseFacetClassifier_WithSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -203,8 +196,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_3_EraseFacetClassifier_WithSource(BasicModule module);
 
    @Test
-   public void testUC_4_CustomAssemblies_PublicSdkTest_NoSource() throws Exception
-   {
+   public void testUC_4_CustomAssemblies_PublicSdkTest_NoSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -229,8 +221,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_4_CustomAssemblies_PublicSdkTest_NoSource(BasicModule module);
 
    @Test
-   public void testUC_4_CustomAssemblies_PublicSdkTest_WithSource() throws Exception
-   {
+   public void testUC_4_CustomAssemblies_PublicSdkTest_WithSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -255,8 +246,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_4_CustomAssemblies_PublicSdkTest_WithSource(BasicModule module);
 
    @Test
-   public void testUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_NoSource() throws Exception
-   {
+   public void testUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_NoSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -282,8 +272,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_NoSource(BasicModule module);
 
    @Test
-   public void testUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_WithSource() throws Exception
-   {
+   public void testUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_WithSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -308,23 +297,19 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
 
    protected abstract void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_WithSource(BasicModule module);
 
-   private ThreadLocal<Collection<AbstractModule>> resolutionContext = new ThreadLocal<Collection<AbstractModule>>()
-   {
-      protected java.util.Collection<AbstractModule> initialValue()
-      {
+   private ThreadLocal<Collection<AbstractModule>> resolutionContext = new ThreadLocal<Collection<AbstractModule>>() {
+      protected java.util.Collection<AbstractModule> initialValue() {
          return new ArrayList<AbstractModule>();
       };
    };
 
    @Before
-   public void resetResolutionContext()
-   {
+   public void resetResolutionContext() {
       resolutionContext.get().clear();
    }
 
    @Test
-   public void testUC_6_InterFacetRequirements_NoSource() throws Exception
-   {
+   public void testUC_6_InterFacetRequirements_NoSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -359,8 +344,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_6_InterFacetRequirements_NoSource(BasicModule module);
 
    @Test
-   public void testUC_6_InterFacetRequirements_WithSource() throws Exception
-   {
+   public void testUC_6_InterFacetRequirements_WithSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -395,8 +379,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_6_InterFacetRequirements_WithSource(BasicModule module);
 
    @Test
-   public void testUC_6_InterModuleFacetRequirements_NoSource() throws Exception
-   {
+   public void testUC_6_InterModuleFacetRequirements_NoSource() throws Exception {
       // setup
       BasicModule fooModule = createBasicModule("foo");
       fooModule.setDirectory(new File(""));
@@ -455,8 +438,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_6_InterModuleFacetRequirements_NoSource(BasicModule barModule);
 
    @Test
-   public void testUC_7_AggregateContentOfOtherModule_ModeUnwrap_NoSource() throws Exception
-   {
+   public void testUC_7_AggregateContentOfOtherModule_ModeUnwrap_NoSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("bar");
       module.setDirectory(new File(""));
@@ -513,8 +495,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_NoSource(BasicModule module);
 
    @Test
-   public void testUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource() throws Exception
-   {
+   public void testUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("bar");
       module.setDirectory(new File(""));
@@ -571,8 +552,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource(BasicModule module);
 
    @Test
-   public void testUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk() throws Exception
-   {
+   public void testUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk() throws Exception {
       // setup
       BasicModule module = createBasicModule("bar");
       module.setDirectory(new File(""));
@@ -625,8 +605,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk(BasicModule module);
 
    @Test
-   public void testUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource() throws Exception
-   {
+   public void testUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("bar");
       module.setDirectory(new File(""));
@@ -678,8 +657,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource(BasicModule module);
 
    @Test
-   public void testUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource() throws Exception
-   {
+   public void testUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource() throws Exception {
       // setup
       BasicModule module = createBasicModule("bar");
       module.setDirectory(new File(""));
@@ -733,8 +711,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource(BasicModule module);
 
    @Test
-   public void testUC_8_AggregateContentOfCompositeModule_NoSource()
-   {
+   public void testUC_8_AggregateContentOfCompositeModule_NoSource() {
       BasicModule coreModule = createBasicModule("core");
       addPluginProject(coreModule, "plugins", "foo.core", coreModule.getVersion());
       addPluginProject(coreModule, "tests", "foo.core.tests", coreModule.getVersion());
@@ -779,8 +756,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_8_AggregateContentOfCompositeModule_NoSource(CompositeModule module);
 
    @Test
-   public void testUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource()
-   {
+   public void testUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource() {
       BasicModule coreModule = createBasicModule("core");
       addPluginProject(coreModule, "plugins", "foo.core", coreModule.getVersion());
       addPluginProject(coreModule, "tests", "foo.core.tests", coreModule.getVersion());
@@ -825,8 +801,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module);
 
    @Test
-   public void testUC_8_AggregateContentOfCompositeModule_WithSource()
-   {
+   public void testUC_8_AggregateContentOfCompositeModule_WithSource() {
       BasicModule coreModule = createBasicModule("core");
       addPluginProject(coreModule, "plugins", "foo.core", coreModule.getVersion());
       addPluginProject(coreModule, "tests", "foo.core.tests", coreModule.getVersion());
@@ -871,8 +846,7 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
    protected abstract void assertUC_8_AggregateContentOfCompositeModule_WithSource(CompositeModule module);
 
    @Test
-   public void testUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource()
-   {
+   public void testUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource() {
       BasicModule coreModule = createBasicModule("core");
       addPluginProject(coreModule, "plugins", "foo.core", coreModule.getVersion());
       addPluginProject(coreModule, "tests", "foo.core.tests", coreModule.getVersion());
@@ -916,29 +890,22 @@ public abstract class AbstractInterpolatorUseCasesTest extends InjectedTest
 
    protected abstract void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource(CompositeModule module);
 
-   protected void interpolate(AbstractModule module, PropertiesMap moduleProperties)
-   {
+   protected void interpolate(AbstractModule module, PropertiesMap moduleProperties) {
       ISourceService sourceService = lookup(ISourceService.class);
       LayoutManager layoutManager = lookup(LayoutManager.class);
       UnpackStrategy unpackStrategy = mock(UnpackStrategy.class);
       FeaturesConverter converter = lookup(FeaturesConverter.class);
       BrandingPluginsInterpolator brandingInterpolator = lookup(BrandingPluginsInterpolator.class);
 
-      ResolutionContextResolver contextResolver = new ResolutionContextResolver()
-      {
+      ResolutionContextResolver contextResolver = new ResolutionContextResolver() {
          public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module,
-            boolean scopeTest)
-         {
+            boolean scopeTest) {
             final SetMultimap<AbstractModule, FeatureProject> moduleToAssemblies = LinkedHashMultimap.create();
             final Collection<AbstractModule> modules = resolutionContext.get();
-            for (AbstractModule abstractModule : modules)
-            {
-               for (FeaturesFacet featuresFacet : abstractModule.getFacets(FeaturesFacet.class))
-               {
-                  for (FeatureProject featureProject : featuresFacet.getProjects())
-                  {
-                     if (!B2MetadataUtils.getAssemblyNames(featureProject).isEmpty())
-                     {
+            for (AbstractModule abstractModule : modules) {
+               for (FeaturesFacet featuresFacet : abstractModule.getFacets(FeaturesFacet.class)) {
+                  for (FeatureProject featureProject : featuresFacet.getProjects()) {
+                     if (!B2MetadataUtils.getAssemblyNames(featureProject).isEmpty()) {
                         moduleToAssemblies.get(abstractModule).add(featureProject);
                      }
                   }

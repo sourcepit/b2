@@ -23,23 +23,17 @@ import org.sourcepit.b2.model.module.Project;
 /**
  * @author Bernd
  */
-public final class ProjectUtils
-{
-   private ProjectUtils()
-   {
+public final class ProjectUtils {
+   private ProjectUtils() {
       super();
    }
 
-   public static <P extends Project> P getProjectById(List<P> projects, String id)
-   {
-      if (projects == null || id == null)
-      {
+   public static <P extends Project> P getProjectById(List<P> projects, String id) {
+      if (projects == null || id == null) {
          return null;
       }
-      for (P project : projects)
-      {
-         if (id != null && id.equals(project.getId()))
-         {
+      for (P project : projects) {
+         if (id != null && id.equals(project.getId())) {
             return project;
          }
       }

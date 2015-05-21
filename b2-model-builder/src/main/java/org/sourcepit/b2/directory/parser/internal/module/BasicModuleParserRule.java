@@ -31,20 +31,17 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("module")
-public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule>
-{
+public class BasicModuleParserRule extends AbstractModuleParserRule<BasicModule> {
    @Inject
    private FacetsParser facetsParser;
 
    @Override
-   protected BasicModule doParse(IModuleParsingRequest request)
-   {
+   protected BasicModule doParse(IModuleParsingRequest request) {
       final File baseDir = request.getModuleDirectory().getFile();
       final PropertiesSource properties = request.getModuleProperties();
 
       final FacetsParseResult<? extends AbstractFacet> result = facetsParser.parse(baseDir, properties);
-      if (result == null)
-      {
+      if (result == null) {
          return null;
       }
 

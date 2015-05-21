@@ -34,8 +34,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface CompositeModule extends AbstractModule
-{
+public interface CompositeModule extends AbstractModule {
    /**
     * Returns the value of the '<em><b>Modules</b></em>' reference list.
     * The list contents are of type {@link org.sourcepit.b2.model.module.AbstractModule}.

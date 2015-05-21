@@ -28,11 +28,9 @@ import org.sourcepit.b2.directory.parser.internal.module.AbstractTestEnvironment
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class ScmFileFlagsProviderTest extends AbstractTestEnvironmentTest
-{
+public class ScmFileFlagsProviderTest extends AbstractTestEnvironmentTest {
    @Test
-   public void testGetFileFlags()
-   {
+   public void testGetFileFlags() {
       File moduleDir = ws.getRoot();
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -51,8 +49,7 @@ public class ScmFileFlagsProviderTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testFileInvestigator()
-   {
+   public void testFileInvestigator() {
       File moduleDir = ws.getRoot();
       PropertiesMap properties = new LinkedPropertiesMap();
 

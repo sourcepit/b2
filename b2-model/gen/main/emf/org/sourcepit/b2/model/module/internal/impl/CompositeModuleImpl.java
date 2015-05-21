@@ -38,8 +38,7 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * 
  * @generated
  */
-public class CompositeModuleImpl extends AbstractModuleImpl implements CompositeModule
-{
+public class CompositeModuleImpl extends AbstractModuleImpl implements CompositeModule {
    /**
     * The cached value of the '{@link #getModules() <em>Modules</em>}' reference list.
     * <!-- begin-user-doc -->
@@ -57,8 +56,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
     * 
     * @generated
     */
-   protected CompositeModuleImpl()
-   {
+   protected CompositeModuleImpl() {
       super();
    }
 
@@ -69,8 +67,7 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.COMPOSITE_MODULE;
    }
 
@@ -80,10 +77,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
     * 
     * @generated
     */
-   public EList<AbstractModule> getModules()
-   {
-      if (modules == null)
-      {
+   public EList<AbstractModule> getModules() {
+      if (modules == null) {
          modules = new EObjectResolvingEList<AbstractModule>(AbstractModule.class, this,
             ModuleModelPackage.COMPOSITE_MODULE__MODULES);
       }
@@ -97,10 +92,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             return getModules();
       }
@@ -115,10 +108,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             getModules().clear();
             getModules().addAll((Collection<? extends AbstractModule>) newValue);
@@ -134,10 +125,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             getModules().clear();
             return;
@@ -152,10 +141,8 @@ public class CompositeModuleImpl extends AbstractModuleImpl implements Composite
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.COMPOSITE_MODULE__MODULES :
             return modules != null && !modules.isEmpty();
       }

@@ -27,12 +27,10 @@ import org.junit.Test;
 
 import com.google.common.base.Predicate;
 
-public class MavenDepenenciesUtilsTest
-{
+public class MavenDepenenciesUtilsTest {
 
    @Test
-   public void testRemoveDependencies()
-   {
+   public void testRemoveDependencies() {
       final Model model = new Model();
       model.getDependencies().add(newDependency("foo", "bar", "1", "module"));
       model.getDependencies().add(newDependency("foo", "bar", "1", "jar"));
@@ -43,10 +41,8 @@ public class MavenDepenenciesUtilsTest
 
       model.getProfiles().add(profile);
 
-      MavenDepenenciesUtils.removeDependencies(model, new Predicate<Dependency>()
-      {
-         public boolean apply(Dependency input)
-         {
+      MavenDepenenciesUtils.removeDependencies(model, new Predicate<Dependency>() {
+         public boolean apply(Dependency input) {
             return "module".equals(input.getType());
          }
       });
@@ -60,14 +56,12 @@ public class MavenDepenenciesUtilsTest
       assertEquals("jar", dependencies.get(0).getType());
    }
 
-   private static Dependency newDependency(String groupId, String artifactId, String version, String type)
-   {
+   private static Dependency newDependency(String groupId, String artifactId, String version, String type) {
       final Dependency dependency = new Dependency();
       dependency.setGroupId(groupId);
       dependency.setArtifactId(artifactId);
       dependency.setVersion(version);
-      if (type != null)
-      {
+      if (type != null) {
          dependency.setType(type);
       }
       return dependency;

@@ -32,8 +32,7 @@ import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
 @SuppressWarnings("boxing")
-public class DoNotRemoveTargetFolderIT extends AbstractB2IT
-{
+public class DoNotRemoveTargetFolderIT extends AbstractB2IT {
    private static final String PREREQUISITE_FAIL_MESSAGE = "Prerequesite for testing not satisfied - check resource directory";
 
    private File moduleDir;
@@ -42,14 +41,12 @@ public class DoNotRemoveTargetFolderIT extends AbstractB2IT
    private File submodulePluginTargetFolderContent;
 
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Before
-   public void setUp() throws IOException
-   {
+   public void setUp() throws IOException {
       moduleDir = getResource(getClass().getSimpleName());
 
       workspaceTargetFolder = new File(moduleDir, "target");
@@ -69,8 +66,7 @@ public class DoNotRemoveTargetFolderIT extends AbstractB2IT
     * @throws Exception
     */
    @Test
-   public void targetFolderShouldNotBeMarkedDerived() throws Exception
-   {
+   public void targetFolderShouldNotBeMarkedDerived() throws Exception {
       // GIVEN
 
       // WHEN
@@ -86,8 +82,7 @@ public class DoNotRemoveTargetFolderIT extends AbstractB2IT
    }
 
    @Test
-   public void buildsWithMvnCleanShouldDeleteTargetFolders() throws IOException
-   {
+   public void buildsWithMvnCleanShouldDeleteTargetFolders() throws IOException {
       int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
       assertThat(err, is(0));
 
@@ -103,8 +98,7 @@ public class DoNotRemoveTargetFolderIT extends AbstractB2IT
     * @throws IOException
     */
    @Test
-   public void consecutiveBuildsWithoutMvnCleanShouldNotDeleteTargetFolders() throws IOException
-   {
+   public void consecutiveBuildsWithoutMvnCleanShouldNotDeleteTargetFolders() throws IOException {
       int err = build(moduleDir, "-e", "-B", "validate");
       assertThat(err, is(0));
 

@@ -37,53 +37,44 @@ import org.sourcepit.b2.model.builder.util.ModuleWalker;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named
-public class B2Generator
-{
+public class B2Generator {
    private final List<? extends IB2GenerationParticipant> generators;
 
    private final List<B2GeneratorLifecycleParticipant> lifecycleParticipants;
 
    @Inject
    public B2Generator(List<? extends IB2GenerationParticipant> generators,
-      List<B2GeneratorLifecycleParticipant> lifecycleParticipants)
-   {
+      List<B2GeneratorLifecycleParticipant> lifecycleParticipants) {
       this.generators = generators;
       this.lifecycleParticipants = lifecycleParticipants;
    }
 
-   public void generate(final IB2GenerationRequest request)
-   {
+   public void generate(final IB2GenerationRequest request) {
       newLifecyclePhase().execute(request);
    }
 
-   private LifecyclePhase<Void, IB2GenerationRequest, B2GeneratorLifecycleParticipant> newLifecyclePhase()
-   {
-      return new LifecyclePhase<Void, IB2GenerationRequest, B2GeneratorLifecycleParticipant>(lifecycleParticipants)
-      {
+   private LifecyclePhase<Void, IB2GenerationRequest, B2GeneratorLifecycleParticipant> newLifecyclePhase() {
+      return new LifecyclePhase<Void, IB2GenerationRequest, B2GeneratorLifecycleParticipant>(lifecycleParticipants) {
          @Override
-         protected void pre(B2GeneratorLifecycleParticipant participant, IB2GenerationRequest request)
-         {
+         protected void pre(B2GeneratorLifecycleParticipant participant, IB2GenerationRequest request) {
             participant.preGenerate(request.getModule());
          }
 
          @Override
-         protected Void doExecute(IB2GenerationRequest request)
-         {
+         protected Void doExecute(IB2GenerationRequest request) {
             doGenerate(request);
             return null;
          }
 
          @Override
          protected void post(B2GeneratorLifecycleParticipant participant, IB2GenerationRequest request, Void result,
-            ThrowablePipe errors)
-         {
+            ThrowablePipe errors) {
             participant.postGenerate(request.getModule(), errors);
          }
       };
    }
 
-   private void doGenerate(final IB2GenerationRequest request)
-   {
+   private void doGenerate(final IB2GenerationRequest request) {
       final ModuleDirectory moduleDirectory = request.getModuleDirectory();
 
       final Set<File> filesBeforeGeneration = collectNotDerivedFiles(moduleDirectory);
@@ -91,15 +82,11 @@ public class B2Generator
       final List<IB2GenerationParticipant> copy = new ArrayList<IB2GenerationParticipant>(generators);
       Collections.sort(copy);
 
-      for (final IB2GenerationParticipant generator : copy)
-      {
-         final ModuleWalker walker = new ModuleWalker(generator.isReverse(), true)
-         {
+      for (final IB2GenerationParticipant generator : copy) {
+         final ModuleWalker walker = new ModuleWalker(generator.isReverse(), true) {
             @Override
-            protected boolean doVisit(EObject eObject)
-            {
-               if (generator.isGeneratorInput(eObject))
-               {
+            protected boolean doVisit(EObject eObject) {
+               if (generator.isGeneratorInput(eObject)) {
                   generator.generate(eObject, request.getModuleProperties(), request.getTemplates(), moduleDirectory);
                }
                return true;
@@ -112,25 +99,20 @@ public class B2Generator
    }
 
    private void markNewFilesAsDerivedByGenerator(final ModuleDirectory moduleDirectory,
-      final Set<File> filesBeforeGeneration)
-   {
+      final Set<File> filesBeforeGeneration) {
       final Set<File> filesAfterGeneration = collectNotDerivedFiles(moduleDirectory);
       filesAfterGeneration.removeAll(filesBeforeGeneration);
 
-      for (File file : filesAfterGeneration)
-      {
+      for (File file : filesAfterGeneration) {
          moduleDirectory.addFlags(file, FLAG_DERIVED);
       }
    }
 
-   private static Set<File> collectNotDerivedFiles(final ModuleDirectory moduleDirectory)
-   {
+   private static Set<File> collectNotDerivedFiles(final ModuleDirectory moduleDirectory) {
       final Set<File> files = new HashSet<File>();
-      moduleDirectory.accept(new FileVisitor<RuntimeException>()
-      {
+      moduleDirectory.accept(new FileVisitor<RuntimeException>() {
          @Override
-         public boolean visit(File file, int flags)
-         {
+         public boolean visit(File file, int flags) {
             files.add(file);
             return true;
          }

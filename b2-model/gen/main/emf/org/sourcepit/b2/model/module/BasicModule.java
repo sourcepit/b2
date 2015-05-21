@@ -27,6 +27,5 @@ package org.sourcepit.b2.model.module;
  * @model
  * @generated
  */
-public interface BasicModule extends AbstractModule
-{
+public interface BasicModule extends AbstractModule {
 } // BasicModule

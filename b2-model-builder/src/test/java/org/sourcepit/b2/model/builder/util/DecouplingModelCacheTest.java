@@ -35,16 +35,13 @@ import org.sourcepit.b2.model.module.CompositeModule;
 /**
  * @author Bernd
  */
-public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
-{
+public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest {
    @Override
-   protected String setUpModulePath()
-   {
+   protected String setUpModulePath() {
       return "composed-component";
    }
 
-   public void testUndecoupled() throws Exception
-   {
+   public void testUndecoupled() throws Exception {
       final File moduleDir = getModuleDirByName("composite-layout");
 
       // get dummy module files
@@ -75,8 +72,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(new ModuleDirectory(parentFile, null));
 
-      for (AbstractModule module : currentModules)
-      {
+      for (AbstractModule module : currentModules) {
          request.getModulesCache().put(module.getDirectory(), module);
       }
 
@@ -98,8 +94,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       assertSame(structuredModule, modules.get(idx));
    }
 
-   public void testDecoupled() throws Exception
-   {
+   public void testDecoupled() throws Exception {
       final File moduleDir = getModuleDirByName("composite-layout");
 
       // get dummy module files
@@ -130,8 +125,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(new ModuleDirectory(parentFile, null));
 
-      for (AbstractModule module : currentModules)
-      {
+      for (AbstractModule module : currentModules) {
          request.getModulesCache().put(module.getDirectory(), module);
       }
 
@@ -144,8 +138,7 @@ public class DecouplingModelCacheTest extends AbstractB2SessionWorkspaceTest
       assertEquals(2, modules.size());
    }
 
-   private B2ModelBuilder lookup() throws Exception
-   {
+   private B2ModelBuilder lookup() throws Exception {
       return (B2ModelBuilder) lookup(IB2ModelBuilder.class);
    }
 }

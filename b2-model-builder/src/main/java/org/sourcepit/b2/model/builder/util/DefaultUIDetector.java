@@ -29,29 +29,22 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 @Singleton
-public class DefaultUIDetector implements UIDetector
-{
-   public boolean requiresUI(PluginProject pluginProject, PropertiesSource properties)
-   {
+public class DefaultUIDetector implements UIDetector {
+   public boolean requiresUI(PluginProject pluginProject, PropertiesSource properties) {
       final PathMatcher matcher = PathMatcher.parsePackagePatterns(properties.get("b2.uiDetector.filter"));
 
       final String id = pluginProject.getId();
-      if (matcher.isMatch(id))
-      {
+      if (matcher.isMatch(id)) {
          return true;
       }
 
       final BundleManifest manifest = pluginProject.getBundleManifest();
 
       final EList<BundleRequirement> bundleRequirements = manifest.getRequireBundle();
-      if (bundleRequirements != null)
-      {
-         for (BundleRequirement bundleRequirement : bundleRequirements)
-         {
-            for (String symbolicName : bundleRequirement.getSymbolicNames())
-            {
-               if (matcher.isMatch(symbolicName))
-               {
+      if (bundleRequirements != null) {
+         for (BundleRequirement bundleRequirement : bundleRequirements) {
+            for (String symbolicName : bundleRequirement.getSymbolicNames()) {
+               if (matcher.isMatch(symbolicName)) {
                   return true;
                }
             }
@@ -59,14 +52,10 @@ public class DefaultUIDetector implements UIDetector
       }
 
       final EList<PackageImport> packageImports = manifest.getImportPackage();
-      if (packageImports != null)
-      {
-         for (PackageImport packageImport : packageImports)
-         {
-            for (String packageName : packageImport.getPackageNames())
-            {
-               if (matcher.isMatch(packageName))
-               {
+      if (packageImports != null) {
+         for (PackageImport packageImport : packageImports) {
+            for (String packageName : packageImport.getPackageNames()) {
+               if (matcher.isMatch(packageName)) {
                   return true;
                }
             }

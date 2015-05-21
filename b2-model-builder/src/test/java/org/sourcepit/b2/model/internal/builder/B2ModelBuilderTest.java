@@ -39,63 +39,51 @@ import org.sourcepit.b2.model.module.test.internal.harness.B2ModelHarness;
 /**
  * @author Bernd
  */
-public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
-{
+public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest {
    @Override
-   protected String setUpModulePath()
-   {
-      if ("testComposedComposite".equals(getName()))
-      {
+   protected String setUpModulePath() {
+      if ("testComposedComposite".equals(getName())) {
          return "composed-component";
       }
       return "composed-component/simple-layout";
    }
 
-   public void testBasic() throws Exception
-   {
+   public void testBasic() throws Exception {
       B2ModelBuilder module = lookup();
       assertNotNull(module);
    }
 
-   public void testNull() throws Exception
-   {
+   public void testNull() throws Exception {
       B2ModelBuilder module = lookup();
-      try
-      {
+      try {
          module.build(null);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
 
-      try
-      {
+      try {
          module.build(request);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       request.setModuleDirectory(new ModuleDirectory(new File(""), null));
       request.setModuleProperties(null);
 
-      try
-      {
+      try {
          module.build(request);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
    }
 
-   public void testSimpleComponent() throws Exception
-   {
+   public void testSimpleComponent() throws Exception {
       File coreResources = getModuleDirs().get(0);
       assertTrue(coreResources.canRead());
 
@@ -125,8 +113,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       assertEquals(2, tests.size());
    }
 
-   public void testComposedComposite() throws Exception
-   {
+   public void testComposedComposite() throws Exception {
       final File moduleDir = getModuleDirByName("composite-layout");
       assertNotNull(moduleDir);
 
@@ -157,8 +144,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       request = new B2ModelBuildingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
       request.setModuleDirectory(new ModuleDirectory(parentFile, null));
-      for (AbstractModule module : currentModules)
-      {
+      for (AbstractModule module : currentModules) {
          request.getModulesCache().put(module.getDirectory(), module);
       }
 
@@ -176,8 +162,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       EcoreUtils.assertEEquals(structuredModule, (BasicModule) modules.get(firstIsSimple ? 1 : 0));
    }
 
-   public void testSkipInterpolator() throws Exception
-   {
+   public void testSkipInterpolator() throws Exception {
       File coreResources = getModuleDirs().get(0);
       assertTrue(coreResources.canRead());
 
@@ -198,8 +183,7 @@ public class B2ModelBuilderTest extends AbstractB2SessionWorkspaceTest
       B2ModelHarness.assertHasNoDerivedElements(module);
    }
 
-   private B2ModelBuilder lookup() throws Exception
-   {
+   private B2ModelBuilder lookup() throws Exception {
       return (B2ModelBuilder) lookup(IB2ModelBuilder.class);
    }
 }

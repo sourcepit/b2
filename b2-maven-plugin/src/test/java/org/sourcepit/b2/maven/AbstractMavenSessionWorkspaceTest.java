@@ -47,8 +47,7 @@ import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescripto
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractPlexusWorkspaceTest;
 
-public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWorkspaceTest
-{
+public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWorkspaceTest {
    @Inject
    protected ProjectBuilder projectBuilder;
 
@@ -62,8 +61,7 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
 
    protected MavenSession mavenSession;
 
-   protected void setUp() throws Exception
-   {
+   protected void setUp() throws Exception {
       super.setUp();
       repositorySystem = lookup(RepositorySystem.class);
       projectBuilder = lookup(ProjectBuilder.class);
@@ -71,22 +69,19 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
       mavenSession = createMavenSession(moduleDir, System.getProperties());
    }
 
-   protected File setUpModuleDir()
-   {
+   protected File setUpModuleDir() {
       return workspace.importResources(setUpModulePath());
    }
 
    protected abstract String setUpModulePath();
 
    @Override
-   protected void tearDown() throws Exception
-   {
+   protected void tearDown() throws Exception {
       projectBuilder = null;
       super.tearDown();
    }
 
-   protected MavenSession createMavenSession(File moduleDir, Properties executionProperties) throws Exception
-   {
+   protected MavenSession createMavenSession(File moduleDir, Properties executionProperties) throws Exception {
       final List<File> descriptors = new ArrayList<File>();
 
       final List<File> skippedDescriptors = new ArrayList<File>();
@@ -96,14 +91,14 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
 
       MavenExecutionRequest request = createMavenExecutionRequest(pom);
 
-      ProjectBuildingRequest configuration = new DefaultProjectBuildingRequest()
-         .setLocalRepository(request.getLocalRepository()).setRemoteRepositories(request.getRemoteRepositories())
+      ProjectBuildingRequest configuration = new DefaultProjectBuildingRequest().setLocalRepository(
+         request.getLocalRepository())
+         .setRemoteRepositories(request.getRemoteRepositories())
          .setPluginArtifactRepositories(request.getPluginArtifactRepositories())
          .setSystemProperties(executionProperties);
 
       final List<MavenProject> projects = new ArrayList<MavenProject>();
-      for (File descriptor : descriptors)
-      {
+      for (File descriptor : descriptors) {
          projects.add(projectBuilder.build(descriptor, configuration).getProject());
       }
 
@@ -116,47 +111,42 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
       return session;
    }
 
-   protected File findMainDescriptor(File moduleDir, final List<File> descriptors)
-   {
-      for (File file : descriptors)
-      {
-         if (moduleDir.equals(file.getParentFile()))
-         {
+   protected File findMainDescriptor(File moduleDir, final List<File> descriptors) {
+      for (File file : descriptors) {
+         if (moduleDir.equals(file.getParentFile())) {
             return file;
          }
       }
       return null;
    }
 
-   protected MavenExecutionRequest createMavenExecutionRequest(File pom) throws Exception
-   {
-      MavenExecutionRequest request = new DefaultMavenExecutionRequest().setPom(pom).setProjectPresent(true)
-         .setShowErrors(true).setPluginGroups(Arrays.asList(new String[] { "org.apache.maven.plugins" }))
-         .setLocalRepository(getLocalRepository()).setRemoteRepositories(getRemoteRepositories())
+   protected MavenExecutionRequest createMavenExecutionRequest(File pom) throws Exception {
+      MavenExecutionRequest request = new DefaultMavenExecutionRequest().setPom(pom)
+         .setProjectPresent(true)
+         .setShowErrors(true)
+         .setPluginGroups(Arrays.asList(new String[] { "org.apache.maven.plugins" }))
+         .setLocalRepository(getLocalRepository())
+         .setRemoteRepositories(getRemoteRepositories())
          .setPluginArtifactRepositories(getPluginArtifactRepositories())
          .setGoals(Arrays.asList(new String[] { "package" }));
 
       return request;
    }
 
-   protected void initRepoSession(ProjectBuildingRequest request)
-   {
+   protected void initRepoSession(ProjectBuildingRequest request) {
       File localRepo = new File(request.getLocalRepository().getBasedir());
       LocalRepository localRepository = new LocalRepository(localRepo);
       DefaultRepositorySystemSession session = new DefaultRepositorySystemSession();
-      try
-      {
+      try {
          session.setLocalRepositoryManager(localRepositoryManagerFactory.newInstance(session, localRepository));
       }
-      catch (NoLocalRepositoryManagerException e)
-      {
+      catch (NoLocalRepositoryManagerException e) {
          throw new IllegalStateException(e);
       }
       request.setRepositorySession(session);
    }
 
-   protected List<ArtifactRepository> getRemoteRepositories() throws InvalidRepositoryException
-   {
+   protected List<ArtifactRepository> getRemoteRepositories() throws InvalidRepositoryException {
       File repoDir = new File(getBasedir(), "src/test/remote-repo").getAbsoluteFile();
 
       RepositoryPolicy policy = new RepositoryPolicy();
@@ -173,26 +163,20 @@ public abstract class AbstractMavenSessionWorkspaceTest extends AbstractPlexusWo
       return Arrays.asList(repositorySystem.buildArtifactRepository(repository));
    }
 
-   protected List<ArtifactRepository> getPluginArtifactRepositories() throws InvalidRepositoryException
-   {
+   protected List<ArtifactRepository> getPluginArtifactRepositories() throws InvalidRepositoryException {
       return getRemoteRepositories();
    }
 
-   protected ArtifactRepository getLocalRepository() throws InvalidRepositoryException
-   {
+   protected ArtifactRepository getLocalRepository() throws InvalidRepositoryException {
       File repoDir = new File(getBasedir(), "target/local-repo").getAbsoluteFile();
       return repositorySystem.createLocalRepository(repoDir);
    }
 
-   protected void collectModuleDescriptors(File moduleDir, List<File> descriptors, List<File> skippedDescriptors)
-   {
-      final IDescriptorResolutionStrategy resolver = new AbstractDescriptorResolutionStrategy(moduleDir, null)
-      {
-         public File getDescriptor(File directory)
-         {
+   protected void collectModuleDescriptors(File moduleDir, List<File> descriptors, List<File> skippedDescriptors) {
+      final IDescriptorResolutionStrategy resolver = new AbstractDescriptorResolutionStrategy(moduleDir, null) {
+         public File getDescriptor(File directory) {
             final File descriptor = new File(directory, "module.xml");
-            if (descriptor.exists() && descriptor.isFile())
-            {
+            if (descriptor.exists() && descriptor.isFile()) {
                return descriptor;
             }
             return null;

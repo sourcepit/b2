@@ -19,8 +19,7 @@ package org.sourcepit.b2.internal.generator;
 import java.io.File;
 import java.util.Properties;
 
-public interface ITemplates
-{
+public interface ITemplates {
    void copy(String resourcePath, File targetDir, Properties properties);
 
    void copy(String resourcePath, File targetDir, Properties properties, boolean includeDefaults);

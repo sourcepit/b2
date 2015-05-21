@@ -21,7 +21,6 @@ import java.io.IOException;
 
 import org.apache.maven.model.Model;
 
-public interface IModuleDescriptorConverter
-{
+public interface IModuleDescriptorConverter {
    Model convert(File moduleDescriptor) throws IOException;
 }

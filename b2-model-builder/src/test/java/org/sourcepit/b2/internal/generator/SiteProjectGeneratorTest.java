@@ -74,8 +74,7 @@ import org.w3c.dom.NodeList;
 
 import com.google.common.base.Optional;
 
-public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
-{
+public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest {
    @Inject
    private B2 b2;
 
@@ -83,8 +82,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    private LayoutManager layoutManager;
 
    @Test
-   public void testGenProduct_Bug37() throws Exception
-   {
+   public void testGenProduct_Bug37() throws Exception {
       final File moduleDir = getResource("ProductTest");
 
       final List<File> projectDirs = new ArrayList<File>();
@@ -125,8 +123,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testCopyProductResources_Feature86() throws Exception
-   {
+   public void testCopyProductResources_Feature86() throws Exception {
       final File moduleDir = getResource("ProductTest");
 
       final List<File> projectDirs = new ArrayList<File>();
@@ -166,8 +163,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testFeature87_AdditionalProductFeatureIncludes() throws Exception
-   {
+   public void testFeature87_AdditionalProductFeatureIncludes() throws Exception {
       final File moduleDir = getResource("ProductTest");
 
       final List<File> projectDirs = new ArrayList<File>();
@@ -218,8 +214,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testFeature87_AdditionalProductPluginIncludes() throws Exception
-   {
+   public void testFeature87_AdditionalProductPluginIncludes() throws Exception {
       final File moduleDir = getResource("ProductTest");
 
       final List<File> projectDirs = new ArrayList<File>();
@@ -267,8 +262,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testFeature89_AddUpdateSitesToProduct() throws Exception
-   {
+   public void testFeature89_AddUpdateSitesToProduct() throws Exception {
       final File moduleDir = getResource("ProductTest");
 
       final List<File> projectDirs = new ArrayList<File>();
@@ -335,8 +329,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testFeature14_EmptyProductUIdAndVersion() throws Exception
-   {
+   public void testFeature14_EmptyProductUIdAndVersion() throws Exception {
       final File moduleDir = getResource("ProductTest");
 
       final List<File> projectDirs = new ArrayList<File>();
@@ -375,20 +368,16 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       assertEquals("1.0.0.qualifier", productElem.getAttribute("version"));
    }
 
-   private static void write(final File productFile, final byte[] content)
-   {
-      IO.write(new ToStream<byte[]>()
-      {
+   private static void write(final File productFile, final byte[] content) {
+      IO.write(new ToStream<byte[]>() {
          @Override
-         public void write(OutputStream writer, byte[] content) throws Exception
-         {
+         public void write(OutputStream writer, byte[] content) throws Exception {
             writer.write(content);
          }
       }, buffOut(fileOut(productFile)), content);
    }
 
-   protected File getResource(String path) throws IOException
-   {
+   protected File getResource(String path) throws IOException {
       final File resourcesDir = env.getResourcesDir();
       assertTrue(resourcesDir.exists());
       final File resource = ws.importDir(new File(resourcesDir, path));
@@ -397,8 +386,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testGenDifferentIUTypes() throws Exception
-   {
+   public void testGenDifferentIUTypes() throws Exception {
       final PropertiesMap properties = new LinkedPropertiesMap();
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(properties));
@@ -424,11 +412,9 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       List<Element> elements = new ArrayList<Element>();
 
       NodeList childNodes = categoryXml.getDocumentElement().getChildNodes();
-      for (int i = 0; i < childNodes.getLength(); i++)
-      {
+      for (int i = 0; i < childNodes.getLength(); i++) {
          Node node = childNodes.item(i);
-         if (node instanceof Element)
-         {
+         if (node instanceof Element) {
             elements.add((Element) node);
          }
       }
@@ -457,8 +443,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testSiteProperties()
-   {
+   public void testSiteProperties() {
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
@@ -504,8 +489,7 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testSiteProperties_WithClassifier()
-   {
+   public void testSiteProperties_WithClassifier() {
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
@@ -550,11 +534,9 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       assertEquals("Kern Plug-ins SDK (enthaltene Features)", featureProperties.get("categories.included.name"));
    }
 
-   private FeatureInclude addFeatureReference(SiteProject siteProject, String categoryName, String featureId)
-   {
+   private FeatureInclude addFeatureReference(SiteProject siteProject, String categoryName, String featureId) {
       Category category = getCategory(siteProject, categoryName);
-      if (category == null)
-      {
+      if (category == null) {
          category = createCategory(siteProject, categoryName);
          siteProject.getCategories().add(category);
       }
@@ -567,11 +549,9 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       return strictReference;
    }
 
-   private PluginInclude addPluginReference(SiteProject siteProject, String categoryName, String pluginId)
-   {
+   private PluginInclude addPluginReference(SiteProject siteProject, String categoryName, String pluginId) {
       Category category = getCategory(siteProject, categoryName);
-      if (category == null)
-      {
+      if (category == null) {
          category = createCategory(siteProject, categoryName);
          siteProject.getCategories().add(category);
       }
@@ -584,11 +564,9 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       return strictReference;
    }
 
-   private StrictReference addProductReference(SiteProject siteProject, String categoryName, String productId)
-   {
+   private StrictReference addProductReference(SiteProject siteProject, String categoryName, String productId) {
       Category category = getCategory(siteProject, categoryName);
-      if (category == null)
-      {
+      if (category == null) {
          category = createCategory(siteProject, categoryName);
          siteProject.getCategories().add(category);
       }
@@ -601,20 +579,16 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest
       return strictReference;
    }
 
-   private Category getCategory(SiteProject siteProject, String categoryName)
-   {
-      for (Category category : siteProject.getCategories())
-      {
-         if (categoryName.equals(category.getName()))
-         {
+   private Category getCategory(SiteProject siteProject, String categoryName) {
+      for (Category category : siteProject.getCategories()) {
+         if (categoryName.equals(category.getName())) {
             return category;
          }
       }
       return null;
    }
 
-   private Category createCategory(SiteProject siteProject, String categoryName)
-   {
+   private Category createCategory(SiteProject siteProject, String categoryName) {
       Category category = ModuleModelFactory.eINSTANCE.createCategory();
       category.setName(categoryName);
       return category;

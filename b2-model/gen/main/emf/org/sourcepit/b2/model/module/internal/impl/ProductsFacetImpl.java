@@ -42,8 +42,7 @@ import org.sourcepit.b2.model.module.ProductsFacet;
  * 
  * @generated
  */
-public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFacet
-{
+public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFacet {
    /**
     * The cached value of the '{@link #getProductDefinitions() <em>Product Definitions</em>}' containment reference
     * list.
@@ -62,8 +61,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     * 
     * @generated
     */
-   protected ProductsFacetImpl()
-   {
+   protected ProductsFacetImpl() {
       super();
    }
 
@@ -74,8 +72,7 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.PRODUCTS_FACET;
    }
 
@@ -85,10 +82,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     * 
     * @generated
     */
-   public EList<ProductDefinition> getProductDefinitions()
-   {
-      if (productDefinitions == null)
-      {
+   public EList<ProductDefinition> getProductDefinitions() {
+      if (productDefinitions == null) {
          productDefinitions = new EObjectContainmentWithInverseEList.Resolving<ProductDefinition>(
             ProductDefinition.class, this, ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
             ModuleModelPackage.PRODUCT_DEFINITION__PARENT);
@@ -104,10 +99,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     */
    @SuppressWarnings("unchecked")
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getProductDefinitions()).basicAdd(otherEnd,
                msgs);
@@ -122,10 +115,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return ((InternalEList<?>) getProductDefinitions()).basicRemove(otherEnd, msgs);
       }
@@ -139,10 +130,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return getProductDefinitions();
       }
@@ -157,10 +146,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             getProductDefinitions().clear();
             getProductDefinitions().addAll((Collection<? extends ProductDefinition>) newValue);
@@ -176,10 +163,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             getProductDefinitions().clear();
             return;
@@ -194,10 +179,8 @@ public class ProductsFacetImpl extends AbstractFacetImpl implements ProductsFace
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS :
             return productDefinitions != null && !productDefinitions.isEmpty();
       }

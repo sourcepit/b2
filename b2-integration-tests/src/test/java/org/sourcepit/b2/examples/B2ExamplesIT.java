@@ -26,17 +26,14 @@ import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
 
-public class B2ExamplesIT extends AbstractB2ExamplesIT
-{
+public class B2ExamplesIT extends AbstractB2ExamplesIT {
    @Override
-   protected boolean isDebug(String testName)
-   {
+   protected boolean isDebug(String testName) {
       return false;
    }
 
    @Test
-   public void testSimple_Module() throws Exception
-   {
+   public void testSimple_Module() throws Exception {
       execute();
 
       final File projectDir = getExampleProjectDir();
@@ -52,33 +49,28 @@ public class B2ExamplesIT extends AbstractB2ExamplesIT
    }
 
    @Test
-   public void testReactor_Build() throws Exception
-   {
+   public void testReactor_Build() throws Exception {
       execute("reactor");
       execute("single");
    }
 
    @Test
-   public void testStructured_Module() throws Exception
-   {
+   public void testStructured_Module() throws Exception {
       execute();
    }
 
    @Test
-   public void testComposite_Module() throws Exception
-   {
+   public void testComposite_Module() throws Exception {
       execute();
    }
 
    @Test
-   public void testRcp_Example() throws Exception
-   {
+   public void testRcp_Example() throws Exception {
       execute();
    }
 
    @Test
-   public void testModule_With_Custom_Ant_Targets() throws Exception
-   {
+   public void testModule_With_Custom_Ant_Targets() throws Exception {
       execute();
 
       final File projectDir = getExampleProjectDir();

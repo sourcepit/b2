@@ -22,8 +22,7 @@ import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 
-public interface IB2GenerationParticipant extends Comparable<IB2GenerationParticipant>
-{
+public interface IB2GenerationParticipant extends Comparable<IB2GenerationParticipant> {
    boolean isGeneratorInput(EObject eObject);
 
    GeneratorType getGeneratorType();

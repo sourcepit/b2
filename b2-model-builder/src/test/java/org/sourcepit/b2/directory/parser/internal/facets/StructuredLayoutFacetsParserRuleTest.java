@@ -31,16 +31,13 @@ import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.SitesFacet;
 
-public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTest
-{
-   public void testBasic() throws Exception
-   {
+public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTest {
+   public void testBasic() throws Exception {
       final StructuredLayoutFacetsParserRule parserRule = lookupParserRule();
       assertNotNull(parserRule);
    }
 
-   public void testNonFacetDir() throws Exception
-   {
+   public void testNonFacetDir() throws Exception {
       final File pluginDir = workspace.importResources("composed-component/structured-layout/plugins/example.ui");
       assertTrue(pluginDir.exists());
 
@@ -48,8 +45,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       assertNull(parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
-   public void testCompositeComponentDir() throws Exception
-   {
+   public void testCompositeComponentDir() throws Exception {
       File moduleDir = workspace.importResources("composed-component");
       assertTrue(moduleDir.exists());
 
@@ -57,8 +53,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
-   public void testFacetDir() throws Exception
-   {
+   public void testFacetDir() throws Exception {
       final File facetDir = workspace.importResources("composed-component/structured-layout");
       assertTrue(facetDir.exists());
 
@@ -80,8 +75,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       assertStructuredLayout(dummyComponent);
    }
 
-   public void testBug49MixedTestsFacet() throws Exception
-   {
+   public void testBug49MixedTestsFacet() throws Exception {
       final File moduleDir = workspace.importResources("MixedTestsFacet");
       assertTrue(moduleDir.exists());
 
@@ -101,13 +95,11 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       final PluginsFacet pluginsFacet;
       final PluginsFacet testsFacet;
 
-      if ("plugins".equals(facet1Dir.getName()))
-      {
+      if ("plugins".equals(facet1Dir.getName())) {
          pluginsFacet = facet1;
          testsFacet = facet2;
       }
-      else
-      {
+      else {
          pluginsFacet = facet2;
          testsFacet = facet1;
       }
@@ -124,14 +116,12 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       assertFalse(bundleTestharness.isTestPlugin());
    }
 
-   private static File getFacetDirectory(final PluginsFacet pluginsFacet)
-   {
+   private static File getFacetDirectory(final PluginsFacet pluginsFacet) {
       final PluginProject pluginProject = pluginsFacet.getProjects().get(0);
       return pluginProject.getDirectory().getParentFile();
    }
 
-   public static void assertStructuredLayout(BasicModule module)
-   {
+   public static void assertStructuredLayout(BasicModule module) {
       assertEquals("structured", module.getLayoutId());
 
       EList<PluginsFacet> pluginsFacets = module.getFacets(PluginsFacet.class);
@@ -156,8 +146,7 @@ public class StructuredLayoutFacetsParserRuleTest extends AbstractModuleParserTe
       assertEquals(1, sites.size());
    }
 
-   private StructuredLayoutFacetsParserRule lookupParserRule() throws Exception
-   {
+   private StructuredLayoutFacetsParserRule lookupParserRule() throws Exception {
       return (StructuredLayoutFacetsParserRule) lookup(AbstractFacetsParserRule.class, "structured");
    }
 }

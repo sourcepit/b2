@@ -40,54 +40,44 @@ import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
 
-public class B2MavenBridge
-{
+public class B2MavenBridge {
    private MavenSession session;
 
-   private B2MavenBridge(MavenSession session)
-   {
+   private B2MavenBridge(MavenSession session) {
       this(session, initResourceSet(session));
    }
 
-   private static ResourceSet initResourceSet(MavenSession session)
-   {
+   private static ResourceSet initResourceSet(MavenSession session) {
       final ResourceSet resourceSet = createResourceSet();
-      for (MavenProject mavenProject : session.getProjects())
-      {
-         if (isModuleDir(mavenProject.getBasedir()))
-         {
+      for (MavenProject mavenProject : session.getProjects()) {
+         if (isModuleDir(mavenProject.getBasedir())) {
             setUriMappings(mavenProject.getBasedir(), resourceSet);
          }
       }
       return resourceSet;
    }
 
-   private B2MavenBridge(MavenSession session, ResourceSet resourceSet)
-   {
+   private B2MavenBridge(MavenSession session, ResourceSet resourceSet) {
       this.session = session;
       connect(session, resourceSet);
    }
 
-   private static boolean isModuleDir(File basedir)
-   {
+   private static boolean isModuleDir(File basedir) {
       return new File(basedir, "module.xml").exists();
    }
 
-   private static void setUriMappings(final File moduleDir, ResourceSet resourceSet)
-   {
+   private static void setUriMappings(final File moduleDir, ResourceSet resourceSet) {
       PropertiesMap uriMap = new LinkedPropertiesMap();
       uriMap.load(new File(moduleDir, ".b2/uriMap.properties"));
 
-      for (Entry<String, String> entry : uriMap.entrySet())
-      {
+      for (Entry<String, String> entry : uriMap.entrySet()) {
          URI key = URI.createURI(entry.getKey());
          URI value = URI.createURI(entry.getValue());
          resourceSet.getURIConverter().getURIMap().put(key, value);
       }
    }
 
-   private static ResourceSet createResourceSet()
-   {
+   private static ResourceSet createResourceSet() {
       final ResourceSet resourceSet = new ResourceSetImpl();
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("gav", new XMIResourceFactoryImpl());
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
@@ -96,16 +86,14 @@ public class B2MavenBridge
    }
 
    // TODO move
-   public static URI toArtifactURI(MavenProject project, String type, String classifier)
-   {
+   public static URI toArtifactURI(MavenProject project, String type, String classifier) {
       final StringBuilder sb = new StringBuilder();
       sb.append(project.getGroupId());
       sb.append("/");
       sb.append(project.getArtifactId());
       sb.append("/");
       sb.append(type);
-      if (classifier != null && classifier.length() > 0)
-      {
+      if (classifier != null && classifier.length() > 0) {
          sb.append("/");
          sb.append(classifier);
       }
@@ -115,39 +103,29 @@ public class B2MavenBridge
    }
 
 
-   public static B2MavenBridge get(MavenSession mavenSession)
-   {
-      return Adapters.adapt(new AbstractAdapterFactory()
-      {
+   public static B2MavenBridge get(MavenSession mavenSession) {
+      return Adapters.adapt(new AbstractAdapterFactory() {
          @Override
-         protected <A> A newAdapter(Object adaptable, Class<A> adapterType)
-         {
+         protected <A> A newAdapter(Object adaptable, Class<A> adapterType) {
             return (A) new B2MavenBridge((MavenSession) adaptable);
          }
       }, mavenSession, B2MavenBridge.class);
    }
 
-   public static B2MavenBridge get(MavenSession mavenSession, final ResourceSet resourceSet)
-   {
-      return Adapters.adapt(new AbstractAdapterFactory()
-      {
+   public static B2MavenBridge get(MavenSession mavenSession, final ResourceSet resourceSet) {
+      return Adapters.adapt(new AbstractAdapterFactory() {
          @Override
-         protected <A> A newAdapter(Object adaptable, Class<A> adapterType)
-         {
+         protected <A> A newAdapter(Object adaptable, Class<A> adapterType) {
             return (A) new B2MavenBridge((MavenSession) adaptable, resourceSet);
          }
       }, mavenSession, B2MavenBridge.class);
    }
 
-   private void connect(MavenSession mavenSession, ResourceSet resourceSet)
-   {
+   private void connect(MavenSession mavenSession, ResourceSet resourceSet) {
       final Map<File, Project> dirToProjectMap = new HashMap<File, Project>();
-      for (MavenProject mavenProject : mavenSession.getProjects())
-      {
-         if (isModuleProject(resourceSet, mavenProject))
-         {
-            if (getContextValue(mavenProject, AbstractModule.class) != null)
-            {
+      for (MavenProject mavenProject : mavenSession.getProjects()) {
+         if (isModuleProject(resourceSet, mavenProject)) {
+            if (getContextValue(mavenProject, AbstractModule.class) != null) {
                throw new IllegalStateException("b2 maven bridge already connected");
             }
 
@@ -156,10 +134,8 @@ public class B2MavenBridge
 
             mavenProject.setContextValue(AbstractModule.class.getName(), module);
 
-            for (ProjectFacet<Project> projectFacet : module.getFacets(ProjectFacet.class))
-            {
-               for (Project project : projectFacet.getProjects())
-               {
+            for (ProjectFacet<Project> projectFacet : module.getFacets(ProjectFacet.class)) {
+               for (Project project : projectFacet.getProjects()) {
                   dirToProjectMap.put(project.getDirectory(), project);
                }
             }
@@ -168,12 +144,10 @@ public class B2MavenBridge
             final File fileFlagsFile = new File(moduleDir, ".b2/moduleDirectory.properties");
 
             final ModuleDirectory moduleDirectory;
-            if (fileFlagsFile.exists())
-            {
+            if (fileFlagsFile.exists()) {
                moduleDirectory = ModuleDirectory.load(moduleDir, fileFlagsFile);
             }
-            else
-            {
+            else {
                moduleDirectory = new ModuleDirectory(moduleDir, Collections.<File, Integer> emptyMap());
             }
 
@@ -181,58 +155,47 @@ public class B2MavenBridge
          }
       }
 
-      for (MavenProject mavenProject : mavenSession.getProjects())
-      {
+      for (MavenProject mavenProject : mavenSession.getProjects()) {
          final Project project = dirToProjectMap.get(mavenProject.getBasedir());
-         if (project != null)
-         {
+         if (project != null) {
             mavenProject.setContextValue(Project.class.getName(), project);
          }
       }
    }
 
-   static boolean isModuleProject(ResourceSet resourceSet, MavenProject mavenProject)
-   {
+   static boolean isModuleProject(ResourceSet resourceSet, MavenProject mavenProject) {
       Resource resource;
-      try
-      {
+      try {
          final URI uri = toArtifactURI(mavenProject, "module", null);
          resource = resourceSet.getResource(uri, true);
       }
-      catch (RuntimeException e)
-      {
+      catch (RuntimeException e) {
          resource = null;
       }
       return resource != null && !resource.getContents().isEmpty();
    }
 
    @SuppressWarnings("unchecked")
-   private static <T> T getContextValue(MavenProject mavenProject, Class<T> type)
-   {
+   private static <T> T getContextValue(MavenProject mavenProject, Class<T> type) {
       return (T) mavenProject.getContextValue(type.getName());
    }
 
-   public void disconnect(MavenSession mavenSession)
-   {
-      for (MavenProject mavenProject : mavenSession.getProjects())
-      {
+   public void disconnect(MavenSession mavenSession) {
+      for (MavenProject mavenProject : mavenSession.getProjects()) {
          mavenProject.setContextValue(AbstractModule.class.getName(), null);
          mavenProject.setContextValue(Project.class.getName(), null);
       }
    }
 
-   public ModuleDirectory getModuleDirectory(MavenProject mavenProject)
-   {
+   public ModuleDirectory getModuleDirectory(MavenProject mavenProject) {
       return getContextValue(mavenProject, ModuleDirectory.class);
    }
 
-   public AbstractModule getModule(MavenProject mavenProject)
-   {
+   public AbstractModule getModule(MavenProject mavenProject) {
       return getContextValue(mavenProject, AbstractModule.class);
    }
 
-   public Project getEclipseProject(MavenProject mavenProject)
-   {
+   public Project getEclipseProject(MavenProject mavenProject) {
       return getContextValue(mavenProject, Project.class);
    }
 }

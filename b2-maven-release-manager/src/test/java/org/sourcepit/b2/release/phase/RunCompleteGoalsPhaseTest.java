@@ -21,12 +21,10 @@ import static org.junit.Assert.assertEquals;
 import org.apache.maven.shared.release.config.ReleaseDescriptor;
 import org.junit.Test;
 
-public class RunCompleteGoalsPhaseTest
-{
+public class RunCompleteGoalsPhaseTest {
 
    @Test
-   public void testGetGoals()
-   {
+   public void testGetGoals() {
       final RunCompleteGoalsPhase phase = new RunCompleteGoalsPhase();
       final ReleaseDescriptor releaseDescriptor = new ReleaseDescriptor();
 

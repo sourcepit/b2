@@ -28,21 +28,18 @@ import org.sourcepit.b2.release.B2ReleaseHelper;
 
 public class CheckCompletedPreparePhasesPhase
    extends
-      org.apache.maven.shared.release.phase.CheckCompletedPreparePhasesPhase
-{
+      org.apache.maven.shared.release.phase.CheckCompletedPreparePhasesPhase {
    private B2ReleaseHelper releaseHelper;
 
    @Override
    public ReleaseResult execute(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       return super.execute(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
 
    @Override
    public ReleaseResult simulate(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       return super.simulate(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
 }

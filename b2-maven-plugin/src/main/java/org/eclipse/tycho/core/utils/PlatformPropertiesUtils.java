@@ -25,8 +25,7 @@ import java.util.Properties;
  * @author igor
  * @author Bernd Vogt <bernd.vogt@sourcepit.org> (copy&paste from tycho)
  */
-public class PlatformPropertiesUtils
-{
+public class PlatformPropertiesUtils {
    public static final String INTERNAL_ARCH_I386 = "i386"; //$NON-NLS-1$
    public static final String INTERNAL_AMD64 = "amd64"; //$NON-NLS-1$
    public static final String INTERNAL_OS_SUNOS = "SunOS"; //$NON-NLS-1$
@@ -44,8 +43,7 @@ public class PlatformPropertiesUtils
    public final static String OSGI_ARCH = "osgi.arch"; //$NON-NLS-1$
    public final static String OSGI_NL = "osgi.nl"; //$NON-NLS-1$
 
-   private static final class Constants extends PlatformPropertiesUtils
-   {
+   private static final class Constants extends PlatformPropertiesUtils {
    }
 
    /**
@@ -136,8 +134,7 @@ public class PlatformPropertiesUtils
     */
    public static final String WS_UNKNOWN = "unknown";//$NON-NLS-1$
 
-   public static String getWS(Properties properties)
-   {
+   public static String getWS(Properties properties) {
       String ws = properties.getProperty(OSGI_WS);
       if (ws != null)
          return ws;
@@ -146,8 +143,7 @@ public class PlatformPropertiesUtils
          return Constants.WS_WIN32;
       if (osName.equals(Constants.OS_LINUX))
          return Constants.WS_GTK;
-      if (osName.equals(Constants.OS_MACOSX))
-      {
+      if (osName.equals(Constants.OS_MACOSX)) {
          String arch = getArch(properties);
          if (ARCH_X86_64.equals(arch))
             return Constants.WS_COCOA;
@@ -164,8 +160,7 @@ public class PlatformPropertiesUtils
       return Constants.WS_UNKNOWN;
    }
 
-   public static String getOS(Properties properties)
-   {
+   public static String getOS(Properties properties) {
       String os = properties.getProperty(OSGI_OS);
       if (os != null)
          return os;
@@ -190,8 +185,7 @@ public class PlatformPropertiesUtils
       return Constants.OS_UNKNOWN;
    }
 
-   public static String getArch(Properties properties)
-   {
+   public static String getArch(Properties properties) {
       String arch = properties.getProperty(OSGI_ARCH);
       if (arch != null)
          return arch;

@@ -41,8 +41,7 @@ import org.sourcepit.b2.model.module.PluginsFacet;
  * 
  * @generated
  */
-public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements PluginsFacet
-{
+public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements PluginsFacet {
    /**
     * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -60,8 +59,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     * 
     * @generated
     */
-   protected PluginsFacetImpl()
-   {
+   protected PluginsFacetImpl() {
       super();
    }
 
@@ -72,8 +70,7 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.PLUGINS_FACET;
    }
 
@@ -83,10 +80,8 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     * 
     * @generated
     */
-   public EList<PluginProject> getProjects()
-   {
-      if (projects == null)
-      {
+   public EList<PluginProject> getProjects() {
+      if (projects == null) {
          projects = new EObjectContainmentWithInverseEList.Resolving<PluginProject>(PluginProject.class, this,
             ModuleModelPackage.PLUGINS_FACET__PROJECTS, ModuleModelPackage.PLUGIN_PROJECT__PARENT);
       }
@@ -101,10 +96,8 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     */
    @SuppressWarnings("unchecked")
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getProjects()).basicAdd(otherEnd, msgs);
       }
@@ -118,10 +111,8 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             return ((InternalEList<?>) getProjects()).basicRemove(otherEnd, msgs);
       }
@@ -135,10 +126,8 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             return getProjects();
       }
@@ -153,10 +142,8 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             getProjects().clear();
             getProjects().addAll((Collection<? extends PluginProject>) newValue);
@@ -172,10 +159,8 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             getProjects().clear();
             return;
@@ -190,10 +175,8 @@ public class PluginsFacetImpl extends ProjectFacetImpl<PluginProject> implements
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGINS_FACET__PROJECTS :
             return projects != null && !projects.isEmpty();
       }

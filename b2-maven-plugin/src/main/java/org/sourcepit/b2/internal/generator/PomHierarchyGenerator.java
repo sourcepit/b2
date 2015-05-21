@@ -38,74 +38,59 @@ import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
-{
+public class PomHierarchyGenerator extends AbstractPomGenerator implements IB2GenerationParticipant {
    @Override
-   public GeneratorType getGeneratorType()
-   {
+   public GeneratorType getGeneratorType() {
       return GeneratorType.MODULE_RESOURCE_FILTER;
    }
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
       inputTypes.add(AbstractFacet.class);
       inputTypes.add(AbstractModule.class);
    }
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
-      ITemplates templates, ModuleDirectory moduleDirectory)
-   {
-      if (skipFacets && inputElement instanceof AbstractFacet)
-      {
+      ITemplates templates, ModuleDirectory moduleDirectory) {
+      if (skipFacets && inputElement instanceof AbstractFacet) {
          return;
       }
       setMavenModules(inputElement, skipFacets);
    }
 
-   private void setMavenModules(Annotatable inputElement, boolean skipFacets)
-   {
+   private void setMavenModules(Annotatable inputElement, boolean skipFacets) {
       final File mavenParentFile = resolvePomFile(inputElement);
       final Model mavenParent = readMavenModel(mavenParentFile);
-      for (Annotatable moduleElement : getModules(inputElement, skipFacets))
-      {
+      for (Annotatable moduleElement : getModules(inputElement, skipFacets)) {
          final File mavenModuleFile = resolvePomFile(moduleElement);
          final Model mavenModule = readMavenModel(mavenModuleFile);
          setMavenModule(mavenParentFile, mavenParent, mavenModuleFile);
-         if (!(moduleElement instanceof AbstractModule))
-         {
+         if (!(moduleElement instanceof AbstractModule)) {
             setMavenParent(mavenParentFile, mavenParent, mavenModuleFile, mavenModule);
          }
       }
    }
 
-   private List<? extends Annotatable> getModules(Annotatable annotateable, boolean skipFacets)
-   {
-      if (annotateable instanceof ProjectFacet)
-      {
+   private List<? extends Annotatable> getModules(Annotatable annotateable, boolean skipFacets) {
+      if (annotateable instanceof ProjectFacet) {
          return ((ProjectFacet<?>) annotateable).getProjects();
       }
-      if (annotateable instanceof AbstractModule)
-      {
+      if (annotateable instanceof AbstractModule) {
          final AbstractModule module = (AbstractModule) annotateable;
 
          final List<Annotatable> modules = new ArrayList<Annotatable>();
-         if (module instanceof CompositeModule)
-         {
+         if (module instanceof CompositeModule) {
             modules.addAll(((CompositeModule) module).getModules());
          }
 
          final EList<AbstractFacet> facets = module.getFacets();
-         if (skipFacets)
-         {
-            for (AbstractFacet facet : facets)
-            {
+         if (skipFacets) {
+            for (AbstractFacet facet : facets) {
                modules.addAll(getModules(facet, skipFacets));
             }
          }
-         else
-         {
+         else {
             modules.addAll(facets);
          }
 

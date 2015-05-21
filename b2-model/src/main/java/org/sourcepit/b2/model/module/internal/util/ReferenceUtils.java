@@ -26,78 +26,62 @@ import org.sourcepit.b2.model.module.RuledReference;
 import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.b2.model.module.util.Identifiable;
 
-public final class ReferenceUtils
-{
-   private ReferenceUtils()
-   {
+public final class ReferenceUtils {
+   private ReferenceUtils() {
       super();
    }
 
-   public static boolean isSatisfiableBy(AbstractReference reference, Identifiable identifiable)
-   {
-      if (identifiable == null)
-      {
+   public static boolean isSatisfiableBy(AbstractReference reference, Identifiable identifiable) {
+      if (identifiable == null) {
          throw new IllegalArgumentException("identifiable may not be null");
       }
-      if (!isIdMatch(reference, identifiable))
-      {
+      if (!isIdMatch(reference, identifiable)) {
          return false;
       }
-      if (!isVersionMatch(reference, identifiable))
-      {
+      if (!isVersionMatch(reference, identifiable)) {
          return false;
       }
       return true;
    }
 
-   private static boolean isVersionMatch(AbstractReference reference, Identifiable identifiable)
-   {
+   private static boolean isVersionMatch(AbstractReference reference, Identifiable identifiable) {
       final VersionMatchRule rule;
       final boolean isStrict;
 
-      if (reference instanceof AbstractStrictReference)
-      {
+      if (reference instanceof AbstractStrictReference) {
          isStrict = true;
          rule = null;
       }
-      else if (reference instanceof RuledReference)
-      {
+      else if (reference instanceof RuledReference) {
          isStrict = false;
          rule = ((RuledReference) reference).getVersionMatchRule();
       }
-      else
-      {
+      else {
          throw new IllegalStateException("Cannot determine version match mode for reference " + reference);
       }
 
-      if (isStrict)
-      {
+      if (isStrict) {
          return isStrictVersionMatch(reference.getVersion(), identifiable.getVersion());
       }
-      else if (rule != null)
-      {
+      else if (rule != null) {
          return isRuledVersionMatch(rule, reference.getVersion(), identifiable.getVersion());
       }
 
       throw new IllegalStateException();
    }
 
-   private static boolean isIdMatch(AbstractReference reference, Identifiable identifiable)
-   {
+   private static boolean isIdMatch(AbstractReference reference, Identifiable identifiable) {
       return reference.getId().equals(identifiable.getId());
    }
 
-   private static boolean isRuledVersionMatch(VersionMatchRule rule, String refVersion, String idenVersion)
-   {
-      if (refVersion == null)
-      {
+   private static boolean isRuledVersionMatch(VersionMatchRule rule, String refVersion, String idenVersion) {
+      if (refVersion == null) {
          return true;
       }
       return toVersionRange(refVersion, rule).isIncluded(new Version(idenVersion));
    }
 
-   public static VersionRange toVersionRange(String version, VersionMatchRule rule)
-   {
+   public static VersionRange toVersionRange(String version, VersionMatchRule rule) {
       // perfect : [1.0.0,1.0.0]
       // equivalent : [1.0.0, 1.1.0)
       // compatible : [1.0.0, 2.0.0)
@@ -109,8 +93,7 @@ public final class ReferenceUtils
       final int micro = v.getMicro();
 
       final String versionRange;
-      switch (rule)
-      {
+      switch (rule) {
          case PERFECT :
             versionRange = "[" + v + "," + v + "]";
             break;
@@ -130,17 +113,14 @@ public final class ReferenceUtils
       return new VersionRange(versionRange);
    }
 
-   private static boolean isStrictVersionMatch(String refVersion, String identVersion)
-   {
-      if (isDefaultVersion(refVersion))
-      {
+   private static boolean isStrictVersionMatch(String refVersion, String identVersion) {
+      if (isDefaultVersion(refVersion)) {
          return true;
       }
       return refVersion.equals(identVersion);
    }
 
-   private static boolean isDefaultVersion(String versionRange)
-   {
+   private static boolean isDefaultVersion(String versionRange) {
       return versionRange == null || "0.0.0".equals(versionRange) || versionRange.startsWith("0.0.0.");
    }
 }

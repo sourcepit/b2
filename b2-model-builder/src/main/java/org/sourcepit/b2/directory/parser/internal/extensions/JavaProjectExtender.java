@@ -34,46 +34,38 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 @Named
-public class JavaProjectExtender extends AbstractModuleParserExtender implements IModuleParserExtender
-{
+public class JavaProjectExtender extends AbstractModuleParserExtender implements IModuleParserExtender {
    @Override
-   protected void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes) {
       inputTypes.add(PluginProject.class);
    }
 
    @Override
-   protected void doExtend(Annotatable modelElement, PropertiesSource properties)
-   {
+   protected void doExtend(Annotatable modelElement, PropertiesSource properties) {
       final PluginProject pluginProject = (PluginProject) modelElement;
       final File projectDir = pluginProject.getDirectory();
       processJdtSettings(modelElement, projectDir);
       processClasspath(modelElement, projectDir);
    }
 
-   private void processClasspath(Annotatable modelElement, final File projectDir)
-   {
+   private void processClasspath(Annotatable modelElement, final File projectDir) {
       final File cpFile = new File(projectDir, ".classpath");
-      if (cpFile.exists())
-      {
+      if (cpFile.exists()) {
          final Document cpDoc = XmlUtils.readXml(cpFile);
          StringBuilder sb = new StringBuilder();
-         for (Node node : XmlUtils.queryNodes(cpDoc, "/classpath/classpathentry[@kind='src']"))
-         {
+         for (Node node : XmlUtils.queryNodes(cpDoc, "/classpath/classpathentry[@kind='src']")) {
             Element srcEntry = (Element) node;
             String srcPath = srcEntry.getAttribute("path");
             sb.append(',');
             sb.append(srcPath);
          }
-         if (sb.length() > 0)
-         {
+         if (sb.length() > 0) {
             sb.deleteCharAt(0);
             modelElement.setAnnotationData("java", "source.paths", sb.toString());
          }
 
          for (Node node : XmlUtils.queryNodes(cpDoc,
-            "/classpath/classpathentry[@kind='con' and starts-with(@path,'org.eclipse.jdt.launching.JRE_CONTAINER/')]"))
-         {
+            "/classpath/classpathentry[@kind='con' and starts-with(@path,'org.eclipse.jdt.launching.JRE_CONTAINER/')]")) {
             Element conEntry = (Element) node;
             String conPath = conEntry.getAttribute("path");
             String jreName = conPath.substring(conPath.lastIndexOf('/') + 1);
@@ -82,23 +74,19 @@ public class JavaProjectExtender extends AbstractModuleParserExtender implements
       }
    }
 
-   private void processJdtSettings(Annotatable modelElement, final File projectDir)
-   {
+   private void processJdtSettings(Annotatable modelElement, final File projectDir) {
       final File prefFile = new File(projectDir, ".settings/org.eclipse.jdt.core.prefs");
-      if (prefFile.exists())
-      {
+      if (prefFile.exists()) {
          final PropertiesMap jdtPrefs = new LinkedPropertiesMap();
          jdtPrefs.load(prefFile);
 
          final String target = jdtPrefs.get("org.eclipse.jdt.core.compiler.codegen.targetPlatform");
-         if (target != null)
-         {
+         if (target != null) {
             modelElement.setAnnotationData("java", "compiler.target", target);
          }
 
          final String source = jdtPrefs.get("org.eclipse.jdt.core.compiler.codegen.targetPlatform");
-         if (source != null)
-         {
+         if (source != null) {
             modelElement.setAnnotationData("java", "compiler.source", source);
          }
       }

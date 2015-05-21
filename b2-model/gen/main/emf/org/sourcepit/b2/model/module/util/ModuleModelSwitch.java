@@ -60,8 +60,7 @@ import org.sourcepit.common.modeling.Annotatable;
  * @see org.sourcepit.b2.model.module.ModuleModelPackage
  * @generated
  */
-public class ModuleModelSwitch<T> extends Switch<T>
-{
+public class ModuleModelSwitch<T> extends Switch<T> {
    /**
     * The cached model package
     * <!-- begin-user-doc -->
@@ -78,10 +77,8 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * 
     * @generated
     */
-   public ModuleModelSwitch()
-   {
-      if (modelPackage == null)
-      {
+   public ModuleModelSwitch() {
+      if (modelPackage == null) {
          modelPackage = ModuleModelPackage.eINSTANCE;
       }
    }
@@ -96,8 +93,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @generated
     */
    @Override
-   protected boolean isSwitchFor(EPackage ePackage)
-   {
+   protected boolean isSwitchFor(EPackage ePackage) {
       return ePackage == modelPackage;
    }
 
@@ -110,12 +106,9 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @generated
     */
    @Override
-   protected T doSwitch(int classifierID, EObject theEObject)
-   {
-      switch (classifierID)
-      {
-         case ModuleModelPackage.ABSTRACT_MODULE :
-         {
+   protected T doSwitch(int classifierID, EObject theEObject) {
+      switch (classifierID) {
+         case ModuleModelPackage.ABSTRACT_MODULE : {
             AbstractModule abstractModule = (AbstractModule) theEObject;
             T result = caseAbstractModule(abstractModule);
             if (result == null)
@@ -130,8 +123,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.BASIC_MODULE :
-         {
+         case ModuleModelPackage.BASIC_MODULE : {
             BasicModule basicModule = (BasicModule) theEObject;
             T result = caseBasicModule(basicModule);
             if (result == null)
@@ -148,8 +140,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.ABSTRACT_FACET :
-         {
+         case ModuleModelPackage.ABSTRACT_FACET : {
             AbstractFacet abstractFacet = (AbstractFacet) theEObject;
             T result = caseAbstractFacet(abstractFacet);
             if (result == null)
@@ -160,8 +151,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.COMPOSITE_MODULE :
-         {
+         case ModuleModelPackage.COMPOSITE_MODULE : {
             CompositeModule compositeModule = (CompositeModule) theEObject;
             T result = caseCompositeModule(compositeModule);
             if (result == null)
@@ -178,8 +168,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PLUGINS_FACET :
-         {
+         case ModuleModelPackage.PLUGINS_FACET : {
             PluginsFacet pluginsFacet = (PluginsFacet) theEObject;
             T result = casePluginsFacet(pluginsFacet);
             if (result == null)
@@ -194,8 +183,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.FEATURES_FACET :
-         {
+         case ModuleModelPackage.FEATURES_FACET : {
             FeaturesFacet featuresFacet = (FeaturesFacet) theEObject;
             T result = caseFeaturesFacet(featuresFacet);
             if (result == null)
@@ -210,8 +198,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.SITES_FACET :
-         {
+         case ModuleModelPackage.SITES_FACET : {
             SitesFacet sitesFacet = (SitesFacet) theEObject;
             T result = caseSitesFacet(sitesFacet);
             if (result == null)
@@ -226,8 +213,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PLUGIN_PROJECT :
-         {
+         case ModuleModelPackage.PLUGIN_PROJECT : {
             PluginProject pluginProject = (PluginProject) theEObject;
             T result = casePluginProject(pluginProject);
             if (result == null)
@@ -246,8 +232,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.FEATURE_PROJECT :
-         {
+         case ModuleModelPackage.FEATURE_PROJECT : {
             FeatureProject featureProject = (FeatureProject) theEObject;
             T result = caseFeatureProject(featureProject);
             if (result == null)
@@ -266,8 +251,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.SITE_PROJECT :
-         {
+         case ModuleModelPackage.SITE_PROJECT : {
             SiteProject siteProject = (SiteProject) theEObject;
             T result = caseSiteProject(siteProject);
             if (result == null)
@@ -286,8 +270,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PROJECT :
-         {
+         case ModuleModelPackage.PROJECT : {
             Project project = (Project) theEObject;
             T result = caseProject(project);
             if (result == null)
@@ -304,8 +287,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PROJECT_FACET :
-         {
+         case ModuleModelPackage.PROJECT_FACET : {
             ProjectFacet<?> projectFacet = (ProjectFacet<?>) theEObject;
             T result = caseProjectFacet(projectFacet);
             if (result == null)
@@ -318,24 +300,21 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.FILE_CONTAINER :
-         {
+         case ModuleModelPackage.FILE_CONTAINER : {
             FileContainer fileContainer = (FileContainer) theEObject;
             T result = caseFileContainer(fileContainer);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.DERIVABLE :
-         {
+         case ModuleModelPackage.DERIVABLE : {
             Derivable derivable = (Derivable) theEObject;
             T result = caseDerivable(derivable);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PLUGIN_INCLUDE :
-         {
+         case ModuleModelPackage.PLUGIN_INCLUDE : {
             PluginInclude pluginInclude = (PluginInclude) theEObject;
             T result = casePluginInclude(pluginInclude);
             if (result == null)
@@ -348,16 +327,14 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.CATEGORY :
-         {
+         case ModuleModelPackage.CATEGORY : {
             Category category = (Category) theEObject;
             T result = caseCategory(category);
             if (result == null)
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.ABSTRACT_IDENTIFIABLE :
-         {
+         case ModuleModelPackage.ABSTRACT_IDENTIFIABLE : {
             AbstractIdentifiable abstractIdentifiable = (AbstractIdentifiable) theEObject;
             T result = caseAbstractIdentifiable(abstractIdentifiable);
             if (result == null)
@@ -366,8 +343,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PRODUCTS_FACET :
-         {
+         case ModuleModelPackage.PRODUCTS_FACET : {
             ProductsFacet productsFacet = (ProductsFacet) theEObject;
             T result = caseProductsFacet(productsFacet);
             if (result == null)
@@ -380,8 +356,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.PRODUCT_DEFINITION :
-         {
+         case ModuleModelPackage.PRODUCT_DEFINITION : {
             ProductDefinition productDefinition = (ProductDefinition) theEObject;
             T result = caseProductDefinition(productDefinition);
             if (result == null)
@@ -392,8 +367,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.ABSTRACT_REFERENCE :
-         {
+         case ModuleModelPackage.ABSTRACT_REFERENCE : {
             AbstractReference abstractReference = (AbstractReference) theEObject;
             T result = caseAbstractReference(abstractReference);
             if (result == null)
@@ -402,8 +376,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.RULED_REFERENCE :
-         {
+         case ModuleModelPackage.RULED_REFERENCE : {
             RuledReference ruledReference = (RuledReference) theEObject;
             T result = caseRuledReference(ruledReference);
             if (result == null)
@@ -414,8 +387,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.ABSTRACT_STRICT_REFERENCE :
-         {
+         case ModuleModelPackage.ABSTRACT_STRICT_REFERENCE : {
             AbstractStrictReference abstractStrictReference = (AbstractStrictReference) theEObject;
             T result = caseAbstractStrictReference(abstractStrictReference);
             if (result == null)
@@ -426,8 +398,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.STRICT_REFERENCE :
-         {
+         case ModuleModelPackage.STRICT_REFERENCE : {
             StrictReference strictReference = (StrictReference) theEObject;
             T result = caseStrictReference(strictReference);
             if (result == null)
@@ -440,8 +411,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.FEATURE_INCLUDE :
-         {
+         case ModuleModelPackage.FEATURE_INCLUDE : {
             FeatureInclude featureInclude = (FeatureInclude) theEObject;
             T result = caseFeatureInclude(featureInclude);
             if (result == null)
@@ -454,8 +424,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
                result = defaultCase(theEObject);
             return result;
          }
-         case ModuleModelPackage.IDENTIFIABLE :
-         {
+         case ModuleModelPackage.IDENTIFIABLE : {
             Identifiable identifiable = (Identifiable) theEObject;
             T result = caseIdentifiable(identifiable);
             if (result == null)
@@ -479,8 +448,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseAbstractModule(AbstractModule object)
-   {
+   public T caseAbstractModule(AbstractModule object) {
       return null;
    }
 
@@ -496,8 +464,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseBasicModule(BasicModule object)
-   {
+   public T caseBasicModule(BasicModule object) {
       return null;
    }
 
@@ -513,8 +480,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseAbstractFacet(AbstractFacet object)
-   {
+   public T caseAbstractFacet(AbstractFacet object) {
       return null;
    }
 
@@ -530,8 +496,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseCompositeModule(CompositeModule object)
-   {
+   public T caseCompositeModule(CompositeModule object) {
       return null;
    }
 
@@ -547,8 +512,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T casePluginsFacet(PluginsFacet object)
-   {
+   public T casePluginsFacet(PluginsFacet object) {
       return null;
    }
 
@@ -564,8 +528,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseFeaturesFacet(FeaturesFacet object)
-   {
+   public T caseFeaturesFacet(FeaturesFacet object) {
       return null;
    }
 
@@ -581,8 +544,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseSitesFacet(SitesFacet object)
-   {
+   public T caseSitesFacet(SitesFacet object) {
       return null;
    }
 
@@ -598,8 +560,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T casePluginProject(PluginProject object)
-   {
+   public T casePluginProject(PluginProject object) {
       return null;
    }
 
@@ -615,8 +576,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseFeatureProject(FeatureProject object)
-   {
+   public T caseFeatureProject(FeatureProject object) {
       return null;
    }
 
@@ -632,8 +592,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseSiteProject(SiteProject object)
-   {
+   public T caseSiteProject(SiteProject object) {
       return null;
    }
 
@@ -649,8 +608,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseProject(Project object)
-   {
+   public T caseProject(Project object) {
       return null;
    }
 
@@ -666,8 +624,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public <P extends Project> T caseProjectFacet(ProjectFacet<P> object)
-   {
+   public <P extends Project> T caseProjectFacet(ProjectFacet<P> object) {
       return null;
    }
 
@@ -683,8 +640,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseFileContainer(FileContainer object)
-   {
+   public T caseFileContainer(FileContainer object) {
       return null;
    }
 
@@ -700,8 +656,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseDerivable(Derivable object)
-   {
+   public T caseDerivable(Derivable object) {
       return null;
    }
 
@@ -717,8 +672,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T casePluginInclude(PluginInclude object)
-   {
+   public T casePluginInclude(PluginInclude object) {
       return null;
    }
 
@@ -734,8 +688,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseCategory(Category object)
-   {
+   public T caseCategory(Category object) {
       return null;
    }
 
@@ -751,8 +704,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseAbstractIdentifiable(AbstractIdentifiable object)
-   {
+   public T caseAbstractIdentifiable(AbstractIdentifiable object) {
       return null;
    }
 
@@ -768,8 +720,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseProductsFacet(ProductsFacet object)
-   {
+   public T caseProductsFacet(ProductsFacet object) {
       return null;
    }
 
@@ -785,8 +736,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseProductDefinition(ProductDefinition object)
-   {
+   public T caseProductDefinition(ProductDefinition object) {
       return null;
    }
 
@@ -802,8 +752,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseAbstractReference(AbstractReference object)
-   {
+   public T caseAbstractReference(AbstractReference object) {
       return null;
    }
 
@@ -819,8 +768,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseRuledReference(RuledReference object)
-   {
+   public T caseRuledReference(RuledReference object) {
       return null;
    }
 
@@ -836,8 +784,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseAbstractStrictReference(AbstractStrictReference object)
-   {
+   public T caseAbstractStrictReference(AbstractStrictReference object) {
       return null;
    }
 
@@ -853,8 +800,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseStrictReference(StrictReference object)
-   {
+   public T caseStrictReference(StrictReference object) {
       return null;
    }
 
@@ -870,8 +816,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseFeatureInclude(FeatureInclude object)
-   {
+   public T caseFeatureInclude(FeatureInclude object) {
       return null;
    }
 
@@ -887,8 +832,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseIdentifiable(Identifiable object)
-   {
+   public T caseIdentifiable(Identifiable object) {
       return null;
    }
 
@@ -904,8 +848,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
     * @generated
     */
-   public T caseAnnotatable(Annotatable object)
-   {
+   public T caseAnnotatable(Annotatable object) {
       return null;
    }
 
@@ -922,8 +865,7 @@ public class ModuleModelSwitch<T> extends Switch<T>
     * @generated
     */
    @Override
-   public T defaultCase(EObject object)
-   {
+   public T defaultCase(EObject object) {
       return null;
    }
 

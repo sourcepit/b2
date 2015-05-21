@@ -53,8 +53,7 @@ import org.sourcepit.common.maven.model.util.MavenModelUtils;
 import org.sourcepit.common.maven.testing.MavenExecutionResult2;
 import org.sourcepit.common.maven.util.Xpp3Utils;
 
-public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
-{
+public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2 {
    @Inject
    private LegacySupport legacySupport;
 
@@ -68,8 +67,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
    private PomGenerator pomGenerator;
 
    @Test
-   public void testModuleTemplatesOrdering() throws Exception
-   {
+   public void testModuleTemplatesOrdering() throws Exception {
       final File projectDir = getWs().getRoot();
 
       // create test project
@@ -86,7 +84,9 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       modulePom.setVersion("1-SNAPSHOT");
 
       // get default tycho-surefire-plugin configuration
-      Plugin plugin = modulePom.getBuild().getPluginManagement().getPluginsAsMap()
+      Plugin plugin = modulePom.getBuild()
+         .getPluginManagement()
+         .getPluginsAsMap()
          .get("org.eclipse.tycho:tycho-surefire-plugin");
       assertNotNull(plugin);
       assertNull(plugin.getConfiguration());
@@ -104,7 +104,9 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       final Model generatedPom = readPom(new File(projectDir, "pom.xml"));
 
       // get generated tycho-surefire-plugin configuration
-      final Plugin generatedPlugin = generatedPom.getBuild().getPluginManagement().getPluginsAsMap()
+      final Plugin generatedPlugin = generatedPom.getBuild()
+         .getPluginManagement()
+         .getPluginsAsMap()
          .get("org.eclipse.tycho:tycho-surefire-plugin");
       assertNotNull(generatedPlugin);
 
@@ -115,8 +117,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
    }
 
    @Test
-   public void testConfigureReleasePreparationGoals() throws Exception
-   {
+   public void testConfigureReleasePreparationGoals() throws Exception {
       final File projectDir = getWs().getRoot();
 
       // create test project
@@ -148,7 +149,9 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       assertEquals("", generatedGoals);
 
       // get generated tycho-surefire-plugin configuration
-      final Plugin generatedPlugin = generatedPom.getBuild().getPluginManagement().getPluginsAsMap()
+      final Plugin generatedPlugin = generatedPom.getBuild()
+         .getPluginManagement()
+         .getPluginsAsMap()
          .get("org.apache.maven.plugins:maven-release-plugin");
       assertNotNull(generatedPlugin);
 
@@ -161,8 +164,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
    }
 
    @Test
-   public void testDisableDefaultInstallAndDeploy() throws Exception
-   {
+   public void testDisableDefaultInstallAndDeploy() throws Exception {
       final File projectDir = getWs().getRoot();
 
       // create test project
@@ -212,8 +214,7 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
    }
 
    @Test
-   public void testBug128_AllwaysSetB2MavenReleaseManager() throws Exception
-   {
+   public void testBug128_AllwaysSetB2MavenReleaseManager() throws Exception {
       final File projectDir = getWs().getRoot();
 
       // create test project
@@ -281,13 +282,11 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       assertEquals("${b2.release.preparationGoals}", cfg.getChild("preparationGoals").getValue());
    }
 
-   private void generatePom(final File projectDir) throws Exception
-   {
+   private void generatePom(final File projectDir) throws Exception {
       generatePom(projectDir, null);
    }
 
-   private void generatePom(final File projectDir, Properties userProperties) throws Exception
-   {
+   private void generatePom(final File projectDir, Properties userProperties) throws Exception {
       final MavenExecutionResult2 result = buildProject(new File(projectDir, "module.xml"), userProperties, false);
       final MavenSession mavenSession = result.getSession();
       legacySupport.setSession(mavenSession);
@@ -315,28 +314,22 @@ public class PomGenerator2Test extends AbstractB2SessionWorkspaceTest2
       generator.generate(request);
    }
 
-   private Model readPom(File pom)
-   {
+   private Model readPom(File pom) {
       final Map<String, String> options = new HashMap<String, String>();
       options.put(ModelReader.IS_STRICT, Boolean.FALSE.toString());
-      try
-      {
+      try {
          return new DefaultModelReader().read(pom, options);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }
 
-   private void writePom(Model model, File file)
-   {
-      try
-      {
+   private void writePom(Model model, File file) {
+      try {
          new DefaultModelWriter().write(file, null, model);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }

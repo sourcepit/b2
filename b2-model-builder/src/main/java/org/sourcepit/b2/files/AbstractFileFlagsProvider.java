@@ -21,17 +21,14 @@ import java.util.Map;
 
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public abstract class AbstractFileFlagsProvider implements FileFlagsProvider
-{
+public abstract class AbstractFileFlagsProvider implements FileFlagsProvider {
    @Override
-   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-   {
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
       return null;
    }
 
    @Override
-   public FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, PropertiesSource properties)
-   {
+   public FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, PropertiesSource properties) {
       return null;
    }
 }

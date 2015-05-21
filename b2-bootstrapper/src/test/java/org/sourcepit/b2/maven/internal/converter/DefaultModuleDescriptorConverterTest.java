@@ -23,10 +23,8 @@ import org.apache.maven.model.Model;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractPlexusWorkspaceTest;
 
 
-public class DefaultModuleDescriptorConverterTest extends AbstractPlexusWorkspaceTest
-{
-   public void testProperties() throws Exception
-   {
+public class DefaultModuleDescriptorConverterTest extends AbstractPlexusWorkspaceTest {
+   public void testProperties() throws Exception {
       File moduleDir = workspace.importResources("component-properties");
 
       File moduleDescriptor = new File(moduleDir, "module.xml");

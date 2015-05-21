@@ -42,8 +42,7 @@ import org.sourcepit.b2.model.module.util.ModuleModelSwitch;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("simple")
-public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>
-{
+public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>> {
    private static final String LAYOUT = SimpleLayoutFacetsParserRule.class.getAnnotation(Named.class).value();
 
    @Inject
@@ -53,67 +52,54 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
    private ProjectParser projectParser;
 
    @Override
-   public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, PropertiesSource properties)
-   {
+   public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, PropertiesSource properties) {
       final List<ProjectFacet<? extends Project>> facets = new ArrayList<ProjectFacet<? extends Project>>();
-      if (directory == null || !directory.exists())
-      {
+      if (directory == null || !directory.exists()) {
          return null;
       }
 
-      if (projectDetector.detect(directory, properties) != null)
-      {
+      if (projectDetector.detect(directory, properties) != null) {
          return null;
       }
 
       final List<PluginProject> fragments = new ArrayList<PluginProject>();
       final Map<String, PluginsFacet> bundleSymbolicNameToPluginsFacet = new HashMap<String, PluginsFacet>();
-      for (File member : directory.listFiles())
-      {
-         if (member.isDirectory())
-         {
+      for (File member : directory.listFiles()) {
+         if (member.isDirectory()) {
             final Project project = projectParser.parse(member, properties);
-            if (project != null)
-            {
+            if (project != null) {
                PluginProject pluginProject = null;
 
                // store fragments for post processing
-               if (project instanceof PluginProject)
-               {
+               if (project instanceof PluginProject) {
                   pluginProject = (PluginProject) project;
-                  if (pluginProject.isFragment())
-                  {
+                  if (pluginProject.isFragment()) {
                      fragments.add(pluginProject);
                      continue;
                   }
                }
 
                ProjectFacet<? extends Project> facet = addProject(facets, project);
-               if (facet == null)
-               {
+               if (facet == null) {
                   // TODO bernd error
                }
 
-               if (pluginProject != null)
-               {
+               if (pluginProject != null) {
                   bundleSymbolicNameToPluginsFacet.put(pluginProject.getId(), (PluginsFacet) facet);
                }
             }
          }
       }
 
-      if (!fragments.isEmpty())
-      {
+      if (!fragments.isEmpty()) {
 
-         for (PluginProject fragment : fragments)
-         {
+         for (PluginProject fragment : fragments) {
             final PluginsFacet fragmentFacet = discoverTargetFacetForFragment(facets, fragment);
             fragmentFacet.getProjects().add(fragment);
          }
       }
 
-      if (facets.isEmpty())
-      {
+      if (facets.isEmpty()) {
          return null;
       }
 
@@ -121,12 +107,9 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
    }
 
    private PluginsFacet discoverTargetFacetForFragment(final List<ProjectFacet<? extends Project>> facets,
-      PluginProject fragment)
-   {
-      for (ProjectFacet<? extends Project> facet : facets)
-      {
-         if (facet instanceof PluginsFacet && facet.getProjectById(fragment.getFragmentHostSymbolicName()) != null)
-         {
+      PluginProject fragment) {
+      for (ProjectFacet<? extends Project> facet : facets) {
+         if (facet instanceof PluginsFacet && facet.getProjectById(fragment.getFragmentHostSymbolicName()) != null) {
             return (PluginsFacet) facet;
          }
       }
@@ -134,16 +117,13 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
       // put fragemnts to other plugnins when their host bundles can not be found
       PluginsFacet mainFacet = null;
 
-      for (ProjectFacet<? extends Project> facet : facets)
-      {
-         if (facet instanceof PluginsFacet && "plugins".equals(facet.getName()))
-         {
+      for (ProjectFacet<? extends Project> facet : facets) {
+         if (facet instanceof PluginsFacet && "plugins".equals(facet.getName())) {
             mainFacet = (PluginsFacet) facet;
          }
       }
 
-      if (mainFacet == null)
-      {
+      if (mainFacet == null) {
          mainFacet = ModuleModelFactory.eINSTANCE.createPluginsFacet();
          mainFacet.setName("plugins");
          facets.add(mainFacet);
@@ -152,19 +132,15 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
       return mainFacet;
    }
 
-   private ProjectFacet<? extends Project> addProject(final List<ProjectFacet<?>> facets, Project project)
-   {
-      final ModuleModelSwitch<ProjectFacet<? extends Project>> moduleSwitch = new ModuleModelSwitch<ProjectFacet<? extends Project>>()
-      {
-         public ProjectFacet<? extends Project> caseFeatureProject(FeatureProject project)
-         {
+   private ProjectFacet<? extends Project> addProject(final List<ProjectFacet<?>> facets, Project project) {
+      final ModuleModelSwitch<ProjectFacet<? extends Project>> moduleSwitch = new ModuleModelSwitch<ProjectFacet<? extends Project>>() {
+         public ProjectFacet<? extends Project> caseFeatureProject(FeatureProject project) {
             final FeaturesFacet facet = getFeaturesFacete();
             facet.getProjects().add(project);
             return facet;
          }
 
-         public ProjectFacet<? extends Project> caseSiteProject(SiteProject project)
-         {
+         public ProjectFacet<? extends Project> caseSiteProject(SiteProject project) {
             final SitesFacet facet = getSitesFacete();
             facet.getProjects().add(project);
             return facet;
@@ -172,18 +148,15 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
 
          // TODO bernd determine correct plugin facete for fragments (a fragments facete is the facete of the host
          // bundle))
-         public ProjectFacet<? extends Project> casePluginProject(PluginProject project)
-         {
+         public ProjectFacet<? extends Project> casePluginProject(PluginProject project) {
             final PluginsFacet facet = getPluginsFacete(project);
             facet.getProjects().add(project);
             return facet;
          }
 
-         private FeaturesFacet getFeaturesFacete()
-         {
+         private FeaturesFacet getFeaturesFacete() {
             FeaturesFacet facet = (FeaturesFacet) getFaceteByName("features");
-            if (facet == null)
-            {
+            if (facet == null) {
                facet = ModuleModelFactory.eINSTANCE.createFeaturesFacet();
                facet.setName("features");
                facets.add(facet);
@@ -191,11 +164,9 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
             return facet;
          }
 
-         private SitesFacet getSitesFacete()
-         {
+         private SitesFacet getSitesFacete() {
             SitesFacet facet = (SitesFacet) getFaceteByName("sites");
-            if (facet == null)
-            {
+            if (facet == null) {
                facet = ModuleModelFactory.eINSTANCE.createSitesFacet();
                facet.setName("sites");
                facets.add(facet);
@@ -203,12 +174,10 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
             return facet;
          }
 
-         private PluginsFacet getPluginsFacete(PluginProject project)
-         {
+         private PluginsFacet getPluginsFacete(PluginProject project) {
             final String name = project.isTestPlugin() ? "tests" : "plugins";
             PluginsFacet facet = (PluginsFacet) getFaceteByName(name);
-            if (facet == null)
-            {
+            if (facet == null) {
                facet = ModuleModelFactory.eINSTANCE.createPluginsFacet();
                facet.setName(name);
                facets.add(facet);
@@ -216,12 +185,9 @@ public class SimpleLayoutFacetsParserRule extends AbstractFacetsParserRule<Proje
             return facet;
          }
 
-         private ProjectFacet<? extends Project> getFaceteByName(final String name)
-         {
-            return CollectionUtils.find(facets, new Predicate<ProjectFacet<? extends Project>>()
-            {
-               public boolean evaluate(ProjectFacet<? extends Project> facet)
-               {
+         private ProjectFacet<? extends Project> getFaceteByName(final String name) {
+            return CollectionUtils.find(facets, new Predicate<ProjectFacet<? extends Project>>() {
+               public boolean evaluate(ProjectFacet<? extends Project> facet) {
                   return name.equals(facet.getName());
                }
             });

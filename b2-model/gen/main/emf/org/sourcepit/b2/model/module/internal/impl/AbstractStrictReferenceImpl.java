@@ -29,16 +29,14 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * 
  * @generated
  */
-public abstract class AbstractStrictReferenceImpl extends AbstractReferenceImpl implements AbstractStrictReference
-{
+public abstract class AbstractStrictReferenceImpl extends AbstractReferenceImpl implements AbstractStrictReference {
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected AbstractStrictReferenceImpl()
-   {
+   protected AbstractStrictReferenceImpl() {
       super();
    }
 
@@ -49,8 +47,7 @@ public abstract class AbstractStrictReferenceImpl extends AbstractReferenceImpl 
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.ABSTRACT_STRICT_REFERENCE;
    }
 

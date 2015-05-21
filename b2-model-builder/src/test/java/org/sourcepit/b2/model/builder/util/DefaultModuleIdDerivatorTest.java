@@ -23,11 +23,9 @@ import org.junit.Test;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class DefaultModuleIdDerivatorTest
-{
+public class DefaultModuleIdDerivatorTest {
    @Test
-   public void test()
-   {
+   public void test() {
       PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.groupId", "commons-io");
       properties.put("project.artifactId", "commons-io");

@@ -49,8 +49,7 @@ import org.sourcepit.b2.model.module.SitesFacet;
  * 
  * @generated
  */
-public class SiteProjectImpl extends ProjectImpl implements SiteProject
-{
+public class SiteProjectImpl extends ProjectImpl implements SiteProject {
    /**
     * The cached value of the '{@link #getCategories() <em>Categories</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -79,8 +78,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
-   protected SiteProjectImpl()
-   {
+   protected SiteProjectImpl() {
       super();
    }
 
@@ -91,8 +89,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.SITE_PROJECT;
    }
 
@@ -102,8 +99,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
-   public SitesFacet getParent()
-   {
+   public SitesFacet getParent() {
       if (eContainerFeatureID() != ModuleModelPackage.SITE_PROJECT__PARENT)
          return null;
       return (SitesFacet) eContainer();
@@ -115,8 +111,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
-   public SitesFacet basicGetParent()
-   {
+   public SitesFacet basicGetParent() {
       if (eContainerFeatureID() != ModuleModelPackage.SITE_PROJECT__PARENT)
          return null;
       return (SitesFacet) eInternalContainer();
@@ -128,8 +123,7 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
-   public NotificationChain basicSetParent(SitesFacet newParent, NotificationChain msgs)
-   {
+   public NotificationChain basicSetParent(SitesFacet newParent, NotificationChain msgs) {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.SITE_PROJECT__PARENT, msgs);
       return msgs;
    }
@@ -140,11 +134,9 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
-   public void setParent(SitesFacet newParent)
-   {
+   public void setParent(SitesFacet newParent) {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModuleModelPackage.SITE_PROJECT__PARENT && newParent != null))
-      {
+         || (eContainerFeatureID() != ModuleModelPackage.SITE_PROJECT__PARENT && newParent != null)) {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
          NotificationChain msgs = null;
@@ -168,10 +160,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
-   public EList<Category> getCategories()
-   {
-      if (categories == null)
-      {
+   public EList<Category> getCategories() {
+      if (categories == null) {
          categories = new EObjectContainmentEList.Resolving<Category>(Category.class, this,
             ModuleModelPackage.SITE_PROJECT__CATEGORIES);
       }
@@ -184,10 +174,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * 
     * @generated
     */
-   public EList<AbstractStrictReference> getInstallableUnits()
-   {
-      if (installableUnits == null)
-      {
+   public EList<AbstractStrictReference> getInstallableUnits() {
+      if (installableUnits == null) {
          installableUnits = new EObjectContainmentEList.Resolving<AbstractStrictReference>(
             AbstractStrictReference.class, this, ModuleModelPackage.SITE_PROJECT__INSTALLABLE_UNITS);
       }
@@ -201,10 +189,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @generated
     */
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
@@ -220,10 +206,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             return basicSetParent(null, msgs);
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :
@@ -241,10 +225,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @generated
     */
    @Override
-   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs)
-   {
-      switch (eContainerFeatureID())
-      {
+   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+      switch (eContainerFeatureID()) {
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             return eInternalContainer().eInverseRemove(this, ModuleModelPackage.SITES_FACET__PROJECTS,
                SitesFacet.class, msgs);
@@ -259,10 +241,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             if (resolve)
                return getParent();
@@ -283,10 +263,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             setParent((SitesFacet) newValue);
             return;
@@ -309,10 +287,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             setParent((SitesFacet) null);
             return;
@@ -333,10 +309,8 @@ public class SiteProjectImpl extends ProjectImpl implements SiteProject
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.SITE_PROJECT__PARENT :
             return basicGetParent() != null;
          case ModuleModelPackage.SITE_PROJECT__CATEGORIES :

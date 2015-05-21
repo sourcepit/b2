@@ -20,7 +20,6 @@ package org.sourcepit.b2.model.interpolation.module;
 /**
  * @author Bernd
  */
-public interface IModuleInterpolator
-{
+public interface IModuleInterpolator {
    void interpolate(IModuleInterpolationRequest request);
 }

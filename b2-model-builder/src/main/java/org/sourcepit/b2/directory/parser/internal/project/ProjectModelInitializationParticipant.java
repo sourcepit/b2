@@ -19,7 +19,6 @@ package org.sourcepit.b2.directory.parser.internal.project;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public interface ProjectModelInitializationParticipant
-{
+public interface ProjectModelInitializationParticipant {
    void initialize(Project project, PropertiesSource properties);
 }

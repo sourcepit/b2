@@ -26,11 +26,9 @@ import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 import org.sourcepit.common.manifest.osgi.ClassPathEntry;
 
-public class DefaultUnpackStrategyTest
-{
+public class DefaultUnpackStrategyTest {
    @Test
-   public void testBinIncludes()
-   {
+   public void testBinIncludes() {
       final DefaultUnpackStrategy unpackStrategy = new DefaultUnpackStrategy();
 
       BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
@@ -50,8 +48,7 @@ public class DefaultUnpackStrategyTest
    }
 
    @Test
-   public void testClasspathEntries()
-   {
+   public void testClasspathEntries() {
       final DefaultUnpackStrategy unpackStrategy = new DefaultUnpackStrategy();
 
       BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
@@ -75,8 +72,7 @@ public class DefaultUnpackStrategyTest
    }
 
    @Test
-   public void testEclipseBundleShape()
-   {
+   public void testEclipseBundleShape() {
       final DefaultUnpackStrategy unpackStrategy = new DefaultUnpackStrategy();
 
       BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();

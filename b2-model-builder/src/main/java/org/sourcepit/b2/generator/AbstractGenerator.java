@@ -24,34 +24,27 @@ import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public abstract class AbstractGenerator implements IB2GenerationParticipant
-{
+public abstract class AbstractGenerator implements IB2GenerationParticipant {
    private Collection<Class<? extends EObject>> inputTypes;
 
    /**
     * {@inheritDoc}
     */
-   public boolean isGeneratorInput(EObject eObject)
-   {
+   public boolean isGeneratorInput(EObject eObject) {
       return isGeneratorInputType(eObject.getClass());
    }
 
-   protected boolean isGeneratorInputType(Class<? extends EObject> clazz)
-   {
-      for (Class<? extends EObject> inputType : getInputTypes())
-      {
-         if (inputType.isAssignableFrom(clazz))
-         {
+   protected boolean isGeneratorInputType(Class<? extends EObject> clazz) {
+      for (Class<? extends EObject> inputType : getInputTypes()) {
+         if (inputType.isAssignableFrom(clazz)) {
             return true;
          }
       }
       return false;
    }
 
-   protected Collection<Class<? extends EObject>> getInputTypes()
-   {
-      if (inputTypes == null)
-      {
+   protected Collection<Class<? extends EObject>> getInputTypes() {
+      if (inputTypes == null) {
          inputTypes = new ArrayList<Class<? extends EObject>>();
          addInputTypes(inputTypes);
       }
@@ -65,8 +58,7 @@ public abstract class AbstractGenerator implements IB2GenerationParticipant
     */
    public abstract GeneratorType getGeneratorType();
 
-   public boolean isReverse()
-   {
+   public boolean isReverse() {
       return false;
    }
 
@@ -74,8 +66,7 @@ public abstract class AbstractGenerator implements IB2GenerationParticipant
    public abstract void generate(EObject inputElement, PropertiesSource properties, ITemplates templates,
       ModuleDirectory moduleDirectory);
 
-   public int compareTo(IB2GenerationParticipant other)
-   {
+   public int compareTo(IB2GenerationParticipant other) {
       return getGeneratorType().compareTo(other.getGeneratorType());
    }
 }

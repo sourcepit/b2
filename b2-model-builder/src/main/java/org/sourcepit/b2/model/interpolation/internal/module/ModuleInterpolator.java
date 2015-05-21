@@ -30,8 +30,7 @@ import org.sourcepit.common.utils.lang.ThrowablePipe;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ModuleInterpolator implements IModuleInterpolator
-{
+public class ModuleInterpolator implements IModuleInterpolator {
    @Inject
    private List<ModuleInterpolatorLifecycleParticipant> lifecycleParticipants;
 
@@ -41,60 +40,49 @@ public class ModuleInterpolator implements IModuleInterpolator
    @Inject
    private SitesInterpolator sitesInterpolator;
 
-   public void interpolate(IModuleInterpolationRequest request)
-   {
+   public void interpolate(IModuleInterpolationRequest request) {
       checkRequest(request);
       newLifecycleMethod().execute(request);
    }
 
-   private LifecyclePhase<Void, IModuleInterpolationRequest, ModuleInterpolatorLifecycleParticipant> newLifecycleMethod()
-   {
+   private LifecyclePhase<Void, IModuleInterpolationRequest, ModuleInterpolatorLifecycleParticipant> newLifecycleMethod() {
       return new LifecyclePhase<Void, IModuleInterpolationRequest, ModuleInterpolatorLifecycleParticipant>(
-         lifecycleParticipants)
-      {
+         lifecycleParticipants) {
          @Override
-         protected void pre(ModuleInterpolatorLifecycleParticipant participant, IModuleInterpolationRequest input)
-         {
+         protected void pre(ModuleInterpolatorLifecycleParticipant participant, IModuleInterpolationRequest input) {
             participant.preInterpolation(input.getModule(), input.getModuleProperties());
          }
 
          @Override
-         protected Void doExecute(IModuleInterpolationRequest input)
-         {
+         protected Void doExecute(IModuleInterpolationRequest input) {
             doInterpolate(input);
             return null;
          }
 
          @Override
          protected void post(ModuleInterpolatorLifecycleParticipant participant, IModuleInterpolationRequest input,
-            Void result, ThrowablePipe errors)
-         {
+            Void result, ThrowablePipe errors) {
             participant.postInterpolation(input.getModule(), input.getModuleProperties(), errors);
          }
       };
    }
 
-   private void checkRequest(IModuleInterpolationRequest request)
-   {
-      if (request == null)
-      {
+   private void checkRequest(IModuleInterpolationRequest request) {
+      if (request == null) {
          throw new IllegalArgumentException("Request must not be null.");
       }
 
-      if (request.getModule() == null)
-      {
+      if (request.getModule() == null) {
          throw new IllegalArgumentException("Module must not be null.");
       }
 
       final PropertiesSource properties = request.getModuleProperties();
-      if (properties == null)
-      {
+      if (properties == null) {
          throw new IllegalArgumentException("properties must not be null.");
       }
    }
 
-   private void doInterpolate(IModuleInterpolationRequest request)
-   {
+   private void doInterpolate(IModuleInterpolationRequest request) {
       final AbstractModule module = request.getModule();
       final PropertiesSource properties = request.getModuleProperties();
       featuresInterpolator.interpolate(module, properties);

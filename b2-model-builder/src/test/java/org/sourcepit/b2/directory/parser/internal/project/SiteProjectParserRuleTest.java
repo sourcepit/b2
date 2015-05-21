@@ -24,22 +24,18 @@ import org.sourcepit.b2.model.module.SiteProject;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class SiteProjectParserRuleTest extends AbstractModuleParserTest
-{
-   public void testBasic() throws Exception
-   {
+public class SiteProjectParserRuleTest extends AbstractModuleParserTest {
+   public void testBasic() throws Exception {
       final SiteProjectParserRule parserRule = lookupSiteProjectParserRule();
       assertNotNull(parserRule);
    }
 
-   public void testNull() throws Exception
-   {
+   public void testNull() throws Exception {
       final SiteProjectParserRule parserRule = lookupSiteProjectParserRule();
       assertNull(parserRule.parse(null, null));
    }
 
-   public void testNonPluginDir() throws Exception
-   {
+   public void testNonPluginDir() throws Exception {
       final File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.exists());
 
@@ -47,8 +43,7 @@ public class SiteProjectParserRuleTest extends AbstractModuleParserTest
       assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
-   public void testParseSiteDirectory() throws Exception
-   {
+   public void testParseSiteDirectory() throws Exception {
       final File siteDir = workspace.importResources("composed-component/simple-layout/example.site", "example.site");
       assertTrue(siteDir.exists());
 
@@ -67,8 +62,7 @@ public class SiteProjectParserRuleTest extends AbstractModuleParserTest
       assertEquals("1", project.getVersion());
    }
 
-   private SiteProjectParserRule lookupSiteProjectParserRule() throws Exception
-   {
+   private SiteProjectParserRule lookupSiteProjectParserRule() throws Exception {
       return (SiteProjectParserRule) lookup(AbstractProjectParserRule.class, "site");
    }
 }

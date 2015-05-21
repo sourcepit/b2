@@ -19,7 +19,6 @@ package org.sourcepit.b2.model.builder;
 import org.sourcepit.b2.model.module.AbstractModule;
 
 
-public interface IB2ModelBuilder
-{
+public interface IB2ModelBuilder {
    AbstractModule build(IB2ModelBuildingRequest request);
 }

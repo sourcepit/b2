@@ -18,8 +18,7 @@ package org.sourcepit.b2.model.interpolation.layout;
 
 import org.sourcepit.b2.model.module.AbstractModule;
 
-public interface IInterpolationLayout
-{
+public interface IInterpolationLayout {
    String DEFAULT_PLUGINSFACET_NAME = "plugins";
 
    String DEFAULT_FEATURES_FACET_NAME = "features";

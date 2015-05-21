@@ -30,19 +30,16 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest
-{
+public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest {
    @Inject
    private PomHierarchyGenerator hierarchyGenerator;
 
    @Override
-   protected String setUpModulePath()
-   {
+   protected String setUpModulePath() {
       return "composed-component/simple-layout";
    }
 
-   public void testSkipFacets() throws Exception
-   {
+   public void testSkipFacets() throws Exception {
       BasicModule module = buildModel(getModuleDirs().get(0));
       assertNotNull(module);
       File moduleDir = module.getDirectory();
@@ -67,8 +64,7 @@ public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest
       assertFalse(moduleModel.getModules().isEmpty());
 
       assertFalse(facetPom.exists());
-      for (String modulePath : moduleModel.getModules())
-      {
+      for (String modulePath : moduleModel.getModules()) {
          File subPom = new File(moduleDir, modulePath);
          assertTrue(subPom.exists());
       }
@@ -85,8 +81,7 @@ public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest
       assertIsMavenParent(facetPom, modulePom);
    }
 
-   private void assertIsMavenParent(File modulePom, File parentPom) throws IOException
-   {
+   private void assertIsMavenParent(File modulePom, File parentPom) throws IOException {
       Model moduleModel = readMavenModel(modulePom);
       Parent parent = moduleModel.getParent();
       assertNotNull(parent);
@@ -94,16 +89,13 @@ public class PomHierarchyGeneratorTest extends AbstractPomGeneratorTest
       assertEquals(parentPom.getCanonicalFile(), actualParent);
    }
 
-   private static void assertIsMavenModule(File parentPom, File modulePom)
-   {
+   private static void assertIsMavenModule(File parentPom, File modulePom) {
       Model moduleModel;
       moduleModel = readMavenModel(parentPom);
-      for (String modulePath : moduleModel.getModules())
-      {
+      for (String modulePath : moduleModel.getModules()) {
          File subPom = new File(parentPom.getParentFile(), modulePath);
          assertTrue(subPom.exists());
-         if (subPom.equals(modulePom))
-         {
+         if (subPom.equals(modulePom)) {
             return;
          }
       }

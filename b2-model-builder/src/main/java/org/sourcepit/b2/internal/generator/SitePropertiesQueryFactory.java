@@ -23,27 +23,23 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.common.base.Strings;
 
-public class SitePropertiesQueryFactory
-{
+public class SitePropertiesQueryFactory {
    public Map<String, PropertiesQuery> createPropertyQueries(PropertiesSource properties, String assemblyName,
-      String assemblyClassifier, String categoryName)
-   {
+      String assemblyClassifier, String categoryName) {
       final Map<String, PropertiesQuery> queries = new LinkedHashMap<String, PropertiesQuery>();
       putQueries(queries, assemblyName, assemblyClassifier, categoryName);
       return queries;
    }
 
    private void putQueries(final Map<String, PropertiesQuery> queries, String assemblyName, String assemblyClassifier,
-      final String categoryName)
-   {
+      final String categoryName) {
       final boolean hasAssemblyClassifier = !Strings.isNullOrEmpty(assemblyClassifier);
 
       StringBuilder sb = new StringBuilder();
       sb.append("${categories");
       sb.append(createPropertySpacer(categoryName));
       sb.append("label}");
-      if (hasAssemblyClassifier)
-      {
+      if (hasAssemblyClassifier) {
          sb.append(" ${categories");
          sb.append(createPropertySpacer(categoryName));
          sb.append("classifierLabel}");
@@ -62,8 +58,7 @@ public class SitePropertiesQueryFactory
       query.getKeys().add("project.name");
       query.getKeys().add("project.artifactId");
 
-      if (hasAssemblyClassifier)
-      {
+      if (hasAssemblyClassifier) {
          query = createQuery(assemblyName, null, false, "classifierLabel");
          query.setDefaultValue(FeaturePropertiesQueryFactory.toClassifierLabel(assemblyClassifier));
          query.getKeys().add("b2.assemblies" + createPropertySpacer(assemblyClassifier) + "classifierLabel");
@@ -79,8 +74,7 @@ public class SitePropertiesQueryFactory
       queries.put("categories" + createPropertySpacer(categoryName) + "description", query);
    }
 
-   private PropertiesQuery createQuery(String assemblyName, String categoryName, boolean addDefaultKey, String property)
-   {
+   private PropertiesQuery createQuery(String assemblyName, String categoryName, boolean addDefaultKey, String property) {
       final String preamble = "b2.assemblies";
 
       final PropertiesQuery query = new PropertiesQuery();
@@ -88,8 +82,7 @@ public class SitePropertiesQueryFactory
 
       String p = "categories." + (categoryName == null ? property : categoryName + "." + property);
       query.getKeys().add(preamble + createPropertySpacer(assemblyName) + p);
-      if (addDefaultKey)
-      {
+      if (addDefaultKey) {
          query.getKeys().add(preamble + "." + p);
          query.getKeys().add("b2.module." + p);
       }
@@ -97,8 +90,7 @@ public class SitePropertiesQueryFactory
       return query;
    }
 
-   private String createPropertySpacer(String stringInTheMiddle)
-   {
+   private String createPropertySpacer(String stringInTheMiddle) {
       return stringInTheMiddle == null || stringInTheMiddle.length() == 0 ? "." : "." + stringInTheMiddle + ".";
    }
 }

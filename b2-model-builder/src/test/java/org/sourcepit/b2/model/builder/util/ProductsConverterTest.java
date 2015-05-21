@@ -33,12 +33,10 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class ProductsConverterTest
-{
+public class ProductsConverterTest {
 
    @Test
-   public void testGetIncludedPluginsForProduct() throws Exception
-   {
+   public void testGetIncludedPluginsForProduct() throws Exception {
       String productId = "foo";
       String propertyName = "plugins";
 
@@ -49,8 +47,7 @@ public class ProductsConverterTest
       testGetIncludedPluginsForProduct(key2, productId);
    }
 
-   private void testGetIncludedPluginsForProduct(String key, String productId)
-   {
+   private void testGetIncludedPluginsForProduct(String key, String productId) {
       ProductsConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -67,33 +64,27 @@ public class ProductsConverterTest
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
-      try
-      {
+      try {
          result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:murks");
-      try
-      {
+      try {
          result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:unpack:murks");
-      try
-      {
+      try {
          result = converter.getIncludedPluginsForProduct(properties, productId, GREATER_OR_EQUAL);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       // valid
@@ -120,8 +111,7 @@ public class ProductsConverterTest
    }
 
    @Test
-   public void testGetIncludedSourceFeaturesForProduct() throws Exception
-   {
+   public void testGetIncludedSourceFeaturesForProduct() throws Exception {
       String productId = "foo";
       String propertyName = "features";
 
@@ -144,18 +134,15 @@ public class ProductsConverterTest
    }
 
    @Test
-   public void testGetDefaultVersionMatchRuleForProduct() throws Exception
-   {
+   public void testGetDefaultVersionMatchRuleForProduct() throws Exception {
       PropertiesMap properties = new LinkedPropertiesMap();
 
       ProductsConverter converter = new DefaultConverter();
-      try
-      {
+      try {
          converter.getDefaultVersionMatchRuleForProduct(properties, "foo.product");
          fail();
       }
-      catch (NullPointerException e)
-      {
+      catch (NullPointerException e) {
       }
 
       VersionMatchRule matchRule;
@@ -170,8 +157,7 @@ public class ProductsConverterTest
    }
 
    @Test
-   public void testGetVersionMatchRuleForProductInclude() throws Exception
-   {
+   public void testGetVersionMatchRuleForProductInclude() throws Exception {
       PropertiesMap properties = new LinkedPropertiesMap();
 
       ProductsConverter converter = new DefaultConverter();
@@ -198,8 +184,7 @@ public class ProductsConverterTest
       assertSame(EQUIVALENT, matchRule);
    }
 
-   private void testGetIncludedFeaturesForProduct(String key, String facetName)
-   {
+   private void testGetIncludedFeaturesForProduct(String key, String facetName) {
       ProductsConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -216,33 +201,27 @@ public class ProductsConverterTest
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
-      try
-      {
+      try {
          result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:murks");
-      try
-      {
+      try {
          result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:optional:murks");
-      try
-      {
+      try {
          result = converter.getIncludedFeaturesForProduct(properties, facetName, GREATER_OR_EQUAL);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       // valid
@@ -269,8 +248,7 @@ public class ProductsConverterTest
    }
 
    @Test
-   public void testGetIncludedFeaturesForProduct_VersionMatchRules() throws Exception
-   {
+   public void testGetIncludedFeaturesForProduct_VersionMatchRules() throws Exception {
       ProductsConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -309,8 +287,7 @@ public class ProductsConverterTest
    }
 
    @Test
-   public void testGetIncludedPluginsForProduct_VersionMatchRules() throws Exception
-   {
+   public void testGetIncludedPluginsForProduct_VersionMatchRules() throws Exception {
       ProductsConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();

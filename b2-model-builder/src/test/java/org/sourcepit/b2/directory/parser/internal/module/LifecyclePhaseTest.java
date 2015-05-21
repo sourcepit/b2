@@ -34,38 +34,31 @@ import org.sourcepit.common.utils.lang.PipedError;
 import org.sourcepit.common.utils.lang.PipedException;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
-public class LifecyclePhaseTest
-{
+public class LifecyclePhaseTest {
    @Test
-   public void testRunWithoutParticipants() throws Exception
-   {
+   public void testRunWithoutParticipants() throws Exception {
       assertNull(runner(doReturn(null)));
 
       final Object object = new Object();
       assertEquals(object, runner(doReturn(object)));
 
-      try
-      {
+      try {
          runner(doThrow(new IllegalStateException("foo")));
       }
-      catch (PipedException pipe)
-      {
+      catch (PipedException pipe) {
          final IllegalStateException e = pipe.adapt(IllegalStateException.class);
          assertThat(e.getMessage(), equalTo("foo"));
-         try
-         {
+         try {
             pipe.adaptAndThrow(IllegalStateException.class);
             fail();
          }
-         catch (IllegalStateException ex)
-         {
+         catch (IllegalStateException ex) {
          }
       }
    }
 
    @Test
-   public void testParticipants()
-   {
+   public void testParticipants() {
       List<String> calls = new ArrayList<String>();
       List<Participant<Return<Object>>> participants = new ArrayList<Participant<Return<Object>>>();
       assertNull(runnerWithParticipants(participants, doReturn(null)));
@@ -95,17 +88,14 @@ public class LifecyclePhaseTest
    }
 
    @Test
-   public void testParticipantsWithThrowables()
-   {
+   public void testParticipantsWithThrowables() {
       List<String> calls = new ArrayList<String>();
       List<Participant<Return<Object>>> participants = new ArrayList<Participant<Return<Object>>>();
-      try
-      {
+      try {
          runnerWithParticipants(participants, doThrow(new NullPointerException()));
          fail();
       }
-      catch (PipedException e)
-      {
+      catch (PipedException e) {
       }
       assertTrue(calls.isEmpty());
 
@@ -115,13 +105,11 @@ public class LifecyclePhaseTest
 
       participants.add(participate(calls, 1));
 
-      try
-      {
+      try {
          runnerWithParticipants(participants, doThrow(new NullPointerException()));
          fail();
       }
-      catch (PipedException e)
-      {
+      catch (PipedException e) {
       }
       assertThat(calls.size(), is(2));
       assertThat(calls.get(0), equalTo("participant[1].pre(not-null)"));
@@ -130,13 +118,11 @@ public class LifecyclePhaseTest
 
       participants.add(participate(calls, 2));
 
-      try
-      {
+      try {
          runnerWithParticipants(participants, doThrow(new NullPointerException()));
          fail();
       }
-      catch (PipedException e)
-      {
+      catch (PipedException e) {
       }
       assertThat(calls.size(), is(4));
       assertThat(calls.get(0), equalTo("participant[1].pre(not-null)"));
@@ -147,20 +133,17 @@ public class LifecyclePhaseTest
    }
 
    @Test
-   public void testPreParticipantThrowsError() throws Exception
-   {
+   public void testPreParticipantThrowsError() throws Exception {
       List<String> calls = new ArrayList<String>();
       List<Participant<Return<Object>>> participants = new ArrayList<Participant<Return<Object>>>();
 
       participants.add(participate(calls, 1, new OutOfMemoryError(), null));
 
-      try
-      {
+      try {
          runnerWithParticipants(participants, doReturn(null));
          fail();
       }
-      catch (PipedError e)
-      {
+      catch (PipedError e) {
       }
 
       assertThat(calls.size(), is(0));
@@ -170,13 +153,11 @@ public class LifecyclePhaseTest
       participants.add(participate(calls, 2, new OutOfMemoryError(), null));
       participants.add(participate(calls, 3));
 
-      try
-      {
+      try {
          runnerWithParticipants(participants, doReturn(null));
          fail();
       }
-      catch (PipedError e)
-      {
+      catch (PipedError e) {
       }
 
       assertThat(calls.size(), is(2));
@@ -187,18 +168,15 @@ public class LifecyclePhaseTest
    }
 
    @Test
-   public void testPostParticipantThrowsError() throws Exception
-   {
+   public void testPostParticipantThrowsError() throws Exception {
       List<String> calls = new ArrayList<String>();
       List<Participant<Return<Object>>> participants = new ArrayList<Participant<Return<Object>>>();
       participants.add(participate(calls, 1, null, new OutOfMemoryError()));
-      try
-      {
+      try {
          runnerWithParticipants(participants, doReturn(null));
          fail();
       }
-      catch (PipedError e)
-      {
+      catch (PipedError e) {
       }
       assertThat(calls.size(), is(2));
       assertThat(calls.get(0), equalTo("participant[1].pre(null)"));
@@ -208,13 +186,11 @@ public class LifecyclePhaseTest
 
       participants.add(participate(calls, 1, null, new OutOfMemoryError()));
       participants.add(participate(calls, 2));
-      try
-      {
+      try {
          runnerWithParticipants(participants, doReturn(null));
          fail();
       }
-      catch (PipedError e)
-      {
+      catch (PipedError e) {
       }
       assertThat(calls.size(), is(4));
       assertThat(calls.get(0), equalTo("participant[1].pre(null)"));
@@ -227,13 +203,11 @@ public class LifecyclePhaseTest
 
       participants.add(participate(calls, 1, null, new OutOfMemoryError()));
       participants.add(participate(calls, 2));
-      try
-      {
+      try {
          runnerWithParticipants(participants, doThrow(new NullPointerException()));
          fail();
       }
-      catch (PipedException e)
-      {
+      catch (PipedException e) {
          assertTrue(e.getCause() instanceof NullPointerException);
          assertTrue(e.getFollowers().get(0) instanceof OutOfMemoryError);
       }
@@ -247,14 +221,10 @@ public class LifecyclePhaseTest
    }
 
    private static <T> Participant<Return<T>> participate(final List<String> messages, final int idx,
-      final Error throwOnPre, final Error throwOnPost)
-   {
-      return new Participant<Return<T>>()
-      {
-         public void pre(Return<T> input)
-         {
-            if (throwOnPre != null)
-            {
+      final Error throwOnPre, final Error throwOnPost) {
+      return new Participant<Return<T>>() {
+         public void pre(Return<T> input) {
+            if (throwOnPre != null) {
                throw throwOnPre;
             }
 
@@ -262,144 +232,117 @@ public class LifecyclePhaseTest
             sb.append("participant[");
             sb.append(idx);
             sb.append("].pre(");
-            if (input == null)
-            {
+            if (input == null) {
                sb.append("null");
             }
-            else
-            {
+            else {
                sb.append("not-null");
             }
             sb.append(")");
             messages.add(sb.toString());
          }
 
-         public void post(Return<T> input, ThrowablePipe errors)
-         {
+         public void post(Return<T> input, ThrowablePipe errors) {
             StringBuilder sb = new StringBuilder();
             sb.append("participant[");
             sb.append(idx);
             sb.append("].post(");
-            if (input == null)
-            {
+            if (input == null) {
                sb.append("null");
             }
-            else
-            {
+            else {
                sb.append("not-null");
             }
             sb.append(",");
-            if (errors.isEmpty())
-            {
+            if (errors.isEmpty()) {
                sb.append("null");
             }
-            else
-            {
+            else {
                sb.append(errors.getCause().getClass().getSimpleName());
             }
             sb.append(")");
             messages.add(sb.toString());
 
-            if (throwOnPost != null)
-            {
+            if (throwOnPost != null) {
                throw throwOnPost;
             }
          }
       };
    }
 
-   private static <T> Participant<Return<T>> participate(final List<String> messages, final int idx)
-   {
+   private static <T> Participant<Return<T>> participate(final List<String> messages, final int idx) {
       return participate(messages, idx, null, null);
    }
 
-   private static <T> Return<T> doReturn(T object)
-   {
-      if (object == null)
-      {
+   private static <T> Return<T> doReturn(T object) {
+      if (object == null) {
          return null;
       }
       return new Return<T>(object);
    }
 
-   private static <T, E extends RuntimeException> Return<T> doThrow(final E exception)
-   {
-      return new Return<T>(null)
-      {
+   private static <T, E extends RuntimeException> Return<T> doThrow(final E exception) {
+      return new Return<T>(null) {
          @Override
-         public T run()
-         {
+         public T run() {
             throw exception;
          }
       };
    }
 
-   private static <T> T runner(Return<T> result)
-   {
+   private static <T> T runner(Return<T> result) {
       return LifecyclePhaseTest.<T> runner().execute(result);
    }
 
-   private static <T> Runner<T> runner()
-   {
+   private static <T> Runner<T> runner() {
       return new Runner<T>(null);
    }
 
-   private static <T> T runnerWithParticipants(List<Participant<Return<T>>> participants, Return<T> result)
-   {
+   private static <T> T runnerWithParticipants(List<Participant<Return<T>>> participants, Return<T> result) {
       return LifecyclePhaseTest.<T> runnerWithParticipants(participants).execute(result);
    }
 
-   private static <T> Runner<T> runnerWithParticipants(List<Participant<Return<T>>> participants)
-   {
+   private static <T> Runner<T> runnerWithParticipants(List<Participant<Return<T>>> participants) {
       return new Runner<T>(participants);
    }
 
-   private static class Return<RESULT>
-   {
+   private static class Return<RESULT> {
       protected final RESULT result;
 
-      public Return(RESULT result)
-      {
+      public Return(RESULT result) {
          this.result = result;
       }
 
-      public RESULT run()
-      {
+      public RESULT run() {
          return result;
       }
    }
 
-   private interface Participant<INPUT>
-   {
+   private interface Participant<INPUT> {
       void pre(INPUT input);
 
       void post(INPUT input, ThrowablePipe errors);
    }
 
-   private static class Runner<RESULT> extends LifecyclePhase<RESULT, Return<RESULT>, Participant<Return<RESULT>>>
-   {
+   private static class Runner<RESULT> extends LifecyclePhase<RESULT, Return<RESULT>, Participant<Return<RESULT>>> {
 
-      public Runner(List<Participant<Return<RESULT>>> participants)
-      {
+      public Runner(List<Participant<Return<RESULT>>> participants) {
          super(participants);
       }
 
       @Override
-      protected void pre(Participant<Return<RESULT>> participant, Return<RESULT> input)
-      {
+      protected void pre(Participant<Return<RESULT>> participant, Return<RESULT> input) {
          participant.pre(input);
       }
 
       @Override
-      protected RESULT doExecute(Return<RESULT> input)
-      {
+      protected RESULT doExecute(Return<RESULT> input) {
          return input == null ? null : input.run();
       }
 
       @Override
       protected void post(Participant<Return<RESULT>> participant, Return<RESULT> input, RESULT result,
-         ThrowablePipe errors)
-      {
+         ThrowablePipe errors) {
          participant.post(input, errors);
       }
    }

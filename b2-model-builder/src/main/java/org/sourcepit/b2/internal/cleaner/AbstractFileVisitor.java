@@ -18,14 +18,11 @@ package org.sourcepit.b2.internal.cleaner;
 
 import java.io.File;
 
-public abstract class AbstractFileVisitor implements IFileVisitor
-{
-   public void visitGarbage(File file)
-   {
+public abstract class AbstractFileVisitor implements IFileVisitor {
+   public void visitGarbage(File file) {
    }
 
-   public boolean visit(File file)
-   {
+   public boolean visit(File file) {
       return true;
    }
 }

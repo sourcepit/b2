@@ -39,98 +39,80 @@ import org.sourcepit.common.utils.resources.Resource;
 import org.sourcepit.common.utils.resources.ResourceVisitor;
 
 @Named
-public class ProjectResourcesFileFlagsProvider implements FileFlagsProvider
-{
+public class ProjectResourcesFileFlagsProvider implements FileFlagsProvider {
    private final ProjectDetector projectDetector;
 
    @Inject
-   public ProjectResourcesFileFlagsProvider(ProjectDetector projectDetector)
-   {
+   public ProjectResourcesFileFlagsProvider(ProjectDetector projectDetector) {
       this.projectDetector = projectDetector;
    }
 
    @Override
-   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-   {
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
       return null;
    }
 
    @Override
-   public FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, final PropertiesSource properties)
-   {
+   public FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, final PropertiesSource properties) {
       return new ProjectResourcesFileFlagsInvestigator(projectDetector, properties);
    }
 
-   private static class ProjectResourcesFileFlagsInvestigator implements FileFlagsInvestigator
-   {
+   private static class ProjectResourcesFileFlagsInvestigator implements FileFlagsInvestigator {
       private final ProjectDetector projectDetector;
 
       private final PropertiesSource properties;
 
       private final Map<File, Integer> fileFlags = new HashMap<File, Integer>();
 
-      private ProjectResourcesFileFlagsInvestigator(ProjectDetector projectDetector, PropertiesSource properties)
-      {
+      private ProjectResourcesFileFlagsInvestigator(ProjectDetector projectDetector, PropertiesSource properties) {
          this.projectDetector = projectDetector;
          this.properties = properties;
       }
 
       @Override
-      public Map<File, Integer> getAdditionallyFoundFileFlags()
-      {
+      public Map<File, Integer> getAdditionallyFoundFileFlags() {
          return fileFlags;
       }
 
       @Override
-      public int determineFileFlags(File file)
-      {
+      public int determineFileFlags(File file) {
          final Integer flags = fileFlags.remove(file);
-         if (flags != null)
-         {
+         if (flags != null) {
             return flags.intValue();
          }
 
-         if (isProjectDir(file))
-         {
+         if (isProjectDir(file)) {
             processProjectDir(file);
          }
 
          return 0;
       }
 
-      private void processProjectDir(final File projectDir)
-      {
+      private void processProjectDir(final File projectDir) {
          final File resourcesDir = getResourcesDir(projectDir, properties);
-         if (resourcesDir.exists() && resourcesDir.isDirectory())
-         {
+         if (resourcesDir.exists() && resourcesDir.isDirectory()) {
             fileFlags.put(resourcesDir, valueOf(FLAG_FORBIDDEN));
 
-            final ResourceVisitor visitor = new ResourceVisitor()
-            {
+            final ResourceVisitor visitor = new ResourceVisitor() {
                @Override
-               public void visit(Resource resource, InputStream content) throws IOException
-               {
+               public void visit(Resource resource, InputStream content) throws IOException {
                   final File file = new File(projectDir, resource.getPath().toString());
-                  if (!resource.isDirectory() || !file.exists())
-                  {
+                  if (!resource.isDirectory() || !file.exists()) {
                      fileFlags.put(file, valueOf(FLAG_DERIVED));
                   }
                }
             };
 
-            try
-            {
+            try {
                new FileTraverser(resourcesDir).accept(visitor);
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                throw pipe(e);
             }
          }
       }
 
-      private boolean isProjectDir(File file)
-      {
+      private boolean isProjectDir(File file) {
          return file.isDirectory() && projectDetector.detect(file, properties) != null;
       }
    }

@@ -44,15 +44,12 @@ import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.w3c.dom.Document;
 
-public final class ModelBuilderTestHarness
-{
-   private ModelBuilderTestHarness()
-   {
+public final class ModelBuilderTestHarness {
+   private ModelBuilderTestHarness() {
       super();
    }
 
-   public static ModuleParsingRequest createParsingRequest(File moduleDir, File... subModuleDirs)
-   {
+   public static ModuleParsingRequest createParsingRequest(File moduleDir, File... subModuleDirs) {
       final ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setModuleDirectory(createModuleDirectory(moduleDir, subModuleDirs));
@@ -60,21 +57,17 @@ public final class ModelBuilderTestHarness
       return request;
    }
 
-   public static ModuleDirectory createModuleDirectory(File moduleDir, File... subModuleDirs)
-   {
+   public static ModuleDirectory createModuleDirectory(File moduleDir, File... subModuleDirs) {
       final Map<File, Integer> fileFlags = new HashMap<File, Integer>();
-      if (subModuleDirs != null)
-      {
-         for (File subModuleDir : subModuleDirs)
-         {
+      if (subModuleDirs != null) {
+         for (File subModuleDir : subModuleDirs) {
             fileFlags.put(subModuleDir, valueOf(FLAG_HIDDEN | FLAG_FORBIDDEN | FLAG_MODULE_DIR));
          }
       }
       return new ModuleDirectory(moduleDir, fileFlags);
    }
 
-   public static File mkdir(File parentDir, String name)
-   {
+   public static File mkdir(File parentDir, String name) {
       final File dir = new File(parentDir, name);
       dir.mkdirs();
       assertTrue(dir.exists());
@@ -82,14 +75,12 @@ public final class ModelBuilderTestHarness
       return dir;
    }
 
-   public static void initModuleDir(File moduleDir) throws IOException
-   {
+   public static void initModuleDir(File moduleDir) throws IOException {
       new File(moduleDir, "module.xml").createNewFile();
    }
 
    public static BasicModule initModuleDir(final File moduleDir, String groupId, String artifactId, String mavenVersion)
-      throws IOException
-   {
+      throws IOException {
       Model model = new Model();
       model.setVersion("4.0.0");
       model.setGroupId(groupId);
@@ -108,14 +99,12 @@ public final class ModelBuilderTestHarness
       return module;
    }
 
-   public static void initPluginDir(File pluginDir) throws IOException
-   {
+   public static void initPluginDir(File pluginDir) throws IOException {
       final String bundleVersion = "1.0.0.qualifier";
       initPluginDir(pluginDir, bundleVersion);
    }
 
-   public static void initPluginDir(File pluginDir, final String bundleVersion) throws IOException
-   {
+   public static void initPluginDir(File pluginDir, final String bundleVersion) throws IOException {
       final BundleManifest mf = BundleManifestFactory.eINSTANCE.createBundleManifest();
       mf.setBundleSymbolicName(pluginDir.getName());
       mf.setBundleVersion(bundleVersion);
@@ -126,15 +115,13 @@ public final class ModelBuilderTestHarness
       resource.save(null);
    }
 
-   public static PropertiesMap newProperties(File moduleDir)
-   {
+   public static PropertiesMap newProperties(File moduleDir) {
       final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
       addProjectProperties(properties, moduleDir);
       return properties;
    }
 
-   private static void addProjectProperties(final PropertiesMap properties, File moduleDir)
-   {
+   private static void addProjectProperties(final PropertiesMap properties, File moduleDir) {
       final Document moduleXml = readXml(new File(moduleDir, "module.xml"));
       properties.put("project.groupId", queryText(moduleXml, "project/groupId"));
       properties.put("project.artifactId", queryText(moduleXml, "project/artifactId"));

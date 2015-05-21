@@ -34,73 +34,58 @@ import org.codehaus.plexus.component.annotations.Requirement;
  * @author Bernd
  */
 @Component(role = ModelProcessor.class)
-public class B2ModelProcessor extends DefaultModelProcessor implements ModelProcessor
-{
+public class B2ModelProcessor extends DefaultModelProcessor implements ModelProcessor {
    @Requirement
    private ModuleDescriptorProcessor moduleDescriptorProcessor;
 
    @Override
-   public Model read(File input, Map<String, ?> options) throws IOException
-   {
+   public Model read(File input, Map<String, ?> options) throws IOException {
       final Model model = moduleDescriptorProcessor.convert(input);
-      if (model != null)
-      {
+      if (model != null) {
          return model;
       }
       return super.read(input, options);
    }
 
    @Override
-   public Model read(InputStream input, Map<String, ?> options) throws IOException
-   {
+   public Model read(InputStream input, Map<String, ?> options) throws IOException {
       final Model model = convert(options);
-      if (model != null)
-      {
+      if (model != null) {
          return model;
       }
       return super.read(input, options);
    }
 
    @Override
-   public Model read(Reader input, Map<String, ?> options) throws IOException
-   {
+   public Model read(Reader input, Map<String, ?> options) throws IOException {
       final Model model = convert(options);
-      if (model != null)
-      {
+      if (model != null) {
          return model;
       }
       return super.read(input, options);
    }
 
    @Override
-   public File locatePom(File projectDirectory)
-   {
+   public File locatePom(File projectDirectory) {
       return super.locatePom(projectDirectory);
    }
 
-   private Model convert(Map<String, ?> options) throws IOException, ModelParseException
-   {
+   private Model convert(Map<String, ?> options) throws IOException, ModelParseException {
       final File descriptor = resolveFile(options);
-      if (descriptor != null)
-      {
+      if (descriptor != null) {
          return moduleDescriptorProcessor.convert(descriptor);
       }
       return null;
    }
 
-   private File resolveFile(Map<String, ?> options)
-   {
-      if (options != null)
-      {
+   private File resolveFile(Map<String, ?> options) {
+      if (options != null) {
          final Object oSource = options.get(SOURCE);
-         if (oSource instanceof ModelSource)
-         {
+         if (oSource instanceof ModelSource) {
             final String location = ((ModelSource) oSource).getLocation();
-            if (location != null)
-            {
+            if (location != null) {
                File descriptor = new File(location);
-               if (descriptor.exists())
-               {
+               if (descriptor.exists()) {
                   return descriptor;
                }
             }

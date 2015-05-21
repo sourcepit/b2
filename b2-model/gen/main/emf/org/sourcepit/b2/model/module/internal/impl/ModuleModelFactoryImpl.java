@@ -49,8 +49,7 @@ import org.sourcepit.b2.model.module.util.Identifier;
  * 
  * @generated
  */
-public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelFactory
-{
+public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelFactory {
    /**
     * Creates the default factory implementation.
     * <!-- begin-user-doc -->
@@ -58,19 +57,14 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public static ModuleModelFactory init()
-   {
-      try
-      {
-         ModuleModelFactory theModuleModelFactory = (ModuleModelFactory) EPackage.Registry.INSTANCE
-            .getEFactory(ModuleModelPackage.eNS_URI);
-         if (theModuleModelFactory != null)
-         {
+   public static ModuleModelFactory init() {
+      try {
+         ModuleModelFactory theModuleModelFactory = (ModuleModelFactory) EPackage.Registry.INSTANCE.getEFactory(ModuleModelPackage.eNS_URI);
+         if (theModuleModelFactory != null) {
             return theModuleModelFactory;
          }
       }
-      catch (Exception exception)
-      {
+      catch (Exception exception) {
          EcorePlugin.INSTANCE.log(exception);
       }
       return new ModuleModelFactoryImpl();
@@ -83,8 +77,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public ModuleModelFactoryImpl()
-   {
+   public ModuleModelFactoryImpl() {
       super();
    }
 
@@ -95,10 +88,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * @generated
     */
    @Override
-   public EObject create(EClass eClass)
-   {
-      switch (eClass.getClassifierID())
-      {
+   public EObject create(EClass eClass) {
+      switch (eClass.getClassifierID()) {
          case ModuleModelPackage.BASIC_MODULE :
             return createBasicModule();
          case ModuleModelPackage.COMPOSITE_MODULE :
@@ -141,10 +132,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * @generated
     */
    @Override
-   public Object createFromString(EDataType eDataType, String initialValue)
-   {
-      switch (eDataType.getClassifierID())
-      {
+   public Object createFromString(EDataType eDataType, String initialValue) {
+      switch (eDataType.getClassifierID()) {
          case ModuleModelPackage.VERSION_MATCH_RULE :
             return createVersionMatchRuleFromString(eDataType, initialValue);
          case ModuleModelPackage.IDENTIFIER :
@@ -161,10 +150,8 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * @generated
     */
    @Override
-   public String convertToString(EDataType eDataType, Object instanceValue)
-   {
-      switch (eDataType.getClassifierID())
-      {
+   public String convertToString(EDataType eDataType, Object instanceValue) {
+      switch (eDataType.getClassifierID()) {
          case ModuleModelPackage.VERSION_MATCH_RULE :
             return convertVersionMatchRuleToString(eDataType, instanceValue);
          case ModuleModelPackage.IDENTIFIER :
@@ -180,8 +167,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public BasicModule createBasicModule()
-   {
+   public BasicModule createBasicModule() {
       BasicModuleImpl basicModule = new BasicModuleImpl();
       return basicModule;
    }
@@ -192,8 +178,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public CompositeModule createCompositeModule()
-   {
+   public CompositeModule createCompositeModule() {
       CompositeModuleImpl compositeModule = new CompositeModuleImpl();
       return compositeModule;
    }
@@ -204,8 +189,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public PluginsFacet createPluginsFacet()
-   {
+   public PluginsFacet createPluginsFacet() {
       PluginsFacetImpl pluginsFacet = new PluginsFacetImpl();
       return pluginsFacet;
    }
@@ -216,8 +200,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public FeaturesFacet createFeaturesFacet()
-   {
+   public FeaturesFacet createFeaturesFacet() {
       FeaturesFacetImpl featuresFacet = new FeaturesFacetImpl();
       return featuresFacet;
    }
@@ -228,8 +211,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public SitesFacet createSitesFacet()
-   {
+   public SitesFacet createSitesFacet() {
       SitesFacetImpl sitesFacet = new SitesFacetImpl();
       return sitesFacet;
    }
@@ -240,8 +222,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public PluginProject createPluginProject()
-   {
+   public PluginProject createPluginProject() {
       PluginProjectImpl pluginProject = new PluginProjectImpl();
       return pluginProject;
    }
@@ -252,8 +233,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public FeatureProject createFeatureProject()
-   {
+   public FeatureProject createFeatureProject() {
       FeatureProjectImpl featureProject = new FeatureProjectImpl();
       return featureProject;
    }
@@ -264,8 +244,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public SiteProject createSiteProject()
-   {
+   public SiteProject createSiteProject() {
       SiteProjectImpl siteProject = new SiteProjectImpl();
       return siteProject;
    }
@@ -276,8 +255,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public PluginInclude createPluginInclude()
-   {
+   public PluginInclude createPluginInclude() {
       PluginIncludeImpl pluginInclude = new PluginIncludeImpl();
       return pluginInclude;
    }
@@ -288,8 +266,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public Category createCategory()
-   {
+   public Category createCategory() {
       CategoryImpl category = new CategoryImpl();
       return category;
    }
@@ -300,8 +277,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public ProductsFacet createProductsFacet()
-   {
+   public ProductsFacet createProductsFacet() {
       ProductsFacetImpl productsFacet = new ProductsFacetImpl();
       return productsFacet;
    }
@@ -312,8 +288,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public ProductDefinition createProductDefinition()
-   {
+   public ProductDefinition createProductDefinition() {
       ProductDefinitionImpl productDefinition = new ProductDefinitionImpl();
       return productDefinition;
    }
@@ -324,8 +299,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public RuledReference createRuledReference()
-   {
+   public RuledReference createRuledReference() {
       RuledReferenceImpl ruledReference = new RuledReferenceImpl();
       return ruledReference;
    }
@@ -336,8 +310,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public StrictReference createStrictReference()
-   {
+   public StrictReference createStrictReference() {
       StrictReferenceImpl strictReference = new StrictReferenceImpl();
       return strictReference;
    }
@@ -348,8 +321,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public FeatureInclude createFeatureInclude()
-   {
+   public FeatureInclude createFeatureInclude() {
       FeatureIncludeImpl featureInclude = new FeatureIncludeImpl();
       return featureInclude;
    }
@@ -360,8 +332,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public VersionMatchRule createVersionMatchRuleFromString(EDataType eDataType, String initialValue)
-   {
+   public VersionMatchRule createVersionMatchRuleFromString(EDataType eDataType, String initialValue) {
       VersionMatchRule result = VersionMatchRule.get(initialValue);
       if (result == null)
          throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
@@ -375,8 +346,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public String convertVersionMatchRuleToString(EDataType eDataType, Object instanceValue)
-   {
+   public String convertVersionMatchRuleToString(EDataType eDataType, Object instanceValue) {
       return instanceValue == null ? null : instanceValue.toString();
    }
 
@@ -386,8 +356,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public Identifier createIdentifierFromString(EDataType eDataType, String initialValue)
-   {
+   public Identifier createIdentifierFromString(EDataType eDataType, String initialValue) {
       return (Identifier) super.createFromString(eDataType, initialValue);
    }
 
@@ -397,8 +366,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public String convertIdentifierToString(EDataType eDataType, Object instanceValue)
-   {
+   public String convertIdentifierToString(EDataType eDataType, Object instanceValue) {
       return super.convertToString(eDataType, instanceValue);
    }
 
@@ -408,8 +376,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * 
     * @generated
     */
-   public ModuleModelPackage getModuleModelPackage()
-   {
+   public ModuleModelPackage getModuleModelPackage() {
       return (ModuleModelPackage) getEPackage();
    }
 
@@ -421,8 +388,7 @@ public class ModuleModelFactoryImpl extends EFactoryImpl implements ModuleModelF
     * @generated
     */
    @Deprecated
-   public static ModuleModelPackage getPackage()
-   {
+   public static ModuleModelPackage getPackage() {
       return ModuleModelPackage.eINSTANCE;
    }
 

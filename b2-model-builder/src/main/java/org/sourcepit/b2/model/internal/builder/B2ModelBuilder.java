@@ -34,8 +34,7 @@ import org.sourcepit.common.utils.props.PropertiesSource;
  * @author Bernd
  */
 @Named
-public class B2ModelBuilder implements IB2ModelBuilder
-{
+public class B2ModelBuilder implements IB2ModelBuilder {
    @Inject
    private IModuleParser moduleParser;
 
@@ -45,14 +44,12 @@ public class B2ModelBuilder implements IB2ModelBuilder
    /**
     * {@inheritDoc}
     */
-   public AbstractModule build(IB2ModelBuildingRequest request)
-   {
+   public AbstractModule build(IB2ModelBuildingRequest request) {
       checkRequest(request);
 
       final AbstractModule module = moduleParser.parse(request);
 
-      if (request.isInterpolate())
-      {
+      if (request.isInterpolate()) {
          final ModuleInterpolationRequest iRequest = new ModuleInterpolationRequest();
          iRequest.setModule(module);
          iRequest.setModuleProperties(request.getModuleProperties());
@@ -62,28 +59,23 @@ public class B2ModelBuilder implements IB2ModelBuilder
       return module;
    }
 
-   protected void checkRequest(IB2ModelBuildingRequest request)
-   {
-      if (request == null)
-      {
+   protected void checkRequest(IB2ModelBuildingRequest request) {
+      if (request == null) {
          throw new IllegalArgumentException("request must not be null.");
       }
 
       final ModuleDirectory moduleDirectory = request.getModuleDirectory();
-      if (moduleDirectory == null)
-      {
+      if (moduleDirectory == null) {
          throw new IllegalArgumentException("moduleDirectory must not be null.");
       }
 
       final File moduleDir = moduleDirectory.getFile();
-      if (moduleDir == null)
-      {
+      if (moduleDir == null) {
          throw new IllegalArgumentException("directory must not be null.");
       }
 
       final PropertiesSource properties = request.getModuleProperties();
-      if (properties == null)
-      {
+      if (properties == null) {
          throw new IllegalArgumentException("properties must not be null.");
       }
    }

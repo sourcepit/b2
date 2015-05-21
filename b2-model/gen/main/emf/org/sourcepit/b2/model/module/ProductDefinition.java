@@ -38,8 +38,7 @@ import org.sourcepit.common.modeling.Annotatable;
  * @model
  * @generated
  */
-public interface ProductDefinition extends Annotatable, Derivable
-{
+public interface ProductDefinition extends Annotatable, Derivable {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.
     * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.ProductsFacet#getProductDefinitions

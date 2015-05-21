@@ -27,11 +27,9 @@ import org.junit.Test;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class SitePropertiesQueryFactoryTest extends InjectedTest
-{
+public class SitePropertiesQueryFactoryTest extends InjectedTest {
    @Test
-   public void test()
-   {
+   public void test() {
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
@@ -77,8 +75,7 @@ public class SitePropertiesQueryFactoryTest extends InjectedTest
    }
 
    @Test
-   public void testWithClassifier()
-   {
+   public void testWithClassifier() {
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");

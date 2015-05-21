@@ -24,7 +24,6 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 /**
  * @author Bernd
  */
-public abstract class AbstractFacetsParserRule<F extends AbstractFacet>
-{
+public abstract class AbstractFacetsParserRule<F extends AbstractFacet> {
    public abstract FacetsParseResult<F> parse(File directory, PropertiesSource properties);
 }

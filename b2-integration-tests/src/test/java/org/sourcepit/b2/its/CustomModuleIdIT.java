@@ -25,17 +25,14 @@ import java.io.File;
 
 import org.junit.Test;
 
-public class CustomModuleIdIT extends AbstractB2IT
-{
+public class CustomModuleIdIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
       int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
       assertThat(err, is(0));

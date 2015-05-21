@@ -33,15 +33,13 @@ import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.path.PathUtils;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public abstract class AbstractPomGenerator extends AbstractGenerator
-{
+public abstract class AbstractPomGenerator extends AbstractGenerator {
    public static final String SOURCE_MAVEN = "maven";
    public static final String KEY_POM_FILE = "pomFile";
 
    @Override
    public final void generate(EObject inputElement, PropertiesSource propertie, ITemplates templates,
-      ModuleDirectory moduleDirectory)
-   {
+      ModuleDirectory moduleDirectory) {
       final boolean skipFacets = propertie.getBoolean("b2.pomGenerator.skipFacets", true);
       generate((Annotatable) inputElement, skipFacets, propertie, templates, moduleDirectory);
    }
@@ -49,28 +47,23 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
    protected abstract void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
       ITemplates templates, ModuleDirectory moduleDirectory);
 
-   protected File getPomFile(Annotatable annotateable)
-   {
+   protected File getPomFile(Annotatable annotateable) {
       final String path = annotateable.getAnnotationData(SOURCE_MAVEN, KEY_POM_FILE);
-      if (path != null)
-      {
+      if (path != null) {
          return new File(path);
       }
       return null;
    }
 
-   protected File resolvePomFile(Annotatable annotateable)
-   {
+   protected File resolvePomFile(Annotatable annotateable) {
       final File pomFile = new File(annotateable.getAnnotationData(SOURCE_MAVEN, KEY_POM_FILE));
-      if (!pomFile.exists())
-      {
+      if (!pomFile.exists()) {
          throw new IllegalStateException("Pom file was not generated for " + annotateable);
       }
       return pomFile;
    }
 
-   protected void setMavenParent(File mavenParentFile, Model mavenParent, File mavenModuleFile, Model mavenModule)
-   {
+   protected void setMavenParent(File mavenParentFile, Model mavenParent, File mavenModuleFile, Model mavenModule) {
       final String moduleToParentPath = PathUtils.getRelativePath(mavenParentFile, mavenModuleFile, "/");
       final Parent parent = new Parent();
       parent.setGroupId(mavenParent.getGroupId());
@@ -82,35 +75,28 @@ public abstract class AbstractPomGenerator extends AbstractGenerator
       writeMavenModel(mavenModuleFile, mavenModule);
    }
 
-   protected void setMavenModule(File mavenParentFile, Model mavenParent, File mavenModuleFile)
-   {
+   protected void setMavenModule(File mavenParentFile, Model mavenParent, File mavenModuleFile) {
       final String parentToModulePath = PathUtils.getRelativePath(mavenModuleFile, mavenParentFile, "/");
       mavenParent.getModules().add(parentToModulePath);
       writeMavenModel(mavenParentFile, mavenParent);
    }
 
-   protected Model readMavenModel(File pomFile)
-   {
+   protected Model readMavenModel(File pomFile) {
       final Map<String, String> options = new HashMap<String, String>();
       options.put(ModelReader.IS_STRICT, Boolean.FALSE.toString());
-      try
-      {
+      try {
          return new DefaultModelReader().read(pomFile, options);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }
 
-   protected void writeMavenModel(File file, Model model)
-   {
-      try
-      {
+   protected void writeMavenModel(File file, Model model) {
+      try {
          new DefaultModelWriter().write(file, null, model);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }

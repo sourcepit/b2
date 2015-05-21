@@ -56,8 +56,7 @@ import org.sourcepit.common.modeling.Annotatable;
  * @see org.sourcepit.b2.model.module.ModuleModelPackage
  * @generated
  */
-public class ModuleModelAdapterFactory extends AdapterFactoryImpl
-{
+public class ModuleModelAdapterFactory extends AdapterFactoryImpl {
    /**
     * The cached model package.
     * <!-- begin-user-doc -->
@@ -74,10 +73,8 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * 
     * @generated
     */
-   public ModuleModelAdapterFactory()
-   {
-      if (modelPackage == null)
-      {
+   public ModuleModelAdapterFactory() {
+      if (modelPackage == null) {
          modelPackage = ModuleModelPackage.eINSTANCE;
       }
    }
@@ -93,14 +90,11 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    @Override
-   public boolean isFactoryForType(Object object)
-   {
-      if (object == modelPackage)
-      {
+   public boolean isFactoryForType(Object object) {
+      if (object == modelPackage) {
          return true;
       }
-      if (object instanceof EObject)
-      {
+      if (object instanceof EObject) {
          return ((EObject) object).eClass().getEPackage() == modelPackage;
       }
       return false;
@@ -113,167 +107,139 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * 
     * @generated
     */
-   protected ModuleModelSwitch<Adapter> modelSwitch = new ModuleModelSwitch<Adapter>()
-   {
+   protected ModuleModelSwitch<Adapter> modelSwitch = new ModuleModelSwitch<Adapter>() {
       @Override
-      public Adapter caseAbstractModule(AbstractModule object)
-      {
+      public Adapter caseAbstractModule(AbstractModule object) {
          return createAbstractModuleAdapter();
       }
 
       @Override
-      public Adapter caseBasicModule(BasicModule object)
-      {
+      public Adapter caseBasicModule(BasicModule object) {
          return createBasicModuleAdapter();
       }
 
       @Override
-      public Adapter caseAbstractFacet(AbstractFacet object)
-      {
+      public Adapter caseAbstractFacet(AbstractFacet object) {
          return createAbstractFacetAdapter();
       }
 
       @Override
-      public Adapter caseCompositeModule(CompositeModule object)
-      {
+      public Adapter caseCompositeModule(CompositeModule object) {
          return createCompositeModuleAdapter();
       }
 
       @Override
-      public Adapter casePluginsFacet(PluginsFacet object)
-      {
+      public Adapter casePluginsFacet(PluginsFacet object) {
          return createPluginsFacetAdapter();
       }
 
       @Override
-      public Adapter caseFeaturesFacet(FeaturesFacet object)
-      {
+      public Adapter caseFeaturesFacet(FeaturesFacet object) {
          return createFeaturesFacetAdapter();
       }
 
       @Override
-      public Adapter caseSitesFacet(SitesFacet object)
-      {
+      public Adapter caseSitesFacet(SitesFacet object) {
          return createSitesFacetAdapter();
       }
 
       @Override
-      public Adapter casePluginProject(PluginProject object)
-      {
+      public Adapter casePluginProject(PluginProject object) {
          return createPluginProjectAdapter();
       }
 
       @Override
-      public Adapter caseFeatureProject(FeatureProject object)
-      {
+      public Adapter caseFeatureProject(FeatureProject object) {
          return createFeatureProjectAdapter();
       }
 
       @Override
-      public Adapter caseSiteProject(SiteProject object)
-      {
+      public Adapter caseSiteProject(SiteProject object) {
          return createSiteProjectAdapter();
       }
 
       @Override
-      public Adapter caseProject(Project object)
-      {
+      public Adapter caseProject(Project object) {
          return createProjectAdapter();
       }
 
       @Override
-      public <P extends Project> Adapter caseProjectFacet(ProjectFacet<P> object)
-      {
+      public <P extends Project> Adapter caseProjectFacet(ProjectFacet<P> object) {
          return createProjectFacetAdapter();
       }
 
       @Override
-      public Adapter caseFileContainer(FileContainer object)
-      {
+      public Adapter caseFileContainer(FileContainer object) {
          return createFileContainerAdapter();
       }
 
       @Override
-      public Adapter caseDerivable(Derivable object)
-      {
+      public Adapter caseDerivable(Derivable object) {
          return createDerivableAdapter();
       }
 
       @Override
-      public Adapter casePluginInclude(PluginInclude object)
-      {
+      public Adapter casePluginInclude(PluginInclude object) {
          return createPluginIncludeAdapter();
       }
 
       @Override
-      public Adapter caseCategory(Category object)
-      {
+      public Adapter caseCategory(Category object) {
          return createCategoryAdapter();
       }
 
       @Override
-      public Adapter caseAbstractIdentifiable(AbstractIdentifiable object)
-      {
+      public Adapter caseAbstractIdentifiable(AbstractIdentifiable object) {
          return createAbstractIdentifiableAdapter();
       }
 
       @Override
-      public Adapter caseProductsFacet(ProductsFacet object)
-      {
+      public Adapter caseProductsFacet(ProductsFacet object) {
          return createProductsFacetAdapter();
       }
 
       @Override
-      public Adapter caseProductDefinition(ProductDefinition object)
-      {
+      public Adapter caseProductDefinition(ProductDefinition object) {
          return createProductDefinitionAdapter();
       }
 
       @Override
-      public Adapter caseAbstractReference(AbstractReference object)
-      {
+      public Adapter caseAbstractReference(AbstractReference object) {
          return createAbstractReferenceAdapter();
       }
 
       @Override
-      public Adapter caseRuledReference(RuledReference object)
-      {
+      public Adapter caseRuledReference(RuledReference object) {
          return createRuledReferenceAdapter();
       }
 
       @Override
-      public Adapter caseAbstractStrictReference(AbstractStrictReference object)
-      {
+      public Adapter caseAbstractStrictReference(AbstractStrictReference object) {
          return createAbstractStrictReferenceAdapter();
       }
 
       @Override
-      public Adapter caseStrictReference(StrictReference object)
-      {
+      public Adapter caseStrictReference(StrictReference object) {
          return createStrictReferenceAdapter();
       }
 
       @Override
-      public Adapter caseFeatureInclude(FeatureInclude object)
-      {
+      public Adapter caseFeatureInclude(FeatureInclude object) {
          return createFeatureIncludeAdapter();
       }
 
       @Override
-      public Adapter caseIdentifiable(Identifiable object)
-      {
+      public Adapter caseIdentifiable(Identifiable object) {
          return createIdentifiableAdapter();
       }
 
       @Override
-      public Adapter caseAnnotatable(Annotatable object)
-      {
+      public Adapter caseAnnotatable(Annotatable object) {
          return createAnnotatableAdapter();
       }
 
       @Override
-      public Adapter defaultCase(EObject object)
-      {
+      public Adapter defaultCase(EObject object) {
          return createEObjectAdapter();
       }
    };
@@ -288,8 +254,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @generated
     */
    @Override
-   public Adapter createAdapter(Notifier target)
-   {
+   public Adapter createAdapter(Notifier target) {
       return modelSwitch.doSwitch((EObject) target);
    }
 
@@ -306,8 +271,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.AbstractModule
     * @generated
     */
-   public Adapter createAbstractModuleAdapter()
-   {
+   public Adapter createAbstractModuleAdapter() {
       return null;
    }
 
@@ -323,8 +287,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.BasicModule
     * @generated
     */
-   public Adapter createBasicModuleAdapter()
-   {
+   public Adapter createBasicModuleAdapter() {
       return null;
    }
 
@@ -340,8 +303,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.AbstractFacet
     * @generated
     */
-   public Adapter createAbstractFacetAdapter()
-   {
+   public Adapter createAbstractFacetAdapter() {
       return null;
    }
 
@@ -357,8 +319,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.CompositeModule
     * @generated
     */
-   public Adapter createCompositeModuleAdapter()
-   {
+   public Adapter createCompositeModuleAdapter() {
       return null;
    }
 
@@ -374,8 +335,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.PluginsFacet
     * @generated
     */
-   public Adapter createPluginsFacetAdapter()
-   {
+   public Adapter createPluginsFacetAdapter() {
       return null;
    }
 
@@ -391,8 +351,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.FeaturesFacet
     * @generated
     */
-   public Adapter createFeaturesFacetAdapter()
-   {
+   public Adapter createFeaturesFacetAdapter() {
       return null;
    }
 
@@ -408,8 +367,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.SitesFacet
     * @generated
     */
-   public Adapter createSitesFacetAdapter()
-   {
+   public Adapter createSitesFacetAdapter() {
       return null;
    }
 
@@ -425,8 +383,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.PluginProject
     * @generated
     */
-   public Adapter createPluginProjectAdapter()
-   {
+   public Adapter createPluginProjectAdapter() {
       return null;
    }
 
@@ -442,8 +399,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.FeatureProject
     * @generated
     */
-   public Adapter createFeatureProjectAdapter()
-   {
+   public Adapter createFeatureProjectAdapter() {
       return null;
    }
 
@@ -459,8 +415,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.SiteProject
     * @generated
     */
-   public Adapter createSiteProjectAdapter()
-   {
+   public Adapter createSiteProjectAdapter() {
       return null;
    }
 
@@ -475,8 +430,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.Project
     * @generated
     */
-   public Adapter createProjectAdapter()
-   {
+   public Adapter createProjectAdapter() {
       return null;
    }
 
@@ -492,8 +446,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.ProjectFacet
     * @generated
     */
-   public Adapter createProjectFacetAdapter()
-   {
+   public Adapter createProjectFacetAdapter() {
       return null;
    }
 
@@ -509,8 +462,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.FileContainer
     * @generated
     */
-   public Adapter createFileContainerAdapter()
-   {
+   public Adapter createFileContainerAdapter() {
       return null;
    }
 
@@ -525,8 +477,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.Derivable
     * @generated
     */
-   public Adapter createDerivableAdapter()
-   {
+   public Adapter createDerivableAdapter() {
       return null;
    }
 
@@ -542,8 +493,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.PluginInclude
     * @generated
     */
-   public Adapter createPluginIncludeAdapter()
-   {
+   public Adapter createPluginIncludeAdapter() {
       return null;
    }
 
@@ -558,8 +508,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.Category
     * @generated
     */
-   public Adapter createCategoryAdapter()
-   {
+   public Adapter createCategoryAdapter() {
       return null;
    }
 
@@ -575,8 +524,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.AbstractIdentifiable
     * @generated
     */
-   public Adapter createAbstractIdentifiableAdapter()
-   {
+   public Adapter createAbstractIdentifiableAdapter() {
       return null;
    }
 
@@ -592,8 +540,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.ProductsFacet
     * @generated
     */
-   public Adapter createProductsFacetAdapter()
-   {
+   public Adapter createProductsFacetAdapter() {
       return null;
    }
 
@@ -609,8 +556,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.ProductDefinition
     * @generated
     */
-   public Adapter createProductDefinitionAdapter()
-   {
+   public Adapter createProductDefinitionAdapter() {
       return null;
    }
 
@@ -626,8 +572,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.AbstractReference
     * @generated
     */
-   public Adapter createAbstractReferenceAdapter()
-   {
+   public Adapter createAbstractReferenceAdapter() {
       return null;
    }
 
@@ -643,8 +588,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.RuledReference
     * @generated
     */
-   public Adapter createRuledReferenceAdapter()
-   {
+   public Adapter createRuledReferenceAdapter() {
       return null;
    }
 
@@ -660,8 +604,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.AbstractStrictReference
     * @generated
     */
-   public Adapter createAbstractStrictReferenceAdapter()
-   {
+   public Adapter createAbstractStrictReferenceAdapter() {
       return null;
    }
 
@@ -677,8 +620,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.StrictReference
     * @generated
     */
-   public Adapter createStrictReferenceAdapter()
-   {
+   public Adapter createStrictReferenceAdapter() {
       return null;
    }
 
@@ -694,8 +636,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.FeatureInclude
     * @generated
     */
-   public Adapter createFeatureIncludeAdapter()
-   {
+   public Adapter createFeatureIncludeAdapter() {
       return null;
    }
 
@@ -711,8 +652,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.b2.model.module.util.Identifiable
     * @generated
     */
-   public Adapter createIdentifiableAdapter()
-   {
+   public Adapter createIdentifiableAdapter() {
       return null;
    }
 
@@ -728,8 +668,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @see org.sourcepit.common.modeling.Annotatable
     * @generated
     */
-   public Adapter createAnnotatableAdapter()
-   {
+   public Adapter createAnnotatableAdapter() {
       return null;
    }
 
@@ -742,8 +681,7 @@ public class ModuleModelAdapterFactory extends AdapterFactoryImpl
     * @return the new adapter.
     * @generated
     */
-   public Adapter createEObjectAdapter()
-   {
+   public Adapter createEObjectAdapter() {
       return null;
    }
 

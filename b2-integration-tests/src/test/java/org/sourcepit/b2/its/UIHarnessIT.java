@@ -27,17 +27,14 @@ import org.junit.Test;
 import org.sourcepit.common.utils.xml.XmlUtils;
 import org.w3c.dom.Element;
 
-public class UIHarnessIT extends AbstractB2IT
-{
+public class UIHarnessIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
       int err = build(moduleDir, "-e", "-B", "clean", "verify");
       assertThat(err, is(0));

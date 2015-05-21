@@ -19,8 +19,7 @@ package org.sourcepit.b2.directory.parser.module;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
-public interface ModuleParserLifecycleParticipant
-{
+public interface ModuleParserLifecycleParticipant {
    void preParse(IModuleParsingRequest request);
 
    void postParse(IModuleParsingRequest request, AbstractModule module, ThrowablePipe errors);

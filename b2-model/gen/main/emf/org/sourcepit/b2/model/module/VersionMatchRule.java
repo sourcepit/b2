@@ -32,8 +32,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * @model
  * @generated
  */
-public enum VersionMatchRule implements Enumerator
-{
+public enum VersionMatchRule implements Enumerator {
    /**
     * The '<em><b>Compatible</b></em>' literal object.
     * <!-- begin-user-doc -->
@@ -168,13 +167,10 @@ public enum VersionMatchRule implements Enumerator
     * 
     * @generated
     */
-   public static VersionMatchRule get(String literal)
-   {
-      for (int i = 0; i < VALUES_ARRAY.length; ++i)
-      {
+   public static VersionMatchRule get(String literal) {
+      for (int i = 0; i < VALUES_ARRAY.length; ++i) {
          VersionMatchRule result = VALUES_ARRAY[i];
-         if (result.toString().equals(literal))
-         {
+         if (result.toString().equals(literal)) {
             return result;
          }
       }
@@ -188,13 +184,10 @@ public enum VersionMatchRule implements Enumerator
     * 
     * @generated
     */
-   public static VersionMatchRule getByName(String name)
-   {
-      for (int i = 0; i < VALUES_ARRAY.length; ++i)
-      {
+   public static VersionMatchRule getByName(String name) {
+      for (int i = 0; i < VALUES_ARRAY.length; ++i) {
          VersionMatchRule result = VALUES_ARRAY[i];
-         if (result.getName().equals(name))
-         {
+         if (result.getName().equals(name)) {
             return result;
          }
       }
@@ -208,10 +201,8 @@ public enum VersionMatchRule implements Enumerator
     * 
     * @generated
     */
-   public static VersionMatchRule get(int value)
-   {
-      switch (value)
-      {
+   public static VersionMatchRule get(int value) {
+      switch (value) {
          case COMPATIBLE_VALUE :
             return COMPATIBLE;
          case PERFECT_VALUE :
@@ -255,8 +246,7 @@ public enum VersionMatchRule implements Enumerator
     * 
     * @generated
     */
-   private VersionMatchRule(int value, String name, String literal)
-   {
+   private VersionMatchRule(int value, String name, String literal) {
       this.value = value;
       this.name = name;
       this.literal = literal;
@@ -268,8 +258,7 @@ public enum VersionMatchRule implements Enumerator
     * 
     * @generated
     */
-   public int getValue()
-   {
+   public int getValue() {
       return value;
    }
 
@@ -279,8 +268,7 @@ public enum VersionMatchRule implements Enumerator
     * 
     * @generated
     */
-   public String getName()
-   {
+   public String getName() {
       return name;
    }
 
@@ -290,8 +278,7 @@ public enum VersionMatchRule implements Enumerator
     * 
     * @generated
     */
-   public String getLiteral()
-   {
+   public String getLiteral() {
       return literal;
    }
 
@@ -303,8 +290,7 @@ public enum VersionMatchRule implements Enumerator
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       return literal;
    }
 

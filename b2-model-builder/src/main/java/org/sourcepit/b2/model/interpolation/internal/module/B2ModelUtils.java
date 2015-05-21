@@ -39,43 +39,36 @@ import org.sourcepit.common.manifest.osgi.resource.GenericManifestResourceImpl;
 import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.io.IOOperation;
 
-public final class B2ModelUtils
-{
-   private B2ModelUtils()
-   {
+public final class B2ModelUtils {
+   private B2ModelUtils() {
       super();
    }
 
-   public static FeatureInclude toFeatureInclude(FeatureProject featureProject)
-   {
+   public static FeatureInclude toFeatureInclude(FeatureProject featureProject) {
       FeatureInclude featureInclude = ModuleModelFactory.eINSTANCE.createFeatureInclude();
       featureInclude.setId(featureProject.getId());
       featureInclude.setVersion(featureProject.getVersion());
 
       Annotation b2Metadata = B2MetadataUtils.getB2Metadata(featureProject);
-      if (b2Metadata != null)
-      {
+      if (b2Metadata != null) {
          featureInclude.getAnnotations().add(EcoreUtil.copy(b2Metadata));
       }
 
       return featureInclude;
    }
 
-   public static PluginInclude toPluginInclude(PluginProject pluginProject)
-   {
+   public static PluginInclude toPluginInclude(PluginProject pluginProject) {
       final AbstractModule module = pluginProject.getParent().getParent();
       return toPluginInclude(module, pluginProject);
    }
 
-   public static PluginInclude toPluginInclude(AbstractModule module, PluginProject pluginProject)
-   {
+   public static PluginInclude toPluginInclude(AbstractModule module, PluginProject pluginProject) {
       PluginInclude featureInclude = ModuleModelFactory.eINSTANCE.createPluginInclude();
       featureInclude.setId(pluginProject.getId());
       featureInclude.setVersion(pluginProject.getVersion());
 
       Annotation b2Metadata = B2MetadataUtils.getB2Metadata(pluginProject);
-      if (b2Metadata != null)
-      {
+      if (b2Metadata != null) {
          featureInclude.getAnnotations().add(EcoreUtil.copy(b2Metadata));
       }
 
@@ -89,16 +82,13 @@ public final class B2ModelUtils
       return featureInclude;
    }
 
-   public static Manifest readManifest(File file, boolean strict)
-   {
+   public static Manifest readManifest(File file, boolean strict) {
       final Map<String, Boolean> options = Collections.singletonMap("strict", Boolean.valueOf(strict));
 
       final Resource eResource = new GenericManifestResourceImpl();
-      new IOOperation<InputStream>(buffIn(fileIn(file)))
-      {
+      new IOOperation<InputStream>(buffIn(fileIn(file))) {
          @Override
-         protected void run(InputStream openResource) throws IOException
-         {
+         protected void run(InputStream openResource) throws IOException {
             eResource.load(openResource, options);
          }
       }.run();

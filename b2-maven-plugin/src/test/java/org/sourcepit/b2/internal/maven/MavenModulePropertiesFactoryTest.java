@@ -31,12 +31,10 @@ import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class MavenModulePropertiesFactoryTest
-{
+public class MavenModulePropertiesFactoryTest {
 
    @Test
-   public void testNoModuleId()
-   {
+   public void testNoModuleId() {
       final MavenProject project = newMavenProject("groupId", "artifactId", "1.0-SNAPSHOT");
       final MavenSession session = newMavenSession(project);
 
@@ -48,8 +46,7 @@ public class MavenModulePropertiesFactoryTest
    }
 
    @Test
-   public void testModuleId()
-   {
+   public void testModuleId() {
       final Properties props = new Properties();
       props.setProperty("module.id", "winter is coming");
 
@@ -64,8 +61,7 @@ public class MavenModulePropertiesFactoryTest
    }
 
    @Test
-   public void testDoNotInheritModuleId()
-   {
+   public void testDoNotInheritModuleId() {
       final Properties masterProps = new Properties();
       masterProps.setProperty("module.id", "yoda");
 
@@ -86,8 +82,7 @@ public class MavenModulePropertiesFactoryTest
       assertNull(properties.get("module.id"));
    }
 
-   private static MavenSession newMavenSession(MavenProject... projects)
-   {
+   private static MavenSession newMavenSession(MavenProject... projects) {
       final MavenSession session = mock(MavenSession.class);
       when(session.getProjects()).thenReturn(asList(projects));
       when(session.getSystemProperties()).thenReturn(new Properties());
@@ -95,22 +90,18 @@ public class MavenModulePropertiesFactoryTest
       return session;
    }
 
-   private static MavenProject newMavenProject(String groupId, String artifactId, String version)
-   {
+   private static MavenProject newMavenProject(String groupId, String artifactId, String version) {
       return newMavenProject(null, groupId, artifactId, version, null);
    }
 
-   private static MavenProject newMavenProject(String groupId, String artifactId, String version, Properties properties)
-   {
+   private static MavenProject newMavenProject(String groupId, String artifactId, String version, Properties properties) {
       return newMavenProject(null, groupId, artifactId, version, properties);
    }
 
    private static MavenProject newMavenProject(MavenProject parent, String groupId, String artifactId, String version,
-      Properties properties)
-   {
+      Properties properties) {
       final Model originalModel = new Model();
-      if (properties != null)
-      {
+      if (properties != null) {
          originalModel.setProperties(properties);
       }
       originalModel.getProperties().put("project.groupId", groupId);
@@ -124,8 +115,7 @@ public class MavenModulePropertiesFactoryTest
       when(project.getOriginalModel()).thenReturn(originalModel);
 
       Properties mergedProps = new Properties();
-      if (parent != null)
-      {
+      if (parent != null) {
          mergedProps.putAll(parent.getProperties());
       }
       mergedProps.putAll(originalModel.getProperties());

@@ -33,13 +33,11 @@ import org.w3c.dom.Document;
 
 import com.google.inject.Binder;
 
-public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWorkspaceTest
-{
+public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWorkspaceTest {
    private List<File> projectDirs;
 
    @Override
-   protected void setUp() throws Exception
-   {
+   protected void setUp() throws Exception {
       super.setUp();
 
       final File moduleDir = setUpModuleDir();
@@ -50,53 +48,43 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
    }
 
    @Override
-   public void configure(Binder binder)
-   {
+   public void configure(Binder binder) {
       super.configure(binder);
       binder.bind(LegacySupport.class).toInstance(new DefaultLegacySupport());
       binder.bind(ProjectDependenciesResolver.class).toInstance(new DefaultProjectDependenciesResolver());
    }
 
-   protected List<File> getModuleDirs()
-   {
+   protected List<File> getModuleDirs() {
       return projectDirs;
    }
 
    // HACK
-   protected File getModuleDirByName(String name)
-   {
-      for (File projectDir : projectDirs)
-      {
+   protected File getModuleDirByName(String name) {
+      for (File projectDir : projectDirs) {
          final Document doc = XmlUtils.readXml(new File(projectDir, "module.xml"));
-         if (name.equals(XmlUtils.queryText(doc, "/project/artifactId")))
-         {
+         if (name.equals(XmlUtils.queryText(doc, "/project/artifactId"))) {
             return projectDir;
          }
       }
       return null;
    }
 
-   protected File setUpModuleDir()
-   {
+   protected File setUpModuleDir() {
       return workspace.importResources(setUpModulePath());
    }
 
    protected abstract String setUpModulePath();
 
-   protected List<File> createSession(File moduleDir)
-   {
+   protected List<File> createSession(File moduleDir) {
       final List<File> result = new ArrayList<File>();
 
       final List<File> descriptors = new ArrayList<File>();
       final List<File> skippedDescriptors = new ArrayList<File>();
 
-      final IDescriptorResolutionStrategy resolver = new AbstractDescriptorResolutionStrategy(moduleDir, null)
-      {
-         public File getDescriptor(File directory)
-         {
+      final IDescriptorResolutionStrategy resolver = new AbstractDescriptorResolutionStrategy(moduleDir, null) {
+         public File getDescriptor(File directory) {
             final File descriptor = new File(directory, "module.xml");
-            if (descriptor.exists() && descriptor.isFile())
-            {
+            if (descriptor.exists() && descriptor.isFile()) {
                return descriptor;
             }
             return null;
@@ -105,10 +93,8 @@ public abstract class AbstractB2SessionWorkspaceTest extends AbstractInjectedWor
 
       DescriptorUtils.findModuleDescriptors(moduleDir, descriptors, skippedDescriptors, resolver);
 
-      for (File descriptor : descriptors)
-      {
-         if (!skippedDescriptors.contains(descriptor))
-         {
+      for (File descriptor : descriptors) {
+         if (!skippedDescriptors.contains(descriptor)) {
             result.add(descriptor.getParentFile());
          }
       }

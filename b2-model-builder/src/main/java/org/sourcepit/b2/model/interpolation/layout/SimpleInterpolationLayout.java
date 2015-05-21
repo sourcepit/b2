@@ -23,44 +23,35 @@ import javax.inject.Named;
 import org.sourcepit.b2.model.module.AbstractModule;
 
 @Named("simple")
-public class SimpleInterpolationLayout implements IInterpolationLayout
-{
-   public String pathOfFeatureProject(final AbstractModule module, String classifier)
-   {
+public class SimpleInterpolationLayout implements IInterpolationLayout {
+   public String pathOfFeatureProject(final AbstractModule module, String classifier) {
       return pathOfFacetProject(module, "features", classifier, "feature");
    }
 
-   public String idOfFeatureProject(AbstractModule module, String classifier)
-   {
+   public String idOfFeatureProject(AbstractModule module, String classifier) {
       return idOfProject(module, classifier, "feature");
    }
 
-   public String pathOfSiteProject(AbstractModule module, String classifier)
-   {
+   public String pathOfSiteProject(AbstractModule module, String classifier) {
       return pathOfFacetProject(module, "sites", classifier, "site");
    }
 
-   public String idOfSiteProject(final AbstractModule module, String classifier)
-   {
+   public String idOfSiteProject(final AbstractModule module, String classifier) {
       return idOfProject(module, classifier, "site");
    }
 
-   protected String pathOfFacetProject(final AbstractModule module, String facetType, String classifier, String appendix)
-   {
+   protected String pathOfFacetProject(final AbstractModule module, String facetType, String classifier, String appendix) {
       return pathOfFacetMetaData(module, facetType, idOfProject(module, classifier, appendix));
    }
 
-   public String pathOfFacetMetaData(AbstractModule module, String facetType, String name)
-   {
+   public String pathOfFacetMetaData(AbstractModule module, String facetType, String name) {
       return pathOfMetaDataFile(module, facetType + File.separatorChar + name);
    }
 
-   public String pathOfMetaDataFile(AbstractModule module, String name)
-   {
+   public String pathOfMetaDataFile(AbstractModule module, String name) {
       final StringBuilder sb = new StringBuilder();
       final String modulePath = module.getDirectory().getPath();
-      if (modulePath.length() != 0)
-      {
+      if (modulePath.length() != 0) {
          sb.append(modulePath);
          sb.append(File.separatorChar);
       }
@@ -70,17 +61,14 @@ public class SimpleInterpolationLayout implements IInterpolationLayout
       return sb.toString();
    }
 
-   protected String idOfProject(final AbstractModule module, String classifier, String appendix)
-   {
+   protected String idOfProject(final AbstractModule module, String classifier, String appendix) {
       final StringBuilder sb = new StringBuilder();
       sb.append(module.getId());
-      if (classifier != null && classifier.length() > 0)
-      {
+      if (classifier != null && classifier.length() > 0) {
          sb.append('.');
          sb.append(classifier);
       }
-      if (appendix != null && appendix.length() > 0)
-      {
+      if (appendix != null && appendix.length() > 0) {
          sb.append(".");
          sb.append(appendix);
       }

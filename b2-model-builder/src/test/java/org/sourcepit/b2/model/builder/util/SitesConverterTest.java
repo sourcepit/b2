@@ -27,24 +27,20 @@ import org.sourcepit.common.utils.path.PathMatcher;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class SitesConverterTest
-{
+public class SitesConverterTest {
    @Test
-   public void testGetFeatureIdForAssembly() throws Exception
-   {
+   public void testGetFeatureIdForAssembly() throws Exception {
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("b2.assemblies", "main, test");
       moduleProperties.put("b2.assemblies.main.classifier", "");
 
       SitesConverter converter = new DefaultConverter();
 
-      try
-      {
+      try {
          converter.getSiteIdForAssembly(moduleProperties, "foo", null);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       assertEquals("foo.site", converter.getSiteIdForAssembly(moduleProperties, "foo", "main"));
@@ -57,8 +53,7 @@ public class SitesConverterTest
    }
 
    @Test
-   public void testGetAssemblyCategories()
-   {
+   public void testGetAssemblyCategories() {
       SitesConverter converter = new DefaultConverter();
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
 
@@ -80,8 +75,7 @@ public class SitesConverterTest
    }
 
    @Test
-   public void testGetAssemblySiteFeatureMatcher()
-   {
+   public void testGetAssemblySiteFeatureMatcher() {
       SitesConverter converter = new DefaultConverter();
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
 
@@ -112,8 +106,7 @@ public class SitesConverterTest
    }
 
    @Test
-   public void testGetAssemblyCategoryFeatureMatcher()
-   {
+   public void testGetAssemblyCategoryFeatureMatcher() {
       SitesConverter converter = new DefaultConverter();
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
 
@@ -140,8 +133,7 @@ public class SitesConverterTest
    }
 
    @Test
-   public void testSitesAppendix() throws Exception
-   {
+   public void testSitesAppendix() throws Exception {
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("b2.assemblies", "main, test");
       moduleProperties.put("b2.assemblies.main.classifier", "");

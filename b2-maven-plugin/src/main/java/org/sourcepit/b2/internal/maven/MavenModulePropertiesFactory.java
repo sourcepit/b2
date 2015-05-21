@@ -33,10 +33,8 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 import org.sourcepit.tools.shared.resources.harness.ValueSourceUtils;
 
 @Named
-public class MavenModulePropertiesFactory
-{
-   public PropertiesSource createModuleProperties(MavenSession mavenSession, final MavenProject project)
-   {
+public class MavenModulePropertiesFactory {
+   public PropertiesSource createModuleProperties(MavenSession mavenSession, final MavenProject project) {
       final PropertiesMap propertiesMap = B2ModelBuildingRequest.newDefaultProperties();
 
       final String mavenVersion = project.getVersion();
@@ -64,38 +62,30 @@ public class MavenModulePropertiesFactory
       valueSources.add(ValueSourceUtils.newPrefixedValueSource("session", mavenSession));
 
       final Settings settings = mavenSession.getSettings();
-      if (settings != null)
-      {
+      if (settings != null) {
          valueSources.add(ValueSourceUtils.newPrefixedValueSource("settings", settings));
          valueSources.add(ValueSourceUtils.newSingleValueSource("localRepository", settings.getLocalRepository()));
       }
 
-      return new AbstractPropertiesSource()
-      {
-         public String get(String key)
-         {
-            if ("module.id".equals(key) && !isPropertyDefinedOnProject(key))
-            {
+      return new AbstractPropertiesSource() {
+         public String get(String key) {
+            if ("module.id".equals(key) && !isPropertyDefinedOnProject(key)) {
                return null;
             }
             final String value = propertiesMap.get(key);
-            if (value != null)
-            {
+            if (value != null) {
                return value;
             }
-            for (ValueSource valueSource : valueSources)
-            {
+            for (ValueSource valueSource : valueSources) {
                final Object oValue = valueSource.getValue(key);
-               if (oValue != null)
-               {
+               if (oValue != null) {
                   return oValue.toString();
                }
             }
             return null;
          }
 
-         private boolean isPropertyDefinedOnProject(String key)
-         {
+         private boolean isPropertyDefinedOnProject(String key) {
             return project.getOriginalModel().getProperties().containsKey(key);
          }
       };

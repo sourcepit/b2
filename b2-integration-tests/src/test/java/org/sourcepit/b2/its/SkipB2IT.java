@@ -28,8 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressWarnings("boxing")
-public class SkipB2IT extends AbstractB2IT
-{
+public class SkipB2IT extends AbstractB2IT {
    private static final String PREREQUISITE_FAIL_MESSAGE = "Prerequesite for testing not satisfied - check resource directory";
 
    private File moduleDir;
@@ -38,14 +37,12 @@ public class SkipB2IT extends AbstractB2IT
    private File moduleBB2Folder;
 
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Before
-   public void setUp() throws IOException
-   {
+   public void setUp() throws IOException {
       moduleDir = getResource(getClass().getSimpleName());
 
       workspaceB2Folder = new File(moduleDir, ".b2");
@@ -57,8 +54,7 @@ public class SkipB2IT extends AbstractB2IT
    }
 
    @Test
-   public void buildsWithoutParameterShouldBootstrap() throws IOException
-   {
+   public void buildsWithoutParameterShouldBootstrap() throws IOException {
       int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
       assertThat(err, is(0));
 
@@ -68,8 +64,7 @@ public class SkipB2IT extends AbstractB2IT
    }
 
    @Test
-   public void projectShouldbuildWhenBuildingCleanAndThenInstallWithSkipBootstrapParameter() throws Exception
-   {
+   public void projectShouldbuildWhenBuildingCleanAndThenInstallWithSkipBootstrapParameter() throws Exception {
       int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
       assertThat(err, is(0));
 
@@ -82,8 +77,7 @@ public class SkipB2IT extends AbstractB2IT
    }
 
    @Test
-   public void buildsWithParameterShouldNotBootstrap() throws IOException
-   {
+   public void buildsWithParameterShouldNotBootstrap() throws IOException {
       int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven", "-DskipB2");
       assertThat(err, is(0));
 

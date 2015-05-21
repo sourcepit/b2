@@ -53,8 +53,7 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * 
  * @generated
  */
-public abstract class ProjectImpl extends FileContainerImpl implements Project
-{
+public abstract class ProjectImpl extends FileContainerImpl implements Project {
    /**
     * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -138,8 +137,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   protected ProjectImpl()
-   {
+   protected ProjectImpl() {
       super();
    }
 
@@ -150,8 +148,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.PROJECT;
    }
 
@@ -161,8 +158,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public boolean isDerived()
-   {
+   public boolean isDerived() {
       return derived;
    }
 
@@ -172,8 +168,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public void setDerived(boolean newDerived)
-   {
+   public void setDerived(boolean newDerived) {
       boolean oldDerived = derived;
       derived = newDerived;
       if (eNotificationRequired())
@@ -186,10 +181,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public EList<Annotation> getAnnotations()
-   {
-      if (annotations == null)
-      {
+   public EList<Annotation> getAnnotations() {
+      if (annotations == null) {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
             ModuleModelPackage.PROJECT__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
@@ -202,8 +195,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public String getId()
-   {
+   public String getId() {
       return id;
    }
 
@@ -213,8 +205,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public void setId(String newId)
-   {
+   public void setId(String newId) {
       String oldId = id;
       id = newId;
       if (eNotificationRequired())
@@ -227,8 +218,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public String getVersion()
-   {
+   public String getVersion() {
       return version;
    }
 
@@ -238,8 +228,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public void setVersion(String newVersion)
-   {
+   public void setVersion(String newVersion) {
       String oldVersion = version;
       version = newVersion;
       if (eNotificationRequired())
@@ -252,8 +241,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public ProjectFacet<? extends Project> getParent()
-   {
+   public ProjectFacet<? extends Project> getParent() {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -265,8 +253,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public boolean isIdentifyableBy(Identifier identifier)
-   {
+   public boolean isIdentifyableBy(Identifier identifier) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -278,8 +265,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public Identifier toIdentifier()
-   {
+   public Identifier toIdentifier() {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -291,8 +277,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public Annotation getAnnotation(String source)
-   {
+   public Annotation getAnnotation(String source) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -304,8 +289,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public Annotation getAnnotation(String source, boolean createOnDemand)
-   {
+   public Annotation getAnnotation(String source, boolean createOnDemand) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -317,8 +301,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public String getAnnotationData(String source, String key)
-   {
+   public String getAnnotationData(String source, String key) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -330,8 +313,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * 
     * @generated
     */
-   public String setAnnotationData(String source, String key, String value)
-   {
+   public String setAnnotationData(String source, String key, String value) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -345,10 +327,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     */
    @SuppressWarnings("unchecked")
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PROJECT__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
       }
@@ -362,10 +342,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PROJECT__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
       }
@@ -379,10 +357,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.PROJECT__DERIVED :
             return isDerived();
          case ModuleModelPackage.PROJECT__ANNOTATIONS :
@@ -403,10 +379,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.PROJECT__DERIVED :
             setDerived((Boolean) newValue);
             return;
@@ -431,10 +405,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PROJECT__DERIVED :
             setDerived(DERIVED_EDEFAULT);
             return;
@@ -458,10 +430,8 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PROJECT__DERIVED :
             return derived != DERIVED_EDEFAULT;
          case ModuleModelPackage.PROJECT__ANNOTATIONS :
@@ -481,40 +451,31 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * @generated
     */
    @Override
-   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Derivable.class)
-      {
-         switch (derivedFeatureID)
-         {
+   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+      if (baseClass == Derivable.class) {
+         switch (derivedFeatureID) {
             case ModuleModelPackage.PROJECT__DERIVED :
                return ModuleModelPackage.DERIVABLE__DERIVED;
             default :
                return -1;
          }
       }
-      if (baseClass == Annotatable.class)
-      {
-         switch (derivedFeatureID)
-         {
+      if (baseClass == Annotatable.class) {
+         switch (derivedFeatureID) {
             case ModuleModelPackage.PROJECT__ANNOTATIONS :
                return CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
             default :
                return -1;
          }
       }
-      if (baseClass == Identifiable.class)
-      {
-         switch (derivedFeatureID)
-         {
+      if (baseClass == Identifiable.class) {
+         switch (derivedFeatureID) {
             default :
                return -1;
          }
       }
-      if (baseClass == AbstractIdentifiable.class)
-      {
-         switch (derivedFeatureID)
-         {
+      if (baseClass == AbstractIdentifiable.class) {
+         switch (derivedFeatureID) {
             case ModuleModelPackage.PROJECT__ID :
                return ModuleModelPackage.ABSTRACT_IDENTIFIABLE__ID;
             case ModuleModelPackage.PROJECT__VERSION :
@@ -533,40 +494,31 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * @generated
     */
    @Override
-   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Derivable.class)
-      {
-         switch (baseFeatureID)
-         {
+   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+      if (baseClass == Derivable.class) {
+         switch (baseFeatureID) {
             case ModuleModelPackage.DERIVABLE__DERIVED :
                return ModuleModelPackage.PROJECT__DERIVED;
             default :
                return -1;
          }
       }
-      if (baseClass == Annotatable.class)
-      {
-         switch (baseFeatureID)
-         {
+      if (baseClass == Annotatable.class) {
+         switch (baseFeatureID) {
             case CommonModelingPackage.ANNOTATABLE__ANNOTATIONS :
                return ModuleModelPackage.PROJECT__ANNOTATIONS;
             default :
                return -1;
          }
       }
-      if (baseClass == Identifiable.class)
-      {
-         switch (baseFeatureID)
-         {
+      if (baseClass == Identifiable.class) {
+         switch (baseFeatureID) {
             default :
                return -1;
          }
       }
-      if (baseClass == AbstractIdentifiable.class)
-      {
-         switch (baseFeatureID)
-         {
+      if (baseClass == AbstractIdentifiable.class) {
+         switch (baseFeatureID) {
             case ModuleModelPackage.ABSTRACT_IDENTIFIABLE__ID :
                return ModuleModelPackage.PROJECT__ID;
             case ModuleModelPackage.ABSTRACT_IDENTIFIABLE__VERSION :
@@ -585,8 +537,7 @@ public abstract class ProjectImpl extends FileContainerImpl implements Project
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

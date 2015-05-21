@@ -16,7 +16,8 @@
 
 package org.sourcepit.b2.internal.generator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.sourcepit.b2.model.harness.ModelTestHarness.addFeatureProject;
 import static org.sourcepit.b2.model.harness.ModelTestHarness.createBasicModule;
 import static org.sourcepit.b2.model.interpolation.internal.module.B2MetadataUtils.addAssemblyClassifier;
@@ -38,11 +39,9 @@ import org.sourcepit.common.utils.props.PropertiesMap;
 
 import com.google.common.base.Optional;
 
-public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest
-{
+public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest {
    @Test
-   public void testSourceLabelForFacets()
-   {
+   public void testSourceLabelForFacets() {
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");
@@ -81,8 +80,7 @@ public class FeatureProjectGeneratorTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testNoSourceLabelForAssemblies()
-   {
+   public void testNoSourceLabelForAssemblies() {
       final PropertiesMap properties = new LinkedPropertiesMap();
       properties.put("project.name", "Core Plug-ins");
       properties.put("nls_de.project.name", "Kern Plug-ins");

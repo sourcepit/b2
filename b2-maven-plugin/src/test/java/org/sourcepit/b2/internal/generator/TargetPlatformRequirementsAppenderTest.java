@@ -40,44 +40,35 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TargetPlatformRequirementsAppenderTest
-{
+public class TargetPlatformRequirementsAppenderTest {
    private TargetPlatformRequirementsAppender requirementsAppender;
 
    @Before
-   public void setUp()
-   {
+   public void setUp() {
       requirementsAppender = new TargetPlatformRequirementsAppender();
    }
 
    @Test
-   public void testNullAndEmpty()
-   {
-      try
-      {
+   public void testNullAndEmpty() {
+      try {
          requirementsAppender.append(null, null);
          fail();
       }
-      catch (NullPointerException e)
-      { // expected
+      catch (NullPointerException e) { // expected
       }
 
-      try
-      {
+      try {
          requirementsAppender.append(new Model(), null);
          fail();
       }
-      catch (NullPointerException e)
-      { // expected
+      catch (NullPointerException e) { // expected
       }
 
-      try
-      {
+      try {
          requirementsAppender.append(null, new ArrayList<Dependency>());
          fail();
       }
-      catch (NullPointerException e)
-      { // expected
+      catch (NullPointerException e) { // expected
       }
 
 
@@ -98,8 +89,7 @@ public class TargetPlatformRequirementsAppenderTest
    }
 
    @Test
-   public void testAppendToEmpty() throws Exception
-   {
+   public void testAppendToEmpty() throws Exception {
       Model model = new Model();
       List<Dependency> requirements = new ArrayList<Dependency>();
 
@@ -133,8 +123,7 @@ public class TargetPlatformRequirementsAppenderTest
    }
 
    @Test
-   public void testAppendMerge() throws Exception
-   {
+   public void testAppendMerge() throws Exception {
       Model model = new Model();
       List<Dependency> requirements = new ArrayList<Dependency>();
 

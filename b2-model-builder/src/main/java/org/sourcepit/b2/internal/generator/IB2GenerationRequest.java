@@ -21,8 +21,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 
-public interface IB2GenerationRequest
-{
+public interface IB2GenerationRequest {
    AbstractModule getModule();
 
    ModuleDirectory getModuleDirectory();

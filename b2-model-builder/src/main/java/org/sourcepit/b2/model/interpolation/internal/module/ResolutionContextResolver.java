@@ -21,7 +21,6 @@ import org.sourcepit.b2.model.module.FeatureProject;
 
 import com.google.common.collect.SetMultimap;
 
-public interface ResolutionContextResolver
-{
+public interface ResolutionContextResolver {
    SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest);
 }

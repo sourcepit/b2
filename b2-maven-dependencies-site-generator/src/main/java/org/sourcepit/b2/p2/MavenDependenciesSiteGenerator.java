@@ -81,13 +81,10 @@ import com.google.common.base.Strings;
 public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
    implements
       ModuleInterpolatorLifecycleParticipant,
-      IB2GenerationParticipant
-{
+      IB2GenerationParticipant {
 
-   private Predicate<Dependency> JARS = new Predicate<Dependency>()
-   {
-      public boolean apply(Dependency dependency)
-      {
+   private Predicate<Dependency> JARS = new Predicate<Dependency>() {
+      public boolean apply(Dependency dependency) {
          return "jar".equals(dependency.getType());
       }
    };
@@ -101,14 +98,12 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
    @Inject
    private LayoutManager layoutManager;
 
-   public void preInterpolation(AbstractModule module, final PropertiesSource moduleProperties)
-   {
+   public void preInterpolation(AbstractModule module, final PropertiesSource moduleProperties) {
       final MavenSession session = legacySupport.getSession();
       final MavenProject project = session.getCurrentProject();
 
       final List<Dependency> dependencies = new ArrayList<Dependency>(filter(project.getDependencies(), JARS));
-      if (!dependencies.isEmpty())
-      {
+      if (!dependencies.isEmpty()) {
          final IInterpolationLayout layout = layoutManager.getLayout(module.getLayoutId());
          final File siteDir = new File(layout.pathOfMetaDataFile(module, "maven-dependencies"));
 
@@ -121,45 +116,37 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          final String pattern = moduleProperties.get("osgifier.updateSiteBundles");
          final PathMatcher bundleMatcher = pattern == null ? null : PathMatcher.parsePackagePatterns(pattern);
 
-         BundleSelector bundleSelector = new AbstractBundleTreeSelector()
-         {
+         BundleSelector bundleSelector = new AbstractBundleTreeSelector() {
             @Override
-            public Collection<BundleCandidate> selectRootBundles(OsgifierContext bundleContext)
-            {
+            public Collection<BundleCandidate> selectRootBundles(OsgifierContext bundleContext) {
                final DependencyModel dependencyModel = bundleContext.getExtension(DependencyModel.class);
 
                final Map<ArtifactKey, BundleCandidate> artifactKeyToBundle = new HashMap<ArtifactKey, BundleCandidate>();
-               for (BundleCandidate bundle : bundleContext.getBundles())
-               {
+               for (BundleCandidate bundle : bundleContext.getBundles()) {
                   artifactKeyToBundle.put(getArtifactKey(bundle), bundle);
                }
 
                final List<BundleCandidate> rootBundles = new ArrayList<BundleCandidate>();
-               for (MavenArtifact artifact : dependencyModel.getRootArtifacts())
-               {
+               for (MavenArtifact artifact : dependencyModel.getRootArtifacts()) {
                   final BundleCandidate rootBundle = artifactKeyToBundle.get(artifact.getArtifactKey());
-                  if (rootBundle != null && select(rootBundle))
-                  {
+                  if (rootBundle != null && select(rootBundle)) {
                      rootBundles.add(rootBundle);
                   }
                }
                return rootBundles;
             }
 
-            private ArtifactKey getArtifactKey(BundleCandidate bundle)
-            {
+            private ArtifactKey getArtifactKey(BundleCandidate bundle) {
                return bundle.getExtension(MavenArtifact.class).getArtifactKey();
             }
 
             @Override
-            public boolean select(Stack<BundleCandidate> path, BundleReference reference)
-            {
+            public boolean select(Stack<BundleCandidate> path, BundleReference reference) {
                return !reference.isOptional() && super.select(path, reference);
             }
 
             @Override
-            protected boolean select(BundleCandidate bundle)
-            {
+            protected boolean select(BundleCandidate bundle) {
                return bundleMatcher == null || bundleMatcher.isMatch(bundle.getSymbolicName());
             }
          };
@@ -167,12 +154,10 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          final OsgifierContext bundleContext = updateSiteGenerator.generateUpdateSite(siteDir, dependencies, true,
             remoteRepositories, localRepository, repositoryName, moduleProperties, startTime, bundleSelector);
 
-         try
-         {
+         try {
             module.setAnnotationData("b2.mavenDependencies", "repositoryURL", siteDir.toURI().toURL().toExternalForm());
          }
-         catch (MalformedURLException e)
-         {
+         catch (MalformedURLException e) {
             throw pipe(e);
          }
          module.setAnnotationData("b2.mavenDependencies", "repositoryName", repositoryName);
@@ -184,8 +169,7 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
    }
 
    private static void interpolatePlugins(final AbstractModule module, PropertiesSource moduleProperties,
-      Collection<BundleCandidate> selectedBundles)
-   {
+      Collection<BundleCandidate> selectedBundles) {
       ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
 
       PluginsFacet pluginsFacet = eFactory.createPluginsFacet();
@@ -196,74 +180,61 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       sourcesFacet.setName(getSourcesFacetName(moduleProperties));
       sourcesFacet.setDerived(true);
 
-      if (pluginsFacet.getName().equals(sourcesFacet.getName()))
-      {
+      if (pluginsFacet.getName().equals(sourcesFacet.getName())) {
          sourcesFacet = pluginsFacet;
       }
 
-      for (BundleCandidate bundle : selectedBundles)
-      {
+      for (BundleCandidate bundle : selectedBundles) {
          PluginProject pluginProject = eFactory.createPluginProject();
          pluginProject.setDerived(true);
          pluginProject.setId(bundle.getSymbolicName());
          pluginProject.setVersion(bundle.getVersion().toFullString());
          pluginProject.setBundleManifest(EcoreUtil.copy(bundle.getManifest()));
 
-         if (pluginProject.getBundleManifest().getHeader("Eclipse-SourceBundle") == null)
-         {
+         if (pluginProject.getBundleManifest().getHeader("Eclipse-SourceBundle") == null) {
             pluginsFacet.getProjects().add(pluginProject);
          }
-         else
-         {
+         else {
             sourcesFacet.getProjects().add(pluginProject);
          }
       }
 
-      if (!pluginsFacet.getProjects().isEmpty())
-      {
+      if (!pluginsFacet.getProjects().isEmpty()) {
          module.getFacets().add(pluginsFacet);
       }
 
-      if (sourcesFacet != pluginsFacet && !sourcesFacet.getProjects().isEmpty())
-      {
+      if (sourcesFacet != pluginsFacet && !sourcesFacet.getProjects().isEmpty()) {
          module.getFacets().add(sourcesFacet);
       }
    }
 
-   private static String getSourcesFacetName(PropertiesSource moduleProperties)
-   {
+   private static String getSourcesFacetName(PropertiesSource moduleProperties) {
       final String sourcesClassifier = moduleProperties.get("b2.featuresSourceClassifier", "sources");
       final StringBuilder sb = new StringBuilder();
       sb.append(getFacetName(moduleProperties));
-      if (!Strings.isNullOrEmpty(sourcesClassifier))
-      {
+      if (!Strings.isNullOrEmpty(sourcesClassifier)) {
          sb.append('.');
          sb.append(sourcesClassifier);
       }
       return sb.toString();
    }
 
-   private static String getFacetName(PropertiesSource moduleProperties)
-   {
+   private static String getFacetName(PropertiesSource moduleProperties) {
       return moduleProperties.get("b2.mavenDependenciesFacetName", "dependencies");
    }
 
    @Inject
    private ResolutionContextResolver contextResolver;
 
-   public void postInterpolation(AbstractModule module, PropertiesSource moduleProperties, ThrowablePipe errors)
-   {
+   public void postInterpolation(AbstractModule module, PropertiesSource moduleProperties, ThrowablePipe errors) {
       final String repositoryURL = module.getAnnotationData("b2.mavenDependencies", "repositoryURL");
-      if (repositoryURL != null)
-      {
+      if (repositoryURL != null) {
          AbstractFacet facet = module.getFacetByName(getFacetName(moduleProperties));
-         if (facet != null)
-         {
+         if (facet != null) {
             module.getFacets().remove(facet);
          }
          facet = module.getFacetByName(getSourcesFacetName(moduleProperties));
-         if (facet != null)
-         {
+         if (facet != null) {
             module.getFacets().remove(facet);
          }
       }
@@ -271,10 +242,8 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
-      ITemplates templates, ModuleDirectory moduleDirectory)
-   {
-      if (inputElement instanceof AbstractModule)
-      {
+      ITemplates templates, ModuleDirectory moduleDirectory) {
+      if (inputElement instanceof AbstractModule) {
          final AbstractModule module = (AbstractModule) inputElement;
 
          final Set<AbstractModule> requiredModules = new LinkedHashSet<AbstractModule>();
@@ -283,13 +252,11 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
          requiredModules.addAll(contextResolver.resolveResolutionContext(module, true).keySet());
 
          final Set<File> projectDirs = new HashSet<File>();
-         for (MavenProject project : legacySupport.getSession().getProjects())
-         {
+         for (MavenProject project : legacySupport.getSession().getProjects()) {
             projectDirs.add(project.getBasedir());
          }
 
-         for (AbstractModule requiredModule : requiredModules)
-         {
+         for (AbstractModule requiredModule : requiredModules) {
             if (projectDirs.contains(requiredModule.getDirectory())) // only if in reactor
             {
                addMavenDependenciesRepository(module, requiredModule);
@@ -298,11 +265,9 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
       }
    }
 
-   private void addMavenDependenciesRepository(final AbstractModule module, AbstractModule requiredModule)
-   {
+   private void addMavenDependenciesRepository(final AbstractModule module, AbstractModule requiredModule) {
       final String repositoryURL = requiredModule.getAnnotationData("b2.mavenDependencies", "repositoryURL");
-      if (repositoryURL != null)
-      {
+      if (repositoryURL != null) {
          final File pomFile = resolvePomFile(module);
 
          final Model pom = readMavenModel(pomFile);
@@ -322,14 +287,12 @@ public class MavenDependenciesSiteGenerator extends AbstractPomGenerator
    }
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
       inputTypes.add(AbstractModule.class);
    }
 
    @Override
-   public GeneratorType getGeneratorType()
-   {
+   public GeneratorType getGeneratorType() {
       return GeneratorType.MODULE_RESOURCE_FILTER;
    }
 }

@@ -53,8 +53,7 @@ import org.sourcepit.common.utils.props.PropertiesMap;
 @Named
 public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParticipant
    implements
-      B2SessionLifecycleParticipant
-{
+      B2SessionLifecycleParticipant {
    @Inject
    private MavenProjectHelper projectHelper;
 
@@ -64,8 +63,7 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
    @Inject
    private LegacySupport legacySupport;
 
-   public void postPrepareProject(File project, B2Request request, AbstractModule module, ThrowablePipe errors)
-   {
+   public void postPrepareProject(File project, B2Request request, AbstractModule module, ThrowablePipe errors) {
       final ModuleDirectory moduleDirectory = request.getModuleDirectory();
       ModuleDirectory.save(moduleDirectory, newFile(module, "moduleDirectory.properties"));
 
@@ -76,12 +74,10 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
 
       Resource moduleResource = resourceSet.createResource(modelContext.getModuleUri());
       moduleResource.getContents().add(module);
-      try
-      {
+      try {
          moduleResource.save(null);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
 
@@ -93,8 +89,7 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
 
 
       PropertiesMap uriMap = new LinkedPropertiesMap();
-      for (Entry<URI, URI> entry : resourceSet.getURIConverter().getURIMap().entrySet())
-      {
+      for (Entry<URI, URI> entry : resourceSet.getURIConverter().getURIMap().entrySet()) {
          uriMap.put(entry.getKey().toString(), entry.getValue().toString());
       }
       uriMap.store(newFile(module, "uriMap.properties"));
@@ -105,28 +100,23 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       processAttachments(bootProject, pomFile);
    }
 
-   private File newFile(AbstractModule module, String fileName)
-   {
+   private File newFile(AbstractModule module, String fileName) {
       final String layoutId = module.getLayoutId();
       File file = new File(layoutManager.getLayout(layoutId).pathOfMetaDataFile(module, fileName));
       return file;
    }
 
-   private void processAttachments(MavenProject wrapperProject, File pomFile)
-   {
+   private void processAttachments(MavenProject wrapperProject, File pomFile) {
       final List<Artifact> attachedArtifacts = wrapperProject.getAttachedArtifacts();
-      if (attachedArtifacts == null)
-      {
+      if (attachedArtifacts == null) {
          return;
       }
 
       Xpp3Dom artifactsNode = new Xpp3Dom("artifacts");
-      for (Artifact artifact : attachedArtifacts)
-      {
+      for (Artifact artifact : attachedArtifacts) {
          Xpp3Dom artifactNode = new Xpp3Dom("artifact");
 
-         if (artifact.getClassifier() != null)
-         {
+         if (artifact.getClassifier() != null) {
             Xpp3Dom classifierNode = new Xpp3Dom("classifier");
             classifierNode.setValue(artifact.getClassifier());
             artifactNode.addChild(classifierNode);
@@ -166,22 +156,18 @@ public class MavenB2LifecycleParticipant extends AbstractB2SessionLifecycleParti
       model.setBuild(build);
 
       final Model moduleModel;
-      try
-      {
+      try {
          moduleModel = new DefaultModelReader().read(pomFile, null);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
 
       new ModelTemplateMerger().merge(moduleModel, model, false, null);
-      try
-      {
+      try {
          new DefaultModelWriter().write(pomFile, null, moduleModel);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }

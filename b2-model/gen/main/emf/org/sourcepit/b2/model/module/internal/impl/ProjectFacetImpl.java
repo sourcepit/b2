@@ -32,16 +32,14 @@ import org.sourcepit.b2.model.module.ProjectFacet;
  * 
  * @generated
  */
-public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetImpl implements ProjectFacet<P>
-{
+public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetImpl implements ProjectFacet<P> {
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected ProjectFacetImpl()
-   {
+   protected ProjectFacetImpl() {
       super();
    }
 
@@ -52,8 +50,7 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.PROJECT_FACET;
    }
 
@@ -63,8 +60,7 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
     * 
     * @generated
     */
-   public EList<P> getProjects()
-   {
+   public EList<P> getProjects() {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -76,8 +72,7 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
     * 
     * @generated
     */
-   public P getProjectById(String name)
-   {
+   public P getProjectById(String name) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -89,8 +84,7 @@ public abstract class ProjectFacetImpl<P extends Project> extends AbstractFacetI
     * 
     * @generated
     */
-   public P resolveReference(AbstractReference reference)
-   {
+   public P resolveReference(AbstractReference reference) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();

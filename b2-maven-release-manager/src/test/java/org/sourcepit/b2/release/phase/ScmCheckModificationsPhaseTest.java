@@ -29,40 +29,33 @@ import org.apache.maven.shared.release.config.ReleaseDescriptor;
 import org.apache.maven.shared.release.env.ReleaseEnvironment;
 import org.junit.Test;
 
-public class ScmCheckModificationsPhaseTest
-{
+public class ScmCheckModificationsPhaseTest {
 
    @Test
-   public void testCheckModificationExcludes() throws ReleaseExecutionException, ReleaseFailureException
-   {
+   public void testCheckModificationExcludes() throws ReleaseExecutionException, ReleaseFailureException {
       ScmCheckModificationsPhase phase = new ScmCheckModificationsPhase();
 
       ReleaseDescriptor releaseDescriptor = new ReleaseDescriptor();
       assertEquals(0, releaseDescriptor.getCheckModificationExcludes().size());
 
-      try
-      {
+      try {
          phase.execute(releaseDescriptor, (ReleaseEnvironment) null, null);
       }
-      catch (NullPointerException e)
-      {
+      catch (NullPointerException e) {
       }
 
       checkScmExcludes(releaseDescriptor);
 
-      try
-      {
+      try {
          phase.execute(releaseDescriptor, (Settings) null, null);
       }
-      catch (NullPointerException e)
-      {
+      catch (NullPointerException e) {
       }
 
       checkScmExcludes(releaseDescriptor);
    }
 
-   private void checkScmExcludes(ReleaseDescriptor releaseDescriptor)
-   {
+   private void checkScmExcludes(ReleaseDescriptor releaseDescriptor) {
       final List<String> excludes = releaseDescriptor.getCheckModificationExcludes();
       assertEquals(7, excludes.size());
       assertTrue(excludes.contains("**" + File.separator + ".b2"));

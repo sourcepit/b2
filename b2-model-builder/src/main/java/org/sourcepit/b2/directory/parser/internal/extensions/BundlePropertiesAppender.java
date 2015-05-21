@@ -29,20 +29,17 @@ import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class BundlePropertiesAppender extends AbstractModuleParserExtender implements IModuleParserExtender
-{
+public class BundlePropertiesAppender extends AbstractModuleParserExtender implements IModuleParserExtender {
    @Inject
    private UIDetector uiDetector;
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes) {
       inputTypes.add(PluginProject.class);
    }
 
    @Override
-   protected void doExtend(Annotatable modelElement, PropertiesSource properties)
-   {
+   protected void doExtend(Annotatable modelElement, PropertiesSource properties) {
       final PluginProject pluginProject = (PluginProject) modelElement;
       modelElement.setAnnotationData("project.properties", "bundle.symbolicName", pluginProject.getId());
       modelElement.setAnnotationData("project.properties", "bundle.requiresUI",

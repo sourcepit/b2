@@ -59,8 +59,7 @@ import org.sourcepit.b2.maven.core.B2MavenBridge;
  */
 
 @SuppressWarnings("deprecation")
-public abstract class ModuleVersionsMojo extends AbstractMojo
-{
+public abstract class ModuleVersionsMojo extends AbstractMojo {
 
    protected B2MavenBridge bridge;
 
@@ -101,15 +100,12 @@ public abstract class ModuleVersionsMojo extends AbstractMojo
 
 
    @Override
-   public final void execute() throws MojoExecutionException, MojoFailureException
-   {
+   public final void execute() throws MojoExecutionException, MojoFailureException {
       InputStream stream = null;
-      try
-      {
+      try {
          bridge = B2MavenBridge.get(session);
          ModuleDirectory directory = bridge.getModuleDirectory(project);
-         if (directory != null)
-         {
+         if (directory != null) {
             File dir = directory.getFile();
             final File moduleFile = new File(dir, "module.xml");
             stream = new FileInputStream(moduleFile);
@@ -117,46 +113,37 @@ public abstract class ModuleVersionsMojo extends AbstractMojo
             processModule(moduleFile, projectModel);
          }
       }
-      catch (FileNotFoundException e)
-      {
+      catch (FileNotFoundException e) {
          throw new MojoExecutionException("", e);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new MojoExecutionException("", e);
       }
-      catch (XmlPullParserException e)
-      {
+      catch (XmlPullParserException e) {
          throw new MojoExecutionException("", e);
       }
-      finally
-      {
+      finally {
          IOUtils.closeQuietly(stream);
          bridge.disconnect(session);
       }
    }
 
    private void processModule(File moduleFile, final Model projectModel) throws MojoExecutionException,
-      MojoFailureException
-   {
-      try
-      {
+      MojoFailureException {
+      try {
          StringBuilder input = PomHelper.readXmlFile(moduleFile);
          ModifiedPomXMLEventReader reader = createReader(input);
 
          updateModule(reader, projectModel);
 
-         if (reader.isModified())
-         {
+         if (reader.isModified()) {
             writeFile(moduleFile, input);
          }
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          getLog().error(e);
       }
-      catch (XMLStreamException e)
-      {
+      catch (XMLStreamException e) {
          getLog().error(e);
       }
    }
@@ -164,45 +151,36 @@ public abstract class ModuleVersionsMojo extends AbstractMojo
    protected abstract void updateModule(ModifiedPomXMLEventReader reader, Model projectModel)
       throws MojoExecutionException, MojoFailureException, XMLStreamException;
 
-   private ModifiedPomXMLEventReader createReader(StringBuilder input)
-   {
+   private ModifiedPomXMLEventReader createReader(StringBuilder input) {
       ModifiedPomXMLEventReader reader = null;
-      try
-      {
+      try {
          XMLInputFactory factory = XMLInputFactory2.newInstance();
          factory.setProperty(XMLInputFactory2.P_PRESERVE_LOCATION, Boolean.TRUE);
          reader = new ModifiedPomXMLEventReader(input, factory);
       }
-      catch (XMLStreamException e)
-      {
+      catch (XMLStreamException e) {
          getLog().error(e);
       }
       return reader;
    }
 
 
-   private void writeFile(File moduleFile, StringBuilder content) throws IOException
-   {
+   private void writeFile(File moduleFile, StringBuilder content) throws IOException {
       Writer writer = WriterFactory.newXmlWriter(moduleFile);
-      try
-      {
+      try {
          IOUtil.copy(content.toString(), writer);
       }
-      finally
-      {
+      finally {
          IOUtils.closeQuietly(writer);
       }
    }
 
 
-   public VersionsHelper getHelper() throws MojoExecutionException
-   {
-      if (helper == null)
-      {
-         helper =
-            new DefaultVersionsHelper(artifactFactory, artifactResolver, artifactMetadataSource,
-               project.getRemoteArtifactRepositories(), project.getRemotePluginRepositories(), localRepository,
-               wagonManager, settings, serverId, rulesUri, getLog(), session, pathTranslator);
+   public VersionsHelper getHelper() throws MojoExecutionException {
+      if (helper == null) {
+         helper = new DefaultVersionsHelper(artifactFactory, artifactResolver, artifactMetadataSource,
+            project.getRemoteArtifactRepositories(), project.getRemotePluginRepositories(), localRepository,
+            wagonManager, settings, serverId, rulesUri, getLog(), session, pathTranslator);
       }
       return helper;
    }

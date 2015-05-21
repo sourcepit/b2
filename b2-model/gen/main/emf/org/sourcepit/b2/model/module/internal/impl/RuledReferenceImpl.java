@@ -37,8 +37,7 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
  * 
  * @generated
  */
-public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledReference
-{
+public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledReference {
    /**
     * The default value of the '{@link #getVersionMatchRule() <em>Version Match Rule</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -77,8 +76,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * 
     * @generated
     */
-   protected RuledReferenceImpl()
-   {
+   protected RuledReferenceImpl() {
       super();
    }
 
@@ -89,8 +87,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.RULED_REFERENCE;
    }
 
@@ -100,8 +97,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * 
     * @generated
     */
-   public VersionMatchRule getVersionMatchRule()
-   {
+   public VersionMatchRule getVersionMatchRule() {
       return versionMatchRule;
    }
 
@@ -111,8 +107,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * 
     * @generated
     */
-   public void setVersionMatchRule(VersionMatchRule newVersionMatchRule)
-   {
+   public void setVersionMatchRule(VersionMatchRule newVersionMatchRule) {
       VersionMatchRule oldVersionMatchRule = versionMatchRule;
       versionMatchRule = newVersionMatchRule == null ? VERSION_MATCH_RULE_EDEFAULT : newVersionMatchRule;
       boolean oldVersionMatchRuleESet = versionMatchRuleESet;
@@ -128,8 +123,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * 
     * @generated
     */
-   public void unsetVersionMatchRule()
-   {
+   public void unsetVersionMatchRule() {
       VersionMatchRule oldVersionMatchRule = versionMatchRule;
       boolean oldVersionMatchRuleESet = versionMatchRuleESet;
       versionMatchRule = VERSION_MATCH_RULE_EDEFAULT;
@@ -146,8 +140,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * 
     * @generated
     */
-   public boolean isSetVersionMatchRule()
-   {
+   public boolean isSetVersionMatchRule() {
       return versionMatchRuleESet;
    }
 
@@ -158,10 +151,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
             return getVersionMatchRule();
       }
@@ -175,10 +166,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * @generated
     */
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
             setVersionMatchRule((VersionMatchRule) newValue);
             return;
@@ -193,10 +182,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
             unsetVersionMatchRule();
             return;
@@ -211,10 +198,8 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.RULED_REFERENCE__VERSION_MATCH_RULE :
             return isSetVersionMatchRule();
       }
@@ -228,8 +213,7 @@ public class RuledReferenceImpl extends AbstractReferenceImpl implements RuledRe
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

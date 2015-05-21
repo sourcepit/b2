@@ -33,33 +33,27 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("compositeModule")
-public class CompositeModuleParserRule extends AbstractModuleParserRule<CompositeModule>
-{
+public class CompositeModuleParserRule extends AbstractModuleParserRule<CompositeModule> {
    @Override
-   protected CompositeModule doParse(final IModuleParsingRequest request)
-   {
+   protected CompositeModule doParse(final IModuleParsingRequest request) {
       final List<AbstractModule> modules = new ArrayList<AbstractModule>();
 
       final File baseDir = request.getModuleDirectory().getFile();
       final PropertiesSource properties = request.getModuleProperties();
 
-      final List<File> moduleDirs = request.getModuleDirectory().getFiles(new FileVisitor<RuntimeException>()
-      {
+      final List<File> moduleDirs = request.getModuleDirectory().getFiles(new FileVisitor<RuntimeException>() {
          @Override
-         public boolean visit(File file, int flags)
-         {
+         public boolean visit(File file, int flags) {
             return (flags & FLAG_MODULE_DIR) != 0;
          }
       }, 0xff);
 
-      for (File moduleDir : moduleDirs)
-      {
+      for (File moduleDir : moduleDirs) {
          final Map<File, AbstractModule> modulesCache = request.getModulesCache();
 
          final AbstractModule nestedModule = modulesCache.get(moduleDir);
 
-         if (nestedModule == null)
-         {
+         if (nestedModule == null) {
             throw new IllegalStateException("Invalid build order");
          }
 
@@ -100,8 +94,7 @@ public class CompositeModuleParserRule extends AbstractModuleParserRule<Composit
    }
 
    @Override
-   protected int getPriority()
-   {
+   protected int getPriority() {
       return 0;
    }
 }

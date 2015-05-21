@@ -40,8 +40,7 @@ import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 
-public class AvoidDotAndJarOnBundleCPConstraintTest
-{
+public class AvoidDotAndJarOnBundleCPConstraintTest {
    private Environment env = Environment.get("env-test.properties");
 
    @Rule
@@ -52,16 +51,14 @@ public class AvoidDotAndJarOnBundleCPConstraintTest
    private RecordingLogger logger;
 
    @Before
-   public void setUp()
-   {
+   public void setUp() {
       final UnpackStrategy unpackStrategy = new DefaultUnpackStrategy();
       logger = new RecordingLogger();
       constraint = new AvoidDotAndJarOnBundleCPConstraint(unpackStrategy, logger);
    }
 
    @Test
-   public void testValidate() throws Exception
-   {
+   public void testValidate() throws Exception {
       final File bundleDir = ws.newDir("bundle");
 
       final BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
@@ -97,8 +94,7 @@ public class AvoidDotAndJarOnBundleCPConstraintTest
          logger.getMessages().get(0));
    }
 
-   private PluginProject newPluginProject(final File bundleDir, final BundleManifest manifest)
-   {
+   private PluginProject newPluginProject(final File bundleDir, final BundleManifest manifest) {
       final PluginProject pluginProject = ModuleModelFactory.eINSTANCE.createPluginProject();
       pluginProject.setId(manifest.getBundleSymbolicName().getSymbolicName());
       pluginProject.setBundleVersion(manifest.getBundleVersion().toString());
@@ -107,8 +103,7 @@ public class AvoidDotAndJarOnBundleCPConstraintTest
       return pluginProject;
    }
 
-   private void save(BundleManifest manifest) throws IOException
-   {
+   private void save(BundleManifest manifest) throws IOException {
       final URI manifestUri = URI.createFileURI(ws.newFile("bundle/META-INF/MANIFEST.MF").getAbsolutePath());
       final ManifestResource manifestResource = new BundleManifestResourceImpl(manifestUri);
       manifestResource.getContents().add(manifest);

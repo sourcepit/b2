@@ -40,52 +40,42 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TargetPlatformInhertianceAssemblerTest
-{
+public class TargetPlatformInhertianceAssemblerTest {
    private TargetPlatformInhertianceAssembler tpcAssembler;
 
    @Before
-   public void setUp()
-   {
+   public void setUp() {
       tpcAssembler = new TargetPlatformInhertianceAssembler(new DefaultInheritanceAssembler());
    }
 
    @Test
-   public void testNullAndEmptyHierarchy() throws Exception
-   {
-      try
-      {
+   public void testNullAndEmptyHierarchy() throws Exception {
+      try {
          tpcAssembler.assembleTPCInheritance(null);
          fail();
       }
-      catch (NullPointerException e)
-      { // expected
+      catch (NullPointerException e) { // expected
       }
 
-      try
-      {
+      try {
          final List<Model> hierarchy = new ArrayList<Model>();
          hierarchy.add(null);
          tpcAssembler.assembleTPCInheritance(hierarchy);
          fail();
       }
-      catch (NullPointerException e)
-      { // expected
+      catch (NullPointerException e) { // expected
       }
 
-      try
-      {
+      try {
          tpcAssembler.assembleTPCInheritance(Collections.<Model> emptyList());
          fail();
       }
-      catch (IllegalArgumentException e)
-      { // expected
+      catch (IllegalArgumentException e) { // expected
       }
    }
 
    @Test
-   public void testTPCNotExists() throws Exception
-   {
+   public void testTPCNotExists() throws Exception {
       final Model model = new Model();
       final List<Model> hierarchy = asList(model);
 
@@ -96,8 +86,7 @@ public class TargetPlatformInhertianceAssemblerTest
    }
 
    @Test
-   public void testUseTPCFromModule() throws Exception
-   {
+   public void testUseTPCFromModule() throws Exception {
       final List<Model> hierarchy = asList(new Model(), new Model());
       final Model pluginModel = hierarchy.get(0);
       final Model moduleModel = hierarchy.get(1);
@@ -121,8 +110,7 @@ public class TargetPlatformInhertianceAssemblerTest
 
 
    @Test
-   public void testUseTPCFromPlugin() throws Exception
-   {
+   public void testUseTPCFromPlugin() throws Exception {
       final List<Model> hierarchy = asList(new Model(), new Model());
       final Model pluginModel = hierarchy.get(0);
 
@@ -140,8 +128,7 @@ public class TargetPlatformInhertianceAssemblerTest
    }
 
    @Test
-   public void testMergedTPC() throws Exception
-   {
+   public void testMergedTPC() throws Exception {
       final List<Model> hierarchy = asList(new Model(), new Model());
       final Model pluginModel = hierarchy.get(0);
       final Model moduleModel = hierarchy.get(1);
@@ -164,8 +151,7 @@ public class TargetPlatformInhertianceAssemblerTest
       assertEquals(2, configuration.getChildCount());
    }
 
-   private static void assertPluginEquals(Plugin expected, Plugin actual)
-   {
+   private static void assertPluginEquals(Plugin expected, Plugin actual) {
       assertEquals(expected, actual);
       assertEquals(expected.getVersion(), actual.getVersion());
       assertEquals(expected.getConfiguration(), actual.getConfiguration());

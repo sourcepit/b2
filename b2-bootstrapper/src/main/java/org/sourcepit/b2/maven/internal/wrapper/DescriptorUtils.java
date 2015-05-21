@@ -22,19 +22,15 @@ import java.util.Collection;
 
 import org.sourcepit.common.utils.path.PathMatcher;
 
-public final class DescriptorUtils
-{
-   private DescriptorUtils()
-   {
+public final class DescriptorUtils {
+   private DescriptorUtils() {
       super();
    }
 
    public static void findModuleDescriptors(final File baseDir, Collection<File> descriptors,
-      Collection<File> skippeDescriptors, IDescriptorResolutionStrategy resolver)
-   {
+      Collection<File> skippeDescriptors, IDescriptorResolutionStrategy resolver) {
       final File moduleFile = findDescriptorFile(baseDir, resolver);
-      if (moduleFile != null)
-      {
+      if (moduleFile != null) {
          collectModuleDirectory(descriptors, skippeDescriptors, baseDir, moduleFile, resolver);
          descriptors.add(moduleFile);
       }
@@ -42,19 +38,14 @@ public final class DescriptorUtils
 
    private static void collectModuleDirectory(final Collection<File> descriptors,
       final Collection<File> skippeDescriptors, File moduleDir, final File moduleDescriptor,
-      final IDescriptorResolutionStrategy resolver)
-   {
-      moduleDir.listFiles(new FileFilter()
-      {
-         public boolean accept(File member)
-         {
+      final IDescriptorResolutionStrategy resolver) {
+      moduleDir.listFiles(new FileFilter() {
+         public boolean accept(File member) {
             final File moduleFile = findDescriptorFile(member, resolver);
-            if (moduleFile != null)
-            {
+            if (moduleFile != null) {
                collectModuleDirectory(descriptors, skippeDescriptors, member, moduleFile, resolver);
                // skipped ?
-               if (resolver.isSkipped(moduleDescriptor, moduleFile))
-               {
+               if (resolver.isSkipped(moduleDescriptor, moduleFile)) {
                   skippeDescriptors.add(moduleFile);
                }
                descriptors.add(moduleFile);
@@ -65,50 +56,41 @@ public final class DescriptorUtils
    }
 
 
-   private static File findDescriptorFile(File directory, IDescriptorResolutionStrategy resolver)
-   {
-      if (directory.isDirectory() && directory.canRead())
-      {
+   private static File findDescriptorFile(File directory, IDescriptorResolutionStrategy resolver) {
+      if (directory.isDirectory() && directory.canRead()) {
          return resolver.getDescriptor(directory);
       }
       return null;
    }
 
-   public static interface IDescriptorResolutionStrategy
-   {
+   public static interface IDescriptorResolutionStrategy {
       File getDescriptor(File directory);
 
       boolean isSkipped(File parentDescriptor, File descriptor);
    }
 
-   public abstract static class AbstractDescriptorResolutionStrategy implements IDescriptorResolutionStrategy
-   {
+   public abstract static class AbstractDescriptorResolutionStrategy implements IDescriptorResolutionStrategy {
       private PathMatcher defaultMatcher;
 
-      public AbstractDescriptorResolutionStrategy(File baseDir, String defaultFilterPattern)
-      {
+      public AbstractDescriptorResolutionStrategy(File baseDir, String defaultFilterPattern) {
          defaultMatcher = PathMatcher.parseFilePatterns(baseDir, defaultFilterPattern == null
             ? "**"
             : defaultFilterPattern);
       }
 
-      public boolean isSkipped(File parentDescriptor, File descriptor)
-      {
+      public boolean isSkipped(File parentDescriptor, File descriptor) {
          return !getMacher(parentDescriptor).isMatch(descriptor.getParentFile().getPath());
       }
 
-      protected PathMatcher getMacher(File parentDescriptor)
-      {
+      protected PathMatcher getMacher(File parentDescriptor) {
          final String filterPattern = getFilterPattern(parentDescriptor);
-         if (filterPattern != null)
-         {
+         if (filterPattern != null) {
             return PathMatcher.parseFilePatterns(parentDescriptor.getParentFile(), filterPattern);
          }
          return defaultMatcher;
       }
 
-      protected String getFilterPattern(File descriptor)
-      {
+      protected String getFilterPattern(File descriptor) {
          return null;
       }
    }

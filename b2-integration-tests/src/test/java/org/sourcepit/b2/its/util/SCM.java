@@ -21,8 +21,7 @@ import java.io.File;
 import org.apache.maven.model.Scm;
 
 
-public interface SCM
-{
+public interface SCM {
 
    public abstract Scm createMavenScmModel(File projectDir, String version);
 

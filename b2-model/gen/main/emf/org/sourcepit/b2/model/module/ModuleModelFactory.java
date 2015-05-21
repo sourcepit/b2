@@ -27,8 +27,7 @@ import org.eclipse.emf.ecore.EFactory;
  * @see org.sourcepit.b2.model.module.ModuleModelPackage
  * @generated
  */
-public interface ModuleModelFactory extends EFactory
-{
+public interface ModuleModelFactory extends EFactory {
    /**
     * The singleton instance of the factory.
     * <!-- begin-user-doc -->

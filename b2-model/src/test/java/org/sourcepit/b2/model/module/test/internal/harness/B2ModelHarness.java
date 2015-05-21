@@ -23,33 +23,25 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.Derivable;
 
-public final class B2ModelHarness
-{
-   private B2ModelHarness()
-   {
+public final class B2ModelHarness {
+   private B2ModelHarness() {
       super();
    }
 
-   public static void assertHasNoDerivedElements(EObject container)
-   {
+   public static void assertHasNoDerivedElements(EObject container) {
       assertFalse(hasDerivedElements(container));
    }
 
-   public static void assertHasDerivedElements(EObject container)
-   {
+   public static void assertHasDerivedElements(EObject container) {
       assertTrue(hasDerivedElements(container));
    }
 
-   private static boolean hasDerivedElements(EObject container)
-   {
+   private static boolean hasDerivedElements(EObject container) {
       TreeIterator<EObject> it = container.eAllContents();
-      while (it.hasNext())
-      {
+      while (it.hasNext()) {
          EObject eObject = (EObject) it.next();
-         if (eObject instanceof Derivable)
-         {
-            if (((Derivable) eObject).isDerived())
-            {
+         if (eObject instanceof Derivable) {
+            if (((Derivable) eObject).isDerived()) {
                return true;
             }
          }

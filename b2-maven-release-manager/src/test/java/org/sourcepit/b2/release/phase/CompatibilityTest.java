@@ -28,17 +28,14 @@ import org.codehaus.plexus.ContainerConfiguration;
 import org.codehaus.plexus.PlexusConstants;
 import org.codehaus.plexus.PlexusTestCase;
 
-public class CompatibilityTest extends PlexusTestCase
-{
+public class CompatibilityTest extends PlexusTestCase {
    @Override
-   protected void customizeContainerConfiguration(ContainerConfiguration cc)
-   {
+   protected void customizeContainerConfiguration(ContainerConfiguration cc) {
       super.customizeContainerConfiguration(cc);
       cc.setClassPathScanning(PlexusConstants.SCANNING_INDEX).setAutoWiring(true).setName("maven");
    }
 
-   public void testAssureAllReleasePhasesAreImplementedByB2() throws Exception
-   {
+   public void testAssureAllReleasePhasesAreImplementedByB2() throws Exception {
       LegacySupport buildContext = lookup(LegacySupport.class);
       buildContext.setSession(mock(MavenSession.class));
 
@@ -46,8 +43,7 @@ public class CompatibilityTest extends PlexusTestCase
       final Map<String, ReleasePhase> releasePhasesMap = (Map) getContainer().lookupMap(ReleasePhase.ROLE);
       assertFalse(releasePhasesMap.isEmpty());
 
-      for (Entry<String, ReleasePhase> entry : releasePhasesMap.entrySet())
-      {
+      for (Entry<String, ReleasePhase> entry : releasePhasesMap.entrySet()) {
          final String roleHint = entry.getKey();
          final String implName = entry.getValue().getClass().getName();
 

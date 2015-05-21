@@ -35,12 +35,10 @@ import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class DefaultConverterTest
-{
+public class DefaultConverterTest {
 
    @Test
-   public void testGetIncludedFeaturesForFacet() throws Exception
-   {
+   public void testGetIncludedFeaturesForFacet() throws Exception {
       String facetName = "foo";
       String propertyName = "includedFeatures";
       boolean isSource = false;
@@ -64,8 +62,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testGetIncludedSourceFeaturesForFacet() throws Exception
-   {
+   public void testGetIncludedSourceFeaturesForFacet() throws Exception {
       String facetName = "foo";
       String propertyName = "includedSourceFeatures";
       boolean isSource = true;
@@ -88,8 +85,7 @@ public class DefaultConverterTest
       assertEquals("key1", result.get(0).getId());
    }
 
-   private void testGetIncludedFeatures(String key, String facetName, boolean isSource)
-   {
+   private void testGetIncludedFeatures(String key, String facetName, boolean isSource) {
       FeaturesConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -106,33 +102,27 @@ public class DefaultConverterTest
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
-      try
-      {
+      try {
          result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:murks");
-      try
-      {
+      try {
          result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:optional:murks");
-      try
-      {
+      try {
          result = converter.getIncludedFeaturesForFacet(properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       // valid
@@ -159,8 +149,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testGetIncludedPluginsForFacet() throws Exception
-   {
+   public void testGetIncludedPluginsForFacet() throws Exception {
       String facetName = "foo";
       String propertyName = "includedPlugins";
       boolean isSource = false;
@@ -184,8 +173,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testGetIncludedSourcePluginsForFacet() throws Exception
-   {
+   public void testGetIncludedSourcePluginsForFacet() throws Exception {
       String facetName = "foo";
       String propertyName = "includedSourcePlugins";
       boolean isSource = true;
@@ -208,8 +196,7 @@ public class DefaultConverterTest
       assertEquals("key1", result.get(0).getId());
    }
 
-   private void testGetIncludedPlugins(String key, String facetName, boolean isSource)
-   {
+   private void testGetIncludedPlugins(String key, String facetName, boolean isSource) {
       FeaturesConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -226,33 +213,27 @@ public class DefaultConverterTest
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
-      try
-      {
+      try {
          result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:murks");
-      try
-      {
+      try {
          result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:unpack:murks");
-      try
-      {
+      try {
          result = converter.getIncludedPluginsForFacet(properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       // valid
@@ -279,8 +260,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testGetRequiredFeaturesForFacet() throws Exception
-   {
+   public void testGetRequiredFeaturesForFacet() throws Exception {
       final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredFeaturesForFacet",
          PropertiesSource.class, String.class, boolean.class);
       final boolean isSource = false;
@@ -291,8 +271,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testGetRequiredSourceFeatures() throws Exception
-   {
+   public void testGetRequiredSourceFeatures() throws Exception {
       final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredFeaturesForFacet",
          PropertiesSource.class, String.class, boolean.class);
       final boolean isSource = true;
@@ -303,8 +282,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testGetRequiredPluginsForFacet() throws Exception
-   {
+   public void testGetRequiredPluginsForFacet() throws Exception {
       final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredPluginsForFacet",
          PropertiesSource.class, String.class, boolean.class);
       final boolean isSource = false;
@@ -315,8 +293,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testGetRequiredSourcePluginsForFacet() throws Exception
-   {
+   public void testGetRequiredSourcePluginsForFacet() throws Exception {
       final Method method = FeaturesConverter.class.getDeclaredMethod("getRequiredPluginsForFacet",
          PropertiesSource.class, String.class, boolean.class);
       final boolean isSource = true;
@@ -328,8 +305,7 @@ public class DefaultConverterTest
 
 
    private void testGetRequiredFeaturesOrPluginsAndKeyOrdering(final Method method, final String facetName,
-      String propertyName, boolean isSource) throws Exception
-   {
+      String propertyName, boolean isSource) throws Exception {
       String key1 = "b2.facets." + facetName + "." + propertyName;
       testGetRequiredFeaturesOrPlugins(method, key1, facetName, isSource);
 
@@ -349,8 +325,7 @@ public class DefaultConverterTest
    }
 
    private void testGetRequiredFeaturesOrPlugins(final Method method, final String key, String facetName,
-      boolean isSource) throws Exception
-   {
+      boolean isSource) throws Exception {
       BasicConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -368,33 +343,27 @@ public class DefaultConverterTest
 
       // invalid
       properties.put(key, "foo.feature:!.0.0");
-      try
-      {
+      try {
          result = invoke(method, converter, properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:murks");
-      try
-      {
+      try {
          result = invoke(method, converter, properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       properties.put(key, "foo.feature:1.0.0:perfect:murks");
-      try
-      {
+      try {
          result = invoke(method, converter, properties, facetName, isSource);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       // valid
@@ -421,21 +390,16 @@ public class DefaultConverterTest
 
    @SuppressWarnings("unchecked")
    private static List<RuledReference> invoke(final Method method, BasicConverter converter, PropertiesMap properties,
-      String facetName, boolean isSource) throws Exception
-   {
-      try
-      {
+      String facetName, boolean isSource) throws Exception {
+      try {
          return (List<RuledReference>) method.invoke(converter, properties, facetName, isSource);
       }
-      catch (InvocationTargetException e)
-      {
+      catch (InvocationTargetException e) {
          Throwable t = e.getTargetException();
-         if (t instanceof Exception)
-         {
+         if (t instanceof Exception) {
             throw (Exception) t;
          }
-         if (t instanceof Error)
-         {
+         if (t instanceof Error) {
             throw (Error) t;
          }
          throw new Error(t);
@@ -444,26 +408,21 @@ public class DefaultConverterTest
 
 
    @Test
-   public void testFacetNameToClassifier() throws Exception
-   {
+   public void testFacetNameToClassifier() throws Exception {
       BasicConverter converter = new DefaultConverter();
-      try
-      {
+      try {
          converter.getFacetClassifier(null, null);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       PropertiesMap properties = new LinkedPropertiesMap();
-      try
-      {
+      try {
          converter.getFacetClassifier(properties, "");
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       assertEquals("features", converter.getFacetClassifier(properties, "features"));
@@ -479,15 +438,12 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testToValidIdentifier() throws Exception
-   {
-      try
-      {
+   public void testToValidIdentifier() throws Exception {
+      try {
          DefaultConverter.toValidId(null);
          fail();
       }
-      catch (NullPointerException e)
-      {
+      catch (NullPointerException e) {
       }
 
       assertEquals("_", DefaultConverter.toValidId(""));
@@ -497,8 +453,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testSkipInterpolator() throws Exception
-   {
+   public void testSkipInterpolator() throws Exception {
       PropertiesMap properties = new LinkedPropertiesMap();
 
       BasicConverter converter = new DefaultConverter();
@@ -512,8 +467,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testSkipGenerator() throws Exception
-   {
+   public void testSkipGenerator() throws Exception {
       PropertiesMap properties = new LinkedPropertiesMap();
 
       BasicConverter converter = new DefaultConverter();
@@ -527,8 +481,7 @@ public class DefaultConverterTest
    }
 
    @Test
-   public void testGetUpdateSitesForProduct() throws Exception
-   {
+   public void testGetUpdateSitesForProduct() throws Exception {
       ProductsConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();

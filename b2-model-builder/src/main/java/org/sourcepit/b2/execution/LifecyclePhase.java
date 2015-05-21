@@ -21,54 +21,42 @@ import java.util.List;
 import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
-public abstract class LifecyclePhase<RESULT, INPUT, PARTICIPANT>
-{
+public abstract class LifecyclePhase<RESULT, INPUT, PARTICIPANT> {
    private final List<PARTICIPANT> participants;
 
    private int invoked = -1;
 
-   public LifecyclePhase(List<PARTICIPANT> participants)
-   {
+   public LifecyclePhase(List<PARTICIPANT> participants) {
       this.participants = participants;
    }
 
-   protected void pre(INPUT input)
-   {
-      if (invoked != -1)
-      {
+   protected void pre(INPUT input) {
+      if (invoked != -1) {
          throw new IllegalStateException();
       }
       invoked = 0;
-      if (participants != null)
-      {
-         for (PARTICIPANT participant : participants)
-         {
+      if (participants != null) {
+         for (PARTICIPANT participant : participants) {
             pre(participant, input);
             invoked++;
          }
       }
    }
 
-   public RESULT execute(INPUT input)
-   {
+   public RESULT execute(INPUT input) {
       final ThrowablePipe errors = Exceptions.newThrowablePipe();
-      try
-      {
+      try {
          pre(input);
       }
-      catch (Throwable e)
-      {
+      catch (Throwable e) {
          errors.add(e);
       }
       RESULT result = null;
-      if (errors.getCause() == null)
-      {
-         try
-         {
+      if (errors.getCause() == null) {
+         try {
             result = doExecute(input);
          }
-         catch (Throwable e)
-         {
+         catch (Throwable e) {
             errors.add(e);
          }
       }
@@ -76,20 +64,15 @@ public abstract class LifecyclePhase<RESULT, INPUT, PARTICIPANT>
       return result;
    }
 
-   protected void post(INPUT input, RESULT result, ThrowablePipe errors)
-   {
-      if (invoked < 0)
-      {
+   protected void post(INPUT input, RESULT result, ThrowablePipe errors) {
+      if (invoked < 0) {
          throw new IllegalStateException();
       }
-      for (int i = 0; i < invoked; i++)
-      {
-         try
-         {
+      for (int i = 0; i < invoked; i++) {
+         try {
             post(participants.get(i), input, result, errors);
          }
-         catch (Throwable e)
-         {
+         catch (Throwable e) {
             errors.add(e);
          }
       }

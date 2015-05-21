@@ -25,22 +25,16 @@ import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils.RunnableWi
 /**
  * @author Bernd
  */
-public class ProjectFacetTest extends TestCase
-{
-   public void testResolveReference() throws Exception
-   {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getProjectFacet(), new RunnableWithEObject()
-      {
-         public void run(EObject eObject)
-         {
+public class ProjectFacetTest extends TestCase {
+   public void testResolveReference() throws Exception {
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getProjectFacet(), new RunnableWithEObject() {
+         public void run(EObject eObject) {
             ProjectFacet<?> facet = (ProjectFacet<?>) eObject;
-            try
-            {
+            try {
                facet.resolveReference(null);
                fail();
             }
-            catch (IllegalArgumentException e)
-            {
+            catch (IllegalArgumentException e) {
             }
          }
       });

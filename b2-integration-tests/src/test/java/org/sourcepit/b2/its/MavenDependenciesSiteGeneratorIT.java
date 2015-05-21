@@ -36,17 +36,14 @@ import org.apache.maven.model.Repository;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.junit.Test;
 
-public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
-{
+public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
       int err = build(moduleDir, "-e", "-B", "clean", "package", "-P", "!p2-repo");
       assertThat(err, is(0));
@@ -64,8 +61,7 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
    }
 
    private void assertModuleA(final File moduleDir) throws FileNotFoundException, IOException, XmlPullParserException,
-      MalformedURLException
-   {
+      MalformedURLException {
       File pomDepsSiteDir;
       pomDepsSiteDir = new File(moduleDir, ".b2/maven-dependencies");
       assertTrue(pomDepsSiteDir.exists());
@@ -94,15 +90,13 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
 
       File[] siteDirs = new File(moduleDir, ".b2/sites").listFiles();
       assertEquals(2, siteDirs.length);
-      for (File siteDir : siteDirs)
-      {
+      for (File siteDir : siteDirs) {
          bundleKeys = getBundleKeys(new File(siteDir, "target/repository/plugins"));
 
          assertTrue(bundleKeys.contains("javax.activation_1.1.0"));
          assertTrue(bundleKeys.contains("javax.mail.mail_1.4.2"));
 
-         if (siteDir.getName().contains(".sdk."))
-         {
+         if (siteDir.getName().contains(".sdk.")) {
             assertTrue(bundleKeys.contains("javax.activation.source_1.1.0"));
             assertTrue(bundleKeys.contains("javax.mail.mail.source_1.4.2"));
          }
@@ -110,8 +104,7 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
    }
 
    private void assertModuleB(final File moduleDir) throws FileNotFoundException, IOException, XmlPullParserException,
-      MalformedURLException
-   {
+      MalformedURLException {
       File pomDepsSiteDir;
       pomDepsSiteDir = new File(moduleDir, ".b2/maven-dependencies");
       assertTrue(pomDepsSiteDir.exists());
@@ -140,27 +133,23 @@ public class MavenDependenciesSiteGeneratorIT extends AbstractB2IT
 
       File[] siteDirs = new File(moduleDir, ".b2/sites").listFiles();
       assertEquals(2, siteDirs.length);
-      for (File siteDir : siteDirs)
-      {
+      for (File siteDir : siteDirs) {
          bundleKeys = getBundleKeys(new File(siteDir, "target/repository/plugins"));
 
          assertTrue(bundleKeys.contains("org.hamcrest_1.3.0"));
          assertTrue(bundleKeys.contains("org.junit_4.11.0"));
 
-         if (siteDir.getName().contains(".sdk."))
-         {
+         if (siteDir.getName().contains(".sdk.")) {
             assertTrue(bundleKeys.contains("org.hamcrest.source_1.3.0"));
             assertTrue(bundleKeys.contains("org.junit.source_4.11.0"));
          }
       }
    }
 
-   private static List<String> getBundleKeys(File bundleDir)
-   {
+   private static List<String> getBundleKeys(File bundleDir) {
       final File[] bundles = bundleDir.listFiles();
       final List<String> bundleFileNames = new ArrayList<String>();
-      for (File bundle : bundles)
-      {
+      for (File bundle : bundles) {
          String name = bundle.getName();
          name = name.substring(0, name.lastIndexOf('.')); // trim .jar
          name = name.substring(0, name.lastIndexOf('.')); // trim time stamp

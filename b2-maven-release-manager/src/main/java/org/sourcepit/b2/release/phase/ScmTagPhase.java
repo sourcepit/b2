@@ -26,21 +26,18 @@ import org.apache.maven.shared.release.config.ReleaseDescriptor;
 import org.apache.maven.shared.release.env.ReleaseEnvironment;
 import org.sourcepit.b2.release.B2ReleaseHelper;
 
-public class ScmTagPhase extends org.apache.maven.shared.release.phase.ScmTagPhase
-{
+public class ScmTagPhase extends org.apache.maven.shared.release.phase.ScmTagPhase {
    private B2ReleaseHelper releaseHelper;
 
    @Override
    public ReleaseResult execute(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       return super.execute(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
 
    @Override
    public ReleaseResult simulate(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       return super.simulate(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
 }

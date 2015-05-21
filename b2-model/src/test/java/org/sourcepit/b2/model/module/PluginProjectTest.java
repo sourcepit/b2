@@ -21,10 +21,8 @@ import junit.framework.TestCase;
 /**
  * @author Bernd
  */
-public class PluginProjectTest extends TestCase
-{
-   public void testIsFragment() throws Exception
-   {
+public class PluginProjectTest extends TestCase {
+   public void testIsFragment() throws Exception {
       PluginProject pluginProject = ModuleModelFactory.eINSTANCE.createPluginProject();
       pluginProject.setId("my.fragment");
       assertFalse(pluginProject.isFragment());

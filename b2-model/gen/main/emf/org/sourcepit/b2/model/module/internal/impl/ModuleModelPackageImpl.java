@@ -66,8 +66,7 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * 
  * @generated
  */
-public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelPackage
-{
+public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelPackage {
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
@@ -298,8 +297,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * @see #init()
     * @generated
     */
-   private ModuleModelPackageImpl()
-   {
+   private ModuleModelPackageImpl() {
       super(eNS_URI, ModuleModelFactory.eINSTANCE);
    }
 
@@ -324,8 +322,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * @see #initializePackageContents()
     * @generated
     */
-   public static ModuleModelPackage init()
-   {
+   public static ModuleModelPackage init() {
       if (isInited)
          return (ModuleModelPackage) EPackage.Registry.INSTANCE.getEPackage(ModuleModelPackage.eNS_URI);
 
@@ -361,8 +358,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getAbstractModule()
-   {
+   public EClass getAbstractModule() {
       return abstractModuleEClass;
    }
 
@@ -372,8 +368,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getAbstractModule_LayoutId()
-   {
+   public EAttribute getAbstractModule_LayoutId() {
       return (EAttribute) abstractModuleEClass.getEStructuralFeatures().get(0);
    }
 
@@ -383,8 +378,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getAbstractModule_Locales()
-   {
+   public EAttribute getAbstractModule_Locales() {
       return (EAttribute) abstractModuleEClass.getEStructuralFeatures().get(1);
    }
 
@@ -394,8 +388,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getAbstractModule_Facets()
-   {
+   public EReference getAbstractModule_Facets() {
       return (EReference) abstractModuleEClass.getEStructuralFeatures().get(2);
    }
 
@@ -405,8 +398,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getBasicModule()
-   {
+   public EClass getBasicModule() {
       return basicModuleEClass;
    }
 
@@ -416,8 +408,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getAbstractFacet()
-   {
+   public EClass getAbstractFacet() {
       return abstractFacetEClass;
    }
 
@@ -427,8 +418,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getAbstractFacet_Parent()
-   {
+   public EReference getAbstractFacet_Parent() {
       return (EReference) abstractFacetEClass.getEStructuralFeatures().get(0);
    }
 
@@ -438,8 +428,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getAbstractFacet_Name()
-   {
+   public EAttribute getAbstractFacet_Name() {
       return (EAttribute) abstractFacetEClass.getEStructuralFeatures().get(1);
    }
 
@@ -449,8 +438,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getCompositeModule()
-   {
+   public EClass getCompositeModule() {
       return compositeModuleEClass;
    }
 
@@ -460,8 +448,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getCompositeModule_Modules()
-   {
+   public EReference getCompositeModule_Modules() {
       return (EReference) compositeModuleEClass.getEStructuralFeatures().get(0);
    }
 
@@ -471,8 +458,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getPluginsFacet()
-   {
+   public EClass getPluginsFacet() {
       return pluginsFacetEClass;
    }
 
@@ -482,8 +468,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getPluginsFacet_Projects()
-   {
+   public EReference getPluginsFacet_Projects() {
       return (EReference) pluginsFacetEClass.getEStructuralFeatures().get(0);
    }
 
@@ -493,8 +478,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getFeaturesFacet()
-   {
+   public EClass getFeaturesFacet() {
       return featuresFacetEClass;
    }
 
@@ -504,8 +488,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getFeaturesFacet_Projects()
-   {
+   public EReference getFeaturesFacet_Projects() {
       return (EReference) featuresFacetEClass.getEStructuralFeatures().get(0);
    }
 
@@ -515,8 +498,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getSitesFacet()
-   {
+   public EClass getSitesFacet() {
       return sitesFacetEClass;
    }
 
@@ -526,8 +508,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getSitesFacet_Projects()
-   {
+   public EReference getSitesFacet_Projects() {
       return (EReference) sitesFacetEClass.getEStructuralFeatures().get(0);
    }
 
@@ -537,8 +518,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getPluginProject()
-   {
+   public EClass getPluginProject() {
       return pluginProjectEClass;
    }
 
@@ -548,8 +528,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getPluginProject_Parent()
-   {
+   public EReference getPluginProject_Parent() {
       return (EReference) pluginProjectEClass.getEStructuralFeatures().get(0);
    }
 
@@ -559,8 +538,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getPluginProject_BundleVersion()
-   {
+   public EAttribute getPluginProject_BundleVersion() {
       return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(1);
    }
 
@@ -570,8 +548,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getPluginProject_TestPlugin()
-   {
+   public EAttribute getPluginProject_TestPlugin() {
       return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(2);
    }
 
@@ -581,8 +558,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getPluginProject_FragmentHostSymbolicName()
-   {
+   public EAttribute getPluginProject_FragmentHostSymbolicName() {
       return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(3);
    }
 
@@ -592,8 +568,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getPluginProject_FragmentHostVersion()
-   {
+   public EAttribute getPluginProject_FragmentHostVersion() {
       return (EAttribute) pluginProjectEClass.getEStructuralFeatures().get(4);
    }
 
@@ -603,8 +578,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getPluginProject_BundleManifest()
-   {
+   public EReference getPluginProject_BundleManifest() {
       return (EReference) pluginProjectEClass.getEStructuralFeatures().get(5);
    }
 
@@ -614,8 +588,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getFeatureProject()
-   {
+   public EClass getFeatureProject() {
       return featureProjectEClass;
    }
 
@@ -625,8 +598,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getFeatureProject_Parent()
-   {
+   public EReference getFeatureProject_Parent() {
       return (EReference) featureProjectEClass.getEStructuralFeatures().get(0);
    }
 
@@ -636,8 +608,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getFeatureProject_IncludedPlugins()
-   {
+   public EReference getFeatureProject_IncludedPlugins() {
       return (EReference) featureProjectEClass.getEStructuralFeatures().get(1);
    }
 
@@ -647,8 +618,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getFeatureProject_IncludedFeatures()
-   {
+   public EReference getFeatureProject_IncludedFeatures() {
       return (EReference) featureProjectEClass.getEStructuralFeatures().get(2);
    }
 
@@ -658,8 +628,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getFeatureProject_RequiredFeatures()
-   {
+   public EReference getFeatureProject_RequiredFeatures() {
       return (EReference) featureProjectEClass.getEStructuralFeatures().get(3);
    }
 
@@ -669,8 +638,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getFeatureProject_RequiredPlugins()
-   {
+   public EReference getFeatureProject_RequiredPlugins() {
       return (EReference) featureProjectEClass.getEStructuralFeatures().get(4);
    }
 
@@ -680,8 +648,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getSiteProject()
-   {
+   public EClass getSiteProject() {
       return siteProjectEClass;
    }
 
@@ -691,8 +658,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getSiteProject_Parent()
-   {
+   public EReference getSiteProject_Parent() {
       return (EReference) siteProjectEClass.getEStructuralFeatures().get(0);
    }
 
@@ -702,8 +668,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getSiteProject_Categories()
-   {
+   public EReference getSiteProject_Categories() {
       return (EReference) siteProjectEClass.getEStructuralFeatures().get(1);
    }
 
@@ -713,8 +678,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getSiteProject_InstallableUnits()
-   {
+   public EReference getSiteProject_InstallableUnits() {
       return (EReference) siteProjectEClass.getEStructuralFeatures().get(2);
    }
 
@@ -724,8 +688,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getProject()
-   {
+   public EClass getProject() {
       return projectEClass;
    }
 
@@ -735,8 +698,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getProjectFacet()
-   {
+   public EClass getProjectFacet() {
       return projectFacetEClass;
    }
 
@@ -746,8 +708,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getFileContainer()
-   {
+   public EClass getFileContainer() {
       return fileContainerEClass;
    }
 
@@ -757,8 +718,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getFileContainer_Directory()
-   {
+   public EAttribute getFileContainer_Directory() {
       return (EAttribute) fileContainerEClass.getEStructuralFeatures().get(0);
    }
 
@@ -768,8 +728,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getDerivable()
-   {
+   public EClass getDerivable() {
       return derivableEClass;
    }
 
@@ -779,8 +738,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getDerivable_Derived()
-   {
+   public EAttribute getDerivable_Derived() {
       return (EAttribute) derivableEClass.getEStructuralFeatures().get(0);
    }
 
@@ -790,8 +748,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getPluginInclude()
-   {
+   public EClass getPluginInclude() {
       return pluginIncludeEClass;
    }
 
@@ -801,8 +758,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getPluginInclude_Unpack()
-   {
+   public EAttribute getPluginInclude_Unpack() {
       return (EAttribute) pluginIncludeEClass.getEStructuralFeatures().get(0);
    }
 
@@ -812,8 +768,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getCategory()
-   {
+   public EClass getCategory() {
       return categoryEClass;
    }
 
@@ -823,8 +778,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getCategory_InstallableUnits()
-   {
+   public EReference getCategory_InstallableUnits() {
       return (EReference) categoryEClass.getEStructuralFeatures().get(0);
    }
 
@@ -834,8 +788,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getCategory_Name()
-   {
+   public EAttribute getCategory_Name() {
       return (EAttribute) categoryEClass.getEStructuralFeatures().get(1);
    }
 
@@ -845,8 +798,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getAbstractIdentifiable()
-   {
+   public EClass getAbstractIdentifiable() {
       return abstractIdentifiableEClass;
    }
 
@@ -856,8 +808,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getAbstractIdentifiable_Id()
-   {
+   public EAttribute getAbstractIdentifiable_Id() {
       return (EAttribute) abstractIdentifiableEClass.getEStructuralFeatures().get(0);
    }
 
@@ -867,8 +818,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getAbstractIdentifiable_Version()
-   {
+   public EAttribute getAbstractIdentifiable_Version() {
       return (EAttribute) abstractIdentifiableEClass.getEStructuralFeatures().get(1);
    }
 
@@ -878,8 +828,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getProductsFacet()
-   {
+   public EClass getProductsFacet() {
       return productsFacetEClass;
    }
 
@@ -889,8 +838,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getProductsFacet_ProductDefinitions()
-   {
+   public EReference getProductsFacet_ProductDefinitions() {
       return (EReference) productsFacetEClass.getEStructuralFeatures().get(0);
    }
 
@@ -900,8 +848,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getProductDefinition()
-   {
+   public EClass getProductDefinition() {
       return productDefinitionEClass;
    }
 
@@ -911,8 +858,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getProductDefinition_Parent()
-   {
+   public EReference getProductDefinition_Parent() {
       return (EReference) productDefinitionEClass.getEStructuralFeatures().get(0);
    }
 
@@ -922,8 +868,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getProductDefinition_File()
-   {
+   public EAttribute getProductDefinition_File() {
       return (EAttribute) productDefinitionEClass.getEStructuralFeatures().get(1);
    }
 
@@ -933,8 +878,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EReference getProductDefinition_ProductPlugin()
-   {
+   public EReference getProductDefinition_ProductPlugin() {
       return (EReference) productDefinitionEClass.getEStructuralFeatures().get(2);
    }
 
@@ -944,8 +888,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getAbstractReference()
-   {
+   public EClass getAbstractReference() {
       return abstractReferenceEClass;
    }
 
@@ -955,8 +898,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getAbstractReference_Id()
-   {
+   public EAttribute getAbstractReference_Id() {
       return (EAttribute) abstractReferenceEClass.getEStructuralFeatures().get(0);
    }
 
@@ -966,8 +908,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getAbstractReference_Version()
-   {
+   public EAttribute getAbstractReference_Version() {
       return (EAttribute) abstractReferenceEClass.getEStructuralFeatures().get(1);
    }
 
@@ -977,8 +918,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getRuledReference()
-   {
+   public EClass getRuledReference() {
       return ruledReferenceEClass;
    }
 
@@ -988,8 +928,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getRuledReference_VersionMatchRule()
-   {
+   public EAttribute getRuledReference_VersionMatchRule() {
       return (EAttribute) ruledReferenceEClass.getEStructuralFeatures().get(0);
    }
 
@@ -999,8 +938,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getAbstractStrictReference()
-   {
+   public EClass getAbstractStrictReference() {
       return abstractStrictReferenceEClass;
    }
 
@@ -1010,8 +948,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getStrictReference()
-   {
+   public EClass getStrictReference() {
       return strictReferenceEClass;
    }
 
@@ -1021,8 +958,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getFeatureInclude()
-   {
+   public EClass getFeatureInclude() {
       return featureIncludeEClass;
    }
 
@@ -1032,8 +968,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EAttribute getFeatureInclude_Optional()
-   {
+   public EAttribute getFeatureInclude_Optional() {
       return (EAttribute) featureIncludeEClass.getEStructuralFeatures().get(0);
    }
 
@@ -1043,8 +978,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EClass getIdentifiable()
-   {
+   public EClass getIdentifiable() {
       return identifiableEClass;
    }
 
@@ -1054,8 +988,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EEnum getVersionMatchRule()
-   {
+   public EEnum getVersionMatchRule() {
       return versionMatchRuleEEnum;
    }
 
@@ -1065,8 +998,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public EDataType getIdentifier()
-   {
+   public EDataType getIdentifier() {
       return identifierEDataType;
    }
 
@@ -1076,8 +1008,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public ModuleModelFactory getModuleModelFactory()
-   {
+   public ModuleModelFactory getModuleModelFactory() {
       return (ModuleModelFactory) getEFactoryInstance();
    }
 
@@ -1097,8 +1028,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public void createPackageContents()
-   {
+   public void createPackageContents() {
       if (isCreated)
          return;
       isCreated = true;
@@ -1215,8 +1145,7 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
     * 
     * @generated
     */
-   public void initializePackageContents()
-   {
+   public void initializePackageContents() {
       if (isInitialized)
          return;
       isInitialized = true;
@@ -1227,10 +1156,8 @@ public class ModuleModelPackageImpl extends EPackageImpl implements ModuleModelP
       setNsURI(eNS_URI);
 
       // Obtain other dependent packages
-      CommonModelingPackage theCommonModelingPackage = (CommonModelingPackage) EPackage.Registry.INSTANCE
-         .getEPackage(CommonModelingPackage.eNS_URI);
-      BundleManifestPackage theBundleManifestPackage = (BundleManifestPackage) EPackage.Registry.INSTANCE
-         .getEPackage(BundleManifestPackage.eNS_URI);
+      CommonModelingPackage theCommonModelingPackage = (CommonModelingPackage) EPackage.Registry.INSTANCE.getEPackage(CommonModelingPackage.eNS_URI);
+      BundleManifestPackage theBundleManifestPackage = (BundleManifestPackage) EPackage.Registry.INSTANCE.getEPackage(BundleManifestPackage.eNS_URI);
 
       // Create type parameters
       ETypeParameter projectFacetEClass_P = addETypeParameter(projectFacetEClass, "P");

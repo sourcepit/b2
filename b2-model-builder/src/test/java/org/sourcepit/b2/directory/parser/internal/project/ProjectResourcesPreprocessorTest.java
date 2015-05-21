@@ -35,8 +35,7 @@ import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 
-public class ProjectResourcesPreprocessorTest extends InjectedTest
-{
+public class ProjectResourcesPreprocessorTest extends InjectedTest {
    private Environment env = Environment.get("env-test.properties");
 
    @Rule
@@ -46,8 +45,7 @@ public class ProjectResourcesPreprocessorTest extends InjectedTest
    private ProjectResourcesPreprocessor preprocessor;
 
    @Test
-   public void testDetect() throws IOException
-   {
+   public void testDetect() throws IOException {
       final File baseDir = ws.getRoot();
       assertNull(preprocessor.detect(baseDir, new LinkedPropertiesMap()));
 

@@ -34,45 +34,36 @@ import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("eclipseBundleShape")
-public class EclipseBundleShapeConstraint implements ModuleValidationConstraint
-{
+public class EclipseBundleShapeConstraint implements ModuleValidationConstraint {
    private final UnpackStrategy unpackStrategy;
 
    private final Logger logger;
 
    @Inject
-   public EclipseBundleShapeConstraint(UnpackStrategy unpackStrategy, Logger logger)
-   {
+   public EclipseBundleShapeConstraint(UnpackStrategy unpackStrategy, Logger logger) {
       this.unpackStrategy = unpackStrategy;
       this.logger = logger;
    }
 
-   public void validate(EObject eObject, PropertiesSource properties, boolean quickFixesEnabled)
-   {
-      if (eObject instanceof PluginProject)
-      {
+   public void validate(EObject eObject, PropertiesSource properties, boolean quickFixesEnabled) {
+      if (eObject instanceof PluginProject) {
          final PluginProject pluginProject = (PluginProject) eObject;
-         if (!pluginProject.isDerived())
-         {
+         if (!pluginProject.isDerived()) {
             validate(pluginProject, quickFixesEnabled);
          }
       }
    }
 
-   private void validate(PluginProject pluginProject, boolean quickFixesEnabled)
-   {
+   private void validate(PluginProject pluginProject, boolean quickFixesEnabled) {
       final boolean unpack = unpackStrategy.isUnpack(pluginProject);
-      if (unpack)
-      {
+      if (unpack) {
          final BundleManifest manifest = pluginProject.getBundleManifest();
 
          final String id = pluginProject.getId();
 
          final String bundleShape = manifest.getHeaderValue("Eclipse-BundleShape");
-         if (!"dir".equals(bundleShape))
-         {
-            if (quickFixesEnabled)
-            {
+         if (!"dir".equals(bundleShape)) {
+            if (quickFixesEnabled) {
                manifest.setHeader("Eclipse-BundleShape", "dir");
                save(pluginProject.getDirectory(), manifest);
             }
@@ -80,12 +71,10 @@ public class EclipseBundleShapeConstraint implements ModuleValidationConstraint
             final StringBuilder msg = new StringBuilder();
             msg.append(id);
             msg.append(": Missing manifest entry: \'Eclipse-BundleShape: dir\'.");
-            if (quickFixesEnabled)
-            {
+            if (quickFixesEnabled) {
                msg.append(" (applied quick fix)");
             }
-            else
-            {
+            else {
                msg.append(" (quick fix available)");
             }
 
@@ -94,35 +83,27 @@ public class EclipseBundleShapeConstraint implements ModuleValidationConstraint
       }
    }
 
-   static void save(File pluginDir, final BundleManifest manifest)
-   {
+   static void save(File pluginDir, final BundleManifest manifest) {
       Resource eResource = manifest.eResource();
-      if (eResource == null)
-      {
+      if (eResource == null) {
          final URI uri = URI.createFileURI(new File(pluginDir, "META-INF/MANIFEST.MF").getAbsolutePath());
          eResource = new BundleManifestResourceImpl(uri);
          eResource.getContents().add(manifest);
-         try
-         {
+         try {
             eResource.save(null);
          }
-         catch (IOException e)
-         {
+         catch (IOException e) {
             throw Exceptions.pipe(e);
          }
-         finally
-         {
+         finally {
             eResource.getContents().clear();
          }
       }
-      else
-      {
-         try
-         {
+      else {
+         try {
             eResource.save(null);
          }
-         catch (IOException e)
-         {
+         catch (IOException e) {
             throw Exceptions.pipe(e);
          }
       }

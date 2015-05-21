@@ -36,8 +36,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SiteProject extends Project
-{
+public interface SiteProject extends Project {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.
     * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.SitesFacet#getProjects

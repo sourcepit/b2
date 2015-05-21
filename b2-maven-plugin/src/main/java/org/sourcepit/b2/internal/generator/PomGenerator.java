@@ -81,8 +81,7 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 import com.google.common.base.Preconditions;
 
 @Named
-public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
-{
+public class PomGenerator extends AbstractPomGenerator implements IB2GenerationParticipant {
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
 
@@ -96,14 +95,12 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    private BasicConverter basicConverter;
 
    @Override
-   public GeneratorType getGeneratorType()
-   {
+   public GeneratorType getGeneratorType() {
       return GeneratorType.MODULE_RESOURCE_GENERATOR;
    }
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
       inputTypes.add(Project.class);
       inputTypes.add(AbstractFacet.class);
       inputTypes.add(AbstractModule.class);
@@ -111,23 +108,18 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
 
    @Override
    protected void generate(final Annotatable inputElement, boolean skipFacets, final PropertiesSource properties,
-      final ITemplates templates, ModuleDirectory moduleDirectory)
-   {
-      if (skipFacets && inputElement instanceof AbstractFacet)
-      {
+      final ITemplates templates, ModuleDirectory moduleDirectory) {
+      if (skipFacets && inputElement instanceof AbstractFacet) {
          return;
       }
 
       File pomFile = doGenerate(inputElement, properties, templates);
 
-      if (inputElement instanceof Project)
-      {
+      if (inputElement instanceof Project) {
          final Annotation additionalProps = inputElement.getAnnotation("project.properties");
-         if (additionalProps != null && !additionalProps.getData().isEmpty())
-         {
+         if (additionalProps != null && !additionalProps.getData().isEmpty()) {
             final Model model = readMavenModel(pomFile);
-            for (Entry<String, String> property : additionalProps.getData())
-            {
+            for (Entry<String, String> property : additionalProps.getData()) {
                model.getProperties().setProperty(property.getKey(), property.getValue());
             }
             writeMavenModel(pomFile, model);
@@ -135,71 +127,58 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       }
 
       final File projectPomFile = new File(pomFile.getParentFile(), "b2-extension.xml");
-      if (projectPomFile.exists())
-      {
+      if (projectPomFile.exists()) {
          final Model projectModel = readMavenModel(projectPomFile);
          projectModel.setPackaging(null);
          mergeIntoPomFile(pomFile, projectModel, true);
       }
 
-      if (!pomFile.getName().equals("pom.xml"))
-      {
-         try
-         {
+      if (!pomFile.getName().equals("pom.xml")) {
+         try {
             File destFile = new File(pomFile.getParentFile(), "pom.xml");
             FileUtils.copyFile(pomFile, destFile);
             deleteFileOrDirectory(pomFile);
             pomFile = destFile;
          }
-         catch (IOException e)
-         {
+         catch (IOException e) {
             throw new IllegalStateException(e);
          }
       }
 
-      if (!moduleDirectory.isDerived(pomFile.getParentFile()))
-      {
+      if (!moduleDirectory.isDerived(pomFile.getParentFile())) {
          moduleDirectory.addFlags(pomFile, FLAG_DERIVED | FLAG_HIDDEN);
          moduleDirectory.addFlags(new File(pomFile.getParentFile(), "target"), FLAG_FORBIDDEN | FLAG_HIDDEN);
       }
       inputElement.setAnnotationData(SOURCE_MAVEN, KEY_POM_FILE, pomFile.toString());
    }
 
-   protected File doGenerate(final EObject inputElement, final PropertiesSource properties, final ITemplates templates)
-   {
-      final ModuleModelSwitch<File> modelSwitch = new ModuleModelSwitch<File>()
-      {
+   protected File doGenerate(final EObject inputElement, final PropertiesSource properties, final ITemplates templates) {
+      final ModuleModelSwitch<File> modelSwitch = new ModuleModelSwitch<File>() {
          @Override
-         public File casePluginProject(PluginProject project)
-         {
+         public File casePluginProject(PluginProject project) {
             return generatePluginProject(project, properties, templates);
          }
 
          @Override
-         public File caseFeatureProject(FeatureProject project)
-         {
+         public File caseFeatureProject(FeatureProject project) {
             return generateFeatureProject(project, properties, templates);
          }
 
          @Override
-         public File caseSiteProject(SiteProject project)
-         {
+         public File caseSiteProject(SiteProject project) {
             return generateSiteProject(project, properties, templates);
          }
 
-         public File caseAbstractFacet(AbstractFacet facet)
-         {
+         public File caseAbstractFacet(AbstractFacet facet) {
             return generateFacet(facet, properties, templates);
          };
 
-         public File caseAbstractModule(AbstractModule module)
-         {
+         public File caseAbstractModule(AbstractModule module) {
             return generateModule(module, properties, templates);
          };
 
          @Override
-         public File defaultCase(EObject object)
-         {
+         public File defaultCase(EObject object) {
             throw new UnsupportedOperationException("Input type '" + object.getClass()
                + "' is currently not supported.");
          }
@@ -207,8 +186,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       return modelSwitch.doSwitch(inputElement);
    }
 
-   protected File generateModule(AbstractModule module, PropertiesSource properties, ITemplates templates)
-   {
+   protected File generateModule(AbstractModule module, PropertiesSource properties, ITemplates templates) {
       final File targetDir = module.getDirectory();
 
       final File tmpPomFile = new File(targetDir, "module-pom.xml");
@@ -227,13 +205,12 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setPackaging("pom");
 
       @SuppressWarnings("unchecked")
-      final Map<String, String> sites = (Map<String, String>) buildContext.getSession().getCurrentProject()
+      final Map<String, String> sites = (Map<String, String>) buildContext.getSession()
+         .getCurrentProject()
          .getContextValue("b2.resolvedSites");
 
-      if (sites != null)
-      {
-         for (Entry<String, String> idToUrlEntry : sites.entrySet())
-         {
+      if (sites != null) {
+         for (Entry<String, String> idToUrlEntry : sites.entrySet()) {
             final Repository repository = new Repository();
             repository.setId(idToUrlEntry.getKey());
             repository.setUrl(idToUrlEntry.getValue());
@@ -249,12 +226,10 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       final Model moduleModel;
 
       final String path = module.getAnnotationData("maven", "modulePomTemplate");
-      if (path != null)
-      {
+      if (path != null) {
          moduleModel = readMavenModel(new File(path));
       }
-      else
-      {
+      else {
          moduleModel = readMavenModel(new File(targetDir, "module.xml"));
       }
 
@@ -270,15 +245,13 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       Build build = getBuild(pom, true);
 
       Plugin plugin = getPlugin(build, "org.sourcepit.b2", "b2-maven-plugin", false);
-      if (plugin != null)
-      {
+      if (plugin != null) {
          build.getPlugins().remove(plugin);
          build.flushPluginMap();
       }
 
       Extension ext = getExtension(build, "org.sourcepit.b2", "b2-maven-plugin");
-      if (ext != null)
-      {
+      if (ext != null) {
          build.getExtensions().remove(ext);
       }
 
@@ -287,44 +260,35 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       return pomFile;
    }
 
-   public static Extension getExtension(@NotNull Build build, String groupId, @NotNull String artifactId)
-   {
+   public static Extension getExtension(@NotNull Build build, String groupId, @NotNull String artifactId) {
       final String pluginKey = createPluginKey(groupId, artifactId);
-      for (Extension extension : build.getExtensions())
-      {
-         if (createPluginKey(extension.getGroupId(), extension.getArtifactId()).equals(pluginKey))
-         {
+      for (Extension extension : build.getExtensions()) {
+         if (createPluginKey(extension.getGroupId(), extension.getArtifactId()).equals(pluginKey)) {
             return extension;
          }
       }
       return null;
    }
 
-   private static String createPluginKey(String groupId, @NotNull String artifactId)
-   {
+   private static String createPluginKey(String groupId, @NotNull String artifactId) {
       return Plugin.constructKey(groupId == null ? new Plugin().getGroupId() : groupId, artifactId);
    }
 
-   private void configureMavenReleasePlugin(Model pom, PropertiesSource properties)
-   {
+   private void configureMavenReleasePlugin(Model pom, PropertiesSource properties) {
       final Build build = getBuild(pom, true);
       Plugin plugin = getPlugin(build, "org.apache.maven.plugins", "maven-release-plugin", false);
-      if (plugin != null)
-      {
+      if (plugin != null) {
          configureMavenReleasePlugin(plugin, properties);
       }
       plugin = getPlugin(getPluginManagement(build, true), "org.apache.maven.plugins", "maven-release-plugin", false);
-      if (plugin == null)
-      {
+      if (plugin == null) {
          throw new IllegalStateException("org.apache.maven.plugins:maven-release-plugin missing in plugin management.");
       }
       configureMavenReleasePlugin(plugin, properties);
    }
 
-   private void configureMavenReleasePlugin(Plugin plugin, PropertiesSource properties)
-   {
-      if (getDependency(plugin.getDependencies(), "org.sourcepit.b2", "b2-maven-release-manager") == null)
-      {
+   private void configureMavenReleasePlugin(Plugin plugin, PropertiesSource properties) {
+      if (getDependency(plugin.getDependencies(), "org.sourcepit.b2", "b2-maven-release-manager") == null) {
          final Dependency dependency = new Dependency();
          dependency.setGroupId("org.sourcepit.b2");
          dependency.setArtifactId("b2-maven-release-manager");
@@ -338,11 +302,9 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       setValueNode(cfg, "preparationGoals", "${b2.release.preparationGoals}");
    }
 
-   private static void disableDefaultPluginExecutions(final Model pom)
-   {
+   private static void disableDefaultPluginExecutions(final Model pom) {
       Build build = pom.getBuild();
-      if (build == null)
-      {
+      if (build == null) {
          build = new Build();
          pom.setBuild(build);
       }
@@ -360,37 +322,30 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    }
 
    private static void forcePhase(Build build, final String groupId, String artifactId, String version,
-      String executionId, String phase)
-   {
+      String executionId, String phase) {
       final Plugin plugin = getPlugin(build, true, groupId, artifactId, version);
       getPluginExecution(plugin, true, executionId).setPhase(phase);
    }
 
-   private void addAdditionalProjectProperties(AbstractModule module, PropertiesSource properties, Model defaultModel)
-   {
+   private void addAdditionalProjectProperties(AbstractModule module, PropertiesSource properties, Model defaultModel) {
       final Properties b2Props = new Properties();
-      new IOOperation<InputStream>(cpIn(getClass().getClassLoader(), "META-INF/b2/b2.properties"))
-      {
+      new IOOperation<InputStream>(cpIn(getClass().getClassLoader(), "META-INF/b2/b2.properties")) {
          @Override
-         protected void run(InputStream openResource) throws IOException
-         {
+         protected void run(InputStream openResource) throws IOException {
             b2Props.load(openResource);
          }
       }.run();
       final String b2Version = b2Props.getProperty("b2.version");
-      if (b2Version == null)
-      {
+      if (b2Version == null) {
          throw new IllegalStateException("Unable to determine b2.version");
       }
       defaultModel.getProperties().putAll(b2Props);
 
       final List<String> sonarExcludes = new ArrayList<String>();
       collectSonarExcludes(module, properties, sonarExcludes);
-      if (sonarExcludes.size() > 0)
-      {
+      if (sonarExcludes.size() > 0) {
          StringBuilder sb = new StringBuilder();
-         for (String included : sonarExcludes)
-         {
+         for (String included : sonarExcludes) {
             sb.append(',');
             sb.append(included);
          }
@@ -400,14 +355,10 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    }
 
    private void collectSonarExcludes(AbstractModule module, PropertiesSource properties,
-      final List<String> sonarExcluded)
-   {
-      for (PluginsFacet pluginsFacet : module.getFacets(PluginsFacet.class))
-      {
-         for (PluginProject pluginProject : pluginsFacet.getProjects())
-         {
-            if (pluginProject.isTestPlugin())
-            {
+      final List<String> sonarExcluded) {
+      for (PluginsFacet pluginsFacet : module.getFacets(PluginsFacet.class)) {
+         for (PluginProject pluginProject : pluginsFacet.getProjects()) {
+            if (pluginProject.isTestPlugin()) {
                sonarExcluded.add(pluginProject.getId());
             }
          }
@@ -426,41 +377,33 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
    @Inject
    private LegacySupport buildContext;
 
-   private String getArtifactIdForModule(AbstractModule module, PropertiesSource propertie)
-   {
+   private String getArtifactIdForModule(AbstractModule module, PropertiesSource propertie) {
       return buildContext.getSession().getCurrentProject().getArtifactId();
    }
 
-   private void moveFile(final File srcFile, final File destFile)
-   {
-      try
-      {
-         if (destFile.exists())
-         {
+   private void moveFile(final File srcFile, final File destFile) {
+      try {
+         if (destFile.exists()) {
             deleteFileOrDirectory(destFile);
          }
          org.sourcepit.common.utils.file.FileUtils.moveFile(srcFile, destFile);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }
 
-   protected File generateFacet(AbstractFacet facet, PropertiesSource properties, ITemplates templates)
-   {
+   protected File generateFacet(AbstractFacet facet, PropertiesSource properties, ITemplates templates) {
       final AbstractModule module = facet.getParent();
 
       final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
 
       File tmpPomFile = new File(layout.pathOfFacetMetaData(module, facet.getName(), facet.getName() + "-pom.xml"));
 
-      try
-      {
+      try {
          copyPomTemplate(templates, tmpPomFile);
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
          tmpPomFile = new File(layout.pathOfFacetMetaData(module, facet.getName(), "facet-pom.xml"));
          copyPomTemplate(templates, tmpPomFile);
 
@@ -483,15 +426,13 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       return pomFile;
    }
 
-   private String getArtifactIdForFacet(AbstractFacet facet, PropertiesSource properties)
-   {
+   private String getArtifactIdForFacet(AbstractFacet facet, PropertiesSource properties) {
       final String moduleArtifactId = getArtifactIdForModule(facet.getParent(), properties);
       final String separator = moduleArtifactId.indexOf('.') > -1 ? "." : "-";
       return moduleArtifactId + separator + facet.getName();
    }
 
-   protected File generateSiteProject(SiteProject project, PropertiesSource properties, ITemplates templates)
-   {
+   protected File generateSiteProject(SiteProject project, PropertiesSource properties, ITemplates templates) {
       final String assemblyName = SiteProjectGenerator.getAssemblyName(project);
 
       final AbstractModule module = project.getParent().getParent();
@@ -500,8 +441,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          assemblyName);
 
       final List<String> productUniqueIds = new ArrayList<String>();
-      for (ProductDefinition productDefinition : productDefinitions)
-      {
+      for (ProductDefinition productDefinition : productDefinitions) {
          Preconditions.checkNotNull(productDefinition.getAnnotationData("product", "uid"));
          productUniqueIds.add(productDefinition.getAnnotationData("product", "uid"));
       }
@@ -520,8 +460,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       final String classifier = SiteProjectGenerator.getAssemblyClassifier(project);
       defaultModel.getProperties().setProperty("classifier", classifier == null ? "" : classifier);
 
-      if (!productUniqueIds.isEmpty())
-      {
+      if (!productUniqueIds.isEmpty()) {
          final List<PluginExecution> executions = new ArrayList<PluginExecution>();
 
          PluginExecution execution;
@@ -536,8 +475,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
          executions.add(execution);
 
          final Xpp3Dom productsNode = new Xpp3Dom("products");
-         for (String productUniqueId : productUniqueIds)
-         {
+         for (String productUniqueId : productUniqueIds) {
             final Xpp3Dom id = new Xpp3Dom("id");
             id.setValue(productUniqueId);
 
@@ -571,8 +509,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       return pomFile;
    }
 
-   protected File generateFeatureProject(FeatureProject project, PropertiesSource properties, ITemplates templates)
-   {
+   protected File generateFeatureProject(FeatureProject project, PropertiesSource properties, ITemplates templates) {
       final File targetDir = project.getDirectory();
 
       final File pomFile = new File(targetDir, "feature-pom.xml");
@@ -590,8 +527,7 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       return pomFile;
    }
 
-   protected File generatePluginProject(PluginProject project, PropertiesSource properties, ITemplates templates)
-   {
+   protected File generatePluginProject(PluginProject project, PropertiesSource properties, ITemplates templates) {
       final File targetDir = project.getDirectory();
 
       final String groupId = basicConverter.getNameSpace(properties);
@@ -601,12 +537,10 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       defaultModel.setGroupId(groupId);
       defaultModel.setArtifactId(project.getId());
       defaultModel.setVersion(VersionUtils.toTychoVersion(project.getVersion()));
-      if (project.isTestPlugin())
-      {
+      if (project.isTestPlugin()) {
          defaultModel.setPackaging("eclipse-test-plugin");
       }
-      else
-      {
+      else {
          defaultModel.setPackaging("eclipse-plugin");
       }
 
@@ -616,16 +550,13 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       final String requiresUI = project.getAnnotationData("UI", "required");
       defaultModel.getProperties().setProperty("bundle.requiresUI", requiresUI == null ? "false" : requiresUI);
 
-      if (unpackStrategy.isUnpack(project))
-      {
+      if (unpackStrategy.isUnpack(project)) {
          List<String> buildJars = unpackStrategy.getBuildJars(project);
-         if (buildJars.size() > 0)
-         {
+         if (buildJars.size() > 0) {
             // TODO handle multi jars
             String jarRelativePath = buildJars.get(0);
 
-            if (defaultModel.getBuild() == null)
-            {
+            if (defaultModel.getBuild() == null) {
                defaultModel.setBuild(new Build());
             }
             defaultModel.getBuild().setOutputDirectory("${project.build.directory}/" + jarRelativePath + "-classes");
@@ -643,25 +574,21 @@ public class PomGenerator extends AbstractPomGenerator implements IB2GenerationP
       return pomFile;
    }
 
-   private void copyPomTemplate(ITemplates templates, File pomFile)
-   {
+   private void copyPomTemplate(ITemplates templates, File pomFile) {
       copyPomTemplate(templates, pomFile, null);
    }
 
-   private void copyPomTemplate(ITemplates templates, File pomFile, Properties properties)
-   {
+   private void copyPomTemplate(ITemplates templates, File pomFile, Properties properties) {
       templates.copy(pomFile.getName(), pomFile.getParentFile(), properties);
    }
 
-   private void mergeIntoPomFile(final File pomFile, final Model model, boolean force)
-   {
+   private void mergeIntoPomFile(final File pomFile, final Model model, boolean force) {
       final Model mavenModel = readMavenModel(pomFile);
       new ModelTemplateMerger().merge(mavenModel, model, force, null);
       writeMavenModel(pomFile, mavenModel);
    }
 
-   private void mergeIntoPomFile(final File pomFile, final Model model)
-   {
+   private void mergeIntoPomFile(final File pomFile, final Model model) {
       mergeIntoPomFile(pomFile, model, false);
    }
 }

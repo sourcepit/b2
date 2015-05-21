@@ -22,7 +22,6 @@ import org.sourcepit.b2.model.module.AbstractModule;
 /**
  * @author Bernd
  */
-public interface IB2Listener
-{
+public interface IB2Listener {
    void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module);
 }

@@ -19,7 +19,6 @@ package org.sourcepit.b2.directory.parser.internal.module;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public interface IModuleParserExtender
-{
+public interface IModuleParserExtender {
    void extend(Annotatable modelElement, PropertiesSource properties);
 }

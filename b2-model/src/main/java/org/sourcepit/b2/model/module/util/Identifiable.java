@@ -15,8 +15,7 @@
  */
 
 package org.sourcepit.b2.model.module.util;
-public interface Identifiable
-{
+public interface Identifiable {
    String getId();
 
    String getVersion();

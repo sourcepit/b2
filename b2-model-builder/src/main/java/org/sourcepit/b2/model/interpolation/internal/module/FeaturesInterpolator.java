@@ -22,7 +22,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.sourcepit.common.constraints.NotNull;
 
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.model.builder.util.FeaturesConverter;
@@ -34,11 +33,11 @@ import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.FeaturesFacet;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginsFacet;
+import org.sourcepit.common.constraints.NotNull;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class FeaturesInterpolator
-{
+public class FeaturesInterpolator {
    private final ISourceService sourceService;
 
    private final LayoutManager layoutManager;
@@ -52,8 +51,7 @@ public class FeaturesInterpolator
    @Inject
    public FeaturesInterpolator(@NotNull ISourceService sourceService, @NotNull LayoutManager layoutManager,
       FeaturesConverter converter, IncludesAndRequirementsResolver includesAndRequirements,
-      @NotNull BrandingPluginsInterpolator brandingInterpolator)
-   {
+      @NotNull BrandingPluginsInterpolator brandingInterpolator) {
       this.sourceService = sourceService;
       this.layoutManager = layoutManager;
       this.converter = converter;
@@ -61,33 +59,28 @@ public class FeaturesInterpolator
       this.brandingInterpolator = brandingInterpolator;
    }
 
-   public void interpolate(AbstractModule module, PropertiesSource moduleProperties)
-   {
+   public void interpolate(AbstractModule module, PropertiesSource moduleProperties) {
       final FeaturesFacet featuresFacet = createFeaturesFacet("features");
 
       final EList<PluginsFacet> pluginsFacets = module.getFacets(PluginsFacet.class);
-      for (PluginsFacet pluginsFacet : pluginsFacets)
-      {
+      for (PluginsFacet pluginsFacet : pluginsFacets) {
          interpolatePluginFeatures(module, featuresFacet, pluginsFacet, moduleProperties);
       }
 
       final int size = featuresFacet.getProjects().size();
-      if (size > 0)
-      {
+      if (size > 0) {
          module.getFacets().add(featuresFacet);
 
-         for (PluginsFacet pluginsFacet : pluginsFacets)
-         {
-            final FeatureProject mainFeature = DefaultIncludesAndRequirementsResolver
-               .findFeatureProjectForPluginsFacet(pluginsFacet, false);
+         for (PluginsFacet pluginsFacet : pluginsFacets) {
+            final FeatureProject mainFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
+               pluginsFacet, false);
             includesAndRequirements.appendIncludesAndRequirements(moduleProperties, pluginsFacet.getParent(),
                pluginsFacet, mainFeature);
             removeIfEmpty(featuresFacet, mainFeature);
 
-            final FeatureProject sourceFeature = DefaultIncludesAndRequirementsResolver
-               .findFeatureProjectForPluginsFacet(pluginsFacet, true);
-            if (sourceFeature != null)
-            {
+            final FeatureProject sourceFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
+               pluginsFacet, true);
+            if (sourceFeature != null) {
                includesAndRequirements.appendIncludesAndRequirements(moduleProperties, pluginsFacet.getParent(),
                   pluginsFacet, sourceFeature);
                removeIfEmpty(featuresFacet, sourceFeature);
@@ -99,53 +92,42 @@ public class FeaturesInterpolator
 
       interpolateBrandingPlugins(module, featuresFacet, moduleProperties);
 
-      if (size == 0 && !featuresFacet.getProjects().isEmpty())
-      {
+      if (size == 0 && !featuresFacet.getProjects().isEmpty()) {
 
          module.getFacets().add(featuresFacet);
       }
    }
 
    private void interpolateBrandingPlugins(AbstractModule module, FeaturesFacet featuresFacet,
-      PropertiesSource moduleProperties)
-   {
-      if (!featuresFacet.getProjects().isEmpty())
-      {
+      PropertiesSource moduleProperties) {
+      if (!featuresFacet.getProjects().isEmpty()) {
          brandingInterpolator.interpolate(module, featuresFacet, moduleProperties);
       }
    }
 
-   private static void removeIfEmpty(final FeaturesFacet featuresFacet, final FeatureProject featureProject)
-   {
-      if (isEmpty(featureProject))
-      {
+   private static void removeIfEmpty(final FeaturesFacet featuresFacet, final FeatureProject featureProject) {
+      if (isEmpty(featureProject)) {
          featuresFacet.getProjects().remove(featureProject);
       }
    }
 
-   private static boolean isEmpty(FeatureProject sourceFeature)
-   {
-      if (!sourceFeature.getIncludedFeatures().isEmpty())
-      {
+   private static boolean isEmpty(FeatureProject sourceFeature) {
+      if (!sourceFeature.getIncludedFeatures().isEmpty()) {
          return false;
       }
-      if (!sourceFeature.getIncludedPlugins().isEmpty())
-      {
+      if (!sourceFeature.getIncludedPlugins().isEmpty()) {
          return false;
       }
       return true;
    }
 
    private void interpolateAssemblyFeatures(AbstractModule module, FeaturesFacet featuresFacet,
-      PropertiesSource moduleProperties)
-   {
+      PropertiesSource moduleProperties) {
       final List<String> assemplyNames = converter.getAssemblyNames(moduleProperties);
-      if (!assemplyNames.isEmpty())
-      {
+      if (!assemplyNames.isEmpty()) {
          final List<FeatureProject> assemblyFeatures = new ArrayList<FeatureProject>();
 
-         for (String assemblyName : assemplyNames)
-         {
+         for (String assemblyName : assemplyNames) {
             final String featureId = deriveFeatureId(module, assemblyName, moduleProperties);
             final String facetName = featuresFacet.getName();
 
@@ -170,15 +152,12 @@ public class FeaturesInterpolator
 
             // skip assembly feature if there is onle one single include
             final FeatureProject singleIncludedFeature = returnSingleIncludedFeatureProject(module, featureProject);
-            if (singleIncludedFeature == null)
-            {
-               if (hasIncludes(featureProject))
-               {
+            if (singleIncludedFeature == null) {
+               if (hasIncludes(featureProject)) {
                   assemblyFeatures.add(featureProject);
                }
             }
-            else
-            {
+            else {
                B2MetadataUtils.addAssemblyName(singleIncludedFeature, assemblyName);
                B2MetadataUtils.addAssemblyClassifier(singleIncludedFeature,
                   converter.getAssemblyClassifier(moduleProperties, assemblyName));
@@ -190,43 +169,36 @@ public class FeaturesInterpolator
       }
    }
 
-   private static boolean hasIncludes(FeatureProject featureProject)
-   {
+   private static boolean hasIncludes(FeatureProject featureProject) {
       return !featureProject.getIncludedFeatures().isEmpty() || !featureProject.getIncludedPlugins().isEmpty();
    }
 
-   private FeatureProject returnSingleIncludedFeatureProject(AbstractModule module, final FeatureProject featureProject)
-   {
-      if (isIncludesJustOneFeature(featureProject))
-      {
+   private FeatureProject returnSingleIncludedFeatureProject(AbstractModule module, final FeatureProject featureProject) {
+      if (isIncludesJustOneFeature(featureProject)) {
          return module.resolveReference(featureProject.getIncludedFeatures().get(0), FeaturesFacet.class);
       }
       return null;
    }
 
-   private boolean isIncludesJustOneFeature(final FeatureProject featureProject)
-   {
+   private boolean isIncludesJustOneFeature(final FeatureProject featureProject) {
       return featureProject.getIncludedFeatures().size() == 1 && featureProject.getIncludedPlugins().isEmpty()
          && featureProject.getRequiredFeatures().isEmpty() && featureProject.getRequiredPlugins().isEmpty();
    }
 
 
    private void interpolatePluginFeatures(AbstractModule module, FeaturesFacet featuresFacet,
-      PluginsFacet pluginsFacet, PropertiesSource moduleProperties)
-   {
+      PluginsFacet pluginsFacet, PropertiesSource moduleProperties) {
       FeatureProject featureProject = createFeatureProject(module, featuresFacet, pluginsFacet, moduleProperties, false);
       featuresFacet.getProjects().add(featureProject);
 
-      if (sourceService.isSourceBuildEnabled(moduleProperties))
-      {
+      if (sourceService.isSourceBuildEnabled(moduleProperties)) {
          featureProject = createFeatureProject(module, featuresFacet, pluginsFacet, moduleProperties, true);
          featuresFacet.getProjects().add(featureProject);
       }
    }
 
    private FeatureProject createFeatureProject(AbstractModule module, FeaturesFacet featuresFacet,
-      PluginsFacet pluginsFacet, PropertiesSource moduleProperties, boolean isSource)
-   {
+      PluginsFacet pluginsFacet, PropertiesSource moduleProperties, boolean isSource) {
       final String featureId = deriveFeatureId(module, pluginsFacet, moduleProperties, isSource);
 
       final FeatureProject featureProject = ModuleModelFactory.eINSTANCE.createFeatureProject();
@@ -248,19 +220,16 @@ public class FeaturesInterpolator
       return featureProject;
    }
 
-   private String deriveFeatureId(AbstractModule module, String assemblyName, PropertiesSource properties)
-   {
+   private String deriveFeatureId(AbstractModule module, String assemblyName, PropertiesSource properties) {
       return converter.getFeatureIdForAssembly(properties, assemblyName, module.getId());
    }
 
    private String deriveFeatureId(AbstractModule module, PluginsFacet pluginsFacet, PropertiesSource properties,
-      boolean isSource)
-   {
+      boolean isSource) {
       return converter.getFeatureIdForFacet(properties, pluginsFacet.getName(), module.getId(), isSource);
    }
 
-   private FeaturesFacet createFeaturesFacet(String facetName)
-   {
+   private FeaturesFacet createFeaturesFacet(String facetName) {
       final FeaturesFacet featuresFacet = ModuleModelFactory.eINSTANCE.createFeaturesFacet();
       featuresFacet.setDerived(true);
       featuresFacet.setName(facetName);

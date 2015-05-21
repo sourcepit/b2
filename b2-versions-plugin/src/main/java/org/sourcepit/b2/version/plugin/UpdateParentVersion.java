@@ -30,19 +30,16 @@ import org.sourcepit.b2.version.plugin.internal.ModuleVersionsMojo;
  * @author eddi-weiss
  */
 @Mojo(requiresProject = true, name = "update-parent", defaultPhase = LifecyclePhase.POST_CLEAN)
-public class UpdateParentVersion extends ModuleVersionsMojo
-{
+public class UpdateParentVersion extends ModuleVersionsMojo {
 
    @Parameter(name = "parentVersion", required = true, readonly = true, defaultValue = "${parentVersion}")
    private String parentVersion = null;
 
    @Override
    protected void updateModule(ModifiedPomXMLEventReader reader, Model projectModel) throws MojoExecutionException,
-      MojoFailureException, XMLStreamException
-   {
+      MojoFailureException, XMLStreamException {
       Parent parent = projectModel.getParent();
-      if (parent == null)
-      {
+      if (parent == null) {
          getLog().info("Skip, no parent");
          return;
       }

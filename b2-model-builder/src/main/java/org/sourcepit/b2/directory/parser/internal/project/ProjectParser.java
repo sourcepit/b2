@@ -29,8 +29,7 @@ import org.sourcepit.common.utils.props.PropertiesSource;
  * @author Bernd
  */
 @Named
-public class ProjectParser
-{
+public class ProjectParser {
    @Inject
    private ProjectDetector detector;
 
@@ -40,11 +39,9 @@ public class ProjectParser
    @Inject
    private ProjectModelInitializer modelInitializer;
 
-   public Project parse(File directory, PropertiesSource properties)
-   {
+   public Project parse(File directory, PropertiesSource properties) {
       final Project project = detector.detect(directory, properties);
-      if (project != null)
-      {
+      if (project != null) {
          preprocessor.preprocess(project, properties);
          modelInitializer.initialize(project, properties);
       }

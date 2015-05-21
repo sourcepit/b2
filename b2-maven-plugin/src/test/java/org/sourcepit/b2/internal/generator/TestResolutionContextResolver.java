@@ -26,32 +26,25 @@ import org.sourcepit.b2.model.module.FeatureProject;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
-public class TestResolutionContextResolver implements ResolutionContextResolver
-{
+public class TestResolutionContextResolver implements ResolutionContextResolver {
    private final List<FeatureProject> requiredFeatures = new ArrayList<FeatureProject>();
    private final List<FeatureProject> requiredTestFeatures = new ArrayList<FeatureProject>();
 
-   public List<FeatureProject> getRequiredFeatures()
-   {
+   public List<FeatureProject> getRequiredFeatures() {
       return requiredFeatures;
    }
 
-   public List<FeatureProject> getRequiredTestFeatures()
-   {
+   public List<FeatureProject> getRequiredTestFeatures() {
       return requiredTestFeatures;
    }
 
-   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest)
-   {
+   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest) {
       final SetMultimap<AbstractModule, FeatureProject> result = LinkedHashMultimap.create();
-      for (FeatureProject featureProject : requiredFeatures)
-      {
+      for (FeatureProject featureProject : requiredFeatures) {
          result.get(featureProject.getParent().getParent()).add(featureProject);
       }
-      if (scopeTest)
-      {
-         for (FeatureProject featureProject : requiredTestFeatures)
-         {
+      if (scopeTest) {
+         for (FeatureProject featureProject : requiredTestFeatures) {
             result.get(featureProject.getParent().getParent()).add(featureProject);
          }
       }

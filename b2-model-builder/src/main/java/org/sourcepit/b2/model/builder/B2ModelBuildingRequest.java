@@ -20,22 +20,18 @@ import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class B2ModelBuildingRequest extends ModuleParsingRequest implements IB2ModelBuildingRequest
-{
+public class B2ModelBuildingRequest extends ModuleParsingRequest implements IB2ModelBuildingRequest {
    private boolean interpolate;
 
-   public boolean isInterpolate()
-   {
+   public boolean isInterpolate() {
       return interpolate;
    }
 
-   public void setInterpolate(boolean interpolateDerivedElements)
-   {
+   public void setInterpolate(boolean interpolateDerivedElements) {
       this.interpolate = interpolateDerivedElements;
    }
 
-   public static PropertiesMap newDefaultProperties()
-   {
+   public static PropertiesMap newDefaultProperties() {
       final LinkedPropertiesMap defaultProperties = new LinkedPropertiesMap();
       defaultProperties.load(B2ModelBuildingRequest.class.getClassLoader(), "META-INF/b2/converter.properties");
       return defaultProperties;

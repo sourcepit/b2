@@ -31,14 +31,12 @@ import org.junit.Test;
 import org.sourcepit.b2.directory.parser.module.ModuleParsingRequest;
 import org.sourcepit.b2.model.module.BasicModule;
 
-public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
-{
+public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest {
    private File moduleDir;
 
    @Override
    @Before
-   public void setUp() throws Exception
-   {
+   public void setUp() throws Exception {
       super.setUp();
 
       moduleDir = ws.getRoot();
@@ -46,8 +44,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testEmptyModule() throws Exception
-   {
+   public void testEmptyModule() throws Exception {
       final BasicModuleParserRule rule = lookup(BasicModuleParserRule.class);
       // TODO I think we should expect a simple module here because the module dir contains a module.xml file?
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
@@ -55,8 +52,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testSimpleModule() throws Exception
-   {
+   public void testSimpleModule() throws Exception {
       initPluginDir(mkdir(moduleDir, "foo"));
 
       final BasicModuleParserRule rule = lookup(BasicModuleParserRule.class);
@@ -70,8 +66,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testSimpleModuleWithPluginsAndTests() throws Exception
-   {
+   public void testSimpleModuleWithPluginsAndTests() throws Exception {
       initPluginDir(mkdir(moduleDir, "foo"));
       initPluginDir(mkdir(moduleDir, "foo.tests"));
 
@@ -86,8 +81,7 @@ public class BasicModuleParserRuleTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testStructuredModule() throws Exception
-   {
+   public void testStructuredModule() throws Exception {
       final File pluginsDir = mkdir(moduleDir, "plugins");
       final File testsDir = mkdir(moduleDir, "tests");
       final File examplesDir = mkdir(moduleDir, "examples");

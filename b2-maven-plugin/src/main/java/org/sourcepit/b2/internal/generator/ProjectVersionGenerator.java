@@ -32,42 +32,35 @@ import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ProjectVersionGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
-{
+public class ProjectVersionGenerator extends AbstractPomGenerator implements IB2GenerationParticipant {
    @Override
-   public GeneratorType getGeneratorType()
-   {
+   public GeneratorType getGeneratorType() {
       return GeneratorType.MODULE_RESOURCE_FILTER;
    }
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
       inputTypes.add(AbstractModule.class);
       inputTypes.add(Project.class);
    }
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
-      ITemplates templates, ModuleDirectory moduleDirectory)
-   {
+      ITemplates templates, ModuleDirectory moduleDirectory) {
       final File pomFile = resolvePomFile(inputElement);
       final Model model = readMavenModel(pomFile);
-      if (inputElement instanceof AbstractModule)
-      {
+      if (inputElement instanceof AbstractModule) {
          final String osgiVersion = ((AbstractModule) inputElement).getVersion();
          appendModuleVersionProperties(model, osgiVersion);
       }
-      else
-      {
+      else {
          final String osgiVersion = ((Project) inputElement).getVersion();
          appendProjectVersionProperties(model, osgiVersion);
       }
       writeMavenModel(pomFile, model);
    }
 
-   private static void appendModuleVersionProperties(Model model, String osgiVersion)
-   {
+   private static void appendModuleVersionProperties(Model model, String osgiVersion) {
       final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
       final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
       model.getProperties().setProperty("module.version", mavenVersion);
@@ -79,8 +72,7 @@ public class ProjectVersionGenerator extends AbstractPomGenerator implements IB2
       model.getProperties().setProperty("project.osgiVersion", osgiVersion);
    }
 
-   private static void appendProjectVersionProperties(Model model, String osgiVersion)
-   {
+   private static void appendProjectVersionProperties(Model model, String osgiVersion) {
       final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
       final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
 

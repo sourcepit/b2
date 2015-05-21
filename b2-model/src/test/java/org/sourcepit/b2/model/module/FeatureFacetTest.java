@@ -21,17 +21,14 @@ package org.sourcepit.b2.model.module;
  * @author Bernd
  * 
  */
-public class FeatureFacetTest extends AbstractProjectFacetTest<FeatureProject, FeaturesFacet>
-{
+public class FeatureFacetTest extends AbstractProjectFacetTest<FeatureProject, FeaturesFacet> {
    @Override
-   protected FeaturesFacet createFacet()
-   {
+   protected FeaturesFacet createFacet() {
       return ModuleModelFactory.eINSTANCE.createFeaturesFacet();
    }
 
    @Override
-   protected FeatureProject createProject()
-   {
+   protected FeatureProject createProject() {
       return ModuleModelFactory.eINSTANCE.createFeatureProject();
    }
 

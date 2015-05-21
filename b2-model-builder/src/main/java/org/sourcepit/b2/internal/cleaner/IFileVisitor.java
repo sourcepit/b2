@@ -18,8 +18,7 @@ package org.sourcepit.b2.internal.cleaner;
 
 import java.io.File;
 
-public interface IFileVisitor
-{
+public interface IFileVisitor {
    void visitGarbage(File file);
 
    boolean visit(File file);

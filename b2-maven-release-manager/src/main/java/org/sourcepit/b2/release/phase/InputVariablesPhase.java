@@ -25,21 +25,18 @@ import org.apache.maven.shared.release.config.ReleaseDescriptor;
 import org.apache.maven.shared.release.env.ReleaseEnvironment;
 import org.sourcepit.b2.release.B2ReleaseHelper;
 
-public class InputVariablesPhase extends org.apache.maven.shared.release.phase.InputVariablesPhase
-{
+public class InputVariablesPhase extends org.apache.maven.shared.release.phase.InputVariablesPhase {
    private B2ReleaseHelper releaseHelper;
 
    @Override
    public ReleaseResult execute(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException {
       return super.execute(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
 
    @Override
    public ReleaseResult simulate(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException {
       return super.simulate(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
 }

@@ -33,21 +33,16 @@ import javax.inject.Named;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ScmFileFlagsProvider implements FileFlagsProvider
-{
+public class ScmFileFlagsProvider implements FileFlagsProvider {
    @Override
-   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties)
-   {
+   public Map<File, Integer> getAlreadyKnownFileFlags(File moduleDir, PropertiesSource properties) {
       final Set<String> scmDirs = getScmDirectories(properties);
       final Map<File, Integer> flags = new HashMap<File, Integer>(scmDirs.size());
-      moduleDir.listFiles(new FileFilter()
-      {
+      moduleDir.listFiles(new FileFilter() {
          @Override
-         public boolean accept(File file)
-         {
+         public boolean accept(File file) {
             final int f = determineFlags(file, scmDirs);
-            if (f != 0)
-            {
+            if (f != 0) {
                flags.put(file, valueOf(f));
             }
             return false;
@@ -57,43 +52,34 @@ public class ScmFileFlagsProvider implements FileFlagsProvider
    }
 
    @Override
-   public FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, PropertiesSource properties)
-   {
+   public FileFlagsInvestigator createFileFlagsInvestigator(File moduleDir, PropertiesSource properties) {
       final Set<String> scmDirs = getScmDirectories(properties);
-      return new FileFlagsInvestigator()
-      {
+      return new FileFlagsInvestigator() {
          @Override
-         public int determineFileFlags(File file)
-         {
+         public int determineFileFlags(File file) {
             return determineFlags(file, scmDirs);
          }
 
          @Override
-         public Map<File, Integer> getAdditionallyFoundFileFlags()
-         {
+         public Map<File, Integer> getAdditionallyFoundFileFlags() {
             return null;
          }
       };
    }
 
-   private static int determineFlags(File file, final Set<String> scmDirs)
-   {
-      if (file.isDirectory() && scmDirs.contains(normalize(file.getName())))
-      {
+   private static int determineFlags(File file, final Set<String> scmDirs) {
+      if (file.isDirectory() && scmDirs.contains(normalize(file.getName()))) {
          return FLAG_HIDDEN | FLAG_FORBIDDEN;
       }
       return 0;
    }
 
-   private static Set<String> getScmDirectories(PropertiesSource properties)
-   {
-      final Set<String> result = new HashSet<String>()
-      {
+   private static Set<String> getScmDirectories(PropertiesSource properties) {
+      final Set<String> result = new HashSet<String>() {
          private static final long serialVersionUID = 1L;
 
          @Override
-         public boolean add(String e)
-         {
+         public boolean add(String e) {
             return super.add(normalize(e));
          }
       };
@@ -103,8 +89,7 @@ public class ScmFileFlagsProvider implements FileFlagsProvider
       return result;
    }
 
-   private static String normalize(String str)
-   {
+   private static String normalize(String str) {
       return str.toLowerCase();
    }
 

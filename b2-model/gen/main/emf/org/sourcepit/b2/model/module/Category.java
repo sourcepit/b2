@@ -36,8 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Category extends EObject
-{
+public interface Category extends EObject {
    /**
     * Returns the value of the '<em><b>Installable Units</b></em>' containment reference list.
     * The list contents are of type {@link org.sourcepit.b2.model.module.AbstractStrictReference}.

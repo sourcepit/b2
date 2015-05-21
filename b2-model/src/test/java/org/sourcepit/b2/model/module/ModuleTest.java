@@ -22,14 +22,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
 
-public class ModuleTest extends TestCase
-{
-   public void testGetFacets() throws Exception
-   {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
-      {
-         public void run(EObject eObject)
-         {
+public class ModuleTest extends TestCase {
+   public void testGetFacets() throws Exception {
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject() {
+         public void run(EObject eObject) {
             AbstractModule module = (AbstractModule) eObject;
             assertNotNull(module.getFacets(PluginsFacet.class));
 
@@ -47,12 +43,9 @@ public class ModuleTest extends TestCase
       });
    }
 
-   public void testHasFacets() throws Exception
-   {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
-      {
-         public void run(EObject eObject)
-         {
+   public void testHasFacets() throws Exception {
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject() {
+         public void run(EObject eObject) {
             AbstractModule module = (AbstractModule) eObject;
             assertFalse(module.hasFacets(PluginsFacet.class));
 
@@ -70,12 +63,9 @@ public class ModuleTest extends TestCase
       });
    }
 
-   public void testGetFacetByType() throws Exception
-   {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
-      {
-         public void run(EObject eObject)
-         {
+   public void testGetFacetByType() throws Exception {
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject() {
+         public void run(EObject eObject) {
             AbstractModule module = (AbstractModule) eObject;
             assertNull(module.getFacetByName(null));
             assertNull(module.getFacetByName("plugins"));
@@ -95,20 +85,15 @@ public class ModuleTest extends TestCase
       });
    }
 
-   public void testResolveReference() throws Exception
-   {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject()
-      {
-         public void run(EObject eObject)
-         {
+   public void testResolveReference() throws Exception {
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractModule(), new RunnableWithEObject() {
+         public void run(EObject eObject) {
             AbstractModule module = (AbstractModule) eObject;
-            try
-            {
+            try {
                module.resolveReference(null, PluginsFacet.class);
                fail();
             }
-            catch (IllegalArgumentException e)
-            {
+            catch (IllegalArgumentException e) {
             }
 
             PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();

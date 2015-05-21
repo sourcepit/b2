@@ -21,18 +21,15 @@ import static com.google.common.base.Preconditions.checkArgument;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Instruction
-{
-   public static Instruction parse(String header, String body)
-   {
+public class Instruction {
+   public static Instruction parse(String header, String body) {
       final String phase = extractPhase(header);
       checkArgument(phase != null, "Invalid instruction header '%s'", header);
 
       final Instruction instruction = new Instruction();
       instruction.setPhase(phase);
 
-      for (String string : body.split(";"))
-      {
+      for (String string : body.split(";")) {
          final Action action = Action.parse(string.trim());
          instruction.getActions().add(action);
       }
@@ -40,15 +37,12 @@ public class Instruction
       return instruction;
    }
 
-   private static String extractPhase(String instructionKey)
-   {
-      if (!instructionKey.startsWith("instructions."))
-      {
+   private static String extractPhase(String instructionKey) {
+      if (!instructionKey.startsWith("instructions.")) {
          return null;
       }
       final String phase = instructionKey.substring("instructions.".length());
-      if (phase.indexOf('.') > -1)
-      {
+      if (phase.indexOf('.') > -1) {
          return null;
       }
       return phase;
@@ -58,38 +52,32 @@ public class Instruction
 
    private List<Action> actions = new ArrayList<Action>();
 
-   public String getPhase()
-   {
+   public String getPhase() {
       return phase;
    }
 
-   public void setPhase(String phase)
-   {
+   public void setPhase(String phase) {
       this.phase = phase;
    }
 
-   public List<Action> getActions()
-   {
+   public List<Action> getActions() {
       return actions;
    }
 
-   public String getHeader()
-   {
+   public String getHeader() {
       final StringBuilder sb = new StringBuilder();
       appendKey(sb);
       return sb.toString();
    }
 
-   public String getBody()
-   {
+   public String getBody() {
       final StringBuilder sb = new StringBuilder();
       appendValue(sb);
       return sb.toString();
    }
 
    @Override
-   public String toString()
-   {
+   public String toString() {
       final StringBuilder sb = new StringBuilder();
       appendKey(sb);
       sb.append('=');
@@ -97,21 +85,17 @@ public class Instruction
       return sb.toString();
    }
 
-   private void appendKey(final StringBuilder sb)
-   {
+   private void appendKey(final StringBuilder sb) {
       sb.append("instructions.");
       sb.append(phase);
    }
 
-   private void appendValue(final StringBuilder sb)
-   {
-      for (Action action : actions)
-      {
+   private void appendValue(final StringBuilder sb) {
+      for (Action action : actions) {
          sb.append(action.toString());
          sb.append(';');
       }
-      if (!actions.isEmpty())
-      {
+      if (!actions.isEmpty()) {
          sb.deleteCharAt(sb.length() - 1);
       }
    }

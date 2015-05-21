@@ -30,16 +30,13 @@ import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.b2.model.module.SitesFacet;
 
-public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
-{
-   public void testBasic() throws Exception
-   {
+public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest {
+   public void testBasic() throws Exception {
       final SimpleLayoutFacetsParserRule parserRule = lookupSimpleLayoutFacetsParserRule();
       assertNotNull(parserRule);
    }
 
-   public void testNonFacetDir() throws Exception
-   {
+   public void testNonFacetDir() throws Exception {
       final File pluginDir = workspace.importResources("composed-component/simple-layout/example.core");
       assertTrue(pluginDir.exists());
 
@@ -47,8 +44,7 @@ public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
       assertNull(parserRule.parse(pluginDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
-   public void testFacetDir() throws Exception
-   {
+   public void testFacetDir() throws Exception {
       final File facetDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(facetDir.exists());
 
@@ -70,8 +66,7 @@ public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
       assertSimpleLayout(dummyComponent);
    }
 
-   public static void assertSimpleLayout(BasicModule module)
-   {
+   public static void assertSimpleLayout(BasicModule module) {
       assertEquals("simple", module.getLayoutId());
 
       EList<PluginsFacet> pluginsFacets = module.getFacets(PluginsFacet.class);
@@ -92,8 +87,7 @@ public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
       assertEquals(1, sites.size());
    }
 
-   public void testCompositeComponentDir() throws Exception
-   {
+   public void testCompositeComponentDir() throws Exception {
       File moduleDir = workspace.importResources("composed-component");
       assertTrue(moduleDir.exists());
 
@@ -101,8 +95,7 @@ public class SimpleLayoutFacetsParserRuleTest extends AbstractModuleParserTest
       assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
-   private SimpleLayoutFacetsParserRule lookupSimpleLayoutFacetsParserRule() throws Exception
-   {
+   private SimpleLayoutFacetsParserRule lookupSimpleLayoutFacetsParserRule() throws Exception {
       return (SimpleLayoutFacetsParserRule) lookup(AbstractFacetsParserRule.class, "simple");
    }
 }

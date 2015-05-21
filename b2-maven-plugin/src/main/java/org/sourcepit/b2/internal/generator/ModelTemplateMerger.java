@@ -26,17 +26,13 @@ import org.apache.maven.model.Prerequisites;
 import org.apache.maven.model.Profile;
 import org.apache.maven.model.merge.MavenModelMerger;
 
-public class ModelTemplateMerger extends MavenModelMerger
-{
+public class ModelTemplateMerger extends MavenModelMerger {
    @Override
    protected void mergeModel_ModelVersion(Model target, Model source, boolean sourceDominant,
-      Map<Object, Object> context)
-   {
+      Map<Object, Object> context) {
       String src = source.getModelVersion();
-      if (src != null)
-      {
-         if (sourceDominant || target.getModelVersion() == null)
-         {
+      if (src != null) {
+         if (sourceDominant || target.getModelVersion() == null) {
             target.setModelVersion(src);
             target.setLocation("modelVersion", source.getLocation("modelVersion"));
          }
@@ -44,13 +40,10 @@ public class ModelTemplateMerger extends MavenModelMerger
    }
 
    @Override
-   protected void mergeModel_ArtifactId(Model target, Model source, boolean sourceDominant, Map<Object, Object> context)
-   {
+   protected void mergeModel_ArtifactId(Model target, Model source, boolean sourceDominant, Map<Object, Object> context) {
       String src = source.getArtifactId();
-      if (src != null)
-      {
-         if (sourceDominant || target.getArtifactId() == null)
-         {
+      if (src != null) {
+         if (sourceDominant || target.getArtifactId() == null) {
             target.setArtifactId(src);
             target.setLocation("artifactId", source.getLocation("artifactId"));
          }
@@ -58,25 +51,20 @@ public class ModelTemplateMerger extends MavenModelMerger
    }
 
    @Override
-   protected void mergeModel_Profiles(Model target, Model source, boolean sourceDominant, Map<Object, Object> context)
-   {
+   protected void mergeModel_Profiles(Model target, Model source, boolean sourceDominant, Map<Object, Object> context) {
       List<Profile> src = source.getProfiles();
-      if (!src.isEmpty())
-      {
+      if (!src.isEmpty()) {
          List<Profile> tgt = target.getProfiles();
          Map<Object, Profile> merged = new LinkedHashMap<Object, Profile>((src.size() + tgt.size()) * 2);
 
-         for (Profile element : tgt)
-         {
+         for (Profile element : tgt) {
             Object key = getProfileKey(element);
             merged.put(key, element);
          }
 
-         for (Profile element : src)
-         {
+         for (Profile element : src) {
             Object key = getProfileKey(element);
-            if (sourceDominant || !merged.containsKey(key))
-            {
+            if (sourceDominant || !merged.containsKey(key)) {
                merged.put(key, element);
             }
          }
@@ -87,14 +75,11 @@ public class ModelTemplateMerger extends MavenModelMerger
 
    @Override
    protected void mergeModel_Prerequisites(Model target, Model source, boolean sourceDominant,
-      Map<Object, Object> context)
-   {
+      Map<Object, Object> context) {
       Prerequisites src = source.getPrerequisites();
-      if (src != null)
-      {
+      if (src != null) {
          Prerequisites tgt = target.getPrerequisites();
-         if (tgt == null)
-         {
+         if (tgt == null) {
             tgt = new Prerequisites();
             tgt.setMaven(null);
             target.setPrerequisites(tgt);

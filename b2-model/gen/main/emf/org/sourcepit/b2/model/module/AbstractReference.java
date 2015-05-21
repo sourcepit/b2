@@ -36,8 +36,7 @@ import org.sourcepit.common.modeling.Annotatable;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractReference extends Annotatable
-{
+public interface AbstractReference extends Annotatable {
    /**
     * Returns the value of the '<em><b>Id</b></em>' attribute.
     * <!-- begin-user-doc -->

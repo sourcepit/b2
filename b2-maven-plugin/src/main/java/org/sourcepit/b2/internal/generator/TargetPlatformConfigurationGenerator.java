@@ -42,50 +42,42 @@ import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
-{
+public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator implements IB2GenerationParticipant {
    private final TargetPlatformAppender targetPlatformAppender;
 
    private final BasicConverter converter;
 
    @Inject
-   public TargetPlatformConfigurationGenerator(TargetPlatformAppender targetPlatformAppender, BasicConverter converter)
-   {
+   public TargetPlatformConfigurationGenerator(TargetPlatformAppender targetPlatformAppender, BasicConverter converter) {
       this.targetPlatformAppender = targetPlatformAppender;
       this.converter = converter;
    }
 
    @Override
-   public GeneratorType getGeneratorType()
-   {
+   public GeneratorType getGeneratorType() {
       return GeneratorType.PROJECT_RESOURCE_FILTER;
    }
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
       inputTypes.add(AbstractModule.class);
       inputTypes.add(PluginProject.class);
    }
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
-      ITemplates templates, ModuleDirectory moduleDirectory)
-   {
-      if (converter.isSkipInterpolator(properties))
-      {
+      ITemplates templates, ModuleDirectory moduleDirectory) {
+      if (converter.isSkipInterpolator(properties)) {
          return;
       }
 
       final AbstractModule module;
       final PluginProject pluginProject;
-      if (inputElement instanceof AbstractModule)
-      {
+      if (inputElement instanceof AbstractModule) {
          module = (AbstractModule) inputElement;
          pluginProject = null;
       }
-      else
-      {
+      else {
          pluginProject = (PluginProject) inputElement;
          module = pluginProject.getParent().getParent();
       }
@@ -93,21 +85,17 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
       generate(module, pluginProject, properties);
    }
 
-   private void generate(AbstractModule module, PluginProject pluginProject, PropertiesSource properties)
-   {
+   private void generate(AbstractModule module, PluginProject pluginProject, PropertiesSource properties) {
       final List<Model> modelHierarchy = new ArrayList<Model>();
-      if (pluginProject != null)
-      {
+      if (pluginProject != null) {
          modelHierarchy.add(readMavenModel(resolvePomFile(pluginProject)));
       }
       modelHierarchy.add(readMavenModel(resolvePomFile(module)));
 
-      if (pluginProject == null)
-      {
+      if (pluginProject == null) {
          targetPlatformAppender.append(modelHierarchy, module);
       }
-      else
-      {
+      else {
          targetPlatformAppender.append(modelHierarchy, pluginProject);
       }
 
@@ -119,11 +107,9 @@ public class TargetPlatformConfigurationGenerator extends AbstractPomGenerator i
       writeMavenModel(modelFile, model);
    }
 
-   private void adjustTychoVersion(final Model model)
-   {
+   private void adjustTychoVersion(final Model model) {
       final Plugin tpcPlugin = getPlugin(model, TYCHO_GROUP_ID, TYCHO_TPC_PLUGIN_ARTIFACT_ID, false);
-      if (tpcPlugin != null && tpcPlugin.getVersion() == null)
-      {
+      if (tpcPlugin != null && tpcPlugin.getVersion() == null) {
          tpcPlugin.setVersion(TYCHO_VERSION_PROPERTY);
       }
    }

@@ -63,8 +63,7 @@ import com.google.common.base.Strings;
  * @author Bernd
  */
 @Named
-public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator implements IB2GenerationParticipant
-{
+public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator implements IB2GenerationParticipant {
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
 
@@ -75,24 +74,20 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    private BasicConverter basicConverter;
 
    @Override
-   public GeneratorType getGeneratorType()
-   {
+   public GeneratorType getGeneratorType() {
       return GeneratorType.PROJECT_RESOURCE_FILTER;
    }
 
    @Override
-   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-   {
+   protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
       inputTypes.add(AbstractModule.class);
    }
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource propertie,
-      ITemplates templates, ModuleDirectory moduleDirectory)
-   {
+      ITemplates templates, ModuleDirectory moduleDirectory) {
       // TODO ability to skip reactor projects
-      if (basicConverter.isSkipInterpolator(propertie))
-      {
+      if (basicConverter.isSkipInterpolator(propertie)) {
          return;
       }
 
@@ -113,10 +108,10 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       properties.setProperty("file", bootPom.getAbsolutePath());
       properties.setProperty("pomFile", bootPom.getAbsolutePath());
 
-      final ArtifactRepository repo = legacySupport.getSession().getCurrentProject()
+      final ArtifactRepository repo = legacySupport.getSession()
+         .getCurrentProject()
          .getDistributionManagementArtifactRepository();
-      if (repo != null)
-      {
+      if (repo != null) {
          properties.setProperty("repositoryId", repo.getId());
          properties.setProperty("url", repo.getUrl());
       }
@@ -135,8 +130,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          .getCurrentProject(), properties);
 
       Collection<ModuleArtifact> artifacts = gatherProductArtifacts(module, environments);
-      if (!artifacts.isEmpty())
-      {
+      if (!artifacts.isEmpty()) {
          artifacts.addAll(gatherArtifacts(module, propertie));
 
          Profile profile = new Profile();
@@ -154,8 +148,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
 
       artifacts = gatherArtifacts(module, propertie);
-      if (!artifacts.isEmpty())
-      {
+      if (!artifacts.isEmpty()) {
          final List<Plugin> plugins = model.getBuild().getPlugins();
          final Plugin installMojo = plugins.get(0);
          final Plugin deployMojo = plugins.get(1);
@@ -170,27 +163,23 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       connectMavenModels(modulePom, moduleModel, pomFile, model);
    }
 
-   private void connectMavenModels(final File modulePom, final Model moduleModel, final File pomFile, final Model model)
-   {
+   private void connectMavenModels(final File modulePom, final Model moduleModel, final File pomFile, final Model model) {
       setMavenParent(modulePom, moduleModel, pomFile, model);
       setMavenModule(modulePom, moduleModel, pomFile);
       writeMavenModel(pomFile, model);
       writeMavenModel(modulePom, moduleModel);
    }
 
-   private void configureDeployMojo(final Plugin deployMojo, final Collection<ModuleArtifact> artifacts)
-   {
+   private void configureDeployMojo(final Plugin deployMojo, final Collection<ModuleArtifact> artifacts) {
       final Xpp3Dom deployConfig = (Xpp3Dom) deployMojo.getExecutions().get(0).getConfiguration();
-      if (artifacts.size() == 1)
-      {
+      if (artifacts.size() == 1) {
          final ModuleArtifact artifact = artifacts.iterator().next();
 
          final Xpp3Dom fileNode = deployConfig.getChild("file");
          fileNode.setValue(artifact.getFile().getAbsolutePath());
 
          final String cl = artifact.getClassifier();
-         if (!isNullOrEmpty(cl))
-         {
+         if (!isNullOrEmpty(cl)) {
             final Xpp3Dom classifierNode = new Xpp3Dom("classifier");
             classifierNode.setValue(cl);
             deployConfig.addChild(classifierNode);
@@ -200,13 +189,11 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          packagingNode.setValue(artifact.getType());
          deployConfig.addChild(packagingNode);
       }
-      else
-      {
+      else {
          final StringBuilder files = new StringBuilder();
          final StringBuilder classifiers = new StringBuilder();
          final StringBuilder types = new StringBuilder();
-         for (ModuleArtifact artifact : artifacts)
-         {
+         for (ModuleArtifact artifact : artifacts) {
             files.append(artifact.getFile().getAbsolutePath());
             files.append(',');
             classifiers.append(artifact.getClassifier() == null ? "" : artifact.getClassifier());
@@ -234,21 +221,17 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    }
 
    private void configureInstallMojo(final Plugin installMojo, final Model moduleModel,
-      final Collection<ModuleArtifact> artifacts)
-   {
-      for (ModuleArtifact artifact : artifacts)
-      {
+      final Collection<ModuleArtifact> artifacts) {
+      for (ModuleArtifact artifact : artifacts) {
          // create additional executions for install mojo
          final PluginExecution execution = installMojo.getExecutions().get(0).clone();
          final StringBuilder idBuilder = new StringBuilder();
          idBuilder.append("b2-install");
-         if (artifact.getClassifier() != null && artifact.getClassifier().length() > 0)
-         {
+         if (artifact.getClassifier() != null && artifact.getClassifier().length() > 0) {
             idBuilder.append('-');
             idBuilder.append(artifact.getClassifier());
          }
-         if (artifact.getType() != null && artifact.getType().length() > 0)
-         {
+         if (artifact.getType() != null && artifact.getType().length() > 0) {
             idBuilder.append('.');
             idBuilder.append(artifact.getType());
          }
@@ -269,14 +252,12 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          version.setValue(moduleModel.getVersion());
          conf.addChild(version);
 
-         if (artifact.getClassifier() != null && artifact.getClassifier().length() > 0)
-         {
+         if (artifact.getClassifier() != null && artifact.getClassifier().length() > 0) {
             Xpp3Dom classifer = new Xpp3Dom("classifier");
             classifer.setValue(artifact.getClassifier());
             conf.addChild(classifer);
          }
-         if (artifact.getType() != null && artifact.getType().length() > 0)
-         {
+         if (artifact.getType() != null && artifact.getType().length() > 0) {
             Xpp3Dom type = new Xpp3Dom("packaging"); // parameter for "type" is named "packaging" in InstallFileMojo
             type.setValue(artifact.getType());
             conf.addChild(type);
@@ -290,24 +271,18 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
    }
 
-   private Collection<Dependency> gatherDependencies(final AbstractModule module)
-   {
+   private Collection<Dependency> gatherDependencies(final AbstractModule module) {
       final Collection<Dependency> dependencies = new ArrayList<Dependency>();
-      for (AbstractFacet abstractFacet : module.getFacets())
-      {
+      for (AbstractFacet abstractFacet : module.getFacets()) {
          Dependency dependency = toDependency(abstractFacet);
-         if (dependency != null)
-         {
+         if (dependency != null) {
             dependencies.add(dependency);
          }
 
-         for (EObject eObject : abstractFacet.eContents())
-         {
-            if (eObject instanceof Annotatable)
-            {
+         for (EObject eObject : abstractFacet.eContents()) {
+            if (eObject instanceof Annotatable) {
                dependency = toDependency((Annotatable) eObject);
-               if (dependency != null)
-               {
+               if (dependency != null) {
                   dependencies.add(dependency);
                }
             }
@@ -316,11 +291,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       return dependencies;
    }
 
-   private Dependency toDependency(Annotatable annotatable)
-   {
+   private Dependency toDependency(Annotatable annotatable) {
       File pom = getPomFile(annotatable);
-      if (pom != null)
-      {
+      if (pom != null) {
          Model model = readMavenModel(pom);
          Dependency dependency = new Dependency();
          dependency.setGroupId(model.getGroupId());
@@ -332,10 +305,8 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       return null;
    }
 
-   private File copyPomTemplate(ITemplates templates, final File projectDir, Properties properties)
-   {
-      try
-      {
+   private File copyPomTemplate(ITemplates templates, final File projectDir, Properties properties) {
+      try {
          final File pomFile = new File(projectDir, "catapult-pom.xml");
          templates.copy(pomFile.getName(), pomFile.getParentFile(), properties);
 
@@ -345,14 +316,12 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
 
          return destFile;
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }
 
-   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, PropertiesSource properties)
-   {
+   private Collection<ModuleArtifact> gatherArtifacts(final AbstractModule module, PropertiesSource properties) {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
       final IInterpolationLayout layout = getLayout(module.getLayoutId());
@@ -368,12 +337,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    }
 
    private void gatherSiteArtifacts(final AbstractModule module, final List<ModuleArtifact> artifacts,
-      PropertiesSource properties)
-   {
-      for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class))
-      {
-         for (SiteProject siteProject : sitesFacet.getProjects())
-         {
+      PropertiesSource properties) {
+      for (SitesFacet sitesFacet : module.getFacets(SitesFacet.class)) {
+         for (SiteProject siteProject : sitesFacet.getProjects()) {
             String osgiVersion = siteProject.getVersion();
 
             String mavenVersion = VersionUtils.toTychoVersion(osgiVersion);
@@ -389,38 +355,30 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       }
    }
 
-   private List<ModuleArtifact> gatherProductArtifacts(final AbstractModule module, List<Environment> environments)
-   {
+   private List<ModuleArtifact> gatherProductArtifacts(final AbstractModule module, List<Environment> environments) {
       final List<ModuleArtifact> artifacts = new ArrayList<ModuleArtifact>();
 
       final List<String> envAppendixes = new ArrayList<String>();
-      for (Environment environment : environments)
-      {
+      for (Environment environment : environments) {
          envAppendixes.add(toEnvAppendix(environment));
       }
 
-      for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class))
-      {
-         for (ProductDefinition product : productsFacet.getProductDefinitions())
-         {
-            for (String classifier : B2MetadataUtils.getAssemblyClassifiers(product))
-            {
+      for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class)) {
+         for (ProductDefinition product : productsFacet.getProductDefinitions()) {
+            for (String classifier : B2MetadataUtils.getAssemblyClassifiers(product)) {
                final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
                final File projectDir = new File(layout.pathOfSiteProject(module, classifier));
 
                String classifierPrefix = classifier;
-               if (Strings.isNullOrEmpty(classifierPrefix))
-               {
+               if (Strings.isNullOrEmpty(classifierPrefix)) {
                   classifierPrefix = "";
                }
-               else
-               {
+               else {
                   classifierPrefix = classifierPrefix + ".";
                }
 
                final String uid = product.getAnnotationData("product", "uid");
-               for (String envAppendix : envAppendixes)
-               {
+               for (String envAppendix : envAppendixes) {
                   // target/products/de.visualrules.modeler-linux.gtk.x86.zip
                   final File file = new File(projectDir, "target/products/" + uid + envAppendix + ".zip");
 
@@ -439,37 +397,30 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       return artifacts;
    }
 
-   private static class Environment
-   {
+   private static class Environment {
       private String os, ws, arch;
 
-      public String getOs()
-      {
+      public String getOs() {
          return os;
       }
 
-      public void setOs(String os)
-      {
+      public void setOs(String os) {
          this.os = os;
       }
 
-      public String getWs()
-      {
+      public String getWs() {
          return ws;
       }
 
-      public void setWs(String ws)
-      {
+      public void setWs(String ws) {
          this.ws = ws;
       }
 
-      public String getArch()
-      {
+      public String getArch() {
          return arch;
       }
 
-      public void setArch(String arch)
-      {
+      public void setArch(String arch) {
          this.arch = arch;
       }
 
@@ -477,39 +428,30 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
    }
 
    // HACK
-   private static List<Environment> configureModuleTargetEnvironments(MavenProject project, Properties properties)
-   {
+   private static List<Environment> configureModuleTargetEnvironments(MavenProject project, Properties properties) {
       final List<Environment> environments = new ArrayList<Environment>();
 
-      for (Plugin plugin : project.getBuildPlugins())
-      {
-         if ("org.eclipse.tycho:target-platform-configuration".equals(plugin.getKey()))
-         {
+      for (Plugin plugin : project.getBuildPlugins()) {
+         if ("org.eclipse.tycho:target-platform-configuration".equals(plugin.getKey())) {
             Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
-            if (configuration != null)
-            {
+            if (configuration != null) {
                Xpp3Dom envs = configuration.getChild("environments");
-               if (envs != null)
-               {
-                  for (Xpp3Dom envNode : envs.getChildren("environment"))
-                  {
+               if (envs != null) {
+                  for (Xpp3Dom envNode : envs.getChildren("environment")) {
                      Environment env = new Environment();
 
                      Xpp3Dom node = envNode.getChild("os");
-                     if (node != null)
-                     {
+                     if (node != null) {
                         env.os = node.getValue();
                      }
 
                      node = envNode.getChild("ws");
-                     if (node != null)
-                     {
+                     if (node != null) {
                         env.ws = node.getValue();
                      }
 
                      node = envNode.getChild("arch");
-                     if (node != null)
-                     {
+                     if (node != null) {
                         env.arch = node.getValue();
                      }
 
@@ -520,8 +462,7 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
          }
       }
 
-      if (environments.isEmpty())
-      {
+      if (environments.isEmpty()) {
          String os = PlatformPropertiesUtils.getOS(properties);
          String ws = PlatformPropertiesUtils.getWS(properties);
          String arch = PlatformPropertiesUtils.getArch(properties);
@@ -541,26 +482,21 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
     * @param environment
     * @return
     */
-   private String toEnvAppendix(Environment environment)
-   {
+   private String toEnvAppendix(Environment environment) {
       StringBuilder sb = new StringBuilder();
-      if (environment.getOs() != null)
-      {
+      if (environment.getOs() != null) {
          sb.append(environment.getOs());
          sb.append('.');
       }
-      if (environment.getWs() != null)
-      {
+      if (environment.getWs() != null) {
          sb.append(environment.getWs());
          sb.append('.');
       }
-      if (environment.getArch() != null)
-      {
+      if (environment.getArch() != null) {
          sb.append(environment.getArch());
          sb.append('.');
       }
-      if (sb.length() > 0)
-      {
+      if (sb.length() > 0) {
          sb.deleteCharAt(sb.length() - 1);
          sb.insert(0, '-');
       }
@@ -569,11 +505,9 @@ public class ArtifactCatapultProjectGenerator extends AbstractPomGenerator imple
       return evnAppendix;
    }
 
-   private IInterpolationLayout getLayout(final String layoutId)
-   {
+   private IInterpolationLayout getLayout(final String layoutId) {
       final IInterpolationLayout layout = layoutMap.get(layoutId);
-      if (layout == null)
-      {
+      if (layout == null) {
          throw new UnsupportedOperationException("Layout " + layoutId + " is not supported.");
       }
       return layout;

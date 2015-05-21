@@ -50,8 +50,7 @@ import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 
-public class TargetPlatformConfigurationGeneratorTest
-{
+public class TargetPlatformConfigurationGeneratorTest {
    private final Environment env = Environment.get("env-test.properties");
 
    @Rule
@@ -65,31 +64,26 @@ public class TargetPlatformConfigurationGeneratorTest
 
    private File pomFile;
 
-   protected Workspace newWorkspace()
-   {
+   protected Workspace newWorkspace() {
       return new Workspace(new File(env.getBuildDir(), "ws"), false);
    }
 
-   public Environment getEnvironment()
-   {
+   public Environment getEnvironment() {
       return env;
    }
 
-   protected File getResource(String path) throws IOException
-   {
+   protected File getResource(String path) throws IOException {
       File resources = getResourcesDir();
       File resource = new File(resources, path).getCanonicalFile();
       return ws.importFileOrDir(resource);
    }
 
-   protected File getResourcesDir()
-   {
+   protected File getResourcesDir() {
       return getEnvironment().getResourcesDir();
    }
 
    @Before
-   public void setUp() throws Exception
-   {
+   public void setUp() throws Exception {
       final File moduleDir = ws.getRoot();
       final String testName = moduleDir.getName();
       String artifactId = testName;
@@ -114,8 +108,7 @@ public class TargetPlatformConfigurationGeneratorTest
    }
 
    @Test
-   public void testEmptyRequirement() throws Exception
-   {
+   public void testEmptyRequirement() throws Exception {
       generator.generate(module, new LinkedPropertiesMap(), null, new ModuleDirectory(module.getDirectory(), null));
 
       Model model = new DefaultModelReader().read(pomFile, null);
@@ -124,8 +117,7 @@ public class TargetPlatformConfigurationGeneratorTest
    }
 
    @Test
-   public void testModuleRequirement() throws Exception
-   {
+   public void testModuleRequirement() throws Exception {
       BasicModule module2 = createBasicModule("module-2");
       resolutionContext.getRequiredFeatures().add(addFeatureProject(module2, "features", "feature2", "1.0.0"));
 

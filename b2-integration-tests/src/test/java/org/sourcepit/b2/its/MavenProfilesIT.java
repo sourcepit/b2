@@ -33,17 +33,14 @@ import org.apache.maven.model.Profile;
 import org.apache.maven.model.Repository;
 import org.junit.Test;
 
-public class MavenProfilesIT extends AbstractB2IT
-{
+public class MavenProfilesIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
       int err = build(moduleDir, "-e", "-B", "clean", "verify");
       assertThat(err, is(0));
@@ -109,8 +106,7 @@ public class MavenProfilesIT extends AbstractB2IT
       assertThat(getProfile(profiles, "module-profile"), notNullValue());
    }
 
-   private static void assertParentParentProfile(List<Profile> profiles)
-   {
+   private static void assertParentParentProfile(List<Profile> profiles) {
       Profile parentParentProfile;
       parentParentProfile = getProfile(profiles, "parent-parent-profile");
       assertNotNull(parentParentProfile);
@@ -121,34 +117,26 @@ public class MavenProfilesIT extends AbstractB2IT
       assertThat(parentParentProfile.getProperties().getProperty("foo"), equalTo("${basedir}"));
    }
 
-   private static Profile getProfile(List<Profile> profiles, String id)
-   {
-      for (Profile profile : profiles)
-      {
-         if (equals(profile.getId(), id))
-         {
+   private static Profile getProfile(List<Profile> profiles, String id) {
+      for (Profile profile : profiles) {
+         if (equals(profile.getId(), id)) {
             return profile;
          }
       }
       return null;
    }
 
-   private static Repository getRepository(List<Repository> repositories, String id)
-   {
-      for (Repository profile : repositories)
-      {
-         if (equals(profile.getId(), id))
-         {
+   private static Repository getRepository(List<Repository> repositories, String id) {
+      for (Repository profile : repositories) {
+         if (equals(profile.getId(), id)) {
             return profile;
          }
       }
       return null;
    }
 
-   private static boolean equals(Object o1, Object o2)
-   {
-      if (o1 == null)
-      {
+   private static boolean equals(Object o1, Object o2) {
+      if (o1 == null) {
          return o2 == null;
       }
       return o1.equals(o2);

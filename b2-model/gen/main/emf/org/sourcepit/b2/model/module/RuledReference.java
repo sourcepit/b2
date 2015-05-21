@@ -33,8 +33,7 @@ package org.sourcepit.b2.model.module;
  * @model
  * @generated
  */
-public interface RuledReference extends AbstractReference
-{
+public interface RuledReference extends AbstractReference {
    /**
     * Returns the value of the '<em><b>Version Match Rule</b></em>' attribute.
     * The default value is <code>"compatible"</code>.

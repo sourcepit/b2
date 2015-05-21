@@ -24,9 +24,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * @goal do-nothing
  * @requiresProject false
  */
-public class DoNothingMojo extends AbstractMojo
-{
-   public void execute() throws MojoExecutionException, MojoFailureException
-   {
+public class DoNothingMojo extends AbstractMojo {
+   public void execute() throws MojoExecutionException, MojoFailureException {
    }
 }

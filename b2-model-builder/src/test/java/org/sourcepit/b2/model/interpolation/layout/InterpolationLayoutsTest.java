@@ -24,19 +24,16 @@ import org.eclipse.sisu.launch.InjectedTestCase;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 
-public class InterpolationLayoutsTest extends InjectedTestCase
-{
+public class InterpolationLayoutsTest extends InjectedTestCase {
    @Inject
    private List<IInterpolationLayout> layouts;
 
-   public void testIdOfProject() throws Exception
-   {
+   public void testIdOfProject() throws Exception {
       BasicModule module = ModuleModelFactory.eINSTANCE.createBasicModule();
       module.setId("foo.module");
       assertFalse(layouts.isEmpty());
 
-      for (IInterpolationLayout layout : layouts)
-      {
+      for (IInterpolationLayout layout : layouts) {
          assertEquals("foo.module.feature", layout.idOfFeatureProject(module, null));
          assertEquals("foo.module.feature", layout.idOfFeatureProject(module, ""));
          assertEquals("foo.module.sdk.feature", layout.idOfFeatureProject(module, "sdk"));

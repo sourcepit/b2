@@ -53,34 +53,27 @@ import org.tmatesoft.svn.core.wc.SVNWCClient;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 @Named
-public class SCM implements IB2Listener
-{
+public class SCM implements IB2Listener {
    @Inject
    private Logger logger;
 
    @Override
-   public void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module)
-   {
+   public void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module) {
       writeFileDump(moduleDirectory, module.getDirectory());
    }
 
-   public void doSetScmIgnores(ModuleDirectory moduleDirectory, AbstractModule module)
-   {
+   public void doSetScmIgnores(ModuleDirectory moduleDirectory, AbstractModule module) {
       final List<File> fileDump = readFileDump(module.getDirectory());
       final Collection<File> garbage = new LinkedHashSet<File>();
       final Collection<File> newFiles = new LinkedHashSet<File>();
 
-      moduleDirectory.accept(new FileVisitor<RuntimeException>()
-      {
+      moduleDirectory.accept(new FileVisitor<RuntimeException>() {
          @Override
-         public boolean visit(File file, int flags)
-         {
-            if ((FLAG_DERIVED & flags) != 0)
-            {
+         public boolean visit(File file, int flags) {
+            if ((FLAG_DERIVED & flags) != 0) {
                garbage.add(file);
             }
-            else if (!fileDump.remove(file))
-            {
+            else if (!fileDump.remove(file)) {
                newFiles.add(file);
             }
             return false;
@@ -90,40 +83,33 @@ public class SCM implements IB2Listener
       garbage.addAll(newFiles);
 
       final Map<File, Collection<String>> dirToIgnoresMap = computePotentialIgnores(garbage);
-      if (dirToIgnoresMap.isEmpty())
-      {
+      if (dirToIgnoresMap.isEmpty()) {
          return;
       }
 
       final SVNWCClient client = new SVNWCClient((ISVNAuthenticationManager) null, SVNWCUtil.createDefaultOptions(true));
 
-      for (Entry<File, Collection<String>> entry : dirToIgnoresMap.entrySet())
-      {
+      for (Entry<File, Collection<String>> entry : dirToIgnoresMap.entrySet()) {
          final File dir = entry.getKey();
          final Collection<String> potentialIgnores = entry.getValue();
 
          final List<String> actualIgnores;
-         try
-         {
+         try {
             actualIgnores = getSvnIgnores(client, dir);
          }
-         catch (SVNException e)
-         {
+         catch (SVNException e) {
             logger.warn("Faild to get actual ignore entries, error is: " + e.getMessage(), e);
             continue;
          }
 
          final Set<String> newIgnores = new LinkedHashSet<String>();
-         for (String potentialIgnore : potentialIgnores)
-         {
-            if (!actualIgnores.contains(potentialIgnore))
-            {
+         for (String potentialIgnore : potentialIgnores) {
+            if (!actualIgnores.contains(potentialIgnore)) {
                newIgnores.add(potentialIgnore);
             }
          }
 
-         if (!newIgnores.isEmpty())
-         {
+         if (!newIgnores.isEmpty()) {
             logger.info("Ignore: " + dir.getPath());
             logger.info("Potential ignore entires: " + potentialIgnores);
             logger.info("Actual ignore entires: " + actualIgnores);
@@ -131,13 +117,11 @@ public class SCM implements IB2Listener
 
             final List<String> finalIgnores = new ArrayList<String>(actualIgnores);
             finalIgnores.addAll(newIgnores);
-            try
-            {
+            try {
                setSvnIgnores(client, dir, finalIgnores);
                logger.info("Set ignore entires: " + finalIgnores);
             }
-            catch (SVNException e)
-            {
+            catch (SVNException e) {
                logger.warn("Faild to set new ignore entries, error is: " + e.getMessage(), e);
                continue;
             }
@@ -145,25 +129,19 @@ public class SCM implements IB2Listener
       }
    }
 
-   private void writeFileDump(ModuleDirectory moduleDirectory, File moduleDir)
-   {
-      try
-      {
+   private void writeFileDump(ModuleDirectory moduleDirectory, File moduleDir) {
+      try {
          File dumFile = new File(moduleDir, ".b2/file.dump");
-         if (!dumFile.exists())
-         {
+         if (!dumFile.exists()) {
             dumFile.getParentFile().mkdirs();
             dumFile.createNewFile();
          }
 
          final BufferedWriter writer = new BufferedWriter(new FileWriter(dumFile));
-         try
-         {
-            moduleDirectory.accept(new FileVisitor<IOException>()
-            {
+         try {
+            moduleDirectory.accept(new FileVisitor<IOException>() {
                @Override
-               public boolean visit(File file, int flags) throws IOException
-               {
+               public boolean visit(File file, int flags) throws IOException {
                   writer.write(file.getAbsolutePath());
                   writer.newLine();
                   return true;
@@ -172,62 +150,51 @@ public class SCM implements IB2Listener
 
             writer.flush();
          }
-         finally
-         {
+         finally {
             IOUtils.closeQuietly(writer);
          }
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
 
    }
 
-   private List<File> readFileDump(File moduleDir)
-   {
+   private List<File> readFileDump(File moduleDir) {
       final List<File> fileDump = new ArrayList<File>();
 
       File dumpFile = new File(moduleDir, ".b2/file.dump");
-      if (!dumpFile.exists())
-      {
+      if (!dumpFile.exists()) {
          return fileDump;
       }
 
       BufferedReader reader = null;
-      try
-      {
+      try {
          reader = new BufferedReader(new FileReader(dumpFile));
 
          String path = reader.readLine();
-         while (path != null)
-         {
+         while (path != null) {
             fileDump.add(new File(path));
             path = reader.readLine();
          }
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
-      finally
-      {
+      finally {
          IOUtils.closeQuietly(reader);
       }
       return fileDump;
    }
 
-   private Map<File, Collection<String>> computePotentialIgnores(final Collection<File> garbage)
-   {
+   private Map<File, Collection<String>> computePotentialIgnores(final Collection<File> garbage) {
       final Map<File, Collection<String>> dirToIgnoresMap = new LinkedHashMap<File, Collection<String>>();
 
-      for (File file : garbage)
-      {
+      for (File file : garbage) {
          final File dir = file.getParentFile();
 
          Collection<String> ignores = dirToIgnoresMap.get(dir);
-         if (ignores == null)
-         {
+         if (ignores == null) {
             ignores = new LinkedHashSet<String>();
             dirToIgnoresMap.put(dir, ignores);
          }
@@ -236,18 +203,14 @@ public class SCM implements IB2Listener
       return dirToIgnoresMap;
    }
 
-   private static void setSvnIgnores(SVNWCClient client, File file, Collection<String> ignores) throws SVNException
-   {
+   private static void setSvnIgnores(SVNWCClient client, File file, Collection<String> ignores) throws SVNException {
       final String propString;
-      if (ignores == null || ignores.isEmpty())
-      {
+      if (ignores == null || ignores.isEmpty()) {
          propString = null;
       }
-      else
-      {
+      else {
          final StringBuilder sb = new StringBuilder();
-         for (String ignore : ignores)
-         {
+         for (String ignore : ignores) {
             sb.append(ignore);
             sb.append('\n');
             sb.append('\n');
@@ -262,45 +225,37 @@ public class SCM implements IB2Listener
       client.doSetProperty(file, "svn:ignore", propValue, true, SVNDepth.EMPTY, null, null);
    }
 
-   private static List<String> getSvnIgnores(SVNWCClient client, File file) throws SVNException
-   {
+   private static List<String> getSvnIgnores(SVNWCClient client, File file) throws SVNException {
       final List<String> ignores = new ArrayList<String>();
 
       final SVNPropertyData svnProperty = client.doGetProperty(file, "svn:ignore", SVNRevision.WORKING,
          SVNRevision.WORKING);
-      if (svnProperty == null)
-      {
+      if (svnProperty == null) {
          return ignores;
       }
 
       final SVNPropertyValue value = svnProperty.getValue();
-      if (value == null)
-      {
+      if (value == null) {
          return ignores;
       }
 
       final String rawIgnores = value.getString();
-      if (rawIgnores == null)
-      {
+      if (rawIgnores == null) {
          return ignores;
       }
-      try
-      {
+      try {
          final BufferedReader rader = new BufferedReader(new StringReader(rawIgnores));
 
          String line = rader.readLine();
-         while (line != null)
-         {
+         while (line != null) {
             final String ignore = line.trim();
-            if (ignore.length() > 0)
-            {
+            if (ignore.length() > 0) {
                ignores.add(ignore);
             }
             line = rader.readLine();
          }
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
       return ignores;

@@ -31,8 +31,7 @@ import org.sourcepit.common.testing.ExternalProcess;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.path.PathUtils;
 
-public abstract class AbstractB2ExamplesIT
-{
+public abstract class AbstractB2ExamplesIT {
    private final static boolean DEBUG = false;
 
    private final Environment env = newEnvironment();
@@ -46,42 +45,34 @@ public abstract class AbstractB2ExamplesIT
    @Rule
    public TestName name = new TestName();
 
-   protected File getBaseDir()
-   {
+   protected File getBaseDir() {
       return getEnvironment().getBuildDir();
    }
 
-   protected Environment newEnvironment()
-   {
+   protected Environment newEnvironment() {
       return Environment.get("example-it.properties");
    }
 
-   protected Environment getEnvironment()
-   {
+   protected Environment getEnvironment() {
       return env;
    }
 
-   protected Workspace getWs()
-   {
+   protected Workspace getWs() {
       return ws;
    }
 
-   protected CommandLine createCmd() throws AssertionFailedError
-   {
+   protected CommandLine createCmd() throws AssertionFailedError {
       final CommandLine command;
 
       final File baseDir = getBaseDir();
-      if (OS.isFamilyWindows() || OS.isFamilyWin9x())
-      {
+      if (OS.isFamilyWindows() || OS.isFamilyWin9x()) {
          final String executable = isDebug(name.getMethodName()) ? "debug.bat" : "run.bat";
          command = process.newCommandLine(new File(baseDir, executable));
       }
-      else if (OS.isFamilyUnix() || OS.isFamilyMac())
-      {
+      else if (OS.isFamilyUnix() || OS.isFamilyMac()) {
          command = process.newCommandLine("sh", new File(baseDir, "run.sh").getAbsolutePath());
       }
-      else
-      {
+      else {
          throw new AssertionFailedError("Os family");
       }
 
@@ -91,33 +82,27 @@ public abstract class AbstractB2ExamplesIT
       return command;
    }
 
-   protected File getExampleProjectDir()
-   {
+   protected File getExampleProjectDir() {
       return new File(getBaseDir(), "example-modules/" + getTestProjectName());
    }
 
-   protected String getTestProjectName()
-   {
+   protected String getTestProjectName() {
       return name.getMethodName().substring("test".length()).toLowerCase().replace('_', '-');
    }
 
-   protected boolean isDebug(String testName)
-   {
+   protected boolean isDebug(String testName) {
       return DEBUG;
    }
 
-   protected void execute(String... args) throws ExecuteException, IOException
-   {
+   protected void execute(String... args) throws ExecuteException, IOException {
       CommandLine command = createCmd();
-      if (args != null)
-      {
+      if (args != null) {
          command.addArguments(args);
       }
       process.execute(getEnvironment().newEnvs(), getBaseDir(), command);
    }
 
-   protected void execute() throws ExecuteException, IOException
-   {
+   protected void execute() throws ExecuteException, IOException {
       execute((String[]) null);
    }
 }

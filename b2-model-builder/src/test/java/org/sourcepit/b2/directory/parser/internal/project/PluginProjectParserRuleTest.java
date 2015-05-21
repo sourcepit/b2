@@ -26,22 +26,18 @@ import org.sourcepit.common.utils.props.PropertiesMap;
 /**
  * @author Bernd
  */
-public class PluginProjectParserRuleTest extends AbstractModuleParserTest
-{
-   public void testBasic() throws Exception
-   {
+public class PluginProjectParserRuleTest extends AbstractModuleParserTest {
+   public void testBasic() throws Exception {
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
       assertNotNull(parserRule);
    }
 
-   public void testNull() throws Exception
-   {
+   public void testNull() throws Exception {
       final PluginProjectParserRule parserRule = lookupPluginProjectParserRule();
       assertNull(parserRule.parse(null, null));
    }
 
-   public void testNonPluginDir() throws Exception
-   {
+   public void testNonPluginDir() throws Exception {
       workspace.importResources("composed-component/simple-layout");
 
       final File moduleDir = workspace.getDir();
@@ -51,8 +47,7 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
-   public void testParsePluginDirectory() throws Exception
-   {
+   public void testParsePluginDirectory() throws Exception {
       final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
 
       workspace.importResources("composed-component/simple-layout/example.core");
@@ -74,8 +69,7 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertFalse(project.isFragment());
    }
 
-   public void testParseTestPluginDirectory() throws Exception
-   {
+   public void testParseTestPluginDirectory() throws Exception {
       final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
 
       workspace.importResources("composed-component/simple-layout/example.core.tests");
@@ -96,8 +90,7 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertFalse(project.isFragment());
    }
 
-   public void testParseFragmentDirectory() throws Exception
-   {
+   public void testParseFragmentDirectory() throws Exception {
       final PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
 
       workspace.importResources("composed-component/simple-layout/example.core.fragment");
@@ -118,8 +111,7 @@ public class PluginProjectParserRuleTest extends AbstractModuleParserTest
       assertTrue(project.isFragment());
    }
 
-   private PluginProjectParserRule lookupPluginProjectParserRule() throws Exception
-   {
+   private PluginProjectParserRule lookupPluginProjectParserRule() throws Exception {
       return (PluginProjectParserRule) lookup(AbstractProjectParserRule.class, "plugin");
    }
 }

@@ -39,14 +39,12 @@ import org.sourcepit.common.utils.file.FileVisitor;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class PluginFileFlagsProviderTest extends AbstractTestEnvironmentTest
-{
+public class PluginFileFlagsProviderTest extends AbstractTestEnvironmentTest {
    @Inject
    private PluginFileFlagsProvider flagsProvider;
 
    @Test
-   public void test() throws IOException
-   {
+   public void test() throws IOException {
       final File moduleDir = ws.getRoot();
       final PropertiesMap properties = new LinkedPropertiesMap();
 
@@ -73,11 +71,9 @@ public class PluginFileFlagsProviderTest extends AbstractTestEnvironmentTest
       assertNull(flagsProvider.getAlreadyKnownFileFlags(moduleDir, properties));
 
       final FileFlagsInvestigator flagsInvestigator = flagsProvider.createFileFlagsInvestigator(moduleDir, properties);
-      FileUtils.accept(moduleDir, new FileVisitor()
-      {
+      FileUtils.accept(moduleDir, new FileVisitor() {
          @Override
-         public boolean visit(File file)
-         {
+         public boolean visit(File file) {
             assertEquals(0, flagsInvestigator.determineFileFlags(file));
             return true;
          }
@@ -90,8 +86,7 @@ public class PluginFileFlagsProviderTest extends AbstractTestEnvironmentTest
       assertEquals(valueOf(FLAG_DERIVED), flags.get(new File(pluginDir, "nl/foo_de.jar")));
    }
 
-   private static void injectManifest(final File pluginDir) throws IOException
-   {
+   private static void injectManifest(final File pluginDir) throws IOException {
       BundleManifest mf = BundleManifestFactory.eINSTANCE.createBundleManifest();
       mf.setBundleSymbolicName(pluginDir.getName());
       mf.setBundleVersion("1.0.0.qualifier");

@@ -22,22 +22,16 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
 
-public class ReferenceTest extends TestCase
-{
-   public void testIsSatisfying() throws Exception
-   {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractReference(), new RunnableWithEObject()
-      {
-         public void run(EObject eObject)
-         {
+public class ReferenceTest extends TestCase {
+   public void testIsSatisfying() throws Exception {
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractReference(), new RunnableWithEObject() {
+         public void run(EObject eObject) {
             AbstractReference module = (AbstractReference) eObject;
-            try
-            {
+            try {
                module.isSatisfiableBy(null);
                fail();
             }
-            catch (IllegalArgumentException e)
-            {
+            catch (IllegalArgumentException e) {
             }
          }
       });

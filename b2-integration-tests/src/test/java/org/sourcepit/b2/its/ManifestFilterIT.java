@@ -16,7 +16,6 @@
 
 package org.sourcepit.b2.its;
 
-import static org.apache.commons.io.FileUtils.forceDelete;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -35,17 +34,14 @@ import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class ManifestFilterIT extends AbstractB2IT
-{
+public class ManifestFilterIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
 
       final File templateMFFile = new File(moduleDir, "bundle.a/templates/" + JarFile.MANIFEST_NAME);

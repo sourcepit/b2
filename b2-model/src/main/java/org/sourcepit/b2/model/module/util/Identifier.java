@@ -15,35 +15,29 @@
  */
 
 package org.sourcepit.b2.model.module.util;
-public final class Identifier implements Identifiable
-{
+public final class Identifier implements Identifiable {
    private final String id;
 
    private final String version;
 
-   public Identifier(String id, String version)
-   {
-      if (id == null)
-      {
+   public Identifier(String id, String version) {
+      if (id == null) {
          throw new IllegalArgumentException("Id must not be null.");
       }
       this.id = id;
       this.version = version == null ? "0.0.0" : version;
    }
 
-   public String getId()
-   {
+   public String getId() {
       return id;
    }
 
-   public String getVersion()
-   {
+   public String getVersion() {
       return version;
    }
 
    @Override
-   public int hashCode()
-   {
+   public int hashCode() {
       final int prime = 31;
       int result = 1;
       result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -53,8 +47,7 @@ public final class Identifier implements Identifiable
 
    // CSOFF
    @Override
-   public boolean equals(Object obj)
-   {
+   public boolean equals(Object obj) {
       if (this == obj)
          return true;
       if (obj == null)
@@ -62,15 +55,13 @@ public final class Identifier implements Identifiable
       if (getClass() != obj.getClass())
          return false;
       Identifier other = (Identifier) obj;
-      if (id == null)
-      {
+      if (id == null) {
          if (other.id != null)
             return false;
       }
       else if (!id.equals(other.id))
          return false;
-      if (version == null)
-      {
+      if (version == null) {
          if (other.version != null)
             return false;
       }
@@ -80,14 +71,12 @@ public final class Identifier implements Identifiable
    } // CSON
 
    @Override
-   public boolean isIdentifyableBy(Identifier identifier)
-   {
+   public boolean isIdentifyableBy(Identifier identifier) {
       throw new IllegalStateException();
    }
 
    @Override
-   public Identifier toIdentifier()
-   {
+   public Identifier toIdentifier() {
       throw new IllegalStateException();
    }
 

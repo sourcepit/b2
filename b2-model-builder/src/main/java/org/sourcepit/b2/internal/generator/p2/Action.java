@@ -23,41 +23,38 @@ import java.util.Map.Entry;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class Action
-{
-   public static Action parse(String action)
-   {
+public class Action {
+   public static Action parse(String action) {
       final Action result = new Action();
 
       final int idx = action.indexOf('(');
-      if (idx > -1)
-      {
+      if (idx > -1) {
          result.setName(action.substring(0, idx).trim());
 
          final String params = action.substring(idx + 1, action.length() - 1);
-         for (String param : params.split(","))
-         {
+         for (String param : params.split(",")) {
             final String[] split = param.split(":");
             checkArgument(split.length == 2, "Invalid action parameter '%s'", param);
             result.getParameters().put(split[0].trim(), decode(split[1].trim()));
          }
       }
-      else
-      {
+      else {
          result.setName(action);
       }
 
       return result;
    }
 
-   private static String decode(String string)
-   {
-      return string.replace("${#36}", "$").replace("${#44}", ",").replace("${#58}", ":").replace("${#59}", ";")
-         .replace("${#123}", "{").replace("${#125}", "$");
+   private static String decode(String string) {
+      return string.replace("${#36}", "$")
+         .replace("${#44}", ",")
+         .replace("${#58}", ":")
+         .replace("${#59}", ";")
+         .replace("${#123}", "{")
+         .replace("${#125}", "$");
    }
 
-   private static String encode(String string)
-   {
+   private static String encode(String string) {
       // $ = ${#36}
       // , = ${#44}
       // : = ${#58}
@@ -66,10 +63,8 @@ public class Action
       // } = ${#125}
 
       final StringBuilder sb = new StringBuilder();
-      for (char c : string.toCharArray())
-      {
-         switch (c)
-         {
+      for (char c : string.toCharArray()) {
+         switch (c) {
             case '$' :
                sb.append("${#36}");
                break;
@@ -100,36 +95,30 @@ public class Action
 
    private PropertiesMap parameters = new LinkedPropertiesMap();
 
-   public String getName()
-   {
+   public String getName() {
       return name;
    }
 
-   public void setName(String name)
-   {
+   public void setName(String name) {
       this.name = name;
    }
 
-   public PropertiesMap getParameters()
-   {
+   public PropertiesMap getParameters() {
       return parameters;
    }
 
    @Override
-   public String toString()
-   {
+   public String toString() {
       final StringBuilder sb = new StringBuilder();
       sb.append(name);
       sb.append('(');
-      for (Entry<String, String> entry : parameters.entrySet())
-      {
+      for (Entry<String, String> entry : parameters.entrySet()) {
          sb.append(entry.getKey());
          sb.append(':');
          sb.append(encode(entry.getValue()));
          sb.append(',');
       }
-      if (!parameters.isEmpty())
-      {
+      if (!parameters.isEmpty()) {
          sb.deleteCharAt(sb.length() - 1);
       }
       sb.append(')');

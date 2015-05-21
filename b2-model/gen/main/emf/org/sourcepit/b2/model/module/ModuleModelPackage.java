@@ -40,8 +40,7 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * @model kind="package"
  * @generated
  */
-public interface ModuleModelPackage extends EPackage
-{
+public interface ModuleModelPackage extends EPackage {
    /**
     * The package name.
     * <!-- begin-user-doc -->
@@ -2642,8 +2641,7 @@ public interface ModuleModelPackage extends EPackage
     * 
     * @generated
     */
-   interface Literals
-   {
+   interface Literals {
       /**
        * The meta object literal for the '{@link org.sourcepit.b2.model.module.internal.impl.AbstractModuleImpl
        * <em>Abstract Module</em>}' class.

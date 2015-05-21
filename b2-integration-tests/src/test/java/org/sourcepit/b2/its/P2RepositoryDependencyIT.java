@@ -27,17 +27,14 @@ import org.apache.maven.model.Model;
 import org.apache.maven.model.Profile;
 import org.junit.Test;
 
-public class P2RepositoryDependencyIT extends AbstractB2IT
-{
+public class P2RepositoryDependencyIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
       final int err = build(moduleDir, "-e", "-B", "clean");
       assertThat(err, is(0));
@@ -48,8 +45,7 @@ public class P2RepositoryDependencyIT extends AbstractB2IT
    }
 
    @Test
-   public void testDepenencyFromProfile() throws Exception
-   {
+   public void testDepenencyFromProfile() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
 
       {
@@ -73,8 +69,7 @@ public class P2RepositoryDependencyIT extends AbstractB2IT
       assertThat(2, is(pom.getRepositories().size()));
 
       final Map<String, Profile> profiles = new LinkedHashMap<String, Profile>();
-      for (Profile profile : pom.getProfiles())
-      {
+      for (Profile profile : pom.getProfiles()) {
          profiles.put(profile.getId(), profile);
       }
 

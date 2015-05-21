@@ -41,8 +41,7 @@ import org.sourcepit.b2.model.module.SitesFacet;
  * 
  * @generated
  */
-public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements SitesFacet
-{
+public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements SitesFacet {
    /**
     * The cached value of the '{@link #getProjects() <em>Projects</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -60,8 +59,7 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     * 
     * @generated
     */
-   protected SitesFacetImpl()
-   {
+   protected SitesFacetImpl() {
       super();
    }
 
@@ -72,8 +70,7 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.SITES_FACET;
    }
 
@@ -83,10 +80,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     * 
     * @generated
     */
-   public EList<SiteProject> getProjects()
-   {
-      if (projects == null)
-      {
+   public EList<SiteProject> getProjects() {
+      if (projects == null) {
          projects = new EObjectContainmentWithInverseEList.Resolving<SiteProject>(SiteProject.class, this,
             ModuleModelPackage.SITES_FACET__PROJECTS, ModuleModelPackage.SITE_PROJECT__PARENT);
       }
@@ -101,10 +96,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     */
    @SuppressWarnings("unchecked")
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.SITES_FACET__PROJECTS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getProjects()).basicAdd(otherEnd, msgs);
       }
@@ -118,10 +111,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.SITES_FACET__PROJECTS :
             return ((InternalEList<?>) getProjects()).basicRemove(otherEnd, msgs);
       }
@@ -135,10 +126,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.SITES_FACET__PROJECTS :
             return getProjects();
       }
@@ -153,10 +142,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.SITES_FACET__PROJECTS :
             getProjects().clear();
             getProjects().addAll((Collection<? extends SiteProject>) newValue);
@@ -172,10 +159,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.SITES_FACET__PROJECTS :
             getProjects().clear();
             return;
@@ -190,10 +175,8 @@ public class SitesFacetImpl extends ProjectFacetImpl<SiteProject> implements Sit
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.SITES_FACET__PROJECTS :
             return projects != null && !projects.isEmpty();
       }

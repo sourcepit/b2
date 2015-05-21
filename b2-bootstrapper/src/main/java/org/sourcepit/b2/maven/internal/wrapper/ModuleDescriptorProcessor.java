@@ -31,29 +31,23 @@ import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.AbstractDescripto
 import org.sourcepit.b2.maven.internal.wrapper.DescriptorUtils.IDescriptorResolutionStrategy;
 
 @Named
-public class ModuleDescriptorProcessor
-{
+public class ModuleDescriptorProcessor {
    @Inject
    private Map<String, IModuleDescriptorConverter> fileNameToConverterMap;
 
    public void findModuleDescriptors(MavenSession session, Collection<File> descriptors,
-      Collection<File> skippedDescriptors)
-   {
+      Collection<File> skippedDescriptors) {
       final String defaultFilterPattern = session.getUserProperties().getProperty("b2.modules",
          session.getSystemProperties().getProperty("b2.modules", "**"));
 
       final File baseDir = new File(session.getRequest().getBaseDirectory());
 
       final IDescriptorResolutionStrategy resolver = new AbstractDescriptorResolutionStrategy(baseDir,
-         defaultFilterPattern)
-      {
-         public File getDescriptor(File directory)
-         {
-            for (String fileName : fileNameToConverterMap.keySet())
-            {
+         defaultFilterPattern) {
+         public File getDescriptor(File directory) {
+            for (String fileName : fileNameToConverterMap.keySet()) {
                final File projectFile = new File(directory, fileName);
-               if (projectFile.isFile() && projectFile.canRead())
-               {
+               if (projectFile.isFile() && projectFile.canRead()) {
                   return projectFile;
                }
             }
@@ -61,14 +55,11 @@ public class ModuleDescriptorProcessor
          }
 
          @Override
-         protected String getFilterPattern(File descriptor)
-         {
-            try
-            {
+         protected String getFilterPattern(File descriptor) {
+            try {
                return convert(descriptor).getProperties().getProperty("b2.modules");
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                throw new IllegalArgumentException(e);
             }
          }
@@ -76,11 +67,9 @@ public class ModuleDescriptorProcessor
       DescriptorUtils.findModuleDescriptors(baseDir, descriptors, skippedDescriptors, resolver);
    }
 
-   public Model convert(final File descriptor) throws IOException
-   {
+   public Model convert(final File descriptor) throws IOException {
       final IModuleDescriptorConverter converter = fileNameToConverterMap.get(descriptor.getName());
-      if (converter != null)
-      {
+      if (converter != null) {
          return converter.convert(descriptor);
       }
       return null;

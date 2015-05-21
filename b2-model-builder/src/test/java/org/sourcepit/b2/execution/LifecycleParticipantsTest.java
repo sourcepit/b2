@@ -47,16 +47,14 @@ import com.google.inject.Binder;
 import com.google.inject.Key;
 import com.google.inject.name.Names;
 
-public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
-{
+public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest {
    @Inject
    private B2LifecycleRunner b2LifecycleRunner;
 
    private LifecycleParticipant participant;
 
    @Override
-   public void configure(Binder binder)
-   {
+   public void configure(Binder binder) {
       super.configure(binder);
 
       participant = new LifecycleParticipant();
@@ -66,25 +64,20 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       binder.bind(newKey(B2GeneratorLifecycleParticipant.class, participant)).toInstance(participant);
    }
 
-   private <T> Key<T> newKey(Class<T> type, LifecycleParticipant participant)
-   {
+   private <T> Key<T> newKey(Class<T> type, LifecycleParticipant participant) {
       return Key.get(type, Names.named(participant.getClass().getName()));
    }
 
    @Override
-   protected String setUpModulePath()
-   {
+   protected String setUpModulePath() {
       return "composed-component";
    }
 
-   public void testAll() throws Exception
-   {
+   public void testAll() throws Exception {
       final Map<File, AbstractModule> modules = new LinkedHashMap<File, AbstractModule>();
 
-      final B2RequestFactory requestFactory = new B2RequestFactory()
-      {
-         public B2Request newRequest(List<File> projectDirs, int currentIdx)
-         {
+      final B2RequestFactory requestFactory = new B2RequestFactory() {
+         public B2Request newRequest(List<File> projectDirs, int currentIdx) {
             File moduleDir = projectDirs.get(currentIdx);
             B2Request request = new B2Request();
             request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
@@ -101,8 +94,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
       final List<File> projectDirs = getModuleDirs();
 
-      for (int i = 0; i < projectDirs.size(); i++)
-      {
+      for (int i = 0; i < projectDirs.size(); i++) {
          final B2Request b2Request = requestFactory.newRequest(projectDirs, i);
 
          final AbstractModule module = b2LifecycleRunner.prepareNext(projectDirs, i, b2Request);
@@ -110,8 +102,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       }
 
       int idx = 0;
-      while (b2LifecycleRunner.finalizeNext(projectDirs, idx++))
-      { // noop
+      while (b2LifecycleRunner.finalizeNext(projectDirs, idx++)) { // noop
       }
 
       List<String> actualCalls = new ArrayList<String>();
@@ -120,13 +111,11 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
 
       final List<String> excpectedCalls = new ArrayList<String>();
       excpectedCalls.add("prePrepareProjects ( session )");
-      for (int i = 0; i < calls.size(); i++)
-      {
+      for (int i = 0; i < calls.size(); i++) {
          String call = toString(calls.get(i));
          actualCalls.add(call);
 
-         if (i == 1)
-         {
+         if (i == 1) {
             if (call.startsWith("prePrepareProject ( session, simple-layout")) // order not defined :(
             {
                addPrepareCalls(excpectedCalls, "simple-layout", "simple-layout",
@@ -134,16 +123,14 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
                addPrepareCalls(excpectedCalls, "structured-layout", "structured-layout",
                   "org.sourcepit.b2.test.resources.structured.layout");
             }
-            else
-            {
+            else {
                addPrepareCalls(excpectedCalls, "structured-layout", "structured-layout",
                   "org.sourcepit.b2.test.resources.structured.layout");
                addPrepareCalls(excpectedCalls, "simple-layout", "simple-layout",
                   "org.sourcepit.b2.test.resources.simple.layout");
             }
          }
-         else if (i == 27)
-         {
+         else if (i == 27) {
             // project composite-layout
             addPrepareCalls(excpectedCalls, "testAll", "composite-layout",
                "org.sourcepit.b2.test.resources.composite.layout");
@@ -153,8 +140,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
             // finalize
             excpectedCalls.add("preFinalizeProjects ( session )");
 
-            if (call.startsWith("preFinalizeProject ( session, simple-layout"))
-            {
+            if (call.startsWith("preFinalizeProject ( session, simple-layout")) {
                // project simple-layout
                addFinalizeCalls(excpectedCalls, "simple-layout", "simple-layout",
                   "org.sourcepit.b2.test.resources.simple.layout");
@@ -162,8 +148,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
                addFinalizeCalls(excpectedCalls, "structured-layout", "structured-layout",
                   "org.sourcepit.b2.test.resources.structured.layout");
             }
-            else
-            {
+            else {
                // project structured-layout
                addFinalizeCalls(excpectedCalls, "structured-layout", "structured-layout",
                   "org.sourcepit.b2.test.resources.structured.layout");
@@ -185,8 +170,7 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       Iterator<String> expected = excpectedCalls.iterator();
 
       int i = 0;
-      while (expected.hasNext())
-      {
+      while (expected.hasNext()) {
          String expectedCall = expected.next();
          assertEquals(message.toString(), expectedCall, actual.next());
          message.append(i);
@@ -200,15 +184,13 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       assertSame(excpectedCalls.size(), actualCalls.size());
    }
 
-   private void addFinalizeCalls(List<String> excpectedCalls, String folderName, String artifactId, String moduleId)
-   {
+   private void addFinalizeCalls(List<String> excpectedCalls, String folderName, String artifactId, String moduleId) {
       // project composite-layout
       excpectedCalls.add("preFinalizeProject ( session, " + folderName + " )");
       excpectedCalls.add("postFinalizeProject ( session, " + folderName + ", null )");
    }
 
-   private void addPrepareCalls(List<String> excpectedCalls, String folderName, String artifactId, String moduleId)
-   {
+   private void addPrepareCalls(List<String> excpectedCalls, String folderName, String artifactId, String moduleId) {
       excpectedCalls.add("prePrepareProject ( session, " + folderName + ", request )");
       excpectedCalls.add("preParse ( " + folderName + " )");
       excpectedCalls.add("postParse ( " + folderName + ", " + moduleId + ", null )");
@@ -219,20 +201,17 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       excpectedCalls.add("postPrepareProject ( session, " + folderName + ", request, " + moduleId + ", null )");
    }
 
-   private String toString(MethodCall call)
-   {
+   private String toString(MethodCall call) {
       StringBuilder sb = new StringBuilder();
       sb.append(call.getMethodName());
       sb.append(" ( ");
       Object[] args = call.getArgs();
-      for (Object arg : args)
-      {
+      for (Object arg : args) {
          sb.append(arg);
          sb.append(", ");
       }
 
-      if (args.length > 0)
-      {
+      if (args.length > 0) {
          sb.deleteCharAt(sb.length() - 1);
          sb.deleteCharAt(sb.length() - 1);
       }
@@ -240,31 +219,26 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
       return sb.toString();
    }
 
-   public static class MethodCall
-   {
+   public static class MethodCall {
       private String className;
       private String methodName;
       private Object[] args;
 
-      public MethodCall(String className, String methodName, Object[] args)
-      {
+      public MethodCall(String className, String methodName, Object[] args) {
          this.className = className;
          this.methodName = methodName;
          this.args = args;
       }
 
-      public String getClassName()
-      {
+      public String getClassName() {
          return className;
       }
 
-      public String getMethodName()
-      {
+      public String getMethodName() {
          return methodName;
       }
 
-      public Object[] getArgs()
-      {
+      public Object[] getArgs() {
          return args;
       }
    }
@@ -274,19 +248,16 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          B2SessionLifecycleParticipant,
          ModuleParserLifecycleParticipant,
          ModuleInterpolatorLifecycleParticipant,
-         B2GeneratorLifecycleParticipant
-   {
+         B2GeneratorLifecycleParticipant {
       private List<MethodCall> calls = new ArrayList<MethodCall>();
 
       private Stack<File> barrier = new Stack<File>();
 
-      public List<MethodCall> getCalls()
-      {
+      public List<MethodCall> getCalls() {
          return calls;
       }
 
-      private void recordMethodCall(Object... args)
-      {
+      private void recordMethodCall(Object... args) {
          StackTraceElement[] elements = Thread.currentThread().getStackTrace();
          StackTraceElement element = elements[2];
          String className = element.getClassName();
@@ -294,20 +265,16 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          calls.add(new MethodCall(className, methodName, args));
       }
 
-      public void prePrepareProjects(List<File> projectDirs)
-      {
+      public void prePrepareProjects(List<File> projectDirs) {
          recordMethodCall("session");
       }
 
-      public void prePrepareProject(File projectDir, B2Request request)
-      {
+      public void prePrepareProject(File projectDir, B2Request request) {
          recordMethodCall("session", projectDir.getName(), "request");
       }
 
-      public void preParse(IModuleParsingRequest request)
-      {
-         if (!barrier.isEmpty())
-         {
+      public void preParse(IModuleParsingRequest request) {
+         if (!barrier.isEmpty()) {
             throw new IllegalStateException("Nested module parsing detected");
          }
          final File moduleDir = request.getModuleDirectory().getFile();
@@ -318,12 +285,10 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          recordMethodCall(moduleDir.getName());
       }
 
-      public void postParse(IModuleParsingRequest request, AbstractModule module, ThrowablePipe errors)
-      {
+      public void postParse(IModuleParsingRequest request, AbstractModule module, ThrowablePipe errors) {
          barrier.pop();
 
-         if (!errors.isEmpty())
-         {
+         if (!errors.isEmpty()) {
             return;
          }
          final File moduleDir = request.getModuleDirectory().getFile();
@@ -335,62 +300,52 @@ public class LifecycleParticipantsTest extends AbstractB2SessionWorkspaceTest
          recordMethodCall(moduleDir.getName(), module.getId(), errors.isEmpty() ? null : errors);
       }
 
-      public void preInterpolation(AbstractModule module, PropertiesSource moduleProperties)
-      {
+      public void preInterpolation(AbstractModule module, PropertiesSource moduleProperties) {
          assertNotNull(module);
          recordMethodCall(module.getId());
       }
 
-      public void postInterpolation(AbstractModule module, PropertiesSource moduleProperties, ThrowablePipe errors)
-      {
+      public void postInterpolation(AbstractModule module, PropertiesSource moduleProperties, ThrowablePipe errors) {
          assertNotNull(module);
          assertNotNull(errors);
          assertTrue(errors.isEmpty());
          recordMethodCall(module.getId(), errors.isEmpty() ? null : errors);
       }
 
-      public void preGenerate(AbstractModule module)
-      {
+      public void preGenerate(AbstractModule module) {
          assertNotNull(module);
          recordMethodCall(module.getId());
       }
 
-      public void postGenerate(AbstractModule module, ThrowablePipe errors)
-      {
+      public void postGenerate(AbstractModule module, ThrowablePipe errors) {
          assertNotNull(module);
          assertNotNull(errors);
          assertTrue(errors.isEmpty());
          recordMethodCall(module.getId(), errors.isEmpty() ? null : errors);
       }
 
-      public void postPrepareProject(File projectDir, B2Request request, AbstractModule module, ThrowablePipe errors)
-      {
+      public void postPrepareProject(File projectDir, B2Request request, AbstractModule module, ThrowablePipe errors) {
          recordMethodCall("session", projectDir.getName(), "request", module.getId(), errors.isEmpty() ? null : errors);
       }
 
-      public void postPrepareProjects(List<File> projectDirs, ThrowablePipe errors)
-      {
+      public void postPrepareProjects(List<File> projectDirs, ThrowablePipe errors) {
          recordMethodCall("session", errors.isEmpty() ? null : errors);
       }
 
-      public void preFinalizeProjects(List<File> projectDirs)
-      {
+      public void preFinalizeProjects(List<File> projectDirs) {
          recordMethodCall("session");
 
       }
 
-      public void preFinalizeProject(File projectDir)
-      {
+      public void preFinalizeProject(File projectDir) {
          recordMethodCall("session", projectDir.getName());
       }
 
-      public void postFinalizeProject(File projectDir, ThrowablePipe errors)
-      {
+      public void postFinalizeProject(File projectDir, ThrowablePipe errors) {
          recordMethodCall("session", projectDir.getName(), errors.isEmpty() ? null : errors);
       }
 
-      public void postFinalizeProjects(List<File> projectDirs, ThrowablePipe errors)
-      {
+      public void postFinalizeProjects(List<File> projectDirs, ThrowablePipe errors) {
          recordMethodCall("session", errors.isEmpty() ? null : errors);
       }
    }

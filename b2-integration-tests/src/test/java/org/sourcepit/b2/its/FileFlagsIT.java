@@ -26,17 +26,14 @@ import org.junit.Test;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class FileFlagsIT extends AbstractB2IT
-{
+public class FileFlagsIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
       int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
       assertThat(err, is(0));

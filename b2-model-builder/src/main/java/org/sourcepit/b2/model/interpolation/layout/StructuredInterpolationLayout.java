@@ -22,6 +22,5 @@ import javax.inject.Named;
  * @author Bernd
  */
 @Named("structured")
-public class StructuredInterpolationLayout extends SimpleInterpolationLayout implements IInterpolationLayout
-{
+public class StructuredInterpolationLayout extends SimpleInterpolationLayout implements IInterpolationLayout {
 }

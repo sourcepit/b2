@@ -26,10 +26,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.CompositeModule;
 import org.sourcepit.b2.model.module.ModuleModelFactory;
 
-public class EWalkerImplTest extends TestCase
-{
-   public void testReverse() throws Exception
-   {
+public class EWalkerImplTest extends TestCase {
+   public void testReverse() throws Exception {
       CompositeModule module = ModuleModelFactory.eINSTANCE.createCompositeModule();
       module.setId("module");
       CompositeModule module_1 = ModuleModelFactory.eINSTANCE.createCompositeModule();
@@ -49,19 +47,15 @@ public class EWalkerImplTest extends TestCase
 
       final List<CompositeModule> modules = new ArrayList<CompositeModule>();
 
-      new EWalkerImpl(true, true)
-      {
+      new EWalkerImpl(true, true) {
          @Override
-         protected boolean visit(EObject eObject)
-         {
+         protected boolean visit(EObject eObject) {
             modules.add((CompositeModule) eObject);
             return true;
          }
 
-         protected EList<? extends EObject> getChildren(EObject eObject)
-         {
-            if (eObject instanceof CompositeModule)
-            {
+         protected EList<? extends EObject> getChildren(EObject eObject) {
+            if (eObject instanceof CompositeModule) {
                return ((CompositeModule) eObject).getModules();
             }
             return super.getChildren(eObject);
@@ -75,8 +69,7 @@ public class EWalkerImplTest extends TestCase
       assertEquals(module.getId(), modules.get(4).getId());
    }
 
-   public void testNormal() throws Exception
-   {
+   public void testNormal() throws Exception {
       CompositeModule module = ModuleModelFactory.eINSTANCE.createCompositeModule();
       module.setId("module");
       CompositeModule module_1 = ModuleModelFactory.eINSTANCE.createCompositeModule();
@@ -96,19 +89,15 @@ public class EWalkerImplTest extends TestCase
 
       final List<CompositeModule> modules = new ArrayList<CompositeModule>();
 
-      new EWalkerImpl(false, true)
-      {
+      new EWalkerImpl(false, true) {
          @Override
-         protected boolean visit(EObject eObject)
-         {
+         protected boolean visit(EObject eObject) {
             modules.add((CompositeModule) eObject);
             return true;
          }
 
-         protected EList<? extends EObject> getChildren(EObject eObject)
-         {
-            if (eObject instanceof CompositeModule)
-            {
+         protected EList<? extends EObject> getChildren(EObject eObject) {
+            if (eObject instanceof CompositeModule) {
                return ((CompositeModule) eObject).getModules();
             }
             return super.getChildren(eObject);
@@ -122,8 +111,7 @@ public class EWalkerImplTest extends TestCase
       assertEquals(module_2_1.getId(), modules.get(4).getId());
    }
 
-   public void testStop() throws Exception
-   {
+   public void testStop() throws Exception {
       CompositeModule module = ModuleModelFactory.eINSTANCE.createCompositeModule();
       module.setId("module");
       CompositeModule module_1 = ModuleModelFactory.eINSTANCE.createCompositeModule();
@@ -143,19 +131,15 @@ public class EWalkerImplTest extends TestCase
 
       final List<CompositeModule> modules = new ArrayList<CompositeModule>();
 
-      new EWalkerImpl(false, true)
-      {
+      new EWalkerImpl(false, true) {
          @Override
-         protected boolean visit(EObject eObject)
-         {
+         protected boolean visit(EObject eObject) {
             modules.add((CompositeModule) eObject);
             return !"module_1".equals(((CompositeModule) eObject).getId());
          }
 
-         protected EList<? extends EObject> getChildren(EObject eObject)
-         {
-            if (eObject instanceof CompositeModule)
-            {
+         protected EList<? extends EObject> getChildren(EObject eObject) {
+            if (eObject instanceof CompositeModule) {
                return ((CompositeModule) eObject).getModules();
             }
             return super.getChildren(eObject);

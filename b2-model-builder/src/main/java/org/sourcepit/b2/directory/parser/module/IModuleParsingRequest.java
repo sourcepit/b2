@@ -24,8 +24,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.content.ContentTypes;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public interface IModuleParsingRequest
-{
+public interface IModuleParsingRequest {
    ModuleDirectory getModuleDirectory();
 
    PropertiesSource getModuleProperties();

@@ -32,11 +32,9 @@ import org.sourcepit.b2.model.module.ModuleModelFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 
-public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
-{
+public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest {
    @Test
-   public void testModuleSnapshotVersion() throws Exception
-   {
+   public void testModuleSnapshotVersion() throws Exception {
       Model model = new Model();
       model.setModelEncoding("UTF-8");
       model.setModelVersion("4.0.0");
@@ -64,8 +62,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
    }
 
    @Test
-   public void testProjectSnapshotVersion() throws Exception
-   {
+   public void testProjectSnapshotVersion() throws Exception {
       Model model = new Model();
       model.setModelEncoding("UTF-8");
       model.setModelVersion("4.0.0");
@@ -93,8 +90,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
    }
 
    @Test
-   public void testModuleQualifedVersion() throws Exception
-   {
+   public void testModuleQualifedVersion() throws Exception {
       Model model = new Model();
       model.setModelEncoding("UTF-8");
       model.setModelVersion("4.0.0");
@@ -122,8 +118,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
    }
 
    @Test
-   public void testProjectQualifedVersion() throws Exception
-   {
+   public void testProjectQualifedVersion() throws Exception {
       Model model = new Model();
       model.setModelEncoding("UTF-8");
       model.setModelVersion("4.0.0");
@@ -151,8 +146,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
    }
 
    @Test
-   public void testModuleVersion() throws Exception
-   {
+   public void testModuleVersion() throws Exception {
       Model model = new Model();
       model.setModelEncoding("UTF-8");
       model.setModelVersion("4.0.0");
@@ -181,8 +175,7 @@ public class ProjectVersionGeneratorTest extends AbstractB2MavenPluginTest
    }
 
    @Test
-   public void testProjectVersion() throws Exception
-   {
+   public void testProjectVersion() throws Exception {
       Model model = new Model();
       model.setModelEncoding("UTF-8");
       model.setModelVersion("4.0.0");

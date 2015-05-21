@@ -21,31 +21,25 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.sourcepit.common.constraints.NotNull;
 
 import org.sourcepit.b2.model.module.Project;
+import org.sourcepit.common.constraints.NotNull;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ProjectDetector
-{
+public class ProjectDetector {
    private final List<ProjectDetectionRule<? extends Project>> detectionRules;
 
    @Inject
-   public ProjectDetector(@NotNull List<ProjectDetectionRule<? extends Project>> detectionRules)
-   {
+   public ProjectDetector(@NotNull List<ProjectDetectionRule<? extends Project>> detectionRules) {
       this.detectionRules = detectionRules;
    }
 
-   public Project detect(File directory, PropertiesSource properties)
-   {
-      for (ProjectDetectionRule<? extends Project> detectionRule : detectionRules)
-      {
+   public Project detect(File directory, PropertiesSource properties) {
+      for (ProjectDetectionRule<? extends Project> detectionRule : detectionRules) {
          final Project project = detectionRule.detect(directory, properties);
-         if (project != null)
-         {
-            if (project.getDirectory() == null)
-            {
+         if (project != null) {
+            if (project.getDirectory() == null) {
                project.setDirectory(directory);
             }
             return project;

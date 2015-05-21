@@ -24,41 +24,34 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
-public class FilePresentMatcher extends TypeSafeDiagnosingMatcher<File>
-{
+public class FilePresentMatcher extends TypeSafeDiagnosingMatcher<File> {
    private boolean shouldBePresent;
 
 
-   public FilePresentMatcher(boolean shouldBePresent)
-   {
+   public FilePresentMatcher(boolean shouldBePresent) {
       this.shouldBePresent = shouldBePresent;
    }
 
 
    @Factory
-   public static Matcher<File> isPresent()
-   {
+   public static Matcher<File> isPresent() {
       return new FilePresentMatcher(true);
    }
 
    @Factory
-   public static Matcher<File> isNotPresent()
-   {
+   public static Matcher<File> isNotPresent() {
       return new FilePresentMatcher(false);
    }
 
    @Override
-   public void describeTo(Description description)
-   {
+   public void describeTo(Description description) {
       description.appendText("A" + (shouldBePresent ? "n" : " NOT") + " existing file/directory.");
 
    }
 
    @Override
-   protected boolean matchesSafely(File item, Description mismatchDescription)
-   {
-      if (item.exists() != shouldBePresent)
-      {
+   protected boolean matchesSafely(File item, Description mismatchDescription) {
+      if (item.exists() != shouldBePresent) {
          mismatchDescription.appendText((item.isDirectory() ? "Directory '" : "File '") + item.getName() + "' did "
             + (item.exists() ? "" : " NOT ") + " exist.\nFull Path: " + item.getAbsolutePath());
          return false;

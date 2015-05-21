@@ -22,22 +22,16 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils;
 import org.sourcepit.b2.model.module.test.internal.harness.EcoreUtils.RunnableWithEObject;
 
-public class IdentifiableTest extends TestCase
-{
-   public void testToIdentifier() throws Exception
-   {
-      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractIdentifiable(), new RunnableWithEObject()
-      {
-         public void run(EObject eObject)
-         {
+public class IdentifiableTest extends TestCase {
+   public void testToIdentifier() throws Exception {
+      EcoreUtils.foreachSupertype(ModuleModelPackage.eINSTANCE.getAbstractIdentifiable(), new RunnableWithEObject() {
+         public void run(EObject eObject) {
             AbstractIdentifiable identifiable = (AbstractIdentifiable) eObject;
-            try
-            {
+            try {
                identifiable.toIdentifier();
                fail();
             }
-            catch (IllegalArgumentException e)
-            {
+            catch (IllegalArgumentException e) {
             }
 
             identifiable.setId("foo");

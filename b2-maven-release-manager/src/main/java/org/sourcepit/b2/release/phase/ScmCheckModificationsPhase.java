@@ -30,28 +30,24 @@ import org.apache.maven.shared.release.config.ReleaseDescriptor;
 import org.apache.maven.shared.release.env.ReleaseEnvironment;
 import org.sourcepit.b2.release.B2ReleaseHelper;
 
-public class ScmCheckModificationsPhase extends org.apache.maven.shared.release.phase.ScmCheckModificationsPhase
-{
+public class ScmCheckModificationsPhase extends org.apache.maven.shared.release.phase.ScmCheckModificationsPhase {
    private B2ReleaseHelper releaseHelper;
 
    @Override
    public ReleaseResult execute(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       addB2ModificationExcludes(releaseDescriptor);
       return super.execute(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
 
    @Override
    public ReleaseResult simulate(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       addB2ModificationExcludes(releaseDescriptor);
       return super.simulate(releaseDescriptor, releaseEnvironment, releaseHelper.adaptModuleProjects(reactorProjects));
    }
 
-   private static void addB2ModificationExcludes(ReleaseDescriptor releaseDescriptor)
-   {
+   private static void addB2ModificationExcludes(ReleaseDescriptor releaseDescriptor) {
       final Set<String> modificationExcludes = new LinkedHashSet<String>(
          releaseDescriptor.getCheckModificationExcludes());
       modificationExcludes.add("**" + File.separator + ".b2");

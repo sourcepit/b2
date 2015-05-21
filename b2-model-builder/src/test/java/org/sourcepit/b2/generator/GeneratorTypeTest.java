@@ -22,10 +22,8 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-public class GeneratorTypeTest extends TestCase
-{
-   public void testCompare() throws Exception
-   {
+public class GeneratorTypeTest extends TestCase {
+   public void testCompare() throws Exception {
       final List<GeneratorType> genTypes = new ArrayList<GeneratorType>();
       Collections.addAll(genTypes, GeneratorType.values());
       Collections.shuffle(genTypes);

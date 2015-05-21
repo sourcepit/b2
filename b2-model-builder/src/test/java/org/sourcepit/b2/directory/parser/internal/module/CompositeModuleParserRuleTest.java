@@ -40,14 +40,12 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.BasicModule;
 import org.sourcepit.b2.model.module.CompositeModule;
 
-public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
-{
+public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest {
    private File moduleDir;
 
    @Override
    @Before
-   public void setUp() throws Exception
-   {
+   public void setUp() throws Exception {
       super.setUp();
 
       moduleDir = ws.getRoot();
@@ -55,8 +53,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testEmptyModule() throws Exception
-   {
+   public void testEmptyModule() throws Exception {
       final BasicModuleParserRule rule = lookup(BasicModuleParserRule.class);
       // TODO I think we should expect a simple module here because the module dir contains a module.xml file?
       final ModuleParsingRequest request = createParsingRequest(moduleDir);
@@ -64,8 +61,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testSimple() throws Exception
-   {
+   public void testSimple() throws Exception {
       final File subModule1Dir = mkdir(moduleDir, "sub-module-1");
       initModuleDir(subModule1Dir);
       initPluginDir(mkdir(subModule1Dir, "foo1"));
@@ -90,8 +86,7 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
     * we can delete the B2Session code
     */
    @Test
-   public void testNotRecursive() throws Exception
-   {
+   public void testNotRecursive() throws Exception {
       final File subModule1Dir = mkdir(moduleDir, "sub-module-1");
       initPluginDir(mkdir(subModule1Dir, "foo1"));
       initModuleDir(subModule1Dir);
@@ -119,13 +114,10 @@ public class CompositeModuleParserRuleTest extends AbstractTestEnvironmentTest
       assertEquals(1, module.getModules().size());
    }
 
-   private void parseModulesAndAddModel(Map<File, AbstractModule> modules, File... subModuleDirs)
-   {
-      if (subModuleDirs != null)
-      {
+   private void parseModulesAndAddModel(Map<File, AbstractModule> modules, File... subModuleDirs) {
+      if (subModuleDirs != null) {
          BasicModuleParserRule basicRule = lookup(BasicModuleParserRule.class);
-         for (int i = 0; i < subModuleDirs.length; i++)
-         {
+         for (int i = 0; i < subModuleDirs.length; i++) {
             BasicModule module = basicRule.doParse(createParsingRequest(subModuleDirs[i]));
             modules.put(module.getDirectory(), module);
          }

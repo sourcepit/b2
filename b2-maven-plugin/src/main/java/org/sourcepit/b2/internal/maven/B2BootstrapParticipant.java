@@ -37,8 +37,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.maven.bootstrap.participation.BootstrapParticipant;
 
 @Named
-public class B2BootstrapParticipant implements BootstrapParticipant
-{
+public class B2BootstrapParticipant implements BootstrapParticipant {
    @Inject
    private SCM scm;
 
@@ -52,16 +51,14 @@ public class B2BootstrapParticipant implements BootstrapParticipant
    @Inject
    private Logger logger;
 
-   public void beforeBuild(MavenSession bootSession, final MavenProject bootProject, MavenSession actualSession)
-   {
+   public void beforeBuild(MavenSession bootSession, final MavenProject bootProject, MavenSession actualSession) {
       logger.info("");
       logger.info("------------------------------------------------------------------------");
       logger.info("Bootstrapping " + bootProject.getName() + " " + bootProject.getVersion());
       logger.info("------------------------------------------------------------------------");
 
       final List<File> projectDirs = new ArrayList<File>();
-      for (MavenProject project : bootSession.getProjects())
-      {
+      for (MavenProject project : bootSession.getProjects()) {
          projectDirs.add(project.getBasedir());
       }
 
@@ -75,19 +72,15 @@ public class B2BootstrapParticipant implements BootstrapParticipant
       bootProject.setContextValue(ModuleDirectory.class.getName(), b2Request.getModuleDirectory());
    }
 
-   public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession)
-   {
+   public void afterBuild(MavenSession bootSession, MavenProject bootProject, MavenSession actualSession) {
       final String setScmIgnoresProp = bootProject.getProperties().getProperty("b2.scm.setScmIgnores",
          System.getProperty("b2.scm.setScmIgnores", "false"));
 
       final boolean isSetScmIgnores = Boolean.valueOf(setScmIgnoresProp).booleanValue();
-      if (isSetScmIgnores)
-      {
+      if (isSetScmIgnores) {
          final AbstractModule module = (AbstractModule) bootProject.getContextValue(AbstractModule.class.getName());
-         final ModuleDirectory moduleDirectory = (ModuleDirectory) bootProject.getContextValue(ModuleDirectory.class
-            .getName());
-         if (module != null && moduleDirectory != null)
-         {
+         final ModuleDirectory moduleDirectory = (ModuleDirectory) bootProject.getContextValue(ModuleDirectory.class.getName());
+         if (module != null && moduleDirectory != null) {
             scm.doSetScmIgnores(moduleDirectory, module);
          }
       }

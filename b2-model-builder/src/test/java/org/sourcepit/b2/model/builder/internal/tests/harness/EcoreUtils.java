@@ -27,45 +27,36 @@ import org.junit.Assert;
 /**
  * @author Bernd
  */
-public final class EcoreUtils
-{
-   private EcoreUtils()
-   {
+public final class EcoreUtils {
+   private EcoreUtils() {
       super();
    }
 
-   public static void assertEEquals(EObject expected, EObject actual)
-   {
+   public static void assertEEquals(EObject expected, EObject actual) {
       Assert.assertEquals(expected.eClass(), actual.eClass());
 
       EList<EAttribute> eAttributes = expected.eClass().getEAllAttributes();
-      for (EAttribute eAttribute : eAttributes)
-      {
+      for (EAttribute eAttribute : eAttributes) {
          Assert.assertEquals(expected.eGet(eAttribute), actual.eGet(eAttribute));
       }
 
       EList<EReference> eAllContainments = expected.eClass().getEAllContainments();
-      for (EReference eReference : eAllContainments)
-      {
+      for (EReference eReference : eAllContainments) {
          final Object expectedValue = expected.eGet(eReference);
          final Object actualValue = actual.eGet(eReference);
-         if (eReference.isMany())
-         {
+         if (eReference.isMany()) {
             @SuppressWarnings("unchecked")
             List<EObject> expectedList = (List<EObject>) expectedValue;
             @SuppressWarnings("unchecked")
             List<EObject> actualList = (List<EObject>) actualValue;
-            for (int i = 0; i < expectedList.size(); i++)
-            {
+            for (int i = 0; i < expectedList.size(); i++) {
                assertEEquals(expectedList.get(i), actualList.get(i));
             }
          }
-         else if (expectedValue instanceof EObject)
-         {
+         else if (expectedValue instanceof EObject) {
             assertEEquals((EObject) expectedValue, (EObject) actualValue);
          }
-         else
-         {
+         else {
             Assert.assertEquals(expectedValue, actualValue);
          }
       }

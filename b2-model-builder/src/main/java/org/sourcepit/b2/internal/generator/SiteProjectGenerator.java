@@ -57,34 +57,29 @@ import org.sourcepit.tools.shared.resources.harness.StringInterpolator;
 import com.google.common.base.Strings;
 
 @Named
-public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant
-{
+public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements implements IB2GenerationParticipant {
    private final SitePropertiesQueryFactory queryFactory;
 
    private final ProductGenerator productGenerator;
 
    @Inject
-   public SiteProjectGenerator(SitePropertiesQueryFactory queryFactory, ProductGenerator productGenerator)
-   {
+   public SiteProjectGenerator(SitePropertiesQueryFactory queryFactory, ProductGenerator productGenerator) {
       this.queryFactory = queryFactory;
       this.productGenerator = productGenerator;
    }
 
    @Override
-   public GeneratorType getGeneratorType()
-   {
+   public GeneratorType getGeneratorType() {
       return GeneratorType.PROJECT_GENERATOR;
    }
 
    @Override
-   protected void addTypesOfInputs(Collection<Class<? extends Derivable>> inputTypes)
-   {
+   protected void addTypesOfInputs(Collection<Class<? extends Derivable>> inputTypes) {
       inputTypes.add(SiteProject.class);
    }
 
    @Override
-   protected void generate(Derivable inputElement, PropertiesSource source, ITemplates templates)
-   {
+   protected void generate(Derivable inputElement, PropertiesSource source, ITemplates templates) {
       final SiteProject siteProject = (SiteProject) inputElement;
 
       final AbstractModule module = siteProject.getParent().getParent();
@@ -94,8 +89,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       final List<ProductDefinition> productDefinitions = SitesInterpolator.getProductDefinitionsForAssembly(module,
          assemblyName);
 
-      for (ProductDefinition productDefinition : productDefinitions)
-      {
+      for (ProductDefinition productDefinition : productDefinitions) {
          productGenerator.processProduct(siteProject.getDirectory(), productDefinition, source);
       }
 
@@ -110,51 +104,43 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       generateProperties(source, siteProject, assemblyName, assemblyClassifier);
    }
 
-   public static String getAssemblyName(SiteProject site)
-   {
+   public static String getAssemblyName(SiteProject site) {
       List<String> assemblyNames = B2MetadataUtils.getAssemblyNames(site);
       String assemblyName = assemblyNames.isEmpty() ? null : assemblyNames.get(0);
       return assemblyName == null ? null : assemblyName;
    }
 
-   public static String getAssemblyClassifier(SiteProject site)
-   {
+   public static String getAssemblyClassifier(SiteProject site) {
       List<String> assemblyClassifiers = B2MetadataUtils.getAssemblyClassifiers(site);
       String assemblyClassifier = assemblyClassifiers.isEmpty() ? null : assemblyClassifiers.get(0);
       return assemblyClassifier == null ? null : assemblyClassifier;
    }
 
-   private void insertCategoriesProperty(final SiteProject siteProject, final Properties properties)
-   {
+   private void insertCategoriesProperty(final SiteProject siteProject, final Properties properties) {
       final Map<String, Set<String>> fullIUIdToCategoriesMap = new HashMap<String, Set<String>>();
       final Map<String, AbstractReference> fullIUIdToRefMap = new HashMap<String, AbstractReference>();
 
-      for (Category category : siteProject.getCategories())
-      {
+      for (Category category : siteProject.getCategories()) {
          final String categoryName = category.getName();
 
-         for (AbstractReference iu : category.getInstallableUnits())
-         {
+         for (AbstractReference iu : category.getInstallableUnits()) {
             put(fullIUIdToCategoriesMap, fullIUIdToRefMap, iu, categoryName);
          }
       }
 
-      for (AbstractStrictReference iu : siteProject.getInstallableUnits())
-      {
+      for (AbstractStrictReference iu : siteProject.getInstallableUnits()) {
          put(fullIUIdToCategoriesMap, fullIUIdToRefMap, iu, "");
       }
 
       final StringWriter includes = new StringWriter();
       XMLWriter xml = new PrettyPrintXMLWriter(includes);
-      for (Entry<String, Set<String>> entry : fullIUIdToCategoriesMap.entrySet())
-      {
+      for (Entry<String, Set<String>> entry : fullIUIdToCategoriesMap.entrySet()) {
          Set<String> categoryNames = entry.getValue();
          final AbstractReference iu = fullIUIdToRefMap.get(entry.getKey());
          addInstallableUnit(xml, iu, categoryNames);
       }
 
-      for (Category category : siteProject.getCategories())
-      {
+      for (Category category : siteProject.getCategories()) {
          final String categoryName = category.getName() == null ? "public" : category.getName();
          String propertySpacer = createPropertySpacer(category.getName());
          xml.startElement("category-def");
@@ -170,32 +156,25 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       properties.setProperty("site.categories", includes.toString());
    }
 
-   private void addInstallableUnit(XMLWriter xml, final AbstractReference installableUnit, Set<String> categoryNames)
-   {
-      if (installableUnit instanceof FeatureInclude)
-      {
+   private void addInstallableUnit(XMLWriter xml, final AbstractReference installableUnit, Set<String> categoryNames) {
+      if (installableUnit instanceof FeatureInclude) {
          xml.startElement("feature");
          xml.addAttribute("url", "features/" + installableUnit.getId() + ".jar");
       }
-      else if (installableUnit instanceof PluginInclude)
-      {
+      else if (installableUnit instanceof PluginInclude) {
          xml.startElement("bundle");
       }
-      else if (installableUnit instanceof StrictReference)
-      {
+      else if (installableUnit instanceof StrictReference) {
          xml.startElement("iu");
       }
-      else
-      {
+      else {
          throw new IllegalStateException(installableUnit.getClass() + " currently not supported in update sites");
       }
 
       xml.addAttribute("id", installableUnit.getId());
       xml.addAttribute("version", installableUnit.getVersion());
-      for (String categoryName : categoryNames)
-      {
-         if (!Strings.isNullOrEmpty(categoryName))
-         {
+      for (String categoryName : categoryNames) {
+         if (!Strings.isNullOrEmpty(categoryName)) {
             xml.startElement("category");
             xml.addAttribute("name", categoryName);
             xml.endElement();
@@ -207,15 +186,13 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
 
    private void put(final Map<String, Set<String>> fullFeatureIdToCategoriesMap,
       final Map<String, AbstractReference> fullFeatureIdToRefMap, AbstractReference featureRef,
-      final String categoryName)
-   {
+      final String categoryName) {
       final String featureId = featureRef.getId();
       final String version = featureRef.getVersion();
 
       final String fully = featureId + "_" + version;
       Set<String> set = fullFeatureIdToCategoriesMap.get(fully);
-      if (set == null)
-      {
+      if (set == null) {
          set = new LinkedHashSet<String>();
          fullFeatureIdToCategoriesMap.put(fully, set);
       }
@@ -224,32 +201,26 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
    }
 
    private void generateProperties(PropertiesSource properties, final SiteProject siteProject, String assemblyName,
-      String assemblyClassifier)
-   {
+      String assemblyClassifier) {
       final AbstractModule module = siteProject.getParent().getParent();
       final File projectDir = siteProject.getDirectory();
-      for (Category category : siteProject.getCategories())
-      {
+      for (Category category : siteProject.getCategories()) {
          final String categoryName = category.getName();
 
          final Map<String, PropertiesQuery> propertyQueries = queryFactory.createPropertyQueries(properties,
             assemblyName, assemblyClassifier, categoryName);
 
-         for (Locale locale : module.getLocales())
-         {
+         for (Locale locale : module.getLocales()) {
             String nlsSuffix = locale.toString();
-            if (nlsSuffix.length() > 0)
-            {
+            if (nlsSuffix.length() > 0) {
                nlsSuffix = "_" + nlsSuffix;
             }
 
             final File propertiesFile = new File(projectDir, "site" + nlsSuffix + ".properties");
-            try
-            {
+            try {
                propertiesFile.createNewFile();
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                throw new IllegalStateException(e);
             }
             Properties tmp = new Properties();
@@ -267,28 +238,22 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
    }
 
    private void insertNlsProperties(final Map<String, PropertiesQuery> queries, Locale locale,
-      final PropertiesSource properties, final Properties siteProperties)
-   {
+      final PropertiesSource properties, final Properties siteProperties) {
       final String nlsPrefix = createNlsPrefix(locale);
 
       StringInterpolator s = new StringInterpolator();
       s.setEscapeString("\\");
-      s.getValueSources().add(new AbstractValueSource(false)
-      {
+      s.getValueSources().add(new AbstractValueSource(false) {
          @Override
-         public Object getValue(String expression)
-         {
+         public Object getValue(String expression) {
             return properties.get(expression);
          }
       });
-      s.getValueSources().add(new AbstractValueSource(false)
-      {
+      s.getValueSources().add(new AbstractValueSource(false) {
          @Override
-         public Object getValue(String expression)
-         {
+         public Object getValue(String expression) {
             PropertiesQuery query = queries.get(expression);
-            if (query != null)
-            {
+            if (query != null) {
                query.setPrefix(nlsPrefix);
                return query.lookup(properties);
             }
@@ -297,8 +262,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       });
 
 
-      for (Entry<String, PropertiesQuery> entry : queries.entrySet())
-      {
+      for (Entry<String, PropertiesQuery> entry : queries.entrySet()) {
          final String key = entry.getKey();
          final PropertiesQuery query = entry.getValue();
 
@@ -307,8 +271,7 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
          String value = s.interpolate(query.lookup(properties));
 
          // HACK
-         if (key.startsWith("categories.") && key.endsWith(".name"))
-         {
+         if (key.startsWith("categories.") && key.endsWith(".name")) {
             value = removeRedundantWS(value);
          }
 
@@ -316,24 +279,19 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       }
    }
 
-   private static String removeRedundantWS(String value)
-   {
+   private static String removeRedundantWS(String value) {
       final StringBuilder sb = new StringBuilder(value.length());
       final char[] chars = value.toCharArray();
       int ws = 0;
-      for (char c : chars)
-      {
+      for (char c : chars) {
          boolean isWs = Character.isWhitespace(c);
-         if (isWs)
-         {
-            if (ws == 0)
-            {
+         if (isWs) {
+            if (ws == 0) {
                sb.append(c);
             }
             ws++;
          }
-         else
-         {
+         else {
             ws = 0;
             sb.append(c);
          }
@@ -341,16 +299,13 @@ public class SiteProjectGenerator extends AbstractGeneratorForDerivedElements im
       return sb.toString().trim();
    }
 
-   private String createPropertySpacer(String stringInTheMiddle)
-   {
+   private String createPropertySpacer(String stringInTheMiddle) {
       return stringInTheMiddle == null || stringInTheMiddle.length() == 0 ? "." : "." + stringInTheMiddle + ".";
    }
 
-   private String createNlsPrefix(Locale locale)
-   {
+   private String createNlsPrefix(Locale locale) {
       String nlsPrefix = locale.toString();
-      if (nlsPrefix.length() > 0)
-      {
+      if (nlsPrefix.length() > 0) {
          nlsPrefix = "nls_" + nlsPrefix + ".";
       }
       return nlsPrefix;

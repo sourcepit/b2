@@ -22,8 +22,7 @@ import java.util.List;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
-public interface B2SessionLifecycleParticipant
-{
+public interface B2SessionLifecycleParticipant {
    void prePrepareProjects(List<File> projectDirs);
 
    void prePrepareProject(File projectDir, B2Request request);

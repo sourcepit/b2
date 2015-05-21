@@ -22,37 +22,28 @@ import java.util.List;
 import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
-public class AbstractB2SessionLifecycleParticipant implements B2SessionLifecycleParticipant
-{
-   public void prePrepareProjects(List<File> projectDirs)
-   {
+public class AbstractB2SessionLifecycleParticipant implements B2SessionLifecycleParticipant {
+   public void prePrepareProjects(List<File> projectDirs) {
    }
 
-   public void prePrepareProject(File projectDir, B2Request request)
-   {
+   public void prePrepareProject(File projectDir, B2Request request) {
    }
 
-   public void postPrepareProject(File projectDir, B2Request request, AbstractModule module, ThrowablePipe errors)
-   {
+   public void postPrepareProject(File projectDir, B2Request request, AbstractModule module, ThrowablePipe errors) {
    }
 
-   public void postPrepareProjects(List<File> projectDirs, ThrowablePipe errors)
-   {
+   public void postPrepareProjects(List<File> projectDirs, ThrowablePipe errors) {
    }
 
-   public void preFinalizeProjects(List<File> projectDirs)
-   {
+   public void preFinalizeProjects(List<File> projectDirs) {
    }
 
-   public void preFinalizeProject(File projectDir)
-   {
+   public void preFinalizeProject(File projectDir) {
    }
 
-   public void postFinalizeProject(File projectDir, ThrowablePipe errors)
-   {
+   public void postFinalizeProject(File projectDir, ThrowablePipe errors) {
    }
 
-   public void postFinalizeProjects(List<File> projectDirs, ThrowablePipe errors)
-   {
+   public void postFinalizeProjects(List<File> projectDirs, ThrowablePipe errors) {
    }
 }

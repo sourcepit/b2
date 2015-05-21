@@ -24,20 +24,16 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
 @Singleton
-public class SourceService implements ISourceService
-{
-   public boolean isSourceBuildEnabled(PluginProject pluginProject, PropertiesSource buildProperties)
-   {
+public class SourceService implements ISourceService {
+   public boolean isSourceBuildEnabled(PluginProject pluginProject, PropertiesSource buildProperties) {
       return isSourceBuildEnabled(buildProperties) && hasSource(pluginProject);
    }
 
-   public boolean isSourceBuildEnabled(PropertiesSource buildProperties)
-   {
+   public boolean isSourceBuildEnabled(PropertiesSource buildProperties) {
       return Boolean.valueOf(buildProperties.get("build.sources", "true")).booleanValue();
    }
 
-   public boolean hasSource(PluginProject pluginProject)
-   {
+   public boolean hasSource(PluginProject pluginProject) {
       return pluginProject.getAnnotationData("java", "source.paths") != null;
    }
 }

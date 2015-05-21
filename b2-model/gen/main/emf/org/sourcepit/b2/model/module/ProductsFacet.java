@@ -34,8 +34,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ProductsFacet extends AbstractFacet
-{
+public interface ProductsFacet extends AbstractFacet {
    /**
     * Returns the value of the '<em><b>Product Definitions</b></em>' containment reference list.
     * The list contents are of type {@link org.sourcepit.b2.model.module.ProductDefinition}.

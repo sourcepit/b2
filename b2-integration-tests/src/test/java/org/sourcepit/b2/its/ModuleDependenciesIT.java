@@ -24,17 +24,14 @@ import java.io.File;
 
 import org.junit.Test;
 
-public class ModuleDependenciesIT extends AbstractB2IT
-{
+public class ModuleDependenciesIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void testLocal() throws Exception
-   {
+   public void testLocal() throws Exception {
       final File modulesDir = getResource(getClass().getSimpleName());
 
       // build module a
@@ -52,8 +49,7 @@ public class ModuleDependenciesIT extends AbstractB2IT
    }
 
    @Test
-   public void testLocal_ModeUnwrap() throws Exception
-   {
+   public void testLocal_ModeUnwrap() throws Exception {
       final File modulesDir = getResource(getClass().getSimpleName());
 
       // build module a
@@ -71,8 +67,7 @@ public class ModuleDependenciesIT extends AbstractB2IT
    }
 
    @Test
-   public void testLocal_ModeAggregate() throws Exception
-   {
+   public void testLocal_ModeAggregate() throws Exception {
       final File modulesDir = getResource(getClass().getSimpleName());
 
       // build module a

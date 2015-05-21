@@ -26,37 +26,30 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.common.utils.lang.ThrowablePipe;
 
 @Named
-public class B2LifecycleRunner
-{
+public class B2LifecycleRunner {
    private static abstract class LifecyclePhases<RESULT, PARTICIPANT>
       extends
-         LifecyclePhase<RESULT, List<File>, PARTICIPANT>
-   {
+         LifecyclePhase<RESULT, List<File>, PARTICIPANT> {
       private final B2Request request;
       private int index;
 
-      public LifecyclePhases(int currentIdx, List<PARTICIPANT> participants, B2Request request)
-      {
+      public LifecyclePhases(int currentIdx, List<PARTICIPANT> participants, B2Request request) {
          super(participants);
          this.index = currentIdx;
          this.request = request;
       }
 
       @Override
-      protected void pre(List<File> projectDirs)
-      {
-         if (index < 0)
-         {
+      protected void pre(List<File> projectDirs) {
+         if (index < 0) {
             throw new IllegalStateException();
          }
          super.pre(projectDirs);
       }
 
       @Override
-      protected void pre(PARTICIPANT participant, List<File> projectDirs)
-      {
-         if (index == 0)
-         {
+      protected void pre(PARTICIPANT participant, List<File> projectDirs) {
+         if (index == 0) {
             prePhases(participant, projectDirs);
          }
       }
@@ -64,31 +57,25 @@ public class B2LifecycleRunner
       protected abstract void prePhases(PARTICIPANT participant, List<File> projectDirs);
 
       @Override
-      protected RESULT doExecute(List<File> projectDirs)
-      {
+      protected RESULT doExecute(List<File> projectDirs) {
          return doExecutePhases(request, projectDirs);
       }
 
       protected abstract RESULT doExecutePhases(final B2Request request, List<File> projectDirs);
 
       @Override
-      protected void post(List<File> projectDirs, RESULT result, ThrowablePipe errors)
-      {
-         try
-         {
+      protected void post(List<File> projectDirs, RESULT result, ThrowablePipe errors) {
+         try {
             super.post(projectDirs, result, errors);
          }
-         finally
-         {
+         finally {
             index++;
          }
       }
 
       @Override
-      protected void post(PARTICIPANT participant, List<File> projectDirs, RESULT result, ThrowablePipe errors)
-      {
-         if (index == projectDirs.size() - 1)
-         {
+      protected void post(PARTICIPANT participant, List<File> projectDirs, RESULT result, ThrowablePipe errors) {
+         if (index == projectDirs.size() - 1) {
             postPhases(participant, projectDirs, errors);
          }
       }
@@ -102,29 +89,24 @@ public class B2LifecycleRunner
    @Inject
    private List<B2SessionLifecycleParticipant> lifecycleParticipants;
 
-   public AbstractModule prepareNext(final List<File> projectDirs, final int currentIdx, final B2Request request)
-   {
+   public AbstractModule prepareNext(final List<File> projectDirs, final int currentIdx, final B2Request request) {
       final File projectDir = projectDirs.get(currentIdx);
 
       final AbstractModule module = new LifecyclePhases<AbstractModule, B2SessionLifecycleParticipant>(currentIdx,
-         lifecycleParticipants, request)
-      {
+         lifecycleParticipants, request) {
          @Override
-         protected void prePhases(B2SessionLifecycleParticipant participant, List<File> projectDirs)
-         {
+         protected void prePhases(B2SessionLifecycleParticipant participant, List<File> projectDirs) {
             participant.prePrepareProjects(projectDirs);
          }
 
          @Override
-         protected AbstractModule doExecutePhases(B2Request request, List<File> projectDirs)
-         {
+         protected AbstractModule doExecutePhases(B2Request request, List<File> projectDirs) {
             return newPrepareProjectPhase(projectDir).execute(request);
          }
 
          @Override
          protected void postPhases(B2SessionLifecycleParticipant participant, List<File> projectDirs,
-            ThrowablePipe errors)
-         {
+            ThrowablePipe errors) {
             participant.postPrepareProjects(projectDirs, errors);
          }
       }.execute(projectDirs);
@@ -132,39 +114,31 @@ public class B2LifecycleRunner
       return module;
    }
 
-   public boolean finalizeNext(final List<File> projectDirs, int currentIdx)
-   {
+   public boolean finalizeNext(final List<File> projectDirs, int currentIdx) {
       final File projectDir = projectDirs.get(currentIdx);
 
-      new LifecyclePhases<Void, B2SessionLifecycleParticipant>(currentIdx, lifecycleParticipants, null)
-      {
+      new LifecyclePhases<Void, B2SessionLifecycleParticipant>(currentIdx, lifecycleParticipants, null) {
          @Override
-         protected void prePhases(B2SessionLifecycleParticipant participant, List<File> projectDirs)
-         {
+         protected void prePhases(B2SessionLifecycleParticipant participant, List<File> projectDirs) {
             participant.preFinalizeProjects(projectDirs);
          }
 
          @Override
-         protected Void doExecutePhases(B2Request request, final List<File> projectDirs)
-         {
-            new LifecyclePhase<Void, Void, B2SessionLifecycleParticipant>(lifecycleParticipants)
-            {
+         protected Void doExecutePhases(B2Request request, final List<File> projectDirs) {
+            new LifecyclePhase<Void, Void, B2SessionLifecycleParticipant>(lifecycleParticipants) {
                @Override
-               protected void pre(B2SessionLifecycleParticipant participant, Void input)
-               {
+               protected void pre(B2SessionLifecycleParticipant participant, Void input) {
                   participant.preFinalizeProject(projectDir);
                }
 
                @Override
-               protected Void doExecute(Void input)
-               {
+               protected Void doExecute(Void input) {
                   return null;
                }
 
                @Override
                protected void post(B2SessionLifecycleParticipant participant, Void input, Void result,
-                  ThrowablePipe errors)
-               {
+                  ThrowablePipe errors) {
                   participant.postFinalizeProject(projectDir, errors);
                }
             }.execute(null);
@@ -173,8 +147,7 @@ public class B2LifecycleRunner
 
          @Override
          protected void postPhases(B2SessionLifecycleParticipant participant, List<File> projectDirs,
-            ThrowablePipe errors)
-         {
+            ThrowablePipe errors) {
             participant.postFinalizeProjects(projectDirs, errors);
          }
       }.execute(projectDirs);
@@ -182,26 +155,21 @@ public class B2LifecycleRunner
    }
 
    private LifecyclePhase<AbstractModule, B2Request, B2SessionLifecycleParticipant> newPrepareProjectPhase(
-      final File projectDir)
-   {
-      return new LifecyclePhase<AbstractModule, B2Request, B2SessionLifecycleParticipant>(lifecycleParticipants)
-      {
+      final File projectDir) {
+      return new LifecyclePhase<AbstractModule, B2Request, B2SessionLifecycleParticipant>(lifecycleParticipants) {
          @Override
-         protected void pre(B2SessionLifecycleParticipant participant, B2Request request)
-         {
+         protected void pre(B2SessionLifecycleParticipant participant, B2Request request) {
             participant.prePrepareProject(projectDir, request);
          }
 
          @Override
-         protected AbstractModule doExecute(B2Request request)
-         {
+         protected AbstractModule doExecute(B2Request request) {
             return b2.generate(request);
          }
 
          @Override
          protected void post(B2SessionLifecycleParticipant participant, B2Request request, AbstractModule result,
-            ThrowablePipe errors)
-         {
+            ThrowablePipe errors) {
             participant.postPrepareProject(projectDir, request, result, errors);
          }
       };

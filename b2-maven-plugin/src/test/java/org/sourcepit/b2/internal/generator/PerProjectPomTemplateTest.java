@@ -50,8 +50,7 @@ import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.common.maven.testing.MavenExecutionResult2;
 
-public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
-{
+public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2 {
    @Inject
    private LegacySupport legacySupport;
 
@@ -65,8 +64,7 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
    private PomGenerator pomGenerator;
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File projectDir = getResource("feature_53_per-project-pom-templates");
 
       final MavenExecutionResult2 result = buildProject(new File(projectDir, "module.xml"));
@@ -79,8 +77,7 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
       properties.putAll(mavenSession.getSystemProperties());
       properties.putAll(mavenSession.getUserProperties());
 
-      for (MavenProject project : projects)
-      {
+      for (MavenProject project : projects) {
          mavenSession.setCurrentProject(project);
 
          final B2Request b2Request = b2SessionInitializer.newB2Request(mavenSession, project);
@@ -117,28 +114,22 @@ public class PerProjectPomTemplateTest extends AbstractB2SessionWorkspaceTest2
       }
    }
 
-   private Model readPom(File pom)
-   {
+   private Model readPom(File pom) {
       final Map<String, String> options = new HashMap<String, String>();
       options.put(ModelReader.IS_STRICT, Boolean.FALSE.toString());
-      try
-      {
+      try {
          return new DefaultModelReader().read(pom, options);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }
 
    private <P extends Project> P findProject(AbstractModule module, Class<? extends ProjectFacet<P>> facetType,
-      String projectId)
-   {
-      for (ProjectFacet<P> projectFacet : module.getFacets(facetType))
-      {
+      String projectId) {
+      for (ProjectFacet<P> projectFacet : module.getFacets(facetType)) {
          final P project = projectFacet.getProjectById(projectId);
-         if (project != null)
-         {
+         if (project != null) {
             return project;
          }
       }

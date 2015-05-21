@@ -44,17 +44,14 @@ import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.manifest.resource.ManifestResource;
 import org.sourcepit.common.utils.io.IOOperation;
 
-public class ReleaseIT extends AbstractB2IT
-{
+public class ReleaseIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void testSvn() throws Exception
-   {
+   public void testSvn() throws Exception {
       final File rootModuleDir = getResource(getClass().getSimpleName());
       final File repoDir = workspace.newDir("repo");
       SCM scm = new SvnSCM(repoDir, rootModuleDir);
@@ -62,16 +59,14 @@ public class ReleaseIT extends AbstractB2IT
    }
 
    @Test
-   public void testGit() throws Exception
-   {
+   public void testGit() throws Exception {
       final File rootModuleDir = getResource(getClass().getSimpleName());
       final SCM scm = new GitSCM(rootModuleDir);
       test(rootModuleDir, scm, false);
    }
 
    @Test
-   public void testQualifiedReleaseVersion() throws Exception
-   {
+   public void testQualifiedReleaseVersion() throws Exception {
       final File rootModuleDir = getResource(getClass().getSimpleName());
       final File repoDir = workspace.newDir("repo");
       SCM scm = new SvnSCM(repoDir, rootModuleDir);
@@ -82,8 +77,7 @@ public class ReleaseIT extends AbstractB2IT
    }
 
    @Test
-   public void testTwoStepRelease() throws Exception
-   {
+   public void testTwoStepRelease() throws Exception {
       final File rootModuleDir = getResource(getClass().getSimpleName());
       final File repoDir = workspace.newDir("repo");
       SCM scm = new SvnSCM(repoDir, rootModuleDir);
@@ -91,16 +85,14 @@ public class ReleaseIT extends AbstractB2IT
    }
 
    private void test(final File rootModuleDir, SCM scm, boolean isTwoStep) throws FileNotFoundException, IOException,
-      XmlPullParserException
-   {
+      XmlPullParserException {
       final String releaseVersion = "2.0.0";
       final String developmentVersion = "3.0.0-SNAPSHOT";
       test(rootModuleDir, scm, isTwoStep, releaseVersion, developmentVersion);
    }
 
    private void test(final File rootModuleDir, SCM scm, boolean isTwoStep, final String releaseVersion,
-      final String developmentVersion) throws FileNotFoundException, IOException, XmlPullParserException
-   {
+      final String developmentVersion) throws FileNotFoundException, IOException, XmlPullParserException {
       final File moduleADir = new File(rootModuleDir, "module-a");
       assertTrue(moduleADir.exists());
       final File moduleBDir = new File(rootModuleDir, "module-b");
@@ -138,10 +130,8 @@ public class ReleaseIT extends AbstractB2IT
    }
 
    private void execRelease(final File rootModuleDir, final String releaseVersion, final String developmentVersion,
-      boolean isTwoStep) throws IOException
-   {
-      if (isTwoStep)
-      {
+      boolean isTwoStep) throws IOException {
+      if (isTwoStep) {
          File b2Dir = environment.getMavenHome();
 
          File mavenDir = new File(environment.getBuildDir(), "maven-without-b2");
@@ -169,8 +159,7 @@ public class ReleaseIT extends AbstractB2IT
 
          build(mavenDir, rootModuleDir, args.toArray(new String[args.size()]));
       }
-      else
-      {
+      else {
          final List<String> args = new ArrayList<String>();
          args.add("-e");
          args.add("-B");
@@ -187,46 +176,37 @@ public class ReleaseIT extends AbstractB2IT
       }
    }
 
-   private static BundleManifest readBundleManifest(final File projectDir)
-   {
+   private static BundleManifest readBundleManifest(final File projectDir) {
       final ManifestResource resource = new BundleManifestResourceImpl();
-      final IOOperation<InputStream> ioop = new IOOperation<InputStream>(osgiIn(projectDir, "META-INF/MANIFEST.MF"))
-      {
+      final IOOperation<InputStream> ioop = new IOOperation<InputStream>(osgiIn(projectDir, "META-INF/MANIFEST.MF")) {
          @Override
-         protected void run(InputStream openResource) throws IOException
-         {
+         protected void run(InputStream openResource) throws IOException {
             resource.load(openResource, null);
          }
       };
-      try
-      {
+      try {
          ioop.run();
          return (BundleManifest) resource.getContents().get(0);
       }
-      finally
-      {
+      finally {
          resource.getContents().clear();
       }
    }
 
    private static void assertMavenModel(SCM scm, File moduleDir, final String releaseVersion)
-      throws FileNotFoundException, IOException, XmlPullParserException
-   {
+      throws FileNotFoundException, IOException, XmlPullParserException {
       Model model = readMavenModel(new File(moduleDir, "module.xml"));
       assertThat(model.getVersion(), IsEqual.equalTo(releaseVersion));
       Scm scmConnection = scm.createMavenScmModel(moduleDir, releaseVersion);
       assertScmEqual(model.getScm(), scmConnection);
    }
 
-   private static void assertScmEqual(Scm actual, Scm expected)
-   {
-      if (actual == null)
-      {
+   private static void assertScmEqual(Scm actual, Scm expected) {
+      if (actual == null) {
          assertNull(expected);
          return;
       }
-      if (expected == null)
-      {
+      if (expected == null) {
          assertNull(actual);
          return;
       }
@@ -237,14 +217,11 @@ public class ReleaseIT extends AbstractB2IT
    }
 
    public static void setScm(SCM scm, final List<File> moduleXmls) throws FileNotFoundException, IOException,
-      XmlPullParserException
-   {
-      for (File moduleXml : moduleXmls)
-      {
+      XmlPullParserException {
+      for (File moduleXml : moduleXmls) {
          final File projectDir = moduleXml.getParentFile();
          final Scm scmModel = scm.createMavenScmModel(projectDir, null);
-         if (scmModel != null)
-         {
+         if (scmModel != null) {
             final Model moduleModel = readMavenModel(moduleXml);
             moduleModel.setScm(scmModel);
             writeMavenModel(moduleXml, moduleModel);
@@ -253,14 +230,11 @@ public class ReleaseIT extends AbstractB2IT
    }
 
 
-   private static void collectModuleXmls(List<File> moduleXmls, File projectDir)
-   {
+   private static void collectModuleXmls(List<File> moduleXmls, File projectDir) {
       moduleXmls.add(new File(projectDir, "module.xml"));
 
-      for (File file : projectDir.listFiles())
-      {
-         if (file.isDirectory() && new File(file, "module.xml").exists())
-         {
+      for (File file : projectDir.listFiles()) {
+         if (file.isDirectory() && new File(file, "module.xml").exists()) {
             moduleXmls.add(new File(file, "module.xml"));
          }
       }

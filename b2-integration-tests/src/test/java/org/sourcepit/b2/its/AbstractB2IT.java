@@ -48,8 +48,7 @@ import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.ExternalProcess;
 import org.sourcepit.common.testing.Workspace;
 
-public abstract class AbstractB2IT
-{
+public abstract class AbstractB2IT {
    protected Environment environment = Environment.get(getItPropertiesPath());
 
    @Rule
@@ -58,20 +57,17 @@ public abstract class AbstractB2IT
    @Rule
    public Workspace workspace = new Workspace(new File(environment.getBuildDir(), "ws"), false);
 
-   protected String getItPropertiesPath()
-   {
+   protected String getItPropertiesPath() {
       return "env-it.properties";
    }
 
-   protected int build(final File moduleDir, String... args) throws IOException
-   {
+   protected int build(final File moduleDir, String... args) throws IOException {
       final Map<String, String> envs = environment.newEnvs();
       final CommandLine cmd = newMavenCmd(environment.getMavenHome(), args);
       return process.execute(envs, moduleDir, cmd);
    }
 
-   protected int build(File mavenHome, final File moduleDir, String... args) throws IOException
-   {
+   protected int build(File mavenHome, final File moduleDir, String... args) throws IOException {
       final Map<String, String> envs = environment.newEnvs();
       envs.put("M2_HOME", mavenHome.getAbsolutePath());
 
@@ -79,27 +75,22 @@ public abstract class AbstractB2IT
       return process.execute(envs, moduleDir, cmd);
    }
 
-   protected CommandLine newCmd(File binDir, String bat, String sh, String... arguments)
-   {
+   protected CommandLine newCmd(File binDir, String bat, String sh, String... arguments) {
       final CommandLine cmd;
-      if (OS.isFamilyWindows() || OS.isFamilyWin9x())
-      {
+      if (OS.isFamilyWindows() || OS.isFamilyWin9x()) {
          cmd = process.newCommandLine(new File(binDir, bat));
       }
-      else if (OS.isFamilyUnix() || OS.isFamilyMac())
-      {
+      else if (OS.isFamilyUnix() || OS.isFamilyMac()) {
          cmd = process.newCommandLine("sh", new File(binDir, sh).getAbsolutePath());
       }
-      else
-      {
+      else {
          throw new AssertionFailedError("Os family");
       }
       cmd.addArguments(arguments);
       return cmd;
    }
 
-   protected CommandLine newMavenCmd(File mavenHome, String... arguments)
-   {
+   protected CommandLine newMavenCmd(File mavenHome, String... arguments) {
       final String sh = environment.isDebugAllowed() && isDebug() ? "mvnDebug" : "mvn";
       final String bat = sh + ".bat";
       final File binDir = new File(mavenHome, "/bin");
@@ -108,8 +99,7 @@ public abstract class AbstractB2IT
 
    protected abstract boolean isDebug();
 
-   protected File getResource(String path) throws IOException
-   {
+   protected File getResource(String path) throws IOException {
       final File resourcesDir = environment.getPropertyAsFile("it.resources");
       assertTrue(resourcesDir.exists());
       final File resource = workspace.importDir(new File(resourcesDir, path));
@@ -117,8 +107,7 @@ public abstract class AbstractB2IT
       return resource;
    }
 
-   protected AbstractModule loadModule(final File moduleDir) throws IOException
-   {
+   protected AbstractModule loadModule(final File moduleDir) throws IOException {
       ModuleModelPackage.eINSTANCE.getClass();
 
       File modelFile = new File(moduleDir, ".b2/b2.module");
@@ -127,60 +116,49 @@ public abstract class AbstractB2IT
       return (AbstractModule) loadModel(modelFile);
    }
 
-   private EObject loadModel(File modelFile) throws FileNotFoundException, IOException
-   {
+   private EObject loadModel(File modelFile) throws FileNotFoundException, IOException {
       final InputStream inputStream = new BufferedInputStream(new FileInputStream(modelFile));
-      try
-      {
+      try {
          Resource resource = new XMIResourceImpl();
          resource.load(inputStream, null);
          return resource.getContents().get(0);
       }
-      finally
-      {
+      finally {
          IOUtils.closeQuietly(inputStream);
       }
    }
 
    protected Model loadMavenModel(final AbstractModule module) throws FileNotFoundException, IOException,
-      XmlPullParserException
-   {
+      XmlPullParserException {
       return loadMavenModel(module.getDirectory());
    }
 
-   protected Model loadMavenModel(File moduleDir) throws FileNotFoundException, IOException, XmlPullParserException
-   {
+   protected Model loadMavenModel(File moduleDir) throws FileNotFoundException, IOException, XmlPullParserException {
       final File pomFile = new File(moduleDir, "pom.xml");
       return readMavenModel(pomFile);
    }
 
    protected static Model readMavenModel(final File pomFile) throws FileNotFoundException, IOException,
-      XmlPullParserException
-   {
+      XmlPullParserException {
       assertTrue(pomFile.exists());
 
       final InputStream inputStream = new FileInputStream(pomFile);
-      try
-      {
+      try {
          return new MavenXpp3Reader().read(new BufferedInputStream(inputStream));
       }
-      finally
-      {
+      finally {
          IOUtils.closeQuietly(inputStream);
       }
    }
 
-   protected static void writeMavenModel(final File pomFile, Model pom) throws FileNotFoundException, IOException
-   {
+   protected static void writeMavenModel(final File pomFile, Model pom) throws FileNotFoundException, IOException {
       assertTrue(pomFile.exists());
 
       final OutputStream outputStream = new FileOutputStream(pomFile);
-      try
-      {
+      try {
          new MavenXpp3Writer().write(new BufferedOutputStream(outputStream), pom);
       }
-      finally
-      {
+      finally {
          IOUtils.closeQuietly(outputStream);
       }
    }

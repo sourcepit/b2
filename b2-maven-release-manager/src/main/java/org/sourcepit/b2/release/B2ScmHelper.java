@@ -48,8 +48,7 @@ import org.sourcepit.b2.maven.core.B2MavenBridge;
 import org.sourcepit.common.utils.lang.Exceptions;
 
 @Named
-public class B2ScmHelper
-{
+public class B2ScmHelper {
    private static final String CTX_KEY_COMMIT_PROPOSALS = B2ScmHelper.class.getName() + "#commitProposals";
 
    private final ScmRepositoryConfigurator scmRepositoryConfigurator;
@@ -57,78 +56,61 @@ public class B2ScmHelper
    private final B2MavenBridge bridge;
 
    @Inject
-   public B2ScmHelper(ScmRepositoryConfigurator scmRepositoryConfigurator, LegacySupport buildContext)
-   {
+   public B2ScmHelper(ScmRepositoryConfigurator scmRepositoryConfigurator, LegacySupport buildContext) {
       this.scmRepositoryConfigurator = scmRepositoryConfigurator;
       bridge = B2MavenBridge.get(buildContext.getSession());
    }
 
    public void edit(MavenProject mavenProject, ReleaseDescriptor releaseDescriptor, Settings settings, File file,
-      boolean simulate)
-   {
-      if (!simulate)
-      {
+      boolean simulate) {
+      if (!simulate) {
          doScmEdit(releaseDescriptor, settings, file);
       }
       markForCommit(mavenProject, file);
    }
 
-   private void doScmEdit(ReleaseDescriptor releaseDescriptor, Settings settings, File file)
-   {
+   private void doScmEdit(ReleaseDescriptor releaseDescriptor, Settings settings, File file) {
       ScmRepository scmRepository;
       ScmProvider provider;
-      try
-      {
+      try {
          scmRepository = scmRepositoryConfigurator.getConfiguredRepository(releaseDescriptor, settings);
          provider = scmRepositoryConfigurator.getRepositoryProvider(scmRepository);
       }
-      catch (ScmRepositoryException e)
-      {
+      catch (ScmRepositoryException e) {
          throw Exceptions.pipe(new ReleaseScmRepositoryException(e.getMessage(), e.getValidationMessages()));
       }
-      catch (NoSuchScmProviderException e)
-      {
-         throw Exceptions
-            .pipe(new ReleaseExecutionException("Unable to configure SCM repository: " + e.getMessage(), e));
+      catch (NoSuchScmProviderException e) {
+         throw Exceptions.pipe(new ReleaseExecutionException("Unable to configure SCM repository: " + e.getMessage(), e));
       }
 
-      try
-      {
-         if (releaseDescriptor.isScmUseEditMode() || provider.requiresEditMode())
-         {
+      try {
+         if (releaseDescriptor.isScmUseEditMode() || provider.requiresEditMode()) {
             EditScmResult scmResult = provider.edit(scmRepository,
                new ScmFileSet(new File(releaseDescriptor.getWorkingDirectory()), file));
 
-            if (!scmResult.isSuccess())
-            {
+            if (!scmResult.isSuccess()) {
                throw Exceptions.pipe(new ReleaseScmCommandException("Unable to enable editing on the file", scmResult));
             }
          }
       }
-      catch (ScmException e)
-      {
+      catch (ScmException e) {
          throw Exceptions.pipe(new ReleaseExecutionException("An error occurred enabling edit mode: " + e.getMessage(),
             e));
       }
    }
 
-   public void markForCommit(MavenProject mavenProject, File file)
-   {
+   public void markForCommit(MavenProject mavenProject, File file) {
       final MavenProject moduleProject = determineModuleMavenProject(mavenProject);
       final ModuleDirectory moduleDirectory = bridge.getModuleDirectory(moduleProject);
-      if (!moduleDirectory.isDerived(file))
-      {
+      if (!moduleDirectory.isDerived(file)) {
          getCommitProposals(moduleProject).add(file);
       }
    }
 
-   private MavenProject determineModuleMavenProject(MavenProject mavenProject)
-   {
+   private MavenProject determineModuleMavenProject(MavenProject mavenProject) {
       MavenProject parentProject = mavenProject;
-      while (parentProject != null)
-      {
-         if (bridge.getModule(parentProject) != null)
-         {
+      while (parentProject != null) {
+         if (bridge.getModule(parentProject) != null) {
             return parentProject;
          }
          parentProject = parentProject.getParent();
@@ -136,12 +118,10 @@ public class B2ScmHelper
       throw new IllegalStateException("Unable to determine module project for maven project " + mavenProject);
    }
 
-   private static Set<File> getCommitProposals(MavenProject mavenProject)
-   {
+   private static Set<File> getCommitProposals(MavenProject mavenProject) {
       @SuppressWarnings("unchecked")
       Set<File> files = (Set<File>) mavenProject.getContextValue(CTX_KEY_COMMIT_PROPOSALS);
-      if (files == null)
-      {
+      if (files == null) {
          files = new LinkedHashSet<File>();
          mavenProject.setContextValue(CTX_KEY_COMMIT_PROPOSALS, files);
       }
@@ -150,12 +130,10 @@ public class B2ScmHelper
 
    public void performCheckins(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
       List<MavenProject> mavenModuleProjects, String message) throws ReleaseScmRepositoryException,
-      ReleaseExecutionException, ReleaseScmCommandException
-   {
+      ReleaseExecutionException, ReleaseScmCommandException {
       ScmRepository repository;
       ScmProvider provider;
-      try
-      {
+      try {
          repository = scmRepositoryConfigurator.getConfiguredRepository(releaseDescriptor,
             releaseEnvironment.getSettings());
 
@@ -163,27 +141,22 @@ public class B2ScmHelper
 
          provider = scmRepositoryConfigurator.getRepositoryProvider(repository);
       }
-      catch (ScmRepositoryException e)
-      {
+      catch (ScmRepositoryException e) {
          throw new ReleaseScmRepositoryException(e.getMessage(), e.getValidationMessages());
       }
-      catch (NoSuchScmProviderException e)
-      {
+      catch (NoSuchScmProviderException e) {
          throw new ReleaseExecutionException("Unable to configure SCM repository: " + e.getMessage(), e);
       }
 
-      if (releaseDescriptor.isCommitByProject())
-      {
-         for (MavenProject project : mavenModuleProjects)
-         {
+      if (releaseDescriptor.isCommitByProject()) {
+         for (MavenProject project : mavenModuleProjects) {
             List<File> pomFiles = collectFiles(releaseDescriptor, project);
             ScmFileSet fileSet = new ScmFileSet(project.getFile().getParentFile(), pomFiles);
 
             checkin(provider, repository, fileSet, releaseDescriptor, message);
          }
       }
-      else
-      {
+      else {
          List<File> pomFiles = collectFiles(releaseDescriptor, mavenModuleProjects);
          ScmFileSet fileSet = new ScmFileSet(new File(releaseDescriptor.getWorkingDirectory()), pomFiles);
 
@@ -192,40 +165,32 @@ public class B2ScmHelper
    }
 
    private void checkin(ScmProvider provider, ScmRepository repository, ScmFileSet fileSet,
-      ReleaseDescriptor releaseDescriptor, String message) throws ReleaseExecutionException, ReleaseScmCommandException
-   {
+      ReleaseDescriptor releaseDescriptor, String message) throws ReleaseExecutionException, ReleaseScmCommandException {
       CheckInScmResult result;
-      try
-      {
+      try {
          result = provider.checkIn(repository, fileSet, (ScmVersion) null, message);
       }
-      catch (ScmException e)
-      {
+      catch (ScmException e) {
          throw new ReleaseExecutionException("An error is occurred in the checkin process: " + e.getMessage(), e);
       }
 
-      if (!result.isSuccess())
-      {
+      if (!result.isSuccess()) {
          throw new ReleaseScmCommandException("Unable to commit files", result);
       }
-      if (releaseDescriptor.isRemoteTagging())
-      {
+      if (releaseDescriptor.isRemoteTagging()) {
          releaseDescriptor.setScmReleasedPomRevision(result.getScmRevision());
       }
    }
 
-   private List<File> collectFiles(ReleaseDescriptor releaseDescriptor, List<MavenProject> reactorProjects)
-   {
+   private List<File> collectFiles(ReleaseDescriptor releaseDescriptor, List<MavenProject> reactorProjects) {
       final List<File> files = new ArrayList<File>();
-      for (MavenProject project : reactorProjects)
-      {
+      for (MavenProject project : reactorProjects) {
          files.addAll(getCommitProposals(project));
       }
       return files;
    }
 
-   private List<File> collectFiles(ReleaseDescriptor releaseDescriptor, MavenProject project)
-   {
+   private List<File> collectFiles(ReleaseDescriptor releaseDescriptor, MavenProject project) {
       return new ArrayList<File>(getCommitProposals(project));
    }
 }

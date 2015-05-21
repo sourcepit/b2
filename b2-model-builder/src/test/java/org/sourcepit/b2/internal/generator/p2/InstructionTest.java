@@ -25,16 +25,13 @@ import java.util.List;
 import org.junit.Test;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class InstructionTest
-{
+public class InstructionTest {
 
    @Test
-   public void testParse()
-   {
-      Instruction instruction = Instruction
-         .parse(
-            "instructions.configure",
-            "addRepository(type:0,location:http${#58}//download.eclipse.org/releases/juno/,enabled:true); addRepository(type:0,location:http${#58}//download.eclipse.org/eclipse/updates/3.8);");
+   public void testParse() {
+      Instruction instruction = Instruction.parse(
+         "instructions.configure",
+         "addRepository(type:0,location:http${#58}//download.eclipse.org/releases/juno/,enabled:true); addRepository(type:0,location:http${#58}//download.eclipse.org/eclipse/updates/3.8);");
       assertNotNull(instruction);
       assertEquals("configure", instruction.getPhase());
 
@@ -58,12 +55,10 @@ public class InstructionTest
    }
 
    @Test
-   public void testToSring()
-   {
-      Instruction instruction = Instruction
-         .parse(
-            "instructions.configure",
-            "addRepository(type:0,location:http${#58}//download.eclipse.org/releases/juno/,enabled:true); addRepository(type:0,location:http${#58}//download.eclipse.org/eclipse/updates/3.8);");
+   public void testToSring() {
+      Instruction instruction = Instruction.parse(
+         "instructions.configure",
+         "addRepository(type:0,location:http${#58}//download.eclipse.org/releases/juno/,enabled:true); addRepository(type:0,location:http${#58}//download.eclipse.org/eclipse/updates/3.8);");
 
       assertEquals(
          "instructions.configure=addRepository(type:0,location:http${#58}//download.eclipse.org/releases/juno/,enabled:true);addRepository(type:0,location:http${#58}//download.eclipse.org/eclipse/updates/3.8)",

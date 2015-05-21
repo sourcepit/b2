@@ -19,30 +19,24 @@ package org.sourcepit.b2.model.builder.util;
 import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.b2.model.module.internal.util.EWalkerImpl;
 
-public abstract class ModuleWalker extends EWalkerImpl
-{
-   public ModuleWalker()
-   {
+public abstract class ModuleWalker extends EWalkerImpl {
+   public ModuleWalker() {
       super();
    }
 
-   public ModuleWalker(boolean isReverse, boolean isRecursive)
-   {
+   public ModuleWalker(boolean isReverse, boolean isRecursive) {
       super(isReverse, isRecursive);
    }
 
    @Override
-   protected final boolean visit(EObject eObject)
-   {
-      if (acceptVisit(eObject))
-      {
+   protected final boolean visit(EObject eObject) {
+      if (acceptVisit(eObject)) {
          return doVisit(eObject);
       }
       return false;
    }
 
-   protected boolean acceptVisit(EObject eObject)
-   {
+   protected boolean acceptVisit(EObject eObject) {
       return true;
    }
 

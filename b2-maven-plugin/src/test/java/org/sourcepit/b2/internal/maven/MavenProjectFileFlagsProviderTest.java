@@ -20,8 +20,8 @@ import static org.apache.commons.io.IOUtils.copy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_DERIVED;
-import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.b2.files.ModuleDirectory.FLAG_FORBIDDEN;
+import static org.sourcepit.b2.files.ModuleDirectory.FLAG_HIDDEN;
 import static org.sourcepit.common.utils.io.IO.fileOut;
 import static org.sourcepit.common.utils.io.IO.write;
 import static org.sourcepit.common.utils.path.PathUtils.getRelativePath;
@@ -49,21 +49,18 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 
-public class MavenProjectFileFlagsProviderTest
-{
+public class MavenProjectFileFlagsProviderTest {
    private final Environment env = Environment.get("env-test.properties");
 
    @Rule
    public Workspace ws = newWorkspace();
 
-   protected Workspace newWorkspace()
-   {
+   protected Workspace newWorkspace() {
       return new Workspace(new File(env.getBuildDir(), "ws"), false);
    }
 
    @Test
-   public void testCollectMavenModels()
-   {
+   public void testCollectMavenModels() {
       init(ws.getRoot());
 
       final File basePomFile = new File(ws.getRoot(), "pom.xml");
@@ -83,8 +80,7 @@ public class MavenProjectFileFlagsProviderTest
    }
 
    @Test
-   public void testGetFileFlags()
-   {
+   public void testGetFileFlags() {
       final File moduleDir = ws.getRoot();
       init(moduleDir);
 
@@ -96,11 +92,9 @@ public class MavenProjectFileFlagsProviderTest
 
       assertTrue(fileFlags.containsKey(new File(moduleDir, "pom.xml")));
 
-      for (Entry<File, Integer> flags : fileFlags.entrySet())
-      {
+      for (Entry<File, Integer> flags : fileFlags.entrySet()) {
          String relativePath = flags.getKey().getAbsolutePath().replace(moduleDir.getAbsolutePath(), "");
-         if (relativePath.endsWith("pom.xml"))
-         {
+         if (relativePath.endsWith("pom.xml")) {
             assertEquals(FLAG_DERIVED | FLAG_HIDDEN, flags.getValue().intValue());
          }
          else if (relativePath.contains("target")) // not quite exact
@@ -110,8 +104,7 @@ public class MavenProjectFileFlagsProviderTest
       }
    }
 
-   private static void init(File baseDir)
-   {
+   private static void init(File baseDir) {
       final Multimap<File, File> parentToModules = LinkedHashMultimap.create();
 
       final File basePomFile = new File(baseDir, "pom.xml");
@@ -123,8 +116,7 @@ public class MavenProjectFileFlagsProviderTest
 
       final Set<File> all = new HashSet<File>();
 
-      for (Entry<File, Collection<File>> entry : parentToModules.asMap().entrySet())
-      {
+      for (Entry<File, Collection<File>> entry : parentToModules.asMap().entrySet()) {
          final File parent = entry.getKey();
          all.add(parent);
 
@@ -134,8 +126,7 @@ public class MavenProjectFileFlagsProviderTest
          final StringBuilder sb = new StringBuilder();
          sb.append("<project>\n");
          sb.append("<modules>\n");
-         for (File module : modules)
-         {
+         for (File module : modules) {
             sb.append("<module>");
             sb.append(getRelativePath(module, parent, "/"));
             sb.append("</module>\n");
@@ -147,23 +138,18 @@ public class MavenProjectFileFlagsProviderTest
          writePom(parent, content);
       }
 
-      for (File file : all)
-      {
-         if (!file.exists())
-         {
+      for (File file : all) {
+         if (!file.exists()) {
             writePom(file, "<project />");
          }
       }
    }
 
-   private static void writePom(File file, String content)
-   {
+   private static void writePom(File file, String content) {
       file = file.getName().endsWith(".xml") ? file : new File(file, "pom.xml");
-      write(new ToStream<String>()
-      {
+      write(new ToStream<String>() {
          @Override
-         public void write(OutputStream output, String content) throws Exception
-         {
+         public void write(OutputStream output, String content) throws Exception {
             copy(new ByteArrayInputStream(content.getBytes("UTF-8")), output);
          }
       }, fileOut(file), content);

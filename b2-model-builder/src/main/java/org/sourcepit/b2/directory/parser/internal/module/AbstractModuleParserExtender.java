@@ -23,26 +23,20 @@ import org.eclipse.emf.ecore.EObject;
 import org.sourcepit.common.modeling.Annotatable;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public abstract class AbstractModuleParserExtender implements IModuleParserExtender
-{
+public abstract class AbstractModuleParserExtender implements IModuleParserExtender {
    private Collection<Class<? extends Annotatable>> inputTypes;
 
-   protected Collection<Class<? extends Annotatable>> getInputTypes()
-   {
-      if (inputTypes == null)
-      {
+   protected Collection<Class<? extends Annotatable>> getInputTypes() {
+      if (inputTypes == null) {
          inputTypes = new ArrayList<Class<? extends Annotatable>>();
          addInputTypes(inputTypes);
       }
       return inputTypes;
    }
 
-   protected boolean isInputType(Class<? extends EObject> clazz)
-   {
-      for (Class<? extends EObject> inputType : getInputTypes())
-      {
-         if (inputType.isAssignableFrom(clazz))
-         {
+   protected boolean isInputType(Class<? extends EObject> clazz) {
+      for (Class<? extends EObject> inputType : getInputTypes()) {
+         if (inputType.isAssignableFrom(clazz)) {
             return true;
          }
       }
@@ -51,10 +45,8 @@ public abstract class AbstractModuleParserExtender implements IModuleParserExten
 
    protected abstract void addInputTypes(Collection<Class<? extends Annotatable>> inputTypes);
 
-   public void extend(Annotatable modelElement, PropertiesSource properties)
-   {
-      if (isInputType(modelElement.getClass()))
-      {
+   public void extend(Annotatable modelElement, PropertiesSource properties) {
+      if (isInputType(modelElement.getClass())) {
          doExtend(modelElement, properties);
       }
    }

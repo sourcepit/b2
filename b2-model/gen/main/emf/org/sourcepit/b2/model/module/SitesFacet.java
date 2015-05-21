@@ -34,8 +34,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SitesFacet extends ProjectFacet<SiteProject>
-{
+public interface SitesFacet extends ProjectFacet<SiteProject> {
    /**
     * Returns the value of the '<em><b>Projects</b></em>' containment reference list.
     * The list contents are of type {@link org.sourcepit.b2.model.module.SiteProject}.

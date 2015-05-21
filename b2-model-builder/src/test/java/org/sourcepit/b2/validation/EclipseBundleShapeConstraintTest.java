@@ -41,8 +41,7 @@ import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 
-public class EclipseBundleShapeConstraintTest
-{
+public class EclipseBundleShapeConstraintTest {
    private Environment env = Environment.get("env-test.properties");
 
    @Rule
@@ -54,16 +53,14 @@ public class EclipseBundleShapeConstraintTest
 
 
    @Before
-   public void setUp()
-   {
+   public void setUp() {
       final UnpackStrategy unpackStrategy = new DefaultUnpackStrategy();
       logger = new RecordingLogger();
       constraint = new EclipseBundleShapeConstraint(unpackStrategy, logger);
    }
 
    @Test
-   public void testOk() throws Exception
-   {
+   public void testOk() throws Exception {
       final File bundleDir = ws.newDir("bundle");
 
       final BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
@@ -79,8 +76,7 @@ public class EclipseBundleShapeConstraintTest
    }
 
    @Test
-   public void testQuickFix() throws Exception
-   {
+   public void testQuickFix() throws Exception {
       final File bundleDir = ws.newDir("bundle");
 
       BundleManifest manifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
@@ -96,23 +92,22 @@ public class EclipseBundleShapeConstraintTest
       logger.getMessages().clear();
       constraint.validate(pluginProject, new LinkedPropertiesMap(), false);
       assertThat(logger.getMessages().size(), is(1));
-      assertEquals("WARN bundle: Missing manifest entry: 'Eclipse-BundleShape: dir'. (quick fix available)", logger
-         .getMessages().get(0));
+      assertEquals("WARN bundle: Missing manifest entry: 'Eclipse-BundleShape: dir'. (quick fix available)",
+         logger.getMessages().get(0));
       manifest = pluginProject.getBundleManifest();
       assertNull(manifest.getHeaderValue("Eclipse-BundleShape"));
 
       logger.getMessages().clear();
       constraint.validate(pluginProject, new LinkedPropertiesMap(), true);
       assertThat(logger.getMessages().size(), is(1));
-      assertEquals("WARN bundle: Missing manifest entry: 'Eclipse-BundleShape: dir'. (applied quick fix)", logger
-         .getMessages().get(0));
+      assertEquals("WARN bundle: Missing manifest entry: 'Eclipse-BundleShape: dir'. (applied quick fix)",
+         logger.getMessages().get(0));
 
       manifest = pluginProject.getBundleManifest();
       assertEquals("dir", manifest.getHeaderValue("Eclipse-BundleShape"));
    }
 
-   private PluginProject newPluginProject(final File bundleDir, final BundleManifest manifest)
-   {
+   private PluginProject newPluginProject(final File bundleDir, final BundleManifest manifest) {
       final PluginProject pluginProject = ModuleModelFactory.eINSTANCE.createPluginProject();
       pluginProject.setId(manifest.getBundleSymbolicName().getSymbolicName());
       pluginProject.setBundleVersion(manifest.getBundleVersion().toString());
@@ -121,8 +116,7 @@ public class EclipseBundleShapeConstraintTest
       return pluginProject;
    }
 
-   private void save(BundleManifest manifest) throws IOException
-   {
+   private void save(BundleManifest manifest) throws IOException {
       final URI manifestUri = URI.createFileURI(ws.newFile("bundle/META-INF/MANIFEST.MF").getAbsolutePath());
       final ManifestResource manifestResource = new BundleManifestResourceImpl(manifestUri);
       manifestResource.getContents().add(manifest);

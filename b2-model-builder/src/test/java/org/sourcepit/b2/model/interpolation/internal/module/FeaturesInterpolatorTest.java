@@ -45,11 +45,9 @@ import org.sourcepit.common.modeling.Annotation;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
-{
+public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest {
    @Override
-   protected void assertUC_1_SinglePlugin_NoSource(BasicModule module)
-   {
+   protected void assertUC_1_SinglePlugin_NoSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -68,8 +66,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_1_SinglePlugin_WithSource(BasicModule module)
-   {
+   protected void assertUC_1_SinglePlugin_WithSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -113,8 +110,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_2_PluginsAndTests_NoSource(BasicModule module)
-   {
+   protected void assertUC_2_PluginsAndTests_NoSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -141,8 +137,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_2_PluginsAndTests_WithSource(BasicModule module)
-   {
+   protected void assertUC_2_PluginsAndTests_WithSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -201,8 +196,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_3_EraseFacetClassifier_NoSource(BasicModule module)
-   {
+   protected void assertUC_3_EraseFacetClassifier_NoSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -228,8 +222,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_3_EraseFacetClassifier_WithSource(BasicModule module)
-   {
+   protected void assertUC_3_EraseFacetClassifier_WithSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -309,8 +302,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_4_CustomAssemblies_PublicSdkTest_NoSource(BasicModule module)
-   {
+   protected void assertUC_4_CustomAssemblies_PublicSdkTest_NoSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -337,8 +329,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_4_CustomAssemblies_PublicSdkTest_WithSource(BasicModule module)
-   {
+   protected void assertUC_4_CustomAssemblies_PublicSdkTest_WithSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -418,8 +409,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_NoSource(BasicModule module)
-   {
+   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_NoSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -473,8 +463,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_WithSource(BasicModule module)
-   {
+   protected void assertUC_5_AdditionalFacet_Doc_EraseAssemblyClassifier_WithSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -580,8 +569,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_6_InterFacetRequirements_NoSource(BasicModule module)
-   {
+   protected void assertUC_6_InterFacetRequirements_NoSource(BasicModule module) {
       FeatureProject docFeature = getFeatureProject(module, "foo.doc.feature");
       assertNotNull(docFeature);
       assertEquals(0, docFeature.getRequiredFeatures().size());
@@ -603,8 +591,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_6_InterFacetRequirements_WithSource(BasicModule module)
-   {
+   protected void assertUC_6_InterFacetRequirements_WithSource(BasicModule module) {
       FeatureProject docFeature = getFeatureProject(module, "foo.doc.feature");
       assertNotNull(docFeature);
       assertEquals(0, docFeature.getRequiredFeatures().size());
@@ -641,8 +628,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_6_InterModuleFacetRequirements_NoSource(BasicModule module)
-   {
+   protected void assertUC_6_InterModuleFacetRequirements_NoSource(BasicModule module) {
       FeatureProject pluginsFeature = getFeatureProject(module, "bar.plugins.feature");
       assertNotNull(pluginsFeature);
       assertEquals(1, pluginsFeature.getRequiredFeatures().size());
@@ -662,8 +648,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_NoSource(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_NoSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -745,8 +730,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -864,8 +848,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeUnwrap_WithSource_Public_Sdk(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -955,8 +938,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_NoSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -1038,8 +1020,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource(BasicModule module)
-   {
+   protected void assertUC_7_AggregateContentOfOtherModule_ModeAggregate_WithSource(BasicModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -1147,8 +1128,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_8_AggregateContentOfCompositeModule_NoSource(CompositeModule module)
-   {
+   protected void assertUC_8_AggregateContentOfCompositeModule_NoSource(CompositeModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -1212,8 +1192,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module)
-   {
+   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_NoSource(CompositeModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -1277,8 +1256,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_8_AggregateContentOfCompositeModule_WithSource(CompositeModule module)
-   {
+   protected void assertUC_8_AggregateContentOfCompositeModule_WithSource(CompositeModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -1378,8 +1356,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Override
-   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource(CompositeModule module)
-   {
+   protected void assertUC_8_AggregateContentOfCompositeModule_ModeAggregate_WithSource(CompositeModule module) {
       EList<FeaturesFacet> featuresFacets = module.getFacets(FeaturesFacet.class);
       assertEquals(1, featuresFacets.size());
 
@@ -1443,8 +1420,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Test
-   public void testSourceBuild() throws Exception
-   {
+   public void testSourceBuild() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -1482,8 +1458,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
 
    // see structured-module IT
    @Test
-   public void testRemovalOfEmptyFeature()
-   {
+   public void testRemovalOfEmptyFeature() {
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
 
@@ -1518,8 +1493,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Test
-   public void testReplaceAssemblyFeatureWithSingleFacetFeature() throws Exception
-   {
+   public void testReplaceAssemblyFeatureWithSingleFacetFeature() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -1548,8 +1522,7 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
    }
 
    @Test
-   public void testIncludedFeatures() throws Exception
-   {
+   public void testIncludedFeatures() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));
@@ -1602,16 +1575,14 @@ public class FeaturesInterpolatorTest extends AbstractInterpolatorUseCasesTest
       assertTrue(featureInclude.isOptional());
    }
 
-   private static void assertIsBrandingPlugin(FeatureProject feature, PluginInclude pluginInclude)
-   {
+   private static void assertIsBrandingPlugin(FeatureProject feature, PluginInclude pluginInclude) {
       assertEquals(feature.getId().replace(".feature", ".branding"), pluginInclude.getId());
       assertEquals(feature.getVersion(), pluginInclude.getVersion());
       assertFalse(pluginInclude.isUnpack());
    }
 
    @Test
-   public void testIncludedPlugins() throws Exception
-   {
+   public void testIncludedPlugins() throws Exception {
       // setup
       BasicModule module = createBasicModule("foo");
       module.setDirectory(new File(""));

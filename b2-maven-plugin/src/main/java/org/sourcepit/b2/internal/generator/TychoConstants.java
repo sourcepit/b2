@@ -15,8 +15,7 @@
  */
 
 package org.sourcepit.b2.internal.generator;
-public interface TychoConstants
-{
+public interface TychoConstants {
    String TYCHO_GROUP_ID = "org.eclipse.tycho";
    String TYCHO_VERSION_PROPERTY = "${tycho.version}";
 

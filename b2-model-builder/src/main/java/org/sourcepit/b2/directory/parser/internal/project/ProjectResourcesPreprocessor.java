@@ -37,8 +37,7 @@ import org.sourcepit.common.utils.resources.FileStorage;
 import org.sourcepit.common.utils.resources.FileTraverser;
 
 @Named
-public class ProjectResourcesPreprocessor implements ProjectDetectionRule<Project>, ProjectPreprocessingParticipant
-{
+public class ProjectResourcesPreprocessor implements ProjectDetectionRule<Project>, ProjectPreprocessingParticipant {
    @Inject
    private ProjectDetector projectDetector;
 
@@ -46,14 +45,11 @@ public class ProjectResourcesPreprocessor implements ProjectDetectionRule<Projec
    private ContentTypes contentTypes;
 
    @Override
-   public Project detect(File directory, PropertiesSource properties)
-   {
+   public Project detect(File directory, PropertiesSource properties) {
       final File resourcesDir = getResourcesDir(directory, properties);
-      if (resourcesDir.exists() && resourcesDir.isDirectory())
-      {
+      if (resourcesDir.exists() && resourcesDir.isDirectory()) {
          final Project project = projectDetector.detect(resourcesDir, properties);
-         if (project != null && project.getDirectory() != null)
-         {
+         if (project != null && project.getDirectory() != null) {
             project.setDirectory(directory);
          }
          return project;
@@ -62,25 +58,20 @@ public class ProjectResourcesPreprocessor implements ProjectDetectionRule<Projec
    }
 
    @Override
-   public void preprocess(Project project, PropertiesSource properties)
-   {
+   public void preprocess(Project project, PropertiesSource properties) {
       final File projectDir = project.getDirectory();
       final File resourcesDir = getResourcesDir(projectDir, properties);
-      if (resourcesDir.exists() && resourcesDir.isDirectory())
-      {
-         try
-         {
+      if (resourcesDir.exists() && resourcesDir.isDirectory()) {
+         try {
             processResources(resourcesDir, projectDir, properties);
          }
-         catch (IOException e)
-         {
+         catch (IOException e) {
             throw pipe(e);
          }
       }
    }
 
-   private void processResources(File resourcesDir, File projectDir, PropertiesSource properties) throws IOException
-   {
+   private void processResources(File resourcesDir, File projectDir, PropertiesSource properties) throws IOException {
       AbstractResourceFilter filter = createResourceFilter(properties);
       filter.copyAndFilter(new FileTraverser(resourcesDir), new FileStorage(projectDir));
    }
@@ -88,15 +79,13 @@ public class ProjectResourcesPreprocessor implements ProjectDetectionRule<Projec
    @Inject
    private Map<String, PropertyConverter> propertyConverters;
 
-   private AbstractResourceFilter createResourceFilter(PropertiesSource properties)
-   {
+   private AbstractResourceFilter createResourceFilter(PropertiesSource properties) {
       final String targetEncoding = properties.get("project.build.sourceEncoding", Charset.defaultCharset().name());
       final PlexusPropertyFilterFactory filterFactory = new PlexusPropertyFilterFactory("\\");
       return new DefaultResourceFilter(contentTypes, targetEncoding, properties, propertyConverters, filterFactory);
    }
 
-   public static File getResourcesDir(File projectDir, PropertiesSource properties)
-   {
+   public static File getResourcesDir(File projectDir, PropertiesSource properties) {
       return new File(projectDir, properties.get("b2.projects.resourcesDirectory", "res"));
    }
 

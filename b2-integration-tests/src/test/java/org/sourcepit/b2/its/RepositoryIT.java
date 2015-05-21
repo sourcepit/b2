@@ -25,21 +25,17 @@ import static org.sourcepit.common.utils.file.FileUtils.deleteFileOrDirectory;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Model;
 import org.junit.Test;
 
-public class RepositoryIT extends AbstractB2IT
-{
+public class RepositoryIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void testLocal() throws Exception
-   {
+   public void testLocal() throws Exception {
       final File modulesDir = getResource(getClass().getSimpleName());
 
       // build module a
@@ -56,8 +52,7 @@ public class RepositoryIT extends AbstractB2IT
    }
 
    @Test
-   public void testRemote() throws Exception
-   {
+   public void testRemote() throws Exception {
       final File modulesDir = getResource(getClass().getSimpleName());
 
       // build module a
@@ -77,8 +72,7 @@ public class RepositoryIT extends AbstractB2IT
       assertThat(err, is(0));
    }
 
-   private void deleteFromLocalRepo(final Model pom) throws IOException
-   {
+   private void deleteFromLocalRepo(final Model pom) throws IOException {
       final File localRepo = environment.getPropertyAsFile("it.localRepository");
       assertTrue(localRepo.exists());
       final File localBuild = new File(localRepo, pom.getGroupId().replace('.', '/') + "/" + pom.getArtifactId() + "/"

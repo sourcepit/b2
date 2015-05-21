@@ -50,8 +50,7 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 import com.google.inject.Binder;
 
-public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspaceTest
-{
+public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspaceTest {
    @Inject
    protected IB2ModelBuilder modelBuilder;
 
@@ -65,15 +64,13 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
    private LegacySupport buildContext;
 
    @Override
-   protected void setUp() throws Exception
-   {
+   protected void setUp() throws Exception {
       super.setUp();
 
       MavenSession session = mock(MavenSession.class);
       when(session.getProjects()).thenReturn(new ArrayList<MavenProject>());
 
-      for (File projectDir : getModuleDirs())
-      {
+      for (File projectDir : getModuleDirs()) {
          PropertiesMap properties = ModelBuilderTestHarness.newProperties(projectDir);
 
          MavenProject project = new MavenProject();
@@ -86,8 +83,7 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
       }
 
       List<MavenProject> projects = session.getProjects();
-      if (!projects.isEmpty())
-      {
+      if (!projects.isEmpty()) {
          when(session.getCurrentProject()).thenReturn(projects.get(0));
       }
 
@@ -95,31 +91,26 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
    }
 
    @Override
-   public void configure(Binder binder)
-   {
+   public void configure(Binder binder) {
       super.configure(binder);
    }
 
-   protected IInterpolationLayout getLayout(BasicModule module)
-   {
+   protected IInterpolationLayout getLayout(BasicModule module) {
       return layoutMap.get(module.getLayoutId());
    }
 
    @SuppressWarnings("unchecked")
-   protected <T extends AbstractModule> T buildModel(File moduleDir) throws Exception
-   {
+   protected <T extends AbstractModule> T buildModel(File moduleDir) throws Exception {
       B2ModelBuildingRequest request = newModelBuildingRequest(moduleDir);
       return (T) buildModel(request);
    }
 
    @SuppressWarnings("unchecked")
-   protected <T extends AbstractModule> T buildModel(IB2ModelBuildingRequest request)
-   {
+   protected <T extends AbstractModule> T buildModel(IB2ModelBuildingRequest request) {
       return (T) modelBuilder.build(request);
    }
 
-   protected static B2ModelBuildingRequest newModelBuildingRequest(File moduleDir)
-   {
+   protected static B2ModelBuildingRequest newModelBuildingRequest(File moduleDir) {
       B2ModelBuildingRequest request = new B2ModelBuildingRequest();
       request.setModuleDirectory(new ModuleDirectory(moduleDir, null));
       request.setInterpolate(false);
@@ -127,28 +118,22 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
       return request;
    }
 
-   protected void assertIsGeneratorInput(EObject eObject)
-   {
+   protected void assertIsGeneratorInput(EObject eObject) {
       assertTrue(pomGenerator.isGeneratorInput(eObject));
    }
 
-   protected void generatePom(File moduleDir, EObject eObject, PropertiesMap properties)
-   {
+   protected void generatePom(File moduleDir, EObject eObject, PropertiesMap properties) {
       pomGenerator.generate(eObject, ConverterUtils.newDefaultTestConverter(properties), new DefaultTemplateCopier(),
          new ModuleDirectory(moduleDir, null));
    }
 
-   protected void generateAllPoms(final AbstractModule module, PropertiesMap properties)
-   {
+   protected void generateAllPoms(final AbstractModule module, PropertiesMap properties) {
       final PropertiesSource source = ConverterUtils.newDefaultTestConverter(properties);
       final DefaultTemplateCopier templateCopier = new DefaultTemplateCopier();
-      new EWalkerImpl(pomGenerator.isReverse(), true)
-      {
+      new EWalkerImpl(pomGenerator.isReverse(), true) {
          @Override
-         protected boolean visit(EObject eObject)
-         {
-            if (pomGenerator.isGeneratorInput(eObject))
-            {
+         protected boolean visit(EObject eObject) {
+            if (pomGenerator.isGeneratorInput(eObject)) {
                pomGenerator.generate(eObject, source, templateCopier, new ModuleDirectory(module.getDirectory(), null));
             }
             return true;
@@ -156,35 +141,27 @@ public abstract class AbstractPomGeneratorTest extends AbstractB2SessionWorkspac
       }.walk(module);
    }
 
-   protected static void assertNoPomFiles(File file)
-   {
-      if (file.isFile())
-      {
+   protected static void assertNoPomFiles(File file) {
+      if (file.isFile()) {
          assertFalse("pom.xml".equals(file.getName()));
       }
-      else
-      {
+      else {
          File[] members = file.listFiles();
-         if (members != null)
-         {
-            for (File member : members)
-            {
+         if (members != null) {
+            for (File member : members) {
                assertNoPomFiles(member);
             }
          }
       }
    }
 
-   protected static Model readMavenModel(File pomFile)
-   {
+   protected static Model readMavenModel(File pomFile) {
       final Map<String, String> options = new HashMap<String, String>();
       options.put(ModelReader.IS_STRICT, Boolean.FALSE.toString());
-      try
-      {
+      try {
          return new DefaultModelReader().read(pomFile, options);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw new IllegalStateException(e);
       }
    }

@@ -34,7 +34,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.FileUtils;
 import org.eclipse.emf.common.util.EList;
 import org.sourcepit.b2.directory.parser.internal.facets.SimpleLayoutFacetsParserRuleTest;
 import org.sourcepit.b2.directory.parser.internal.facets.StructuredLayoutFacetsParserRuleTest;
@@ -51,56 +50,46 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.nls.NlsUtils;
 
-public class ModuleParserTest extends AbstractModuleParserTest
-{
+public class ModuleParserTest extends AbstractModuleParserTest {
    @Inject
    private BasicConverter converter;
 
-   public void testBasic() throws Exception
-   {
+   public void testBasic() throws Exception {
       IModuleParser parser = lookup();
       assertNotNull(parser);
    }
 
-   public void testNull() throws Exception
-   {
+   public void testNull() throws Exception {
       IModuleParser parser = lookup();
-      try
-      {
+      try {
          parser.parse(null);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       ModuleParsingRequest request = new ModuleParsingRequest();
       request.setModuleProperties(B2ModelBuildingRequest.newDefaultProperties());
 
-      try
-      {
+      try {
          parser.parse(request);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       request.setModuleDirectory(new ModuleDirectory(new File(""), null));
       request.setModuleProperties(null);
 
-      try
-      {
+      try {
          parser.parse(request);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
    }
 
-   public void testSimpleComponent_WithoutNlsProperties() throws Exception
-   {
+   public void testSimpleComponent_WithoutNlsProperties() throws Exception {
       File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.canRead());
 
@@ -125,8 +114,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       assertEquals(NlsUtils.DEFAULT_LOCALE, locales.get(0));
    }
 
-   public void testSimpleComponent() throws Exception
-   {
+   public void testSimpleComponent() throws Exception {
       File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.canRead());
 
@@ -163,8 +151,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       assertEquals(2, tests.size());
    }
 
-   public void testComposedComposite() throws Exception
-   {
+   public void testComposedComposite() throws Exception {
       final File moduleDir = workspace.importResources("composed-component");
 
       final File simpleDir = new File(moduleDir, "simple-layout");
@@ -186,8 +173,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       request.setModuleDirectory(createModuleDirectory(structuredDir));
 
       currentModules.add(modelParser.parse(request));
-      for (AbstractModule module : currentModules)
-      {
+      for (AbstractModule module : currentModules) {
          request.getModulesCache().put(module.getDirectory(), module);
       }
 
@@ -204,14 +190,12 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       assertEquals(2, module.getModules().size());
 
-      SimpleLayoutFacetsParserRuleTest
-         .assertSimpleLayout((BasicModule) findModuleByDir(module.getModules(), simpleDir));
+      SimpleLayoutFacetsParserRuleTest.assertSimpleLayout((BasicModule) findModuleByDir(module.getModules(), simpleDir));
       StructuredLayoutFacetsParserRuleTest.assertStructuredLayout((BasicModule) findModuleByDir(module.getModules(),
          structuredDir));
    }
 
-   public void testComposedCompositeWithExclude() throws Exception
-   {
+   public void testComposedCompositeWithExclude() throws Exception {
       final File moduleDir = workspace.importResources("composed-component");
 
       final File simpleDir = new File(moduleDir, "simple-layout");
@@ -229,8 +213,7 @@ public class ModuleParserTest extends AbstractModuleParserTest
       request.setModuleDirectory(new ModuleDirectory(structuredDir, null));
       currentModules.add(modelParser.parse(request));
 
-      for (AbstractModule module : currentModules)
-      {
+      for (AbstractModule module : currentModules) {
          request.getModulesCache().put(module.getDirectory(), module);
       }
 
@@ -248,26 +231,21 @@ public class ModuleParserTest extends AbstractModuleParserTest
 
       assertEquals(1, module.getModules().size());
 
-      SimpleLayoutFacetsParserRuleTest
-         .assertSimpleLayout((BasicModule) findModuleByDir(module.getModules(), simpleDir));
+      SimpleLayoutFacetsParserRuleTest.assertSimpleLayout((BasicModule) findModuleByDir(module.getModules(), simpleDir));
 
       assertNull(findModuleByDir(module.getModules(), structuredDir));
    }
 
-   private AbstractModule findModuleByDir(Collection<AbstractModule> modules, File moduleDir)
-   {
-      for (AbstractModule module : modules)
-      {
-         if (moduleDir.equals(module.getDirectory()))
-         {
+   private AbstractModule findModuleByDir(Collection<AbstractModule> modules, File moduleDir) {
+      for (AbstractModule module : modules) {
+         if (moduleDir.equals(module.getDirectory())) {
             return module;
          }
       }
       return null;
    }
 
-   private ModuleParser lookup() throws Exception
-   {
+   private ModuleParser lookup() throws Exception {
       return lookup(ModuleParser.class);
    }
 }

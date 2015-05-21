@@ -25,10 +25,8 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
 @Named
-public class EmptyResolutionContextResolver implements ResolutionContextResolver
-{
-   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest)
-   {
+public class EmptyResolutionContextResolver implements ResolutionContextResolver {
+   public SetMultimap<AbstractModule, FeatureProject> resolveResolutionContext(AbstractModule module, boolean scopeTest) {
       return LinkedHashMultimap.create();
    }
 

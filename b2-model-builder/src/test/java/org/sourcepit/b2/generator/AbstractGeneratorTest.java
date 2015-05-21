@@ -28,47 +28,37 @@ import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.internal.generator.ITemplates;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public class AbstractGeneratorTest extends TestCase
-{
-   public void testCompareTo() throws Exception
-   {
-      AbstractGenerator gen1 = new AbstractGenerator()
-      {
+public class AbstractGeneratorTest extends TestCase {
+   public void testCompareTo() throws Exception {
+      AbstractGenerator gen1 = new AbstractGenerator() {
          @Override
-         public GeneratorType getGeneratorType()
-         {
+         public GeneratorType getGeneratorType() {
             return GeneratorType.PROJECT_GENERATOR;
          }
 
          @Override
-         protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-         {
+         protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
          }
 
          @Override
          public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates,
-            ModuleDirectory moduleDirectory)
-         {
+            ModuleDirectory moduleDirectory) {
          }
       };
 
-      AbstractGenerator gen2 = new AbstractGenerator()
-      {
+      AbstractGenerator gen2 = new AbstractGenerator() {
          @Override
-         public GeneratorType getGeneratorType()
-         {
+         public GeneratorType getGeneratorType() {
             return GeneratorType.PROJECT_RESOURCE_GENERATOR;
          }
 
          @Override
-         protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes)
-         {
+         protected void addInputTypes(Collection<Class<? extends EObject>> inputTypes) {
          }
 
          @Override
          public void generate(EObject inputElement, PropertiesSource properties, ITemplates templates,
-            ModuleDirectory moduleDirectory)
-         {
+            ModuleDirectory moduleDirectory) {
          }
       };
 

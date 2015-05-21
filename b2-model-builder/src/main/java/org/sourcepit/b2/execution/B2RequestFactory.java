@@ -19,7 +19,6 @@ package org.sourcepit.b2.execution;
 import java.io.File;
 import java.util.List;
 
-public interface B2RequestFactory
-{
+public interface B2RequestFactory {
    B2Request newRequest(List<File> projectDirs, int currentIdx);
 }

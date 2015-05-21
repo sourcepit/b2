@@ -24,21 +24,17 @@ import javax.inject.Singleton;
 
 @Named
 @Singleton
-public class LayoutManager
-{
+public class LayoutManager {
    @Inject
    private Map<String, IInterpolationLayout> layoutMap;
 
-   public Map<String, IInterpolationLayout> getLayoutMap()
-   {
+   public Map<String, IInterpolationLayout> getLayoutMap() {
       return layoutMap;
    }
 
-   public IInterpolationLayout getLayout(String layoutId)
-   {
+   public IInterpolationLayout getLayout(String layoutId) {
       final IInterpolationLayout layout = layoutMap.get(layoutId);
-      if (layout == null)
-      {
+      if (layout == null) {
          throw new IllegalStateException("Layout " + layoutId + " is not supported.");
       }
       return layout;

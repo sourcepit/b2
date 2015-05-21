@@ -20,17 +20,14 @@ package org.sourcepit.b2.model.module;
 /**
  * @author Bernd
  */
-public class SitesFacetTest extends AbstractProjectFacetTest<SiteProject, SitesFacet>
-{
+public class SitesFacetTest extends AbstractProjectFacetTest<SiteProject, SitesFacet> {
    @Override
-   protected SitesFacet createFacet()
-   {
+   protected SitesFacet createFacet() {
       return ModuleModelFactory.eINSTANCE.createSitesFacet();
    }
 
    @Override
-   protected SiteProject createProject()
-   {
+   protected SiteProject createProject() {
       return ModuleModelFactory.eINSTANCE.createSiteProject();
    }
 }

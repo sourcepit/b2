@@ -29,16 +29,14 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * 
  * @generated
  */
-public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
-{
+public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule {
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected BasicModuleImpl()
-   {
+   protected BasicModuleImpl() {
       super();
    }
 
@@ -49,8 +47,7 @@ public class BasicModuleImpl extends AbstractModuleImpl implements BasicModule
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.BASIC_MODULE;
    }
 

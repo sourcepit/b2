@@ -21,8 +21,7 @@ import java.util.List;
 import org.sourcepit.b2.model.module.PluginProject;
 
 
-public interface UnpackStrategy
-{
+public interface UnpackStrategy {
    boolean isUnpack(PluginProject pluginProject);
 
    List<String> getBuildJars(PluginProject pluginProject);

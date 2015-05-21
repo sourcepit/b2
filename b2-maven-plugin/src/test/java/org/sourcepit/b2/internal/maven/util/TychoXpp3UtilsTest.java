@@ -30,12 +30,10 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.junit.Test;
 import org.sourcepit.common.maven.util.Xpp3Utils;
 
-public class TychoXpp3UtilsTest
-{
+public class TychoXpp3UtilsTest {
 
    @Test
-   public void testAddExtraRequirements()
-   {
+   public void testAddExtraRequirements() {
       Plugin plugin = new Plugin();
 
       // test empty requirements
@@ -110,8 +108,7 @@ public class TychoXpp3UtilsTest
       assertEquals("eclipse-feature", requirement.getType());
    }
 
-   private static Xpp3Dom getRequirementsNode(Plugin plugin)
-   {
+   private static Xpp3Dom getRequirementsNode(Plugin plugin) {
       Xpp3Dom configuration = (Xpp3Dom) plugin.getConfiguration();
       assertNotNull(configuration);
       assertEquals(1, configuration.getChildCount());
@@ -123,8 +120,7 @@ public class TychoXpp3UtilsTest
       return requirementsNode;
    }
 
-   private static Dependency createRequirement(String id, String version, String type)
-   {
+   private static Dependency createRequirement(String id, String version, String type) {
       final Dependency dependency = new Dependency();
       dependency.setArtifactId(id);
       dependency.setVersion(version);
@@ -133,8 +129,7 @@ public class TychoXpp3UtilsTest
    }
 
    @Test
-   public void testToRequirement()
-   {
+   public void testToRequirement() {
       Xpp3Dom requirmentNode = new Xpp3Dom("requirement");
       Dependency requirement = TychoXpp3Utils.toRequirement(requirmentNode);
       assertNotNull(requirement);

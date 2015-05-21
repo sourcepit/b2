@@ -30,8 +30,7 @@ import org.sourcepit.b2.model.module.ProjectFacet;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("structured")
-public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>>
-{
+public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<ProjectFacet<? extends Project>> {
    private static final String LAYOUT = StructuredLayoutFacetsParserRule.class.getAnnotation(Named.class).value();
 
    @Inject
@@ -42,30 +41,22 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
    private ProjectDetector projectDetector;
 
    @Override
-   public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, final PropertiesSource properties)
-   {
+   public FacetsParseResult<ProjectFacet<? extends Project>> parse(File directory, final PropertiesSource properties) {
       final List<ProjectFacet<? extends Project>> facets = new ArrayList<ProjectFacet<? extends Project>>();
-      if (directory == null || !directory.exists())
-      {
+      if (directory == null || !directory.exists()) {
          return null;
       }
 
-      if (projectDetector.detect(directory, properties) != null)
-      {
+      if (projectDetector.detect(directory, properties) != null) {
          return null;
       }
 
-      directory.listFiles(new FileFilter()
-      {
-         public boolean accept(File member)
-         {
-            if (member.exists() && member.isDirectory())
-            {
-               if (!new File(member, "module.xml").exists())
-               {
+      directory.listFiles(new FileFilter() {
+         public boolean accept(File member) {
+            if (member.exists() && member.isDirectory()) {
+               if (!new File(member, "module.xml").exists()) {
                   ProjectFacet<? extends Project> facet = parseFacetFolder(member, properties);
-                  if (facet != null)
-                  {
+                  if (facet != null) {
                      facets.add(facet);
                   }
                }
@@ -74,8 +65,7 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
          }
       });
 
-      if (facets.isEmpty())
-      {
+      if (facets.isEmpty()) {
          return null;
       }
 
@@ -83,38 +73,29 @@ public class StructuredLayoutFacetsParserRule extends AbstractFacetsParserRule<P
    }
 
    @SuppressWarnings("unchecked")
-   private ProjectFacet<? extends Project> parseFacetFolder(File member, PropertiesSource properties)
-   {
-      final FacetsParseResult<ProjectFacet<? extends Project>> result = simpleLayoutParserRule
-         .parse(member, properties);
-      if (result == null)
-      {
+   private ProjectFacet<? extends Project> parseFacetFolder(File member, PropertiesSource properties) {
+      final FacetsParseResult<ProjectFacet<? extends Project>> result = simpleLayoutParserRule.parse(member, properties);
+      if (result == null) {
          return null;
       }
 
       final List<ProjectFacet<? extends Project>> facets = result.getFacets();
 
-      if (facets == null || facets.isEmpty())
-      {
+      if (facets == null || facets.isEmpty()) {
          return null;
       }
 
       ProjectFacet<Project> f = null;
-      for (ProjectFacet<? extends Project> facet : facets)
-      {
-         if (f == null)
-         {
+      for (ProjectFacet<? extends Project> facet : facets) {
+         if (f == null) {
             f = (ProjectFacet<Project>) facet;
          }
-         else if (f.getClass() == facet.getClass())
-         {
-            for (Project project : new ArrayList<Project>(facet.getProjects()))
-            {
+         else if (f.getClass() == facet.getClass()) {
+            for (Project project : new ArrayList<Project>(facet.getProjects())) {
                f.getProjects().add(project);
             }
          }
-         else
-         {
+         else {
             throw new IllegalStateException("Directory " + member.getName() + " contains projects of different kinds.");
          }
       }

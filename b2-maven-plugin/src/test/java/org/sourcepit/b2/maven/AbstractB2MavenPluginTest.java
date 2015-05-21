@@ -23,37 +23,31 @@ import org.junit.Rule;
 import org.sourcepit.common.testing.Environment;
 import org.sourcepit.common.testing.Workspace;
 
-public class AbstractB2MavenPluginTest
-{
+public class AbstractB2MavenPluginTest {
    private final Environment env = Environment.get("env-test.properties");
 
    @Rule
    public Workspace ws = newWorkspace();
 
-   protected Workspace newWorkspace()
-   {
+   protected Workspace newWorkspace() {
       return new Workspace(new File(env.getBuildDir(), "ws"), false);
    }
 
-   public Workspace getWorkspace()
-   {
+   public Workspace getWorkspace() {
       return ws;
    }
 
-   public Environment getEnvironment()
-   {
+   public Environment getEnvironment() {
       return env;
    }
 
-   protected File getResource(String path) throws IOException
-   {
+   protected File getResource(String path) throws IOException {
       File resources = getResourcesDir();
       File resource = new File(resources, path).getCanonicalFile();
       return ws.importFileOrDir(resource);
    }
 
-   protected File getResourcesDir()
-   {
+   protected File getResourcesDir() {
       return getEnvironment().getResourcesDir();
    }
 }

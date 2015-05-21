@@ -27,16 +27,14 @@ import org.apache.maven.shared.release.env.ReleaseEnvironment;
 import org.sourcepit.b2.release.B2ReleaseHelper;
 import org.sourcepit.b2.release.B2ScmHelper;
 
-public class RewritePomsForReleasePhase extends org.apache.maven.shared.release.phase.RewritePomsForReleasePhase
-{
+public class RewritePomsForReleasePhase extends org.apache.maven.shared.release.phase.RewritePomsForReleasePhase {
    private B2ReleaseHelper releaseHelper;
 
    private B2ScmHelper scmHelper;
 
    @Override
    public ReleaseResult execute(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       final List<MavenProject> mavenModuleProjects = releaseHelper.adaptModuleProjects(reactorProjects);
       final ReleaseResult result = super.execute(releaseDescriptor, releaseEnvironment, mavenModuleProjects);
       markModuleXmlsForCommit(mavenModuleProjects);
@@ -46,8 +44,7 @@ public class RewritePomsForReleasePhase extends org.apache.maven.shared.release.
 
    @Override
    public ReleaseResult simulate(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       final List<MavenProject> mavenModuleProjects = releaseHelper.adaptModuleProjects(reactorProjects);
       final ReleaseResult result = super.execute(releaseDescriptor, releaseEnvironment, mavenModuleProjects);
       markModuleXmlsForCommit(mavenModuleProjects);
@@ -55,10 +52,8 @@ public class RewritePomsForReleasePhase extends org.apache.maven.shared.release.
       return result;
    }
 
-   private void markModuleXmlsForCommit(List<MavenProject> mavenModuleProjects)
-   {
-      for (MavenProject mavenProject : mavenModuleProjects)
-      {
+   private void markModuleXmlsForCommit(List<MavenProject> mavenModuleProjects) {
+      for (MavenProject mavenProject : mavenModuleProjects) {
          scmHelper.markForCommit(mavenProject, mavenProject.getFile());
       }
    }

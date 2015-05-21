@@ -45,12 +45,10 @@ import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
 
-public class ProductExtenderTest extends AbstractTestEnvironmentTest
-{
+public class ProductExtenderTest extends AbstractTestEnvironmentTest {
 
    @Test
-   public void testEmptyUIdAndVersion() throws IOException
-   {
+   public void testEmptyUIdAndVersion() throws IOException {
       final StringBuilder sb = new StringBuilder();
       sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
       sb.append("<?pde version=\"3.5\"?>\n");
@@ -86,8 +84,7 @@ public class ProductExtenderTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testDeriveProductUniqueId() throws Exception
-   {
+   public void testDeriveProductUniqueId() throws Exception {
       assertEquals("org.sourcepit.foo.bar.product", deriveProductUniqueId("org.sourcepit.foo", "bar.product"));
       assertEquals("org.sourcepit.foo.product", deriveProductUniqueId("org.sourcepit.foo", "foo.product"));
       assertEquals("org.sourcepit.foo.sdk.product", deriveProductUniqueId("org.sourcepit.foo", "foo-sdk.product"));
@@ -101,21 +98,17 @@ public class ProductExtenderTest extends AbstractTestEnvironmentTest
       assertEquals("foo.murks.foo.sdk.murks.product", deriveProductUniqueId("foo.murks", "foo-sdk-murks.product"));
    }
 
-   private static void write(final File productFile, final byte[] content)
-   {
-      IO.write(new ToStream<byte[]>()
-      {
+   private static void write(final File productFile, final byte[] content) {
+      IO.write(new ToStream<byte[]>() {
          @Override
-         public void write(OutputStream writer, byte[] content) throws Exception
-         {
+         public void write(OutputStream writer, byte[] content) throws Exception {
             writer.write(content);
          }
       }, buffOut(fileOut(productFile)), content);
    }
 
    @Test
-   public void testGetAssemblyClassifier() throws Exception
-   {
+   public void testGetAssemblyClassifier() throws Exception {
       assertEquals("bar", ProductExtender.getAssemblyClassifier("foo-bar.txt"));
       assertEquals("", ProductExtender.getAssemblyClassifier("foo.txt"));
       assertEquals("", ProductExtender.getAssemblyClassifier("foo-.txt"));
@@ -124,8 +117,7 @@ public class ProductExtenderTest extends AbstractTestEnvironmentTest
    }
 
    @Test
-   public void testAddAssemblyMetadata()
-   {
+   public void testAddAssemblyMetadata() {
       BasicConverter converter = new DefaultConverter();
 
       PropertiesMap properties = new LinkedPropertiesMap();
@@ -134,13 +126,11 @@ public class ProductExtenderTest extends AbstractTestEnvironmentTest
       ProductDefinition fooMainProduct = addProductDefinition(productDefinitions, "foo.product");
       ProductDefinition fooTestProduct = addProductDefinition(productDefinitions, "foo-test.product");
 
-      try
-      {
+      try {
          ProductExtender.addAssemblyMetadata(productDefinitions, converter, properties);
          fail();
       }
-      catch (IllegalStateException e)
-      { // as expected
+      catch (IllegalStateException e) { // as expected
       }
 
       List<String> assemblyNames;
@@ -180,8 +170,7 @@ public class ProductExtenderTest extends AbstractTestEnvironmentTest
       assertEquals("test", assemblyClassifiers.get(0));
    }
 
-   private static ProductDefinition addProductDefinition(List<ProductDefinition> productDefinitions, String fileName)
-   {
+   private static ProductDefinition addProductDefinition(List<ProductDefinition> productDefinitions, String fileName) {
       ProductDefinition productDefinition = ModuleModelFactory.eINSTANCE.createProductDefinition();
       productDefinition.setFile(new File(fileName));
       productDefinitions.add(productDefinition);

@@ -31,45 +31,38 @@ import org.tmatesoft.svn.core.internal.io.fs.FSRepositoryFactory;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
-public class SvnSCM implements SCM
-{
+public class SvnSCM implements SCM {
    private final SVN svn;
 
    private final SVNURL svnRoot;
 
    private File rootDir;
 
-   public SvnSCM(File repoDir, File rootDir)
-   {
+   public SvnSCM(File repoDir, File rootDir) {
       this.rootDir = rootDir;
       svn = createSvnFacade();
-      try
-      {
+      try {
          svnRoot = svn.doCreateRepository(repoDir);
       }
-      catch (SVNException e)
-      {
+      catch (SVNException e) {
          throw Exceptions.pipe(e);
       }
    }
 
-   private static SVN createSvnFacade()
-   {
+   private static SVN createSvnFacade() {
       FSRepositoryFactory.setup();
       SVNClientManager clientManager = SVNClientManager.newInstance(SVNWCUtil.createDefaultOptions(true),
          (ISVNAuthenticationManager) null);
       return new SVN(clientManager);
    }
 
-   public Scm createMavenScmModel(File projectDir, String version)
-   {
+   public Scm createMavenScmModel(File projectDir, String version) {
       final Scm scm = new Scm();
       scm.setConnection("scm:svn:" + createSvnURL(projectDir, version));
       return scm;
    }
 
-   private String createSvnURL(File projectDir, String version)
-   {
+   private String createSvnURL(File projectDir, String version) {
       File rootProjectDir = rootDir;
 
       final StringBuilder sb = new StringBuilder();
@@ -78,30 +71,24 @@ public class SvnSCM implements SCM
 
       final boolean isSnapshot = version == null || version.endsWith("-SNAPSHOT");
 
-      if (isSnapshot)
-      {
+      if (isSnapshot) {
          sb.append("trunk");
       }
-      else
-      {
+      else {
          sb.append("tags");
       }
 
       final boolean isRoot = rootProjectDir == null || projectDir.equals(rootProjectDir);
-      if (isRoot)
-      {
-         if (!isSnapshot)
-         {
+      if (isRoot) {
+         if (!isSnapshot) {
             sb.append("/");
             sb.append(projectDir.getName());
             sb.append("-");
             sb.append(version);
          }
       }
-      else
-      {
-         if (!isSnapshot)
-         {
+      else {
+         if (!isSnapshot) {
             sb.append("/");
             sb.append(rootProjectDir.getName());
             sb.append("-");
@@ -117,21 +104,17 @@ public class SvnSCM implements SCM
    /**
     * {@inheritDoc}
     */
-   public void create()
-   {
-      try
-      {
+   public void create() {
+      try {
          SVNURL svnTrunk = svnRoot.appendPath("trunk", false);
          svn.doImport(rootDir, svnTrunk, "");
          deleteFileOrDirectory(rootDir);
          svn.doCheckout(svnTrunk, rootDir);
       }
-      catch (SVNException e)
-      {
+      catch (SVNException e) {
          throw Exceptions.pipe(e);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw Exceptions.pipe(e);
       }
    }
@@ -139,20 +122,16 @@ public class SvnSCM implements SCM
    /**
     * {@inheritDoc}
     */
-   public void switchVersion(String version)
-   {
-      try
-      {
+   public void switchVersion(String version) {
+      try {
          SVNURL svnURL = SVNURL.parseURIEncoded(createSvnURL(rootDir, version));
          deleteFileOrDirectory(rootDir);
          svn.doCheckout(svnURL, rootDir);
       }
-      catch (SVNException e)
-      {
+      catch (SVNException e) {
          throw Exceptions.pipe(e);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw Exceptions.pipe(e);
       }
    }

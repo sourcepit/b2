@@ -55,8 +55,7 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * 
  * @generated
  */
-public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinition
-{
+public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinition {
    /**
     * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -129,8 +128,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   protected ProductDefinitionImpl()
-   {
+   protected ProductDefinitionImpl() {
       super();
    }
 
@@ -141,8 +139,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.PRODUCT_DEFINITION;
    }
 
@@ -152,10 +149,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public EList<Annotation> getAnnotations()
-   {
-      if (annotations == null)
-      {
+   public EList<Annotation> getAnnotations() {
+      if (annotations == null) {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
             ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
@@ -168,8 +163,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public boolean isDerived()
-   {
+   public boolean isDerived() {
       return derived;
    }
 
@@ -179,8 +173,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public void setDerived(boolean newDerived)
-   {
+   public void setDerived(boolean newDerived) {
       boolean oldDerived = derived;
       derived = newDerived;
       if (eNotificationRequired())
@@ -194,8 +187,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public ProductsFacet getParent()
-   {
+   public ProductsFacet getParent() {
       if (eContainerFeatureID() != ModuleModelPackage.PRODUCT_DEFINITION__PARENT)
          return null;
       return (ProductsFacet) eContainer();
@@ -207,8 +199,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public ProductsFacet basicGetParent()
-   {
+   public ProductsFacet basicGetParent() {
       if (eContainerFeatureID() != ModuleModelPackage.PRODUCT_DEFINITION__PARENT)
          return null;
       return (ProductsFacet) eInternalContainer();
@@ -220,8 +211,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public NotificationChain basicSetParent(ProductsFacet newParent, NotificationChain msgs)
-   {
+   public NotificationChain basicSetParent(ProductsFacet newParent, NotificationChain msgs) {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.PRODUCT_DEFINITION__PARENT, msgs);
       return msgs;
    }
@@ -232,11 +222,9 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public void setParent(ProductsFacet newParent)
-   {
+   public void setParent(ProductsFacet newParent) {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModuleModelPackage.PRODUCT_DEFINITION__PARENT && newParent != null))
-      {
+         || (eContainerFeatureID() != ModuleModelPackage.PRODUCT_DEFINITION__PARENT && newParent != null)) {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
          NotificationChain msgs = null;
@@ -260,8 +248,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public File getFile()
-   {
+   public File getFile() {
       return file;
    }
 
@@ -271,8 +258,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public void setFile(File newFile)
-   {
+   public void setFile(File newFile) {
       File oldFile = file;
       file = newFile;
       if (eNotificationRequired())
@@ -286,19 +272,15 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public StrictReference getProductPlugin()
-   {
-      if (productPlugin != null && productPlugin.eIsProxy())
-      {
+   public StrictReference getProductPlugin() {
+      if (productPlugin != null && productPlugin.eIsProxy()) {
          InternalEObject oldProductPlugin = (InternalEObject) productPlugin;
          productPlugin = (StrictReference) eResolveProxy(oldProductPlugin);
-         if (productPlugin != oldProductPlugin)
-         {
+         if (productPlugin != oldProductPlugin) {
             InternalEObject newProductPlugin = (InternalEObject) productPlugin;
             NotificationChain msgs = oldProductPlugin.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
                - ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, null);
-            if (newProductPlugin.eInternalContainer() == null)
-            {
+            if (newProductPlugin.eInternalContainer() == null) {
                msgs = newProductPlugin.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
                   - ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, null, msgs);
             }
@@ -318,8 +300,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public StrictReference basicGetProductPlugin()
-   {
+   public StrictReference basicGetProductPlugin() {
       return productPlugin;
    }
 
@@ -329,12 +310,10 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public NotificationChain basicSetProductPlugin(StrictReference newProductPlugin, NotificationChain msgs)
-   {
+   public NotificationChain basicSetProductPlugin(StrictReference newProductPlugin, NotificationChain msgs) {
       StrictReference oldProductPlugin = productPlugin;
       productPlugin = newProductPlugin;
-      if (eNotificationRequired())
-      {
+      if (eNotificationRequired()) {
          ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
             ModuleModelPackage.PRODUCT_DEFINITION__PRODUCT_PLUGIN, oldProductPlugin, newProductPlugin);
          if (msgs == null)
@@ -351,10 +330,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public void setProductPlugin(StrictReference newProductPlugin)
-   {
-      if (newProductPlugin != productPlugin)
-      {
+   public void setProductPlugin(StrictReference newProductPlugin) {
+      if (newProductPlugin != productPlugin) {
          NotificationChain msgs = null;
          if (productPlugin != null)
             msgs = ((InternalEObject) productPlugin).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
@@ -377,8 +354,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public Annotation getAnnotation(String source)
-   {
+   public Annotation getAnnotation(String source) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -390,8 +366,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public Annotation getAnnotation(String source, boolean createOnDemand)
-   {
+   public Annotation getAnnotation(String source, boolean createOnDemand) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -403,8 +378,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public String getAnnotationData(String source, String key)
-   {
+   public String getAnnotationData(String source, String key) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -416,8 +390,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * 
     * @generated
     */
-   public String setAnnotationData(String source, String key, String value)
-   {
+   public String setAnnotationData(String source, String key, String value) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -431,10 +404,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     */
    @SuppressWarnings("unchecked")
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
          case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
@@ -452,10 +423,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
          case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
@@ -473,10 +442,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs)
-   {
-      switch (eContainerFeatureID())
-      {
+   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+      switch (eContainerFeatureID()) {
          case ModuleModelPackage.PRODUCT_DEFINITION__PARENT :
             return eInternalContainer().eInverseRemove(this, ModuleModelPackage.PRODUCTS_FACET__PRODUCT_DEFINITIONS,
                ProductsFacet.class, msgs);
@@ -491,10 +458,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return getAnnotations();
          case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
@@ -521,10 +486,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             getAnnotations().clear();
             getAnnotations().addAll((Collection<? extends Annotation>) newValue);
@@ -552,10 +515,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             getAnnotations().clear();
             return;
@@ -582,10 +543,8 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PRODUCT_DEFINITION__ANNOTATIONS :
             return annotations != null && !annotations.isEmpty();
          case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
@@ -607,12 +566,9 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Derivable.class)
-      {
-         switch (derivedFeatureID)
-         {
+   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+      if (baseClass == Derivable.class) {
+         switch (derivedFeatureID) {
             case ModuleModelPackage.PRODUCT_DEFINITION__DERIVED :
                return ModuleModelPackage.DERIVABLE__DERIVED;
             default :
@@ -629,12 +585,9 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Derivable.class)
-      {
-         switch (baseFeatureID)
-         {
+   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+      if (baseClass == Derivable.class) {
+         switch (baseFeatureID) {
             case ModuleModelPackage.DERIVABLE__DERIVED :
                return ModuleModelPackage.PRODUCT_DEFINITION__DERIVED;
             default :
@@ -651,8 +604,7 @@ public class ProductDefinitionImpl extends EObjectImpl implements ProductDefinit
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

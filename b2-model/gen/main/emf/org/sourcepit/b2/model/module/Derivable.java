@@ -34,8 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface Derivable extends EObject
-{
+public interface Derivable extends EObject {
    /**
     * Returns the value of the '<em><b>Derived</b></em>' attribute.
     * <!-- begin-user-doc -->

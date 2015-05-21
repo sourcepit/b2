@@ -26,22 +26,18 @@ import org.sourcepit.b2.model.module.FeatureProject;
 import org.sourcepit.b2.model.module.PluginInclude;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
-{
-   public void testBasic() throws Exception
-   {
+public class FeatureProjectParserRuleTest extends AbstractModuleParserTest {
+   public void testBasic() throws Exception {
       final FeatureProjectParserRule parserRule = lookupFeatureProjectParserRule();
       assertNotNull(parserRule);
    }
 
-   public void testNull() throws Exception
-   {
+   public void testNull() throws Exception {
       final FeatureProjectParserRule parserRule = lookupFeatureProjectParserRule();
       assertNull(parserRule.parse(null, null));
    }
 
-   public void testNonPluginDir() throws Exception
-   {
+   public void testNonPluginDir() throws Exception {
       final File moduleDir = workspace.importResources("composed-component/simple-layout");
       assertTrue(moduleDir.exists());
 
@@ -49,8 +45,7 @@ public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
       assertNull(parserRule.parse(moduleDir, B2ModelBuildingRequest.newDefaultProperties()));
    }
 
-   public void testParseFeatureDirectory() throws Exception
-   {
+   public void testParseFeatureDirectory() throws Exception {
       PropertiesMap properties = B2ModelBuildingRequest.newDefaultProperties();
 
       final File featureDir = workspace.importResources("composed-component/simple-layout/example.feature");
@@ -78,8 +73,7 @@ public class FeatureProjectParserRuleTest extends AbstractModuleParserTest
       assertEquals(true, pluginIncludes.get(1).isUnpack());
    }
 
-   private FeatureProjectParserRule lookupFeatureProjectParserRule() throws Exception
-   {
+   private FeatureProjectParserRule lookupFeatureProjectParserRule() throws Exception {
       return (FeatureProjectParserRule) lookup(AbstractProjectParserRule.class, "feature");
    }
 }

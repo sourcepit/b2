@@ -42,43 +42,35 @@ import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.b2.model.module.StrictReference;
 
 
-public class TargetPlatformRequirementsCollectorTest
-{
+public class TargetPlatformRequirementsCollectorTest {
    private TestResolutionContextResolver resolutionContext;
    private TargetPlatformRequirementsCollector collector;
 
    @Before
-   public void setUp()
-   {
+   public void setUp() {
       resolutionContext = new TestResolutionContextResolver();
       collector = new TargetPlatformRequirementsCollector(resolutionContext);
    }
 
    @Test
-   public void testNullArgs()
-   {
-      try
-      {
+   public void testNullArgs() {
+      try {
          collector.collectRequirements((AbstractModule) null, false);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
-      try
-      {
+      try {
          collector.collectRequirements((PluginProject) null);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
    }
 
    @Test
-   public void testCollectModuleRequirements()
-   {
+   public void testCollectModuleRequirements() {
       BasicModule module = ModelTestHarness.createBasicModule("module-1");
 
       List<Dependency> requirements;
@@ -130,17 +122,14 @@ public class TargetPlatformRequirementsCollectorTest
    }
 
    @Test
-   public void testCollectPluginRequirements()
-   {
+   public void testCollectPluginRequirements() {
       BasicModule module = createBasicModule("module-1");
       PluginProject pluginProject = addPluginProject(module, "plugins", "plugin1", "1.0.0");
 
-      try
-      {
+      try {
          collector.collectRequirements(pluginProject);
       }
-      catch (IllegalStateException e)
-      { // expected
+      catch (IllegalStateException e) { // expected
       }
 
       FeatureProject featureProject = addFeatureProject(module, "features", "feature1", "1.0.0");
@@ -221,8 +210,7 @@ public class TargetPlatformRequirementsCollectorTest
    }
 
    @Test
-   public void testToRequirement() throws Exception
-   {
+   public void testToRequirement() throws Exception {
       StrictReference reference = ModuleModelFactory.eINSTANCE.createStrictReference();
       reference.setId("foo");
 
@@ -246,8 +234,7 @@ public class TargetPlatformRequirementsCollectorTest
       assertEquals("1.0.0", requirement.getVersion());
    }
 
-   static void assertRequirement(String id, String versionRange, String type, Dependency dependency)
-   {
+   static void assertRequirement(String id, String versionRange, String type, Dependency dependency) {
       assertEquals(null, dependency.getGroupId());
       assertEquals(id, dependency.getArtifactId());
       assertEquals(versionRange, dependency.getVersion());

@@ -39,28 +39,23 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public class PluginProjectParserRule extends AbstractProjectParserRule<PluginProject>
    implements
       ProjectDetectionRule<PluginProject>,
-      ProjectModelInitializationParticipant
-{
+      ProjectModelInitializationParticipant {
 
 
    @Override
-   public PluginProject detect(File directory, PropertiesSource properties)
-   {
+   public PluginProject detect(File directory, PropertiesSource properties) {
       return parse(directory, properties);
    }
 
    @Override
-   public PluginProject parse(File directory, PropertiesSource properties)
-   {
+   public PluginProject parse(File directory, PropertiesSource properties) {
       final File manifestFile = new File(directory, MANIFEST_NAME);
-      if (!manifestFile.exists())
-      {
+      if (!manifestFile.exists()) {
          return null;
       }
 
       final Manifest manifest = B2ModelUtils.readManifest(manifestFile, false);
-      if (manifest instanceof BundleManifest)
-      {
+      if (manifest instanceof BundleManifest) {
          final PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
          project.setDirectory(directory);
          return project;
@@ -69,17 +64,14 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
    }
 
    @Override
-   public void initialize(Project project, PropertiesSource properties)
-   {
-      if (project instanceof PluginProject)
-      {
+   public void initialize(Project project, PropertiesSource properties) {
+      if (project instanceof PluginProject) {
          initializeeee((PluginProject) project, properties);
       }
    }
 
    @Override
-   public void initializeeee(PluginProject project, PropertiesSource properties)
-   {
+   public void initializeeee(PluginProject project, PropertiesSource properties) {
       final File projectDir = project.getDirectory();
 
       final File manifestFile = new File(projectDir, "META-INF/MANIFEST.MF");
@@ -94,12 +86,10 @@ public class PluginProjectParserRule extends AbstractProjectParserRule<PluginPro
       project.setTestPlugin(project.getId().endsWith(".tests"));
 
       final FragmentHost fragmentHost = bundleManifest.getFragmentHost();
-      if (fragmentHost != null)
-      {
+      if (fragmentHost != null) {
          project.setFragmentHostSymbolicName(fragmentHost.getSymbolicName());
          final VersionRange hostVersion = fragmentHost.getBundleVersion();
-         if (hostVersion != null)
-         {
+         if (hostVersion != null) {
             project.setFragmentHostVersion(hostVersion.toString());
          }
       }

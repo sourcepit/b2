@@ -51,8 +51,7 @@ import org.sourcepit.common.modeling.CommonModelingPackage;
  * 
  * @generated
  */
-public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractFacet
-{
+public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractFacet {
    /**
     * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -114,8 +113,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   protected AbstractFacetImpl()
-   {
+   protected AbstractFacetImpl() {
       super();
    }
 
@@ -126,8 +124,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.ABSTRACT_FACET;
    }
 
@@ -137,8 +134,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public boolean isDerived()
-   {
+   public boolean isDerived() {
       return derived;
    }
 
@@ -148,8 +144,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public void setDerived(boolean newDerived)
-   {
+   public void setDerived(boolean newDerived) {
       boolean oldDerived = derived;
       derived = newDerived;
       if (eNotificationRequired())
@@ -163,10 +158,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public EList<Annotation> getAnnotations()
-   {
-      if (annotations == null)
-      {
+   public EList<Annotation> getAnnotations() {
+      if (annotations == null) {
          annotations = new EObjectContainmentWithInverseEList<Annotation>(Annotation.class, this,
             ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS, CommonModelingPackage.ANNOTATION__TARGET);
       }
@@ -179,8 +172,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public AbstractModule getParent()
-   {
+   public AbstractModule getParent() {
       if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_FACET__PARENT)
          return null;
       return (AbstractModule) eContainer();
@@ -192,8 +184,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public AbstractModule basicGetParent()
-   {
+   public AbstractModule basicGetParent() {
       if (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_FACET__PARENT)
          return null;
       return (AbstractModule) eInternalContainer();
@@ -205,8 +196,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public NotificationChain basicSetParent(AbstractModule newParent, NotificationChain msgs)
-   {
+   public NotificationChain basicSetParent(AbstractModule newParent, NotificationChain msgs) {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.ABSTRACT_FACET__PARENT, msgs);
       return msgs;
    }
@@ -217,11 +207,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public void setParent(AbstractModule newParent)
-   {
+   public void setParent(AbstractModule newParent) {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_FACET__PARENT && newParent != null))
-      {
+         || (eContainerFeatureID() != ModuleModelPackage.ABSTRACT_FACET__PARENT && newParent != null)) {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
          NotificationChain msgs = null;
@@ -245,8 +233,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public String getName()
-   {
+   public String getName() {
       return name;
    }
 
@@ -256,8 +243,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public void setName(String newName)
-   {
+   public void setName(String newName) {
       String oldName = name;
       name = newName;
       if (eNotificationRequired())
@@ -270,8 +256,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public Annotation getAnnotation(String source)
-   {
+   public Annotation getAnnotation(String source) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -283,8 +268,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public Annotation getAnnotation(String source, boolean createOnDemand)
-   {
+   public Annotation getAnnotation(String source, boolean createOnDemand) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -296,8 +280,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public String getAnnotationData(String source, String key)
-   {
+   public String getAnnotationData(String source, String key) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -309,8 +292,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * 
     * @generated
     */
-   public String setAnnotationData(String source, String key, String value)
-   {
+   public String setAnnotationData(String source, String key, String value) {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -324,10 +306,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     */
    @SuppressWarnings("unchecked")
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS :
             return ((InternalEList<InternalEObject>) (InternalEList<?>) getAnnotations()).basicAdd(otherEnd, msgs);
          case ModuleModelPackage.ABSTRACT_FACET__PARENT :
@@ -345,10 +325,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS :
             return ((InternalEList<?>) getAnnotations()).basicRemove(otherEnd, msgs);
          case ModuleModelPackage.ABSTRACT_FACET__PARENT :
@@ -364,10 +342,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs)
-   {
-      switch (eContainerFeatureID())
-      {
+   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+      switch (eContainerFeatureID()) {
          case ModuleModelPackage.ABSTRACT_FACET__PARENT :
             return eInternalContainer().eInverseRemove(this, ModuleModelPackage.ABSTRACT_MODULE__FACETS,
                AbstractModule.class, msgs);
@@ -382,10 +358,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_FACET__DERIVED :
             return isDerived();
          case ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS :
@@ -408,10 +382,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_FACET__DERIVED :
             setDerived((Boolean) newValue);
             return;
@@ -436,10 +408,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_FACET__DERIVED :
             setDerived(DERIVED_EDEFAULT);
             return;
@@ -463,10 +433,8 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.ABSTRACT_FACET__DERIVED :
             return derived != DERIVED_EDEFAULT;
          case ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS :
@@ -486,12 +454,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Annotatable.class)
-      {
-         switch (derivedFeatureID)
-         {
+   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+      if (baseClass == Annotatable.class) {
+         switch (derivedFeatureID) {
             case ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS :
                return CommonModelingPackage.ANNOTATABLE__ANNOTATIONS;
             default :
@@ -508,12 +473,9 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
-   {
-      if (baseClass == Annotatable.class)
-      {
-         switch (baseFeatureID)
-         {
+   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+      if (baseClass == Annotatable.class) {
+         switch (baseFeatureID) {
             case CommonModelingPackage.ANNOTATABLE__ANNOTATIONS :
                return ModuleModelPackage.ABSTRACT_FACET__ANNOTATIONS;
             default :
@@ -530,8 +492,7 @@ public abstract class AbstractFacetImpl extends EObjectImpl implements AbstractF
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

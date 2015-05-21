@@ -50,82 +50,69 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 import com.google.common.base.Preconditions;
 
 @Named
-public class SitesInterpolator
-{
+public class SitesInterpolator {
    private final SitesConverter converter;
 
    private final LayoutManager layoutManager;
 
    @Inject
-   public SitesInterpolator(SitesConverter converter, LayoutManager layoutManager)
-   {
+   public SitesInterpolator(SitesConverter converter, LayoutManager layoutManager) {
       this.converter = converter;
       this.layoutManager = layoutManager;
    }
 
-   public void interpolate(AbstractModule module, PropertiesSource moduleProperties)
-   {
+   public void interpolate(AbstractModule module, PropertiesSource moduleProperties) {
       final List<String> assemblyNames = converter.getAssemblyNames(moduleProperties);
-      if (!assemblyNames.isEmpty())
-      {
+      if (!assemblyNames.isEmpty()) {
          final SitesFacet sitesFacet = ModuleModelFactory.eINSTANCE.createSitesFacet();
          sitesFacet.setDerived(true);
          sitesFacet.setName("sites");
 
          interpolate(module, sitesFacet, assemblyNames, moduleProperties);
 
-         if (!sitesFacet.getProjects().isEmpty())
-         {
+         if (!sitesFacet.getProjects().isEmpty()) {
             module.getFacets().add(sitesFacet);
          }
       }
    }
 
    private void interpolate(AbstractModule module, final SitesFacet sitesFacet, final List<String> assemblyNames,
-      PropertiesSource moduleProperties)
-   {
-      for (String assemblyName : assemblyNames)
-      {
+      PropertiesSource moduleProperties) {
+      for (String assemblyName : assemblyNames) {
          final Collection<AbstractStrictReference> installableUnits = getInstallableUnits(module, assemblyName,
             moduleProperties);
-         if (!installableUnits.isEmpty())
-         {
+         if (!installableUnits.isEmpty()) {
             final SiteProject siteProject = createSiteProject(module, moduleProperties, sitesFacet, assemblyName);
             sitesFacet.getProjects().add(siteProject);
 
             final Set<AbstractStrictReference> categorizedIUs = new LinkedHashSet<AbstractStrictReference>();
 
-            for (String categoryName : converter.getAssemblyCategories(moduleProperties, assemblyName))
-            {
+            for (String categoryName : converter.getAssemblyCategories(moduleProperties, assemblyName)) {
                final Category category = ModuleModelFactory.eINSTANCE.createCategory();
                category.setName(categoryName);
 
                final PathMatcher matcher = converter.getAssemblyCategoryFeatureMatcher(moduleProperties,
                   module.getId(), assemblyName, categoryName);
 
-               for (AbstractStrictReference iu : installableUnits)
-               {
+               for (AbstractStrictReference iu : installableUnits) {
                   final Set<String> ids = new LinkedHashSet<String>();
                   ids.add(iu.getId());
                   ids.addAll(B2MetadataUtils.getReplacedFeatureIds(iu));
 
-                  if (isMatch(matcher, ids))
-                  {
+                  if (isMatch(matcher, ids)) {
                      category.getInstallableUnits().add(iu);
                      categorizedIUs.add(iu);
                   }
                }
 
-               if (!category.getInstallableUnits().isEmpty())
-               {
+               if (!category.getInstallableUnits().isEmpty()) {
                   siteProject.getCategories().add(category);
                }
             }
 
             installableUnits.removeAll(categorizedIUs);
 
-            for (AbstractStrictReference notCategorizedIUs : installableUnits)
-            {
+            for (AbstractStrictReference notCategorizedIUs : installableUnits) {
                siteProject.getInstallableUnits().add(notCategorizedIUs);
             }
 
@@ -133,15 +120,11 @@ public class SitesInterpolator
       }
    }
 
-   public static List<ProductDefinition> getProductDefinitionsForAssembly(AbstractModule module, String assemblyName)
-   {
+   public static List<ProductDefinition> getProductDefinitionsForAssembly(AbstractModule module, String assemblyName) {
       final List<ProductDefinition> productDefinitions = new ArrayList<ProductDefinition>();
-      for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class))
-      {
-         for (ProductDefinition productDefinition : productsFacet.getProductDefinitions())
-         {
-            if (getAssemblyNames(productDefinition).contains(assemblyName))
-            {
+      for (ProductsFacet productsFacet : module.getFacets(ProductsFacet.class)) {
+         for (ProductDefinition productDefinition : productsFacet.getProductDefinitions()) {
+            if (getAssemblyNames(productDefinition).contains(assemblyName)) {
                productDefinitions.add(productDefinition);
             }
          }
@@ -150,20 +133,17 @@ public class SitesInterpolator
    }
 
    private Collection<AbstractStrictReference> getInstallableUnits(AbstractModule module, String assemblyName,
-      PropertiesSource moduleProperties)
-   {
+      PropertiesSource moduleProperties) {
       final Collection<AbstractStrictReference> allIUs = new ArrayList<AbstractStrictReference>();
 
       final FeatureProject assemblyFeature = DefaultIncludesAndRequirementsResolver.findFeatureProjectForAssembly(
          module, assemblyName);
-      if (assemblyFeature != null)
-      {
+      if (assemblyFeature != null) {
          allIUs.addAll(getAllFeatures(assemblyName, assemblyFeature, moduleProperties));
       }
 
       final List<ProductDefinition> productDefinitions = getProductDefinitionsForAssembly(module, assemblyName);
-      for (ProductDefinition productDefinition : productDefinitions)
-      {
+      for (ProductDefinition productDefinition : productDefinitions) {
          allIUs.add(toStrictReference(productDefinition));
       }
 
@@ -171,20 +151,16 @@ public class SitesInterpolator
    }
 
    private Set<FeatureInclude> getAllFeatures(String assemblyName, FeatureProject assemblyFeature,
-      PropertiesSource moduleProperties)
-   {
+      PropertiesSource moduleProperties) {
       final PathMatcher featureFilter = converter.getAssemblySiteFeatureMatcher(moduleProperties, assemblyName);
 
       final Set<FeatureInclude> allFeatures = new LinkedHashSet<FeatureInclude>();
-      if (featureFilter.isMatch(assemblyFeature.getId()))
-      {
+      if (featureFilter.isMatch(assemblyFeature.getId())) {
          allFeatures.add(B2ModelUtils.toFeatureInclude(assemblyFeature));
       }
 
-      for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures())
-      {
-         if (featureFilter.isMatch(featureInclude.getId()))
-         {
+      for (FeatureInclude featureInclude : assemblyFeature.getIncludedFeatures()) {
+         if (featureFilter.isMatch(featureInclude.getId())) {
             allFeatures.add(EcoreUtil.copy(featureInclude));
          }
       }
@@ -192,23 +168,17 @@ public class SitesInterpolator
       return allFeatures;
    }
 
-   private boolean isMatch(final PathMatcher matcher, final Set<String> featureIds)
-   {
-      if (!matcher.getExcludes().isEmpty())
-      {
-         for (String featureId : featureIds)
-         {
-            if (matcher.isExclude(featureId))
-            {
+   private boolean isMatch(final PathMatcher matcher, final Set<String> featureIds) {
+      if (!matcher.getExcludes().isEmpty()) {
+         for (String featureId : featureIds) {
+            if (matcher.isExclude(featureId)) {
                return false;
             }
          }
       }
 
-      for (String featureId : featureIds)
-      {
-         if (matcher.isInclude(featureId))
-         {
+      for (String featureId : featureIds) {
+         if (matcher.isInclude(featureId)) {
             return true;
          }
       }
@@ -217,8 +187,7 @@ public class SitesInterpolator
    }
 
    private SiteProject createSiteProject(AbstractModule module, PropertiesSource moduleProperties,
-      SitesFacet sitesFacet, String assemblyName)
-   {
+      SitesFacet sitesFacet, String assemblyName) {
       final SiteProject siteProject = ModuleModelFactory.eINSTANCE.createSiteProject();
       siteProject.setDerived(true);
       siteProject.setId(converter.getSiteIdForAssembly(moduleProperties, module.getId(), assemblyName));
@@ -234,8 +203,7 @@ public class SitesInterpolator
       return siteProject;
    }
 
-   private static StrictReference toStrictReference(ProductDefinition productDefinition)
-   {
+   private static StrictReference toStrictReference(ProductDefinition productDefinition) {
       final StrictReference ref = ModuleModelFactory.eINSTANCE.createStrictReference();
       ref.setId(productDefinition.getAnnotationData("product", "uid"));
       ref.setVersion(productDefinition.getAnnotationData("product", "version"));
@@ -244,8 +212,7 @@ public class SitesInterpolator
       Preconditions.checkNotNull(ref.getVersion());
 
       final Annotation b2Metadata = B2MetadataUtils.getB2Metadata(productDefinition);
-      if (b2Metadata != null)
-      {
+      if (b2Metadata != null) {
          ref.getAnnotations().add(EcoreUtil.copy(b2Metadata));
       }
 

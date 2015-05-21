@@ -33,8 +33,7 @@ import org.sourcepit.b2.model.builder.util.BasicConverter;
 import org.sourcepit.b2.model.module.AbstractModule;
 
 @Named
-public class B2
-{
+public class B2 {
    @Inject
    private IFileService fileService;
 
@@ -50,23 +49,18 @@ public class B2
    @Inject
    private BasicConverter converter;
 
-   public AbstractModule generate(B2Request request)
-   {
+   public AbstractModule generate(B2Request request) {
       final ModuleDirectory moduleDir = request.getModuleDirectory();
-      try
-      {
+      try {
          fileService.clean(moduleDir);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw pipe(e);
       }
 
       final AbstractModule module = modelBuilder.build(request);
-      if (!converter.isSkipGenerator(request.getModuleProperties()))
-      {
-         for (IB2Listener listener : listeners)
-         {
+      if (!converter.isSkipGenerator(request.getModuleProperties())) {
+         for (IB2Listener listener : listeners) {
             listener.startGeneration(moduleDir, module);
          }
 

@@ -21,7 +21,6 @@ import java.io.IOException;
 import org.sourcepit.b2.files.ModuleDirectory;
 
 
-public interface IFileService
-{
+public interface IFileService {
    void clean(ModuleDirectory moduleDirectory) throws IOException;
 }

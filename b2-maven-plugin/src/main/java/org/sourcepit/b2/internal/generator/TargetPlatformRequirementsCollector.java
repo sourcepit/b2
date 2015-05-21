@@ -47,18 +47,15 @@ import com.google.common.base.Objects;
 import com.google.common.collect.SetMultimap;
 
 @Named
-public class TargetPlatformRequirementsCollector
-{
+public class TargetPlatformRequirementsCollector {
    private final ResolutionContextResolver contextResolver;
 
    @Inject
-   public TargetPlatformRequirementsCollector(ResolutionContextResolver contextResolver)
-   {
+   public TargetPlatformRequirementsCollector(ResolutionContextResolver contextResolver) {
       this.contextResolver = contextResolver;
    }
 
-   public List<Dependency> collectRequirements(AbstractModule module, boolean isTestScope)
-   {
+   public List<Dependency> collectRequirements(AbstractModule module, boolean isTestScope) {
       checkArgument(module != null, "Module may not be null.");
 
       final List<Dependency> requirements = new ArrayList<Dependency>();
@@ -66,8 +63,7 @@ public class TargetPlatformRequirementsCollector
       return requirements;
    }
 
-   public List<Dependency> collectRequirements(PluginProject pluginProject)
-   {
+   public List<Dependency> collectRequirements(PluginProject pluginProject) {
       checkArgument(pluginProject != null, "Plugin project may not be null.");
 
       final List<Dependency> requirements = new ArrayList<Dependency>();
@@ -76,13 +72,11 @@ public class TargetPlatformRequirementsCollector
       return requirements;
    }
 
-   private void addModuleRequirements(final List<Dependency> requirements, AbstractModule module, boolean isTestScope)
-   {
+   private void addModuleRequirements(final List<Dependency> requirements, AbstractModule module, boolean isTestScope) {
       final SetMultimap<AbstractModule, FeatureProject> scope = contextResolver.resolveResolutionContext(module,
          isTestScope);
 
-      for (FeatureProject featureProject : scope.values())
-      {
+      for (FeatureProject featureProject : scope.values()) {
          Dependency dependency = new Dependency();
          dependency.setArtifactId(featureProject.getId());
          final String version = Version.parse(featureProject.getVersion()).trimQualifier().toString();
@@ -94,14 +88,12 @@ public class TargetPlatformRequirementsCollector
    }
 
    private void addPluginRequirements(final List<Dependency> requirements, AbstractModule module,
-      PluginProject pluginProject)
-   {
+      PluginProject pluginProject) {
       final FeatureProject featureProject = findIncludingFeature(pluginProject);
       checkState(featureProject != null, "Plug-in '" + pluginProject.getId() + "' is not contained in any feature.");
 
       boolean isTestScope = pluginProject.isTestPlugin();
-      if (!isTestScope && featureProject != null)
-      {
+      if (!isTestScope && featureProject != null) {
          isTestScope = B2MetadataUtils.isTestFeature(featureProject);
       }
 
@@ -109,10 +101,8 @@ public class TargetPlatformRequirementsCollector
       addFeatureRequirements(requirements, featureProject);
    }
 
-   private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject)
-   {
-      for (FeatureInclude includedFeature : featureProject.getIncludedFeatures())
-      {
+   private static void addFeatureRequirements(final List<Dependency> requirements, FeatureProject featureProject) {
+      for (FeatureInclude includedFeature : featureProject.getIncludedFeatures()) {
          Dependency requirement = toRequirement(includedFeature);
          requirement.setType("eclipse-feature");
          addUnique(requirements, requirement);
@@ -120,39 +110,31 @@ public class TargetPlatformRequirementsCollector
 
       final AbstractModule module = featureProject.getParent().getParent();
 
-      for (PluginInclude includedPlugin : featureProject.getIncludedPlugins())
-      {
-         if (module.resolveReference(includedPlugin, PluginsFacet.class) == null)
-         {
+      for (PluginInclude includedPlugin : featureProject.getIncludedPlugins()) {
+         if (module.resolveReference(includedPlugin, PluginsFacet.class) == null) {
             Dependency requirement = toRequirement(includedPlugin);
             requirement.setType("eclipse-plugin");
             addUnique(requirements, requirement);
          }
       }
 
-      for (RuledReference requiredFeature : featureProject.getRequiredFeatures())
-      {
+      for (RuledReference requiredFeature : featureProject.getRequiredFeatures()) {
          Dependency requirement = toRequirement(requiredFeature);
          requirement.setType("eclipse-feature");
          addUnique(requirements, requirement);
       }
 
-      for (RuledReference requiredPlugin : featureProject.getRequiredPlugins())
-      {
+      for (RuledReference requiredPlugin : featureProject.getRequiredPlugins()) {
          final Dependency requirement = toRequirement(requiredPlugin);
          requirement.setType("eclipse-plugin");
          addUnique(requirements, requirement);
       }
    }
 
-   private static void addUnique(final List<Dependency> requirements, Dependency requirement)
-   {
-      for (Dependency dependency : requirements.toArray(new Dependency[requirements.size()]))
-      {
-         if (Objects.equal(dependency.getArtifactId(), requirement.getArtifactId()))
-         {
-            if (Objects.equal(dependency.getType(), requirement.getType()))
-            {
+   private static void addUnique(final List<Dependency> requirements, Dependency requirement) {
+      for (Dependency dependency : requirements.toArray(new Dependency[requirements.size()])) {
+         if (Objects.equal(dependency.getArtifactId(), requirement.getArtifactId())) {
+            if (Objects.equal(dependency.getType(), requirement.getType())) {
                requirements.remove(dependency);
             }
          }
@@ -160,23 +142,20 @@ public class TargetPlatformRequirementsCollector
       requirements.add(requirement);
    }
 
-   private static FeatureProject findIncludingFeature(PluginProject pluginProject)
-   {
+   private static FeatureProject findIncludingFeature(PluginProject pluginProject) {
       FeatureProject featureProject = DefaultIncludesAndRequirementsResolver.findFeatureProjectForPluginsFacet(
          pluginProject.getParent(), false);
-      if (featureProject == null)
-      {
+      if (featureProject == null) {
          final String featureId = B2MetadataUtils.getBrandedFeature(pluginProject);
-         if (featureId != null)
-         {
+         if (featureId != null) {
             final StrictReference reference = ModuleModelFactory.eINSTANCE.createStrictReference();
             reference.setId(featureId);
 
-            final FeatureProject brandedFeature = pluginProject.getParent().getParent()
+            final FeatureProject brandedFeature = pluginProject.getParent()
+               .getParent()
                .resolveReference(reference, FeaturesFacet.class);
 
-            if (brandedFeature != null && isIncluded(brandedFeature, pluginProject))
-            {
+            if (brandedFeature != null && isIncluded(brandedFeature, pluginProject)) {
                featureProject = brandedFeature;
             }
          }
@@ -184,20 +163,16 @@ public class TargetPlatformRequirementsCollector
       return featureProject;
    }
 
-   private static boolean isIncluded(final FeatureProject featureProject, PluginProject pluginProject)
-   {
-      for (PluginInclude pluginInclude : featureProject.getIncludedPlugins())
-      {
-         if (pluginInclude.isSatisfiableBy(pluginProject))
-         {
+   private static boolean isIncluded(final FeatureProject featureProject, PluginProject pluginProject) {
+      for (PluginInclude pluginInclude : featureProject.getIncludedPlugins()) {
+         if (pluginInclude.isSatisfiableBy(pluginProject)) {
             return true;
          }
       }
       return false;
    }
 
-   private static Dependency toRequirement(RuledReference featureReference)
-   {
+   private static Dependency toRequirement(RuledReference featureReference) {
       final Dependency dependency = new Dependency();
       dependency.setArtifactId(featureReference.getId());
       dependency.setVersion(ReferenceUtils.toVersionRange(featureReference.getVersion(),
@@ -205,13 +180,11 @@ public class TargetPlatformRequirementsCollector
       return dependency;
    }
 
-   static Dependency toRequirement(AbstractStrictReference strictReference)
-   {
+   static Dependency toRequirement(AbstractStrictReference strictReference) {
       final Dependency dependency = new Dependency();
       dependency.setArtifactId(strictReference.getId());
       String version = strictReference.getVersion();
-      if (version != null && version.endsWith(".qualifier"))
-      {
+      if (version != null && version.endsWith(".qualifier")) {
          version = version.substring(0, version.length() - ".qualifier".length());
       }
       dependency.setVersion(version);

@@ -22,6 +22,5 @@ import javax.inject.Named;
  * @author Bernd
  */
 @Named("composite")
-public class CompositeInterpolationLayout extends SimpleInterpolationLayout implements IInterpolationLayout
-{
+public class CompositeInterpolationLayout extends SimpleInterpolationLayout implements IInterpolationLayout {
 }

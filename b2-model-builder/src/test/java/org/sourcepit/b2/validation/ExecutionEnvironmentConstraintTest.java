@@ -40,8 +40,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class ExecutionEnvironmentConstraintTest
-{
+public class ExecutionEnvironmentConstraintTest {
    private Environment env = Environment.get("env-test.properties");
 
    @Rule
@@ -52,15 +51,13 @@ public class ExecutionEnvironmentConstraintTest
    private ExecutionEnvironmentConstraint constraint;
 
    @Before
-   public void setUp()
-   {
+   public void setUp() {
       logger = new RecordingLogger();
       constraint = new ExecutionEnvironmentConstraint(logger);
    }
 
    @Test
-   public void testEmptyB2Properties() throws Exception
-   {
+   public void testEmptyB2Properties() throws Exception {
       final PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
       project.setDirectory(ws.getRoot());
       project.setId("org.sourcepit.foo.plugin");
@@ -76,8 +73,7 @@ public class ExecutionEnvironmentConstraintTest
    }
 
    @Test
-   public void testDefaultEE_NoJavaNature() throws Exception
-   {
+   public void testDefaultEE_NoJavaNature() throws Exception {
       final PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
       project.setDirectory(ws.getRoot());
       project.setId("org.sourcepit.foo.plugin");
@@ -100,8 +96,7 @@ public class ExecutionEnvironmentConstraintTest
    }
 
    @Test
-   public void testDefaultEE_NoJDTSettings() throws Exception
-   {
+   public void testDefaultEE_NoJDTSettings() throws Exception {
       final PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
       project.setDirectory(ws.getRoot());
       project.setId("org.sourcepit.foo.plugin");
@@ -143,8 +138,7 @@ public class ExecutionEnvironmentConstraintTest
    }
 
    @Test
-   public void testDefaultEE_WithJDTSettings() throws Exception
-   {
+   public void testDefaultEE_WithJDTSettings() throws Exception {
       final PluginProject project = ModuleModelFactory.eINSTANCE.createPluginProject();
       project.setDirectory(ws.getRoot());
       project.setId("org.sourcepit.foo.plugin");
@@ -182,10 +176,9 @@ public class ExecutionEnvironmentConstraintTest
 
       cpDoc = XmlUtils.readXml(cpFile);
 
-      eeNode = (Element) XmlUtils
-         .queryNode(
-            cpDoc,
-            "/classpath/classpathentry[@kind='con' and starts-with(@path,'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/')]");
+      eeNode = (Element) XmlUtils.queryNode(
+         cpDoc,
+         "/classpath/classpathentry[@kind='con' and starts-with(@path,'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/')]");
       assertEquals(
          "org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.4",
          eeNode.getAttribute("path"));
@@ -198,8 +191,7 @@ public class ExecutionEnvironmentConstraintTest
       assertEquals("J2SE-1.4", mf.getBundleRequiredExecutionEnvironment().get(0));
    }
 
-   private static void addJavaNature(File directory)
-   {
+   private static void addJavaNature(File directory) {
       Document doc = XmlUtils.newDocument();
       Node projectDescription = doc.createElement("projectDescription");
       doc.appendChild(projectDescription);

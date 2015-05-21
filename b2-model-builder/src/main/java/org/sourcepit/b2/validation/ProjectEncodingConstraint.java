@@ -35,44 +35,35 @@ import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named("projectEncoding")
-public class ProjectEncodingConstraint implements ModuleValidationConstraint
-{
+public class ProjectEncodingConstraint implements ModuleValidationConstraint {
    private Logger logger;
 
    @Inject
-   public ProjectEncodingConstraint(Logger logger)
-   {
+   public ProjectEncodingConstraint(Logger logger) {
       this.logger = logger;
    }
 
-   public void validate(EObject eObject, PropertiesSource properties, boolean quickFixesEnabled)
-   {
-      if (eObject instanceof Project)
-      {
+   public void validate(EObject eObject, PropertiesSource properties, boolean quickFixesEnabled) {
+      if (eObject instanceof Project) {
          final String projectEncoding = properties.get("project.build.sourceEncoding");
-         if (projectEncoding != null)
-         {
+         if (projectEncoding != null) {
             Project project = (Project) eObject;
-            if (!project.isDerived())
-            {
+            if (!project.isDerived()) {
                validate(project, projectEncoding, quickFixesEnabled);
             }
          }
       }
    }
 
-   private void validate(Project project, String expectedProjectEncoding, boolean quickFixesEnabled)
-   {
+   private void validate(Project project, String expectedProjectEncoding, boolean quickFixesEnabled) {
       final PropertiesMap resourcePrefs = new LinkedPropertiesMap();
       final File resourcePrefsFile = new File(project.getDirectory(), ".settings/org.eclipse.core.resources.prefs");
-      if (resourcePrefsFile.exists())
-      {
+      if (resourcePrefsFile.exists()) {
          resourcePrefs.load(resourcePrefsFile);
       }
 
       final String actualProjectEncoding = resourcePrefs.get("encoding/<project>", "<not-set>");
-      if (!expectedProjectEncoding.equals(actualProjectEncoding))
-      {
+      if (!expectedProjectEncoding.equals(actualProjectEncoding)) {
          final StringBuilder msg = new StringBuilder();
          msg.append(project.getId());
          msg.append(": Expected project encoding ");
@@ -81,14 +72,12 @@ public class ProjectEncodingConstraint implements ModuleValidationConstraint
          msg.append(actualProjectEncoding);
          msg.append(".");
 
-         if (quickFixesEnabled)
-         {
+         if (quickFixesEnabled) {
             msg.append(" (applied quick fix)");
             resourcePrefs.put("encoding/<project>", expectedProjectEncoding);
             save(resourcePrefs, resourcePrefsFile);
          }
-         else
-         {
+         else {
             msg.append(" (quick fix available)");
          }
 
@@ -96,25 +85,20 @@ public class ProjectEncodingConstraint implements ModuleValidationConstraint
       }
    }
 
-   private void save(final PropertiesMap resourcePrefs, final File resourcePrefsFile)
-   {
+   private void save(final PropertiesMap resourcePrefs, final File resourcePrefsFile) {
       OutputStream out = null;
-      try
-      {
-         if (!resourcePrefsFile.exists())
-         {
+      try {
+         if (!resourcePrefsFile.exists()) {
             resourcePrefsFile.getParentFile().mkdirs();
             resourcePrefsFile.createNewFile();
          }
          out = new BufferedOutputStream(new FileOutputStream(resourcePrefsFile));
          resourcePrefs.toJavaProperties().store(out, null);
       }
-      catch (IOException e)
-      {
+      catch (IOException e) {
          throw Exceptions.pipe(e);
       }
-      finally
-      {
+      finally {
          IOUtils.closeQuietly(out);
       }
    }

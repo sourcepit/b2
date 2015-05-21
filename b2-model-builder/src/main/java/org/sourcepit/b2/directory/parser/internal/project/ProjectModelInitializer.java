@@ -20,26 +20,22 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.sourcepit.common.constraints.NotNull;
 
 import org.sourcepit.b2.model.module.Project;
+import org.sourcepit.common.constraints.NotNull;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 @Named
-public class ProjectModelInitializer
-{
+public class ProjectModelInitializer {
    private final List<ProjectModelInitializationParticipant> participants;
 
    @Inject
-   public ProjectModelInitializer(@NotNull List<ProjectModelInitializationParticipant> participants)
-   {
+   public ProjectModelInitializer(@NotNull List<ProjectModelInitializationParticipant> participants) {
       this.participants = participants;
    }
 
-   public void initialize(Project project, PropertiesSource properties)
-   {
-      for (ProjectModelInitializationParticipant participant : participants)
-      {
+   public void initialize(Project project, PropertiesSource properties) {
+      for (ProjectModelInitializationParticipant participant : participants) {
          participant.initialize(project, properties);
       }
    }

@@ -19,7 +19,6 @@ package org.sourcepit.b2.model.builder.util;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public interface UIDetector
-{
+public interface UIDetector {
    boolean requiresUI(PluginProject pluginProject, PropertiesSource properties);
 }

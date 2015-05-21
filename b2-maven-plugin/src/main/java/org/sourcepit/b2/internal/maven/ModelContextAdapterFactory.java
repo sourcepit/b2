@@ -43,23 +43,18 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.SetMultimap;
 
 @Named
-public class ModelContextAdapterFactory
-{
+public class ModelContextAdapterFactory {
    private final ModuleArtifactResolver artifactResolver;
 
    @Inject
-   public ModelContextAdapterFactory(ModuleArtifactResolver artifactResolver)
-   {
+   public ModelContextAdapterFactory(ModuleArtifactResolver artifactResolver) {
       this.artifactResolver = artifactResolver;
    }
 
-   public ModelContext adapt(MavenSession session, MavenProject project)
-   {
-      synchronized (project)
-      {
+   public ModelContext adapt(MavenSession session, MavenProject project) {
+      synchronized (project) {
          ModelContext context = (ModelContext) project.getContextValue(ModelContext.class.getName());
-         if (context == null)
-         {
+         if (context == null) {
             context = createModuleModelContext(session, project);
             project.setContextValue(ModelContext.class.getName(), context);
          }
@@ -67,16 +62,13 @@ public class ModelContextAdapterFactory
       }
    }
 
-   public static ModelContext get(MavenProject project)
-   {
-      synchronized (project)
-      {
+   public static ModelContext get(MavenProject project) {
+      synchronized (project) {
          return (ModelContext) project.getContextValue(ModelContext.class.getName());
       }
    }
 
-   private ModelContext createModuleModelContext(MavenSession session, MavenProject project)
-   {
+   private ModelContext createModuleModelContext(MavenSession session, MavenProject project) {
       final ResourceSet resourceSet = createResourceSet();
 
       final SetMultimap<URI, String> scopeTest = LinkedHashMultimap.create();
@@ -95,21 +87,16 @@ public class ModelContextAdapterFactory
          resolve(resourceSet, scopeTest));
    }
 
-   private void initURIMapping(ResourceSet resourceSet, MavenSession session, MavenProject currentProject)
-   {
+   private void initURIMapping(ResourceSet resourceSet, MavenSession session, MavenProject currentProject) {
       final Map<URI, URI> uriMap = resourceSet.getURIConverter().getURIMap();
 
       final List<MavenProject> projects = session.getProjects();
-      for (int i = 0; i < projects.indexOf(currentProject); i++)
-      {
+      for (int i = 0; i < projects.indexOf(currentProject); i++) {
          final ModelContext foreignModelContext = ModelContextAdapterFactory.get(projects.get(i));
-         if (foreignModelContext != null)
-         {
+         if (foreignModelContext != null) {
             final Map<URI, URI> foreignUriMap = foreignModelContext.getResourceSet().getURIConverter().getURIMap();
-            for (URI uri : foreignUriMap.keySet())
-            {
-               if (!uriMap.containsKey(uri))
-               {
+            for (URI uri : foreignUriMap.keySet()) {
+               if (!uriMap.containsKey(uri)) {
                   uriMap.put(uri, foreignUriMap.get(uri));
                }
             }
@@ -118,19 +105,15 @@ public class ModelContextAdapterFactory
    }
 
    private static SetMultimap<AbstractModule, FeatureProject> resolve(ResourceSet resourceSet,
-      SetMultimap<URI, String> unresolved)
-   {
+      SetMultimap<URI, String> unresolved) {
       final SetMultimap<AbstractModule, FeatureProject> resolved = LinkedHashMultimap.create(unresolved.size(), 4);
-      for (Entry<URI, Collection<String>> entry : unresolved.asMap().entrySet())
-      {
+      for (Entry<URI, Collection<String>> entry : unresolved.asMap().entrySet()) {
          final URI uri = entry.getKey();
          final AbstractModule module = (AbstractModule) resourceSet.getResource(uri, true).getContents().get(0);
 
-         for (String classifier : entry.getValue())
-         {
+         for (String classifier : entry.getValue()) {
             final Optional<FeatureProject> result = findAssemblyFeatureForClassifier(module, classifier);
-            if (!result.isPresent())
-            {
+            if (!result.isPresent()) {
                throw new IllegalStateException("Cannot determine assembly feature for classifier '" + classifier + "'");
             }
             resolved.get(module).add(result.get());
@@ -140,15 +123,11 @@ public class ModelContextAdapterFactory
    }
 
    private static Optional<FeatureProject> findAssemblyFeatureForClassifier(final AbstractModule module,
-      String classifier)
-   {
-      for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class))
-      {
-         for (FeatureProject featureProject : featuresFacet.getProjects())
-         {
+      String classifier) {
+      for (FeaturesFacet featuresFacet : module.getFacets(FeaturesFacet.class)) {
+         for (FeatureProject featureProject : featuresFacet.getProjects()) {
             final int idx = B2MetadataUtils.getAssemblyClassifiers(featureProject).indexOf(classifier);
-            if (idx > -1)
-            {
+            if (idx > -1) {
                return Optional.of(featureProject);
             }
          }
@@ -157,12 +136,10 @@ public class ModelContextAdapterFactory
    }
 
    // TODO use interpolation layout
-   private static String pathOfMetaDataFile(File directory, String name)
-   {
+   private static String pathOfMetaDataFile(File directory, String name) {
       final StringBuilder sb = new StringBuilder();
       final String modulePath = directory.getAbsolutePath();
-      if (modulePath.length() != 0)
-      {
+      if (modulePath.length() != 0) {
          sb.append(modulePath);
          sb.append(File.separatorChar);
       }
@@ -172,8 +149,7 @@ public class ModelContextAdapterFactory
       return sb.toString();
    }
 
-   private static ResourceSet createResourceSet()
-   {
+   private static ResourceSet createResourceSet() {
       final ResourceSet resourceSet = new ResourceSetImpl();
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("gav", new XMIResourceFactoryImpl());
       resourceSet.getResourceFactoryRegistry().getProtocolToFactoryMap().put("file", new XMIResourceFactoryImpl());
@@ -181,15 +157,13 @@ public class ModelContextAdapterFactory
    }
 
    private void initURIMapping(ResourceSet resourceSet, SetMultimap<URI, String> artifactURIs, MavenSession session,
-      MavenProject project, String scope)
-   {
+      MavenProject project, String scope) {
       // resolve module artifacts
       final SetMultimap<MavenArtifact, String> moduleArtifactToClassifiers = artifactResolver.resolve(session, project,
          scope);
 
       // create artifact to file uri mapping
-      for (Entry<MavenArtifact, Collection<String>> entry : moduleArtifactToClassifiers.asMap().entrySet())
-      {
+      for (Entry<MavenArtifact, Collection<String>> entry : moduleArtifactToClassifiers.asMap().entrySet()) {
          final MavenArtifact artifact = entry.getKey();
          final URI artifactURI = toArtifactURI(artifact, null);
          final URI fileURI = URI.createFileURI(artifact.getFile().getAbsolutePath());
@@ -198,16 +172,14 @@ public class ModelContextAdapterFactory
       }
    }
 
-   private static URI toArtifactURI(MavenArtifact artifact, String classifier)
-   {
+   private static URI toArtifactURI(MavenArtifact artifact, String classifier) {
       final StringBuilder sb = new StringBuilder();
       sb.append(artifact.getGroupId());
       sb.append("/");
       sb.append(artifact.getArtifactId());
       sb.append("/");
       sb.append(artifact.getType());
-      if (classifier != null && classifier.length() > 0)
-      {
+      if (classifier != null && classifier.length() > 0) {
          sb.append("/");
          sb.append(classifier);
       }

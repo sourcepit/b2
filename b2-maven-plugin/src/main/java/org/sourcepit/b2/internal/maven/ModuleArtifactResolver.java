@@ -22,7 +22,6 @@ import org.sourcepit.common.maven.model.MavenArtifact;
 
 import com.google.common.collect.SetMultimap;
 
-public interface ModuleArtifactResolver
-{
+public interface ModuleArtifactResolver {
    SetMultimap<MavenArtifact, String> resolve(MavenSession session, MavenProject project, String scope);
 }

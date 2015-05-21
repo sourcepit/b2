@@ -36,8 +36,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
  * @author Bernd
  */
 @Named
-public class BootPomSerializer implements IB2Listener
-{
+public class BootPomSerializer implements IB2Listener {
    @Inject
    private LegacySupport legacySupport;
 
@@ -48,25 +47,20 @@ public class BootPomSerializer implements IB2Listener
    private ModulePomBuilder modulePomBuilder;
 
    @Override
-   public void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module)
-   {
+   public void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module) {
       final MavenProject currentProject = legacySupport.getSession().getCurrentProject();
-      if (module.getDirectory().equals(currentProject.getBasedir()))
-      {
-         try
-         {
+      if (module.getDirectory().equals(currentProject.getBasedir())) {
+         try {
             persistB2BootPom(module, currentProject);
             persistModulePomTemplate(module, currentProject);
          }
-         catch (IOException e)
-         {
+         catch (IOException e) {
             throw new IllegalStateException(e);
          }
       }
    }
 
-   private File persistB2BootPom(AbstractModule module, final MavenProject currentProject) throws IOException
-   {
+   private File persistB2BootPom(AbstractModule module, final MavenProject currentProject) throws IOException {
       final File pomFile = createFile(module, "boot-pom.xml");
       final Model model = currentProject.getOriginalModel().clone();
       writeMavenModel(model, pomFile);
@@ -74,28 +68,24 @@ public class BootPomSerializer implements IB2Listener
       return pomFile;
    }
 
-   private void persistModulePomTemplate(AbstractModule module, final MavenProject currentProject) throws IOException
-   {
+   private void persistModulePomTemplate(AbstractModule module, final MavenProject currentProject) throws IOException {
       final Model pomTemplate = modulePomBuilder.buildModulePom(currentProject);
       final File pomFile = createFile(module, "module-pom-template.xml");
       writeMavenModel(pomTemplate, pomFile);
       module.setAnnotationData("maven", "modulePomTemplate", pomFile.getAbsolutePath());
    }
 
-   private File createFile(AbstractModule module, String fileName) throws IOException
-   {
+   private File createFile(AbstractModule module, String fileName) throws IOException {
       final IInterpolationLayout layout = layoutMap.get(module.getLayoutId());
       final File pomFile = new File(layout.pathOfMetaDataFile(module, fileName));
-      if (!pomFile.exists())
-      {
+      if (!pomFile.exists()) {
          pomFile.getParentFile().mkdirs();
          pomFile.createNewFile();
       }
       return pomFile;
    }
 
-   private void writeMavenModel(final Model model, final File pomFile) throws IOException
-   {
+   private void writeMavenModel(final Model model, final File pomFile) throws IOException {
       new DefaultModelWriter().write(pomFile, null, model);
    }
 }

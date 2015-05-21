@@ -32,37 +32,30 @@ import org.apache.maven.model.Plugin;
 import org.apache.maven.model.inheritance.InheritanceAssembler;
 
 @Named
-public class TargetPlatformInhertianceAssembler
-{
+public class TargetPlatformInhertianceAssembler {
    private final InheritanceAssembler modelMerger;
 
    @Inject
-   public TargetPlatformInhertianceAssembler(InheritanceAssembler modelMerger)
-   {
+   public TargetPlatformInhertianceAssembler(InheritanceAssembler modelMerger) {
       this.modelMerger = modelMerger;
    }
 
-   public void assembleTPCInheritance(List<Model> hierarchy)
-   {
-      if (hierarchy.isEmpty())
-      {
+   public void assembleTPCInheritance(List<Model> hierarchy) {
+      if (hierarchy.isEmpty()) {
          throw new IllegalArgumentException("At least one model has to be contained in hierarchy.");
       }
 
       final Model targetDummy = hierarchy.get(0).clone();
-      for (int i = 1; i < hierarchy.size(); i++)
-      {
+      for (int i = 1; i < hierarchy.size(); i++) {
          modelMerger.assembleModelInheritance(targetDummy, hierarchy.get(i), null, null);
       }
 
       final Plugin tpc = getPlugin(targetDummy, TYCHO_GROUP_ID, TYCHO_TPC_PLUGIN_ARTIFACT_ID, false);
-      if (tpc != null)
-      {
+      if (tpc != null) {
          final Build build = getBuild(hierarchy.get(0), true);
 
          final Plugin staleTPC = getPlugin(build, tpc.getGroupId(), tpc.getArtifactId(), false);
-         if (staleTPC != null)
-         {
+         if (staleTPC != null) {
             build.getPlugins().remove(staleTPC);
          }
 

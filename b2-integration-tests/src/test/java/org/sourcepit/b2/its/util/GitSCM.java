@@ -33,88 +33,75 @@ import org.eclipse.jgit.api.errors.UnmergedPathsException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.sourcepit.common.utils.lang.Exceptions;
 
-public class GitSCM implements SCM
-{
+public class GitSCM implements SCM {
    private final File repoDir;
 
    private final Collection<File> submoduleDirs;
 
    private Git git;
 
-   public GitSCM(File repoDir, File... submoduleDirs)
-   {
+   public GitSCM(File repoDir, File... submoduleDirs) {
       this(repoDir, submoduleDirs == null ? null : Arrays.asList(submoduleDirs));
    }
 
    @SuppressWarnings("unchecked")
-   public GitSCM(File repoDir, Collection<File> submoduleDirs)
-   {
+   public GitSCM(File repoDir, Collection<File> submoduleDirs) {
       this.repoDir = repoDir;
       this.submoduleDirs = submoduleDirs == null ? Collections.EMPTY_LIST : submoduleDirs;
    }
 
-   public void create()
-   {
-      try
-      {
+   public void create() {
+      try {
          git = create(repoDir);
-         for (File submoduleDir : submoduleDirs)
-         {
+         for (File submoduleDir : submoduleDirs) {
             create(submoduleDir);
-            git.submoduleAdd().setPath(submoduleDir.getName()).setURI("file:///" + submoduleDir.getAbsolutePath())
+            git.submoduleAdd()
+               .setPath(submoduleDir.getName())
+               .setURI("file:///" + submoduleDir.getAbsolutePath())
                .call();
          }
 
-         if (!submoduleDirs.isEmpty())
-         {
+         if (!submoduleDirs.isEmpty()) {
             git.add().addFilepattern(".gitmodules").call();
             git.commit().setMessage("Added sumodules").call();
             git.submoduleInit().call();
             git.submoduleUpdate().call();
          }
       }
-      catch (GitAPIException e)
-      {
+      catch (GitAPIException e) {
          throw Exceptions.pipe(e);
       }
    }
 
    private static Git create(File repoDir) throws GitAPIException, NoFilepatternException, NoHeadException,
-      NoMessageException, UnmergedPathsException, ConcurrentRefUpdateException, WrongRepositoryStateException
-   {
+      NoMessageException, UnmergedPathsException, ConcurrentRefUpdateException, WrongRepositoryStateException {
       final Git git = Git.init().setDirectory(repoDir).call();
       git.add().addFilepattern(".").call();
       git.commit().setAll(true).setMessage("Initial commit").call();
       return git;
    }
 
-   public Scm createMavenScmModel(File projectDir, String version)
-   {
-      if (!projectDir.equals(repoDir))
-      {
+   public Scm createMavenScmModel(File projectDir, String version) {
+      if (!projectDir.equals(repoDir)) {
          return null;
       }
       final Scm scm = new Scm();
       scm.setConnection("scm:git:file:///" + projectDir.getAbsolutePath().replace('\\', '/'));
       final boolean isSnapshot = version == null || version.endsWith("-SNAPSHOT");
-      if (!isSnapshot)
-      {
+      if (!isSnapshot) {
          scm.setTag(projectDir.getName() + "-" + version);
       }
       return scm;
    }
 
-   public void switchVersion(String version)
-   {
+   public void switchVersion(String version) {
       final boolean isSnapshot = version == null || version.endsWith("-SNAPSHOT");
-      try
-      {
+      try {
          git.checkout().setName(isSnapshot ? "master" : repoDir.getName() + "-" + version).call();
          git.reset().setMode(ResetType.HARD).call();
          git.clean().setIgnore(false).setCleanDirectories(true).call();
       }
-      catch (Exception e)
-      {
+      catch (Exception e) {
          throw Exceptions.pipe(e);
       }
    }

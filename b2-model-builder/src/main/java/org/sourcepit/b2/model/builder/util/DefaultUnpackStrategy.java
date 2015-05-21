@@ -29,30 +29,22 @@ import org.sourcepit.common.manifest.osgi.ClassPathEntry;
 import org.sourcepit.common.modeling.Annotation;
 
 @Named
-public class DefaultUnpackStrategy implements UnpackStrategy
-{
-   public boolean isUnpack(PluginProject pluginProject)
-   {
+public class DefaultUnpackStrategy implements UnpackStrategy {
+   public boolean isUnpack(PluginProject pluginProject) {
       final BundleManifest manifest = pluginProject.getBundleManifest();
       return hasDirBundleShape(manifest) || hasJarOnBundleCP(manifest) || hasJarBinIncludes(pluginProject);
    }
 
-   private boolean hasDirBundleShape(BundleManifest manifest)
-   {
+   private boolean hasDirBundleShape(BundleManifest manifest) {
       return "dir".equals(manifest.getHeaderValue("Eclipse-BundleShape"));
    }
 
-   private boolean hasJarOnBundleCP(BundleManifest manifest)
-   {
+   private boolean hasJarOnBundleCP(BundleManifest manifest) {
       EList<ClassPathEntry> cp = manifest.getBundleClassPath();
-      if (cp != null)
-      {
-         for (ClassPathEntry entry : cp)
-         {
-            for (String path : entry.getPaths())
-            {
-               if (path.endsWith(".jar"))
-               {
+      if (cp != null) {
+         for (ClassPathEntry entry : cp) {
+            for (String path : entry.getPaths()) {
+               if (path.endsWith(".jar")) {
                   return true;
                }
             }
@@ -61,19 +53,14 @@ public class DefaultUnpackStrategy implements UnpackStrategy
       return false;
    }
 
-   private boolean hasJarBinIncludes(final PluginProject pluginProject)
-   {
+   private boolean hasJarBinIncludes(final PluginProject pluginProject) {
       final Annotation build = pluginProject.getAnnotation("build");
-      if (build != null)
-      {
+      if (build != null) {
          final String binIncs = build.getData().get("bin.includes");
-         if (binIncs != null)
-         {
+         if (binIncs != null) {
             final String[] split = binIncs.split(",");
-            for (String binInclude : split)
-            {
-               if (binInclude.trim().endsWith(".jar"))
-               {
+            for (String binInclude : split) {
+               if (binInclude.trim().endsWith(".jar")) {
                   return true;
                }
             }
@@ -82,17 +69,13 @@ public class DefaultUnpackStrategy implements UnpackStrategy
       return false;
    }
 
-   public List<String> getBuildJars(PluginProject pluginProject)
-   {
+   public List<String> getBuildJars(PluginProject pluginProject) {
       final List<String> buildJars = new ArrayList<String>();
       final Annotation build = pluginProject.getAnnotation("build");
-      if (build != null)
-      {
-         for (Entry<String, String> entry : build.getData())
-         {
+      if (build != null) {
+         for (Entry<String, String> entry : build.getData()) {
             String key = entry.getKey();
-            if (key.startsWith("source.") && key.endsWith(".jar"))
-            {
+            if (key.startsWith("source.") && key.endsWith(".jar")) {
                buildJars.add(key.substring("source.".length()));
             }
          }

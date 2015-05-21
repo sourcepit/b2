@@ -29,8 +29,7 @@ import org.sourcepit.b2.model.module.AbstractModule;
 import org.sourcepit.b2.model.module.test.internal.harness.B2ModelHarness;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class B2Test extends AbstractB2SessionWorkspaceTest
-{
+public class B2Test extends AbstractB2SessionWorkspaceTest {
    @Inject
    private B2 b2;
 
@@ -38,13 +37,11 @@ public class B2Test extends AbstractB2SessionWorkspaceTest
    private BasicConverter converter;
 
    @Override
-   protected String setUpModulePath()
-   {
+   protected String setUpModulePath() {
       return "composed-component/simple-layout";
    }
 
-   public void testSkipInterpolator() throws Exception
-   {
+   public void testSkipInterpolator() throws Exception {
       File moduleDir = getModuleDirs().get(0);
       assertTrue(moduleDir.canRead());
 

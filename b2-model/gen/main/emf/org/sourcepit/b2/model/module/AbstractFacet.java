@@ -35,8 +35,7 @@ import org.sourcepit.common.modeling.Annotatable;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractFacet extends Derivable, Annotatable
-{
+public interface AbstractFacet extends Derivable, Annotatable {
    /**
     * Returns the value of the '<em><b>Parent</b></em>' container reference.
     * It is bidirectional and its opposite is '{@link org.sourcepit.b2.model.module.AbstractModule#getFacets

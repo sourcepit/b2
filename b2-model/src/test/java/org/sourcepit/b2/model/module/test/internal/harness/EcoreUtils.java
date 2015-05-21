@@ -27,38 +27,29 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @author Bernd
  */
-public final class EcoreUtils
-{
-   private EcoreUtils()
-   {
+public final class EcoreUtils {
+   private EcoreUtils() {
       super();
    }
 
-   public interface RunnableWithEObject
-   {
+   public interface RunnableWithEObject {
       void run(EObject eObject);
    }
 
-   public static void foreachSupertype(EClass type, RunnableWithEObject runnable)
-   {
+   public static void foreachSupertype(EClass type, RunnableWithEObject runnable) {
       List<EClass> superTypes = getConcreteSuperTypes(type);
-      for (EClass superType : superTypes)
-      {
+      for (EClass superType : superTypes) {
          EObject instance = superType.getEPackage().getEFactoryInstance().create(superType);
          runnable.run(instance);
       }
    }
 
-   public static List<EClass> getConcreteSuperTypes(EClass type)
-   {
+   public static List<EClass> getConcreteSuperTypes(EClass type) {
       List<EClass> moduleTypes = new ArrayList<EClass>();
-      for (EClassifier eClassifier : type.getEPackage().getEClassifiers())
-      {
-         if (eClassifier instanceof EClass)
-         {
+      for (EClassifier eClassifier : type.getEPackage().getEClassifiers()) {
+         if (eClassifier instanceof EClass) {
             EClass eClass = (EClass) eClassifier;
-            if (!eClass.isAbstract() && !eClass.isInterface() && type.isSuperTypeOf(eClass))
-            {
+            if (!eClass.isAbstract() && !eClass.isInterface() && type.isSuperTypeOf(eClass)) {
                moduleTypes.add(eClass);
             }
          }

@@ -45,8 +45,7 @@ import org.sourcepit.b2.model.module.ModuleModelPackage;
  * 
  * @generated
  */
-public class CategoryImpl extends EObjectImpl implements Category
-{
+public class CategoryImpl extends EObjectImpl implements Category {
    /**
     * The cached value of the '{@link #getInstallableUnits() <em>Installable Units</em>}' containment reference list.
     * <!-- begin-user-doc -->
@@ -86,8 +85,7 @@ public class CategoryImpl extends EObjectImpl implements Category
     * 
     * @generated
     */
-   protected CategoryImpl()
-   {
+   protected CategoryImpl() {
       super();
    }
 
@@ -98,8 +96,7 @@ public class CategoryImpl extends EObjectImpl implements Category
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.CATEGORY;
    }
 
@@ -109,10 +106,8 @@ public class CategoryImpl extends EObjectImpl implements Category
     * 
     * @generated
     */
-   public EList<AbstractStrictReference> getInstallableUnits()
-   {
-      if (installableUnits == null)
-      {
+   public EList<AbstractStrictReference> getInstallableUnits() {
+      if (installableUnits == null) {
          installableUnits = new EObjectContainmentEList.Resolving<AbstractStrictReference>(
             AbstractStrictReference.class, this, ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS);
       }
@@ -125,8 +120,7 @@ public class CategoryImpl extends EObjectImpl implements Category
     * 
     * @generated
     */
-   public String getName()
-   {
+   public String getName() {
       return name;
    }
 
@@ -136,8 +130,7 @@ public class CategoryImpl extends EObjectImpl implements Category
     * 
     * @generated
     */
-   public void setName(String newName)
-   {
+   public void setName(String newName) {
       String oldName = name;
       name = newName;
       if (eNotificationRequired())
@@ -151,10 +144,8 @@ public class CategoryImpl extends EObjectImpl implements Category
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS :
             return ((InternalEList<?>) getInstallableUnits()).basicRemove(otherEnd, msgs);
       }
@@ -168,10 +159,8 @@ public class CategoryImpl extends EObjectImpl implements Category
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS :
             return getInstallableUnits();
          case ModuleModelPackage.CATEGORY__NAME :
@@ -188,10 +177,8 @@ public class CategoryImpl extends EObjectImpl implements Category
     */
    @SuppressWarnings("unchecked")
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS :
             getInstallableUnits().clear();
             getInstallableUnits().addAll((Collection<? extends AbstractStrictReference>) newValue);
@@ -210,10 +197,8 @@ public class CategoryImpl extends EObjectImpl implements Category
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS :
             getInstallableUnits().clear();
             return;
@@ -231,10 +216,8 @@ public class CategoryImpl extends EObjectImpl implements Category
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.CATEGORY__INSTALLABLE_UNITS :
             return installableUnits != null && !installableUnits.isEmpty();
          case ModuleModelPackage.CATEGORY__NAME :
@@ -250,8 +233,7 @@ public class CategoryImpl extends EObjectImpl implements Category
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

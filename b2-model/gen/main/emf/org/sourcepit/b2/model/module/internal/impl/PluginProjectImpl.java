@@ -47,8 +47,7 @@ import org.sourcepit.common.manifest.osgi.BundleManifest;
  * 
  * @generated
  */
-public class PluginProjectImpl extends ProjectImpl implements PluginProject
-{
+public class PluginProjectImpl extends ProjectImpl implements PluginProject {
    /**
     * The default value of the '{@link #getBundleVersion() <em>Bundle Version</em>}' attribute.
     * <!-- begin-user-doc -->
@@ -154,8 +153,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   protected PluginProjectImpl()
-   {
+   protected PluginProjectImpl() {
       super();
    }
 
@@ -166,8 +164,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.PLUGIN_PROJECT;
    }
 
@@ -177,8 +174,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public PluginsFacet getParent()
-   {
+   public PluginsFacet getParent() {
       if (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT)
          return null;
       return (PluginsFacet) eContainer();
@@ -190,8 +186,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public PluginsFacet basicGetParent()
-   {
+   public PluginsFacet basicGetParent() {
       if (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT)
          return null;
       return (PluginsFacet) eInternalContainer();
@@ -203,8 +198,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public NotificationChain basicSetParent(PluginsFacet newParent, NotificationChain msgs)
-   {
+   public NotificationChain basicSetParent(PluginsFacet newParent, NotificationChain msgs) {
       msgs = eBasicSetContainer((InternalEObject) newParent, ModuleModelPackage.PLUGIN_PROJECT__PARENT, msgs);
       return msgs;
    }
@@ -215,11 +209,9 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public void setParent(PluginsFacet newParent)
-   {
+   public void setParent(PluginsFacet newParent) {
       if (newParent != eInternalContainer()
-         || (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT && newParent != null))
-      {
+         || (eContainerFeatureID() != ModuleModelPackage.PLUGIN_PROJECT__PARENT && newParent != null)) {
          if (EcoreUtil.isAncestor(this, newParent))
             throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
          NotificationChain msgs = null;
@@ -243,8 +235,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public String getBundleVersion()
-   {
+   public String getBundleVersion() {
       return bundleVersion;
    }
 
@@ -254,8 +245,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public void setBundleVersion(String newBundleVersion)
-   {
+   public void setBundleVersion(String newBundleVersion) {
       String oldBundleVersion = bundleVersion;
       bundleVersion = newBundleVersion;
       if (eNotificationRequired())
@@ -269,8 +259,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public boolean isTestPlugin()
-   {
+   public boolean isTestPlugin() {
       return testPlugin;
    }
 
@@ -280,8 +269,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public void setTestPlugin(boolean newTestPlugin)
-   {
+   public void setTestPlugin(boolean newTestPlugin) {
       boolean oldTestPlugin = testPlugin;
       testPlugin = newTestPlugin;
       if (eNotificationRequired())
@@ -295,8 +283,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public String getFragmentHostSymbolicName()
-   {
+   public String getFragmentHostSymbolicName() {
       return fragmentHostSymbolicName;
    }
 
@@ -306,8 +293,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public void setFragmentHostSymbolicName(String newFragmentHostSymbolicName)
-   {
+   public void setFragmentHostSymbolicName(String newFragmentHostSymbolicName) {
       String oldFragmentHostSymbolicName = fragmentHostSymbolicName;
       fragmentHostSymbolicName = newFragmentHostSymbolicName;
       if (eNotificationRequired())
@@ -322,8 +308,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public String getFragmentHostVersion()
-   {
+   public String getFragmentHostVersion() {
       return fragmentHostVersion;
    }
 
@@ -333,8 +318,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public void setFragmentHostVersion(String newFragmentHostVersion)
-   {
+   public void setFragmentHostVersion(String newFragmentHostVersion) {
       String oldFragmentHostVersion = fragmentHostVersion;
       fragmentHostVersion = newFragmentHostVersion;
       if (eNotificationRequired())
@@ -348,19 +332,15 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public BundleManifest getBundleManifest()
-   {
-      if (bundleManifest != null && bundleManifest.eIsProxy())
-      {
+   public BundleManifest getBundleManifest() {
+      if (bundleManifest != null && bundleManifest.eIsProxy()) {
          InternalEObject oldBundleManifest = (InternalEObject) bundleManifest;
          bundleManifest = (BundleManifest) eResolveProxy(oldBundleManifest);
-         if (bundleManifest != oldBundleManifest)
-         {
+         if (bundleManifest != oldBundleManifest) {
             InternalEObject newBundleManifest = (InternalEObject) bundleManifest;
             NotificationChain msgs = oldBundleManifest.eInverseRemove(this, EOPPOSITE_FEATURE_BASE
                - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, null);
-            if (newBundleManifest.eInternalContainer() == null)
-            {
+            if (newBundleManifest.eInternalContainer() == null) {
                msgs = newBundleManifest.eInverseAdd(this, EOPPOSITE_FEATURE_BASE
                   - ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, null, msgs);
             }
@@ -380,8 +360,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public BundleManifest basicGetBundleManifest()
-   {
+   public BundleManifest basicGetBundleManifest() {
       return bundleManifest;
    }
 
@@ -391,12 +370,10 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public NotificationChain basicSetBundleManifest(BundleManifest newBundleManifest, NotificationChain msgs)
-   {
+   public NotificationChain basicSetBundleManifest(BundleManifest newBundleManifest, NotificationChain msgs) {
       BundleManifest oldBundleManifest = bundleManifest;
       bundleManifest = newBundleManifest;
-      if (eNotificationRequired())
-      {
+      if (eNotificationRequired()) {
          ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
             ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST, oldBundleManifest, newBundleManifest);
          if (msgs == null)
@@ -413,10 +390,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public void setBundleManifest(BundleManifest newBundleManifest)
-   {
-      if (newBundleManifest != bundleManifest)
-      {
+   public void setBundleManifest(BundleManifest newBundleManifest) {
+      if (newBundleManifest != bundleManifest) {
          NotificationChain msgs = null;
          if (bundleManifest != null)
             msgs = ((InternalEObject) bundleManifest).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
@@ -439,8 +414,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * 
     * @generated
     */
-   public boolean isFragment()
-   {
+   public boolean isFragment() {
       // TODO: implement this method
       // Ensure that you remove @generated or mark it @generated NOT
       throw new UnsupportedOperationException();
@@ -453,10 +427,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
             if (eInternalContainer() != null)
                msgs = eBasicRemoveFromContainer(msgs);
@@ -472,10 +444,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-   {
-      switch (featureID)
-      {
+   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
             return basicSetParent(null, msgs);
          case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_MANIFEST :
@@ -491,10 +461,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs)
-   {
-      switch (eContainerFeatureID())
-      {
+   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+      switch (eContainerFeatureID()) {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
             return eInternalContainer().eInverseRemove(this, ModuleModelPackage.PLUGINS_FACET__PROJECTS,
                PluginsFacet.class, msgs);
@@ -509,10 +477,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   public Object eGet(int featureID, boolean resolve, boolean coreType)
-   {
-      switch (featureID)
-      {
+   public Object eGet(int featureID, boolean resolve, boolean coreType) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
             if (resolve)
                return getParent();
@@ -540,10 +506,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   public void eSet(int featureID, Object newValue)
-   {
-      switch (featureID)
-      {
+   public void eSet(int featureID, Object newValue) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
             setParent((PluginsFacet) newValue);
             return;
@@ -573,10 +537,8 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   public void eUnset(int featureID)
-   {
-      switch (featureID)
-      {
+   public void eUnset(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
             setParent((PluginsFacet) null);
             return;
@@ -606,15 +568,14 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   public boolean eIsSet(int featureID)
-   {
-      switch (featureID)
-      {
+   public boolean eIsSet(int featureID) {
+      switch (featureID) {
          case ModuleModelPackage.PLUGIN_PROJECT__PARENT :
             return basicGetParent() != null;
          case ModuleModelPackage.PLUGIN_PROJECT__BUNDLE_VERSION :
-            return BUNDLE_VERSION_EDEFAULT == null ? bundleVersion != null : !BUNDLE_VERSION_EDEFAULT
-               .equals(bundleVersion);
+            return BUNDLE_VERSION_EDEFAULT == null
+               ? bundleVersion != null
+               : !BUNDLE_VERSION_EDEFAULT.equals(bundleVersion);
          case ModuleModelPackage.PLUGIN_PROJECT__TEST_PLUGIN :
             return testPlugin != TEST_PLUGIN_EDEFAULT;
          case ModuleModelPackage.PLUGIN_PROJECT__FRAGMENT_HOST_SYMBOLIC_NAME :
@@ -638,8 +599,7 @@ public class PluginProjectImpl extends ProjectImpl implements PluginProject
     * @generated
     */
    @Override
-   public String toString()
-   {
+   public String toString() {
       if (eIsProxy())
          return super.toString();
 

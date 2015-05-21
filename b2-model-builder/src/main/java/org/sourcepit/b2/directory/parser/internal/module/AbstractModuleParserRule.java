@@ -30,27 +30,22 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 
 public abstract class AbstractModuleParserRule<M extends AbstractModule>
    implements
-      Comparable<AbstractModuleParserRule<M>>
-{
+      Comparable<AbstractModuleParserRule<M>> {
    @Inject
    private ModuleIdDerivator moduleIdDerivator;
 
    @Inject
    private BasicConverter converter;
 
-   public final M parse(IModuleParsingRequest request)
-   {
+   public final M parse(IModuleParsingRequest request) {
       final M module = doParse(request);
-      if (module != null)
-      {
+      if (module != null) {
          final Set<Locale> locales = NlsUtils.getNlsPropertyFiles(module.getDirectory(), "module", "properties")
             .keySet();
-         if (locales.isEmpty())
-         {
+         if (locales.isEmpty()) {
             module.getLocales().add(NlsUtils.DEFAULT_LOCALE);
          }
-         else
-         {
+         else {
             module.getLocales().addAll(locales);
          }
       }
@@ -59,30 +54,25 @@ public abstract class AbstractModuleParserRule<M extends AbstractModule>
 
    protected abstract M doParse(IModuleParsingRequest request);
 
-   protected String getModuleVersion(PropertiesSource properties)
-   {
+   protected String getModuleVersion(PropertiesSource properties) {
       return converter.getModuleVersion(properties);
    }
 
-   protected String getModuleId(AbstractModule module, PropertiesSource properties)
-   {
+   protected String getModuleId(AbstractModule module, PropertiesSource properties) {
       return moduleIdDerivator.deriveModuleId(module, properties);
    }
 
 
-   public int compareTo(AbstractModuleParserRule<M> otherRule)
-   {
+   public int compareTo(AbstractModuleParserRule<M> otherRule) {
       final int otherPrio = otherRule.getPriority();
       final int priority = getPriority();
-      if (otherPrio == priority)
-      {
+      if (otherPrio == priority) {
          return 0;
       }
       return priority < otherPrio ? 1 : -1;
    }
 
-   protected int getPriority()
-   {
+   protected int getPriority() {
       return Integer.MAX_VALUE / 2;
    }
 }

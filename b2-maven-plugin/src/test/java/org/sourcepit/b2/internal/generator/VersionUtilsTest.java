@@ -20,11 +20,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class VersionUtilsTest
-{
+public class VersionUtilsTest {
    @Test
-   public void testToTychoVersion()
-   {
+   public void testToTychoVersion() {
       assertEquals("1.2", VersionUtils.toTychoVersion("1.2"));
       assertEquals("1.2.3", VersionUtils.toTychoVersion("1.2.3"));
       assertEquals("1.2.3-SNAPSHOT", VersionUtils.toTychoVersion("1.2.3.qualifier"));
@@ -32,8 +30,7 @@ public class VersionUtilsTest
    }
 
    @Test
-   public void testToMavenVersion()
-   {
+   public void testToMavenVersion() {
       assertEquals("1.2", VersionUtils.toMavenVersion("1.2"));
       assertEquals("1.2.3", VersionUtils.toMavenVersion("1.2.3"));
       assertEquals("1.2.3-SNAPSHOT", VersionUtils.toMavenVersion("1.2.3.qualifier"));
@@ -41,8 +38,7 @@ public class VersionUtilsTest
    }
 
    @Test
-   public void testToBundleVersion() throws Exception
-   {
+   public void testToBundleVersion() throws Exception {
       assertEquals("1.0.0.RC1", VersionUtils.toBundleVersion("1.0.0-RC1"));
       assertEquals("1.0.0", VersionUtils.toBundleVersion("1"));
       assertEquals("1.0.0.qualifier", VersionUtils.toBundleVersion("1.0.0-SnApShOt"));

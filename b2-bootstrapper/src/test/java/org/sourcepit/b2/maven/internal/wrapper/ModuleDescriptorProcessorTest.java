@@ -31,10 +31,8 @@ import org.apache.maven.execution.MavenExecutionRequest;
 import org.apache.maven.execution.MavenSession;
 import org.sourcepit.b2.test.resources.internal.harness.AbstractPlexusWorkspaceTest;
 
-public class ModuleDescriptorProcessorTest extends AbstractPlexusWorkspaceTest
-{
-   public void testFindModuleDescriptors() throws Exception
-   {
+public class ModuleDescriptorProcessorTest extends AbstractPlexusWorkspaceTest {
+   public void testFindModuleDescriptors() throws Exception {
       File baseDir = workspace.importResources("composed-component");
       assertTrue(baseDir.canRead());
 
@@ -53,8 +51,7 @@ public class ModuleDescriptorProcessorTest extends AbstractPlexusWorkspaceTest
       assertEquals(new File(baseDir, "module.xml").getAbsoluteFile(), descriptors.get(2).getAbsoluteFile());
    }
 
-   protected MavenSession createMavenSession(File baseDir)
-   {
+   protected MavenSession createMavenSession(File baseDir) {
       MavenExecutionRequest request = new DefaultMavenExecutionRequest();
       request.setBaseDirectory(baseDir);
       MavenSession mavenSession = mock(MavenSession.class);
@@ -64,8 +61,7 @@ public class ModuleDescriptorProcessorTest extends AbstractPlexusWorkspaceTest
       return mavenSession;
    }
 
-   public void testFindModuleDescriptorsWithExclude() throws Exception
-   {
+   public void testFindModuleDescriptorsWithExclude() throws Exception {
       File baseDir = workspace.importResources("composed-component");
       assertTrue(baseDir.canRead());
 
@@ -88,8 +84,7 @@ public class ModuleDescriptorProcessorTest extends AbstractPlexusWorkspaceTest
       assertEquals(new File(baseDir, "module.xml").getAbsoluteFile(), descriptors.get(2).getAbsoluteFile());
    }
 
-   protected ModuleDescriptorProcessor lookup() throws Exception
-   {
+   protected ModuleDescriptorProcessor lookup() throws Exception {
       return lookup(ModuleDescriptorProcessor.class);
    }
 }

@@ -27,6 +27,5 @@ package org.sourcepit.b2.model.module;
  * @model
  * @generated
  */
-public interface StrictReference extends AbstractStrictReference
-{
+public interface StrictReference extends AbstractStrictReference {
 } // StrictReference

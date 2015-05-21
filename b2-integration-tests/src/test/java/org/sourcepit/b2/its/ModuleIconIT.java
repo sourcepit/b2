@@ -31,17 +31,14 @@ import org.sourcepit.b2.model.module.PluginsFacet;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class ModuleIconIT extends AbstractB2IT
-{
+public class ModuleIconIT extends AbstractB2IT {
    @Override
-   protected boolean isDebug()
-   {
+   protected boolean isDebug() {
       return false;
    }
 
    @Test
-   public void test() throws Exception
-   {
+   public void test() throws Exception {
       final File moduleDir = getResource(getClass().getSimpleName());
       int err = build(moduleDir, "-e", "-B", "clean", "-Dtycho.mode=maven");
       assertThat(err, is(0));
@@ -63,8 +60,7 @@ public class ModuleIconIT extends AbstractB2IT
       assertModuleIconConfigured(testsBranding.getDirectory());
    }
 
-   private static void assertModuleIconConfigured(File pluginDir)
-   {
+   private static void assertModuleIconConfigured(File pluginDir) {
       assertTrue(new File(pluginDir, "module32.png").exists());
 
       final PropertiesMap buildProps = new LinkedPropertiesMap();

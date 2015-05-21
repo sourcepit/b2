@@ -29,16 +29,14 @@ import org.sourcepit.b2.model.module.StrictReference;
  * 
  * @generated
  */
-public class StrictReferenceImpl extends AbstractStrictReferenceImpl implements StrictReference
-{
+public class StrictReferenceImpl extends AbstractStrictReferenceImpl implements StrictReference {
    /**
     * <!-- begin-user-doc -->
     * <!-- end-user-doc -->
     * 
     * @generated
     */
-   protected StrictReferenceImpl()
-   {
+   protected StrictReferenceImpl() {
       super();
    }
 
@@ -49,8 +47,7 @@ public class StrictReferenceImpl extends AbstractStrictReferenceImpl implements 
     * @generated
     */
    @Override
-   protected EClass eStaticClass()
-   {
+   protected EClass eStaticClass() {
       return ModuleModelPackage.Literals.STRICT_REFERENCE;
    }
 

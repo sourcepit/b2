@@ -28,10 +28,8 @@ import org.sourcepit.b2.model.module.VersionMatchRule;
 /**
  * @author Bernd
  */
-public class ReferenceUtilsTest extends TestCase
-{
-   public void testToVersionRange() throws Exception
-   {
+public class ReferenceUtilsTest extends TestCase {
+   public void testToVersionRange() throws Exception {
       // COMPATIBLE
       VersionRange versionRange = ReferenceUtils.toVersionRange("0.0.0", VersionMatchRule.COMPATIBLE);
       assertEquals("[0.0.0,1.0.0)", versionRange.toString());
@@ -81,8 +79,7 @@ public class ReferenceUtilsTest extends TestCase
       assertEquals("[1.1.1.qualifier,1.1.1.qualifier]", versionRange.toString());
    }
 
-   public void testFeatureRequirement() throws Exception
-   {
+   public void testFeatureRequirement() throws Exception {
       ModuleModelFactory eFactory = ModuleModelFactory.eINSTANCE;
 
       RuledReference fr = eFactory.createRuledReference();

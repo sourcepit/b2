@@ -29,32 +29,28 @@ import org.apache.maven.shared.release.scm.ReleaseScmRepositoryException;
 import org.sourcepit.b2.release.B2ReleaseHelper;
 import org.sourcepit.b2.release.B2ScmHelper;
 
-public class ScmCommitPreparationPhase extends org.apache.maven.shared.release.phase.ScmCommitPreparationPhase
-{
+public class ScmCommitPreparationPhase extends org.apache.maven.shared.release.phase.ScmCommitPreparationPhase {
    private B2ReleaseHelper releaseHelper;
 
    private B2ScmHelper scmHelper;
 
    @Override
    public ReleaseResult execute(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       final List<MavenProject> mavenModuleProjects = releaseHelper.adaptModuleProjects(reactorProjects);
       return super.execute(releaseDescriptor, releaseEnvironment, mavenModuleProjects);
    }
 
    @Override
    public ReleaseResult simulate(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
-      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException
-   {
+      List<MavenProject> reactorProjects) throws ReleaseExecutionException, ReleaseFailureException {
       final List<MavenProject> mavenModuleProjects = releaseHelper.adaptModuleProjects(reactorProjects);
       return super.simulate(releaseDescriptor, releaseEnvironment, mavenModuleProjects);
    }
 
    protected void performCheckins(ReleaseDescriptor releaseDescriptor, ReleaseEnvironment releaseEnvironment,
       List<MavenProject> reactorProjects, String message) throws ReleaseScmRepositoryException,
-      ReleaseExecutionException, ReleaseScmCommandException
-   {
+      ReleaseExecutionException, ReleaseScmCommandException {
       getLogger().info("Checking in modified Files...");
       scmHelper.performCheckins(releaseDescriptor, releaseEnvironment, reactorProjects, message);
    }

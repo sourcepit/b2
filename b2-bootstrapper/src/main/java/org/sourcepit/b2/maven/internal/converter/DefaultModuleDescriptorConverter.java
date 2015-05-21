@@ -34,13 +34,11 @@ import org.sourcepit.common.utils.nls.NlsUtils;
 import org.sourcepit.common.utils.path.PathUtils;
 
 @Named("module.xml")
-public class DefaultModuleDescriptorConverter implements IModuleDescriptorConverter
-{
+public class DefaultModuleDescriptorConverter implements IModuleDescriptorConverter {
    @Inject
    private ModelReader modelReader;
 
-   public Model convert(File moduleDescriptor) throws IOException, ModelParseException
-   {
+   public Model convert(File moduleDescriptor) throws IOException, ModelParseException {
       final Map<String, String> options = new HashMap<String, String>();
       options.put(ModelReader.IS_STRICT, Boolean.FALSE.toString());
 
@@ -49,8 +47,7 @@ public class DefaultModuleDescriptorConverter implements IModuleDescriptorConver
       return model;
    }
 
-   private void injectProjectProperties(Properties target, File modelFile)
-   {
+   private void injectProjectProperties(Properties target, File modelFile) {
       final File directory = modelFile.getParentFile();
       final String fileName = PathUtils.trimFileExtension(modelFile.getName());
       final String fileExtension = ".properties";

@@ -16,18 +16,19 @@
 
 package org.sourcepit.b2.model.builder.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesMap;
 
-public class FeaturesConverterTest
-{
+public class FeaturesConverterTest {
 
    @Test
-   public void testGetBrandingPluginId()
-   {
+   public void testGetBrandingPluginId() {
       FeaturesConverter converter = new DefaultConverter();
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
@@ -36,13 +37,11 @@ public class FeaturesConverterTest
 
       String brandingPluginId;
 
-      try
-      {
+      try {
          brandingPluginId = converter.getBrandingPluginIdForAssembly(moduleProperties, null, "foo");
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       brandingPluginId = converter.getBrandingPluginIdForAssembly(moduleProperties, "main", "foo");
@@ -60,21 +59,18 @@ public class FeaturesConverterTest
    }
 
    @Test
-   public void testGetBrandingPluginIdForAssembly() throws Exception
-   {
+   public void testGetBrandingPluginIdForAssembly() throws Exception {
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("b2.assemblies", "main, test");
       moduleProperties.put("b2.assemblies.main.classifier", "");
 
       FeaturesConverter converter = new DefaultConverter();
 
-      try
-      {
+      try {
          converter.getBrandingPluginIdForAssembly(moduleProperties, null, "foo");
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       assertEquals("foo.branding", converter.getBrandingPluginIdForAssembly(moduleProperties, "main", "foo"));
@@ -87,21 +83,18 @@ public class FeaturesConverterTest
    }
 
    @Test
-   public void testGetBrandingPluginIdForFacet() throws Exception
-   {
+   public void testGetBrandingPluginIdForFacet() throws Exception {
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("b2.assemblies", "main, test");
       moduleProperties.put("b2.assemblies.main.classifier", "");
 
       FeaturesConverter converter = new DefaultConverter();
 
-      try
-      {
+      try {
          converter.getBrandingPluginIdForFacet(moduleProperties, null, "foo", false);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       assertEquals("foo.plugins.branding",
@@ -131,21 +124,18 @@ public class FeaturesConverterTest
    }
 
    @Test
-   public void testGetFeatureIdForAssembly() throws Exception
-   {
+   public void testGetFeatureIdForAssembly() throws Exception {
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("b2.assemblies", "main, test");
       moduleProperties.put("b2.assemblies.main.classifier", "");
 
       FeaturesConverter converter = new DefaultConverter();
 
-      try
-      {
+      try {
          converter.getFeatureIdForAssembly(moduleProperties, null, "foo");
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       assertEquals("foo.feature", converter.getFeatureIdForAssembly(moduleProperties, "main", "foo"));
@@ -158,21 +148,18 @@ public class FeaturesConverterTest
    }
 
    @Test
-   public void testGetFeatureIdForFacet() throws Exception
-   {
+   public void testGetFeatureIdForFacet() throws Exception {
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("b2.assemblies", "main, test");
       moduleProperties.put("b2.assemblies.main.classifier", "");
 
       FeaturesConverter converter = new DefaultConverter();
 
-      try
-      {
+      try {
          converter.getFeatureIdForFacet(moduleProperties, null, "foo", false);
          fail();
       }
-      catch (IllegalArgumentException e)
-      {
+      catch (IllegalArgumentException e) {
       }
 
       assertEquals("foo.plugins.feature", converter.getFeatureIdForFacet(moduleProperties, "plugins", "foo", false));
@@ -198,8 +185,7 @@ public class FeaturesConverterTest
    }
 
    @Test
-   public void testFeaturesAppendix() throws Exception
-   {
+   public void testFeaturesAppendix() throws Exception {
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("b2.assemblies", "main, test");
       moduleProperties.put("b2.assemblies.main.classifier", "");
@@ -221,8 +207,7 @@ public class FeaturesConverterTest
    }
 
    @Test
-   public void testBrandingPluginsAppendix() throws Exception
-   {
+   public void testBrandingPluginsAppendix() throws Exception {
       PropertiesMap moduleProperties = new LinkedPropertiesMap();
       moduleProperties.put("b2.assemblies", "main, test");
       moduleProperties.put("b2.assemblies.main.classifier", "");
@@ -246,8 +231,7 @@ public class FeaturesConverterTest
    }
 
    @Test
-   public void testIsSkipBrandingPlugins()
-   {
+   public void testIsSkipBrandingPlugins() {
       FeaturesConverter converter = new DefaultConverter();
 
       PropertiesMap moduleProperties = new LinkedPropertiesMap();

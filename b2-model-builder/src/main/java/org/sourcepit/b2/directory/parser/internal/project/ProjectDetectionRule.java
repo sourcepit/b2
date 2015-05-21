@@ -21,7 +21,6 @@ import java.io.File;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
-public interface ProjectDetectionRule<P extends Project>
-{
+public interface ProjectDetectionRule<P extends Project> {
    P detect(File directory, PropertiesSource properties);
 }
