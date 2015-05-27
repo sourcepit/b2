@@ -29,6 +29,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.sisu.launch.InjectedTest;
 import org.junit.Rule;
 import org.junit.Test;
+import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.manifest.osgi.BundleManifestFactory;
 import org.sourcepit.common.manifest.osgi.resource.BundleManifestResourceImpl;
 import org.sourcepit.common.testing.Environment;
@@ -55,7 +56,9 @@ public class ProjectResourcesPreprocessorTest extends InjectedTest {
 
       BundleManifestResourceImpl mfResource = new BundleManifestResourceImpl(
          URI.createFileURI(mfFile.getAbsolutePath()));
-      mfResource.getContents().add(BundleManifestFactory.eINSTANCE.createBundleManifest());
+      BundleManifest bundleManifest = BundleManifestFactory.eINSTANCE.createBundleManifest();
+      bundleManifest.setBundleSymbolicName("foo");
+      mfResource.getContents().add(bundleManifest);
       mfResource.save(null);
 
       assertNull(preprocessor.detect(baseDir, new LinkedPropertiesMap()));
@@ -64,5 +67,4 @@ public class ProjectResourcesPreprocessorTest extends InjectedTest {
 
       assertNotNull(preprocessor.detect(baseDir, new LinkedPropertiesMap()));
    }
-
 }
