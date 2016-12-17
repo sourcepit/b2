@@ -421,15 +421,15 @@ public class SiteProjectGeneratorTest extends AbstractTestEnvironmentTest {
 
       assertEquals(4, elements.size());
 
-      Element featureElem = elements.get(0);
-      assertEquals("feature", featureElem.getTagName());
-      assertEquals("foo.plugins.feature", featureElem.getAttribute("id"));
-      assertEquals("1.0.0.qualifier", featureElem.getAttribute("version"));
-
-      Element pluginElem = elements.get(1);
+      Element pluginElem = elements.get(0);
       assertEquals("bundle", pluginElem.getTagName());
       assertEquals("foo.plugin", pluginElem.getAttribute("id"));
       assertEquals("1.0.0.qualifier", pluginElem.getAttribute("version"));
+
+      Element featureElem = elements.get(1);
+      assertEquals("feature", featureElem.getTagName());
+      assertEquals("foo.plugins.feature", featureElem.getAttribute("id"));
+      assertEquals("1.0.0.qualifier", featureElem.getAttribute("version"));
 
       Element productElem = elements.get(2);
       assertEquals("iu", productElem.getTagName());
