@@ -75,16 +75,10 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.sonatype.sisu</groupId>
-			<artifactId>sisu-guice</artifactId>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
 			<classifier>no_aop</classifier>
 			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>aopalliance</artifactId>
-					<groupId>aopalliance</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

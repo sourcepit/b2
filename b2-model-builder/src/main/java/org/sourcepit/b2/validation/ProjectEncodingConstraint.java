@@ -22,12 +22,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.emf.ecore.EObject;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.model.module.Project;
 import org.sourcepit.common.utils.lang.Exceptions;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
@@ -38,7 +38,10 @@ import org.sourcepit.common.utils.props.PropertiesSource;
 public class ProjectEncodingConstraint implements ModuleValidationConstraint {
    private Logger logger;
 
-   @Inject
+   public ProjectEncodingConstraint() {
+      this(LoggerFactory.getLogger(ProjectEncodingConstraint.class));
+   }
+
    public ProjectEncodingConstraint(Logger logger) {
       this.logger = logger;
    }

@@ -39,6 +39,7 @@ import org.eclipse.aether.resolution.ArtifactResolutionException;
 import org.eclipse.aether.resolution.ArtifactResult;
 import org.eclipse.emf.ecore.EObject;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.files.ModuleDirectory;
 import org.sourcepit.b2.generator.GeneratorType;
 import org.sourcepit.b2.generator.IB2GenerationParticipant;
@@ -52,6 +53,9 @@ import com.google.common.collect.Collections2;
 
 @Named
 public class P2RepositoryDependencyConverter extends AbstractPomGenerator implements IB2GenerationParticipant {
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(P2RepositoryDependencyConverter.class);
+
    private Predicate<Dependency> P2_REPOSITORIES = new Predicate<Dependency>() {
       public boolean apply(Dependency dependency) {
          return "p2-repository".equals(dependency.getType());
@@ -63,9 +67,6 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
 
    @Inject
    private RepositorySystem repositorySystem;
-
-   @Inject
-   private Logger logger;
 
    @Override
    protected void generate(Annotatable inputElement, boolean skipFacets, PropertiesSource properties,
@@ -79,14 +80,14 @@ public class P2RepositoryDependencyConverter extends AbstractPomGenerator implem
          final Model pom = readMavenModel(pomFile);
 
          for (Dependency p2RepoDep : p2RepoDeps) {
-            final Artifact artifact = resolveArtifact(project, p2RepoDep.getGroupId(), p2RepoDep.getArtifactId(),
-               "zip", p2RepoDep.getVersion(), p2RepoDep.getClassifier());
+            final Artifact artifact = resolveArtifact(project, p2RepoDep.getGroupId(), p2RepoDep.getArtifactId(), "zip",
+               p2RepoDep.getVersion(), p2RepoDep.getClassifier());
 
             final ArtifactIdentifier ident = toArtifactIdentifier(artifact);
 
             final Repository repository = toRepository(ident, artifact.getFile());
 
-            logger.info("Resolved dependency '" + ident + "' to local p2 repository '" + repository.getUrl() + "'");
+            LOGGER.info("Resolved dependency '" + ident + "' to local p2 repository '" + repository.getUrl() + "'");
             pom.getRepositories().add(repository);
          }
 

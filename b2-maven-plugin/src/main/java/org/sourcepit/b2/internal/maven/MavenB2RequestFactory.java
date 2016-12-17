@@ -39,6 +39,7 @@ import org.eclipse.aether.resolution.ArtifactResult;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.execution.B2Request;
 import org.sourcepit.b2.execution.B2RequestFactory;
 import org.sourcepit.b2.files.ModuleDirectory;
@@ -60,14 +61,15 @@ import com.google.common.collect.SetMultimap;
 
 @Named("maven")
 public class MavenB2RequestFactory implements B2RequestFactory {
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(MavenB2RequestFactory.class);
+
    @Inject
    private LegacySupport legacySupport;
 
    @Inject
    private RepositorySystem repositorySystem;
 
-   @Inject
-   private Logger logger;
 
    @Inject
    private ModelContextAdapterFactory adapterFactory;
@@ -90,14 +92,14 @@ public class MavenB2RequestFactory implements B2RequestFactory {
    public B2Request newB2Request(MavenSession bootSession, MavenProject bootProject) {
       ModuleModelPackage.eINSTANCE.getClass();
 
-      final PropertiesSource moduleProperties = modulePropertiesFactory.createModuleProperties(
-         legacySupport.getSession(), bootProject);
+      final PropertiesSource moduleProperties = modulePropertiesFactory
+         .createModuleProperties(legacySupport.getSession(), bootProject);
 
       final ResourceSet resourceSet = adapterFactory.adapt(bootSession, bootProject).getResourceSet();
       processDependencies(resourceSet, bootSession, bootProject);
 
       final File moduleDir = bootProject.getBasedir();
-      logger.info("Building model for directory " + moduleDir.getName());
+      LOGGER.info("Building model for directory " + moduleDir.getName());
 
       final ITemplates templates = new DefaultTemplateCopier(Optional.of(moduleProperties));
 
@@ -156,7 +158,7 @@ public class MavenB2RequestFactory implements B2RequestFactory {
 
                   sites.put(uniqueId.toString().replace(':', '_'), siteUrl);
 
-                  logger.info("Using site " + siteUrl);
+                  LOGGER.info("Using site " + siteUrl);
                }
             }
          }

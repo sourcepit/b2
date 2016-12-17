@@ -26,6 +26,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
@@ -38,6 +39,11 @@ public class EclipseBundleShapeConstraint implements ModuleValidationConstraint 
    private final UnpackStrategy unpackStrategy;
 
    private final Logger logger;
+
+   @Inject
+   public EclipseBundleShapeConstraint(UnpackStrategy unpackStrategy) {
+      this(unpackStrategy, LoggerFactory.getLogger(EclipseBundleShapeConstraint.class));
+   }
 
    @Inject
    public EclipseBundleShapeConstraint(UnpackStrategy unpackStrategy, Logger logger) {

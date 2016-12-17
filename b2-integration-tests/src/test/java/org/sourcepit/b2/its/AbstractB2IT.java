@@ -92,7 +92,7 @@ public abstract class AbstractB2IT {
 
    protected CommandLine newMavenCmd(File mavenHome, String... arguments) {
       final String sh = environment.isDebugAllowed() && isDebug() ? "mvnDebug" : "mvn";
-      final String bat = sh + ".bat";
+      final String bat = sh + ".cmd";
       final File binDir = new File(mavenHome, "/bin");
       return newCmd(binDir, bat, sh, arguments);
    }

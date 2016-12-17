@@ -25,6 +25,7 @@ import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EObject;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.directory.parser.module.IModuleParsingRequest;
 import org.sourcepit.b2.directory.parser.module.ModuleParserLifecycleParticipant;
 import org.sourcepit.b2.model.builder.util.ModuleWalker;
@@ -37,8 +38,8 @@ import org.sourcepit.common.utils.props.PropertiesSource;
  */
 @Named
 public class ModuleValidation implements ModuleParserLifecycleParticipant {
-   @Inject
-   private Logger logger;
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(ModuleValidation.class);
 
    @Inject
    private Map<String, ModuleValidationConstraint> constraintMap;
@@ -47,7 +48,7 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant {
    }
 
    public void postParse(IModuleParsingRequest request, AbstractModule module, ThrowablePipe errors) {
-      logger.info("Validating " + module.getId() + ".");
+      LOGGER.info("Validating " + module.getId() + ".");
       if (module != null && errors.isEmpty()) {
          final PropertiesSource properties = request.getModuleProperties();
 
@@ -72,10 +73,11 @@ public class ModuleValidation implements ModuleParserLifecycleParticipant {
       final PropertiesSource properties) {
       final boolean quickFixesEnabled = properties.getBoolean("b2.validation.quickFixes.enabled", false);
       if (quickFixesEnabled) {
-         logger.info("Quick fixes are enabled.");
+         LOGGER.info("Quick fixes are enabled.");
       }
       else {
-         logger.info("Quick fixes are disabled. You can enable it by setting the propety b2.validation.quickFixes.enabled=true.");
+         LOGGER.info(
+            "Quick fixes are disabled. You can enable it by setting the propety b2.validation.quickFixes.enabled=true.");
       }
 
       final ModuleWalker walker = new ModuleWalker(false, true) {

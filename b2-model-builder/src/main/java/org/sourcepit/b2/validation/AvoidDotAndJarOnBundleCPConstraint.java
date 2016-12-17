@@ -22,6 +22,7 @@ import javax.inject.Named;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.model.builder.util.UnpackStrategy;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
@@ -33,6 +34,11 @@ public class AvoidDotAndJarOnBundleCPConstraint implements ModuleValidationConst
    private final UnpackStrategy unpackStrategy;
 
    private final Logger logger;
+
+   @Inject
+   public AvoidDotAndJarOnBundleCPConstraint(UnpackStrategy unpackStrategy) {
+      this(unpackStrategy, LoggerFactory.getLogger(AvoidDotAndJarOnBundleCPConstraint.class));
+   }
 
    @Inject
    public AvoidDotAndJarOnBundleCPConstraint(UnpackStrategy unpackStrategy, Logger logger) {
@@ -56,7 +62,8 @@ public class AvoidDotAndJarOnBundleCPConstraint implements ModuleValidationConst
          if (hasDotOnBundleCP(manifest)) {
             final StringBuilder msg = new StringBuilder();
             msg.append(pluginProject.getId());
-            msg.append(": Bundle will be unpacked on installation but contains \'.\' on the bundles classpath declaration. This may lead to naked class files after unpacking. It is recomended to build these classes in its own JAR via the bundles build.properties.");
+            msg.append(
+               ": Bundle will be unpacked on installation but contains \'.\' on the bundles classpath declaration. This may lead to naked class files after unpacking. It is recomended to build these classes in its own JAR via the bundles build.properties.");
 
             if (quickFixesEnabled) {
                msg.append(" (no quick fix available)");

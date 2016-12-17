@@ -27,6 +27,7 @@ import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EObject;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.model.module.PluginProject;
 import org.sourcepit.common.manifest.osgi.BundleManifest;
 import org.sourcepit.common.utils.props.LinkedPropertiesMap;
@@ -76,6 +77,11 @@ public class ExecutionEnvironmentConstraint implements ModuleValidationConstrain
       COMPLIANCE.put("J2SE-1.5", new ComplianceSetting("1.5", "1.5", "1.5"));
       COMPLIANCE.put("JavaSE-1.6", new ComplianceSetting("1.6", "1.6", "1.6"));
       COMPLIANCE.put("JavaSE-1.7", new ComplianceSetting("1.7", "1.7", "1.7"));
+   }
+
+   @Inject
+   public ExecutionEnvironmentConstraint() {
+      this(LoggerFactory.getLogger(ExecutionEnvironmentConstraint.class));
    }
 
    @Inject
@@ -167,7 +173,8 @@ public class ExecutionEnvironmentConstraint implements ModuleValidationConstrain
       }
    }
 
-   private void warn(PluginProject project, String what, String expected, final String actual, boolean quickFixesEnabled) {
+   private void warn(PluginProject project, String what, String expected, final String actual,
+      boolean quickFixesEnabled) {
       final StringBuilder msg = new StringBuilder();
       msg.append(project.getId());
       msg.append(": Expected ");
@@ -199,8 +206,7 @@ public class ExecutionEnvironmentConstraint implements ModuleValidationConstrain
          cpDoc = XmlUtils.newDocument();
       }
 
-      Element eeNode = (Element) XmlUtils.queryNode(
-         cpDoc,
+      Element eeNode = (Element) XmlUtils.queryNode(cpDoc,
          "/classpath/classpathentry[@kind='con' and starts-with(@path,'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/')]");
 
       final String eeName;

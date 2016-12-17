@@ -34,11 +34,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.execution.IB2Listener;
 import org.sourcepit.b2.files.FileVisitor;
 import org.sourcepit.b2.files.ModuleDirectory;
@@ -54,8 +54,8 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 
 @Named
 public class SCM implements IB2Listener {
-   @Inject
-   private Logger logger;
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(SCM.class);
 
    @Override
    public void startGeneration(ModuleDirectory moduleDirectory, AbstractModule module) {
@@ -87,7 +87,8 @@ public class SCM implements IB2Listener {
          return;
       }
 
-      final SVNWCClient client = new SVNWCClient((ISVNAuthenticationManager) null, SVNWCUtil.createDefaultOptions(true));
+      final SVNWCClient client = new SVNWCClient((ISVNAuthenticationManager) null,
+         SVNWCUtil.createDefaultOptions(true));
 
       for (Entry<File, Collection<String>> entry : dirToIgnoresMap.entrySet()) {
          final File dir = entry.getKey();
@@ -98,7 +99,7 @@ public class SCM implements IB2Listener {
             actualIgnores = getSvnIgnores(client, dir);
          }
          catch (SVNException e) {
-            logger.warn("Faild to get actual ignore entries, error is: " + e.getMessage(), e);
+            LOGGER.warn("Faild to get actual ignore entries, error is: " + e.getMessage(), e);
             continue;
          }
 
@@ -110,19 +111,19 @@ public class SCM implements IB2Listener {
          }
 
          if (!newIgnores.isEmpty()) {
-            logger.info("Ignore: " + dir.getPath());
-            logger.info("Potential ignore entires: " + potentialIgnores);
-            logger.info("Actual ignore entires: " + actualIgnores);
-            logger.info("New ignore entires: " + newIgnores);
+            LOGGER.info("Ignore: " + dir.getPath());
+            LOGGER.info("Potential ignore entires: " + potentialIgnores);
+            LOGGER.info("Actual ignore entires: " + actualIgnores);
+            LOGGER.info("New ignore entires: " + newIgnores);
 
             final List<String> finalIgnores = new ArrayList<String>(actualIgnores);
             finalIgnores.addAll(newIgnores);
             try {
                setSvnIgnores(client, dir, finalIgnores);
-               logger.info("Set ignore entires: " + finalIgnores);
+               LOGGER.info("Set ignore entires: " + finalIgnores);
             }
             catch (SVNException e) {
-               logger.warn("Faild to set new ignore entries, error is: " + e.getMessage(), e);
+               LOGGER.warn("Faild to set new ignore entries, error is: " + e.getMessage(), e);
                continue;
             }
          }

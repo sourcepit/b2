@@ -26,17 +26,20 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sourcepit.b2.files.FileVisitor;
 import org.sourcepit.b2.files.ModuleDirectory;
 
 @Named
 @Singleton
 public class FileServie implements IFileService {
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(FileServie.class);
+
    private class Cleaner implements FileVisitor<IOException> {
       private final File moduleDir;
       private int counter = 0;
@@ -52,7 +55,7 @@ public class FileServie implements IFileService {
       @Override
       public boolean visit(File file, int flags) throws IOException {
          if ((FLAG_DERIVED & flags) != 0) {
-            logger.debug("Deleting '" + getRelativePath(file, moduleDir, separator) + "'");
+            LOGGER.debug("Deleting '" + getRelativePath(file, moduleDir, separator) + "'");
             deleteFileOrDirectory(file);
             counter++;
             return false;
@@ -61,8 +64,6 @@ public class FileServie implements IFileService {
       }
    }
 
-   @Inject
-   private Logger logger;
 
    private final Set<String> ignored;
 
@@ -84,7 +85,7 @@ public class FileServie implements IFileService {
       }
       counter += doClean(moduleDir, moduleDirectory);
 
-      logger.info("Deleted " + counter + " files");
+      LOGGER.info("Deleted " + counter + " files");
    }
 
    private int cleanFilesFromPreviousBuild(final File moduleDir, final File fileFlagsFile) throws IOException {
