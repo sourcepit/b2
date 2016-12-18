@@ -245,17 +245,17 @@ under the License.
     </profile>
     -->
     <profile>
-      <id>indigo</id>
+      <id>neon</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-		<eclipse.indigo.repo.url>http://download.eclipse.org/releases/indigo</eclipse.indigo.repo.url>
+		<eclipse.neon.repo.url>http://download.eclipse.org/releases/neon</eclipse.neon.repo.url>
 	  </properties>
       <repositories>
         <repository>
-		  <id>indigo</id>
-		  <url>\${eclipse.indigo.repo.url}</url>
+		  <id>neon</id>
+		  <url>\${eclipse.neon.repo.url}</url>
 		  <layout>p2</layout>
         </repository>
       </repositories>
