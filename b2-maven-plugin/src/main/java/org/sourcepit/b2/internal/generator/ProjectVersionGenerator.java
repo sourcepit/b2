@@ -16,6 +16,9 @@
 
 package org.sourcepit.b2.internal.generator;
 
+import static org.sourcepit.b2.internal.maven.MavenModulePropertiesFactory.putModuleVersions;
+import static org.sourcepit.b2.internal.maven.MavenModulePropertiesFactory.putProjectVersions;
+
 import java.io.File;
 import java.util.Collection;
 
@@ -51,33 +54,12 @@ public class ProjectVersionGenerator extends AbstractPomGenerator implements IB2
       final Model model = readMavenModel(pomFile);
       if (inputElement instanceof AbstractModule) {
          final String osgiVersion = ((AbstractModule) inputElement).getVersion();
-         appendModuleVersionProperties(model, osgiVersion);
+         putModuleVersions(model.getProperties(), osgiVersion);
       }
       else {
          final String osgiVersion = ((Project) inputElement).getVersion();
-         appendProjectVersionProperties(model, osgiVersion);
+         putProjectVersions(model.getProperties(), osgiVersion);
       }
       writeMavenModel(pomFile, model);
-   }
-
-   private static void appendModuleVersionProperties(Model model, String osgiVersion) {
-      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
-      final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
-      model.getProperties().setProperty("module.version", mavenVersion);
-      model.getProperties().setProperty("module.mavenVersion", mavenVersion);
-      model.getProperties().setProperty("module.osgiVersion", osgiVersion);
-      model.getProperties().setProperty("module.tychoVersion", tychoVersion);
-      model.getProperties().setProperty("project.tychoVersion", tychoVersion);
-      model.getProperties().setProperty("project.mavenVersion", mavenVersion);
-      model.getProperties().setProperty("project.osgiVersion", osgiVersion);
-   }
-
-   private static void appendProjectVersionProperties(Model model, String osgiVersion) {
-      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
-      final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
-
-      model.getProperties().setProperty("project.tychoVersion", tychoVersion);
-      model.getProperties().setProperty("project.mavenVersion", mavenVersion);
-      model.getProperties().setProperty("project.osgiVersion", osgiVersion);
    }
 }

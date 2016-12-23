@@ -16,8 +16,12 @@
 
 package org.sourcepit.b2.internal.maven;
 
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Named;
 
@@ -27,6 +31,7 @@ import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.interpolation.ValueSource;
 import org.sourcepit.b2.internal.generator.VersionUtils;
 import org.sourcepit.b2.model.builder.B2ModelBuildingRequest;
+import org.sourcepit.common.manifest.osgi.Version;
 import org.sourcepit.common.utils.props.AbstractPropertiesSource;
 import org.sourcepit.common.utils.props.PropertiesMap;
 import org.sourcepit.common.utils.props.PropertiesSource;
@@ -37,17 +42,11 @@ public class MavenModulePropertiesFactory {
    public PropertiesSource createModuleProperties(MavenSession mavenSession, final MavenProject project) {
       final PropertiesMap propertiesMap = B2ModelBuildingRequest.newDefaultProperties();
 
-      final String mavenVersion = project.getVersion();
-      final String osgiVersion = VersionUtils.toBundleVersion(mavenVersion);
-
-      propertiesMap.put("b2.moduleVersion", osgiVersion);
       propertiesMap.put("b2.moduleNameSpace", project.getGroupId());
 
-      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
-      propertiesMap.put("module.version", mavenVersion);
-      propertiesMap.put("module.mavenVersion", mavenVersion);
-      propertiesMap.put("module.osgiVersion", osgiVersion);
-      propertiesMap.put("module.tychoVersion", tychoVersion);
+      final String mavenVersion = project.getVersion();
+      final String osgiVersion = VersionUtils.toBundleVersion(mavenVersion);
+      putModuleVersions(propertiesMap, osgiVersion);
 
       propertiesMap.putMap(project.getProperties());
       propertiesMap.putMap(mavenSession.getSystemProperties());
@@ -89,5 +88,40 @@ public class MavenModulePropertiesFactory {
             return project.getOriginalModel().getProperties().containsKey(key);
          }
       };
+   }
+
+   @SuppressWarnings("unchecked")
+   public static void putModuleVersions(@SuppressWarnings("rawtypes") Map properties, String osgiVersion) {
+      final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
+      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
+
+      properties.put("b2.moduleVersion", osgiVersion);
+
+      properties.put("module.version", mavenVersion);
+      properties.put("module.mavenVersion", mavenVersion);
+      properties.put("module.osgiVersion", osgiVersion);
+      properties.put("module.tychoVersion", tychoVersion);
+
+      final Version v = Version.parse(osgiVersion);
+      final String major = valueOf(v.getMajor());
+      final String minor = valueOf(v.getMinor());
+      final String micro = valueOf(v.getMicro());
+
+      properties.put("module.simpleVersion", format("%s.%s.%s", major, minor, micro));
+      properties.put("module.nextMajorVersion", format("%s.%s.%s", valueOf(v.getMajor() + 1), "0", "0"));
+      properties.put("module.nextMinorVersion", format("%s.%s.%s", major, valueOf(v.getMinor() + 1), "0"));
+      properties.put("module.nextMicroVersion", format("%s.%s.%s", major, minor, valueOf(v.getMicro() + 1)));
+
+      putProjectVersions(properties, osgiVersion);
+   }
+
+   @SuppressWarnings("unchecked")
+   public static void putProjectVersions(@SuppressWarnings("rawtypes") Map properties, String osgiVersion) {
+      final String mavenVersion = VersionUtils.toMavenVersion(osgiVersion);
+      final String tychoVersion = VersionUtils.toTychoVersion(osgiVersion);
+
+      properties.put("project.tychoVersion", tychoVersion);
+      properties.put("project.mavenVersion", mavenVersion);
+      properties.put("project.osgiVersion", osgiVersion);
    }
 }

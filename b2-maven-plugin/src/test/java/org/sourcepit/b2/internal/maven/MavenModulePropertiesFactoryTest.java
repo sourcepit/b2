@@ -32,6 +32,28 @@ import org.junit.Test;
 import org.sourcepit.common.utils.props.PropertiesSource;
 
 public class MavenModulePropertiesFactoryTest {
+   @Test
+   public void testNoModuleVersions() {
+      final MavenProject project = newMavenProject("groupId", "artifactId", "1.0-SNAPSHOT");
+      final MavenSession session = newMavenSession(project);
+
+      final MavenModulePropertiesFactory factory = new MavenModulePropertiesFactory();
+
+      final PropertiesSource properties = factory.createModuleProperties(session, project);
+      assertNotNull(properties);
+
+      assertEquals("1.0.0-SNAPSHOT", properties.get("module.version"));
+      assertEquals("1.0.0-SNAPSHOT", properties.get("module.mavenVersion"));
+      assertEquals("1.0.0.qualifier", properties.get("module.osgiVersion"));
+      assertEquals("1.0.0-SNAPSHOT", properties.get("module.tychoVersion"));
+      assertEquals("1.0.0", properties.get("module.simpleVersion"));
+      assertEquals("2.0.0", properties.get("module.nextMajorVersion"));
+      assertEquals("1.1.0", properties.get("module.nextMinorVersion"));
+      assertEquals("1.0.1", properties.get("module.nextMicroVersion"));
+      assertEquals("1.0.0-SNAPSHOT", properties.get("project.mavenVersion"));
+      assertEquals("1.0.0.qualifier", properties.get("project.osgiVersion"));
+      assertEquals("1.0.0-SNAPSHOT", properties.get("project.tychoVersion"));
+   }
 
    @Test
    public void testNoModuleId() {
@@ -94,7 +116,8 @@ public class MavenModulePropertiesFactoryTest {
       return newMavenProject(null, groupId, artifactId, version, null);
    }
 
-   private static MavenProject newMavenProject(String groupId, String artifactId, String version, Properties properties) {
+   private static MavenProject newMavenProject(String groupId, String artifactId, String version,
+      Properties properties) {
       return newMavenProject(null, groupId, artifactId, version, properties);
    }
 
